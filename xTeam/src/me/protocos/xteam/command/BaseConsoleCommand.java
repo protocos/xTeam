@@ -1,6 +1,5 @@
 package me.protocos.xteam.command;
 
-import me.protocos.xteam.core.IConsoleCommand;
 import org.bukkit.command.ConsoleCommandSender;
 
 public abstract class BaseConsoleCommand extends BaseCommand implements IConsoleCommand

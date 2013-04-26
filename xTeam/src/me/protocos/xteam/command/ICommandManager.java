@@ -1,6 +1,5 @@
-package me.protocos.xteam.core;
+package me.protocos.xteam.command;
 
-import me.protocos.xteam.command.BaseCommand;
 
 public interface ICommandManager
 {

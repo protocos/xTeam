@@ -9,7 +9,6 @@ import me.protocos.xteam.command.teamadmin.SetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
 import me.protocos.xteam.core.Functions;
-import me.protocos.xteam.core.ICommandManager;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
 import me.protocos.xteam.util.StringUtil;
 import org.bukkit.ChatColor;

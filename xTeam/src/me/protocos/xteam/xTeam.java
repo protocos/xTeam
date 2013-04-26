@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 import me.protocos.xteam.command.CommandDelegate;
 import me.protocos.xteam.command.CommandManagerImpl;
+import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.command.console.*;
 import me.protocos.xteam.command.serveradmin.*;
 import me.protocos.xteam.command.teamadmin.Invite;

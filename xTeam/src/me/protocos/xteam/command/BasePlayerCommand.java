@@ -1,6 +1,5 @@
 package me.protocos.xteam.command;
 
-import me.protocos.xteam.core.IPlayerCommand;
 import org.bukkit.entity.Player;
 
 public abstract class BasePlayerCommand extends BaseCommand implements IPlayerCommand
