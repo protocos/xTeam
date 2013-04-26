@@ -14,15 +14,15 @@ public abstract class BasePlayerCommand extends BaseCommand implements IPlayerCo
 	public BasePlayerCommand(Player sender, String command)
 	{
 		super(sender, command);
-		setSender(sender);
+		setPlayer(sender);
 	}
 
-	public void setSender(Player player)
+	public void setPlayer(Player player)
 	{
 		this.player = player;
 	}
 
-	public Player getSender()
+	public Player getPlayer()
 	{
 		return player;
 	}

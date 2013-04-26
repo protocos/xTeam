@@ -119,7 +119,7 @@ public class CommandDelegate implements CommandExecutor
 			command = new AdminDelete(sender, originalCommand);
 		else if (originalCommand.matches(manager.getPattern("serveradmin_demote")))
 			command = new AdminDemote(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_headquarters")))
+		else if (originalCommand.matches(manager.getPattern("serveradmin_hq")))
 			command = new AdminHeadquarters(sender, originalCommand);
 		else if (originalCommand.matches(manager.getPattern("serveradmin_promote")))
 			command = new AdminPromote(sender, originalCommand);
@@ -135,7 +135,7 @@ public class CommandDelegate implements CommandExecutor
 			command = new AdminOpen(sender, originalCommand);
 		else if (originalCommand.matches(manager.getPattern("serveradmin_set")))
 			command = new AdminSet(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_setheadquarters")))
+		else if (originalCommand.matches(manager.getPattern("serveradmin_sethq")))
 			command = new AdminSetHeadquarters(sender, originalCommand);
 		else if (originalCommand.matches(manager.getPattern("serveradmin_setleader")))
 			command = new AdminSetLeader(sender, originalCommand);
@@ -154,7 +154,7 @@ public class CommandDelegate implements CommandExecutor
 			command = new Invite(sender, originalCommand);
 		else if (originalCommand.matches(manager.getPattern("admin_promote")))
 			command = new Promote(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("admin_setheadquarters")))
+		else if (originalCommand.matches(manager.getPattern("admin_sethq")))
 			command = new SetHeadquarters(sender, originalCommand);
 		else if (originalCommand.matches(manager.getPattern("leader_demote")))
 			command = new Demote(sender, originalCommand);
@@ -174,7 +174,7 @@ public class CommandDelegate implements CommandExecutor
 			command = new Chat(sender, originalCommand);
 		else if (originalCommand.matches(manager.getPattern("user_create")))
 			command = new Create(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("user_headquartere")))
+		else if (originalCommand.matches(manager.getPattern("user_hq")))
 			command = new Headquarters(sender, originalCommand);
 		else if (originalCommand.matches(manager.getPattern("user_help")))
 			command = new Help(sender, originalCommand, commandID);

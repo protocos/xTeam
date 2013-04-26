@@ -26,7 +26,6 @@ public class CommandManager implements ICommandManager
 		usages.put(key, command);
 		nodes.put(key, command);
 	}
-
 	@Override
 	public String getPattern(String key)
 	{
