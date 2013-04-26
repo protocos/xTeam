@@ -33,6 +33,10 @@ public class HashList<K, V> extends HashMap<K, V>
 		}
 		this.keepSorted = false;
 	}
+	public K getKey(int index)
+	{
+		return order.get(index);
+	}
 	public V get(int index)
 	{
 		return get(order.get(index));
