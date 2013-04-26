@@ -26,8 +26,8 @@ public class Tag extends BaseUserCommand
 	protected void act()
 	{
 		team.setTag(newTag);
-		player.sendMessage("The team tag has been set to " + ChatColor.AQUA + newTag);
-		for (String p : team.getOnlinePlayers())
+		teamPlayer.sendMessage("The team tag has been set to " + ChatColor.AQUA + newTag);
+		for (String p : teamPlayer.getOnlineTeammates())
 		{
 			TeamPlayer mate = new TeamPlayer(p);
 			mate.sendMessage("The team tag has been set to " + ChatColor.AQUA + newTag);
