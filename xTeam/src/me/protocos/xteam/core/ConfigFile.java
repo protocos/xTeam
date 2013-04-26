@@ -1,11 +1,13 @@
 package me.protocos.xteam.core;
 
-import java.io.File;
+import java.io.*;
 import me.protocos.xteam.util.HashList;
 
 public class ConfigFile implements IConfigFile
 {
 	private HashList<String, String> attributes;
+	private BufferedReader reader;
+	private BufferedWriter writer;
 	private File file;
 
 	public ConfigFile(File file)
@@ -16,35 +18,68 @@ public class ConfigFile implements IConfigFile
 	@Override
 	public boolean read()
 	{
-		// TODO Auto-generated method stub
+		try
+		{
+			reader = new BufferedReader(new FileReader(file));
+			String line;
+			while ((line = reader.readLine()) != null)
+			{
+				if (line.indexOf("=") == line.lastIndexOf("=") && (line.indexOf("#") < 0 || line.indexOf("#") > line.indexOf("=")))
+				{
+					String split[] = line.split("=");
+					attributes.put(split[0], split[1]);
+				}
+			}
+			reader.close();
+			return true;
+		}
+		catch (FileNotFoundException e) // couldn't read the file
+		{
+		}
+		catch (IOException e) // couldn't read the line
+		{
+		}
 		return false;
 	}
-
 	@Override
 	public boolean write()
 	{
-		// TODO Auto-generated method stub
+		try
+		{
+			writer = new BufferedWriter(new FileWriter(file));
+			String line;
+			for (int i = 0; i < attributes.size(); i++)
+			{
+				line = attributes.getKey(i) + "=" + attributes.get(i);
+				writer.write(line);
+			}
+			writer.close();
+			return true;
+		}
+		catch (FileNotFoundException e) // couldn't read the file
+		{
+		}
+		catch (IOException e) // couldn't read the line
+		{
+		}
 		return false;
 	}
 
 	@Override
 	public File getFile()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return file;
 	}
 
 	@Override
-	public void addAttribute(String attribute, String description)
+	public void addAttribute(String attribute, String value)
 	{
-		// TODO Auto-generated method stub
-
+		attributes.put(attribute, value);
 	}
 
 	@Override
 	public void removeAttribute(String attribute)
 	{
-		// TODO Auto-generated method stub
-
+		attributes.remove(attribute);
 	}
 }

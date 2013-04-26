@@ -30,6 +30,18 @@ public class HashListTest
 		Assert.assertEquals(1, list.size());
 	}
 	@Test
+	public void ShouldBeGetKeyFromIndex()
+	{
+		//ASSEMBLE
+		list.put("1", "one");
+		//ACT
+		String s = list.getKey(0);
+		//ASSERT
+		Assert.assertEquals("1", s);
+		Assert.assertEquals(1, list.getOrder().size());
+		Assert.assertEquals(1, list.size());
+	}
+	@Test
 	public void ShouldBeGetFromIndex()
 	{
 		//ASSEMBLE
