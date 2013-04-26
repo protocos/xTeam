@@ -1,16 +1,16 @@
 package me.protocos.xteam.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class HashList<K, V> extends HashMap<K, V>
 {
 	private static final long serialVersionUID = 4968800407845475984L;
-	private ArrayList<K> order = new ArrayList<K>();
+	private List<K> order = new ArrayList<K>();
+	private boolean keepSorted;
 
 	public HashList()
 	{
+		this.keepSorted = false;
 	}
 	public HashList(ArrayList<K> keys, ArrayList<V> values)
 	{
@@ -22,6 +22,7 @@ public class HashList<K, V> extends HashMap<K, V>
 				super.put(keys.get(x), values.get(x));
 			}
 		}
+		this.keepSorted = false;
 	}
 	public HashList(HashMap<K, V> map)
 	{
@@ -30,6 +31,7 @@ public class HashList<K, V> extends HashMap<K, V>
 		{
 			order.add(entry.getKey());
 		}
+		this.keepSorted = false;
 	}
 	public V get(int index)
 	{
@@ -43,12 +45,16 @@ public class HashList<K, V> extends HashMap<K, V>
 	{
 		if (!order.contains(key))
 			order.add(key);
+		if (keepSorted)
+			sort();
 		return super.put(key, value);
 	}
 	public V put(K key, V value, int position)
 	{
 		if (!order.contains(key))
 			order.add(position, key);
+		if (keepSorted)
+			sort();
 		return super.put(key, value);
 	}
 	public V remove(Object key)
@@ -78,5 +84,18 @@ public class HashList<K, V> extends HashMap<K, V>
 			output += ", " + order.get(x) + "=" + get(order.get(x));
 		output += "}";
 		return output;
+	}
+	public void sort()
+	{
+		Set<K> sorted = new TreeSet<K>(order);
+		order = new ArrayList<K>(sorted);
+	}
+	public void setKeepSorted(boolean keepSorted)
+	{
+		this.keepSorted = keepSorted;
+	}
+	public boolean isSorted()
+	{
+		return this.keepSorted;
 	}
 }

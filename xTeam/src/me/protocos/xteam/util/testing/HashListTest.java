@@ -200,4 +200,20 @@ public class HashListTest
 		//ASSERT
 		Assert.assertEquals("{}", list.toString());
 	}
+	@Test
+	public void ShouldBeSorted()
+	{
+		//ASSEMBLE
+		list.setKeepSorted(true);
+		list.put("6", "six");
+		list.put("4", "four");
+		list.put("1", "one");
+		list.put("0", "zero");
+		list.put("5", "five");
+		list.put("3", "three");
+		list.put("2", "two");
+		//ACT
+		//ASSERT
+		Assert.assertEquals("{0=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
+	}
 }
