@@ -4,7 +4,6 @@ import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.ITeamPlayer;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
@@ -31,7 +30,7 @@ public class Rename extends BaseUserCommand
 		xTeam.tm.addTeam(team);
 		for (String p : teamPlayer.getOnlineTeammates())
 		{
-			ITeamPlayer mate = new TeamPlayer(p);
+			TeamPlayer mate = new TeamPlayer(p);
 			mate.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName);
 		}
 		originalSender.sendMessage("You renamed the team to " + ChatColor.AQUA + newName);

@@ -29,15 +29,15 @@ public class ConsoleHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Console Commands: {optional} [required] pick/one\n" +
-				"team info [Player/ITeam] - get info on teamPlayer/team\n" +
+				"team info [Player/Team] - get info on teamPlayer/team\n" +
 				"team list - list all teams on the server\n" +
-				"team set [Player] [ITeam] - set team of teamPlayer\n" +
-				"team setleader [ITeam] [Player] - set leader of team\n" +
-				"team promote [ITeam] [Player] - promote admin of team\n" +
-				"team demote [ITeam] [Player] - demote admin of team\n" +
-				"team rename [ITeam] [Name] - rename a team\n" +
-				"team tag [ITeam] [Tag] - set team tag\n" +
-				"team open [ITeam] - open team to public joining\n" +
+				"team set [Player] [Team] - set team of teamPlayer\n" +
+				"team setleader [Team] [Player] - set leader of team\n" +
+				"team promote [Team] [Player] - promote admin of team\n" +
+				"team demote [Team] [Player] - demote admin of team\n" +
+				"team rename [Team] [Name] - rename a team\n" +
+				"team tag [Team] [Tag] - set team tag\n" +
+				"team open [Team] - open team to public joining\n" +
 				"team teleallhq - teleports everyone to their Headquarters\n" +
 				"team delete - deletes a team\n" +
 				"team reload - reloads the configuration file\n", fakeConsoleSender.getAllMessages());

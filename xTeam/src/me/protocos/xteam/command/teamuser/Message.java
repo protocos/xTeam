@@ -3,7 +3,6 @@ package me.protocos.xteam.command.teamuser;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
 import me.protocos.xteam.command.BaseUserCommand;
-import me.protocos.xteam.core.ITeamPlayer;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
@@ -33,7 +32,7 @@ public class Message extends BaseUserCommand
 		}
 		for (String p : teamPlayer.getOnlineTeammates())
 		{
-			ITeamPlayer teammate = new TeamPlayer(p);
+			TeamPlayer teammate = new TeamPlayer(p);
 			teammate.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.WHITE + "]" + message);
 		}
 		originalSender.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.WHITE + "]" + message);

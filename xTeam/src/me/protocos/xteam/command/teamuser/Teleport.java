@@ -5,7 +5,6 @@ import java.util.List;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Functions;
-import me.protocos.xteam.core.ITeamPlayer;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
@@ -78,7 +77,7 @@ public class Teleport extends BaseUserCommand
 		{
 			throw new TeamPlayerTeleException("Player cannot teleport to themselves");
 		}
-		ITeamPlayer teammate;
+		TeamPlayer teammate;
 		if (playerName == null)
 		{
 			List<String> onlineTeammates = teamPlayer.getOnlineTeammates();
@@ -118,10 +117,10 @@ public class Teleport extends BaseUserCommand
 			throw new TeamPlayerTeleException(teammate.getName() + " is too far away @ " + (int) Math.ceil(teamPlayer.getLocation().distance(teammate.getLocation())) + " blocks away");
 		}
 	}
-	private void delayTeleTO(final ITeamPlayer playerTele, ITeamPlayer other)
+	private void delayTeleTO(final TeamPlayer playerTele, TeamPlayer other)
 	{
-		final ITeamPlayer finalPlayer = playerTele;
-		final ITeamPlayer finalTeammate = other;
+		final TeamPlayer finalPlayer = playerTele;
+		final TeamPlayer finalTeammate = other;
 		Data.countWaitTime.put(finalPlayer.getName(), 0);
 		final Location save = finalPlayer.getLocation();
 		finalPlayer.sendMessage(ChatColor.RED + "You cannot teleport with enemies nearby");
@@ -159,14 +158,14 @@ public class Teleport extends BaseUserCommand
 			}
 		}, 0L, 2L));
 	}
-	private ITeamPlayer getClosestTeammate()
+	private TeamPlayer getClosestTeammate()
 	{
 		List<String> onlineTeammates = teamPlayer.getOnlineTeammates();
-		ITeamPlayer closestTeammate = new TeamPlayer(onlineTeammates.get(0));
+		TeamPlayer closestTeammate = new TeamPlayer(onlineTeammates.get(0));
 		double distance = teamPlayer.getOnlinePlayer().getLocation().distance(closestTeammate.getOnlinePlayer().getLocation());
 		for (String p : onlineTeammates)
 		{
-			ITeamPlayer mate = new TeamPlayer(p);
+			TeamPlayer mate = new TeamPlayer(p);
 			double tempDistance = teamPlayer.getDistanceTo(mate);
 			if (tempDistance < distance)
 			{
@@ -193,7 +192,7 @@ public class Teleport extends BaseUserCommand
 	}
 	private void tele(String teammate)
 	{
-		ITeamPlayer mate = new TeamPlayer(teammate);
+		TeamPlayer mate = new TeamPlayer(teammate);
 		List<Entity> nearbyEntities = teamPlayer.getOnlinePlayer().getNearbyEntities(Data.ENEMY_PROX, 5.0D, Data.ENEMY_PROX);
 		for (Entity entity : nearbyEntities)
 		{
@@ -205,7 +204,7 @@ public class Teleport extends BaseUserCommand
 		}
 		teleTO(teamPlayer, mate);
 	}
-	private void teleTO(final ITeamPlayer playerTele, ITeamPlayer other)
+	private void teleTO(final TeamPlayer playerTele, TeamPlayer other)
 	{
 		Data.returnLocations.put(playerTele.getOnlinePlayer(), playerTele.getLocation());
 		Data.hasTeleported.put(playerTele.getName(), Long.valueOf(System.currentTimeMillis()));

@@ -29,11 +29,11 @@ public class InfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("ITeam Name - one\n" +
-				"ITeam Tag - TeamAwesome\n" +
-				"ITeam Leader - kmlanglois\n" +
-				"ITeam Joining - Closed\n" +
-				"ITeam Headquarters - X:170 Y:65 Z:209\n" +
+		Assert.assertEquals("Team Name - one\n" +
+				"Team Tag - TeamAwesome\n" +
+				"Team Leader - kmlanglois\n" +
+				"Team Joining - Closed\n" +
+				"Team Headquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +
 				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"\n" +
 				"    protocos Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
@@ -48,10 +48,10 @@ public class InfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("ITeam Name - two\n" +
-				"ITeam Leader - mastermind\n" +
-				"ITeam Joining - Closed\n" +
-				"ITeam Headquarters - None set\n" +
+		Assert.assertEquals("Team Name - two\n" +
+				"Team Leader - mastermind\n" +
+				"Team Joining - Closed\n" +
+				"Team Headquarters - None set\n" +
 				"Teammates online:\n" +
 				"    mastermind", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -65,10 +65,10 @@ public class InfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("ITeam Name - two\n" +
-				"ITeam Leader - mastermind\n" +
-				"ITeam Joining - Closed\n" +
-				"ITeam Headquarters - None set\n" +
+		Assert.assertEquals("Team Name - two\n" +
+				"Team Leader - mastermind\n" +
+				"Team Joining - Closed\n" +
+				"Team Headquarters - None set\n" +
 				"Teammates online:\n" +
 				"    mastermind", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -82,10 +82,10 @@ public class InfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("ITeam Name - red\n" +
-				"ITeam Tag - RED\n" +
-				"ITeam Joining - Open\n" +
-				"ITeam Headquarters - None set\n" +
+		Assert.assertEquals("Team Name - red\n" +
+				"Team Tag - RED\n" +
+				"Team Joining - Open\n" +
+				"Team Headquarters - None set\n" +
 				"Teammates offline:\n" +
 				"    strandedhelix", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -99,10 +99,10 @@ public class InfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("ITeam Name - red\n" +
-				"ITeam Tag - RED\n" +
-				"ITeam Joining - Open\n" +
-				"ITeam Headquarters - None set\n" +
+		Assert.assertEquals("Team Name - red\n" +
+				"Team Tag - RED\n" +
+				"Team Joining - Open\n" +
+				"Team Headquarters - None set\n" +
 				"Teammates offline:\n" +
 				"    strandedhelix", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);

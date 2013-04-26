@@ -108,7 +108,7 @@ public class Info extends BaseUserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " info {ITeam/Player}";
+		return baseCommand + " info {Team/Player}";
 	}
 	private boolean isPlayer(String playerName)
 	{
@@ -121,32 +121,32 @@ public class Info extends BaseUserCommand
 	}
 	private void otherTeamInfo(Team otherTeam)
 	{
-		String message = (ChatColor.WHITE + "ITeam Name - " + ChatColor.GREEN + otherTeam.getName());
+		String message = (ChatColor.WHITE + "Team Name - " + ChatColor.GREEN + otherTeam.getName());
 		if (!otherTeam.getTag().equals(otherTeam.getName()))
-			message += "\n" + (ChatColor.WHITE + "ITeam Tag - " + ChatColor.GREEN + otherTeam.getTag());
+			message += "\n" + (ChatColor.WHITE + "Team Tag - " + ChatColor.GREEN + otherTeam.getTag());
 		if (otherTeam.hasLeader())
-			message += "\n" + (ChatColor.WHITE + "ITeam Leader - " + ChatColor.GREEN + otherTeam.getLeader());
-		message += "\n" + (ChatColor.WHITE + "ITeam Joining - " + (otherTeam.isOpenJoining() == false ? ChatColor.RED + "Closed" : ChatColor.GREEN + "Open"));
+			message += "\n" + (ChatColor.WHITE + "Team Leader - " + ChatColor.GREEN + otherTeam.getLeader());
+		message += "\n" + (ChatColor.WHITE + "Team Joining - " + (otherTeam.isOpenJoining() == false ? ChatColor.RED + "Closed" : ChatColor.GREEN + "Open"));
 		if (otherTeam.hasHQ())
-			message += "\n" + (ChatColor.WHITE + "ITeam Headquarters - " + ChatColor.GREEN + "Set");
+			message += "\n" + (ChatColor.WHITE + "Team Headquarters - " + ChatColor.GREEN + "Set");
 		else
-			message += "\n" + (ChatColor.WHITE + "ITeam Headquarters - " + ChatColor.RED + "None set");
+			message += "\n" + (ChatColor.WHITE + "Team Headquarters - " + ChatColor.RED + "None set");
 		message += teammateStatus(otherTeam);
 		originalSender.sendMessage(message);
 	}
 	private void teamInfo()
 	{
-		String message = (ChatColor.WHITE + "ITeam Name - " + ChatColor.GREEN + team.getName());
+		String message = (ChatColor.WHITE + "Team Name - " + ChatColor.GREEN + team.getName());
 		if (!team.getTag().equals(team.getName()))
-			message += "\n" + (ChatColor.WHITE + "ITeam Tag - " + ChatColor.GREEN + team.getTag());
-		message += "\n" + (ChatColor.WHITE + "ITeam Leader - " + ChatColor.GREEN + team.getLeader());
+			message += "\n" + (ChatColor.WHITE + "Team Tag - " + ChatColor.GREEN + team.getTag());
+		message += "\n" + (ChatColor.WHITE + "Team Leader - " + ChatColor.GREEN + team.getLeader());
 		if (team.getAdmins().size() > 1)
-			message += "\n" + (ChatColor.WHITE + "ITeam Admins - " + ChatColor.GREEN + team.getAdmins().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(team.getLeader() + ", ", ""));
-		message += "\n" + (ChatColor.WHITE + "ITeam Joining - " + (team.isOpenJoining() == false ? ChatColor.RED + "Closed" : ChatColor.GREEN + "Open"));
+			message += "\n" + (ChatColor.WHITE + "Team Admins - " + ChatColor.GREEN + team.getAdmins().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(team.getLeader() + ", ", ""));
+		message += "\n" + (ChatColor.WHITE + "Team Joining - " + (team.isOpenJoining() == false ? ChatColor.RED + "Closed" : ChatColor.GREEN + "Open"));
 		if (team.hasHQ())
-			message += "\n" + (ChatColor.WHITE + "ITeam Headquarters - " + ChatColor.GREEN + "X:" + Math.round(team.getHeadquarters().getX()) + " Y:" + Math.round(team.getHeadquarters().getY()) + " Z:" + Math.round(team.getHeadquarters().getZ()));
+			message += "\n" + (ChatColor.WHITE + "Team Headquarters - " + ChatColor.GREEN + "X:" + Math.round(team.getHeadquarters().getX()) + " Y:" + Math.round(team.getHeadquarters().getY()) + " Z:" + Math.round(team.getHeadquarters().getZ()));
 		else
-			message += "\n" + (ChatColor.WHITE + "ITeam Headquarters - " + ChatColor.RED + "None set");
+			message += "\n" + (ChatColor.WHITE + "Team Headquarters - " + ChatColor.RED + "None set");
 		message += teammateStatus(team);
 		originalSender.sendMessage(message);
 	}

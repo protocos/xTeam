@@ -93,6 +93,6 @@ public class Join extends BaseUserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " join [ITeam]";
+		return baseCommand + " join [Team]";
 	}
 }

@@ -34,11 +34,11 @@ public class HelpTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("ITeam Commands: [Page 1/3] {optional} [required] pick/one\n" +
-				"/team info {ITeam/Player} - Get team info or other team's info\n" +
+		Assert.assertEquals("Team Commands: [Page 1/3] {optional} [required] pick/one\n" +
+				"/team info {Team/Player} - Get team info or other team's info\n" +
 				"/team list - List all teams on the server\n" +
 				"/team create [Name] - Create a team\n" +
-				"/team join [ITeam] - Join a team\n" +
+				"/team join [Team] - Join a team\n" +
 				"/team leave - Leave your team\n" +
 				"/team accept - Accept the most recent team invite\n" +
 				"/team hq - Teleport to the team headquarters\n" +
@@ -55,7 +55,7 @@ public class HelpTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("ITeam Commands: [Page 2/3] {optional} [required] pick/one\n" +
+		Assert.assertEquals("Team Commands: [Page 2/3] {optional} [required] pick/one\n" +
 				"/team chat {on/off} - Toggle chatting with teammates\n" +
 				"/team msg [message] - Send message only to teammates\n" +
 				"/team sethq - Set headquarters of team (every 1 hours)\n" +
@@ -76,7 +76,7 @@ public class HelpTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("ITeam Commands: [Page 3/3] {optional} [required] pick/one\n" +
+		Assert.assertEquals("Team Commands: [Page 3/3] {optional} [required] pick/one\n" +
 				"/team tag [Tag] - set the team tag\n" +
 				"/team setleader [Player] - set new leader for the team\n" +
 				" \n" +

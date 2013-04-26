@@ -27,15 +27,15 @@ public class ConsoleHelp extends BaseConsoleCommand
 	protected void act()
 	{
 		pages.setTitle("Console Commands: {optional} [required] pick/one");
-		pages.addLine(BaseCommand.baseCommand + " info [Player/ITeam] - get info on teamPlayer/team");
+		pages.addLine(BaseCommand.baseCommand + " info [Player/Team] - get info on teamPlayer/team");
 		pages.addLine(BaseCommand.baseCommand + " list - list all teams on the server");
-		pages.addLine(BaseCommand.baseCommand + " set [Player] [ITeam] - set team of teamPlayer");
-		pages.addLine(BaseCommand.baseCommand + " setleader [ITeam] [Player] - set leader of team");
-		pages.addLine(BaseCommand.baseCommand + " promote [ITeam] [Player] - promote admin of team");
-		pages.addLine(BaseCommand.baseCommand + " demote [ITeam] [Player] - demote admin of team");
-		pages.addLine(BaseCommand.baseCommand + " rename [ITeam] [Name] - rename a team");
-		pages.addLine(BaseCommand.baseCommand + " tag [ITeam] [Tag] - set team tag");
-		pages.addLine(BaseCommand.baseCommand + " open [ITeam] - open team to public joining");
+		pages.addLine(BaseCommand.baseCommand + " set [Player] [Team] - set team of teamPlayer");
+		pages.addLine(BaseCommand.baseCommand + " setleader [Team] [Player] - set leader of team");
+		pages.addLine(BaseCommand.baseCommand + " promote [Team] [Player] - promote admin of team");
+		pages.addLine(BaseCommand.baseCommand + " demote [Team] [Player] - demote admin of team");
+		pages.addLine(BaseCommand.baseCommand + " rename [Team] [Name] - rename a team");
+		pages.addLine(BaseCommand.baseCommand + " tag [Team] [Tag] - set team tag");
+		pages.addLine(BaseCommand.baseCommand + " open [Team] - open team to public joining");
 		pages.addLine(BaseCommand.baseCommand + " teleallhq - teleports everyone to their Headquarters");
 		pages.addLine(BaseCommand.baseCommand + " delete - deletes a team");
 		pages.addLine(BaseCommand.baseCommand + " reload - reloads the configuration file");
