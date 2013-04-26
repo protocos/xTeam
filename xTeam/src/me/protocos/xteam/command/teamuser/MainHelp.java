@@ -29,9 +29,9 @@ public class MainHelp extends BaseUserCommand
 		message += "\n" + (ChatColor.AQUA + "xTeam is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!");
 		// line 6 begin
 		message += "\n" + (ChatColor.GREEN + "Type '" + commandID + " help [Page Number]' to get started");
-		message += "\n" + (ChatColor.GRAY + commandID + " COMMAND" + ChatColor.WHITE + " = ICommand for EVERYONE");
-		message += "\n" + (ChatColor.YELLOW + commandID + " COMMAND" + ChatColor.WHITE + " = ICommand for team ADMINS");
-		message += "\n" + (ChatColor.LIGHT_PURPLE + commandID + " COMMAND" + ChatColor.WHITE + " = ICommand for team LEADERS");
+		message += "\n" + (ChatColor.GRAY + commandID + " COMMAND" + ChatColor.WHITE + " = Command for EVERYONE");
+		message += "\n" + (ChatColor.YELLOW + commandID + " COMMAND" + ChatColor.WHITE + " = Command for team ADMINS");
+		message += "\n" + (ChatColor.LIGHT_PURPLE + commandID + " COMMAND" + ChatColor.WHITE + " = Command for team LEADERS");
 		message += "\n" + (ChatColor.RED + "Report BUGS to " + ChatColor.WHITE + "http://dev.bukkit.org/server-mods/xteam/");
 		originalSender.sendMessage(message);
 	}
