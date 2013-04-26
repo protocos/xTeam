@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 import me.protocos.xteam.command.CommandDelegate;
-import me.protocos.xteam.command.CommandManagerImpl;
+import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.command.console.*;
 import me.protocos.xteam.command.serveradmin.*;
@@ -142,7 +142,7 @@ public class xTeam extends JavaPlugin
 		log.info("[xTeam] Config loaded.");
 		sm = new TeamServiceManager(this);
 		tm = new TeamManager();
-		cm = new CommandManagerImpl();
+		cm = new CommandManager();
 		Functions.readTeamData(new File("plugins/xTeam/teams.txt"));
 		//delegate all commands to a CommandDelegate
 		registerConsoleCommands(cm);

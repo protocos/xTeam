@@ -3,7 +3,7 @@ package me.protocos.xteam.testing;
 import static org.mockito.Mockito.*;
 import java.io.File;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.CommandManagerImpl;
+import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamManager;
@@ -62,7 +62,7 @@ public class StaticTestFunctions
 	}
 	public static void mockData()
 	{
-		xTeam.cm = new CommandManagerImpl();
+		xTeam.cm = new CommandManager();
 		//MOCK variables
 		PluginManager mockPM = mock(PluginManager.class);
 		Plugin mockSpout = mock(Plugin.class);

@@ -4,15 +4,11 @@ import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
 
-public interface ITeamEntity
+public interface ITeamEntity extends Locatable
 {
 	public abstract Server getServer();
 	public abstract World getWorld();
-	public abstract Location getLocation();
 	public abstract boolean isOnline();
-	public abstract int getRelativeX();
-	public abstract int getRelativeY();
-	public abstract int getRelativeZ();
 	public abstract int getHealth();
 	public abstract double getDistanceTo(ITeamEntity entity);
 	public abstract boolean isOnSameTeam(ITeamEntity entity);

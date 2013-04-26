@@ -2,7 +2,7 @@ package me.protocos.xteam.command;
 
 import me.protocos.xteam.util.HashList;
 
-public class CommandManagerImpl implements ICommandManager
+public class CommandManager implements ICommandManager
 {
 	private HashList<String, ICommandPattern> patterns;
 	private HashList<String, ICommandUsage> usages;
@@ -12,7 +12,7 @@ public class CommandManagerImpl implements ICommandManager
 	//	private static HashList<String, BaseServerAdminCommand> adminCommands = new HashList<String, BaseServerAdminCommand>();;
 	//	private static HashList<String, BaseUserCommand> userCommands = new HashList<String, BaseUserCommand>();
 
-	public CommandManagerImpl()
+	public CommandManager()
 	{
 		patterns = new HashList<String, ICommandPattern>();
 		usages = new HashList<String, ICommandUsage>();

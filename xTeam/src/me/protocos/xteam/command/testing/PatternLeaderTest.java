@@ -1,4 +1,4 @@
-package me.protocos.xteam.core.testing;
+package me.protocos.xteam.command.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
