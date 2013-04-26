@@ -29,12 +29,6 @@ public class xTeam extends JavaPlugin
 	public static ICommandManager cm;
 	public static CommandExecutor exec;
 
-	//	public static PluginManager pm;
-	//	public static PluginDescriptionFile pdf;
-	//	public static String VERSION;
-	//	public static CommandExecutor exec;
-	//	public static FileConfiguration config;
-
 	public static void registerConsoleCommands(ICommandManager manager)
 	{
 		manager.registerCommand("console_delete", new ConsoleDelete());
@@ -143,14 +137,13 @@ public class xTeam extends JavaPlugin
 		sm = new TeamServiceManager(this);
 		tm = new TeamManager();
 		cm = new CommandManager();
-		Functions.readTeamData(new File("plugins/xTeam/teams.txt"));
-		//delegate all commands to a CommandDelegate
 		registerConsoleCommands(cm);
 		registerServerAdminCommands(cm);
 		registerAdminCommands(cm);
 		registerLeaderCommands(cm);
 		registerUserCommands(cm);
 		exec = new CommandDelegate(cm);
+		Functions.readTeamData(new File("plugins/xTeam/teams.txt"));
 		getCommand("team").setExecutor(exec);
 		//		saveConfig();
 	}
