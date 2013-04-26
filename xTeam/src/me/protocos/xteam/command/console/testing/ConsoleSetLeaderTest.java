@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleSetLeader;
-import me.protocos.xteam.exception.*;
+import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.testing.FakeConsoleSender;
 import org.junit.After;
 import org.junit.Before;

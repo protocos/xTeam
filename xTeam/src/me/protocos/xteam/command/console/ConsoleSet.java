@@ -8,10 +8,10 @@ import me.protocos.xteam.command.BaseConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.exception.TeamInvalidCommandException;
-import me.protocos.xteam.exception.TeamPlayerLeaderLeavingException;
-import me.protocos.xteam.exception.TeamPlayerNeverPlayedException;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamInvalidCommandException;
+import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
+import me.protocos.xteam.core.exception.TeamPlayerNeverPlayedException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 

@@ -3,7 +3,7 @@ package me.protocos.xteam.command.teamadmin;
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.exception.*;
+import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

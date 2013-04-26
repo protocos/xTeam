@@ -4,7 +4,7 @@ import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseCommand;
 import me.protocos.xteam.command.BaseServerAdminCommand;
-import me.protocos.xteam.exception.*;
+import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.HelpPages;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;

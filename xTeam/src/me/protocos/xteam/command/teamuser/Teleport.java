@@ -7,7 +7,7 @@ import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Functions;
 import me.protocos.xteam.core.ITeamPlayer;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.exception.*;
+import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

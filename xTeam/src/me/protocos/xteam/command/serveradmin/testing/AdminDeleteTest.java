@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminDelete;
-import me.protocos.xteam.exception.TeamDoesNotExistException;
+import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
 import org.junit.After;

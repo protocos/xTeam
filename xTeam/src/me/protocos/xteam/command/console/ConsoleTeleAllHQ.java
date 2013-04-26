@@ -5,8 +5,8 @@ import me.protocos.xteam.command.BaseConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.exception.TeamInvalidCommandException;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamInvalidCommandException;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 

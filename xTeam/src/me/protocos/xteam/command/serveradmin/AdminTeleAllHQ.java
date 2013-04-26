@@ -5,10 +5,10 @@ import me.protocos.xteam.command.BaseServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.exception.TeamInvalidCommandException;
-import me.protocos.xteam.exception.TeamPlayerDoesNotExistException;
-import me.protocos.xteam.exception.TeamPlayerPermissionException;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamInvalidCommandException;
+import me.protocos.xteam.core.exception.TeamPlayerDoesNotExistException;
+import me.protocos.xteam.core.exception.TeamPlayerPermissionException;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.entity.Player;
 

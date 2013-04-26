@@ -3,9 +3,9 @@ package me.protocos.xteam.command.serveradmin;
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.command.BaseServerAdminCommand;
 import me.protocos.xteam.core.Functions;
-import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.exception.TeamInvalidCommandException;
-import me.protocos.xteam.exception.TeamPlayerDoesNotExistException;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamInvalidCommandException;
+import me.protocos.xteam.core.exception.TeamPlayerDoesNotExistException;
 import org.bukkit.entity.Player;
 
 public class AdminUpdatePlayers extends BaseServerAdminCommand

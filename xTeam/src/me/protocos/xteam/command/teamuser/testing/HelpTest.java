@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.command.teamuser.Help;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.exception.TeamInvalidPageException;
+import me.protocos.xteam.core.exception.TeamInvalidPageException;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
 import org.junit.After;

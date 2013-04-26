@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleDelete;
-import me.protocos.xteam.exception.TeamDoesNotExistException;
+import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.testing.FakeConsoleSender;
 import org.junit.After;
 import org.junit.Before;

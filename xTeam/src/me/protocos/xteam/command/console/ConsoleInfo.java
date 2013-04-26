@@ -6,10 +6,10 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseConsoleCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.exception.TeamDoesNotExistException;
-import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.exception.TeamInvalidCommandException;
-import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
+import me.protocos.xteam.core.exception.TeamDoesNotExistException;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamInvalidCommandException;
+import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.bukkit.command.ConsoleCommandSender;
 
 public class ConsoleInfo extends BaseConsoleCommand

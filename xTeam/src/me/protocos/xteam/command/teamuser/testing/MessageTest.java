@@ -4,7 +4,7 @@ import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.command.teamuser.Message;
-import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
+import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
 import org.junit.After;
