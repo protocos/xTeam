@@ -27,7 +27,6 @@ public class TeamChatListener implements Listener
 		{
 			return;
 		}
-		//		if (Data.DISABLED_WORLDS.contains(teamPlayer.getWorld().getName()))
 		if (teamPlayer.hasPlayedBefore() && Data.DISABLED_WORLDS.contains(teamPlayerWorld.getName()))
 		{
 			return;
