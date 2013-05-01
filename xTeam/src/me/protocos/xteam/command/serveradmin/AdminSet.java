@@ -47,7 +47,7 @@ public class AdminSet extends BaseServerAdminCommand
 		if (desiredTeam == null)
 		{
 			ArrayList<String> players = new ArrayList<String>(Arrays.asList(playerName));
-			Team tempTeam = new Team.Builder(teamName).players(players).leader(playerName).build();
+			Team tempTeam = new Team.Builder(teamName).players(players).admins(players).leader(playerName).build();
 			xTeam.tm.addTeam(tempTeam);
 			TeamPlayer other = new TeamPlayer(playerName);
 			if (other.isOnline())
