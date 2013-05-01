@@ -122,15 +122,15 @@ public class Data
 				"displaycoordinates=true\n" +
 				"tagcolor=green\n" +
 				"chatnamecolor=dark_green\n" +
-				"############################################\n" +
-				"# \n" +
-				"# \n" +
-				"# Locations preferences (should you choose to add xTeamLocations to your server)\n" +
-				"# \n" +
-				"# \n" +
-				"### maxnumlocations - Maximum number of locations that can be stored per team (default=9)\n" +
-				"############################################\n" +
-				"maxnumlocations=9\n" +
+				//				"############################################\n" +
+				//				"# \n" +
+				//				"# \n" +
+				//				"# Locations preferences (should you choose to add xTeamLocations to your server)\n" +
+				//				"# \n" +
+				//				"# \n" +
+				//				"### maxnumlocations - Maximum number of locations that can be stored per team (default=9)\n" +
+				//				"############################################\n" +
+				//				"maxnumlocations=9\n" +
 				"############################################\n" +
 				"# \n" +
 				"# \n" +
