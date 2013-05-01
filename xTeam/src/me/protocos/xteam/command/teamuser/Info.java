@@ -139,7 +139,8 @@ public class Info extends BaseUserCommand
 		String message = (ChatColor.WHITE + "Team Name - " + ChatColor.GREEN + team.getName());
 		if (!team.getTag().equals(team.getName()))
 			message += "\n" + (ChatColor.WHITE + "Team Tag - " + ChatColor.GREEN + team.getTag());
-		message += "\n" + (ChatColor.WHITE + "Team Leader - " + ChatColor.GREEN + team.getLeader());
+		if (team.hasLeader())
+			message += "\n" + (ChatColor.WHITE + "Team Leader - " + ChatColor.GREEN + team.getLeader());
 		if (team.getAdmins().size() > 1)
 			message += "\n" + (ChatColor.WHITE + "Team Admins - " + ChatColor.GREEN + team.getAdmins().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(team.getLeader() + ", ", ""));
 		message += "\n" + (ChatColor.WHITE + "Team Joining - " + (team.isOpenJoining() == false ? ChatColor.RED + "Closed" : ChatColor.GREEN + "Open"));

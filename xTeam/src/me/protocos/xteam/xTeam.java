@@ -130,6 +130,7 @@ public class xTeam extends JavaPlugin
 	@Override
 	public void onEnable()
 	{
+		Data.initFiles();
 		VERSION = getDescription().getVersion();
 		Data.settings = new File(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
 		Data.load();
@@ -144,6 +145,7 @@ public class xTeam extends JavaPlugin
 		registerUserCommands(cm);
 		exec = new CommandDelegate(cm);
 		Functions.readTeamData(new File("plugins/xTeam/teams.txt"));
+		Data.ensureDefaultTeams();
 		getCommand("team").setExecutor(exec);
 		sm.loadConfig();
 	}
