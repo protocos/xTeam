@@ -185,7 +185,7 @@ public class Data
 				"############################################\n");
 		bw.close();
 	}
-	public static void initFileSystem()
+	public static void initFiles()
 	{
 		File f = new File("plugins/xTeam/");
 		if (!f.exists())

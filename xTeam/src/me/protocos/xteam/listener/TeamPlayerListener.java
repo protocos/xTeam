@@ -21,44 +21,40 @@ public class TeamPlayerListener implements Listener
 		{
 			return;
 		}
-		else if (Data.RANDOM_TEAM)
+		if (Data.RANDOM_TEAM)
 		{
 			if (!player.hasTeam() || !player.hasPlayedBefore())
 			{
 				Random r = new Random();
 				if (Data.DEFAULT_TEAM_NAMES.size() > 0)
 				{
-					Team team;
 					ArrayList<Team> availableTeams = new ArrayList<Team>();
-					for (Team t : xTeam.tm.getDefaultTeams())
+					if (Data.BALANCE_TEAMS)
 					{
-						// IF (trying to balance teams) && (availableTeams is not empty) && (the current team has fewer players that any team in availableTeams)
-						if (Data.BALANCE_TEAMS)
+						int smallest = xTeam.tm.getDefaultTeams().get(0).size();
+						for (Team t : xTeam.tm.getDefaultTeams())
 						{
-							if (!availableTeams.isEmpty())
+							if (t.size() < smallest)
 							{
-								if (t.size() < availableTeams.get(0).size())
-								{
-									availableTeams.clear();
-									availableTeams.add(t);
-								}
-								else if (t.size() == availableTeams.get(0).size())
-								{
-									availableTeams.add(t);
-								}
-								else if (t.size() > availableTeams.get(0).size())
-								{
-
-								}
+								availableTeams.clear();
+								smallest = t.size();
+								availableTeams.add(t);
 							}
-							else
+							else if (t.size() == smallest)
 							{
 								availableTeams.add(t);
 							}
 						}
 					}
+					else
+					{
+						for (Team t : xTeam.tm.getDefaultTeams())
+						{
+							availableTeams.add(t);
+						}
+					}
 					int index = r.nextInt(availableTeams.size());
-					team = availableTeams.get(index);
+					Team team = availableTeams.get(index);
 					team.addPlayer(player.getName());
 					player.sendMessage("You joined " + ChatColor.AQUA + team.getName());
 					for (String p : player.getOnlineTeammates())
@@ -71,8 +67,56 @@ public class TeamPlayerListener implements Listener
 				}
 				else
 				{
-					xTeam.log.info(ChatColor.RED + "No default teams have been set");
+					xTeam.log.info(ChatColor.RED + "Player not assigned a team: No default teams have been set");
 				}
+				//				Random r = new Random();
+				//				if (Data.DEFAULT_TEAM_NAMES.size() > 0)
+				//				{
+				//					Team team;
+				//					ArrayList<Team> availableTeams = new ArrayList<Team>();
+				//					for (Team t : xTeam.tm.getDefaultTeams())
+				//					{
+				//						// IF (trying to balance teams) && (availableTeams is not empty) && (the current team has fewer players that any team in availableTeams)
+				//						if (Data.BALANCE_TEAMS)
+				//						{
+				//							if (!availableTeams.isEmpty())
+				//							{
+				//								if (t.size() < availableTeams.get(0).size())
+				//								{
+				//									availableTeams.clear();
+				//									availableTeams.add(t);
+				//								}
+				//								else if (t.size() == availableTeams.get(0).size())
+				//								{
+				//									availableTeams.add(t);
+				//								}
+				//								else if (t.size() > availableTeams.get(0).size())
+				//								{
+				//
+				//								}
+				//							}
+				//							else
+				//							{
+				//								availableTeams.add(t);
+				//							}
+				//						}
+				//					}
+				//					int index = r.nextInt(availableTeams.size());
+				//					team = availableTeams.get(index);
+				//					team.addPlayer(player.getName());
+				//					player.sendMessage("You joined " + ChatColor.AQUA + team.getName());
+				//					for (String p : player.getOnlineTeammates())
+				//					{
+				//						ITeamPlayer teammate = new TeamPlayer(p);
+				//						if (teammate.isOnline())
+				//							teammate.sendMessage(player.getName() + ChatColor.AQUA + " joined your team");
+				//					}
+				//					xTeam.log.info("Added " + player.getName() + " to team " + team.getName());
+				//				}
+				//				else
+				//				{
+				//					xTeam.log.info(ChatColor.RED + "Player not assigned a team: No default teams have been set");
+				//				}
 			}
 		}
 		if (Data.DEFAULT_HQ_ON_JOIN)

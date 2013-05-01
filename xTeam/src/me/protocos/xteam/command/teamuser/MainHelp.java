@@ -30,8 +30,8 @@ public class MainHelp extends BaseUserCommand
 		// line 6 begin
 		message += "\n" + (ChatColor.GREEN + "Type '" + commandID + " help [Page Number]' to get started");
 		message += "\n" + (ChatColor.GRAY + commandID + " [command]" + ChatColor.WHITE + " = Command for EVERYONE");
-		message += "\n" + (ChatColor.YELLOW + commandID + " [command]" + ChatColor.WHITE + " = Command for team ADMINS");
-		message += "\n" + (ChatColor.LIGHT_PURPLE + commandID + " [command]" + ChatColor.WHITE + " = Command for team LEADERS");
+		message += "\n" + (ChatColor.YELLOW + commandID + " [command]" + ChatColor.WHITE + " = Command for Team ADMINS");
+		message += "\n" + (ChatColor.LIGHT_PURPLE + commandID + " [command]" + ChatColor.WHITE + " = Command for Team LEADERS");
 		message += "\n" + (ChatColor.RED + "Report BUGS to " + ChatColor.WHITE + "http://dev.bukkit.org/server-mods/xteam/");
 		originalSender.sendMessage(message);
 	}
