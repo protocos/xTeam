@@ -125,7 +125,7 @@ public class xTeam extends JavaPlugin
 			}
 		}
 		Functions.writeTeamData(new File("plugins/xTeam/teams.txt"));
-		sm.saveConfig();
+		//		sm.saveConfig();
 	}
 	@Override
 	public void onEnable()
@@ -147,7 +147,7 @@ public class xTeam extends JavaPlugin
 		Functions.readTeamData(new File("plugins/xTeam/teams.txt"));
 		Data.ensureDefaultTeams();
 		getCommand("team").setExecutor(exec);
-		sm.loadConfig();
+		//		sm.loadConfig();
 	}
 	@Override
 	public void onLoad()
