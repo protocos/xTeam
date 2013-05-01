@@ -4,7 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
 
-public interface ITeamEntity extends Locatable
+public interface ITeamEntity extends ILocatable
 {
 	public abstract Server getServer();
 	public abstract World getWorld();

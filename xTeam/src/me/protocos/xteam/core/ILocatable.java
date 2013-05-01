@@ -2,7 +2,7 @@ package me.protocos.xteam.core;
 
 import org.bukkit.Location;
 
-public interface Locatable
+public interface ILocatable
 {
 	public abstract Location getLocation();
 	public abstract int getRelativeX();

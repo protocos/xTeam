@@ -24,6 +24,7 @@ public class ConfigFile implements IConfigFile
 			String line;
 			while ((line = reader.readLine()) != null)
 			{
+				//if there is only one '=' sign and the entire attribute does not contain a comment
 				if (line.indexOf("=") == line.lastIndexOf("=") && (line.indexOf("#") < 0 || line.indexOf("#") > line.indexOf("=")))
 				{
 					String split[] = line.split("=");
