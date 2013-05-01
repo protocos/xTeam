@@ -11,7 +11,7 @@ public class TeamCreatedRecentlyException extends TeamException
 
 	public TeamCreatedRecentlyException()
 	{
-		super("ITeam created in the last " + Data.CREATE_INTERVAL + " minutes");
+		super("Team created in the last " + Data.CREATE_INTERVAL + " minutes");
 	}
 	public TeamCreatedRecentlyException(String message)
 	{

@@ -11,7 +11,7 @@ public class TeamHqSetRecentlyException extends TeamException
 
 	public TeamHqSetRecentlyException()
 	{
-		super("ITeam headquarters set in the last " + Data.HQ_INTERVAL + " hours");
+		super("Team headquarters set in the last " + Data.HQ_INTERVAL + " hours");
 	}
 	public TeamHqSetRecentlyException(String message)
 	{

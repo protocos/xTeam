@@ -9,7 +9,7 @@ public class TeamAlreadyExistsException extends TeamException
 
 	public TeamAlreadyExistsException()
 	{
-		super("ITeam already exist");
+		super("Team already exist");
 	}
 	public TeamAlreadyExistsException(String message)
 	{

@@ -9,7 +9,7 @@ public class TeamDoesNotExistException extends TeamException
 
 	public TeamDoesNotExistException()
 	{
-		super("ITeam does not exist");
+		super("Team does not exist");
 	}
 	public TeamDoesNotExistException(String message)
 	{

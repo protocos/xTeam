@@ -9,7 +9,7 @@ public abstract class TeamException extends Exception
 
 	public TeamException()
 	{
-		super("ITeam exception");
+		super("Team exception");
 	}
 	public TeamException(String message)
 	{

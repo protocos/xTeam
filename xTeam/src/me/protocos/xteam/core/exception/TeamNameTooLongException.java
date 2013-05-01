@@ -11,7 +11,7 @@ public class TeamNameTooLongException extends TeamException
 
 	public TeamNameTooLongException()
 	{
-		super("ITeam name too long, must be <= " + Data.TEAM_TAG_LENGTH + " characters");
+		super("Team name too long, must be <= " + Data.TEAM_TAG_LENGTH + " characters");
 	}
 	public TeamNameTooLongException(String message)
 	{

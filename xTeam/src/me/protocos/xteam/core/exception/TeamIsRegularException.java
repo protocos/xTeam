@@ -9,7 +9,7 @@ public class TeamIsRegularException extends TeamException
 
 	public TeamIsRegularException()
 	{
-		super("ITeam is a regular team");
+		super("Team is a regular team");
 	}
 	public TeamIsRegularException(String message)
 	{

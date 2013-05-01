@@ -11,7 +11,7 @@ public class TeamPlayerMaxException extends TeamException
 
 	public TeamPlayerMaxException()
 	{
-		super("ITeam teamPlayer limit reached: " + Data.MAX_PLAYERS);
+		super("Team teamPlayer limit reached: " + Data.MAX_PLAYERS);
 	}
 	public TeamPlayerMaxException(String message)
 	{

@@ -9,7 +9,7 @@ public class TeamIsDefaultException extends TeamException
 
 	public TeamIsDefaultException()
 	{
-		super("ITeam is default");
+		super("Team is default");
 	}
 	public TeamIsDefaultException(String message)
 	{

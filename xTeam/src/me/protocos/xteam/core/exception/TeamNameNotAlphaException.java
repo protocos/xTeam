@@ -9,7 +9,7 @@ public class TeamNameNotAlphaException extends TeamException
 
 	public TeamNameNotAlphaException()
 	{
-		super("ITeam name must be alphanumeric");
+		super("Team name must be alphanumeric");
 	}
 	public TeamNameNotAlphaException(String message)
 	{

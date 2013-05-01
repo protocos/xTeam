@@ -9,7 +9,7 @@ public class TeamNoHeadquartersException extends TeamException
 
 	public TeamNoHeadquartersException()
 	{
-		super("ITeam has no headquarters");
+		super("Team has no headquarters");
 	}
 	public TeamNoHeadquartersException(String message)
 	{
