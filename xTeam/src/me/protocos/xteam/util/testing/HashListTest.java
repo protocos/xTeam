@@ -228,4 +228,38 @@ public class HashListTest
 		//ASSERT
 		Assert.assertEquals("{0=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
 	}
+	@Test
+	public void ShouldBeUpdateKey()
+	{
+		//ASSEMBLE
+		list.put("0", "zero");
+		list.put("1", "one");
+		list.put("2", "two");
+		list.put("3", "three");
+		list.put("4", "four");
+		list.put("5", "five");
+		list.put("6", "six");
+		//ACT
+		boolean updated = list.updateKey("0", "ZERO");
+		//ASSERT
+		Assert.assertEquals("{ZERO=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
+		Assert.assertTrue(updated);
+	}
+	@Test
+	public void ShouldBeUpdateKeyWithoutKey()
+	{
+		//ASSEMBLE
+		list.put("0", "zero");
+		list.put("1", "one");
+		list.put("2", "two");
+		list.put("3", "three");
+		list.put("4", "four");
+		list.put("5", "five");
+		list.put("6", "six");
+		//ACT
+		boolean updated = list.updateKey("00", "ZERO");
+		//ASSERT
+		Assert.assertEquals("{0=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
+		Assert.assertFalse(updated);
+	}
 }

@@ -102,4 +102,13 @@ public class HashList<K, V> extends HashMap<K, V>
 	{
 		return this.keepSorted;
 	}
+	public boolean updateKey(K oldKey, K newKey)
+	{
+		if (!containsKey(oldKey))
+			return false;
+		int position = order.indexOf(oldKey);
+		V value = remove(oldKey);
+		put(newKey, value, position);
+		return true;
+	}
 }
