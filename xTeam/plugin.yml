@@ -1,6 +1,6 @@
 name: xTeam
 main: me.protocos.xteam.xTeam
-version: 1.7.6
+version: 1.7.7
 author: protocos
 softdepend: [PermissionsEx]
 commands:
