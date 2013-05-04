@@ -30,7 +30,7 @@ public class LeaveTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("You left one", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").contains("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}

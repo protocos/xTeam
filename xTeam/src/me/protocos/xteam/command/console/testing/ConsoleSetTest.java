@@ -44,9 +44,9 @@ public class ConsoleSetTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("kmlanglois has been removed from one\n" +
+		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
 				"kmlanglois has been added to two\n" +
-				"one has been deleted\n", fakeConsoleSender.getAllMessages());
+				"ONE has been deleted\n", fakeConsoleSender.getAllMessages());
 		Assert.assertFalse(xTeam.tm.contains("one"));
 		Assert.assertTrue(xTeam.tm.getTeam("two").contains("kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);
@@ -74,7 +74,7 @@ public class ConsoleSetTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("protocos has been removed from one\n" +
+		Assert.assertEquals("protocos has been removed from ONE\n" +
 				"protocos has been added to two\n", fakeConsoleSender.getAllMessages());
 		Assert.assertFalse(xTeam.tm.getTeam("one").contains("protocos"));
 		Assert.assertTrue(xTeam.tm.getTeam("two").contains("protocos"));

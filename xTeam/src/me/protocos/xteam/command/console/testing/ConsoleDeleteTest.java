@@ -43,8 +43,8 @@ public class ConsoleDeleteTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("[one, two, red, blue]", xTeam.tm.getAllTeamNames().toString());
-		Assert.assertTrue(xTeam.tm.getAllTeamNames().contains("one"));
+		Assert.assertEquals("[ONE, two, red, blue]", xTeam.tm.getAllTeamNames().toString());
+		Assert.assertTrue(xTeam.tm.contains("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

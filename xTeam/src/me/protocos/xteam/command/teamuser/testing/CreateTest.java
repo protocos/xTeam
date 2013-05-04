@@ -38,6 +38,21 @@ public class CreateTest
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
+	public void ShouldBeTeamUserCreateExecuteCapitalLetters()
+	{
+		//ASSEMBLE
+		Data.ALPHA_NUM = true;
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create NEW");
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals("You created NEW", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("NEW", xTeam.tm.getTeam("NEW").getName());
+		Assert.assertTrue(xTeam.tm.contains("NEW"));
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+	@Test
 	public void ShouldBeTeamUserCreateExecuteNameTooLong()
 	{
 		//ASSEMBLE

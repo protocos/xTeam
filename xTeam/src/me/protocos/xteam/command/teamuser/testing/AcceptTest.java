@@ -35,7 +35,7 @@ public class AcceptTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("You joined one", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You joined ONE", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(Data.invites.containsKey("lonely"));
 		Assert.assertTrue(xTeam.tm.getTeam("one").contains("lonely"));
 		Assert.assertTrue(fakeExecuteResponse);

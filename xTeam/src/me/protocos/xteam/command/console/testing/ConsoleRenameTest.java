@@ -46,7 +46,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("one", xTeam.tm.getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -58,7 +58,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("one", xTeam.tm.getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -71,7 +71,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("one", xTeam.tm.getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After
