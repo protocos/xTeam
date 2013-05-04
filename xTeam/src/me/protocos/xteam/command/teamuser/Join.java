@@ -71,7 +71,7 @@ public class Join extends BaseUserCommand
 		{
 			throw new TeamDoesNotExistException();
 		}
-		//if team is not open and (player has not been invited to join a team OR player has been invited to another team)
+		//if player has not been invited to join a team OR player has been invited to another team
 		if (!Data.invites.containsKey(teamPlayer.getName()) || !Data.invites.get(teamPlayer.getName()).equals(foundTeam))
 		{
 			if (!foundTeam.isOpenJoining())
