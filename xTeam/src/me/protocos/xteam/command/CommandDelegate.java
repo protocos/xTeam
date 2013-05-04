@@ -62,7 +62,7 @@ public class CommandDelegate implements CommandExecutor
 	}
 	public boolean onConsoleCommand(ConsoleCommandSender sender, String commandID, String originalCommand)
 	{
-		xTeam.logger.info("Console command issued: " + commandID + " " + originalCommand);
+		xTeam.logger.info("console issued server command: " + commandID + " " + originalCommand);
 		BaseConsoleCommand command;
 		// /////////////////////|||||||\\\\\\\\\\\\\\\\\\\\\
 		// //////////////////             \\\\\\\\\\\\\\\\\\
@@ -98,6 +98,7 @@ public class CommandDelegate implements CommandExecutor
 		else
 		{
 			sender.sendMessage(ChatColor.RED + (new TeamInvalidCommandException()).getMessage());
+			xTeam.logger.info("FAIL: " + (new TeamInvalidCommandException()).getMessage());
 			return false;
 		}
 		if (command.execute())
@@ -107,6 +108,7 @@ public class CommandDelegate implements CommandExecutor
 	public boolean onPlayerCommand(Player sender, String commandID, String originalCommand)
 	{
 		commandID = "/" + commandID;
+		xTeam.logger.info(sender.getName() + " issued server command: " + commandID + " " + originalCommand);
 		BasePlayerCommand command;
 		// /////////////////////|||||\\\\\\\\\\\\\\\\\\\\\
 		// //////////////////           \\\\\\\\\\\\\\\\\\
@@ -199,6 +201,7 @@ public class CommandDelegate implements CommandExecutor
 		else
 		{
 			sender.sendMessage(ChatColor.RED + (new TeamInvalidCommandException()).getMessage());
+			xTeam.logger.info("FAIL: " + (new TeamInvalidCommandException()).getMessage());
 			return false;
 		}
 		if (command.execute())

@@ -1,6 +1,7 @@
 package me.protocos.xteam.command;
 
 import java.util.List;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.StringUtil;
@@ -45,6 +46,7 @@ public abstract class BaseCommand implements ICommandUsage, ICommandPattern, IPe
 		catch (TeamException e)
 		{
 			originalSender.sendMessage(ChatColor.RED + e.getMessage());
+			xTeam.logger.info("FAIL: " + e.getMessage());
 		}
 		return false;
 	}

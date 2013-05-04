@@ -13,7 +13,7 @@ public class Log
 
 	public Log(JavaPlugin plugin)
 	{
-		LimitedQueue<String> queue = new LimitedQueue<String>(10);
+		LimitedQueue<String> queue = new LimitedQueue<String>(100);
 		file = new File(plugin.getDataFolder().getAbsolutePath() + "/xteam.log");
 		if (!file.exists())
 			try
