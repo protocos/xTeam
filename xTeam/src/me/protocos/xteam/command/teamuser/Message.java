@@ -73,6 +73,6 @@ public class Message extends BaseUserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " msg [message]";
+		return baseCommand + " message [Message]";
 	}
 }

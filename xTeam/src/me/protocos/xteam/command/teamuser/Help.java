@@ -29,7 +29,7 @@ public class Help extends BaseUserCommand
 	@Override
 	protected void act()
 	{
-		pages.setTitle(ChatColor.GREEN + "Team Commands: [Page " + pageNum + "/" + pages.getTotalPages() + "]" + " " + ChatColor.RED + "{" + ChatColor.GRAY + "optional" + ChatColor.RED + "}" + ChatColor.GRAY + " " + ChatColor.RED + "[" + ChatColor.GRAY + "required" + ChatColor.RED + "]" + ChatColor.GRAY + " pick" + ChatColor.RED + "/" + ChatColor.GRAY + "one");
+		pages.setTitle(ChatColor.AQUA + "Team Commands: [Page " + pageNum + "/" + pages.getTotalPages() + "]" + " " + ChatColor.RED + "{" + ChatColor.GRAY + "optional" + ChatColor.RED + "}" + ChatColor.GRAY + " " + ChatColor.RED + "[" + ChatColor.GRAY + "required" + ChatColor.RED + "]" + ChatColor.GRAY + " pick" + ChatColor.RED + "/" + ChatColor.GRAY + "one");
 		pageNum--;
 		player.sendMessage(pages.getPage(pageNum));
 	}
@@ -77,7 +77,7 @@ public class Help extends BaseUserCommand
 		if (PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "user_chat")))
 			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage(temp) + " - Toggle chatting with teammates");
 		if (PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "user_chat")))
-			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage("user_message") + " - Send message only to teammates");
+			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage("user_message") + " - Send message to teammates");
 		if (Data.LOCATIONS_ENABLED && PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "user_listloc")))
 			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage(temp) + " - List team locations");
 		if (Data.LOCATIONS_ENABLED && PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "user_trackloc")))
@@ -91,24 +91,24 @@ public class Help extends BaseUserCommand
 			if (PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "admin_sethq")))
 				pages.addLine(ChatColor.YELLOW + xTeam.cm.getUsage(temp) + " - Set headquarters of team" + (Data.HQ_INTERVAL > 0 ? " (every " + Data.HQ_INTERVAL + " hours)" : ""));
 			if (PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "admin_invite")))
-				pages.addLine(ChatColor.YELLOW + xTeam.cm.getUsage(temp) + " - invite player to your team");
+				pages.addLine(ChatColor.YELLOW + xTeam.cm.getUsage(temp) + " - Invite player to your team");
 			if (PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "admin_promote")))
-				pages.addLine(ChatColor.YELLOW + xTeam.cm.getUsage(temp) + " - promote player on your team");
+				pages.addLine(ChatColor.YELLOW + xTeam.cm.getUsage(temp) + " - Promote player on your team");
 		}
 		if (teamPlayer.isLeader())
 		{
 			if (PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "leader_demote")))
-				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.cm.getUsage(temp) + " - demote player on your team");
+				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.cm.getUsage(temp) + " - Demote player on your team");
 			if (PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "leader_open")))
-				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.cm.getUsage(temp) + " - open team to public joining");
+				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.cm.getUsage(temp) + " - Open team to public joining");
 			if (PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "leader_remove")))
-				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.cm.getUsage(temp) + " - remove player from your team");
+				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.cm.getUsage(temp) + " - Remove player from your team");
 			if (PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "leader_rename")))
-				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.cm.getUsage(temp) + " - rename the team");
+				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.cm.getUsage(temp) + " - Rename the team");
 			if (PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "leader_tag")))
-				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.cm.getUsage(temp) + " - set the team tag");
+				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.cm.getUsage(temp) + " - Set the team tag");
 			if (PermissionUtil.hasPermission(player, xTeam.cm.getPermissionNode(temp = "leader_setleader")))
-				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.cm.getUsage(temp) + " - set new leader for the team");
+				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.cm.getUsage(temp) + " - Set new leader for the team");
 		}
 		if (pages.getTotalPages() == 0)
 		{

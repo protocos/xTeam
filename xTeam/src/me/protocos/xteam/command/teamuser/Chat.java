@@ -79,6 +79,6 @@ public class Chat extends BaseUserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " chat {on/off}";
+		return baseCommand + " chat {On/Off}";
 	}
 }

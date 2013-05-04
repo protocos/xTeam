@@ -25,14 +25,15 @@ public class MainHelp extends BaseUserCommand
 	@Override
 	protected void act()
 	{
-		String message = (ChatColor.GREEN + "xTeam v" + xTeam.VERSION + " Info/Help Page");
-		message += "\n" + (ChatColor.AQUA + "xTeam is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!");
+		ChatColor temp;
+		String message = (ChatColor.AQUA + "------------------ [xTeam v" + xTeam.VERSION + " Help] ------------------");
+		message += "\n" + (ChatColor.GRAY + "xTeam is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!");
 		// line 6 begin
-		message += "\n" + (ChatColor.GREEN + "Type '" + commandID + " help [Page Number]' to get started");
-		message += "\n" + (ChatColor.GRAY + commandID + " [command]" + ChatColor.WHITE + " = Command for EVERYONE");
-		message += "\n" + (ChatColor.YELLOW + commandID + " [command]" + ChatColor.WHITE + " = Command for Team ADMINS");
-		message += "\n" + (ChatColor.LIGHT_PURPLE + commandID + " [command]" + ChatColor.WHITE + " = Command for Team LEADERS");
-		message += "\n" + (ChatColor.RED + "Report BUGS to " + ChatColor.WHITE + "http://dev.bukkit.org/server-mods/xteam/");
+		message += "\n" + (ChatColor.AQUA + "Type '" + commandID + " help [Page Number]' to get started");
+		message += "\n" + ((temp = ChatColor.GRAY) + commandID + " [command]" + ChatColor.ITALIC + ChatColor.WHITE + " = command for " + temp + "TEAM PLAYERS");
+		message += "\n" + ((temp = ChatColor.YELLOW) + commandID + " [command]" + ChatColor.ITALIC + ChatColor.WHITE + " = command for " + temp + "TEAM ADMINS");
+		message += "\n" + ((temp = ChatColor.LIGHT_PURPLE) + commandID + " [command]" + ChatColor.ITALIC + ChatColor.WHITE + " = command for " + temp + "TEAM LEADERS");
+		message += "\n" + (ChatColor.DARK_RED + "Report BUGS to " + ChatColor.GRAY + "http://dev.bukkit.org/server-mods/xteam/");
 		originalSender.sendMessage(message);
 	}
 	@Override
