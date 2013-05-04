@@ -1,6 +1,7 @@
 package me.protocos.xteam.command;
 
 import java.io.File;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.console.*;
 import me.protocos.xteam.command.serveradmin.*;
 import me.protocos.xteam.command.teamadmin.Invite;
@@ -61,6 +62,7 @@ public class CommandDelegate implements CommandExecutor
 	}
 	public boolean onConsoleCommand(ConsoleCommandSender sender, String commandID, String originalCommand)
 	{
+		xTeam.logger.info("Console command issued: " + commandID + " " + originalCommand);
 		BaseConsoleCommand command;
 		// /////////////////////|||||||\\\\\\\\\\\\\\\\\\\\\
 		// //////////////////             \\\\\\\\\\\\\\\\\\

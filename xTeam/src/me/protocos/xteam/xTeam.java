@@ -2,6 +2,7 @@ package me.protocos.xteam;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.logging.Logger;
 import me.protocos.xteam.command.CommandDelegate;
 import me.protocos.xteam.command.CommandManager;
@@ -13,7 +14,11 @@ import me.protocos.xteam.command.teamadmin.Promote;
 import me.protocos.xteam.command.teamadmin.SetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
-import me.protocos.xteam.core.*;
+import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Functions;
+import me.protocos.xteam.core.TeamManager;
+import me.protocos.xteam.core.TeamServiceManager;
+import me.protocos.xteam.util.Log;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -23,6 +28,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class xTeam extends JavaPlugin
 {
 	public static final Logger log = Logger.getLogger("Minecraft");
+	public static Log logger;
 	public static String VERSION;
 	public static TeamServiceManager sm;
 	public static TeamManager tm;
@@ -126,10 +132,12 @@ public class xTeam extends JavaPlugin
 		}
 		Functions.writeTeamData(new File("plugins/xTeam/teams.txt"));
 		//		sm.saveConfig();
+		logger.close();
 	}
 	@Override
 	public void onEnable()
 	{
+		logger = new Log(this);
 		Data.initFiles();
 		VERSION = getDescription().getVersion();
 		Data.settings = new File(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
@@ -148,6 +156,8 @@ public class xTeam extends JavaPlugin
 		Data.ensureDefaultTeams();
 		getCommand("team").setExecutor(exec);
 		//		sm.loadConfig();
+		Timestamp t = new Timestamp(System.currentTimeMillis());
+		logger.info("Server Started @ " + t.toString());
 	}
 	@Override
 	public void onLoad()
