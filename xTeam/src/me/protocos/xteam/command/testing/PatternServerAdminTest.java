@@ -45,13 +45,9 @@ public class PatternServerAdminTest
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
 		command = "disband TEAM ";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "dis TEAM";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "dis TEAM ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
 		command = "d TEAM";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "dis TEAM dfsaiphjkl";
+		command = "disband TEAM dfsaiphjkl";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
 	}
 	@Test

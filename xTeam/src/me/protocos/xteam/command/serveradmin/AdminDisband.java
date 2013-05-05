@@ -61,7 +61,7 @@ public class AdminDisband extends BaseServerAdminCommand
 	@Override
 	public String getPattern()
 	{
-		return "d" + patternOneOrMore("isband") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
+		return "disband" + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
 	@Override
 	public String getPermissionNode()

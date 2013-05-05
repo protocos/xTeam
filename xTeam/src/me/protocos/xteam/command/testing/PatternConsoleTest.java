@@ -28,8 +28,6 @@ public class PatternConsoleTest
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
 		command = "disband TEAM ";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "dis TEAM ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
 		command = "disband";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
 		command = "disband ";
