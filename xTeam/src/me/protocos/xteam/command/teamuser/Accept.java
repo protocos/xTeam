@@ -57,11 +57,11 @@ public class Accept extends BaseUserCommand
 		{
 			throw new TeamPlayerHasTeamException();
 		}
-		Team inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
-		if (inviteTeam == null)
+		if (!InviteHandler.hasInvite(teamPlayer.getName()))
 		{
 			throw new TeamPlayerHasNoInviteException();
 		}
+		Team inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
 		if (inviteTeam.getPlayers().size() >= Data.MAX_PLAYERS && Data.MAX_PLAYERS > 0)
 		{
 			throw new TeamPlayerMaxException();

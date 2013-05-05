@@ -287,14 +287,14 @@ public class xTeam extends JavaPlugin
 		Functions.readTeamData(new File("plugins/xTeam/teams.txt"));
 		Data.ensureDefaultTeams();
 		//		sm.loadConfig();
-		logger.info("SERVER Enabled");
+		logger.info("SERVER: Enabled");
 	}
 	@Override
 	public void onDisable()
 	{
 		Functions.writeTeamData(new File("plugins/xTeam/teams.txt"));
 		//		sm.saveConfig();
-		logger.info("SERVER Disabled");
+		logger.info("SERVER: Disabled");
 		logger.close();
 	}
 }
