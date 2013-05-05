@@ -18,6 +18,7 @@ import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Functions;
 import me.protocos.xteam.core.TeamManager;
 import me.protocos.xteam.core.TeamServiceManager;
+import me.protocos.xteam.util.ILog;
 import me.protocos.xteam.util.Log;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +29,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class xTeam extends JavaPlugin
 {
 	public static final Logger log = Logger.getLogger("Minecraft");
-	public static Log logger;
+	public static ILog logger;
 	public static String VERSION;
 	public static TeamServiceManager sm;
 	public static TeamManager tm;

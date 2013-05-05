@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Log
+public class Log implements ILog
 {
 	public File file;
 	public FileWriter writer;
@@ -60,23 +60,23 @@ public class Log
 		message = "FATAL: " + message;
 		write(message);
 	}
-	public void close()
+	public void write(String message)
 	{
 		try
 		{
-			writer.close();
+			writer.write(message + "\n");
+			writer.flush();
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
 	}
-	private void write(String message)
+	public void close()
 	{
 		try
 		{
-			writer.write(message + "\n");
-			writer.flush();
+			writer.close();
 		}
 		catch (IOException e)
 		{

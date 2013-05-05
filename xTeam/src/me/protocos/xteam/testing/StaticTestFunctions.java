@@ -64,6 +64,7 @@ public class StaticTestFunctions
 	public static void mockData()
 	{
 		xTeam.cm = new CommandManager();
+		xTeam.logger = new FakeLog();
 		//MOCK variables
 		PluginManager mockPM = mock(PluginManager.class);
 		Plugin mockSpout = mock(Plugin.class);
