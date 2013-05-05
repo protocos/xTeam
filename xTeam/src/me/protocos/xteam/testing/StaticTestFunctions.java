@@ -5,6 +5,7 @@ import java.io.File;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamManager;
 import org.bukkit.Location;
@@ -32,7 +33,7 @@ public class StaticTestFunctions
 		Data.hasTeleported.clear();
 		Data.lastAttacked.clear();
 		Data.lastCreated.clear();
-		Data.invites.clear();
+		InviteHandler.clear();
 		Data.SPOUT_ENABLED = true;
 		Data.LOCATIONS_ENABLED = true;
 		Data.CAN_CHAT = true;

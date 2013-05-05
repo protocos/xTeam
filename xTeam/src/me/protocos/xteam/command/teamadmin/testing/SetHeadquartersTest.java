@@ -6,6 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.command.teamadmin.SetHeadquarters;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.TeamHeadquarters;
 import me.protocos.xteam.core.exception.TeamHqSetRecentlyException;
 import me.protocos.xteam.core.exception.TeamPlayerDyingException;
@@ -101,7 +102,7 @@ public class SetHeadquartersTest
 	@After
 	public void takedown()
 	{
-		Data.invites.clear();
+		InviteHandler.clear();
 		Data.HQ_INTERVAL = 0;
 	}
 }

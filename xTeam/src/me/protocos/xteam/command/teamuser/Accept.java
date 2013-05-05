@@ -3,6 +3,7 @@ package me.protocos.xteam.command.teamuser;
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
@@ -23,9 +24,9 @@ public class Accept extends BaseUserCommand
 	@Override
 	protected void act()
 	{
-		Team inviteTeam = Data.invites.get(teamPlayer.getName());
+		Team inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
 		inviteTeam.addPlayer(teamPlayer.getName());
-		Data.invites.remove(teamPlayer.getName());
+		InviteHandler.removeInvite(teamPlayer.getName());
 		for (String teammate : inviteTeam.getPlayers())
 		{
 			TeamPlayer mate = new TeamPlayer(teammate);
@@ -56,7 +57,7 @@ public class Accept extends BaseUserCommand
 		{
 			throw new TeamPlayerHasTeamException();
 		}
-		Team inviteTeam = Data.invites.get(teamPlayer.getName());
+		Team inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
 		if (inviteTeam == null)
 		{
 			throw new TeamPlayerHasNoInviteException();

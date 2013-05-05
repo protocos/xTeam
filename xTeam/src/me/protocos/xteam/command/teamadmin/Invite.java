@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamadmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.command.BaseUserCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
@@ -24,17 +24,9 @@ public class Invite extends BaseUserCommand
 	@Override
 	protected void act()
 	{
-		Data.invites.put(otherPlayer, team);
-		Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(Data.BUKKIT.getPluginManager().getPlugin("xTeam"), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				Data.invites.remove(otherPlayer);
-			}
-		}, 30 * 20L);
-		Player other = Data.BUKKIT.getPlayer(otherPlayer);
-		if (other != null)
+		InviteHandler.addInvite(otherPlayer, team);
+		TeamPlayer other = new TeamPlayer(otherPlayer);
+		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColor.GREEN + "invited " + ChatColor.WHITE + "to join " + ChatColor.AQUA + team.getName());
 		originalSender.sendMessage("You " + ChatColor.GREEN + "invited " + ChatColor.WHITE + otherPlayer);
 	}
@@ -74,7 +66,7 @@ public class Invite extends BaseUserCommand
 		{
 			throw new TeamPlayerNeverPlayedException();
 		}
-		if (Data.invites.containsKey(otherPlayer))
+		if (InviteHandler.hasInvite(otherPlayer))
 		{
 			throw new TeamPlayerHasInviteException();
 		}
