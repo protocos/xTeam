@@ -1,7 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.InviteHandler;
@@ -25,7 +24,6 @@ public class Accept extends BaseUserCommand
 	@Override
 	protected void act()
 	{
-		xTeam.logger.info("before: " + InviteHandler.data());
 		Team inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
 		inviteTeam.addPlayer(teamPlayer.getName());
 		InviteHandler.removeInvite(teamPlayer.getName());
@@ -36,7 +34,6 @@ public class Accept extends BaseUserCommand
 				mate.sendMessage(teamPlayer.getName() + ChatColor.AQUA + " joined your team");
 		}
 		player.sendMessage("You joined " + ChatColor.AQUA + inviteTeam.getName());
-		xTeam.logger.info("after: " + InviteHandler.data());
 	}
 	@Override
 	public void checkRequirements() throws TeamException
