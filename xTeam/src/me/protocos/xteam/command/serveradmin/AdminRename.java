@@ -34,7 +34,7 @@ public class AdminRename extends BaseServerAdminCommand
 		for (String p : team.getOnlinePlayers())
 		{
 			TeamPlayer mate = new TeamPlayer(p);
-			mate.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName + ChatColor.WHITE + " by an admin");
+			mate.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName + ChatColor.RESET + " by an admin");
 		}
 	}
 	@Override

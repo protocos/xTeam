@@ -28,12 +28,12 @@ public class ConsoleSetLeader extends BaseConsoleCommand
 		Team team = player.getTeam();
 		team.setLeader(playerName);
 		if (player.isOnline())
-			player.sendMessage(ChatColor.GREEN + "You" + ChatColor.WHITE + " are now the team leader");
+			player.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " are now the team leader");
 		if (!team.isDefaultTeam())
 		{
 			TeamPlayer previousLeader = new TeamPlayer(team.getLeader());
 			if (previousLeader.isOnline())
-				previousLeader.sendMessage(ChatColor.GREEN + playerName + ChatColor.WHITE + " is now the team leader");
+				previousLeader.sendMessage(ChatColor.GREEN + playerName + ChatColor.RESET + " is now the team leader");
 		}
 		originalSender.sendMessage(playerName + " is now the team leader for " + team.getName());
 	}

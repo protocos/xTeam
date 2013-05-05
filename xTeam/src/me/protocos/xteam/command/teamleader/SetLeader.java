@@ -26,8 +26,8 @@ public class SetLeader extends BaseUserCommand
 		team.setLeader(otherPlayer);
 		TeamPlayer other = new TeamPlayer(otherPlayer);
 		if (other.isOnline())
-			other.sendMessage(ChatColor.GREEN + "You" + ChatColor.WHITE + " are now the team leader");
-		teamPlayer.sendMessage(ChatColor.GREEN + otherPlayer + ChatColor.WHITE + " is now the team leader (you are an admin)" +
+			other.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " are now the team leader");
+		teamPlayer.sendMessage(ChatColor.GREEN + otherPlayer + ChatColor.RESET + " is now the team leader (you are an admin)" +
 				"\nYou can now leave the team");
 	}
 	@Override

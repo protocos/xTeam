@@ -29,14 +29,14 @@ public class AdminSetLeader extends BaseServerAdminCommand
 		Team team = playerSet.getTeam();
 		team.setLeader(playerName);
 		if (playerSet.isOnline())
-			playerSet.sendMessage(ChatColor.GREEN + "You" + ChatColor.WHITE + " are now the team leader");
+			playerSet.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " are now the team leader");
 		if (!team.isDefaultTeam())
 		{
 			TeamPlayer previousLeader = new TeamPlayer(team.getLeader());
 			if (previousLeader.isOnline())
-				previousLeader.sendMessage(ChatColor.GREEN + playerName + ChatColor.WHITE + " is now the team leader");
+				previousLeader.sendMessage(ChatColor.GREEN + playerName + ChatColor.RESET + " is now the team leader");
 		}
-		originalSender.sendMessage(ChatColor.GREEN + playerName + ChatColor.WHITE + " is now the team leader for " + team.getName());
+		originalSender.sendMessage(ChatColor.GREEN + playerName + ChatColor.RESET + " is now the team leader for " + team.getName());
 	}
 	@Override
 	public void checkRequirements() throws TeamException

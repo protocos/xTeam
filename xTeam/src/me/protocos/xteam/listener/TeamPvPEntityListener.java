@@ -96,14 +96,14 @@ public class TeamPvPEntityListener implements Listener
 						event.setCancelled(true);
 						if (wolf.getOwner().equals(player))
 						{
-							player.sendMessage(ChatColor.GREEN + "You" + ChatColor.WHITE + " pet your wolfie!");
+							player.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " pet your wolfie!");
 						}
 						else
 						{
 							ITeamPlayer owner = wolf.getOwner();
 							if (owner.isOnline())
-								owner.sendMessage(ChatColor.GREEN + player.getName() + ChatColor.WHITE + " pet your wolfie!");
-							player.sendMessage(ChatColor.GREEN + "You" + ChatColor.WHITE + " pet " + ChatColor.GREEN + owner.getName() + "'s" + ChatColor.WHITE + " wolfie!");
+								owner.sendMessage(ChatColor.GREEN + player.getName() + ChatColor.RESET + " pet your wolfie!");
+							player.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " pet " + ChatColor.GREEN + owner.getName() + "'s" + ChatColor.RESET + " wolfie!");
 						}
 					}
 				}
@@ -136,7 +136,7 @@ public class TeamPvPEntityListener implements Listener
 			// Player teamPlayer = (Player) entEvent.getDamager();
 			// if (owner != null && wolfie.getOwner().equals(teamPlayer))
 			// {
-			// teamPlayer.sendMessage(ChatColor.GREEN + "You" + ChatColor.WHITE +
+			// teamPlayer.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET +
 			// " pet your wolfie!");
 			// event.setCancelled(true);
 			// }
@@ -144,10 +144,10 @@ public class TeamPvPEntityListener implements Listener
 			// xTeam.tm.getTeam(owner).getPlayers().contains(teamPlayer.getName()))
 			// {
 			// owner.sendMessage(ChatColor.GREEN + teamPlayer.getName() +
-			// ChatColor.WHITE + " pet your wolfie!");
-			// teamPlayer.sendMessage(ChatColor.GREEN + "You" + ChatColor.WHITE +
+			// ChatColor.RESET + " pet your wolfie!");
+			// teamPlayer.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET +
 			// " pet " + ChatColor.GREEN + owner.getName() + "'s" +
-			// ChatColor.WHITE + " wolfie!");
+			// ChatColor.RESET + " wolfie!");
 			// event.setCancelled(true);
 			// }
 			// }

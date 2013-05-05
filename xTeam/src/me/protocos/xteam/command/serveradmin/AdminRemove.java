@@ -28,9 +28,9 @@ public class AdminRemove extends BaseServerAdminCommand
 		Team team = p.getTeam();
 		team.removePlayer(playerName);
 		//		Data.Teams.remove(playerName);
-		player.sendMessage("You" + ChatColor.RED + " removed " + ChatColor.WHITE + playerName + " from " + teamName);
+		player.sendMessage("You" + ChatColor.RED + " removed " + ChatColor.RESET + playerName + " from " + teamName);
 		if (p.isOnline())
-			p.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.WHITE + " from " + team.getName());
+			p.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
 	}
 	@Override
 	public void checkRequirements() throws TeamException

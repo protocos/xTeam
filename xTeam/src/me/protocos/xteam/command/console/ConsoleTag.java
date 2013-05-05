@@ -32,7 +32,7 @@ public class ConsoleTag extends BaseConsoleCommand
 		for (String p : team.getOnlinePlayers())
 		{
 			TeamPlayer mate = new TeamPlayer(p);
-			mate.sendMessage("The team tag has been set to " + ChatColor.AQUA + newTag + ChatColor.WHITE + " by an admin");
+			mate.sendMessage("The team tag has been set to " + ChatColor.AQUA + newTag + ChatColor.RESET + " by an admin");
 		}
 	}
 	@Override

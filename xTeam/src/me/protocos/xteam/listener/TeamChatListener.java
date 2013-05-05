@@ -35,22 +35,22 @@ public class TeamChatListener implements Listener
 		{
 			String teamTag = "[" + teamPlayer.getTeam().getTag() + "]";
 			String teamPlayerName = teamPlayer.getName();
-			event.setFormat(ColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.WHITE + " " + format);
+			event.setFormat(ColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.RESET + " " + format);
 			if (Data.chatStatus.contains(teamPlayerName))
 			{
 				event.setCancelled(true);
 				List<String> onlineTeammates = teamPlayer.getOnlineTeammates();
-				teamPlayer.sendMessage("[" + ColorUtil.getColor(Data.NAME_COLOR) + teamPlayerName + ChatColor.WHITE + "] " + msg);
+				teamPlayer.sendMessage("[" + ColorUtil.getColor(Data.NAME_COLOR) + teamPlayerName + ChatColor.RESET + "] " + msg);
 				for (String teammate : onlineTeammates)
 				{
 					ITeamPlayer p = new TeamPlayer(teammate);
-					p.sendMessage("[" + ColorUtil.getColor(Data.NAME_COLOR) + teamPlayerName + ChatColor.WHITE + "] " + msg);
+					p.sendMessage("[" + ColorUtil.getColor(Data.NAME_COLOR) + teamPlayerName + ChatColor.RESET + "] " + msg);
 				}
 				for (String p : Data.spies)
 				{
 					TeamPlayer spy = new TeamPlayer(p);
 					if (!spy.isOnSameTeam(teamPlayer))
-						spy.sendMessage(ChatColor.RED + "[" + teamTag + "] " + ChatColor.WHITE + "<" + teamPlayerName + "> " + msg);
+						spy.sendMessage(ChatColor.RED + "[" + teamTag + "] " + ChatColor.RESET + "<" + teamPlayerName + "> " + msg);
 				}
 				xTeam.log.info("[" + teamPlayerName + "] " + event.getMessage());
 			}

@@ -27,8 +27,8 @@ public class Remove extends BaseUserCommand
 		//		Data.Teams.remove(otherPlayer);
 		Player other = Data.BUKKIT.getPlayer(otherPlayer);
 		if (other != null)
-			other.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.WHITE + " from " + team.getName());
-		originalSender.sendMessage("You" + ChatColor.RED + " removed " + ChatColor.WHITE + otherPlayer + " from your team");
+			other.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
+		originalSender.sendMessage("You" + ChatColor.RED + " removed " + ChatColor.RESET + otherPlayer + " from your team");
 	}
 	@Override
 	public void checkRequirements() throws TeamException

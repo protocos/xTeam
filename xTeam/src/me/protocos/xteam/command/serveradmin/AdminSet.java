@@ -37,7 +37,7 @@ public class AdminSet extends BaseServerAdminCommand
 			Data.chatStatus.remove(playerName);
 			TeamPlayer other = new TeamPlayer(playerName);
 			if (other.isOnline())
-				other.sendMessage(ChatColor.RED + "You have been " + ChatColor.RED + "removed" + ChatColor.WHITE + " from " + playerTeam.getName());
+				other.sendMessage(ChatColor.RED + "You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + playerTeam.getName());
 			originalSender.sendMessage(playerName + " has been removed from " + playerTeam.getName());
 			if (teamName.equalsIgnoreCase("none"))
 			{
@@ -56,7 +56,7 @@ public class AdminSet extends BaseServerAdminCommand
 			xTeam.tm.addTeam(tempTeam);
 			TeamPlayer other = new TeamPlayer(playerName);
 			if (other.isOnline())
-				other.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.WHITE + " to " + tempTeam.getName());
+				other.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + tempTeam.getName());
 			originalSender.sendMessage(teamName + " has been created");
 			originalSender.sendMessage(playerName + " has been added to " + tempTeam.getName());
 		}

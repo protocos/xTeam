@@ -32,7 +32,7 @@ public class AdminTag extends BaseServerAdminCommand
 		for (String p : team.getOnlinePlayers())
 		{
 			TeamPlayer mate = new TeamPlayer(p);
-			mate.sendMessage("The team tag has been set to " + newTag + ChatColor.WHITE + " by an admin");
+			mate.sendMessage("The team tag has been set to " + newTag + ChatColor.RESET + " by an admin");
 		}
 	}
 	@Override

@@ -28,7 +28,7 @@ public class Demote extends BaseUserCommand
 		Player other = Data.BUKKIT.getPlayer(otherPlayer);
 		if (other != null)
 			other.sendMessage("You've been " + ChatColor.RED + "demoted");
-		originalSender.sendMessage("You" + ChatColor.RED + " demoted " + ChatColor.WHITE + otherPlayer);
+		originalSender.sendMessage("You" + ChatColor.RED + " demoted " + ChatColor.RESET + otherPlayer);
 	}
 	@Override
 	public void checkRequirements() throws TeamException

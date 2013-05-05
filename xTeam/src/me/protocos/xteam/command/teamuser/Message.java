@@ -33,9 +33,9 @@ public class Message extends BaseUserCommand
 		for (String p : teamPlayer.getOnlineTeammates())
 		{
 			TeamPlayer teammate = new TeamPlayer(p);
-			teammate.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.WHITE + "]" + message);
+			teammate.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
 		}
-		originalSender.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.WHITE + "]" + message);
+		originalSender.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
 	}
 	@Override
 	public void checkRequirements() throws TeamException

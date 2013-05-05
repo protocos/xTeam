@@ -27,12 +27,12 @@ public class AdminChatSpy extends BaseServerAdminCommand
 		if (!Data.spies.contains(player.getName()))
 		{
 			Data.spies.add(player.getName());
-			player.sendMessage("You are " + ChatColor.RED + "now" + ChatColor.WHITE + " spying on team chat");
+			player.sendMessage("You are " + ChatColor.RED + "now" + ChatColor.RESET + " spying on team chat");
 		}
 		else
 		{
 			Data.spies.remove(player.getName());
-			player.sendMessage("You are " + ChatColor.GREEN + "no longer" + ChatColor.WHITE + " spying on team chat");
+			player.sendMessage("You are " + ChatColor.GREEN + "no longer" + ChatColor.RESET + " spying on team chat");
 		}
 	}
 	@Override

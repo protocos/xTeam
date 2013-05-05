@@ -12,7 +12,7 @@ public class ColorUtil
 		}
 		catch (IllegalArgumentException e)
 		{
-			return ChatColor.WHITE;
+			return ChatColor.RESET;
 		}
 	}
 }

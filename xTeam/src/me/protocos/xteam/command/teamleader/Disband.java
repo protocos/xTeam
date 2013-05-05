@@ -25,10 +25,10 @@ public class Disband extends BaseUserCommand
 		for (String p : teamPlayer.getOnlineTeammates())
 		{
 			TeamPlayer playerDisband = new TeamPlayer(p);
-			playerDisband.sendMessage("Team has been " + ChatColor.RED + "disbanded" + ChatColor.WHITE + " by the leader");
+			playerDisband.sendMessage("Team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by the leader");
 		}
 		xTeam.tm.removeTeam(team.getName());
-		originalSender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.WHITE + " your team");
+		originalSender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " your team");
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class ChatColorTest
 		//ASSEMBLE
 		//ACT
 		//ASSERT
-		Assert.assertEquals(ChatColor.WHITE, ColorUtil.getColor("notacolor"));
+		Assert.assertEquals(ChatColor.RESET, ColorUtil.getColor("notacolor"));
 	}
 	@After
 	public void takedown()

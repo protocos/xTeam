@@ -27,7 +27,7 @@ public class Promote extends BaseUserCommand
 		TeamPlayer other = new TeamPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColor.GREEN + "promoted");
-		originalSender.sendMessage("You" + ChatColor.GREEN + " promoted " + ChatColor.WHITE + otherPlayer);
+		originalSender.sendMessage("You" + ChatColor.GREEN + " promoted " + ChatColor.RESET + otherPlayer);
 	}
 	@Override
 	public void checkRequirements() throws TeamException
