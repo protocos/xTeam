@@ -162,6 +162,8 @@ public class CommandDelegate implements CommandExecutor
 			command = new SetHeadquarters(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_demote")))
 			command = new Demote(sender, originalCommand);
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_disband")))
+			command = new Disband(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_open")))
 			command = new Open(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_remove")))

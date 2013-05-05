@@ -62,9 +62,9 @@ public class HelpTest
 				"/team invite [Player] - Invite player to your team\n" +
 				"/team promote [Player] - Promote player on your team\n" +
 				"/team demote [Player] - Demote player on your team\n" +
+				"/team disband - Disband the team\n" +
 				"/team open - Open team to public joining\n" +
-				"/team remove [Player] - Remove player from your team\n" +
-				"/team rename [Name] - Rename the team", fakePlayerSender.getLastMessage());
+				"/team remove [Player] - Remove player from your team", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -77,9 +77,9 @@ public class HelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 3/3] {optional} [required] pick/one\n" +
+				"/team rename [Name] - Rename the team\n" +
 				"/team tag [Tag] - Set the team tag\n" +
 				"/team setleader [Player] - Set new leader for the team\n" +
-				" \n" +
 				" \n" +
 				" \n" +
 				" \n" +

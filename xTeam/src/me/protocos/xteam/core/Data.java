@@ -161,6 +161,7 @@ public class Data
 				"### xteam.admin.core.promote - (Allows players to promote teammates)\n" +
 				"### xteam.admin.core.sethq - (Allows players to set a headquarters)\n" +
 				"### xteam.leader.core.demote - (Allows players to demote teammates)\n" +
+				"### xteam.leader.core.disband - (Allows players to disband a team)\n" +
 				"### xteam.leader.core.open - (Allows players to open team to public)\n" +
 				"### xteam.leader.core.remove - (Allows players to remove players)\n" +
 				"### xteam.leader.core.rename - (Allows players to rename team)\n" +

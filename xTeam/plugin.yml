@@ -104,6 +104,9 @@ permissions:
     xteam.leader.core.demote:
         description: Demote player on team from admin
         default: false
+    xteam.leader.core.disband:
+        description: Disband team
+        default: false
     xteam.leader.core.open:
         description: Open team to public joining
         default: false

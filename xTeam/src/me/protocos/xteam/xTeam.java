@@ -81,6 +81,7 @@ public class xTeam extends JavaPlugin
 	public static void registerLeaderCommands(ICommandManager manager)
 	{
 		manager.registerCommand("leader_demote", new Demote());
+		manager.registerCommand("leader_disband", new Disband());
 		manager.registerCommand("leader_open", new Open());
 		manager.registerCommand("leader_remove", new Remove());
 		manager.registerCommand("leader_rename", new Rename());
