@@ -3,6 +3,7 @@ package me.protocos.xteam.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Scanner;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,7 +14,7 @@ public class Log implements ILog
 
 	public Log(JavaPlugin plugin)
 	{
-		LimitedQueue<String> queue = new LimitedQueue<String>(100);
+		LimitedQueue<String> queue = new LimitedQueue<String>(20);
 		file = new File(plugin.getDataFolder().getAbsolutePath() + "/xteam.log");
 		if (!file.exists())
 			try
@@ -62,9 +63,10 @@ public class Log implements ILog
 	}
 	public void write(String message)
 	{
+		Timestamp t = new Timestamp(System.currentTimeMillis());
 		try
 		{
-			writer.write(message + "\n");
+			writer.write(t.toString().substring(0, t.toString().indexOf('.')) + " " + message + "\n");
 			writer.flush();
 		}
 		catch (IOException e)

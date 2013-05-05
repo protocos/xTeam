@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.logging.Logger;
 import me.protocos.xteam.command.CommandDelegate;
 import me.protocos.xteam.command.CommandManager;
@@ -288,31 +287,14 @@ public class xTeam extends JavaPlugin
 		Functions.readTeamData(new File("plugins/xTeam/teams.txt"));
 		Data.ensureDefaultTeams();
 		//		sm.loadConfig();
-		Timestamp t = new Timestamp(System.currentTimeMillis());
-		logger.info("Server Started @ " + t.toString());
+		logger.info("SERVER Enabled");
 	}
 	@Override
 	public void onDisable()
 	{
-		File f = new File("plugins/xTeam/");
-		if (!f.exists())
-		{
-			f.mkdir();
-		}
-		f = new File("plugins/xTeam/teams.txt");
-		if (!f.exists())
-		{
-			try
-			{
-				f.createNewFile();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
 		Functions.writeTeamData(new File("plugins/xTeam/teams.txt"));
 		//		sm.saveConfig();
+		logger.info("SERVER Disabled");
 		logger.close();
 	}
 }
