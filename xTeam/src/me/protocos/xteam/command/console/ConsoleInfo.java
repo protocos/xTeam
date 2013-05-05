@@ -89,7 +89,7 @@ public class ConsoleInfo extends BaseConsoleCommand
 	}
 	private boolean isTeam(String teamName)
 	{
-		return xTeam.tm.getAllTeamNames().contains(teamName);
+		return xTeam.tm.contains(teamName);
 	}
 	private boolean isPlayer(String playerName)
 	{

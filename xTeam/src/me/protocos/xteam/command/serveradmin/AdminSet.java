@@ -41,6 +41,11 @@ public class AdminSet extends BaseServerAdminCommand
 			originalSender.sendMessage(playerName + " has been removed from " + playerTeam.getName());
 			if (teamName.equalsIgnoreCase("none"))
 			{
+				if (playerTeam.isEmpty())
+				{
+					originalSender.sendMessage(playerTeam.getName() + " has been deleted");
+					xTeam.tm.removeTeam(playerTeam.getName());
+				}
 				return;
 			}
 		}
