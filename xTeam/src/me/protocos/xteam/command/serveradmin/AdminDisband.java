@@ -5,10 +5,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseServerAdminCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.core.exception.TeamDoesNotExistException;
-import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamInvalidCommandException;
-import me.protocos.xteam.core.exception.TeamPlayerPermissionException;
+import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.entity.Player;
 
@@ -56,6 +53,10 @@ public class AdminDisband extends BaseServerAdminCommand
 		if (team == null)
 		{
 			throw new TeamDoesNotExistException();
+		}
+		if (team.isDefaultTeam())
+		{
+			throw new TeamIsDefaultException();
 		}
 	}
 	@Override

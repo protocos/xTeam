@@ -8,6 +8,7 @@ import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
+import me.protocos.xteam.core.exception.TeamIsDefaultException;
 import org.bukkit.command.ConsoleCommandSender;
 
 public class ConsoleDisband extends BaseConsoleCommand
@@ -51,6 +52,10 @@ public class ConsoleDisband extends BaseConsoleCommand
 		if (team == null)
 		{
 			throw new TeamDoesNotExistException();
+		}
+		if (team.isDefaultTeam())
+		{
+			throw new TeamIsDefaultException();
 		}
 	}
 	@Override
