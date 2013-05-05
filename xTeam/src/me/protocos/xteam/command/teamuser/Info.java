@@ -38,7 +38,7 @@ public class Info extends BaseUserCommand
 		}
 		if (otherTeam != null)
 		{
-			if (otherTeam.contains(teamPlayer.getName()))
+			if (otherTeam.containsPlayer(teamPlayer.getName()))
 				teamInfo();
 			else
 				otherTeamInfo(otherTeam);

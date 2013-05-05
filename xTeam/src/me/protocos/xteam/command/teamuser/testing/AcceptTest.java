@@ -38,7 +38,7 @@ public class AcceptTest
 		//ASSERT
 		Assert.assertEquals("You joined ONE", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(InviteHandler.hasInvite("lonely"));
-		Assert.assertTrue(xTeam.tm.getTeam("one").contains("lonely"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -53,7 +53,7 @@ public class AcceptTest
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(InviteHandler.hasInvite("lonely"));
-		Assert.assertFalse(xTeam.tm.getTeam("one").contains("lonely"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -68,7 +68,7 @@ public class AcceptTest
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoInviteException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(InviteHandler.hasInvite("lonely"));
-		Assert.assertFalse(xTeam.tm.getTeam("one").contains("lonely"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -82,7 +82,7 @@ public class AcceptTest
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(InviteHandler.hasInvite("lonely"));
-		Assert.assertFalse(xTeam.tm.getTeam("one").contains("lonely"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

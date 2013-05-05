@@ -140,7 +140,7 @@ public class TeamPlayer implements ITeamPlayer
 	public Team getTeam()
 	{
 		for (Team team : xTeam.tm.getAllTeams())
-			if (team.contains(name))
+			if (team.containsPlayer(name))
 				return team;
 		return null;
 	}
@@ -230,7 +230,6 @@ public class TeamPlayer implements ITeamPlayer
 		}
 		return false;
 	}
-	@Override
 	public boolean equals(ITeamPlayer player)
 	{
 		return getName().equalsIgnoreCase(player.getName());
@@ -297,5 +296,15 @@ public class TeamPlayer implements ITeamPlayer
 		if (this.isOnSameTeam(entity))
 			return false;
 		return true;
+	}
+	@Override
+	public void sendMessageToTeam(String message)
+	{
+		List<String> onlinePlayers = getOnlineTeammates();
+		for (String p : onlinePlayers)
+		{
+			ITeamPlayer player = new TeamPlayer(p);
+			player.sendMessage(message);
+		}
 	}
 }

@@ -71,7 +71,7 @@ public class Functions
 			Wolf w = (Wolf) entity;
 			//FIX by using TeamWolf
 			String wolfOwner = w.getOwner().getName();
-			if (player.getTeam().contains(wolfOwner))
+			if (player.getTeam().containsPlayer(wolfOwner))
 				return false;
 			return true;
 		}

@@ -104,7 +104,7 @@ public class CreateTest
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.contains("one"));
-		Assert.assertFalse(xTeam.tm.getTeam("one").contains("lonely"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test

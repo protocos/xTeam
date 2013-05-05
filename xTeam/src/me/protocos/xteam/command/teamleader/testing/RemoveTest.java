@@ -33,7 +33,7 @@ public class RemoveTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("You removed protocos from your team", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.tm.getTeam("one").contains("protocos"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -46,7 +46,7 @@ public class RemoveTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getTeam("one").contains("kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -71,7 +71,7 @@ public class RemoveTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getTeam("one").contains("protocos"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("protocos"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test

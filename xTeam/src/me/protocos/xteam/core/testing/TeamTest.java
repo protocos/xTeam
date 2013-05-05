@@ -56,7 +56,7 @@ public class TeamTest
 		team.addPlayer("protocos");
 		team.addPlayer("kmlanglois");
 		//ACT
-		boolean contains = team.contains("protocos");
+		boolean contains = team.containsPlayer("protocos");
 		//ASSERT
 		Assert.assertTrue(contains);
 	}

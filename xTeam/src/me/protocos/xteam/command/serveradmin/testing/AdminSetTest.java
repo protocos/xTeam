@@ -32,8 +32,8 @@ public class AdminSetTest
 		//ASSERT
 		Assert.assertEquals("protocos has been removed from ONE\n" +
 				"protocos has been added to two\n", fakePlayerSender.getAllMessages());
-		Assert.assertFalse(xTeam.tm.getTeam("one").contains("protocos"));
-		Assert.assertTrue(xTeam.tm.getTeam("two").contains("protocos"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("protocos"));
+		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -50,7 +50,7 @@ public class AdminSetTest
 				"kmlanglois has been added to two\n" +
 				"ONE has been disbanded\n", fakePlayerSender.getAllMessages());
 		Assert.assertFalse(xTeam.tm.contains("one"));
-		Assert.assertTrue(xTeam.tm.getTeam("two").contains("kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -63,7 +63,7 @@ public class AdminSetTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getTeam("one").contains("kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -90,9 +90,9 @@ public class AdminSetTest
 		Assert.assertEquals("protocos has been removed from ONE\n" +
 				"three has been created\n" +
 				"protocos has been added to three\n", fakePlayerSender.getAllMessages());
-		Assert.assertFalse(xTeam.tm.getTeam("one").contains("protocos"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("protocos"));
 		Assert.assertTrue(xTeam.tm.contains("three"));
-		Assert.assertTrue(xTeam.tm.getTeam("three").contains("protocos"));
+		Assert.assertTrue(xTeam.tm.getTeam("three").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@After

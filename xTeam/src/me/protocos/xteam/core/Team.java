@@ -6,7 +6,7 @@ import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.HashList;
 import org.bukkit.World;
 
-public class Team
+public class Team implements ITeam
 {
 	private String name;
 	private String tag;
@@ -97,13 +97,21 @@ public class Team
 		players = builder.players;
 		admins = builder.admins;
 	}
-	public void addPlayer(String player)
+	public boolean addPlayer(String player)
 	{
-		players.add(player);
+		return players.add(player);
 	}
-	public boolean contains(String player)
+	public boolean containsPlayer(String player)
 	{
 		return players.contains(player);
+	}
+	public boolean removePlayer(String player)
+	{
+		if (leader.equalsIgnoreCase(player))
+			this.leader = "";
+		if (admins.contains(player))
+			admins.remove(player);
+		return players.remove(player);
 	}
 	public boolean demote(String player)
 	{
@@ -143,9 +151,9 @@ public class Team
 	{
 		return name;
 	}
-	public ArrayList<String> getOnlinePlayers()
+	public List<String> getOnlinePlayers()
 	{
-		ArrayList<String> onlinePlayers = new ArrayList<String>();
+		List<String> onlinePlayers = new ArrayList<String>();
 		for (String p : players)
 		{
 			TeamPlayer player = new TeamPlayer(p);
@@ -153,6 +161,17 @@ public class Team
 				onlinePlayers.add(p);
 		}
 		return onlinePlayers;
+	}
+	public List<String> getOfflinePlayers()
+	{
+		List<String> offlinePlayers = new ArrayList<String>();
+		for (String p : players)
+		{
+			TeamPlayer player = new TeamPlayer(p);
+			if (!player.isOnline())
+				offlinePlayers.add(p);
+		}
+		return offlinePlayers;
 	}
 	public List<String> getPlayers()
 	{
@@ -190,14 +209,6 @@ public class Team
 			return true;
 		}
 		return false;
-	}
-	public boolean removePlayer(String player)
-	{
-		if (leader.equalsIgnoreCase(player))
-			this.leader = "";
-		if (admins.contains(player))
-			admins.remove(player);
-		return players.remove(player);
 	}
 	public void setAdmins(List<String> admins)
 	{
@@ -316,5 +327,15 @@ public class Team
 	public String getTag()
 	{
 		return tag;
+	}
+	@Override
+	public void sendMessageToTeam(String message)
+	{
+		List<String> onlinePlayers = getOnlinePlayers();
+		for (String p : onlinePlayers)
+		{
+			ITeamPlayer player = new TeamPlayer(p);
+			player.sendMessage(message);
+		}
 	}
 }

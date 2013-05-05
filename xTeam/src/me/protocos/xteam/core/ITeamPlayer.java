@@ -16,8 +16,8 @@ public interface ITeamPlayer extends ITeamEntity
 	public abstract boolean isAdmin();
 	public abstract boolean isLeader();
 	public abstract boolean sendMessage(String message);
+	public abstract void sendMessageToTeam(String message);
 	public abstract List<String> getTeammates();
 	public abstract List<String> getOfflineTeammates();
 	public abstract List<String> getOnlineTeammates();
-	public abstract boolean equals(ITeamPlayer player);
 }
