@@ -20,7 +20,7 @@ import me.protocos.xteam.core.Functions;
 import me.protocos.xteam.core.TeamManager;
 import me.protocos.xteam.core.TeamServiceManager;
 import me.protocos.xteam.util.ILog;
-import me.protocos.xteam.util.Log;
+import me.protocos.xteam.util.xTeamLog;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -184,7 +184,7 @@ public class xTeam extends JavaPlugin
 				e.printStackTrace();
 			}
 		}
-		f = new File(getDataFolder().getAbsolutePath() + "/xteam.log");
+		f = new File(getDataFolder().getAbsolutePath() + "/xTeam.log");
 		if (!f.exists())
 		{
 			try
@@ -269,7 +269,7 @@ public class xTeam extends JavaPlugin
 	public void onEnable()
 	{
 		initFileSystem();
-		logger = new Log(this);
+		logger = new xTeamLog(this);
 		VERSION = getDescription().getVersion();
 		Data.settings = new File(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
 		Data.load();
