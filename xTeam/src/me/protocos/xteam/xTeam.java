@@ -144,9 +144,9 @@ public class xTeam extends JavaPlugin
 		registerLeaderCommands(cm);
 		registerUserCommands(cm);
 		exec = new CommandDelegate(cm);
+		getCommand("team").setExecutor(exec);
 		Functions.readTeamData(new File("plugins/xTeam/teams.txt"));
 		Data.ensureDefaultTeams();
-		getCommand("team").setExecutor(exec);
 		//		sm.loadConfig();
 	}
 	@Override
