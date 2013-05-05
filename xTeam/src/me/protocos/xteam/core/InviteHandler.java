@@ -40,12 +40,12 @@ public class InviteHandler
 			invites.remove(player);
 		return invites.containsKey(player);
 	}
-	public static void print()
-	{
-		System.out.println(invites);
-	}
 	public static void clear()
 	{
 		invites.clear();
+	}
+	public static String data()
+	{
+		return invites.toString();
 	}
 }

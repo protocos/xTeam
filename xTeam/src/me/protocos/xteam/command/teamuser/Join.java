@@ -28,6 +28,7 @@ public class Join extends BaseUserCommand
 	@Override
 	protected void act()
 	{
+		xTeam.logger.info("before: " + InviteHandler.data());
 		Team foundTeam = xTeam.tm.getTeam(desiredTeam);
 		foundTeam.addPlayer(teamPlayer.getName());
 		InviteHandler.removeInvite(teamPlayer.getName());
@@ -38,6 +39,7 @@ public class Join extends BaseUserCommand
 				mate.sendMessage(teamPlayer.getName() + ChatColor.AQUA + " joined your team");
 		}
 		originalSender.sendMessage("You joined " + ChatColor.AQUA + desiredTeam);
+		xTeam.logger.info("after: " + InviteHandler.data());
 	}
 	@Override
 	public void checkRequirements() throws TeamException

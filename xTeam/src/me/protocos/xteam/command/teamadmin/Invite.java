@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.teamadmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.TeamPlayer;
@@ -24,11 +25,13 @@ public class Invite extends BaseUserCommand
 	@Override
 	protected void act()
 	{
+		xTeam.logger.info("before: " + InviteHandler.data());
 		InviteHandler.addInvite(otherPlayer, team);
 		TeamPlayer other = new TeamPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColor.GREEN + "invited " + ChatColor.WHITE + "to join " + ChatColor.AQUA + team.getName());
 		originalSender.sendMessage("You " + ChatColor.GREEN + "invited " + ChatColor.WHITE + otherPlayer);
+		xTeam.logger.info("after: " + InviteHandler.data());
 	}
 	@Override
 	public void checkRequirements() throws TeamException
