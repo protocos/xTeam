@@ -356,7 +356,7 @@ public class TeamPlayerTest
 		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		//ACT
 		//ASSERT
-		Assert.assertEquals("name:protocos hasPlayed:true team:one admin:false leader:false", player.toString());
+		Assert.assertEquals("name:protocos hasPlayed:true team:ONE admin:false leader:false", player.toString());
 	}
 	@After
 	public void takedown()

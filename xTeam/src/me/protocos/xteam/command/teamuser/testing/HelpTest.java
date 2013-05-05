@@ -56,15 +56,15 @@ public class HelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 2/3] {optional} [required] pick/one\n" +
-				"/team chat {on/off} - Toggle chatting with teammates\n" +
-				"/team msg [message] - Send message only to teammates\n" +
+				"/team chat {On/Off} - Toggle chatting with teammates\n" +
+				"/team message [Message] - Send message to teammates\n" +
 				"/team sethq - Set headquarters of team (every 1 hours)\n" +
-				"/team invite [Player] - invite player to your team\n" +
-				"/team promote [Player] - promote player on your team\n" +
-				"/team demote [Player] - demote player on your team\n" +
-				"/team open - open team to public joining\n" +
-				"/team remove [Player] - remove player from your team\n" +
-				"/team rename [Name] - rename the team", fakePlayerSender.getLastMessage());
+				"/team invite [Player] - Invite player to your team\n" +
+				"/team promote [Player] - Promote player on your team\n" +
+				"/team demote [Player] - Demote player on your team\n" +
+				"/team open - Open team to public joining\n" +
+				"/team remove [Player] - Remove player from your team\n" +
+				"/team rename [Name] - Rename the team", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -77,8 +77,8 @@ public class HelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 3/3] {optional} [required] pick/one\n" +
-				"/team tag [Tag] - set the team tag\n" +
-				"/team setleader [Player] - set new leader for the team\n" +
+				"/team tag [Tag] - Set the team tag\n" +
+				"/team setleader [Player] - Set new leader for the team\n" +
 				" \n" +
 				" \n" +
 				" \n" +

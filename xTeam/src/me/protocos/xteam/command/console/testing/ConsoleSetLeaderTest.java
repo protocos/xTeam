@@ -30,7 +30,7 @@ public class ConsoleSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("protocos is now the team leader for one", fakeConsoleSender.getLastMessage());
+		Assert.assertEquals("protocos is now the team leader for ONE", fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("protocos", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertTrue(fakeExecuteResponse);
 	}

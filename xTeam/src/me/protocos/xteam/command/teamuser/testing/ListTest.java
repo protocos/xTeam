@@ -27,7 +27,7 @@ public class ListTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("Teams: one, two, red, blue", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("Teams: ONE, two, red, blue", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@After

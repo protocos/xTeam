@@ -30,7 +30,7 @@ public class AdminDeleteTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("You have deleted team: one", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.tm.getAllTeamNames().contains("one"));
+		Assert.assertFalse(xTeam.tm.contains("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -43,7 +43,7 @@ public class AdminDeleteTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getAllTeamNames().contains("one"));
+		Assert.assertTrue(xTeam.tm.contains("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

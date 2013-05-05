@@ -6,6 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.command.teamuser.Join;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
@@ -21,7 +22,7 @@ public class JoinTest
 		//MOCK data
 		mockData();
 		Data.MAX_PLAYERS = 3;
-		Data.invites.put("lonely", xTeam.tm.getTeam("one"));
+		InviteHandler.addInvite("lonely", xTeam.tm.getTeam("one"));
 	}
 	@Test
 	public void ShouldBeTeamUserJoinExecute()
@@ -54,7 +55,7 @@ public class JoinTest
 	public void ShouldBeTeamUserJoinExecuteNoInvite()
 	{
 		//ASSEMBLE
-		Data.invites.remove("lonely");
+		InviteHandler.removeInvite("lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Join(fakePlayerSender, "join one");
 		//ACT

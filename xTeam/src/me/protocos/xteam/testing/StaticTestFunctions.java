@@ -5,6 +5,7 @@ import java.io.File;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamManager;
 import org.bukkit.Location;
@@ -32,7 +33,7 @@ public class StaticTestFunctions
 		Data.hasTeleported.clear();
 		Data.lastAttacked.clear();
 		Data.lastCreated.clear();
-		Data.invites.clear();
+		InviteHandler.clear();
 		Data.SPOUT_ENABLED = true;
 		Data.LOCATIONS_ENABLED = true;
 		Data.CAN_CHAT = true;
@@ -85,7 +86,7 @@ public class StaticTestFunctions
 
 		//MOCK team
 		xTeam.tm = new TeamManager();
-		Team team1 = Team.generateTeamFromProperties("name:one tag:TeamAwesome world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois");
+		Team team1 = Team.generateTeamFromProperties("name:ONE tag:TeamAwesome world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois");
 		xTeam.tm.addTeam(team1);
 		Team team2 = Team.generateTeamFromProperties("name:two world:world open:false leader:mastermind timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 players:mastermind admins:mastermind");
 		xTeam.tm.addTeam(team2);

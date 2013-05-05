@@ -45,7 +45,7 @@ public class RenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("one", xTeam.tm.getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -59,7 +59,7 @@ public class RenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("one", xTeam.tm.getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -73,7 +73,7 @@ public class RenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamNameTooLongException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("one", xTeam.tm.getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -86,7 +86,7 @@ public class RenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("one", xTeam.tm.getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -99,7 +99,7 @@ public class RenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("one", xTeam.tm.getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

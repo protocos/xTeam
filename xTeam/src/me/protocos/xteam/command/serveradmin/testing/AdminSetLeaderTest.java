@@ -29,7 +29,7 @@ public class AdminSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("protocos is now the team leader for one", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("protocos is now the team leader for ONE", fakePlayerSender.getLastMessage());
 		Assert.assertEquals("protocos", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertTrue(fakeExecuteResponse);
 	}

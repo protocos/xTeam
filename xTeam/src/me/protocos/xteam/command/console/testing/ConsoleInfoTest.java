@@ -30,7 +30,7 @@ public class ConsoleInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("Team Name - one" +
+		Assert.assertEquals("Team Name - ONE" +
 				"Team Tag - TeamAwesome" +
 				"Team Leader - kmlanglois" +
 				"Team Joining - Closed" +

@@ -29,7 +29,7 @@ public class InfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("Team Name - one\n" +
+		Assert.assertEquals("Team Name - ONE\n" +
 				"Team Tag - TeamAwesome\n" +
 				"Team Leader - kmlanglois\n" +
 				"Team Joining - Closed\n" +

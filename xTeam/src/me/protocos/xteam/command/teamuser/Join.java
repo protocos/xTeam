@@ -4,6 +4,7 @@ import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
@@ -29,8 +30,7 @@ public class Join extends BaseUserCommand
 	{
 		Team foundTeam = xTeam.tm.getTeam(desiredTeam);
 		foundTeam.addPlayer(teamPlayer.getName());
-		Data.invites.remove(teamPlayer.getName());
-		//		Data.Teams.put(teamPlayer.getName(), foundTeam);
+		InviteHandler.removeInvite(teamPlayer.getName());
 		for (String teammate : foundTeam.getPlayers())
 		{
 			TeamPlayer mate = new TeamPlayer(teammate);
@@ -71,9 +71,11 @@ public class Join extends BaseUserCommand
 		{
 			throw new TeamDoesNotExistException();
 		}
-		if (!foundTeam.isOpenJoining() && (Data.invites.get(teamPlayer.getName()) == null || !Data.invites.get(teamPlayer.getName()).equals(foundTeam)))
+		//if player has not been invited to join a team OR player has been invited to another team
+		if (!InviteHandler.hasInvite(teamPlayer.getName()) || !InviteHandler.getInviteTeam(teamPlayer.getName()).equals(foundTeam))
 		{
-			throw new TeamPlayerHasNoInviteException();
+			if (!foundTeam.isOpenJoining())
+				throw new TeamPlayerHasNoInviteException();
 		}
 		if (foundTeam.getPlayers().size() >= Data.MAX_PLAYERS && Data.MAX_PLAYERS > 0)
 		{

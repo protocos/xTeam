@@ -49,7 +49,7 @@ public class CommandDelegate implements CommandExecutor
 		//			if (locationCmd)
 		//				return true;
 		//		}
-		String originalCommand = StringUtil.concatenate(args).toLowerCase();
+		String originalCommand = StringUtil.concatenate(args);
 		if (sender instanceof ConsoleCommandSender)
 		{
 			onConsoleCommand((ConsoleCommandSender) sender, commandID, originalCommand);
@@ -69,31 +69,31 @@ public class CommandDelegate implements CommandExecutor
 		// ================     CONSOLE     ================
 		// \\\\\\\\\\\\\\\\\\             //////////////////
 		// \\\\\\\\\\\\\\\\\\\\\|||||||/////////////////////
-		if (originalCommand.matches(manager.getPattern("console_help")))
+		if (originalCommand.toLowerCase().matches(manager.getPattern("console_help")))
 			command = new ConsoleHelp(sender, originalCommand, commandID);
-		else if (originalCommand.matches(manager.getPattern("console_delete")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_delete")))
 			command = new ConsoleDelete(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("console_demote")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_demote")))
 			command = new ConsoleDemote(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("console_info")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_info")))
 			command = new ConsoleInfo(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("console_list")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_list")))
 			command = new ConsoleList(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("console_promote")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_promote")))
 			command = new ConsolePromote(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("console_reload")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_reload")))
 			command = new ConsoleReload(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("console_rename")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_rename")))
 			command = new ConsoleRename(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("console_tag")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_tag")))
 			command = new ConsoleTag(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("console_open")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_open")))
 			command = new ConsoleOpen(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("console_set")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_set")))
 			command = new ConsoleSet(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("console_setleader")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_setleader")))
 			command = new ConsoleSetLeader(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("console_teleallhq")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_teleallhq")))
 			command = new ConsoleTeleAllHQ(sender, originalCommand);
 		else
 		{
@@ -115,88 +115,88 @@ public class CommandDelegate implements CommandExecutor
 		// ================     ADMIN     ================
 		// \\\\\\\\\\\\\\\\\\           //////////////////
 		// \\\\\\\\\\\\\\\\\\\\\|||||/////////////////////
-		if (originalCommand.matches(manager.getPattern("serveradmin_admin")))
+		if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_admin")))
 			command = new AdminHelp(sender, originalCommand, commandID);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_chatspy")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_chatspy")))
 			command = new AdminChatSpy(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_delete")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_delete")))
 			command = new AdminDelete(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_demote")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_demote")))
 			command = new AdminDemote(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_hq")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_hq")))
 			command = new AdminHeadquarters(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_promote")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_promote")))
 			command = new AdminPromote(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_reload")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_reload")))
 			command = new AdminReload(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_remove")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_remove")))
 			command = new AdminRemove(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_rename")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_rename")))
 			command = new AdminRename(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_tag")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_tag")))
 			command = new AdminTag(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_open")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_open")))
 			command = new AdminOpen(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_set")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_set")))
 			command = new AdminSet(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_sethq")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_sethq")))
 			command = new AdminSetHeadquarters(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_setleader")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_setleader")))
 			command = new AdminSetLeader(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_teleallhq")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_teleallhq")))
 			command = new AdminTeleAllHQ(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_tpall")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_tpall")))
 			command = new AdminTpAll(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("serveradmin_update")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_update")))
 			command = new AdminUpdatePlayers(sender, originalCommand);
 		// /////////////////////||||||\\\\\\\\\\\\\\\\\\\\\
 		// //////////////////            \\\\\\\\\\\\\\\\\\
 		// ================     PLAYER     ================
 		// \\\\\\\\\\\\\\\\\\            //////////////////
 		// \\\\\\\\\\\\\\\\\\\\\||||||/////////////////////
-		else if (originalCommand.matches(manager.getPattern("admin_invite")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("admin_invite")))
 			command = new Invite(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("admin_promote")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("admin_promote")))
 			command = new Promote(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("admin_sethq")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("admin_sethq")))
 			command = new SetHeadquarters(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("leader_demote")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_demote")))
 			command = new Demote(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("leader_open")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_open")))
 			command = new Open(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("leader_remove")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_remove")))
 			command = new Remove(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("leader_rename")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_rename")))
 			command = new Rename(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("leader_setleader")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_setleader")))
 			command = new SetLeader(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("leader_tag")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_tag")))
 			command = new Tag(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("user_accept")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_accept")))
 			command = new Accept(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("user_chat")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_chat")))
 			command = new Chat(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("user_create")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_create")))
 			command = new Create(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("user_hq")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_hq")))
 			command = new Headquarters(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("user_help")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_help")))
 			command = new Help(sender, originalCommand, commandID);
-		else if (originalCommand.matches(manager.getPattern("user_info")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_info")))
 			command = new Info(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("user_join")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_join")))
 			command = new Join(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("user_leave")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_leave")))
 			command = new Leave(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("user_list")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_list")))
 			command = new List(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("user_mainhelp")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_mainhelp")))
 			command = new MainHelp(sender, originalCommand, commandID);
-		else if (originalCommand.matches(manager.getPattern("user_message")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_message")))
 			command = new Message(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("user_return")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_return")))
 			command = new Return(sender, originalCommand);
-		else if (originalCommand.matches(manager.getPattern("user_tele")))
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_tele")))
 			command = new Teleport(sender, originalCommand);
 		else
 		{
