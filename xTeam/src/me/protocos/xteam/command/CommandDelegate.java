@@ -71,8 +71,8 @@ public class CommandDelegate implements CommandExecutor
 		// \\\\\\\\\\\\\\\\\\\\\|||||||/////////////////////
 		if (originalCommand.toLowerCase().matches(manager.getPattern("console_help")))
 			command = new ConsoleHelp(sender, originalCommand, commandID);
-		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_delete")))
-			command = new ConsoleDelete(sender, originalCommand);
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_disband")))
+			command = new ConsoleDisband(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_demote")))
 			command = new ConsoleDemote(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_info")))
@@ -119,8 +119,8 @@ public class CommandDelegate implements CommandExecutor
 			command = new AdminHelp(sender, originalCommand, commandID);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_chatspy")))
 			command = new AdminChatSpy(sender, originalCommand);
-		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_delete")))
-			command = new AdminDelete(sender, originalCommand);
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_disband")))
+			command = new AdminDisband(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_demote")))
 			command = new AdminDemote(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("serveradmin_hq")))

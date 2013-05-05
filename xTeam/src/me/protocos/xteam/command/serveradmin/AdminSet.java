@@ -43,7 +43,7 @@ public class AdminSet extends BaseServerAdminCommand
 			{
 				if (playerTeam.isEmpty())
 				{
-					originalSender.sendMessage(playerTeam.getName() + " has been deleted");
+					originalSender.sendMessage(playerTeam.getName() + " has been disbanded");
 					xTeam.tm.removeTeam(playerTeam.getName());
 				}
 				return;
@@ -75,7 +75,7 @@ public class AdminSet extends BaseServerAdminCommand
 		}
 		if (playerTeam != null && playerTeam.isEmpty())
 		{
-			originalSender.sendMessage(playerTeam.getName() + " has been deleted");
+			originalSender.sendMessage(playerTeam.getName() + " has been disbanded");
 			xTeam.tm.removeTeam(playerTeam.getName());
 		}
 	}

@@ -37,7 +37,7 @@ public class ConsoleHelp extends BaseConsoleCommand
 		pages.addLine(BaseCommand.baseCommand + " tag [Team] [Tag] - set team tag");
 		pages.addLine(BaseCommand.baseCommand + " open [Team] - open team to public joining");
 		pages.addLine(BaseCommand.baseCommand + " teleallhq - teleports everyone to their Headquarters");
-		pages.addLine(BaseCommand.baseCommand + " delete - deletes a team");
+		pages.addLine(BaseCommand.baseCommand + " disband - disband a team");
 		pages.addLine(BaseCommand.baseCommand + " reload - reloads the configuration file");
 		originalSender.sendMessage(pages.getTitle());
 		for (int index = 0; index < pages.size(); index++)

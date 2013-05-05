@@ -38,7 +38,7 @@ public class xTeam extends JavaPlugin
 
 	public static void registerConsoleCommands(ICommandManager manager)
 	{
-		manager.registerCommand("console_delete", new ConsoleDelete());
+		manager.registerCommand("console_disband", new ConsoleDisband());
 		manager.registerCommand("console_demote", new ConsoleDemote());
 		manager.registerCommand("console_help", new ConsoleHelp());
 		manager.registerCommand("console_info", new ConsoleInfo());
@@ -55,7 +55,7 @@ public class xTeam extends JavaPlugin
 	public static void registerServerAdminCommands(ICommandManager manager)
 	{
 		manager.registerCommand("serveradmin_chatspy", new AdminChatSpy());
-		manager.registerCommand("serveradmin_delete", new AdminDelete());
+		manager.registerCommand("serveradmin_disband", new AdminDisband());
 		manager.registerCommand("serveradmin_demote", new AdminDemote());
 		manager.registerCommand("serveradmin_admin", new AdminHelp());
 		manager.registerCommand("serveradmin_hq", new AdminHeadquarters());

@@ -82,8 +82,8 @@ public class AdminHelp extends BaseServerAdminCommand
 			pages.addLine(ChatColor.RED + xTeam.cm.getUsage(command) + " - <admin> set team tag");
 		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_open")))
 			pages.addLine(ChatColor.RED + xTeam.cm.getUsage(command) + " - <admin> open team to public joining");
-		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_delete")))
-			pages.addLine(ChatColor.RED + xTeam.cm.getUsage(command) + " - <admin> delete a team");
+		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_disband")))
+			pages.addLine(ChatColor.RED + xTeam.cm.getUsage(command) + " - <admin> disband a team");
 		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_reload")))
 			pages.addLine(ChatColor.RED + xTeam.cm.getUsage(command) + " - <admin> reload the config files");
 		if (pages.getTotalPages() == 0)

@@ -39,7 +39,7 @@ public class ConsoleHelpTest
 				"team tag [Team] [Tag] - set team tag\n" +
 				"team open [Team] - open team to public joining\n" +
 				"team teleallhq - teleports everyone to their Headquarters\n" +
-				"team delete - deletes a team\n" +
+				"team disband - disband a team\n" +
 				"team reload - reloads the configuration file\n", fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}

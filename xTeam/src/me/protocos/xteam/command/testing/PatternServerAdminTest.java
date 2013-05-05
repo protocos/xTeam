@@ -40,18 +40,18 @@ public class PatternServerAdminTest
 	@Test
 	public void ShouldBeServerAdminDelete()
 	{
-		baseCmd = "delete";
-		command = "delete TEAM";
+		baseCmd = "disband";
+		command = "disband TEAM";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "delete TEAM ";
+		command = "disband TEAM ";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "del TEAM";
+		command = "dis TEAM";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "del TEAM ";
+		command = "dis TEAM ";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
 		command = "d TEAM";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "del TEAM dfsaiphjkl";
+		command = "dis TEAM dfsaiphjkl";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
 	}
 	@Test

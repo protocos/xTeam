@@ -4,7 +4,7 @@ import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseServerAdminCommand;
-import me.protocos.xteam.command.serveradmin.AdminDelete;
+import me.protocos.xteam.command.serveradmin.AdminDisband;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
@@ -25,11 +25,11 @@ public class AdminDeleteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminDelete(fakePlayerSender, "delete one");
+		BaseServerAdminCommand fakeCommand = new AdminDisband(fakePlayerSender, "disband one");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("You have deleted team: one", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You have disbanded team: one", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.contains("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -38,7 +38,7 @@ public class AdminDeleteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminDelete(fakePlayerSender, "delete team");
+		BaseServerAdminCommand fakeCommand = new AdminDisband(fakePlayerSender, "disband team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

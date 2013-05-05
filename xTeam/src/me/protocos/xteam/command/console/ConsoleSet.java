@@ -45,7 +45,7 @@ public class ConsoleSet extends BaseConsoleCommand
 			{
 				if (playerTeam.isEmpty())
 				{
-					originalSender.sendMessage(playerTeam.getName() + " has been deleted");
+					originalSender.sendMessage(playerTeam.getName() + " has been disbanded");
 					xTeam.tm.removeTeam(playerTeam.getName());
 				}
 				return;
@@ -77,7 +77,7 @@ public class ConsoleSet extends BaseConsoleCommand
 		}
 		if (playerTeam != null && playerTeam.isEmpty())
 		{
-			originalSender.sendMessage(playerTeam.getName() + " has been deleted");
+			originalSender.sendMessage(playerTeam.getName() + " has been disbanded");
 			xTeam.tm.removeTeam(playerTeam.getName());
 		}
 	}

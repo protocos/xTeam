@@ -167,7 +167,7 @@ public class Data
 				"### xteam.leader.core.tag - (Allows players to set team tag)\n" +
 				"### xteam.leader.core.setleader - (Allows players to set leader of team)\n" +
 				"### xteam.serveradmin.core.chatspy - (Allows players to spy on team chat)\n" +
-				"### xteam.serveradmin.core.delete - (Allows players to delete a team)\n" +
+				"### xteam.serveradmin.core.disband - (Allows players to disband a team)\n" +
 				"### xteam.serveradmin.core.demote - (Allows players to demote a teamPlayer on a team)\n" +
 				"### xteam.serveradmin.core.hq - (Allows players to teleport to any headquarters)\n" +
 				"### xteam.serveradmin.core.promote - (Allows players to promote a teamPlayer on a team)\n" +

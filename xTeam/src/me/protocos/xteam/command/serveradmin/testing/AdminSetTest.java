@@ -48,7 +48,7 @@ public class AdminSetTest
 		//ASSERT
 		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
 				"kmlanglois has been added to two\n" +
-				"ONE has been deleted\n", fakePlayerSender.getAllMessages());
+				"ONE has been disbanded\n", fakePlayerSender.getAllMessages());
 		Assert.assertFalse(xTeam.tm.contains("one"));
 		Assert.assertTrue(xTeam.tm.getTeam("two").contains("kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);

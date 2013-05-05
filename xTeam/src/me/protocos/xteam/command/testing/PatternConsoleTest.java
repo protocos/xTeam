@@ -23,18 +23,18 @@ public class PatternConsoleTest
 	@Test
 	public void ShouldBeConsoleDelete()
 	{
-		baseCmd = "delete";
-		command = "delete TEAM";
+		baseCmd = "disband";
+		command = "disband TEAM";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "delete TEAM ";
+		command = "disband TEAM ";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "del TEAM ";
+		command = "dis TEAM ";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "delete";
+		command = "disband";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "delete ";
+		command = "disband ";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "de TEAM";
+		command = "d TEAM";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
 	}
 	@Test
