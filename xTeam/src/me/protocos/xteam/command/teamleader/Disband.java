@@ -6,6 +6,7 @@ import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Disband extends BaseUserCommand
@@ -21,13 +22,13 @@ public class Disband extends BaseUserCommand
 	@Override
 	protected void act()
 	{
-		for (String p : team.getOnlinePlayers())
+		for (String p : teamPlayer.getOnlineTeammates())
 		{
 			TeamPlayer playerDisband = new TeamPlayer(p);
-			playerDisband.sendMessage("Team has been disbanded by the leader");
+			playerDisband.sendMessage("Team has been " + ChatColor.RED + "disbanded" + ChatColor.WHITE + " by the leader");
 		}
 		xTeam.tm.removeTeam(team.getName());
-		originalSender.sendMessage("You disbanded your team");
+		originalSender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.WHITE + " your team");
 	}
 
 	@Override
@@ -62,7 +63,7 @@ public class Disband extends BaseUserCommand
 	@Override
 	public String getPattern()
 	{
-		return "d" + patternOneOrMore("isband") + OPTIONAL_WHITE_SPACE;
+		return "disband" + OPTIONAL_WHITE_SPACE;
 	}
 
 	@Override

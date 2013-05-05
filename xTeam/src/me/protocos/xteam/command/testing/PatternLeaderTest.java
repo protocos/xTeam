@@ -36,6 +36,19 @@ public class PatternLeaderTest
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
 	}
 	@Test
+	public void ShouldBeTeamLeaderDisband()
+	{
+		baseCmd = "disband";
+		command = "disband";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "disband  ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "d ";
+		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "disband  fdsa ";
+		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+	}
+	@Test
 	public void ShouldBeTeamLeaderOpen()
 	{
 		baseCmd = "open";
