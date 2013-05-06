@@ -25,20 +25,20 @@ public class AcceptTest
 		//MOCK data
 		mockData();
 		Data.MAX_PLAYERS = 3;
-		InviteHandler.addInvite("lonely", xTeam.tm.getTeam("one"));
+		InviteHandler.addInvite("Lonely", xTeam.tm.getTeam("one"));
 	}
 	@Test
 	public void ShouldBeTeamUserAcceptExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Accept(fakePlayerSender, "accept");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("You joined ONE", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(InviteHandler.hasInvite("lonely"));
-		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("lonely"));
+		Assert.assertFalse(InviteHandler.hasInvite("Lonely"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -46,29 +46,29 @@ public class AcceptTest
 	{
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").addPlayer("stranger");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Accept(fakePlayerSender, "accept");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(InviteHandler.hasInvite("lonely"));
-		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("lonely"));
+		Assert.assertTrue(InviteHandler.hasInvite("Lonely"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeTeamUserAcceptExecuteNoInvite()
 	{
 		//ASSEMBLE
-		InviteHandler.removeInvite("lonely");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		InviteHandler.removeInvite("Lonely");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Accept(fakePlayerSender, "accept");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoInviteException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(InviteHandler.hasInvite("lonely"));
-		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("lonely"));
+		Assert.assertFalse(InviteHandler.hasInvite("Lonely"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -81,8 +81,8 @@ public class AcceptTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(InviteHandler.hasInvite("lonely"));
-		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("lonely"));
+		Assert.assertTrue(InviteHandler.hasInvite("Lonely"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

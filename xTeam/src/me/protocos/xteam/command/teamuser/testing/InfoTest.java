@@ -24,18 +24,18 @@ public class InfoTest
 	public void ShouldBeTeamUserInfoExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE\n" +
 				"Team Tag - TeamAwesome\n" +
-				"Team Leader - Kmlanglois\n" +
+				"Team Leader - kmlanglois\n" +
 				"Team Joining - Closed\n" +
 				"Team Headquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +
-				"    Kmlanglois Health: 100% Location: 0 64 0 in \"world\"\n" +
+				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"\n" +
 				"    protocos Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -43,7 +43,7 @@ public class InfoTest
 	public void ShouldBeTeamUserInfoExecute2()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -60,7 +60,7 @@ public class InfoTest
 	public void ShouldBeTeamUserInfoExecute3()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -77,7 +77,7 @@ public class InfoTest
 	public void ShouldBeTeamUserInfoExecute4()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info red");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -94,7 +94,7 @@ public class InfoTest
 	public void ShouldBeTeamUserInfoExecute5()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info strandedhelix");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -111,7 +111,7 @@ public class InfoTest
 	public void ShouldBeTeamUserInfoExecuteNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -123,7 +123,7 @@ public class InfoTest
 	public void ShouldBeTeamUserInfoExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info three");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

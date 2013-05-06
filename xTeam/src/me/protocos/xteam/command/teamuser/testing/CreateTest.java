@@ -25,16 +25,16 @@ public class CreateTest
 	public void ShouldBeTeamUserCreateExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create newteam");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("You created newteam", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.contains("newteam"));
-		Assert.assertTrue(xTeam.tm.getTeam("newteam").getPlayers().contains("lonely"));
-		Assert.assertTrue(xTeam.tm.getTeam("newteam").getAdmins().contains("lonely"));
-		Assert.assertTrue(xTeam.tm.getTeam("newteam").getLeader().equals("lonely"));
+		Assert.assertTrue(xTeam.tm.getTeam("newteam").getPlayers().contains("Lonely"));
+		Assert.assertTrue(xTeam.tm.getTeam("newteam").getAdmins().contains("Lonely"));
+		Assert.assertTrue(xTeam.tm.getTeam("newteam").getLeader().equals("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -42,7 +42,7 @@ public class CreateTest
 	{
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create NEW");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -57,7 +57,7 @@ public class CreateTest
 	{
 		//ASSEMBLE
 		Data.TEAM_TAG_LENGTH = 10;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create newteamiswaytoolong");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -71,7 +71,7 @@ public class CreateTest
 	{
 		//ASSEMBLE
 		Data.DEFAULT_TEAM_ONLY = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create newteam");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -97,14 +97,14 @@ public class CreateTest
 	public void ShouldBeTeamUserCreateExecuteTeamAlreadyExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create one");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.contains("one"));
-		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("lonely"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -112,8 +112,8 @@ public class CreateTest
 	{
 		//ASSEMBLE
 		Data.CREATE_INTERVAL = 1;
-		Data.lastCreated.put("lonely", System.currentTimeMillis());
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		Data.lastCreated.put("Lonely", System.currentTimeMillis());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create newteam");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -127,7 +127,7 @@ public class CreateTest
 	{
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create ©§·");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

@@ -25,7 +25,7 @@ public class DisbandTest
 	public void ShouldBeDisbandExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Disband(fakePlayerSender, "disband");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -38,7 +38,7 @@ public class DisbandTest
 	public void ShouldBeDisbandExecuteNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Disband(fakePlayerSender, "disband");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

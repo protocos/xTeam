@@ -43,19 +43,19 @@ public class ConsoleSetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("Kmlanglois", xTeam.tm.getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeConsoleSetExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, "setleader one lonely");
+		BaseConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, "setleader one Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("Kmlanglois", xTeam.tm.getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -67,7 +67,7 @@ public class ConsoleSetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("Kmlanglois", xTeam.tm.getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -79,19 +79,19 @@ public class ConsoleSetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("Kmlanglois", xTeam.tm.getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeConsoleSetExecuteTeamNotExist()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, "setleader three lonely");
+		BaseConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, "setleader three Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("Kmlanglois", xTeam.tm.getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

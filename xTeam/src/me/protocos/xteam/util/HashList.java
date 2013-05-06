@@ -102,6 +102,17 @@ public class HashList<K, V> extends HashMap<K, V>
 	{
 		return this.keepSorted;
 	}
+	//	public boolean containsKeyIgnoreCase(K key)
+	//	{
+	//		for (K k : this.keySet())
+	//		{
+	//			if (k instanceof String && key instanceof String && ((String) k).equalsIgnoreCase((String) key))
+	//				return true;
+	//			else if (k.equals(key))
+	//				return true;
+	//		}
+	//		return false;
+	//	}
 	public boolean updateKey(K oldKey, K newKey)
 	{
 		if (!containsKey(oldKey))

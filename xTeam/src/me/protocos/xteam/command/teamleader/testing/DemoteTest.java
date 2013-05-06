@@ -28,7 +28,7 @@ public class DemoteTest
 	public void ShouldBeTeamAdminDemoteExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Demote(fakePlayerSender, "demote protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -41,8 +41,8 @@ public class DemoteTest
 	public void ShouldBeTeamAdminDemoteExecuteLeaderDemote()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Demote(fakePlayerSender, "demote Kmlanglois");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		BaseUserCommand fakeCommand = new Demote(fakePlayerSender, "demote kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -54,7 +54,7 @@ public class DemoteTest
 	public void ShouldBeTeamAdminDemoteExecuteNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Demote(fakePlayerSender, "demote protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -80,7 +80,7 @@ public class DemoteTest
 	public void ShouldBeTeamAdminDemoteExecuteNotTeammate()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Demote(fakePlayerSender, "demote mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

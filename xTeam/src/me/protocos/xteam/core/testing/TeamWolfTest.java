@@ -128,7 +128,7 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		Location location = new FakeLocation(new FakeWorld(), 0, 64, 0);
-		TeamWolf wolf = new TeamWolf(new FakeWolf("Kmlanglois", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		TeamWolf wolf = new TeamWolf(new FakeWolf("kmlanglois", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		//ACT
 		boolean teleport = wolf.teleport(location);
 		//ASSERT
@@ -139,7 +139,7 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		TeamWolf wolf1 = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
-		TeamWolf wolf2 = new TeamWolf(new FakeWolf("Kmlanglois", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		TeamWolf wolf2 = new TeamWolf(new FakeWolf("kmlanglois", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		//ACT
 		boolean teleport = wolf1.teleport(wolf2);
 		//ASSERT
@@ -163,7 +163,7 @@ public class TeamWolfTest
 		//ASSEMBLE
 		Location location = new FakeLocation(new FakeWorld(), 0, 64, 0);
 		TeamWolf wolf1 = new TeamWolf(new FakeWolf("protocos", 20, location));
-		TeamWolf wolf2 = new TeamWolf(new FakeWolf("Kmlanglois", 20, location));
+		TeamWolf wolf2 = new TeamWolf(new FakeWolf("kmlanglois", 20, location));
 		//ACT
 		boolean equals = wolf1.equals(wolf2);
 		//ASSERT

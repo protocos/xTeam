@@ -245,6 +245,23 @@ public class HashListTest
 		Assert.assertEquals("{ZERO=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
 		Assert.assertTrue(updated);
 	}
+	//	@Test
+	//	public void ShouldBeContainsKeyIgnoreCase()
+	//	{
+	//		//ASSEMBLE
+	//		list.put("ooo", "zero");
+	//		list.put("1", "one");
+	//		list.put("2", "two");
+	//		list.put("3", "three");
+	//		list.put("4", "four");
+	//		list.put("5", "five");
+	//		list.put("6", "six");
+	//		//ACT
+	//		boolean contains = list.containsKeyIgnoreCase("OoO");
+	//		//ASSERT
+	//		Assert.assertEquals("{ooo=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
+	//		Assert.assertTrue(contains);
+	//	}
 	@Test
 	public void ShouldBeUpdateKeyWithoutKey()
 	{

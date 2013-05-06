@@ -26,7 +26,7 @@ public class PromoteTest
 	public void ShouldBeTeamAdminPromoteExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Promote(fakePlayerSender, "promote protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -40,19 +40,19 @@ public class PromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new Promote(fakePlayerSender, "promote Kmlanglois");
+		BaseUserCommand fakeCommand = new Promote(fakePlayerSender, "promote kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotAdminException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("Kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeTeamAdminPromoteExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Promote(fakePlayerSender, "promote protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -64,13 +64,13 @@ public class PromoteTest
 	public void ShouldBeTeamAdminPromoteExecutePlayerNotTeammate()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Promote(fakePlayerSender, "promote lonely");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		BaseUserCommand fakeCommand = new Promote(fakePlayerSender, "promote Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotTeammateException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.tm.getTeam("one").getAdmins().contains("lonely"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").getAdmins().contains("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

@@ -70,7 +70,7 @@ public class ReturnTest
 	public void ShouldBeTeamUserReturnExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
 		Data.returnLocations.put(fakePlayerSender, returnLocation);
 		BaseUserCommand fakeCommand = new Return(fakePlayerSender, "return");

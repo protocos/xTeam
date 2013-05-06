@@ -37,13 +37,13 @@ public class ChatTest
 	public void ShouldBeTeamUserChatExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Chat(fakePlayerSender, "chat");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(Data.chatStatus.contains("lonely"));
+		Assert.assertFalse(Data.chatStatus.contains("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

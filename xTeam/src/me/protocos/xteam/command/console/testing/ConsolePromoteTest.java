@@ -54,12 +54,12 @@ public class ConsolePromoteTest
 	public void ShouldBeConsolePromoteExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsolePromote(fakeConsoleSender, "promote one lonely");
+		BaseConsoleCommand fakeCommand = new ConsolePromote(fakeConsoleSender, "promote one Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertFalse(xTeam.tm.getTeam("one").getAdmins().contains("lonely"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").getAdmins().contains("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test

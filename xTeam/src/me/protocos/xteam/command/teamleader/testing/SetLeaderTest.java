@@ -25,7 +25,7 @@ public class SetLeaderTest
 	public void ShouldBeTeamAdminSetLeaderExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new SetLeader(fakePlayerSender, "setleader protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -39,7 +39,7 @@ public class SetLeaderTest
 	public void ShouldBeTeamAdminSetLeaderExecuteNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new SetLeader(fakePlayerSender, "setleader protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -57,7 +57,7 @@ public class SetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("Kmlanglois", xTeam.tm.getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -70,7 +70,7 @@ public class SetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("Kmlanglois", xTeam.tm.getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

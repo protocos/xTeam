@@ -22,7 +22,7 @@ public class ListTest
 	public void ShouldBeTeamUserListExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new List(fakePlayerSender, "list");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

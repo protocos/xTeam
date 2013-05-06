@@ -25,7 +25,7 @@ public class RenameTest
 	public void ShouldBeTeamAdminRenameExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Rename(fakePlayerSender, "rename name");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -39,7 +39,7 @@ public class RenameTest
 	{
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Rename(fakePlayerSender, "rename two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -53,7 +53,7 @@ public class RenameTest
 	{
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Rename(fakePlayerSender, "rename ÃºÃ");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -67,7 +67,7 @@ public class RenameTest
 	{
 		//ASSEMBLE
 		Data.TEAM_TAG_LENGTH = 10;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Rename(fakePlayerSender, "rename nameiswaytoolong");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -80,7 +80,7 @@ public class RenameTest
 	public void ShouldBeTeamAdminRenameExecuteNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Rename(fakePlayerSender, "rename name");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

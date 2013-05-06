@@ -27,12 +27,12 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecute()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set lonely two");
+		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Lonely two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("lonely has been added to two", fakeConsoleSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("lonely"));
+		Assert.assertEquals("Lonely has been added to two", fakeConsoleSender.getLastMessage());
+		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -40,30 +40,30 @@ public class ConsoleSetTest
 	{
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").removePlayer("protocos");
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Kmlanglois two");
+		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set kmlanglois two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("Kmlanglois has been removed from ONE\n" +
+		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
 				"ONE has been disbanded\n" +
-				"Kmlanglois has been added to two\n", fakeConsoleSender.getAllMessages());
+				"kmlanglois has been added to two\n", fakeConsoleSender.getAllMessages());
 		Assert.assertFalse(xTeam.tm.contains("one"));
-		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("Kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeConsoleSetExecuteCreateTeam()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set lonely three");
+		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Lonely three");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("three has been created\n" +
-				"lonely has been added to three\n",
+				"Lonely has been added to three\n",
 				fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(xTeam.tm.contains("three"));
-		Assert.assertTrue(xTeam.tm.getTeam("three").containsPlayer("lonely"));
+		Assert.assertTrue(xTeam.tm.getTeam("three").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -84,7 +84,7 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Kmlanglois two");
+		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set kmlanglois two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

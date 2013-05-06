@@ -27,7 +27,7 @@ public class RemoveTest
 	public void ShouldBeTeamAdminRemoveExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -40,20 +40,20 @@ public class RemoveTest
 	public void ShouldBeTeamAdminRemoveExecuteLeaderLeave()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove Kmlanglois");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("Kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeTeamAdminRemoveExecuteNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -78,7 +78,7 @@ public class RemoveTest
 	public void ShouldBeTeamAdminRemoveExecuteNotTeammate()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

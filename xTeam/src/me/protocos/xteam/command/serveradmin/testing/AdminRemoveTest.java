@@ -26,7 +26,7 @@ public class AdminRemoveTest
 	public void ShouldBeServerAdminRemoveExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -39,20 +39,20 @@ public class AdminRemoveTest
 	public void ShouldBeServerAdminRemoveExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one lonely");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		BaseServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("lonely"));
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeServerAdminRemoveExecutePlayerHeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one newbie");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -65,13 +65,13 @@ public class AdminRemoveTest
 	public void ShouldBeServerAdminRemoveExecutePlayerLeader()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one Kmlanglois");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		BaseServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("Kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

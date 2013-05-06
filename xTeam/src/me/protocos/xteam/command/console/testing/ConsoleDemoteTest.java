@@ -51,7 +51,7 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecuteDemoteLeader()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote one Kmlanglois");
+		BaseConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote one kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -75,7 +75,7 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote one lonely");
+		BaseConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote one Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

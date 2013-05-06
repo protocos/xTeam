@@ -29,7 +29,7 @@ public class HelpTest
 	public void ShouldBeTeamUserHelpPageExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Help(fakePlayerSender, "help", "/team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -50,7 +50,7 @@ public class HelpTest
 	public void ShouldBeTeamUserHelpPageExecute2()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Help(fakePlayerSender, "help 2", "/team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -71,7 +71,7 @@ public class HelpTest
 	public void ShouldBeTeamUserHelpPageExecute3()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Help(fakePlayerSender, "help 3", "/team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -92,7 +92,7 @@ public class HelpTest
 	public void ShouldBeTeamUserHelpPageExecuteInvalidPage()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Help(fakePlayerSender, "help 4", "/team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

@@ -35,7 +35,7 @@ public class MessageTest
 	public void ShouldBeTeamUserMsgExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseUserCommand fakeCommand = new Message(fakePlayerSender, "msg hello team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

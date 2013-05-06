@@ -87,7 +87,7 @@ public class StaticTestFunctions
 
 		//MOCK team
 		xTeam.tm = new TeamManager();
-		Team team1 = Team.generateTeamFromProperties("name:ONE tag:TeamAwesome world:world open:false leader:Kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:Kmlanglois,protocos admins:Kmlanglois");
+		Team team1 = Team.generateTeamFromProperties("name:ONE tag:TeamAwesome world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois");
 		xTeam.tm.addTeam(team1);
 		Team team2 = Team.generateTeamFromProperties("name:two world:world open:false leader:mastermind timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 players:mastermind admins:mastermind");
 		xTeam.tm.addTeam(team2);
@@ -108,11 +108,11 @@ public class StaticTestFunctions
 		FakePlayer protocosOnline = new FakePlayer("protocos", true, true, 20, mockLocation);
 		when(Data.BUKKIT.getPlayer("protocos")).thenReturn(protocosOnline);
 
-		//MOCK Kmlanglois
-		FakeOfflinePlayer KmlangloisOffline = new FakeOfflinePlayer("Kmlanglois", true, true, true);
-		when(Data.BUKKIT.getOfflinePlayer("Kmlanglois")).thenReturn(KmlangloisOffline);
-		FakePlayer KmlangloisOnline = new FakePlayer("Kmlanglois", true, true, 20, mockLocation);
-		when(Data.BUKKIT.getPlayer("Kmlanglois")).thenReturn(KmlangloisOnline);
+		//MOCK kmlanglois
+		FakeOfflinePlayer kmlangloisOffline = new FakeOfflinePlayer("kmlanglois", true, true, true);
+		when(Data.BUKKIT.getOfflinePlayer("kmlanglois")).thenReturn(kmlangloisOffline);
+		FakePlayer kmlangloisOnline = new FakePlayer("kmlanglois", true, true, 20, mockLocation);
+		when(Data.BUKKIT.getPlayer("kmlanglois")).thenReturn(kmlangloisOnline);
 
 		//MOCK mastermind
 		FakeOfflinePlayer mastermindOffline = new FakeOfflinePlayer("mastermind", true, true, true);
@@ -120,11 +120,11 @@ public class StaticTestFunctions
 		FakePlayer mastermindOnline = new FakePlayer("mastermind", true, true, 20, mockLocation);
 		when(Data.BUKKIT.getPlayer("mastermind")).thenReturn(mastermindOnline);
 
-		//MOCK lonely
-		FakeOfflinePlayer lonelyOffline = new FakeOfflinePlayer("lonely", true, true, true);
-		when(Data.BUKKIT.getOfflinePlayer("lonely")).thenReturn(lonelyOffline);
-		FakePlayer lonelyOnline = new FakePlayer("lonely", true, true, 20, mockLocation);
-		when(Data.BUKKIT.getPlayer("lonely")).thenReturn(lonelyOnline);
+		//MOCK Lonely
+		FakeOfflinePlayer LonelyOffline = new FakeOfflinePlayer("Lonely", true, true, true);
+		when(Data.BUKKIT.getOfflinePlayer("Lonely")).thenReturn(LonelyOffline);
+		FakePlayer LonelyOnline = new FakePlayer("Lonely", true, true, 20, mockLocation);
+		when(Data.BUKKIT.getPlayer("Lonely")).thenReturn(LonelyOnline);
 
 		//MOCK strandedhelix
 		FakeOfflinePlayer strandedhelixOffline = new FakeOfflinePlayer("strandedhelix", false, false, true);

@@ -29,7 +29,7 @@ public class HeadquartersTest
 	public void ShouldBeTeamUserHQ()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", before);
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -56,7 +56,7 @@ public class HeadquartersTest
 	public void ShouldBeTeamUserHQPlayerDying()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", before);
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		fakePlayerSender.setNoDamageTicks(1);
 		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
 		//ACT
@@ -70,7 +70,7 @@ public class HeadquartersTest
 	public void ShouldBeTeamUserHQPlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("lonely", before);
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", before);
 		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -84,8 +84,8 @@ public class HeadquartersTest
 	{
 		//ASSEMBLE
 		Data.LAST_ATTACKED_DELAY = 15;
-		Data.lastAttacked.put("Kmlanglois", System.currentTimeMillis());
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", before);
+		Data.lastAttacked.put("kmlanglois", System.currentTimeMillis());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -98,8 +98,8 @@ public class HeadquartersTest
 	public void ShouldBeTeamUserHQRecentRequest()
 	{
 		//ASSEMBLE
-		Data.taskIDs.put("Kmlanglois", null);
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", before);
+		Data.taskIDs.put("kmlanglois", null);
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -112,8 +112,8 @@ public class HeadquartersTest
 	public void ShouldBeTeamUserHQRecentTeleport()
 	{
 		//ASSEMBLE
-		Data.hasTeleported.put("Kmlanglois", System.currentTimeMillis());
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", before);
+		Data.hasTeleported.put("kmlanglois", System.currentTimeMillis());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
