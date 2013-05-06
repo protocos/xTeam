@@ -74,7 +74,7 @@ public class TeamWolf implements ITeamWolf
 		return true;
 	}
 	@Override
-	public ITeamPlayer getOwner()
+	public TeamPlayer getOwner()
 	{
 		return new TeamPlayer(wolf.getOwner().getName());
 	}
@@ -89,8 +89,7 @@ public class TeamWolf implements ITeamWolf
 		String wolfData = "";
 		return wolfData;
 	}
-	@Override
-	public boolean equals(ITeamWolf otherWolf)
+	public boolean equals(TeamWolf otherWolf)
 	{
 		return getOwner().equals(otherWolf.getOwner()) && getLocation().equals(otherWolf.getLocation());
 	}

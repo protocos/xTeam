@@ -40,15 +40,15 @@ public class ConsoleSetTest
 	{
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").removePlayer("protocos");
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set kmlanglois two");
+		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Kmlanglois two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
-				"kmlanglois has been added to two\n" +
-				"ONE has been disbanded\n", fakeConsoleSender.getAllMessages());
+		Assert.assertEquals("Kmlanglois has been removed from ONE\n" +
+				"ONE has been disbanded\n" +
+				"Kmlanglois has been added to two\n", fakeConsoleSender.getAllMessages());
 		Assert.assertFalse(xTeam.tm.contains("one"));
-		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("Kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -84,7 +84,7 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set kmlanglois two");
+		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Kmlanglois two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

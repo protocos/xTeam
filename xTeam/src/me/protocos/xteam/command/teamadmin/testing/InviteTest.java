@@ -26,7 +26,7 @@ public class InviteTest
 	public void ShouldBeTeamAdminInviteExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -69,7 +69,7 @@ public class InviteTest
 	{
 		//ASSEMBLE
 		InviteHandler.addInvite("lonely", xTeam.tm.getTeam("two"));
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -82,7 +82,7 @@ public class InviteTest
 	public void ShouldBeTeamAdminInviteExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite newbie");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -108,13 +108,13 @@ public class InviteTest
 	public void ShouldBeTeamAdminInviteExecuteSelfInvite()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite kmlanglois");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite Kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerInviteException("Player cannot invite self")).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(InviteHandler.hasInvite("kmlanglois"));
+		Assert.assertFalse(InviteHandler.hasInvite("Kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

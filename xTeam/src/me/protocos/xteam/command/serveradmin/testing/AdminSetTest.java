@@ -25,7 +25,7 @@ public class AdminSetTest
 	public void ShouldBeServerAdminSetExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set protocos two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -41,36 +41,36 @@ public class AdminSetTest
 	{
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").removePlayer("protocos");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set kmlanglois two");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Kmlanglois two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
-				"kmlanglois has been added to two\n" +
+		Assert.assertEquals("Kmlanglois has been removed from ONE\n" +
+				"Kmlanglois has been added to two\n" +
 				"ONE has been disbanded\n", fakePlayerSender.getAllMessages());
 		Assert.assertFalse(xTeam.tm.contains("one"));
-		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("Kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeServerAdminSetExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set kmlanglois two");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Kmlanglois two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("Kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeServerAdminSetExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set newbie one");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -82,7 +82,7 @@ public class AdminSetTest
 	public void ShouldBeServerAdminSetExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set protocos three");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

@@ -55,8 +55,8 @@ public class AdminHelpTest
 				"/team chatspy - <admin> spy on team chat\n" +
 				"/team rename [Team] [Name] - <admin> rename a team\n" +
 				"/team tag [Team] [Tag] - <admin> set team tag\n" +
-				"/team open [Team] - <admin> open team to public joining\n" +
 				"/team disband [Team] - <admin> disband a team\n" +
+				"/team open [Team] - <admin> open team to public joining\n" +
 				"/team reload - <admin> reload the config files\n" +
 				" \n" +
 				" \n" +

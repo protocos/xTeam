@@ -25,7 +25,7 @@ public class TagTest
 	public void ShouldBeTagExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Tag(fakePlayerSender, "tag tag");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -39,7 +39,7 @@ public class TagTest
 	{
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Tag(fakePlayerSender, "tag two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -53,7 +53,7 @@ public class TagTest
 	{
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Tag(fakePlayerSender, "tag ÃºÃ");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -67,7 +67,7 @@ public class TagTest
 	{
 		//ASSEMBLE
 		Data.TEAM_TAG_LENGTH = 10;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Tag(fakePlayerSender, "tag tagiswaytoolong");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

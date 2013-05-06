@@ -65,13 +65,13 @@ public class LeaveTest
 	public void ShouldBeTeamUserLeaveExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Leave(fakePlayerSender, "leave");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("Kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test

@@ -51,7 +51,7 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecuteDemoteLeader()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote one kmlanglois");
+		BaseConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote one Kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

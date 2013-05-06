@@ -43,7 +43,7 @@ public class AdminSetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
+		Assert.assertEquals("Kmlanglois", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -56,7 +56,7 @@ public class AdminSetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
+		Assert.assertEquals("Kmlanglois", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -69,7 +69,7 @@ public class AdminSetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
+		Assert.assertEquals("Kmlanglois", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -82,7 +82,7 @@ public class AdminSetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
+		Assert.assertEquals("Kmlanglois", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -95,7 +95,7 @@ public class AdminSetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
+		Assert.assertEquals("Kmlanglois", xTeam.tm.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

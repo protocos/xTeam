@@ -1,17 +1,12 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamInvalidCommandException;
-import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
-import me.protocos.xteam.core.exception.TeamPlayerNeverPlayedException;
+import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 
@@ -31,55 +26,15 @@ public class ConsoleSet extends BaseConsoleCommand
 	protected void act()
 	{
 		TeamPlayer player = new TeamPlayer(playerName);
-		Team playerTeam = player.getTeam();
-		Team desiredTeam = xTeam.tm.getTeam(teamName);
-		if (player.hasTeam() || teamName.equalsIgnoreCase("none"))
+		if (player.hasTeam())
 		{
-			playerTeam.removePlayer(playerName);
-			Data.chatStatus.remove(playerName);
-			TeamPlayer other = new TeamPlayer(playerName);
-			if (other.isOnline())
-				other.sendMessage(ChatColor.RED + "You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + playerTeam.getName());
-			originalSender.sendMessage(playerName + " has been removed from " + playerTeam.getName());
-			if (teamName.equalsIgnoreCase("none"))
-			{
-				if (playerTeam.isEmpty())
-				{
-					originalSender.sendMessage(playerTeam.getName() + " has been disbanded");
-					xTeam.tm.removeTeam(playerTeam.getName());
-				}
-				return;
-			}
+			removePlayer(player);
 		}
-		if (desiredTeam == null)
+		if (!xTeam.tm.contains(teamName))
 		{
-			ArrayList<String> players = new ArrayList<String>(Arrays.asList(playerName));
-			Team tempTeam = new Team.Builder(teamName).players(players).admins(players).leader(playerName).build();
-			xTeam.tm.addTeam(tempTeam);
-			TeamPlayer other = new TeamPlayer(playerName);
-			if (other.isOnline())
-				other.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + tempTeam.getName());
-			originalSender.sendMessage(teamName + " has been created");
-			originalSender.sendMessage(playerName + " has been added to " + tempTeam.getName());
+			createTeamWithLeader(teamName, playerName);
 		}
-		else
-		{
-			for (String pl : desiredTeam.getOnlinePlayers())
-			{
-				TeamPlayer teammate = new TeamPlayer(pl);
-				teammate.sendMessage(playerName + " has been added to your team");
-			}
-			desiredTeam.addPlayer(playerName);
-			originalSender.sendMessage(playerName + " has been added to " + teamName);
-			TeamPlayer other = new TeamPlayer(playerName);
-			if (other.isOnline())
-				other.sendMessage("You have been added to " + ChatColor.GREEN + teamName);
-		}
-		if (playerTeam != null && playerTeam.isEmpty())
-		{
-			originalSender.sendMessage(playerTeam.getName() + " has been disbanded");
-			xTeam.tm.removeTeam(playerTeam.getName());
-		}
+		addPlayerToTeam(player, xTeam.tm.getTeam(teamName));
 	}
 	@Override
 	public void checkRequirements() throws TeamException
@@ -102,6 +57,14 @@ public class ConsoleSet extends BaseConsoleCommand
 		{
 			throw new TeamPlayerLeaderLeavingException();
 		}
+		if (p.hasTeam() && p.getTeam().getName().equalsIgnoreCase(teamName))
+		{
+			throw new TeamPlayerAlreadyOnTeamException();
+		}
+		if (xTeam.tm.contains(teamName) && xTeam.tm.getTeam(teamName).size() >= Data.MAX_PLAYERS && Data.MAX_PLAYERS > 0)
+		{
+			throw new TeamPlayerMaxException();
+		}
 	}
 	@Override
 	public String getPattern()
@@ -113,8 +76,31 @@ public class ConsoleSet extends BaseConsoleCommand
 	{
 		return baseCommand + " set [Player] [Team]";
 	}
-	public void something()
+	private void removePlayer(TeamPlayer player)
 	{
-
+		Team team = player.getTeam();
+		team.removePlayer(playerName);
+		Data.chatStatus.remove(playerName);
+		originalSender.sendMessage(playerName + " has been removed from " + team.getName());
+		player.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
+		team.sendMessageToTeam(playerName + " has been removed from " + team.getName());
+		if (team.isEmpty())
+		{
+			originalSender.sendMessage(team.getName() + " has been disbanded");
+			player.sendMessage(team.getName() + " has been " + ChatColor.RED + "disbanded");
+			xTeam.tm.removeTeam(team.getName());
+		}
+	}
+	private void createTeamWithLeader(String team, String player)
+	{
+		xTeam.tm.createTeamWithLeader(team, player);
+		originalSender.sendMessage(team + " has been created");
+	}
+	private void addPlayerToTeam(TeamPlayer player, Team team)
+	{
+		team.addPlayer(playerName);
+		originalSender.sendMessage(playerName + " has been added to " + team.getName());
+		player.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
+		team.sendMessageToTeam(playerName + " has been added to " + team.getName());
 	}
 }

@@ -32,11 +32,11 @@ public class ConsoleInfoTest
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE" +
 				"Team Tag - TeamAwesome" +
-				"Team Leader - kmlanglois" +
+				"Team Leader - Kmlanglois" +
 				"Team Joining - Closed" +
 				"Team Headquarters - X:170 Y:65 Z:209" +
 				"Teammates online:" +
-				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"" +
+				"    Kmlanglois Health: 100% Location: 0 64 0 in \"world\"" +
 				"    protocos Health: 100% Location: 0 64 0 in \"world\"",
 				fakeConsoleSender.getMessage(0) +
 						fakeConsoleSender.getMessage(1) +

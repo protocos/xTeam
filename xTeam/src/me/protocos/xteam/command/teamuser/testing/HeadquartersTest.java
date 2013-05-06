@@ -29,7 +29,7 @@ public class HeadquartersTest
 	public void ShouldBeTeamUserHQ()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", before);
 		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -56,7 +56,7 @@ public class HeadquartersTest
 	public void ShouldBeTeamUserHQPlayerDying()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", before);
 		fakePlayerSender.setNoDamageTicks(1);
 		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
 		//ACT
@@ -84,8 +84,8 @@ public class HeadquartersTest
 	{
 		//ASSEMBLE
 		Data.LAST_ATTACKED_DELAY = 15;
-		Data.lastAttacked.put("kmlanglois", System.currentTimeMillis());
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
+		Data.lastAttacked.put("Kmlanglois", System.currentTimeMillis());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", before);
 		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -98,8 +98,8 @@ public class HeadquartersTest
 	public void ShouldBeTeamUserHQRecentRequest()
 	{
 		//ASSEMBLE
-		Data.taskIDs.put("kmlanglois", null);
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
+		Data.taskIDs.put("Kmlanglois", null);
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", before);
 		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -112,8 +112,8 @@ public class HeadquartersTest
 	public void ShouldBeTeamUserHQRecentTeleport()
 	{
 		//ASSEMBLE
-		Data.hasTeleported.put("kmlanglois", System.currentTimeMillis());
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
+		Data.hasTeleported.put("Kmlanglois", System.currentTimeMillis());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", before);
 		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

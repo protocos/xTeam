@@ -22,7 +22,7 @@ public class MainHelpTest
 	public void ShouldBeTeamUserMainHelpExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new MainHelp(fakePlayerSender, "", "/team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

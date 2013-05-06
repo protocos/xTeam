@@ -26,7 +26,7 @@ public class PromoteTest
 	public void ShouldBeTeamAdminPromoteExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Promote(fakePlayerSender, "promote protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -40,12 +40,12 @@ public class PromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new Promote(fakePlayerSender, "promote kmlanglois");
+		BaseUserCommand fakeCommand = new Promote(fakePlayerSender, "promote Kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotAdminException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("Kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -64,7 +64,7 @@ public class PromoteTest
 	public void ShouldBeTeamAdminPromoteExecutePlayerNotTeammate()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Promote(fakePlayerSender, "promote lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

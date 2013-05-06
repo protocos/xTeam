@@ -25,7 +25,7 @@ public class AdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -39,7 +39,7 @@ public class AdminDemoteTest
 	{
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").demote("protocos");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -51,20 +51,20 @@ public class AdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecuteDemoteLeader()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one kmlanglois");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one Kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderDemoteException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("Kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeServerAdminDemoteExecuteIncorrectTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -76,7 +76,7 @@ public class AdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -88,7 +88,7 @@ public class AdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecutePlayerHasNotPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one newbie");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -100,7 +100,7 @@ public class AdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote three protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

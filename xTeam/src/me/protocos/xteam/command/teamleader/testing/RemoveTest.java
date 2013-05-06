@@ -27,7 +27,7 @@ public class RemoveTest
 	public void ShouldBeTeamAdminRemoveExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -40,13 +40,13 @@ public class RemoveTest
 	public void ShouldBeTeamAdminRemoveExecuteLeaderLeave()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove kmlanglois");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
+		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove Kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("kmlanglois"));
+		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("Kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -78,7 +78,7 @@ public class RemoveTest
 	public void ShouldBeTeamAdminRemoveExecuteNotTeammate()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

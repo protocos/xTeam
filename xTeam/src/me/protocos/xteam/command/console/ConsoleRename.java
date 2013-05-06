@@ -5,7 +5,6 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.StringUtil;
 import org.bukkit.ChatColor;
@@ -31,11 +30,7 @@ public class ConsoleRename extends BaseConsoleCommand
 		team.setName(newName);
 		xTeam.tm.addTeam(team);
 		originalSender.sendMessage("You renamed the team to " + newName);
-		for (String p : team.getOnlinePlayers())
-		{
-			TeamPlayer mate = new TeamPlayer(p);
-			mate.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName);
-		}
+		team.sendMessageToTeam("The team has been renamed to " + ChatColor.AQUA + newName);
 	}
 	@Override
 	public void checkRequirements() throws TeamException

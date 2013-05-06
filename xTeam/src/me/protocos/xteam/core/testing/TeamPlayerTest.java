@@ -76,7 +76,7 @@ public class TeamPlayerTest
 		//ASSEMBLE
 		World world = new FakeWorld();
 		TeamPlayer player1 = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
-		TeamPlayer player2 = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 200, 64, 0)));
+		TeamPlayer player2 = new TeamPlayer(new FakePlayer("Kmlanglois", true, true, 20, new FakeLocation(world, 200, 64, 0)));
 		//ACT
 		double distance = player1.getDistanceTo(player2);
 		//ASSERT
@@ -191,7 +191,7 @@ public class TeamPlayerTest
 		//ASSEMBLE
 		World world = new FakeWorld();
 		TeamPlayer player1 = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
-		TeamPlayer player2 = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		TeamPlayer player2 = new TeamPlayer(new FakePlayer("Kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
 		//ACT
 		boolean sameTeam = player1.isOnSameTeam(player2);
 		//ASSERT
@@ -245,7 +245,7 @@ public class TeamPlayerTest
 		//ASSEMBLE
 		World world = new FakeWorld();
 		Location location = new FakeLocation(world, 0, 64, 0);
-		player = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		player = new TeamPlayer(new FakePlayer("Kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
 		//ACT
 		boolean teleport = player.teleport(location);
 		//ASSERT
@@ -257,7 +257,7 @@ public class TeamPlayerTest
 		//ASSEMBLE
 		World world = new FakeWorld();
 		TeamPlayer player1 = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
-		TeamPlayer player2 = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		TeamPlayer player2 = new TeamPlayer(new FakePlayer("Kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
 		//ACT
 		boolean teleport = player1.teleport(player2);
 		//ASSERT
@@ -343,7 +343,7 @@ public class TeamPlayerTest
 	{
 		//ASSEMBLE
 		TeamPlayer player1 = new TeamPlayer(new FakeOfflinePlayer("protocos", true, true, true));
-		TeamPlayer player2 = new TeamPlayer(new FakeOfflinePlayer("kmlanglois", true, true, true));
+		TeamPlayer player2 = new TeamPlayer(new FakeOfflinePlayer("Kmlanglois", true, true, true));
 		//ACT
 		boolean equals = player1.equals(player2);
 		//ASSERT

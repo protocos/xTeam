@@ -27,7 +27,7 @@ public class AdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, "promote one protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -40,7 +40,7 @@ public class AdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, "promote one lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -53,7 +53,7 @@ public class AdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecutePlayerHeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, "promote one newbie");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -66,7 +66,7 @@ public class AdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecutePlayerNotOnTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, "promote one mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -79,7 +79,7 @@ public class AdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecuteTeamNotExist()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, "promote three protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

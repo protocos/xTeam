@@ -30,7 +30,7 @@ public class SetHeadquartersTest
 	public void ShouldBeTeamAdminSetHQExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		TeamHeadquarters newHQ = new TeamHeadquarters(fakePlayerSender.getLocation());
 		BaseUserCommand fakeCommand = new SetHeadquarters(fakePlayerSender, "sethq");
 		//ACT
@@ -44,7 +44,7 @@ public class SetHeadquartersTest
 	public void ShouldBeTeamAdminSetHQExecutePlayerDying()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		TeamHeadquarters oldHQ = xTeam.tm.getTeam("one").getHeadquarters();
 		fakePlayerSender.setNoDamageTicks(1);
 		BaseUserCommand fakeCommand = new SetHeadquarters(fakePlayerSender, "sethq");
@@ -89,7 +89,7 @@ public class SetHeadquartersTest
 		//ASSEMBLE
 		Data.HQ_INTERVAL = 1;
 		xTeam.tm.getTeam("one").setTimeLastSet(System.currentTimeMillis());
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		TeamHeadquarters oldHQ = xTeam.tm.getTeam("one").getHeadquarters();
 		BaseUserCommand fakeCommand = new SetHeadquarters(fakePlayerSender, "sethq");
 		//ACT

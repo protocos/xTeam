@@ -37,7 +37,7 @@ public class TeamManagerTest
 	{
 		//ASSEMBLE
 		xTeam.tm.createTeamWithLeader("test1", "protocos");
-		xTeam.tm.createTeamWithLeader("test2", "kmlanglois");
+		xTeam.tm.createTeamWithLeader("test2", "Kmlanglois");
 		//ACT
 		xTeam.tm.clear();
 		//ASSERT
@@ -58,11 +58,11 @@ public class TeamManagerTest
 	{
 		//ASSEMBLE
 		xTeam.tm.createTeamWithLeader("test1", "protocos");
-		xTeam.tm.createTeamWithLeader("test2", "kmlanglois");
+		xTeam.tm.createTeamWithLeader("test2", "Kmlanglois");
 		//ACT
 		//ASSERT
 		Assert.assertEquals("[name:test1 tag:test1 open:false default:false timeHeadquartersSet:0 hq: leader:protocos admins:protocos players:protocos, " +
-				"name:test2 tag:test2 open:false default:false timeHeadquartersSet:0 hq: leader:kmlanglois admins:kmlanglois players:kmlanglois]", xTeam.tm.getAllTeams().toString());
+				"name:test2 tag:test2 open:false default:false timeHeadquartersSet:0 hq: leader:Kmlanglois admins:Kmlanglois players:Kmlanglois]", xTeam.tm.getAllTeams().toString());
 	}
 	@Test
 	public void ShouldBeSameNameConflict()

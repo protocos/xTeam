@@ -25,7 +25,7 @@ public class DisbandTest
 	public void ShouldBeDisbandExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Kmlanglois", new FakeLocation());
 		BaseUserCommand fakeCommand = new Disband(fakePlayerSender, "disband");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

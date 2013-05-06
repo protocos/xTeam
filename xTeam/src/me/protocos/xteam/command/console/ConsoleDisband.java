@@ -4,7 +4,6 @@ import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseConsoleCommand;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
@@ -28,12 +27,7 @@ public class ConsoleDisband extends BaseConsoleCommand
 	protected void act()
 	{
 		Team team = xTeam.tm.getTeam(teamName);
-		for (String p : team.getPlayers())
-		{
-			TeamPlayer player = new TeamPlayer(p);
-			if (player.isOnline())
-				player.sendMessage("Your team has been disbanded by an admin");
-		}
+		team.sendMessageToTeam("Your team has been disbanded by an admin");
 		xTeam.tm.removeTeam(teamName);
 		originalSender.sendMessage("You have disbanded team: " + teamName);
 	}
