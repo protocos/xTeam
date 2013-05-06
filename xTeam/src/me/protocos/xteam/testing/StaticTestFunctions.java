@@ -4,18 +4,16 @@ import static org.mockito.Mockito.*;
 import java.io.File;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandManager;
-import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.InviteHandler;
-import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamManager;
+import me.protocos.xteam.core.*;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.getspout.spoutapi.SpoutManager;
 
 public class StaticTestFunctions
 {
@@ -67,8 +65,8 @@ public class StaticTestFunctions
 		xTeam.logger = new FakeLog();
 		//MOCK variables
 		PluginManager mockPM = mock(PluginManager.class);
-		Plugin mockSpout = mock(Plugin.class);
-		Plugin mockxTeam = mock(Plugin.class);
+		JavaPlugin mockSpout = mock(JavaPlugin.class);
+		JavaPlugin mockxTeam = mock(JavaPlugin.class);
 		BukkitScheduler mockScheduler = mock(BukkitScheduler.class);
 		Data.settings = new File("/Users/zjlanglois/Desktop/Bukkit Server/plugins/xTeam/xTeam.cfg");
 		xTeam.VERSION = "CURRENT";
@@ -99,6 +97,7 @@ public class StaticTestFunctions
 		xTeam.tm.addTeam(team3);
 		Team team4 = Team.generateTeamFromProperties("name:blue world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:");
 		xTeam.tm.addTeam(team4);
+		xTeam.sm = new TeamServiceManager(mockxTeam);
 	}
 	public static void mockPlayers()
 	{
@@ -139,17 +138,20 @@ public class StaticTestFunctions
 		when(Data.BUKKIT.getPlayer("kestra")).thenReturn(kestraOnline);
 
 		//MOCK unreachable players
-		when(Data.BUKKIT.getOfflinePlayer("newbie")).thenReturn(new FakeOfflinePlayer("newbie"));
-		when(Data.BUKKIT.getOfflinePlayer("three")).thenReturn(new FakeOfflinePlayer("three"));
+		FakeOfflinePlayer newbieOffline = new FakeOfflinePlayer("newbie", false, false, false);
+		when(Data.BUKKIT.getOfflinePlayer("newbie")).thenReturn(newbieOffline);
+		FakeOfflinePlayer threeOffline = new FakeOfflinePlayer("three", false, false, false);
+		when(Data.BUKKIT.getOfflinePlayer("three")).thenReturn(threeOffline);
+
+		FakeOfflinePlayer oneOffline = new FakeOfflinePlayer("one", true, true, true);
+		when(Data.BUKKIT.getOfflinePlayer("one")).thenReturn(oneOffline);
+		FakeOfflinePlayer twoOffline = new FakeOfflinePlayer("two", true, true, true);
+		when(Data.BUKKIT.getOfflinePlayer("two")).thenReturn(twoOffline);
+		FakeOfflinePlayer thrOffline = new FakeOfflinePlayer("thr", true, false, true);
+		when(Data.BUKKIT.getOfflinePlayer("thr")).thenReturn(thrOffline);
 
 		//MOCK onlinePlayers
-		when(Data.BUKKIT.getOnlinePlayers()).thenReturn(new Player[0]);
-
-		when(Data.BUKKIT.getOfflinePlayer("one")).thenReturn(mock(OfflinePlayer.class));
-		when(Data.BUKKIT.getOfflinePlayer("one").hasPlayedBefore()).thenReturn(true);
-		when(Data.BUKKIT.getOfflinePlayer("two")).thenReturn(mock(OfflinePlayer.class));
-		when(Data.BUKKIT.getOfflinePlayer("two").hasPlayedBefore()).thenReturn(true);
-		when(Data.BUKKIT.getOfflinePlayer("thr")).thenReturn(mock(OfflinePlayer.class));
-		when(Data.BUKKIT.getOfflinePlayer("thr").hasPlayedBefore()).thenReturn(true);
+		when(Data.BUKKIT.getOnlinePlayers()).thenReturn(new Player[] { protocosOnline, kmlangloisOnline, mastermindOnline, LonelyOnline });
+		when(Data.BUKKIT.getOfflinePlayers()).thenReturn(new OfflinePlayer[] { protocosOffline, kmlangloisOffline, mastermindOffline, LonelyOffline, strandedhelixOffline, kestraOffline, newbieOffline, threeOffline, oneOffline, twoOffline, thrOffline });
 	}
 }

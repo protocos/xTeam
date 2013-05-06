@@ -4,7 +4,6 @@ import me.protocos.xteam.listener.TeamChatListener;
 import me.protocos.xteam.listener.TeamPlayerListener;
 import me.protocos.xteam.listener.TeamPvPEntityListener;
 import me.protocos.xteam.listener.TeamScoreListener;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -24,8 +23,8 @@ public class TeamServiceManager
 	public TeamServiceManager(JavaPlugin plugin)
 	{
 		this.plugin = plugin;
-		bukkit = Bukkit.getServer();
-		pm = Bukkit.getServer().getPluginManager();
+		bukkit = Data.BUKKIT;
+		pm = bukkit.getPluginManager();
 		pm.registerEvents(new TeamPvPEntityListener(), plugin);
 		pm.registerEvents(new TeamPlayerListener(), plugin);
 		pm.registerEvents(new TeamScoreListener(), plugin);
@@ -39,11 +38,21 @@ public class TeamServiceManager
 	}
 	public Player getPlayer(String name)
 	{
-		return bukkit.getPlayer(name);
+		for (Player online : bukkit.getOnlinePlayers())
+		{
+			if (online.getName().equalsIgnoreCase(name))
+				return online;
+		}
+		return null;
 	}
 	public OfflinePlayer getOfflinePlayer(String name)
 	{
-		return bukkit.getOfflinePlayer(name);
+		for (OfflinePlayer offline : bukkit.getOfflinePlayers())
+		{
+			if (offline.getName().equalsIgnoreCase(name))
+				return offline;
+		}
+		return null;
 	}
 	public ITeamPlayer getTeamPlayer(String name)
 	{

@@ -27,7 +27,7 @@ public class InviteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite Lonely");
+		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -42,7 +42,7 @@ public class InviteTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite Lonely");
+		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -56,7 +56,7 @@ public class InviteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite Lonely");
+		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -70,7 +70,7 @@ public class InviteTest
 		//ASSEMBLE
 		InviteHandler.addInvite("Lonely", xTeam.tm.getTeam("two"));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite Lonely");
+		BaseUserCommand fakeCommand = new Invite(fakePlayerSender, "invite lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

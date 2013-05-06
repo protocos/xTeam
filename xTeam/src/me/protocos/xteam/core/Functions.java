@@ -196,7 +196,16 @@ public class Functions
 					TeamPlayer p1 = new TeamPlayer(player1);
 					TeamPlayer p2 = new TeamPlayer(player2);
 					if (p1.isOnSameTeam(p2))
-						SpoutManager.getPlayer(player1).setTitleFor(SpoutManager.getPlayer(player2), ChatColor.GREEN + p1.getName());
+					{
+						try
+						{
+							SpoutManager.getPlayer(player1).setTitleFor(SpoutManager.getPlayer(player2), ChatColor.GREEN + p1.getName());
+						}
+						catch (NullPointerException e)
+						{
+
+						}
+					}
 				}
 			}
 		}

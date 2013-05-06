@@ -24,11 +24,11 @@ public class Invite extends BaseUserCommand
 	@Override
 	protected void act()
 	{
+		InviteHandler.addInvite(otherPlayer, team);
 		TeamPlayer other = new TeamPlayer(otherPlayer);
-		InviteHandler.addInvite(other.getName(), team);
 		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColor.GREEN + "invited " + ChatColor.RESET + "to join " + ChatColor.AQUA + team.getName());
-		originalSender.sendMessage("You " + ChatColor.GREEN + "invited " + ChatColor.RESET + otherPlayer);
+		originalSender.sendMessage("You " + ChatColor.GREEN + "invited " + ChatColor.RESET + other.getName());
 	}
 	@Override
 	public void checkRequirements() throws TeamException

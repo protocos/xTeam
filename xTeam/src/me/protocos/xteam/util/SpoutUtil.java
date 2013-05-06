@@ -11,7 +11,14 @@ public class SpoutUtil
 		{
 			for (Player player2 : onlinePlayers)
 			{
-				SpoutManager.getPlayer(player1).hideTitleFrom(SpoutManager.getPlayer(player2));
+				try
+				{
+					SpoutManager.getPlayer(player1).hideTitleFrom(SpoutManager.getPlayer(player2));
+				}
+				catch (NullPointerException e)
+				{
+
+				}
 			}
 		}
 	}

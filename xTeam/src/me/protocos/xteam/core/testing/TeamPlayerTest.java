@@ -268,12 +268,10 @@ public class TeamPlayerTest
 	{
 		//ASSEMBLE
 		Team team = new Team.Builder("test").build();
-		TeamPlayer player1 = new TeamPlayer(new FakePlayer("one", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
-		TeamPlayer player2 = new TeamPlayer(new FakePlayer("two", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
-		TeamPlayer player3 = new TeamPlayer(new FakePlayer("thr", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
-		team.addPlayer(player1.getName());
-		team.addPlayer(player2.getName());
-		team.addPlayer(player3.getName());
+		TeamPlayer player1 = new TeamPlayer("one");
+		team.addPlayer("one");
+		team.addPlayer("two");
+		team.addPlayer("thr");
 		xTeam.tm.addTeam(team);
 		//ACT
 		//ASSERT
