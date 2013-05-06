@@ -37,7 +37,7 @@ public class Join extends BaseUserCommand
 			if (mate.isOnline() && !teamPlayer.getName().equals(mate.getName()))
 				mate.sendMessage(teamPlayer.getName() + ChatColor.AQUA + " joined your team");
 		}
-		originalSender.sendMessage("You joined " + ChatColor.AQUA + desiredTeam);
+		originalSender.sendMessage("You joined " + ChatColor.AQUA + foundTeam.getName());
 	}
 	@Override
 	public void checkRequirements() throws TeamException

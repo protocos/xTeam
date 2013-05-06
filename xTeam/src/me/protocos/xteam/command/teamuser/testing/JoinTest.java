@@ -33,7 +33,7 @@ public class JoinTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("You joined one", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You joined ONE", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
