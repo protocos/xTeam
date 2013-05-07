@@ -6,7 +6,6 @@ import me.protocos.xteam.command.BaseConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 
@@ -49,7 +48,7 @@ public class ConsoleRename extends BaseConsoleCommand
 		{
 			throw new TeamDoesNotExistException();
 		}
-		if (StringUtil.toLowerCase(xTeam.tm.getAllTeamNames()).contains(newName.toLowerCase()))
+		if (xTeam.tm.contains(newName) && !desiredTeam.getName().equalsIgnoreCase(newName))
 		{
 			throw new TeamAlreadyExistsException();
 		}

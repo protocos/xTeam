@@ -7,7 +7,6 @@ import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -58,7 +57,7 @@ public class AdminRename extends BaseServerAdminCommand
 		{
 			throw new TeamDoesNotExistException();
 		}
-		if (StringUtil.toLowerCase(xTeam.tm.getAllTeamNames()).contains(newName.toLowerCase()))
+		if (xTeam.tm.contains(newName) && !desiredTeam.getName().equalsIgnoreCase(newName))
 		{
 			throw new TeamAlreadyExistsException();
 		}

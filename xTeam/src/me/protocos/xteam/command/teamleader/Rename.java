@@ -66,13 +66,13 @@ public class Rename extends BaseUserCommand
 		{
 			throw new TeamNameTooLongException();
 		}
+		if (xTeam.tm.contains(newName) && !team.getName().equalsIgnoreCase(newName))
+		{
+			throw new TeamAlreadyExistsException();
+		}
 		if (Data.ALPHA_NUM && !newName.matches(ALPHA_NUMERIC))
 		{
 			throw new TeamNameNotAlphaException();
-		}
-		if (toLowerCase(xTeam.tm.getAllTeamNames()).contains(newName.toLowerCase()))
-		{
-			throw new TeamAlreadyExistsException();
 		}
 	}
 	@Override
