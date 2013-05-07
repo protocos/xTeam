@@ -29,7 +29,7 @@ public class AdminDeleteTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("You have disbanded team: one", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You disbanded one", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.contains("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}

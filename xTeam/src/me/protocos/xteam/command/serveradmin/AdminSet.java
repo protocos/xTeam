@@ -1,8 +1,6 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseServerAdminCommand;
 import me.protocos.xteam.core.Data;
@@ -28,55 +26,18 @@ public class AdminSet extends BaseServerAdminCommand
 	@Override
 	protected void act()
 	{
-		TeamPlayer teamPlayer = new TeamPlayer(playerName);
-		Team playerTeam = teamPlayer.getTeam();
-		Team desiredTeam = xTeam.tm.getTeam(teamName);
-		if (teamPlayer.hasTeam() || teamName.equalsIgnoreCase("none"))
+		TeamPlayer p = new TeamPlayer(playerName);
+		if (p.hasTeam())
 		{
-			playerTeam.removePlayer(playerName);
-			Data.chatStatus.remove(playerName);
-			TeamPlayer other = new TeamPlayer(playerName);
-			if (other.isOnline())
-				other.sendMessage(ChatColor.RED + "You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + playerTeam.getName());
-			originalSender.sendMessage(playerName + " has been removed from " + playerTeam.getName());
-			if (teamName.equalsIgnoreCase("none"))
-			{
-				if (playerTeam.isEmpty())
-				{
-					originalSender.sendMessage(playerTeam.getName() + " has been disbanded");
-					xTeam.tm.removeTeam(playerTeam.getName());
-				}
-				return;
-			}
+			removePlayer(p);
 		}
-		if (desiredTeam == null)
+		if (!xTeam.tm.contains(teamName))
 		{
-			ArrayList<String> players = new ArrayList<String>(Arrays.asList(playerName));
-			Team tempTeam = new Team.Builder(teamName).players(players).admins(players).leader(playerName).build();
-			xTeam.tm.addTeam(tempTeam);
-			TeamPlayer other = new TeamPlayer(playerName);
-			if (other.isOnline())
-				other.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + tempTeam.getName());
-			originalSender.sendMessage(teamName + " has been created");
-			originalSender.sendMessage(playerName + " has been added to " + tempTeam.getName());
+			createTeamWithLeader(teamName, playerName);
 		}
 		else
 		{
-			for (String pl : desiredTeam.getOnlinePlayers())
-			{
-				TeamPlayer teammate = new TeamPlayer(pl);
-				teammate.sendMessage(playerName + " has been added to your team");
-			}
-			desiredTeam.addPlayer(playerName);
-			originalSender.sendMessage(playerName + " has been added to " + teamName);
-			TeamPlayer other = new TeamPlayer(playerName);
-			if (other.isOnline())
-				other.sendMessage("You have been added to " + ChatColor.GREEN + teamName);
-		}
-		if (playerTeam != null && playerTeam.isEmpty())
-		{
-			originalSender.sendMessage(playerTeam.getName() + " has been disbanded");
-			xTeam.tm.removeTeam(playerTeam.getName());
+			addPlayerToTeam(p, xTeam.tm.getTeam(teamName));
 		}
 	}
 	@Override
@@ -124,5 +85,33 @@ public class AdminSet extends BaseServerAdminCommand
 	public String getUsage()
 	{
 		return baseCommand + " set [Player] [Team]";
+	}
+	private void removePlayer(TeamPlayer p)
+	{
+		Team team = p.getTeam();
+		team.removePlayer(playerName);
+		Data.chatStatus.remove(playerName);
+		originalSender.sendMessage(playerName + " has been removed from " + team.getName());
+		p.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
+		team.sendMessageToTeam(playerName + " has been removed from " + team.getName());
+		if (team.isEmpty())
+		{
+			originalSender.sendMessage(team.getName() + " has been disbanded");
+			p.sendMessage(team.getName() + " has been " + ChatColor.RED + "disbanded");
+			xTeam.tm.removeTeam(team.getName());
+		}
+	}
+	private void createTeamWithLeader(String team, String p)
+	{
+		xTeam.tm.createTeamWithLeader(team, p);
+		originalSender.sendMessage(team + " has been created");
+		originalSender.sendMessage(p + " has been added to " + team);
+	}
+	private void addPlayerToTeam(TeamPlayer p, Team team)
+	{
+		team.addPlayer(playerName);
+		originalSender.sendMessage(playerName + " has been added to " + team.getName());
+		p.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
+		team.sendMessageToTeam(playerName + " has been added to " + team.getName());
 	}
 }

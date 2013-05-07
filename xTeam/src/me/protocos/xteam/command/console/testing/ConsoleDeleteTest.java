@@ -30,7 +30,7 @@ public class ConsoleDeleteTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("You have disbanded team: one", fakeConsoleSender.getLastMessage());
+		Assert.assertEquals("You disbanded one", fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getAllTeamNames().contains("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}

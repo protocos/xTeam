@@ -32,7 +32,7 @@ public class AdminDisband extends BaseServerAdminCommand
 				playerDelete.sendMessage("Your team has been disbanded by an admin");
 		}
 		xTeam.tm.removeTeam(teamName);
-		originalSender.sendMessage("You have disbanded team: " + teamName);
+		originalSender.sendMessage("You disbanded " + teamName);
 	}
 	@Override
 	public void checkRequirements() throws TeamException

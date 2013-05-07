@@ -32,7 +32,7 @@ public class ConsoleRemove extends BaseConsoleCommand
 			p.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
 		if (team.isEmpty())
 		{
-			originalSender.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
+			originalSender.sendMessage(teamName + " has been disbanded");
 			xTeam.tm.removeTeam(team.getName());
 		}
 	}

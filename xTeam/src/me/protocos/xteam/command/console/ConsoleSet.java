@@ -34,7 +34,10 @@ public class ConsoleSet extends BaseConsoleCommand
 		{
 			createTeamWithLeader(teamName, playerName);
 		}
-		addPlayerToTeam(player, xTeam.tm.getTeam(teamName));
+		else
+		{
+			addPlayerToTeam(player, xTeam.tm.getTeam(teamName));
+		}
 	}
 	@Override
 	public void checkRequirements() throws TeamException
@@ -95,6 +98,7 @@ public class ConsoleSet extends BaseConsoleCommand
 	{
 		xTeam.tm.createTeamWithLeader(team, player);
 		originalSender.sendMessage(team + " has been created");
+		originalSender.sendMessage(player + " has been added to " + team);
 	}
 	private void addPlayerToTeam(TeamPlayer player, Team team)
 	{

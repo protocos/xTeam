@@ -60,10 +60,10 @@ public class ConsoleSetTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("three has been created\n" +
-				"Lonely has been added to three\n",
-				fakeConsoleSender.getAllMessages());
+				"Lonely has been added to three\n", fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(xTeam.tm.contains("three"));
 		Assert.assertTrue(xTeam.tm.getTeam("three").containsPlayer("Lonely"));
+		Assert.assertEquals(1, xTeam.tm.getTeam("three").size());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test

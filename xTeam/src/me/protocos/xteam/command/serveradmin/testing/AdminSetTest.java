@@ -26,14 +26,12 @@ public class AdminSetTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set protocos two");
+		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("protocos has been removed from ONE\n" +
-				"protocos has been added to two\n", fakePlayerSender.getAllMessages());
-		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("protocos"));
-		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("protocos"));
+		Assert.assertEquals("Lonely has been added to two", fakePlayerSender.getLastMessage());
+		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -47,10 +45,26 @@ public class AdminSetTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
-				"kmlanglois has been added to two\n" +
-				"ONE has been disbanded\n", fakePlayerSender.getAllMessages());
+				"ONE has been disbanded\n" +
+				"kmlanglois has been added to two\n", fakePlayerSender.getAllMessages());
 		Assert.assertFalse(xTeam.tm.contains("one"));
 		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("kmlanglois"));
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+	@Test
+	public void ShouldBeServerAdminSetExecuteNewTeam()
+	{
+		//ASSEMBLE
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely three");
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals("three has been created\n" +
+				"Lonely has been added to three\n", fakePlayerSender.getAllMessages());
+		Assert.assertTrue(xTeam.tm.contains("three"));
+		Assert.assertTrue(xTeam.tm.getTeam("three").containsPlayer("Lonely"));
+		Assert.assertEquals(1, xTeam.tm.getTeam("three").size());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
