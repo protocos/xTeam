@@ -63,6 +63,10 @@ public class LogUtil implements ILog
 		message = "[FATAL] " + message;
 		write(message);
 	}
+	public void custom(String message)
+	{
+		write(message);
+	}
 	public void write(String message)
 	{
 		Timestamp t = new Timestamp(System.currentTimeMillis());

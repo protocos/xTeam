@@ -47,4 +47,11 @@ public class FakeLog implements ILog
 
 	}
 
+	@Override
+	public void custom(String message)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
 }
