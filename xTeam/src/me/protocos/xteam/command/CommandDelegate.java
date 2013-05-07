@@ -49,14 +49,22 @@ public class CommandDelegate implements CommandExecutor
 		//			if (locationCmd)
 		//				return true;
 		//		}
-		String originalCommand = StringUtil.concatenate(args);
-		if (sender instanceof ConsoleCommandSender)
+		try
 		{
-			onConsoleCommand((ConsoleCommandSender) sender, commandID, originalCommand);
+			String originalCommand = StringUtil.concatenate(args);
+			if (sender instanceof ConsoleCommandSender)
+			{
+				onConsoleCommand((ConsoleCommandSender) sender, commandID, originalCommand);
+			}
+			else if (sender instanceof Player)
+			{
+				onPlayerCommand((Player) sender, commandID, originalCommand);
+			}
 		}
-		else if (sender instanceof Player)
+		catch (Exception e)
 		{
-			onPlayerCommand((Player) sender, commandID, originalCommand);
+			xTeam.logger.exception(e);
+			e.printStackTrace();
 		}
 		return true;
 	}

@@ -64,6 +64,17 @@ public class LogUtil implements ILog
 		message = "[FATAL] " + message;
 		write(message);
 	}
+	public void exception(Exception e)
+	{
+		error(e.toString());
+		for (StackTraceElement elem : e.getStackTrace())
+		{
+			if (elem.toString().contains("me.protocos."))
+			{
+				error("\t@ " + elem.toString());
+			}
+		}
+	}
 	public void custom(String message)
 	{
 		write(message);

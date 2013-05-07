@@ -54,4 +54,11 @@ public class FakeLog implements ILog
 
 	}
 
+	@Override
+	public void exception(Exception e)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
 }
