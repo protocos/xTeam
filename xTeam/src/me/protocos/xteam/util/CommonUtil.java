@@ -82,36 +82,72 @@ public class CommonUtil
 	{
 		System.out.println(Arrays.toString(booleans));
 	}
+	public static void println(boolean... booleans)
+	{
+		System.out.println(Arrays.toString(booleans).substring(1, Arrays.toString(booleans).length() - 1).replaceAll(", ", "\n"));
+	}
 	public static void print(byte... bytes)
 	{
 		System.out.println(Arrays.toString(bytes));
+	}
+	public static void println(byte... bytes)
+	{
+		System.out.println(Arrays.toString(bytes).substring(1, Arrays.toString(bytes).length() - 1).replaceAll(", ", "\n"));
 	}
 	public static void print(short... shorts)
 	{
 		System.out.println(Arrays.toString(shorts));
 	}
+	public static void println(short... shorts)
+	{
+		System.out.println(Arrays.toString(shorts).substring(1, Arrays.toString(shorts).length() - 1).replaceAll(", ", "\n"));
+	}
 	public static void print(int... integers)
 	{
 		System.out.println(Arrays.toString(integers));
+	}
+	public static void println(int... integers)
+	{
+		System.out.println(Arrays.toString(integers).substring(1, Arrays.toString(integers).length() - 1).replaceAll(", ", "\n"));
 	}
 	public static void print(long... longs)
 	{
 		System.out.println(Arrays.toString(longs));
 	}
+	public static void println(long... longs)
+	{
+		System.out.println(Arrays.toString(longs).substring(1, Arrays.toString(longs).length() - 1).replaceAll(", ", "\n"));
+	}
 	public static void print(char... characters)
 	{
 		System.out.println(Arrays.toString(characters));
+	}
+	public static void println(char... characters)
+	{
+		System.out.println(Arrays.toString(characters).substring(1, Arrays.toString(characters).length() - 1).replaceAll(", ", "\n"));
 	}
 	public static void print(float... floats)
 	{
 		System.out.println(Arrays.toString(floats));
 	}
+	public static void println(float... floats)
+	{
+		System.out.println(Arrays.toString(floats).substring(1, Arrays.toString(floats).length() - 1).replaceAll(", ", "\n"));
+	}
 	public static void print(double... doubles)
 	{
 		System.out.println(Arrays.toString(doubles));
 	}
+	public static void println(double... doubles)
+	{
+		System.out.println(Arrays.toString(doubles).substring(1, Arrays.toString(doubles).length() - 1).replaceAll(", ", "\n"));
+	}
 	public static void print(Object... objects)
 	{
 		System.out.println(Arrays.toString(objects));
+	}
+	public static void println(Object... objects)
+	{
+		System.out.println(Arrays.toString(objects).substring(1, Arrays.toString(objects).length() - 1).replaceAll(", ", "\n"));
 	}
 }
