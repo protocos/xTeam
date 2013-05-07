@@ -85,6 +85,7 @@ public class ConsoleSet extends BaseConsoleCommand
 		team.removePlayer(player.getName());
 		team.sendMessage(player.getName() + " has been removed from " + team.getName());
 		Data.chatStatus.remove(player.getName());
+		Data.returnLocations.remove(player.getOnlinePlayer());
 		originalSender.sendMessage(player.getName() + " has been removed from " + team.getName());
 		player.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
 		if (team.isEmpty() && !team.isDefaultTeam())

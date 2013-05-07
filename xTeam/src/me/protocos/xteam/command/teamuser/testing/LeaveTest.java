@@ -5,6 +5,7 @@ import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.command.teamuser.Leave;
+import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.testing.FakeLocation;
@@ -26,12 +27,14 @@ public class LeaveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		Data.returnLocations.put(fakePlayerSender, new FakeLocation());
 		BaseUserCommand fakeCommand = new Leave(fakePlayerSender, "leave");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("protocos"));
+		Assert.assertFalse(Data.returnLocations.containsKey(fakePlayerSender));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test

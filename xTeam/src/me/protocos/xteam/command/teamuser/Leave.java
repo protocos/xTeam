@@ -27,6 +27,7 @@ public class Leave extends BaseUserCommand
 		if (team.size() == 0 && !team.isDefaultTeam())
 			xTeam.tm.removeTeam(team.getName());
 		Data.chatStatus.remove(teamPlayer.getName());
+		Data.returnLocations.remove(teamPlayer.getOnlinePlayer());
 		for (String teammate : team.getPlayers())
 		{
 			TeamPlayer mate = new TeamPlayer(teammate);

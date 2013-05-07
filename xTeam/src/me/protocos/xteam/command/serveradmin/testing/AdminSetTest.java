@@ -42,6 +42,7 @@ public class AdminSetTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").removePlayer("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
+		Data.returnLocations.put(Data.BUKKIT.getPlayer("kmlanglois"), new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set kmlanglois two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -51,6 +52,7 @@ public class AdminSetTest
 				"kmlanglois has been added to two\n", fakePlayerSender.getAllMessages());
 		Assert.assertFalse(xTeam.tm.contains("one"));
 		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("kmlanglois"));
+		Assert.assertFalse(Data.returnLocations.containsKey(Data.BUKKIT.getPlayer("kmlanglois")));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test

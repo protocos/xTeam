@@ -10,6 +10,7 @@ import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.core.exception.TeamPlayerMaxException;
 import me.protocos.xteam.core.exception.TeamPlayerNeverPlayedException;
 import me.protocos.xteam.testing.FakeConsoleSender;
+import me.protocos.xteam.testing.FakeLocation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +44,7 @@ public class ConsoleSetTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").removePlayer("protocos");
 		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set kmlanglois two");
+		Data.returnLocations.put(Data.BUKKIT.getPlayer("kmlanglois"), new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -51,6 +53,7 @@ public class ConsoleSetTest
 				"kmlanglois has been added to two\n", fakeConsoleSender.getAllMessages());
 		Assert.assertFalse(xTeam.tm.contains("one"));
 		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("kmlanglois"));
+		Assert.assertFalse(Data.returnLocations.containsKey(Data.BUKKIT.getPlayer("kmlanglois")));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test

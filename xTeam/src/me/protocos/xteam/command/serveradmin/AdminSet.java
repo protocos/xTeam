@@ -100,6 +100,7 @@ public class AdminSet extends BaseServerAdminCommand
 		team.removePlayer(p.getName());
 		team.sendMessage(p.getName() + " has been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName() + " by an admin", player);
 		Data.chatStatus.remove(p.getName());
+		Data.returnLocations.remove(p.getOnlinePlayer());
 		player.sendMessage(p.getName() + " has been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
 		if (!p.getName().equals(player.getName()))
 			p.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName() + " by an admin");
