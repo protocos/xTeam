@@ -13,7 +13,6 @@ public class TeamManager implements ITeamManager
 	{
 		teams = new HashList<String, Team>();
 	}
-
 	public boolean addTeam(Team team)
 	{
 		if (team != null)// && !teamExists(team.getName()))

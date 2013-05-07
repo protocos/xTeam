@@ -22,7 +22,7 @@ public class JoinTest
 		//MOCK data
 		mockData();
 		Data.MAX_PLAYERS = 3;
-		InviteHandler.addInvite("lonely", xTeam.tm.getTeam("one"));
+		InviteHandler.addInvite("Lonely", xTeam.tm.getTeam("one"));
 	}
 	@Test
 	public void ShouldBeTeamUserJoinExecute()

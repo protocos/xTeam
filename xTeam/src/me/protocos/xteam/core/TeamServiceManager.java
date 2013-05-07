@@ -40,7 +40,7 @@ public class TeamServiceManager
 	{
 		for (Player online : bukkit.getOnlinePlayers())
 		{
-			if (online.getName().equalsIgnoreCase(name))
+			if (online.getName().equals(name))
 				return online;
 		}
 		return null;
@@ -49,7 +49,7 @@ public class TeamServiceManager
 	{
 		for (OfflinePlayer offline : bukkit.getOfflinePlayers())
 		{
-			if (offline.getName().equalsIgnoreCase(name))
+			if (offline.getName().equals(name))
 				return offline;
 		}
 		return null;

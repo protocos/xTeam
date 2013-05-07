@@ -20,21 +20,9 @@ public class TeamPlayer implements ITeamPlayer
 
 	public TeamPlayer(String playerName)
 	{
+		name = playerName;
 		offlinePlayer = xTeam.sm.getOfflinePlayer(playerName);
 		onlinePlayer = xTeam.sm.getPlayer(playerName);
-		name = offlinePlayer.getName();
-		//		for (OfflinePlayer offline : Data.BUKKIT.getOfflinePlayers())
-		//		{
-		//			if (offline.getName().equalsIgnoreCase(playerName))
-		//				offlinePlayer = offline;
-		//		}
-		//		for (Player online : Data.BUKKIT.getOnlinePlayers())
-		//		{
-		//			if (online.getName().equalsIgnoreCase(playerName))
-		//				onlinePlayer = online;
-		//		}
-		//		offlinePlayer = Data.BUKKIT.getOfflinePlayer(playerName);
-		//		onlinePlayer = Data.BUKKIT.getPlayer(playerName);
 	}
 	public TeamPlayer(Player player)
 	{
@@ -173,6 +161,8 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public boolean hasPlayedBefore()
 	{
+		if (offlinePlayer == null)
+			return false;
 		return offlinePlayer.hasPlayedBefore() || offlinePlayer.isOnline();
 	}
 	@Override
