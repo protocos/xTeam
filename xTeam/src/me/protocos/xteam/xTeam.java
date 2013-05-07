@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Logger;
 import me.protocos.xteam.command.CommandDelegate;
 import me.protocos.xteam.command.CommandManager;
@@ -139,8 +138,6 @@ public class xTeam extends JavaPlugin
 			Functions.writeTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
 			//		sm.saveConfig();
 			logger.custom("[xTeam] v" + VERSION + " disabled");
-			ArrayList<String> list = new ArrayList<String>();
-			System.out.println(list.get(0));
 			logger.close();
 		}
 		catch (Exception e)

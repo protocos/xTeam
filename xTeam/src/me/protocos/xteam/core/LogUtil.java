@@ -71,7 +71,7 @@ public class LogUtil implements ILog
 		{
 			if (elem.toString().contains("me.protocos."))
 			{
-				error("\t@ " + elem.toString());
+				error("\t@ " + elem.toString().replaceAll("me.protocos.", ""));
 			}
 		}
 	}
