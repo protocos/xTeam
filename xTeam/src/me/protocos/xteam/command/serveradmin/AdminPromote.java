@@ -27,10 +27,10 @@ public class AdminPromote extends BaseServerAdminCommand
 	{
 		Team team = xTeam.tm.getTeam(teamName);
 		team.promote(playerName);
-		player.sendMessage("You" + ChatColor.GREEN + " promoted " + ChatColor.RESET + playerName);
+		if (!team.containsPlayer(player.getName()))
+			player.sendMessage("You " + ChatColor.GREEN + "promoted" + ChatColor.RESET + " " + playerName);
 		TeamPlayer other = new TeamPlayer(playerName);
-		if (other.isOnline())
-			other.sendMessage("You've been " + ChatColor.GREEN + "promoted");
+		other.sendMessage("You've been " + ChatColor.GREEN + "promoted" + ChatColor.RESET + " by an admin");
 	}
 	@Override
 	public void checkRequirements() throws TeamException

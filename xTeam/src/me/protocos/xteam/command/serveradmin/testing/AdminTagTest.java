@@ -27,7 +27,7 @@ public class AdminTagTest
 	public void ShouldBeServerAdminTagExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminTag(fakePlayerSender, "tag one tag");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -40,7 +40,7 @@ public class AdminTagTest
 	public void ShouldBeServerAdminTagExecuteTeamAlreadyExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminTag(fakePlayerSender, "tag one two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -54,7 +54,7 @@ public class AdminTagTest
 	{
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminTag(fakePlayerSender, "tag one ƒçß");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -67,7 +67,7 @@ public class AdminTagTest
 	public void ShouldBeServerAdminTagExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminTag(fakePlayerSender, "tag three tag");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

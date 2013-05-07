@@ -27,7 +27,7 @@ public class AdminRenameTest
 	public void ShouldBeServerAdminRenameExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminRename(fakePlayerSender, "rename one newname");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -40,7 +40,7 @@ public class AdminRenameTest
 	public void ShouldBeServerAdminRenameExecuteTeamAlreadyExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminRename(fakePlayerSender, "rename one two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -54,7 +54,7 @@ public class AdminRenameTest
 	{
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminRename(fakePlayerSender, "rename one ƒçß");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -67,7 +67,7 @@ public class AdminRenameTest
 	public void ShouldBeServerAdminRenameExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminRename(fakePlayerSender, "rename three newname");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

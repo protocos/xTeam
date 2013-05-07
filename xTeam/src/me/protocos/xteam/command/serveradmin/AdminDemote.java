@@ -27,10 +27,10 @@ public class AdminDemote extends BaseServerAdminCommand
 	{
 		Team team = xTeam.tm.getTeam(teamName);
 		team.demote(playerName);
-		player.sendMessage("You" + ChatColor.RED + " demoted " + ChatColor.RESET + playerName);
+		if (!team.containsPlayer(player.getName()))
+			player.sendMessage("You " + ChatColor.RED + "demoted" + ChatColor.RESET + " " + playerName);
 		TeamPlayer other = new TeamPlayer(playerName);
-		if (other.isOnline())
-			other.sendMessage("You've been " + ChatColor.RED + "demoted");
+		other.sendMessage("You have been " + ChatColor.RED + "demoted" + ChatColor.RESET + " by an admin");
 	}
 	@Override
 	public void checkRequirements() throws TeamException

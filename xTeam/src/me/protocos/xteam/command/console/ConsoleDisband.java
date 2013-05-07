@@ -27,7 +27,7 @@ public class ConsoleDisband extends BaseConsoleCommand
 	protected void act()
 	{
 		Team team = xTeam.tm.getTeam(teamName);
-		team.sendMessageToTeam("Your team has been disbanded by an admin");
+		team.sendMessage("Your team has been disbanded by an admin");
 		xTeam.tm.removeTeam(teamName);
 		originalSender.sendMessage("You disbanded " + teamName);
 	}

@@ -25,12 +25,12 @@ public class AdminRemove extends BaseServerAdminCommand
 	@Override
 	protected void act()
 	{
-		TeamPlayer p = new TeamPlayer(playerName);
-		Team team = p.getTeam();
+		TeamPlayer teamPlayer = new TeamPlayer(playerName);
+		Team team = teamPlayer.getTeam();
 		team.removePlayer(playerName);
-		player.sendMessage("You" + ChatColor.RED + " removed " + ChatColor.RESET + playerName + " from " + teamName);
-		if (p.isOnline())
-			p.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
+		if (!playerName.equals(player.getName()))
+			player.sendMessage("You " + ChatColor.RED + "removed" + ChatColor.RESET + " " + playerName + " from " + teamName);
+		teamPlayer.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName() + " by an admin");
 		if (team.isEmpty())
 		{
 			player.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");

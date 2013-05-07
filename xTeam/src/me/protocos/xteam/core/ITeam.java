@@ -9,7 +9,7 @@ public interface ITeam
 	public abstract boolean addPlayer(String player);
 	public abstract boolean containsPlayer(String player);
 	public abstract boolean removePlayer(String player);
-	public abstract void sendMessageToTeam(String message);
+	public abstract void sendMessage(String message);
 	public abstract List<String> getPlayers();
 	public abstract List<String> getOnlinePlayers();
 	public abstract List<String> getOfflinePlayers();

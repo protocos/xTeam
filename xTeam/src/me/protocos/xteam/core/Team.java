@@ -5,6 +5,7 @@ import java.util.List;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.HashList;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 
 public class Team implements ITeam
 {
@@ -329,13 +330,25 @@ public class Team implements ITeam
 		return tag;
 	}
 	@Override
-	public void sendMessageToTeam(String message)
+	public void sendMessage(String message)
 	{
 		List<String> onlinePlayers = getOnlinePlayers();
 		for (String p : onlinePlayers)
 		{
 			ITeamPlayer player = new TeamPlayer(p);
 			player.sendMessage(message);
+		}
+	}
+	public void sendMessage(String message, Player exclude)
+	{
+		List<String> onlinePlayers = getOnlinePlayers();
+		for (String p : onlinePlayers)
+		{
+			if (!p.equals(exclude.getName()))
+			{
+				ITeamPlayer player = new TeamPlayer(p);
+				player.sendMessage(message);
+			}
 		}
 	}
 }

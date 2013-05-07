@@ -308,4 +308,16 @@ public class TeamPlayer implements ITeamPlayer
 			player.sendMessage(message);
 		}
 	}
+	public void sendMessageToTeam(String message, Player exclude)
+	{
+		List<String> onlinePlayers = getOnlineTeammates();
+		for (String p : onlinePlayers)
+		{
+			if (!p.equals(exclude.getName()))
+			{
+				ITeamPlayer player = new TeamPlayer(p);
+				player.sendMessage(message);
+			}
+		}
+	}
 }

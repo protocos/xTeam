@@ -5,7 +5,6 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -29,12 +28,9 @@ public class AdminRename extends BaseServerAdminCommand
 		xTeam.tm.removeTeam(teamName);
 		team.setName(newName);
 		xTeam.tm.addTeam(team);
-		player.sendMessage("You renamed the team to " + ChatColor.AQUA + newName);
-		for (String p : team.getOnlinePlayers())
-		{
-			TeamPlayer mate = new TeamPlayer(p);
-			mate.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName + ChatColor.RESET + " by an admin");
-		}
+		if (!team.containsPlayer(player.getName()))
+			player.sendMessage("You renamed the team to " + ChatColor.AQUA + newName);
+		team.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName + ChatColor.RESET + " by an admin");
 	}
 	@Override
 	public void checkRequirements() throws TeamException

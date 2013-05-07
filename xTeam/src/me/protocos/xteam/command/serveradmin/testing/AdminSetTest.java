@@ -41,7 +41,7 @@ public class AdminSetTest
 	{
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").removePlayer("protocos");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set kmlanglois two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -73,7 +73,7 @@ public class AdminSetTest
 	public void ShouldBeServerAdminSetExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set kmlanglois two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -86,7 +86,7 @@ public class AdminSetTest
 	public void ShouldBeServerAdminSetExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set newbie one");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -98,7 +98,7 @@ public class AdminSetTest
 	public void ShouldBeServerAdminSetExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set protocos three");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -116,7 +116,7 @@ public class AdminSetTest
 	{
 		//ASSEMBLE
 		Data.MAX_PLAYERS = 2;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely one");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();

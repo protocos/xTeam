@@ -4,9 +4,9 @@ import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseServerAdminCommand;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class AdminDisband extends BaseServerAdminCommand
@@ -25,14 +25,9 @@ public class AdminDisband extends BaseServerAdminCommand
 	protected void act()
 	{
 		Team team = xTeam.tm.getTeam(teamName);
-		for (String p : team.getPlayers())
-		{
-			TeamPlayer playerDelete = new TeamPlayer(p);
-			if (playerDelete.isOnline())
-				playerDelete.sendMessage("Your team has been disbanded by an admin");
-		}
+		team.sendMessage("Your team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by an admin");
 		xTeam.tm.removeTeam(teamName);
-		originalSender.sendMessage("You disbanded " + teamName);
+		player.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " " + teamName);
 	}
 	@Override
 	public void checkRequirements() throws TeamException

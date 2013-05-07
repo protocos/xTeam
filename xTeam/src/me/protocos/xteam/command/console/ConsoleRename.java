@@ -29,7 +29,7 @@ public class ConsoleRename extends BaseConsoleCommand
 		team.setName(newName);
 		xTeam.tm.addTeam(team);
 		originalSender.sendMessage("You renamed the team to " + newName);
-		team.sendMessageToTeam("The team has been renamed to " + ChatColor.AQUA + newName);
+		team.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName);
 	}
 	@Override
 	public void checkRequirements() throws TeamException

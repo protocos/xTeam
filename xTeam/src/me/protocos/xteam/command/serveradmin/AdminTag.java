@@ -5,10 +5,8 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.StringUtil;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class AdminTag extends BaseServerAdminCommand
@@ -28,12 +26,9 @@ public class AdminTag extends BaseServerAdminCommand
 	{
 		Team team = xTeam.tm.getTeam(teamName);
 		team.setTag(newTag);
-		player.sendMessage("The team tag has been set to " + newTag);
-		for (String p : team.getOnlinePlayers())
-		{
-			TeamPlayer mate = new TeamPlayer(p);
-			mate.sendMessage("The team tag has been set to " + newTag + ChatColor.RESET + " by an admin");
-		}
+		if (!team.containsPlayer(player.getName()))
+			player.sendMessage("The team tag has been set to " + newTag);
+		team.sendMessage("The team tag has been set to " + newTag + " by an admin");
 	}
 	@Override
 	public void checkRequirements() throws TeamException
