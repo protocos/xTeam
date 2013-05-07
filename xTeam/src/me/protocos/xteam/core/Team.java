@@ -290,8 +290,8 @@ public class Team implements ITeam
 				float pitch = Float.parseFloat(locationData[5]);
 				team.setHQ(new TeamHeadquarters(world, X, Y, Z, yaw, pitch));
 			}
-			team.setPlayers(players == null ? new ArrayList<String>() : CommonUtil.toList(players, ","));
-			team.setAdmins(admins == null ? new ArrayList<String>() : CommonUtil.toList(admins, ","));
+			team.setPlayers(players == null ? new ArrayList<String>() : CommonUtil.split(players, ","));
+			team.setAdmins(admins == null ? new ArrayList<String>() : CommonUtil.split(admins, ","));
 			if (leader != null)
 			{
 				if (leader.equalsIgnoreCase("default"))

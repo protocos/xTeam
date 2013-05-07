@@ -2,7 +2,6 @@ package me.protocos.xteam.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class CommonUtil
 {
@@ -10,73 +9,73 @@ public class CommonUtil
 	public static final double DOUBLE_ZERO = 0.0D;
 	public static final float FLOAT_ZERO = 0.0F;
 
-	public static List<Boolean> toList(boolean... booleans)
+	public static ArrayList<Boolean> toList(boolean... booleans)
 	{
-		List<Boolean> list = new ArrayList<Boolean>(booleans.length);
+		ArrayList<Boolean> list = new ArrayList<Boolean>(booleans.length);
 		for (boolean b : booleans)
 			list.add(b);
 		return list;
 	}
-	public static List<Byte> toList(byte... bytes)
+	public static ArrayList<Byte> toList(byte... bytes)
 	{
-		List<Byte> list = new ArrayList<Byte>(bytes.length);
+		ArrayList<Byte> list = new ArrayList<Byte>(bytes.length);
 		for (byte b : bytes)
 			list.add(b);
 		return list;
 	}
-	public static List<Short> toList(short... shorts)
+	public static ArrayList<Short> toList(short... shorts)
 	{
-		List<Short> list = new ArrayList<Short>(shorts.length);
+		ArrayList<Short> list = new ArrayList<Short>(shorts.length);
 		for (short s : shorts)
 			list.add(s);
 		return list;
 	}
-	public static List<Integer> toList(int... integers)
+	public static ArrayList<Integer> toList(int... integers)
 	{
-		List<Integer> list = new ArrayList<Integer>(integers.length);
+		ArrayList<Integer> list = new ArrayList<Integer>(integers.length);
 		for (int i : integers)
 			list.add(i);
 		return list;
 	}
-	public static List<Long> toList(long... longs)
+	public static ArrayList<Long> toList(long... longs)
 	{
-		List<Long> list = new ArrayList<Long>(longs.length);
+		ArrayList<Long> list = new ArrayList<Long>(longs.length);
 		for (long l : longs)
 			list.add(l);
 		return list;
 	}
-	public static List<Character> toList(char... characters)
+	public static ArrayList<Character> toList(char... characters)
 	{
-		List<Character> list = new ArrayList<Character>(characters.length);
+		ArrayList<Character> list = new ArrayList<Character>(characters.length);
 		for (char c : characters)
 			list.add(c);
 		return list;
 	}
-	public static List<Float> toList(float... floats)
+	public static ArrayList<Float> toList(float... floats)
 	{
-		List<Float> list = new ArrayList<Float>(floats.length);
+		ArrayList<Float> list = new ArrayList<Float>(floats.length);
 		for (float f : floats)
 			list.add(f);
 		return list;
 	}
-	public static List<Double> toList(double... doubles)
+	public static ArrayList<Double> toList(double... doubles)
 	{
-		List<Double> list = new ArrayList<Double>(doubles.length);
+		ArrayList<Double> list = new ArrayList<Double>(doubles.length);
 		for (double d : doubles)
 			list.add(d);
 		return list;
 	}
-	public static List<String> toList(String... strings)
+	public static ArrayList<String> toList(String... strings)
 	{
-		return Arrays.asList(strings);
+		return new ArrayList<String>(Arrays.asList(strings));
 	}
-	public static List<String> split(String string, String delimiter)
+	public static ArrayList<String> split(String string, String delimiter)
 	{
 		return toList(string.split(delimiter));
 	}
-	public static List<Object> toList(Object... objects)
+	public static ArrayList<Object> toList(Object... objects)
 	{
-		return Arrays.asList(objects);
+		return new ArrayList<Object>(Arrays.asList(objects));
 	}
 	public static void print(boolean... booleans)
 	{
