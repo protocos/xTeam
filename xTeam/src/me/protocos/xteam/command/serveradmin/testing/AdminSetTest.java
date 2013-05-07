@@ -5,7 +5,9 @@ import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminSet;
+import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
+import me.protocos.xteam.core.exception.TeamPlayerMaxException;
 import me.protocos.xteam.core.exception.TeamPlayerNeverPlayedException;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
@@ -52,7 +54,7 @@ public class AdminSetTest
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
-	public void ShouldBeServerAdminSetExecuteNewTeam()
+	public void ShouldBeServerAdminSetExecuteCreateTeam()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
@@ -108,6 +110,19 @@ public class AdminSetTest
 		Assert.assertTrue(xTeam.tm.contains("three"));
 		Assert.assertTrue(xTeam.tm.getTeam("three").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
+	}
+	@Test
+	public void ShouldBeConsoleSetMaxPlayers()
+	{
+		//ASSEMBLE
+		Data.MAX_PLAYERS = 2;
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely one");
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After
 	public void takedown()

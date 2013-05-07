@@ -82,12 +82,12 @@ public class ConsoleSet extends BaseConsoleCommand
 	private void removePlayer(TeamPlayer player)
 	{
 		Team team = player.getTeam();
-		team.removePlayer(playerName);
-		Data.chatStatus.remove(playerName);
-		originalSender.sendMessage(playerName + " has been removed from " + team.getName());
+		player.sendMessageToTeam(player.getName() + " has been removed from " + team.getName());
+		team.removePlayer(player.getName());
+		Data.chatStatus.remove(player.getName());
+		originalSender.sendMessage(player.getName() + " has been removed from " + team.getName());
 		player.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
-		team.sendMessageToTeam(playerName + " has been removed from " + team.getName());
-		if (team.isEmpty())
+		if (team.isEmpty() && !team.isDefaultTeam())
 		{
 			originalSender.sendMessage(team.getName() + " has been disbanded");
 			player.sendMessage(team.getName() + " has been " + ChatColor.RED + "disbanded");
@@ -102,9 +102,9 @@ public class ConsoleSet extends BaseConsoleCommand
 	}
 	private void addPlayerToTeam(TeamPlayer player, Team team)
 	{
-		team.addPlayer(playerName);
-		originalSender.sendMessage(playerName + " has been added to " + team.getName());
+		team.addPlayer(player.getName());
+		originalSender.sendMessage(player.getName() + " has been added to " + team.getName());
 		player.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
-		team.sendMessageToTeam(playerName + " has been added to " + team.getName());
+		player.sendMessageToTeam(player.getName() + " has been added to " + team.getName());
 	}
 }

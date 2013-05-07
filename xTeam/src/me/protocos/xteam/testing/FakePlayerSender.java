@@ -178,7 +178,7 @@ public class FakePlayerSender implements Player, CommandSender
 	{
 		String messages = "";
 		for (String s : messageLog)
-			messages += s + "\n";
+			messages += s.replaceAll("¤.", "") + "\n";
 		return messages;
 	}
 

@@ -5,7 +5,9 @@ import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleSet;
+import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
+import me.protocos.xteam.core.exception.TeamPlayerMaxException;
 import me.protocos.xteam.core.exception.TeamPlayerNeverPlayedException;
 import me.protocos.xteam.testing.FakeConsoleSender;
 import org.junit.After;
@@ -36,7 +38,7 @@ public class ConsoleSetTest
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
-	public void ShouldBeServerAdminSetExecuteLastPerson()
+	public void ShouldBeConsoleSetExecuteLastPerson()
 	{
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").removePlayer("protocos");
@@ -100,6 +102,18 @@ public class ConsoleSetTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertFalse(fakeExecuteResponse);
+	}
+	@Test
+	public void ShouldBeConsoleSetMaxPlayers()
+	{
+		//ASSEMBLE
+		Data.MAX_PLAYERS = 2;
+		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Lonely one");
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

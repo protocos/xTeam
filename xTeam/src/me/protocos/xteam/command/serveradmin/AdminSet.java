@@ -70,6 +70,14 @@ public class AdminSet extends BaseServerAdminCommand
 		{
 			throw new TeamPlayerLeaderLeavingException();
 		}
+		if (p.hasTeam() && p.getTeam().getName().equalsIgnoreCase(teamName))
+		{
+			throw new TeamPlayerAlreadyOnTeamException();
+		}
+		if (xTeam.tm.contains(teamName) && xTeam.tm.getTeam(teamName).size() >= Data.MAX_PLAYERS && Data.MAX_PLAYERS > 0)
+		{
+			throw new TeamPlayerMaxException();
+		}
 	}
 	@Override
 	public String getPattern()
@@ -89,14 +97,14 @@ public class AdminSet extends BaseServerAdminCommand
 	private void removePlayer(TeamPlayer p)
 	{
 		Team team = p.getTeam();
-		team.removePlayer(playerName);
-		Data.chatStatus.remove(playerName);
-		originalSender.sendMessage(playerName + " has been removed from " + team.getName());
+		p.sendMessageToTeam(p.getName() + " has been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
+		team.removePlayer(p.getName());
+		Data.chatStatus.remove(p.getName());
+		player.sendMessage(p.getName() + " has been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
 		p.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
-		team.sendMessageToTeam(playerName + " has been removed from " + team.getName());
-		if (team.isEmpty())
+		if (team.isEmpty() && !team.isDefaultTeam())
 		{
-			originalSender.sendMessage(team.getName() + " has been disbanded");
+			player.sendMessage(team.getName() + " has been " + ChatColor.RED + "disbanded");
 			p.sendMessage(team.getName() + " has been " + ChatColor.RED + "disbanded");
 			xTeam.tm.removeTeam(team.getName());
 		}
@@ -104,14 +112,14 @@ public class AdminSet extends BaseServerAdminCommand
 	private void createTeamWithLeader(String team, String p)
 	{
 		xTeam.tm.createTeamWithLeader(team, p);
-		originalSender.sendMessage(team + " has been created");
-		originalSender.sendMessage(p + " has been added to " + team);
+		player.sendMessage(team + " has been " + ChatColor.AQUA + "created");
+		player.sendMessage(p + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team);
 	}
 	private void addPlayerToTeam(TeamPlayer p, Team team)
 	{
-		team.addPlayer(playerName);
-		originalSender.sendMessage(playerName + " has been added to " + team.getName());
+		team.addPlayer(p.getName());
+		player.sendMessage(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
 		p.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
-		team.sendMessageToTeam(playerName + " has been added to " + team.getName());
+		p.sendMessageToTeam(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
 	}
 }

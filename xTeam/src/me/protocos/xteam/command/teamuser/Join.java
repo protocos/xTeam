@@ -6,7 +6,6 @@ import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
 import me.protocos.xteam.util.StringUtil;
@@ -31,12 +30,7 @@ public class Join extends BaseUserCommand
 		Team foundTeam = xTeam.tm.getTeam(desiredTeam);
 		foundTeam.addPlayer(teamPlayer.getName());
 		InviteHandler.removeInvite(teamPlayer.getName());
-		for (String teammate : foundTeam.getPlayers())
-		{
-			TeamPlayer mate = new TeamPlayer(teammate);
-			if (mate.isOnline() && !teamPlayer.getName().equals(mate.getName()))
-				mate.sendMessage(teamPlayer.getName() + ChatColor.AQUA + " joined your team");
-		}
+		teamPlayer.sendMessageToTeam(ChatColor.AQUA + " joined your team");
 		originalSender.sendMessage("You joined " + ChatColor.AQUA + foundTeam.getName());
 	}
 	@Override
