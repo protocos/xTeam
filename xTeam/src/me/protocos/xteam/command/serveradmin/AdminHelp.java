@@ -57,7 +57,7 @@ public class AdminHelp extends BaseServerAdminCommand
 		}
 		String command;
 		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_set")))
-			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage(command) + " - <admin> set team of teamPlayer");
+			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage(command) + " - <admin> set team of player");
 		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_hq")))
 			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage(command) + " - <admin> teleport to team headquarters");
 		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_sethq")))

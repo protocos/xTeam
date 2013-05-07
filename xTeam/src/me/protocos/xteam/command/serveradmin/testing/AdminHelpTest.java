@@ -31,7 +31,7 @@ public class AdminHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Admin Commands: [Page 1/2] {optional} [required] pick/one\n" +
-				"/team set [Player] [Team] - <admin> set team of teamPlayer\n" +
+				"/team set [Player] [Team] - <admin> set team of player\n" +
 				"/team hq [Team] - <admin> teleport to team headquarters\n" +
 				"/team sethq [Team] - <admin> set team headquarters for team\n" +
 				"/team setleader [Team] [Player] - <admin> set leader of team\n" +
