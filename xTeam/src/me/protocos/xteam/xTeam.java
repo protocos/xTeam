@@ -15,12 +15,7 @@ import me.protocos.xteam.command.teamadmin.Promote;
 import me.protocos.xteam.command.teamadmin.SetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
-import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.Functions;
-import me.protocos.xteam.core.TeamManager;
-import me.protocos.xteam.core.TeamServiceManager;
-import me.protocos.xteam.util.ILog;
-import me.protocos.xteam.util.LogUtil;
+import me.protocos.xteam.core.*;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 

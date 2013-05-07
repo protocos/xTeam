@@ -1,9 +1,8 @@
 package me.protocos.xteam.listener;
 
-import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.ITeamPlayer;
+import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.util.ColorUtil;
 import org.bukkit.ChatColor;
@@ -19,9 +18,9 @@ public class TeamChatListener implements Listener
 	public void onPlayerChat(AsyncPlayerChatEvent event)
 	{
 		Player player = event.getPlayer();
+		TeamPlayer teamPlayer = new TeamPlayer(player);
 		String msg = event.getMessage();
 		String format = event.getFormat();
-		TeamPlayer teamPlayer = new TeamPlayer(player);
 		World teamPlayerWorld = teamPlayer.getWorld();
 		if (event.isCancelled())
 		{
@@ -33,26 +32,21 @@ public class TeamChatListener implements Listener
 		}
 		if (teamPlayer.hasTeam() && Data.TEAM_TAG_ENABLED)
 		{
+			Team team = teamPlayer.getTeam();
+			String playerName = teamPlayer.getName();
 			String teamTag = "[" + teamPlayer.getTeam().getTag() + "]";
-			String teamPlayerName = teamPlayer.getName();
 			event.setFormat(ColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.RESET + " " + format);
-			if (Data.chatStatus.contains(teamPlayerName))
+			if (Data.chatStatus.contains(playerName))
 			{
 				event.setCancelled(true);
-				List<String> onlineTeammates = teamPlayer.getOnlineTeammates();
-				teamPlayer.sendMessage("[" + ColorUtil.getColor(Data.NAME_COLOR) + teamPlayerName + ChatColor.RESET + "] " + msg);
-				for (String teammate : onlineTeammates)
-				{
-					ITeamPlayer p = new TeamPlayer(teammate);
-					p.sendMessage("[" + ColorUtil.getColor(Data.NAME_COLOR) + teamPlayerName + ChatColor.RESET + "] " + msg);
-				}
+				team.sendMessage("[" + ColorUtil.getColor(Data.NAME_COLOR) + playerName + ChatColor.RESET + "] " + msg);
 				for (String p : Data.spies)
 				{
 					TeamPlayer spy = new TeamPlayer(p);
 					if (!spy.isOnSameTeam(teamPlayer))
-						spy.sendMessage(ChatColor.RED + "[" + teamTag + "] " + ChatColor.RESET + "<" + teamPlayerName + "> " + msg);
+						spy.sendMessage(ColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
 				}
-				xTeam.log.info("[" + teamPlayerName + "] " + event.getMessage());
+				xTeam.log.info("[" + playerName + "] " + event.getMessage());
 			}
 		}
 	}
