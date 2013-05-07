@@ -1,11 +1,11 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseConsoleCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 
@@ -30,14 +30,15 @@ public class ConsoleRemove extends BaseConsoleCommand
 		originalSender.sendMessage("You" + ChatColor.RED + " removed " + ChatColor.RESET + playerName + " from " + teamName);
 		if (p.isOnline())
 			p.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
+		if (team.isEmpty())
+		{
+			originalSender.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
+			xTeam.tm.removeTeam(team.getName());
+		}
 	}
 	@Override
 	public void checkRequirements() throws TeamException
 	{
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
 		if (parseCommand.size() == 3)
 		{
 			teamName = parseCommand.get(1);

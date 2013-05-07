@@ -36,6 +36,21 @@ public class AdminRemoveTest
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
+	public void ShouldBeServerAdminRemoveExecuteLastPlayer()
+	{
+		//ASSEMBLE
+		xTeam.tm.getTeam("one").removePlayer("protocos");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		BaseServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one kmlanglois");
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals("You removed kmlanglois from one", fakePlayerSender.getMessage(0));
+		Assert.assertEquals("one has been disbanded", fakePlayerSender.getMessage(1));
+		Assert.assertFalse(xTeam.tm.contains("one"));
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+	@Test
 	public void ShouldBeServerAdminRemoveExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE

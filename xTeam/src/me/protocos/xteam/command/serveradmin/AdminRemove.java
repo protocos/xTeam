@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseServerAdminCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
@@ -30,6 +31,11 @@ public class AdminRemove extends BaseServerAdminCommand
 		player.sendMessage("You" + ChatColor.RED + " removed " + ChatColor.RESET + playerName + " from " + teamName);
 		if (p.isOnline())
 			p.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
+		if (team.isEmpty())
+		{
+			player.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
+			xTeam.tm.removeTeam(team.getName());
+		}
 	}
 	@Override
 	public void checkRequirements() throws TeamException

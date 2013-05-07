@@ -83,6 +83,8 @@ public class CommandDelegate implements CommandExecutor
 			command = new ConsolePromote(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_reload")))
 			command = new ConsoleReload(sender, originalCommand);
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_remove")))
+			command = new ConsoleRemove(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_rename")))
 			command = new ConsoleRename(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_tag")))

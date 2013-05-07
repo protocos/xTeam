@@ -199,13 +199,14 @@ public class xTeam extends JavaPlugin
 	}
 	public static void registerConsoleCommands(ICommandManager manager)
 	{
-		manager.registerCommand("console_disband", new ConsoleDisband());
 		manager.registerCommand("console_demote", new ConsoleDemote());
+		manager.registerCommand("console_disband", new ConsoleDisband());
 		manager.registerCommand("console_help", new ConsoleHelp());
 		manager.registerCommand("console_info", new ConsoleInfo());
 		manager.registerCommand("console_list", new ConsoleList());
 		manager.registerCommand("console_promote", new ConsolePromote());
 		manager.registerCommand("console_reload", new ConsoleReload());
+		manager.registerCommand("console_remove", new ConsoleRemove());
 		manager.registerCommand("console_rename", new ConsoleRename());
 		manager.registerCommand("console_tag", new ConsoleTag());
 		manager.registerCommand("console_open", new ConsoleOpen());

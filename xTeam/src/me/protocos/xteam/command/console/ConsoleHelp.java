@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseCommand;
 import me.protocos.xteam.command.BaseConsoleCommand;
 import me.protocos.xteam.core.exception.TeamException;
@@ -27,18 +28,19 @@ public class ConsoleHelp extends BaseConsoleCommand
 	protected void act()
 	{
 		pages.setTitle("Console Commands: {optional} [required] pick/one");
-		pages.addLine(BaseCommand.baseCommand + " info [Player/Team] - get info on teamPlayer/team");
-		pages.addLine(BaseCommand.baseCommand + " list - list all teams on the server");
-		pages.addLine(BaseCommand.baseCommand + " set [Player] [Team] - set team of teamPlayer");
-		pages.addLine(BaseCommand.baseCommand + " setleader [Team] [Player] - set leader of team");
-		pages.addLine(BaseCommand.baseCommand + " promote [Team] [Player] - promote admin of team");
-		pages.addLine(BaseCommand.baseCommand + " demote [Team] [Player] - demote admin of team");
-		pages.addLine(BaseCommand.baseCommand + " rename [Team] [Name] - rename a team");
-		pages.addLine(BaseCommand.baseCommand + " tag [Team] [Tag] - set team tag");
-		pages.addLine(BaseCommand.baseCommand + " disband - disband a team");
-		pages.addLine(BaseCommand.baseCommand + " open [Team] - open team to public joining");
-		pages.addLine(BaseCommand.baseCommand + " teleallhq - teleports everyone to their Headquarters");
-		pages.addLine(BaseCommand.baseCommand + " reload - reloads the configuration file");
+		pages.addLine(xTeam.cm.getUsage("console_info") + " - get info on teamPlayer/team");
+		pages.addLine(xTeam.cm.getUsage("console_list") + " - list all teams on the server");
+		pages.addLine(xTeam.cm.getUsage("console_set") + " - set team of teamPlayer");
+		pages.addLine(xTeam.cm.getUsage("console_setleader") + " - set leader of team");
+		pages.addLine(xTeam.cm.getUsage("console_promote") + " - promote admin of team");
+		pages.addLine(xTeam.cm.getUsage("console_demote") + " - demote admin of team");
+		pages.addLine(xTeam.cm.getUsage("console_remove") + " - remove member of team");
+		pages.addLine(xTeam.cm.getUsage("console_rename") + " - rename a team");
+		pages.addLine(xTeam.cm.getUsage("console_tag") + " - set team tag");
+		pages.addLine(xTeam.cm.getUsage("console_disband") + " - disband a team");
+		pages.addLine(xTeam.cm.getUsage("console_open") + " - open team to public joining");
+		pages.addLine(xTeam.cm.getUsage("console_teleallhq") + " - teleports everyone to their Headquarters");
+		pages.addLine(xTeam.cm.getUsage("console_reload") + " - reloads the configuration file");
 		originalSender.sendMessage(pages.getTitle());
 		for (int index = 0; index < pages.size(); index++)
 		{

@@ -152,6 +152,23 @@ public class PatternConsoleTest
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
 	}
 	@Test
+	public void ShouldBeConsoleRemove()
+	{
+		baseCmd = "remove";
+		command = "remove TEAM PLAYER";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "remove TEAM PLAYER ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "rem TEAM PLAYER";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "remv TEAM PLAYER ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "rm TEAM PLAYER ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "r TEAM PLAYER";
+		Assert.assertFalse(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+	}
+	@Test
 	public void ShouldBeConsoleRename()
 	{
 		baseCmd = "rename";

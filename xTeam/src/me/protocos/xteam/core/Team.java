@@ -107,7 +107,7 @@ public class Team implements ITeam
 	}
 	public boolean removePlayer(String player)
 	{
-		if (leader.equalsIgnoreCase(player))
+		if (leader.equals(player))
 			this.leader = "";
 		if (admins.contains(player))
 			admins.remove(player);
