@@ -5,13 +5,13 @@ import java.sql.Timestamp;
 import java.util.Scanner;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class xTeamLog implements ILog
+public class LogUtil implements ILog
 {
 	private File file;
 	private FileOutputStream output;
 	private PrintStream printStream;
 
-	public xTeamLog(JavaPlugin plugin)
+	public LogUtil(JavaPlugin plugin)
 	{
 		file = new File(plugin.getDataFolder().getAbsolutePath() + "/xTeam.log");
 		if (!file.exists())

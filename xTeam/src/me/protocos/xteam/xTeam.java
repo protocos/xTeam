@@ -20,7 +20,7 @@ import me.protocos.xteam.core.Functions;
 import me.protocos.xteam.core.TeamManager;
 import me.protocos.xteam.core.TeamServiceManager;
 import me.protocos.xteam.util.ILog;
-import me.protocos.xteam.util.xTeamLog;
+import me.protocos.xteam.util.LogUtil;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -270,7 +270,7 @@ public class xTeam extends JavaPlugin
 	public void onEnable()
 	{
 		initFileSystem();
-		logger = new xTeamLog(this);
+		logger = new LogUtil(this);
 		VERSION = getDescription().getVersion();
 		Data.settings = new File(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
 		Data.load();
@@ -288,14 +288,14 @@ public class xTeam extends JavaPlugin
 		Functions.readTeamData(new File("plugins/xTeam/teams.txt"));
 		Data.ensureDefaultTeams();
 		//		sm.loadConfig();
-		logger.info("SERVER: Enabled");
+		logger.info("SERVER: xTeam v" + VERSION + " enabled");
 	}
 	@Override
 	public void onDisable()
 	{
 		Functions.writeTeamData(new File("plugins/xTeam/teams.txt"));
 		//		sm.saveConfig();
-		logger.info("SERVER: Disabled");
+		logger.info("SERVER: xTeam disabled");
 		logger.close();
 	}
 }

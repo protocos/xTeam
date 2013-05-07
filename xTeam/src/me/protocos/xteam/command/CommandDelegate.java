@@ -62,7 +62,7 @@ public class CommandDelegate implements CommandExecutor
 	}
 	public boolean onConsoleCommand(ConsoleCommandSender sender, String commandID, String originalCommand)
 	{
-		xTeam.logger.info("console issued server command: " + commandID + " " + originalCommand);
+		xTeam.logger.info("console issued command: " + commandID + " " + originalCommand);
 		BaseConsoleCommand command;
 		// /////////////////////|||||||\\\\\\\\\\\\\\\\\\\\\
 		// //////////////////             \\\\\\\\\\\\\\\\\\
@@ -110,7 +110,7 @@ public class CommandDelegate implements CommandExecutor
 	public boolean onPlayerCommand(Player sender, String commandID, String originalCommand)
 	{
 		commandID = "/" + commandID;
-		xTeam.logger.info(sender.getName() + " issued server command: " + commandID + " " + originalCommand);
+		xTeam.logger.info(sender.getName() + " issued command: " + commandID + " " + originalCommand);
 		BasePlayerCommand command;
 		// /////////////////////|||||\\\\\\\\\\\\\\\\\\\\\
 		// //////////////////           \\\\\\\\\\\\\\\\\\
