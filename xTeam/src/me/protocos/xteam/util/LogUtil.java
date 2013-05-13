@@ -7,13 +7,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class LogUtil implements ILog
 {
+	private String pluginPackageID;
 	private File file;
 	private FileOutputStream output;
 	private PrintStream printStream;
 
 	public LogUtil(JavaPlugin plugin)
 	{
-		file = new File(plugin.getDataFolder().getAbsolutePath() + "/xTeam.log");
+		String packageString = plugin.getClass().getPackage().toString();
+		this.pluginPackageID = packageString.substring(packageString.indexOf(' '), packageString.lastIndexOf('.') + 1);
+		file = new File(plugin.getDataFolder().getAbsolutePath() + "/" + plugin.getName() + ".log");
 		if (!file.exists())
 		{
 			try
@@ -68,9 +71,9 @@ public class LogUtil implements ILog
 		error(e.toString());
 		for (StackTraceElement elem : e.getStackTrace())
 		{
-			if (elem.toString().contains("me.protocos."))
+			if (elem.toString().contains(pluginPackageID))
 			{
-				error("\t@ " + elem.toString().replaceAll("me.protocos.", ""));
+				error("\t@ " + elem.toString().replaceAll(pluginPackageID, ""));
 			}
 		}
 	}

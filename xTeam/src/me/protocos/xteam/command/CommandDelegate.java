@@ -64,7 +64,6 @@ public class CommandDelegate implements CommandExecutor
 		catch (Exception e)
 		{
 			xTeam.logger.exception(e);
-			e.printStackTrace();
 		}
 		return true;
 	}
@@ -77,7 +76,9 @@ public class CommandDelegate implements CommandExecutor
 		// ================     CONSOLE     ================
 		// \\\\\\\\\\\\\\\\\\             //////////////////
 		// \\\\\\\\\\\\\\\\\\\\\|||||||/////////////////////
-		if (originalCommand.toLowerCase().matches(manager.getPattern("console_help")))
+		if (originalCommand.toLowerCase().matches(manager.getPattern("console_debug")))
+			command = new ConsoleDebug(sender, originalCommand);
+		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_help")))
 			command = new ConsoleHelp(sender, originalCommand, commandID);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("console_disband")))
 			command = new ConsoleDisband(sender, originalCommand);

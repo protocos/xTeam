@@ -33,6 +33,7 @@ public class xTeam extends JavaPlugin
 
 	public static void registerConsoleCommands(ICommandManager manager)
 	{
+		manager.registerCommand("console_debug", new ConsoleDebug());
 		manager.registerCommand("console_demote", new ConsoleDemote());
 		manager.registerCommand("console_disband", new ConsoleDisband());
 		manager.registerCommand("console_help", new ConsoleHelp());
@@ -129,7 +130,6 @@ public class xTeam extends JavaPlugin
 		catch (Exception e)
 		{
 			logger.exception(e);
-			e.printStackTrace();
 		}
 	}
 	@Override
@@ -145,7 +145,6 @@ public class xTeam extends JavaPlugin
 		catch (Exception e)
 		{
 			logger.exception(e);
-			e.printStackTrace();
 		}
 	}
 	public void initFileSystem()

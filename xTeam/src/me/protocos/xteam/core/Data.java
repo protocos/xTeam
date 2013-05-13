@@ -24,7 +24,6 @@ public class Data
 	public static HashMap<String, Long> hasTeleported = new HashMap<String, Long>();
 	public static HashMap<String, Long> lastAttacked = new HashMap<String, Long>();
 	public static HashMap<String, Long> lastCreated = new HashMap<String, Long>();
-	//	public static HashMap<String, Team> invites = new HashMap<String, Team>();
 	public static boolean SPOUT_ENABLED;
 	public static boolean LOCATIONS_ENABLED;
 	public static boolean CAN_CHAT;
