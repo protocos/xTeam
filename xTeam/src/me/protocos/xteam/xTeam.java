@@ -130,7 +130,7 @@ public class xTeam extends JavaPlugin
 		catch (Exception e)
 		{
 			logger.exception(e);
-			xTeam.log.info("[ERROR] Exception in onEnable() class [check logs]");
+			xTeam.log.info("[ERROR] Exception in xTeam onEnable() class [check logs]");
 		}
 	}
 	@Override
@@ -146,7 +146,7 @@ public class xTeam extends JavaPlugin
 		catch (Exception e)
 		{
 			logger.exception(e);
-			xTeam.log.info("[ERROR] Exception in onDisable() class [check logs]");
+			xTeam.log.info("[ERROR] Exception in xTeam onDisable() class [check logs]");
 		}
 	}
 	public void initFileSystem()

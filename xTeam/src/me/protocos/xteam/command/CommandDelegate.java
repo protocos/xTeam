@@ -64,7 +64,7 @@ public class CommandDelegate implements CommandExecutor
 		catch (Exception e)
 		{
 			xTeam.logger.exception(e);
-			xTeam.log.info("[ERROR] Exception in onCommand() class [check logs]");
+			xTeam.log.info("[ERROR] Exception in xTeam onCommand() class [check logs]");
 		}
 		return true;
 	}
