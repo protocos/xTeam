@@ -15,7 +15,7 @@ public class LogUtil implements ILog
 	public LogUtil(JavaPlugin plugin)
 	{
 		String packageString = plugin.getClass().getPackage().toString();
-		this.pluginPackageID = packageString.substring(packageString.indexOf(' '), packageString.lastIndexOf('.') + 1);
+		this.pluginPackageID = packageString.substring(packageString.indexOf(' ') + 1, packageString.lastIndexOf('.') + 1);
 		file = new File(plugin.getDataFolder().getAbsolutePath() + "/" + plugin.getName() + ".log");
 		if (!file.exists())
 		{
