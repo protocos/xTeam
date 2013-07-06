@@ -13,10 +13,6 @@ public class ConsoleSetLeader extends BaseConsoleCommand
 {
 	private String teamName, playerName;
 
-	public ConsoleSetLeader()
-	{
-		super();
-	}
 	public ConsoleSetLeader(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);

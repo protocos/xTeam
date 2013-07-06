@@ -10,30 +10,24 @@ import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Rename extends BaseUserCommand
+public class UserTag extends BaseUserCommand
 {
-	private String newName;
+	private String newTag;
 
-	public Rename()
-	{
-		super();
-	}
-	public Rename(Player sender, String command)
+	public UserTag(Player sender, String command)
 	{
 		super(sender, command);
 	}
 	@Override
 	protected void act()
 	{
-		xTeam.tm.removeTeam(team.getName());
-		team.setName(newName);
-		xTeam.tm.addTeam(team);
+		team.setTag(newTag);
+		teamPlayer.sendMessage("The team tag has been set to " + ChatColor.AQUA + newTag);
 		for (String p : teamPlayer.getOnlineTeammates())
 		{
 			TeamPlayer mate = new TeamPlayer(p);
-			mate.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName);
+			mate.sendMessage("The team tag has been set to " + ChatColor.AQUA + newTag);
 		}
-		originalSender.sendMessage("You renamed the team to " + ChatColor.AQUA + newName);
 	}
 	@Override
 	public void checkRequirements() throws TeamException
@@ -44,7 +38,7 @@ public class Rename extends BaseUserCommand
 		}
 		if (parseCommand.size() == 2)
 		{
-			newName = parseCommand.get(1);
+			newTag = parseCommand.get(1);
 		}
 		else
 		{
@@ -62,32 +56,32 @@ public class Rename extends BaseUserCommand
 		{
 			throw new TeamPlayerNotLeaderException();
 		}
-		if (Data.TEAM_TAG_LENGTH != 0 && newName.length() > Data.TEAM_TAG_LENGTH)
+		if (Data.TEAM_TAG_LENGTH != 0 && newTag.length() > Data.TEAM_TAG_LENGTH)
 		{
 			throw new TeamNameTooLongException();
 		}
-		if (xTeam.tm.contains(newName) && !team.getName().equalsIgnoreCase(newName))
-		{
-			throw new TeamAlreadyExistsException();
-		}
-		if (Data.ALPHA_NUM && !newName.matches(ALPHA_NUMERIC))
+		if (Data.ALPHA_NUM && !newTag.matches(ALPHA_NUMERIC))
 		{
 			throw new TeamNameNotAlphaException();
+		}
+		if (!newTag.equalsIgnoreCase(team.getName()) && toLowerCase(xTeam.tm.getAllTeamNames()).contains(newTag.toLowerCase()))
+		{
+			throw new TeamNameConflictsWithTagException();
 		}
 	}
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("re") + patternOneOrMore("name") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
+		return patternOneOrMore("tag") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.leader.core.rename";
+		return "xteam.leader.core.tag";
 	}
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " rename [Name]";
+		return baseCommand + " tag [UserTag]";
 	}
 }

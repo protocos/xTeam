@@ -4,7 +4,7 @@ import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
-import me.protocos.xteam.command.teamleader.SetLeader;
+import me.protocos.xteam.command.teamleader.UserSetLeader;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerNotLeaderException;
 import me.protocos.xteam.testing.FakeLocation;
@@ -26,7 +26,7 @@ public class SetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new SetLeader(fakePlayerSender, "setleader protocos");
+		BaseUserCommand fakeCommand = new UserSetLeader(fakePlayerSender, "setleader protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -40,7 +40,7 @@ public class SetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new SetLeader(fakePlayerSender, "setleader protocos");
+		BaseUserCommand fakeCommand = new UserSetLeader(fakePlayerSender, "setleader protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -52,7 +52,7 @@ public class SetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new SetLeader(fakePlayerSender, "setleader protocos");
+		BaseUserCommand fakeCommand = new UserSetLeader(fakePlayerSender, "setleader protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -65,7 +65,7 @@ public class SetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new SetLeader(fakePlayerSender, "setleader newbie");
+		BaseUserCommand fakeCommand = new UserSetLeader(fakePlayerSender, "setleader newbie");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

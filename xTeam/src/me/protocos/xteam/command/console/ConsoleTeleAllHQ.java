@@ -12,10 +12,6 @@ import org.bukkit.entity.Player;
 
 public class ConsoleTeleAllHQ extends BaseConsoleCommand
 {
-	public ConsoleTeleAllHQ()
-	{
-		super();
-	}
 	public ConsoleTeleAllHQ(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);

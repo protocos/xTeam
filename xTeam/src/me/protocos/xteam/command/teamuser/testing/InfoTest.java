@@ -4,7 +4,7 @@ import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
-import me.protocos.xteam.command.teamuser.Info;
+import me.protocos.xteam.command.teamuser.UserInfo;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.testing.FakeLocation;
@@ -26,15 +26,15 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info");
+		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE\n" +
-				"Team Tag - TeamAwesome\n" +
+				"Team UserTag - TeamAwesome\n" +
 				"Team Leader - kmlanglois\n" +
 				"Team Joining - Closed\n" +
-				"Team Headquarters - X:170 Y:65 Z:209\n" +
+				"Team UserHeadquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +
 				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"\n" +
 				"    protocos Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
@@ -45,14 +45,14 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info two");
+		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Team Name - two\n" +
 				"Team Leader - mastermind\n" +
 				"Team Joining - Closed\n" +
-				"Team Headquarters - None set\n" +
+				"Team UserHeadquarters - None set\n" +
 				"Teammates online:\n" +
 				"    mastermind", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -62,14 +62,14 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info mastermind");
+		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Team Name - two\n" +
 				"Team Leader - mastermind\n" +
 				"Team Joining - Closed\n" +
-				"Team Headquarters - None set\n" +
+				"Team UserHeadquarters - None set\n" +
 				"Teammates online:\n" +
 				"    mastermind", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -79,7 +79,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info red");
+		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info red");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -90,14 +90,14 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info strandedhelix");
+		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info strandedhelix");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Team Name - red\n" +
-				"Team Tag - RED\n" +
-				"Team Joining - Open\n" +
-				"Team Headquarters - None set\n" +
+				"Team UserTag - RED\n" +
+				"Team Joining - UserOpen\n" +
+				"Team UserHeadquarters - None set\n" +
 				"Teammates offline:\n" +
 				"    strandedhelix", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -110,15 +110,15 @@ public class InfoTest
 		xTeam.tm.getTeam("red").promote("strandedhelix");
 		xTeam.tm.getTeam("red").promote("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
-		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info");
+		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Team Name - red\n" +
-				"Team Tag - RED\n" +
+				"Team UserTag - RED\n" +
 				"Team Admins - strandedhelix, Lonely\n" +
-				"Team Joining - Open\n" +
-				"Team Headquarters - None set\n" +
+				"Team Joining - UserOpen\n" +
+				"Team UserHeadquarters - None set\n" +
 				"Teammates online:\n" +
 				"    Lonely Health: 100% Location: 0 64 0 in \"world\"\n" +
 				"Teammates offline:\n" +
@@ -131,16 +131,16 @@ public class InfoTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info");
+		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE\n" +
-				"Team Tag - TeamAwesome\n" +
+				"Team UserTag - TeamAwesome\n" +
 				"Team Leader - kmlanglois\n" +
 				"Team Admins - protocos\n" +
 				"Team Joining - Closed\n" +
-				"Team Headquarters - X:170 Y:65 Z:209\n" +
+				"Team UserHeadquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +
 				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"\n" +
 				"    protocos Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
@@ -151,7 +151,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info");
+		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -163,7 +163,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Info(fakePlayerSender, "info three");
+		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info three");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

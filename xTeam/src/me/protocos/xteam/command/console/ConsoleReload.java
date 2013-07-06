@@ -9,10 +9,6 @@ import org.bukkit.command.ConsoleCommandSender;
 
 public class ConsoleReload extends BaseConsoleCommand
 {
-	public ConsoleReload()
-	{
-		super();
-	}
 	public ConsoleReload(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);

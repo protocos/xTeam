@@ -55,9 +55,9 @@ public class TeamWolfTest
 		World world = new FakeWorld();
 		TeamWolf wolf = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(world, 0, 64, 0)));
 		//ACT
-		int health = wolf.getHealth();
+		double health = wolf.getHealth();
 		//ASSERT
-		Assert.assertEquals(20, health);
+		Assert.assertEquals(20.0, health, 0);
 	}
 	@Test
 	public void ShouldBeRelativeXYZ()

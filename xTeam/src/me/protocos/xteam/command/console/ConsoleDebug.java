@@ -12,10 +12,6 @@ public class ConsoleDebug extends BaseConsoleCommand
 {
 	private String subCommand;
 
-	public ConsoleDebug()
-	{
-		super();
-	}
 	public ConsoleDebug(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);
@@ -24,13 +20,13 @@ public class ConsoleDebug extends BaseConsoleCommand
 	protected void act()
 	{
 		if (subCommand.equalsIgnoreCase("chat"))
-			originalSender.sendMessage("Chat statuses: " + Data.chatStatus.toString());
+			originalSender.sendMessage("UserChat statuses: " + Data.chatStatus.toString());
 		else if (subCommand.equalsIgnoreCase("invites"))
 			originalSender.sendMessage("Invites: " + InviteHandler.data());
 		else if (subCommand.equalsIgnoreCase("spies"))
 			originalSender.sendMessage("Spies: " + Data.spies.toString());
 		else if (subCommand.equalsIgnoreCase("return"))
-			originalSender.sendMessage("Return locations: " + Data.returnLocations.toString());
+			originalSender.sendMessage("UserReturn locations: " + Data.returnLocations.toString());
 		else if (subCommand.equalsIgnoreCase("tasks"))
 			originalSender.sendMessage("Task IDs: " + Data.taskIDs.toString());
 		else if (subCommand.equalsIgnoreCase("tele"))

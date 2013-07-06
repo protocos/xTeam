@@ -4,7 +4,7 @@ import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
-import me.protocos.xteam.command.teamleader.Demote;
+import me.protocos.xteam.command.teamleader.UserDemote;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderDemoteException;
 import me.protocos.xteam.core.exception.TeamPlayerNotLeaderException;
@@ -29,7 +29,7 @@ public class DemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Demote(fakePlayerSender, "demote protocos");
+		BaseUserCommand fakeCommand = new UserDemote(fakePlayerSender, "demote protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -42,7 +42,7 @@ public class DemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Demote(fakePlayerSender, "demote kmlanglois");
+		BaseUserCommand fakeCommand = new UserDemote(fakePlayerSender, "demote kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -55,7 +55,7 @@ public class DemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Demote(fakePlayerSender, "demote protocos");
+		BaseUserCommand fakeCommand = new UserDemote(fakePlayerSender, "demote protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -68,7 +68,7 @@ public class DemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new Demote(fakePlayerSender, "demote protocos");
+		BaseUserCommand fakeCommand = new UserDemote(fakePlayerSender, "demote protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -81,7 +81,7 @@ public class DemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Demote(fakePlayerSender, "demote mastermind");
+		BaseUserCommand fakeCommand = new UserDemote(fakePlayerSender, "demote mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

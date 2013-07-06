@@ -8,13 +8,9 @@ import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.entity.Player;
 
-public class SetHeadquarters extends BaseUserCommand
+public class UserSetHeadquarters extends BaseUserCommand
 {
-	public SetHeadquarters()
-	{
-		super();
-	}
-	public SetHeadquarters(Player sender, String command)
+	public UserSetHeadquarters(Player sender, String command)
 	{
 		super(sender, command);
 	}

@@ -14,10 +14,6 @@ public class AdminRemove extends BaseServerAdminCommand
 {
 	private String teamName, playerName;
 
-	public AdminRemove()
-	{
-		super();
-	}
 	public AdminRemove(Player sender, String command)
 	{
 		super(sender, command);

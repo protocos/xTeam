@@ -1,5 +1,7 @@
 package me.protocos.xteam.testing;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.entity.AnimalTamer;
 
 public class FakeAnimalTamer implements AnimalTamer
@@ -15,9 +17,21 @@ public class FakeAnimalTamer implements AnimalTamer
 	{
 		return name;
 	}
-	public boolean equals(FakeAnimalTamer tamer)
+	public int hashCode()
 	{
-		return getName().equals(tamer.getName());
+		return new HashCodeBuilder(73, 3).append(name).toHashCode();
+	}
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (!(obj instanceof FakeAnimalTamer))
+			return false;
+
+		FakeAnimalTamer rhs = (FakeAnimalTamer) obj;
+		return new EqualsBuilder().append(name, rhs.name).isEquals();
 	}
 
 }

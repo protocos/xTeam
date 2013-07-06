@@ -1,6 +1,7 @@
-package me.protocos.xteam.command.teamadmin;
+package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.util.List;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
@@ -8,26 +9,29 @@ import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Promote extends BaseUserCommand
+public class UserMessage extends BaseUserCommand
 {
-	private String otherPlayer;
+	private List<String> list;
 
-	public Promote()
-	{
-		super();
-	}
-	public Promote(Player sender, String command)
+	public UserMessage(Player sender, String command)
 	{
 		super(sender, command);
 	}
 	@Override
 	protected void act()
 	{
-		team.promote(otherPlayer);
-		TeamPlayer other = new TeamPlayer(otherPlayer);
-		if (other.isOnline())
-			other.sendMessage("You've been " + ChatColor.GREEN + "promoted");
-		originalSender.sendMessage("You" + ChatColor.GREEN + " promoted " + ChatColor.RESET + otherPlayer);
+		String message = "";
+		list = parseCommand.subList(1, parseCommand.size());
+		for (String s : list)
+		{
+			message = message + " " + s;
+		}
+		for (String p : teamPlayer.getOnlineTeammates())
+		{
+			TeamPlayer teammate = new TeamPlayer(p);
+			teammate.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
+		}
+		originalSender.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
 	}
 	@Override
 	public void checkRequirements() throws TeamException
@@ -36,9 +40,8 @@ public class Promote extends BaseUserCommand
 		{
 			throw new TeamPlayerDoesNotExistException();
 		}
-		if (parseCommand.size() == 2)
+		if (parseCommand.size() > 1)
 		{
-			otherPlayer = parseCommand.get(1);
 		}
 		else
 		{
@@ -52,28 +55,20 @@ public class Promote extends BaseUserCommand
 		{
 			throw new TeamPlayerHasNoTeamException();
 		}
-		if (!teamPlayer.isAdmin())
-		{
-			throw new TeamPlayerNotAdminException();
-		}
-		if (!team.getPlayers().contains(otherPlayer))
-		{
-			throw new TeamPlayerNotTeammateException();
-		}
 	}
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("promote") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
+		return "(" + patternOneOrMore("message") + "|" + "tell" + ")" + WHITE_SPACE + "[" + WHITE_SPACE + ANY_CHARS + "]+";
 	}
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.admin.core.promote";
+		return "xteam.player.core.chat";
 	}
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " promote [Player]";
+		return baseCommand + " message [UserMessage]";
 	}
 }

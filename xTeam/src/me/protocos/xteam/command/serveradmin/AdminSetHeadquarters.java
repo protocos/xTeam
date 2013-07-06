@@ -13,10 +13,6 @@ public class AdminSetHeadquarters extends BaseServerAdminCommand
 {
 	private String teamName;
 
-	public AdminSetHeadquarters()
-	{
-		super();
-	}
 	public AdminSetHeadquarters(Player sender, String command)
 	{
 		super(sender, command);

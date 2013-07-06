@@ -14,10 +14,6 @@ public class AdminDemote extends BaseServerAdminCommand
 {
 	private String teamName, playerName;
 
-	public AdminDemote()
-	{
-		super();
-	}
 	public AdminDemote(Player sender, String command)
 	{
 		super(sender, command);

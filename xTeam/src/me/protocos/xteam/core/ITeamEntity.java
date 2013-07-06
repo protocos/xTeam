@@ -9,7 +9,7 @@ public interface ITeamEntity extends ILocatable
 	public abstract Server getServer();
 	public abstract World getWorld();
 	public abstract boolean isOnline();
-	public abstract int getHealth();
+	public abstract double getHealth();
 	public abstract double getDistanceTo(ITeamEntity entity);
 	public abstract boolean isOnSameTeam(ITeamEntity entity);
 	public abstract boolean isEnemy(ITeamEntity entity);

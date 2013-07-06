@@ -13,10 +13,6 @@ public class AdminDisband extends BaseServerAdminCommand
 {
 	private String teamName;
 
-	public AdminDisband()
-	{
-		super();
-	}
 	public AdminDisband(Player sender, String command)
 	{
 		super(sender, command);

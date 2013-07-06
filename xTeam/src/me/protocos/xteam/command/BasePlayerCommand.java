@@ -6,11 +6,6 @@ public abstract class BasePlayerCommand extends BaseCommand implements IPlayerCo
 {
 	protected Player player;
 
-	public BasePlayerCommand()
-	{
-		super();
-	}
-
 	public BasePlayerCommand(Player sender, String command)
 	{
 		super(sender, command);

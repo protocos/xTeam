@@ -9,15 +9,11 @@ import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Invite extends BaseUserCommand
+public class UserInvite extends BaseUserCommand
 {
 	private String otherPlayer;
 
-	public Invite()
-	{
-		super();
-	}
-	public Invite(Player sender, String command)
+	public UserInvite(Player sender, String command)
 	{
 		super(sender, command);
 	}

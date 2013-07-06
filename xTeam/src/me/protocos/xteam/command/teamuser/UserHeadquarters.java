@@ -13,13 +13,9 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class Return extends BaseUserCommand
+public class UserHeadquarters extends BaseUserCommand
 {
-	public Return()
-	{
-		super();
-	}
-	public Return(Player sender, String command)
+	public UserHeadquarters(Player sender, String command)
 	{
 		super(sender, command);
 	}
@@ -31,12 +27,12 @@ public class Return extends BaseUserCommand
 		{
 			if (Functions.isEnemy(teamPlayer, entity))
 			{
-				delayTele();
+				delayTeleHQ(teamPlayer);
 				return;
 			}
 		}
-		tele();
-		originalSender.sendMessage(ChatColor.GREEN + "WHOOSH!");
+		teleHQ(teamPlayer);
+		player.sendMessage(ChatColor.GREEN + "WHOOSH!");
 	}
 	@Override
 	public void checkRequirements() throws TeamException
@@ -52,7 +48,7 @@ public class Return extends BaseUserCommand
 		{
 			throw new TeamInvalidCommandException();
 		}
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
+		if (!PermissionUtil.hasPermission(player, getPermissionNode()))
 		{
 			throw new TeamPlayerPermissionException();
 		}
@@ -60,14 +56,20 @@ public class Return extends BaseUserCommand
 		{
 			throw new TeamPlayerHasNoTeamException();
 		}
-		Location loc = Data.returnLocations.get(teamPlayer.getOnlinePlayer());
-		if (loc == null)
+		if (!team.hasHQ())
 		{
-			throw new TeamPlayerHasNoReturnException();
+			throw new TeamNoHeadquartersException();
 		}
 		if (teamPlayer.getOnlinePlayer().getNoDamageTicks() > 0)
 		{
 			throw new TeamPlayerDyingException();
+		}
+		if (Data.hasTeleported.containsKey(teamPlayer.getName()))
+		{
+			String error = "Player cannot teleport within " + Data.REFRESH_DELAY + " seconds of last teleport\nYou must wait " + (Data.REFRESH_DELAY - (System.currentTimeMillis() - Data.hasTeleported.get(teamPlayer.getName())) / 1000) + " more seconds";
+			if (Data.returnLocations.containsKey(teamPlayer.getOnlinePlayer()) && teamPlayer.hasPermission(getPermissionNode()))
+				error += "Player can still use /team return";
+			throw new TeamPlayerTeleException(error);
 		}
 		if (Data.lastAttacked.get(teamPlayer.getName()) != null && (System.currentTimeMillis() - Data.lastAttacked.get(teamPlayer.getName())) <= Data.LAST_ATTACKED_DELAY * 1000)
 		{
@@ -78,10 +80,10 @@ public class Return extends BaseUserCommand
 			throw new TeamPlayerTeleRequestException();
 		}
 	}
-	private void delayTele()
+	private void delayTeleHQ(final TeamPlayer playerTele)
 	{
-		final TeamPlayer finalPlayer = teamPlayer;
-		final Location finalLocation = teamPlayer.getLocation();
+		final TeamPlayer finalPlayer = playerTele;
+		final Location finalLocation = finalPlayer.getLocation();
 		Data.countWaitTime.put(finalPlayer.getName(), Integer.valueOf(0));
 		finalPlayer.sendMessage(ChatColor.RED + "You cannot teleport with enemies nearby");
 		finalPlayer.sendMessage(ChatColor.RED + "You must wait 10 seconds");
@@ -92,15 +94,15 @@ public class Return extends BaseUserCommand
 			{
 				if (Data.damagedByPlayer.contains(finalPlayer.getName()))
 				{
-					finalPlayer.sendMessage(ChatColor.RED + "Teleport cancelled! You were attacked!");
+					finalPlayer.sendMessage(ChatColor.RED + "UserTeleport cancelled! You were attacked!");
 					Data.damagedByPlayer.remove(finalPlayer.getName());
 					Data.countWaitTime.remove(finalPlayer.getName());
 					Data.BUKKIT.getScheduler().cancelTask(Data.taskIDs.remove(finalPlayer.getName()));
 				}
-				Location loc1 = finalPlayer.getLocation();
-				if (loc1.getBlockX() != finalLocation.getBlockX() || loc1.getBlockY() != finalLocation.getBlockY() || loc1.getBlockZ() != finalLocation.getBlockZ())
+				Location loc = finalPlayer.getLocation();
+				if (loc.getBlockX() != finalLocation.getBlockX() || loc.getBlockY() != finalLocation.getBlockY() || loc.getBlockZ() != finalLocation.getBlockZ())
 				{
-					finalPlayer.sendMessage(ChatColor.RED + "Teleport cancelled! You moved!");
+					finalPlayer.sendMessage(ChatColor.RED + "UserTeleport cancelled! You moved!");
 					Data.countWaitTime.remove(finalPlayer.getName());
 					Data.BUKKIT.getScheduler().cancelTask(Data.taskIDs.remove(finalPlayer.getName()));
 				}
@@ -109,7 +111,7 @@ public class Return extends BaseUserCommand
 					int temp = Data.countWaitTime.remove(finalPlayer.getName());
 					if (temp == Data.TELE_DELAY * 10)
 					{
-						tele();
+						teleHQ(finalPlayer);
 						Data.BUKKIT.getScheduler().cancelTask(Data.taskIDs.remove(finalPlayer.getName()));
 					}
 					temp++;
@@ -121,20 +123,32 @@ public class Return extends BaseUserCommand
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("return") + OPTIONAL_WHITE_SPACE;
+		return "hq" + OPTIONAL_WHITE_SPACE;
 	}
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.player.core.return";
+		return "xteam.player.core.hq";
 	}
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " return";
+		return baseCommand + " hq";
 	}
-	private void tele()
+	private void teleHQ(final TeamPlayer playerTele)
 	{
-		teamPlayer.teleport(Data.returnLocations.remove(teamPlayer.getOnlinePlayer()));
+		Data.returnLocations.put(playerTele.getOnlinePlayer(), playerTele.getLocation());
+		Data.hasTeleported.put(playerTele.getName(), Long.valueOf(System.currentTimeMillis()));
+		Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(Data.BUKKIT.getPluginManager().getPlugin("xTeam"), new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				Data.hasTeleported.remove(playerTele.getName());
+				if (Data.REFRESH_DELAY > 0)
+					playerTele.sendMessage(ChatColor.GREEN + "Teleporting ability refreshed");
+			}
+		}, Data.REFRESH_DELAY * 20L);
+		playerTele.teleport(playerTele.getTeam().getHeadquarters());
 	}
 }

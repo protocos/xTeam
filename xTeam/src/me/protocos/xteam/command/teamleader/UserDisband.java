@@ -1,7 +1,7 @@
-package me.protocos.xteam.command.teamuser;
+package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.util.List;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
@@ -9,43 +9,34 @@ import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Message extends BaseUserCommand
+public class UserDisband extends BaseUserCommand
 {
-	private List<String> list;
-
-	public Message()
-	{
-		super();
-	}
-	public Message(Player sender, String command)
+	public UserDisband(Player sender, String command)
 	{
 		super(sender, command);
 	}
 	@Override
 	protected void act()
 	{
-		String message = "";
-		list = parseCommand.subList(1, parseCommand.size());
-		for (String s : list)
-		{
-			message = message + " " + s;
-		}
 		for (String p : teamPlayer.getOnlineTeammates())
 		{
-			TeamPlayer teammate = new TeamPlayer(p);
-			teammate.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
+			TeamPlayer playerDisband = new TeamPlayer(p);
+			playerDisband.sendMessage("Team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by the leader");
 		}
-		originalSender.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
+		xTeam.tm.removeTeam(team.getName());
+		originalSender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " your team");
 	}
+
 	@Override
-	public void checkRequirements() throws TeamException
+	protected void checkRequirements() throws TeamException
 	{
 		if (teamPlayer == null)
 		{
 			throw new TeamPlayerDoesNotExistException();
 		}
-		if (parseCommand.size() > 1)
+		if (parseCommand.size() == 1)
 		{
+
 		}
 		else
 		{
@@ -59,20 +50,27 @@ public class Message extends BaseUserCommand
 		{
 			throw new TeamPlayerHasNoTeamException();
 		}
+		if (!teamPlayer.isLeader())
+		{
+			throw new TeamPlayerNotLeaderException();
+		}
 	}
+
 	@Override
 	public String getPattern()
 	{
-		return "(" + patternOneOrMore("message") + "|" + "tell" + ")" + WHITE_SPACE + "[" + WHITE_SPACE + ANY_CHARS + "]+";
+		return "disband" + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.player.core.chat";
+		return "xteam.leader.core.disband";
 	}
+
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " message [Message]";
+		return baseCommand + " disband";
 	}
 }

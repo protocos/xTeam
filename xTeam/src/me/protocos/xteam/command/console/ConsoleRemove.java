@@ -13,10 +13,6 @@ public class ConsoleRemove extends BaseConsoleCommand
 {
 	private String teamName, playerName;
 
-	public ConsoleRemove()
-	{
-		super();
-	}
 	public ConsoleRemove(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);

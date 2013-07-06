@@ -14,11 +14,6 @@ public class ConsoleDisband extends BaseConsoleCommand
 {
 	private String teamName;
 
-	public ConsoleDisband()
-	{
-		super();
-	}
-
 	public ConsoleDisband(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);

@@ -11,13 +11,9 @@ import me.protocos.xteam.core.exception.TeamPlayerPermissionException;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.entity.Player;
 
-public class List extends BaseUserCommand
+public class UserList extends BaseUserCommand
 {
-	public List()
-	{
-		super();
-	}
-	public List(Player sender, String command)
+	public UserList(Player sender, String command)
 	{
 		super(sender, command);
 

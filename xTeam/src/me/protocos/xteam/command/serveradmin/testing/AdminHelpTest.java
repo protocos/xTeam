@@ -54,7 +54,7 @@ public class AdminHelpTest
 		Assert.assertEquals("Admin Commands: [Page 2/2] {optional} [required] pick/one\n" +
 				"/team chatspy - <admin> spy on team chat\n" +
 				"/team rename [Team] [Name] - <admin> rename a team\n" +
-				"/team tag [Team] [Tag] - <admin> set team tag\n" +
+				"/team tag [Team] [UserTag] - <admin> set team tag\n" +
 				"/team disband [Team] - <admin> disband a team\n" +
 				"/team open [Team] - <admin> open team to public joining\n" +
 				"/team reload - <admin> reload the config files\n" +

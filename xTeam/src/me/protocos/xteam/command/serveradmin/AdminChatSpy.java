@@ -13,10 +13,6 @@ import org.bukkit.entity.Player;
 
 public class AdminChatSpy extends BaseServerAdminCommand
 {
-	public AdminChatSpy()
-	{
-		super();
-	}
 	public AdminChatSpy(Player sender, String command)
 	{
 		super(sender, command);

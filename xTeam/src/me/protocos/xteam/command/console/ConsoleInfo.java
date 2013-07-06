@@ -16,10 +16,6 @@ public class ConsoleInfo extends BaseConsoleCommand
 {
 	private String other;
 
-	public ConsoleInfo()
-	{
-		super();
-	}
 	public ConsoleInfo(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);
@@ -71,7 +67,8 @@ public class ConsoleInfo extends BaseConsoleCommand
 	}
 	private String getCurrentUserData(TeamPlayer player)
 	{
-		return player.getName() + " Health: " + player.getHealth() * 5 + "% Location: " + player.getRelativeX() + " " + player.getRelativeY() + " " + player.getRelativeZ() + " in \"" + player.getWorld().getName() + "\"";
+		int health = (int) player.getHealth();
+		return player.getName() + " Health: " + health * 5 + "% Location: " + player.getRelativeX() + " " + player.getRelativeY() + " " + player.getRelativeZ() + " in \"" + player.getWorld().getName() + "\"";
 	}
 	private String getLastOnline(TeamPlayer player)
 	{
@@ -100,16 +97,16 @@ public class ConsoleInfo extends BaseConsoleCommand
 	{
 		originalSender.sendMessage("Team Name - " + otherTeam.getName());
 		if (!otherTeam.getTag().equals(otherTeam.getName()))
-			originalSender.sendMessage("Team Tag - " + otherTeam.getTag());
+			originalSender.sendMessage("Team UserTag - " + otherTeam.getTag());
 		if (otherTeam.hasLeader())
 			originalSender.sendMessage("Team Leader - " + otherTeam.getLeader());
 		if (otherTeam.getAdmins().size() > 1)
 			originalSender.sendMessage("Team Admins - " + otherTeam.getAdmins().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(otherTeam.getLeader() + ", ", ""));
-		originalSender.sendMessage("Team Joining - " + (otherTeam.isOpenJoining() == false ? "Closed" : "Open"));
+		originalSender.sendMessage("Team Joining - " + (otherTeam.isOpenJoining() == false ? "Closed" : "UserOpen"));
 		if (otherTeam.hasHQ())
-			originalSender.sendMessage("Team Headquarters - " + "X:" + Math.round(otherTeam.getHeadquarters().getX()) + " Y:" + Math.round(otherTeam.getHeadquarters().getY()) + " Z:" + Math.round(otherTeam.getHeadquarters().getZ()));
+			originalSender.sendMessage("Team UserHeadquarters - " + "X:" + Math.round(otherTeam.getHeadquarters().getX()) + " Y:" + Math.round(otherTeam.getHeadquarters().getY()) + " Z:" + Math.round(otherTeam.getHeadquarters().getZ()));
 		else
-			originalSender.sendMessage("Team Headquarters - " + "none set");
+			originalSender.sendMessage("Team UserHeadquarters - " + "none set");
 		teammateStatus(otherTeam);
 	}
 	private void teammateStatus(Team team)

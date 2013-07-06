@@ -6,11 +6,6 @@ public abstract class BaseConsoleCommand extends BaseCommand implements IConsole
 {
 	ConsoleCommandSender sender;
 
-	public BaseConsoleCommand()
-	{
-		super();
-	}
-
 	public BaseConsoleCommand(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);

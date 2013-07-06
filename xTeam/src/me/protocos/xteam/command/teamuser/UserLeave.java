@@ -10,13 +10,9 @@ import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Leave extends BaseUserCommand
+public class UserLeave extends BaseUserCommand
 {
-	public Leave()
-	{
-		super();
-	}
-	public Leave(Player sender, String command)
+	public UserLeave(Player sender, String command)
 	{
 		super(sender, command);
 	}

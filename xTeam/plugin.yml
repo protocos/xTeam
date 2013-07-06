@@ -127,6 +127,7 @@ permissions:
         default: false
         children:
             xteam.leader.core.demote: true
+            xteam.leader.core.disband: true
             xteam.leader.core.open: true
             xteam.leader.core.remove: true
             xteam.leader.core.rename: true

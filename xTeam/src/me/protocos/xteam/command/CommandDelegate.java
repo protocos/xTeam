@@ -4,9 +4,9 @@ import java.io.File;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.console.*;
 import me.protocos.xteam.command.serveradmin.*;
-import me.protocos.xteam.command.teamadmin.Invite;
-import me.protocos.xteam.command.teamadmin.Promote;
-import me.protocos.xteam.command.teamadmin.SetHeadquarters;
+import me.protocos.xteam.command.teamadmin.UserInvite;
+import me.protocos.xteam.command.teamadmin.UserPromote;
+import me.protocos.xteam.command.teamadmin.UserSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
 import me.protocos.xteam.core.Functions;
@@ -30,7 +30,7 @@ public class CommandDelegate implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandID, String[] args)
 	{
-		//		List<Permission> perms = pdf.getPermissions();
+		//		UserList<Permission> perms = pdf.getPermissions();
 		//		for (Iterator iterator = perms.iterator(); iterator.hasNext();)
 		//		{
 		//			Permission permission = (Permission) iterator.next();
@@ -167,51 +167,51 @@ public class CommandDelegate implements CommandExecutor
 		// \\\\\\\\\\\\\\\\\\            //////////////////
 		// \\\\\\\\\\\\\\\\\\\\\||||||/////////////////////
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("admin_invite")))
-			command = new Invite(sender, originalCommand);
+			command = new UserInvite(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("admin_promote")))
-			command = new Promote(sender, originalCommand);
+			command = new UserPromote(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("admin_sethq")))
-			command = new SetHeadquarters(sender, originalCommand);
+			command = new UserSetHeadquarters(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_demote")))
-			command = new Demote(sender, originalCommand);
+			command = new UserDemote(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_disband")))
-			command = new Disband(sender, originalCommand);
+			command = new UserDisband(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_open")))
-			command = new Open(sender, originalCommand);
+			command = new UserOpen(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_remove")))
-			command = new Remove(sender, originalCommand);
+			command = new UserRemove(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_rename")))
-			command = new Rename(sender, originalCommand);
+			command = new UserRename(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_setleader")))
-			command = new SetLeader(sender, originalCommand);
+			command = new UserSetLeader(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("leader_tag")))
-			command = new Tag(sender, originalCommand);
+			command = new UserTag(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_accept")))
-			command = new Accept(sender, originalCommand);
+			command = new UserAccept(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_chat")))
-			command = new Chat(sender, originalCommand);
+			command = new UserChat(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_create")))
-			command = new Create(sender, originalCommand);
+			command = new UserCreate(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_hq")))
-			command = new Headquarters(sender, originalCommand);
+			command = new UserHeadquarters(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_help")))
-			command = new Help(sender, originalCommand, commandID);
+			command = new UserHelp(sender, originalCommand, commandID);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_info")))
-			command = new Info(sender, originalCommand);
+			command = new UserInfo(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_join")))
-			command = new Join(sender, originalCommand);
+			command = new UserJoin(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_leave")))
-			command = new Leave(sender, originalCommand);
+			command = new UserLeave(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_list")))
-			command = new List(sender, originalCommand);
+			command = new UserList(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_mainhelp")))
-			command = new MainHelp(sender, originalCommand, commandID);
+			command = new UserMainHelp(sender, originalCommand, commandID);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_message")))
-			command = new Message(sender, originalCommand);
+			command = new UserMessage(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_return")))
-			command = new Return(sender, originalCommand);
+			command = new UserReturn(sender, originalCommand);
 		else if (originalCommand.toLowerCase().matches(manager.getPattern("user_tele")))
-			command = new Teleport(sender, originalCommand);
+			command = new UserTeleport(sender, originalCommand);
 		else
 		{
 			sender.sendMessage(ChatColor.RED + (new TeamInvalidCommandException()).getMessage());

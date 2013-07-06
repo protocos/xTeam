@@ -13,11 +13,6 @@ public class ConsoleHelp extends BaseConsoleCommand
 {
 	private HelpPages pages;
 
-	public ConsoleHelp()
-	{
-		super();
-	}
-
 	public ConsoleHelp(ConsoleCommandSender sender, String command, String commandID)
 	{
 		super(sender, command);
@@ -39,7 +34,7 @@ public class ConsoleHelp extends BaseConsoleCommand
 		pages.addLine(xTeam.cm.getUsage("console_tag") + " - set team tag");
 		pages.addLine(xTeam.cm.getUsage("console_disband") + " - disband a team");
 		pages.addLine(xTeam.cm.getUsage("console_open") + " - open team to public joining");
-		pages.addLine(xTeam.cm.getUsage("console_teleallhq") + " - teleports everyone to their Headquarters");
+		pages.addLine(xTeam.cm.getUsage("console_teleallhq") + " - teleports everyone to their UserHeadquarters");
 		pages.addLine(xTeam.cm.getUsage("console_reload") + " - reloads the configuration file");
 		originalSender.sendMessage(pages.getTitle());
 		for (int index = 0; index < pages.size(); index++)

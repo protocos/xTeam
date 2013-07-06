@@ -13,10 +13,6 @@ public class AdminTag extends BaseServerAdminCommand
 {
 	private String teamName, newTag;
 
-	public AdminTag()
-	{
-		super();
-	}
 	public AdminTag(Player sender, String command)
 	{
 		super(sender, command);
@@ -73,6 +69,6 @@ public class AdminTag extends BaseServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " tag [Team] [Tag]";
+		return baseCommand + " tag [Team] [UserTag]";
 	}
 }

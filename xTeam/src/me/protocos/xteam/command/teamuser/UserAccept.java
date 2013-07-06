@@ -11,13 +11,9 @@ import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Accept extends BaseUserCommand
+public class UserAccept extends BaseUserCommand
 {
-	public Accept()
-	{
-		super();
-	}
-	public Accept(Player sender, String command)
+	public UserAccept(Player sender, String command)
 	{
 		super(sender, command);
 	}

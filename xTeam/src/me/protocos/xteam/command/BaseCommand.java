@@ -14,16 +14,10 @@ public abstract class BaseCommand implements ICommandUsage, ICommandPattern, IPe
 	protected final List<String> parseCommand;
 	protected static String baseCommand = "";
 
-	public BaseCommand()
-	{
-		originalSender = null;
-		parseCommand = null;
-		baseCommand = null;
-	}
 	public BaseCommand(CommandSender sender, String command)
 	{
 		originalSender = sender;
-		parseCommand = CommonUtil.toList(command.split(StringUtil.WHITE_SPACE));
+		parseCommand = command != null ? CommonUtil.toList(command.split(StringUtil.WHITE_SPACE)) : null;
 		baseCommand = "/team";
 	}
 

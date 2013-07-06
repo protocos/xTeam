@@ -10,9 +10,9 @@ import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.command.console.*;
 import me.protocos.xteam.command.serveradmin.*;
-import me.protocos.xteam.command.teamadmin.Invite;
-import me.protocos.xteam.command.teamadmin.Promote;
-import me.protocos.xteam.command.teamadmin.SetHeadquarters;
+import me.protocos.xteam.command.teamadmin.UserInvite;
+import me.protocos.xteam.command.teamadmin.UserPromote;
+import me.protocos.xteam.command.teamadmin.UserSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
 import me.protocos.xteam.core.*;
@@ -33,73 +33,73 @@ public class xTeam extends JavaPlugin
 
 	public static void registerConsoleCommands(ICommandManager manager)
 	{
-		manager.registerCommand("console_debug", new ConsoleDebug());
-		manager.registerCommand("console_demote", new ConsoleDemote());
-		manager.registerCommand("console_disband", new ConsoleDisband());
-		manager.registerCommand("console_help", new ConsoleHelp());
-		manager.registerCommand("console_info", new ConsoleInfo());
-		manager.registerCommand("console_list", new ConsoleList());
-		manager.registerCommand("console_promote", new ConsolePromote());
-		manager.registerCommand("console_reload", new ConsoleReload());
-		manager.registerCommand("console_remove", new ConsoleRemove());
-		manager.registerCommand("console_rename", new ConsoleRename());
-		manager.registerCommand("console_tag", new ConsoleTag());
-		manager.registerCommand("console_open", new ConsoleOpen());
-		manager.registerCommand("console_set", new ConsoleSet());
-		manager.registerCommand("console_setleader", new ConsoleSetLeader());
-		manager.registerCommand("console_teleallhq", new ConsoleTeleAllHQ());
+		manager.registerCommand("console_debug", new ConsoleDebug(null, null));
+		manager.registerCommand("console_demote", new ConsoleDemote(null, null));
+		manager.registerCommand("console_disband", new ConsoleDisband(null, null));
+		manager.registerCommand("console_help", new ConsoleHelp(null, null, null));
+		manager.registerCommand("console_info", new ConsoleInfo(null, null));
+		manager.registerCommand("console_list", new ConsoleList(null, null));
+		manager.registerCommand("console_promote", new ConsolePromote(null, null));
+		manager.registerCommand("console_reload", new ConsoleReload(null, null));
+		manager.registerCommand("console_remove", new ConsoleRemove(null, null));
+		manager.registerCommand("console_rename", new ConsoleRename(null, null));
+		manager.registerCommand("console_tag", new ConsoleTag(null, null));
+		manager.registerCommand("console_open", new ConsoleOpen(null, null));
+		manager.registerCommand("console_set", new ConsoleSet(null, null));
+		manager.registerCommand("console_setleader", new ConsoleSetLeader(null, null));
+		manager.registerCommand("console_teleallhq", new ConsoleTeleAllHQ(null, null));
 	}
 	public static void registerServerAdminCommands(ICommandManager manager)
 	{
-		manager.registerCommand("serveradmin_chatspy", new AdminChatSpy());
-		manager.registerCommand("serveradmin_disband", new AdminDisband());
-		manager.registerCommand("serveradmin_demote", new AdminDemote());
-		manager.registerCommand("serveradmin_admin", new AdminHelp());
-		manager.registerCommand("serveradmin_hq", new AdminHeadquarters());
-		manager.registerCommand("serveradmin_promote", new AdminPromote());
-		manager.registerCommand("serveradmin_reload", new AdminReload());
-		manager.registerCommand("serveradmin_remove", new AdminRemove());
-		manager.registerCommand("serveradmin_rename", new AdminRename());
-		manager.registerCommand("serveradmin_tag", new AdminTag());
-		manager.registerCommand("serveradmin_open", new AdminOpen());
-		manager.registerCommand("serveradmin_set", new AdminSet());
-		manager.registerCommand("serveradmin_sethq", new AdminSetHeadquarters());
-		manager.registerCommand("serveradmin_setleader", new AdminSetLeader());
-		manager.registerCommand("serveradmin_teleallhq", new AdminTeleAllHQ());
-		manager.registerCommand("serveradmin_tpall", new AdminTpAll());
-		manager.registerCommand("serveradmin_update", new AdminUpdatePlayers());
+		manager.registerCommand("serveradmin_chatspy", new AdminChatSpy(null, null));
+		manager.registerCommand("serveradmin_disband", new AdminDisband(null, null));
+		manager.registerCommand("serveradmin_demote", new AdminDemote(null, null));
+		manager.registerCommand("serveradmin_admin", new AdminHelp(null, null, null));
+		manager.registerCommand("serveradmin_hq", new AdminHeadquarters(null, null));
+		manager.registerCommand("serveradmin_promote", new AdminPromote(null, null));
+		manager.registerCommand("serveradmin_reload", new AdminReload(null, null));
+		manager.registerCommand("serveradmin_remove", new AdminRemove(null, null));
+		manager.registerCommand("serveradmin_rename", new AdminRename(null, null));
+		manager.registerCommand("serveradmin_tag", new AdminTag(null, null));
+		manager.registerCommand("serveradmin_open", new AdminOpen(null, null));
+		manager.registerCommand("serveradmin_set", new AdminSet(null, null));
+		manager.registerCommand("serveradmin_sethq", new AdminSetHeadquarters(null, null));
+		manager.registerCommand("serveradmin_setleader", new AdminSetLeader(null, null));
+		manager.registerCommand("serveradmin_teleallhq", new AdminTeleAllHQ(null, null));
+		manager.registerCommand("serveradmin_tpall", new AdminTpAll(null, null));
+		manager.registerCommand("serveradmin_update", new AdminUpdatePlayers(null, null));
 	}
 	public static void registerAdminCommands(ICommandManager manager)
 	{
-		manager.registerCommand("admin_invite", new Invite());
-		manager.registerCommand("admin_promote", new Promote());
-		manager.registerCommand("admin_sethq", new SetHeadquarters());
+		manager.registerCommand("admin_invite", new UserInvite(null, null));
+		manager.registerCommand("admin_promote", new UserPromote(null, null));
+		manager.registerCommand("admin_sethq", new UserSetHeadquarters(null, null));
 	}
 	public static void registerLeaderCommands(ICommandManager manager)
 	{
-		manager.registerCommand("leader_demote", new Demote());
-		manager.registerCommand("leader_disband", new Disband());
-		manager.registerCommand("leader_open", new Open());
-		manager.registerCommand("leader_remove", new Remove());
-		manager.registerCommand("leader_rename", new Rename());
-		manager.registerCommand("leader_setleader", new SetLeader());
-		manager.registerCommand("leader_tag", new Tag());
+		manager.registerCommand("leader_demote", new UserDemote(null, null));
+		manager.registerCommand("leader_disband", new UserDisband(null, null));
+		manager.registerCommand("leader_open", new UserOpen(null, null));
+		manager.registerCommand("leader_remove", new UserRemove(null, null));
+		manager.registerCommand("leader_rename", new UserRename(null, null));
+		manager.registerCommand("leader_setleader", new UserSetLeader(null, null));
+		manager.registerCommand("leader_tag", new UserTag(null, null));
 	}
 	public static void registerUserCommands(ICommandManager manager)
 	{
-		manager.registerCommand("user_accept", new Accept());
-		manager.registerCommand("user_chat", new Chat());
-		manager.registerCommand("user_create", new Create());
-		manager.registerCommand("user_help", new Help());
-		manager.registerCommand("user_hq", new Headquarters());
-		manager.registerCommand("user_info", new Info());
-		manager.registerCommand("user_join", new Join());
-		manager.registerCommand("user_leave", new Leave());
-		manager.registerCommand("user_list", new List());
-		manager.registerCommand("user_mainhelp", new MainHelp());
-		manager.registerCommand("user_message", new Message());
-		manager.registerCommand("user_return", new Return());
-		manager.registerCommand("user_tele", new Teleport());
+		manager.registerCommand("user_accept", new UserAccept(null, null));
+		manager.registerCommand("user_chat", new UserChat(null, null));
+		manager.registerCommand("user_create", new UserCreate(null, null));
+		manager.registerCommand("user_help", new UserHelp(null, null, null));
+		manager.registerCommand("user_hq", new UserHeadquarters(null, null));
+		manager.registerCommand("user_info", new UserInfo(null, null));
+		manager.registerCommand("user_join", new UserJoin(null, null));
+		manager.registerCommand("user_leave", new UserLeave(null, null));
+		manager.registerCommand("user_list", new UserList(null, null));
+		manager.registerCommand("user_mainhelp", new UserMainHelp(null, null, null));
+		manager.registerCommand("user_message", new UserMessage(null, null));
+		manager.registerCommand("user_return", new UserReturn(null, null));
+		manager.registerCommand("user_tele", new UserTeleport(null, null));
 	}
 	@Override
 	public void onEnable()

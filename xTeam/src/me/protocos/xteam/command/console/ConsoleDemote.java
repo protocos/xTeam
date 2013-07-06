@@ -13,10 +13,6 @@ public class ConsoleDemote extends BaseConsoleCommand
 {
 	private String teamName, playerName;
 
-	public ConsoleDemote()
-	{
-		super();
-	}
 	public ConsoleDemote(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);

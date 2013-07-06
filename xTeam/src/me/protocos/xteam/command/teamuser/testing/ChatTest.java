@@ -3,7 +3,7 @@ package me.protocos.xteam.command.teamuser.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.command.BaseUserCommand;
-import me.protocos.xteam.command.teamuser.Chat;
+import me.protocos.xteam.command.teamuser.UserChat;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.testing.FakeLocation;
@@ -25,7 +25,7 @@ public class ChatTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new Chat(fakePlayerSender, "chat");
+		BaseUserCommand fakeCommand = new UserChat(fakePlayerSender, "chat");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -38,7 +38,7 @@ public class ChatTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Chat(fakePlayerSender, "chat");
+		BaseUserCommand fakeCommand = new UserChat(fakePlayerSender, "chat");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

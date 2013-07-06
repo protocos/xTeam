@@ -10,10 +10,6 @@ import org.bukkit.entity.Player;
 
 public class AdminUpdatePlayers extends BaseServerAdminCommand
 {
-	public AdminUpdatePlayers()
-	{
-		super();
-	}
 	public AdminUpdatePlayers(Player sender, String command)
 	{
 		super(sender, command);

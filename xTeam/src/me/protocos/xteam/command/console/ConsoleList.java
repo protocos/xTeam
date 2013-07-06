@@ -10,10 +10,6 @@ import org.bukkit.command.ConsoleCommandSender;
 
 public class ConsoleList extends BaseConsoleCommand
 {
-	public ConsoleList()
-	{
-		super();
-	}
 	public ConsoleList(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);

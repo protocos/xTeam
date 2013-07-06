@@ -12,10 +12,6 @@ import org.bukkit.entity.Player;
 
 public class AdminReload extends BaseServerAdminCommand
 {
-	public AdminReload()
-	{
-		super();
-	}
 	public AdminReload(Player sender, String command)
 	{
 		super(sender, command);

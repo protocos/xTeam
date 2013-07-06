@@ -16,165 +16,80 @@ public class TeamPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		ITeamPlayer player = new TeamPlayer(event.getPlayer());
-		if (player.hasPlayedBefore() && Data.DISABLED_WORLDS.contains(player.getWorld().getName()))
+		try
 		{
-			return;
-		}
-		if (Data.RANDOM_TEAM)
-		{
-			if (!player.hasTeam() || !player.hasPlayedBefore())
+			ITeamPlayer player = new TeamPlayer(event.getPlayer());
+			if (player.hasPlayedBefore() && Data.DISABLED_WORLDS.contains(player.getWorld().getName()))
 			{
-				Random r = new Random();
-				if (Data.DEFAULT_TEAM_NAMES.size() > 0)
+				return;
+			}
+			if (Data.RANDOM_TEAM)
+			{
+				if (!player.hasTeam() || !player.hasPlayedBefore())
 				{
-					ArrayList<Team> availableTeams = new ArrayList<Team>();
-					if (Data.BALANCE_TEAMS)
+					Random r = new Random();
+					if (Data.DEFAULT_TEAM_NAMES.size() > 0)
 					{
-						int smallest = xTeam.tm.getDefaultTeams().get(0).size();
-						for (Team t : xTeam.tm.getDefaultTeams())
+						ArrayList<Team> availableTeams = new ArrayList<Team>();
+						if (Data.BALANCE_TEAMS)
 						{
-							if (t.size() < smallest)
+							int smallest = xTeam.tm.getDefaultTeams().get(0).size();
+							for (Team t : xTeam.tm.getDefaultTeams())
 							{
-								availableTeams.clear();
-								smallest = t.size();
-								availableTeams.add(t);
+								if (t.size() < smallest)
+								{
+									availableTeams.clear();
+									smallest = t.size();
+									availableTeams.add(t);
+								}
+								else if (t.size() == smallest)
+								{
+									availableTeams.add(t);
+								}
 							}
-							else if (t.size() == smallest)
+						}
+						else
+						{
+							for (Team t : xTeam.tm.getDefaultTeams())
 							{
 								availableTeams.add(t);
 							}
 						}
+						int index = r.nextInt(availableTeams.size());
+						Team team = availableTeams.get(index);
+						team.addPlayer(player.getName());
+						player.sendMessage("You joined " + ChatColor.AQUA + team.getName());
+						for (String p : player.getOnlineTeammates())
+						{
+							ITeamPlayer teammate = new TeamPlayer(p);
+							if (teammate.isOnline())
+								teammate.sendMessage(player.getName() + ChatColor.AQUA + " joined your team");
+						}
+						xTeam.log.info("Added " + player.getName() + " to team " + team.getName());
 					}
 					else
 					{
-						for (Team t : xTeam.tm.getDefaultTeams())
-						{
-							availableTeams.add(t);
-						}
+						xTeam.log.info(ChatColor.RED + "Player not assigned a team: No default teams have been set");
 					}
-					int index = r.nextInt(availableTeams.size());
-					Team team = availableTeams.get(index);
-					team.addPlayer(player.getName());
-					player.sendMessage("You joined " + ChatColor.AQUA + team.getName());
-					for (String p : player.getOnlineTeammates())
+				}
+			}
+			if (Data.DEFAULT_HQ_ON_JOIN)
+			{
+				if (player.hasTeam() && player.getTeam().isDefaultTeam())
+				{
+					Team team = player.getTeam();
+					if (team.hasHQ())
 					{
-						ITeamPlayer teammate = new TeamPlayer(p);
-						if (teammate.isOnline())
-							teammate.sendMessage(player.getName() + ChatColor.AQUA + " joined your team");
+						player.teleport(team.getHeadquarters());
+						player.sendMessage(ChatColor.RED + "You've been teleported to your UserHeadquarters");
 					}
-					xTeam.log.info("Added " + player.getName() + " to team " + team.getName());
-				}
-				else
-				{
-					xTeam.log.info(ChatColor.RED + "Player not assigned a team: No default teams have been set");
-				}
-				//				Random r = new Random();
-				//				if (Data.DEFAULT_TEAM_NAMES.size() > 0)
-				//				{
-				//					Team team;
-				//					ArrayList<Team> availableTeams = new ArrayList<Team>();
-				//					for (Team t : xTeam.tm.getDefaultTeams())
-				//					{
-				//						// IF (trying to balance teams) && (availableTeams is not empty) && (the current team has fewer players that any team in availableTeams)
-				//						if (Data.BALANCE_TEAMS)
-				//						{
-				//							if (!availableTeams.isEmpty())
-				//							{
-				//								if (t.size() < availableTeams.get(0).size())
-				//								{
-				//									availableTeams.clear();
-				//									availableTeams.add(t);
-				//								}
-				//								else if (t.size() == availableTeams.get(0).size())
-				//								{
-				//									availableTeams.add(t);
-				//								}
-				//								else if (t.size() > availableTeams.get(0).size())
-				//								{
-				//
-				//								}
-				//							}
-				//							else
-				//							{
-				//								availableTeams.add(t);
-				//							}
-				//						}
-				//					}
-				//					int index = r.nextInt(availableTeams.size());
-				//					team = availableTeams.get(index);
-				//					team.addPlayer(player.getName());
-				//					player.sendMessage("You joined " + ChatColor.AQUA + team.getName());
-				//					for (String p : player.getOnlineTeammates())
-				//					{
-				//						ITeamPlayer teammate = new TeamPlayer(p);
-				//						if (teammate.isOnline())
-				//							teammate.sendMessage(player.getName() + ChatColor.AQUA + " joined your team");
-				//					}
-				//					xTeam.log.info("Added " + player.getName() + " to team " + team.getName());
-				//				}
-				//				else
-				//				{
-				//					xTeam.log.info(ChatColor.RED + "Player not assigned a team: No default teams have been set");
-				//				}
-			}
-		}
-		if (Data.DEFAULT_HQ_ON_JOIN)
-		{
-			if (player.hasTeam() && player.getTeam().isDefaultTeam())
-			{
-				Team team = player.getTeam();
-				if (team.hasHQ())
-				{
-					player.teleport(team.getHeadquarters());
-					player.sendMessage(ChatColor.RED + "You've been teleported to your Headquarters");
-				}
-				else
-				{
-					player.sendMessage(ChatColor.RED + "Your team does not have an Headquarters");
+					else
+					{
+						player.sendMessage(ChatColor.RED + "Your team does not have an UserHeadquarters");
+					}
 				}
 			}
-		}
-		int seconds = 5;
-		Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(Data.BUKKIT.getPluginManager().getPlugin("xTeam"), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				Functions.updatePlayers();
-			}
-		}, seconds * 20L);
-	}
-	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent event)
-	{
-		Data.chatStatus.remove(event.getPlayer().getName());
-	}
-	@EventHandler
-	public void onPlayerRespawn(PlayerRespawnEvent event)
-	{
-		ITeamPlayer player = new TeamPlayer(event.getPlayer());
-		if (Data.DISABLED_WORLDS.contains(event.getPlayer().getWorld().getName()))
-		{
-			return;
-		}
-		if (Data.HQ_ON_DEATH)
-		{
-			if (player.hasTeam())
-			{
-				if (player.getTeam().hasHQ())
-				{
-					event.setRespawnLocation(player.getTeam().getHeadquarters());
-				}
-				else
-				{
-					player.sendMessage(ChatColor.RED + "You have not set an Headquarters yet.");
-				}
-			}
-		}
-		int seconds = 3;
-		if (Data.SPOUT_ENABLED)
-		{
+			int seconds = 5;
 			Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(Data.BUKKIT.getPluginManager().getPlugin("xTeam"), new Runnable()
 			{
 				@Override
@@ -183,6 +98,67 @@ public class TeamPlayerListener implements Listener
 					Functions.updatePlayers();
 				}
 			}, seconds * 20L);
+		}
+		catch (Exception e)
+		{
+			xTeam.logger.exception(e);
+			xTeam.log.info("[ERROR] Exception in xTeam onPlayerJoin() class [check logs]");
+		}
+	}
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent event)
+	{
+		try
+		{
+			Data.chatStatus.remove(event.getPlayer().getName());
+		}
+		catch (Exception e)
+		{
+			xTeam.logger.exception(e);
+			xTeam.log.info("[ERROR] Exception in xTeam onPlayerQuit() class [check logs]");
+		}
+	}
+	@EventHandler
+	public void onPlayerRespawn(PlayerRespawnEvent event)
+	{
+		try
+		{
+			ITeamPlayer player = new TeamPlayer(event.getPlayer());
+			if (Data.DISABLED_WORLDS.contains(event.getPlayer().getWorld().getName()))
+			{
+				return;
+			}
+			if (Data.HQ_ON_DEATH)
+			{
+				if (player.hasTeam())
+				{
+					if (player.getTeam().hasHQ())
+					{
+						event.setRespawnLocation(player.getTeam().getHeadquarters());
+					}
+					else
+					{
+						player.sendMessage(ChatColor.RED + "You have not set an UserHeadquarters yet.");
+					}
+				}
+			}
+			int seconds = 3;
+			if (Data.SPOUT_ENABLED)
+			{
+				Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(Data.BUKKIT.getPluginManager().getPlugin("xTeam"), new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						Functions.updatePlayers();
+					}
+				}, seconds * 20L);
+			}
+		}
+		catch (Exception e)
+		{
+			xTeam.logger.exception(e);
+			xTeam.log.info("[ERROR] Exception in xTeam onPlayerRespawn() class [check logs]");
 		}
 	}
 }

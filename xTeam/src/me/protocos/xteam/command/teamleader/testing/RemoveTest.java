@@ -4,7 +4,7 @@ import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
-import me.protocos.xteam.command.teamleader.Remove;
+import me.protocos.xteam.command.teamleader.UserRemove;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.core.exception.TeamPlayerNotLeaderException;
@@ -28,7 +28,7 @@ public class RemoveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove protocos");
+		BaseUserCommand fakeCommand = new UserRemove(fakePlayerSender, "remove protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -41,7 +41,7 @@ public class RemoveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove kmlanglois");
+		BaseUserCommand fakeCommand = new UserRemove(fakePlayerSender, "remove kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -54,7 +54,7 @@ public class RemoveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove protocos");
+		BaseUserCommand fakeCommand = new UserRemove(fakePlayerSender, "remove protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -66,7 +66,7 @@ public class RemoveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove protocos");
+		BaseUserCommand fakeCommand = new UserRemove(fakePlayerSender, "remove protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -79,7 +79,7 @@ public class RemoveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Remove(fakePlayerSender, "remove mastermind");
+		BaseUserCommand fakeCommand = new UserRemove(fakePlayerSender, "remove mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

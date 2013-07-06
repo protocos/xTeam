@@ -13,10 +13,6 @@ public class AdminRename extends BaseServerAdminCommand
 {
 	private String teamName, newName;
 
-	public AdminRename()
-	{
-		super();
-	}
 	public AdminRename(Player sender, String command)
 	{
 		super(sender, command);

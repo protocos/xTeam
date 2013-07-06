@@ -4,7 +4,7 @@ import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
-import me.protocos.xteam.command.teamuser.Headquarters;
+import me.protocos.xteam.command.teamuser.UserHeadquarters;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.testing.FakeLocation;
@@ -30,7 +30,7 @@ public class HeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
-		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
+		BaseUserCommand fakeCommand = new UserHeadquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -44,7 +44,7 @@ public class HeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("mastermind", before);
-		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
+		BaseUserCommand fakeCommand = new UserHeadquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -58,7 +58,7 @@ public class HeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		fakePlayerSender.setNoDamageTicks(1);
-		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
+		BaseUserCommand fakeCommand = new UserHeadquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -71,7 +71,7 @@ public class HeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", before);
-		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
+		BaseUserCommand fakeCommand = new UserHeadquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -86,7 +86,7 @@ public class HeadquartersTest
 		Data.LAST_ATTACKED_DELAY = 15;
 		Data.lastAttacked.put("kmlanglois", System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
-		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
+		BaseUserCommand fakeCommand = new UserHeadquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -100,7 +100,7 @@ public class HeadquartersTest
 		//ASSEMBLE
 		Data.taskIDs.put("kmlanglois", null);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
-		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
+		BaseUserCommand fakeCommand = new UserHeadquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -114,7 +114,7 @@ public class HeadquartersTest
 		//ASSEMBLE
 		Data.hasTeleported.put("kmlanglois", System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
-		BaseUserCommand fakeCommand = new Headquarters(fakePlayerSender, "hq");
+		BaseUserCommand fakeCommand = new UserHeadquarters(fakePlayerSender, "hq");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

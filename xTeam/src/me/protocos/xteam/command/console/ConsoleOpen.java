@@ -12,10 +12,6 @@ public class ConsoleOpen extends BaseConsoleCommand
 {
 	String teamName;
 
-	public ConsoleOpen()
-	{
-		super();
-	}
 	public ConsoleOpen(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);
@@ -26,9 +22,9 @@ public class ConsoleOpen extends BaseConsoleCommand
 		Team team = xTeam.tm.getTeam(teamName);
 		team.setOpenJoining(!team.isOpenJoining());
 		if (team.isOpenJoining())
-			originalSender.sendMessage("Open joining is now enabled for team " + teamName);
+			originalSender.sendMessage("UserOpen joining is now enabled for team " + teamName);
 		else
-			originalSender.sendMessage("Open joining is now disabled for team " + teamName);
+			originalSender.sendMessage("UserOpen joining is now disabled for team " + teamName);
 	}
 	@Override
 	public void checkRequirements() throws TeamException

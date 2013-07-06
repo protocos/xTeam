@@ -13,10 +13,6 @@ public class ConsoleRename extends BaseConsoleCommand
 {
 	private String teamName, newName;
 
-	public ConsoleRename()
-	{
-		super();
-	}
 	public ConsoleRename(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);

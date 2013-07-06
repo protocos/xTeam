@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.HashList;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -123,18 +125,21 @@ public class Team implements ITeam
 		}
 		return false;
 	}
-	public boolean equals(Team team)
+	public int hashCode()
 	{
-		try
-		{
-			if (getName().equalsIgnoreCase(team.getName()))
-				return true;
-		}
-		catch (NullPointerException e)
-		{
+		return new HashCodeBuilder(11, 71).append(name).append(tag).append(leader).toHashCode();
+	}
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
 			return false;
-		}
-		return false;
+		if (obj == this)
+			return true;
+		if (!(obj instanceof Team))
+			return false;
+
+		Team rhs = (Team) obj;
+		return new EqualsBuilder().append(name, rhs.name).append(tag, rhs.tag).append(leader, rhs.leader).isEquals();
 	}
 	public List<String> getAdmins()
 	{
@@ -272,7 +277,7 @@ public class Team implements ITeam
 			//modify timeLastSet from the previous versions
 			teamProperties.updateKey("timeLastSet", "timeHeadquartersSet");
 			long timeHeadquartersSet = Long.parseLong(teamProperties.get("timeHeadquartersSet") != null ? teamProperties.get("timeHeadquartersSet") : "0");
-			String hq = teamProperties.get("Headquarters") != null ? teamProperties.get("Headquarters") : (hq = teamProperties.get("hq") != null ? teamProperties.get("hq") : "");
+			String hq = teamProperties.get("UserHeadquarters") != null ? teamProperties.get("UserHeadquarters") : (hq = teamProperties.get("hq") != null ? teamProperties.get("hq") : "");
 			if (teamProperties.containsKey("world"))
 				hq = teamProperties.get("world") + "," + hq;
 			String leader = teamProperties.get("leader");// != null ? teamProperties.get("leader") : "";

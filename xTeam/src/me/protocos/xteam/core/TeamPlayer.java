@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import me.protocos.xteam.xTeam;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
@@ -68,13 +70,13 @@ public class TeamPlayer implements ITeamPlayer
 		return Double.MAX_VALUE;
 	}
 	@Override
-	public int getHealth()
+	public double getHealth()
 	{
 		if (isOnline())
 		{
 			return onlinePlayer.getHealth();
 		}
-		return -1;
+		return -1.0;
 	}
 	@Override
 	public String getLastPlayed()
@@ -232,9 +234,22 @@ public class TeamPlayer implements ITeamPlayer
 		}
 		return false;
 	}
-	public boolean equals(ITeamPlayer player)
+	public int hashCode()
 	{
-		return getName().equalsIgnoreCase(player.getName());
+		return new HashCodeBuilder(17, 41).append(name).toHashCode();
+	}
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (!(obj instanceof TeamPlayer))
+			return false;
+
+		TeamPlayer rhs = (TeamPlayer) obj;
+		return new EqualsBuilder().append(name, rhs.name).isEquals();
+
 	}
 	@Override
 	public List<String> getTeammates()

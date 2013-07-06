@@ -1,5 +1,7 @@
 package me.protocos.xteam.core;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -19,7 +21,7 @@ public class TeamWolf implements ITeamWolf
 		return getLocation().distance(entity.getLocation());
 	}
 	@Override
-	public int getHealth()
+	public double getHealth()
 	{
 		return wolf.getHealth();
 	}
@@ -89,9 +91,21 @@ public class TeamWolf implements ITeamWolf
 		String wolfData = "";
 		return wolfData;
 	}
-	public boolean equals(TeamWolf otherWolf)
+	public int hashCode()
 	{
-		return getOwner().equals(otherWolf.getOwner()) && getLocation().equals(otherWolf.getLocation());
+		return new HashCodeBuilder(53, 89).append(getOwner()).append(getLocation()).toHashCode();
+	}
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (!(obj instanceof TeamWolf))
+			return false;
+
+		TeamWolf rhs = (TeamWolf) obj;
+		return new EqualsBuilder().append(getOwner(), rhs.getOwner()).isEquals();
 	}
 	@Override
 	public boolean teleport(Location location)

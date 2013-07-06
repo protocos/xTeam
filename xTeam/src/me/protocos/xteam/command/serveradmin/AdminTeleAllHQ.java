@@ -14,10 +14,6 @@ import org.bukkit.entity.Player;
 
 public class AdminTeleAllHQ extends BaseServerAdminCommand
 {
-	public AdminTeleAllHQ()
-	{
-		super();
-	}
 	public AdminTeleAllHQ(Player sender, String command)
 	{
 		super(sender, command);

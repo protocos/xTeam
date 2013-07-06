@@ -3,7 +3,7 @@ package me.protocos.xteam.command.teamleader.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
-import me.protocos.xteam.command.teamleader.Tag;
+import me.protocos.xteam.command.teamleader.UserTag;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.testing.FakeLocation;
@@ -26,7 +26,7 @@ public class TagTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Tag(fakePlayerSender, "tag tag");
+		BaseUserCommand fakeCommand = new UserTag(fakePlayerSender, "tag tag");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -40,7 +40,7 @@ public class TagTest
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Tag(fakePlayerSender, "tag two");
+		BaseUserCommand fakeCommand = new UserTag(fakePlayerSender, "tag two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -54,7 +54,7 @@ public class TagTest
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Tag(fakePlayerSender, "tag ÃºÃ");
+		BaseUserCommand fakeCommand = new UserTag(fakePlayerSender, "tag ÃºÃ");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -68,7 +68,7 @@ public class TagTest
 		//ASSEMBLE
 		Data.TEAM_TAG_LENGTH = 10;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new Tag(fakePlayerSender, "tag tagiswaytoolong");
+		BaseUserCommand fakeCommand = new UserTag(fakePlayerSender, "tag tagiswaytoolong");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -81,7 +81,7 @@ public class TagTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Tag(fakePlayerSender, "tag tag");
+		BaseUserCommand fakeCommand = new UserTag(fakePlayerSender, "tag tag");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -93,7 +93,7 @@ public class TagTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new Tag(fakePlayerSender, "tag tag");
+		BaseUserCommand fakeCommand = new UserTag(fakePlayerSender, "tag tag");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

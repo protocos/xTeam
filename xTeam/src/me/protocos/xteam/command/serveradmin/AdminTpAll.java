@@ -13,10 +13,6 @@ public class AdminTpAll extends BaseServerAdminCommand
 {
 	private String teamName;
 
-	public AdminTpAll()
-	{
-		super();
-	}
 	public AdminTpAll(Player sender, String command)
 	{
 		super(sender, command);

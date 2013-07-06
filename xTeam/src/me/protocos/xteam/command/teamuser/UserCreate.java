@@ -1,7 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.util.ArrayList;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.Data;
@@ -11,25 +10,11 @@ import me.protocos.xteam.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Create extends BaseUserCommand
+public class UserCreate extends BaseUserCommand
 {
-	private static ArrayList<String> toLowerCase(ArrayList<String> arraylist)
-	{
-		ArrayList<String> lowercase = new ArrayList<String>();
-		for (String s : arraylist)
-		{
-			lowercase.add(s.toLowerCase());
-		}
-		return lowercase;
-	}
-
 	private String desiredTeam;
 
-	public Create()
-	{
-		super();
-	}
-	public Create(Player sender, String command)
+	public UserCreate(Player sender, String command)
 	{
 		super(sender, command);
 	}

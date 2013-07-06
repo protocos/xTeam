@@ -19,7 +19,7 @@ import org.bukkit.util.Vector;
 public class FakeWolf implements Wolf
 {
 	private String owner;
-	private int health;
+	private double health;
 	private Location location;
 	private Server server;
 
@@ -189,13 +189,6 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public int getLastDamage()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public List<Block> getLastTwoTargetBlocks(HashSet<Byte> arg0, int arg1)
 	{
 		// TODO Auto-generated method stub
@@ -302,13 +295,6 @@ public class FakeWolf implements Wolf
 
 	@Override
 	public void setCustomNameVisible(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setLastDamage(int arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -643,48 +629,7 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public void damage(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void damage(int arg0, Entity arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getHealth()
-	{
-		return health;
-	}
-
-	@Override
-	public int getMaxHealth()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void resetMaxHealth()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setHealth(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setMaxHealth(int arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -754,6 +699,108 @@ public class FakeWolf implements Wolf
 
 	@Override
 	public void setSitting(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	@Deprecated
+	public int _INVALID_getLastDamage()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_setLastDamage(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public double getLastDamage()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void setLastDamage(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_damage(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_damage(int arg0, Entity arg1)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	@Deprecated
+	public int _INVALID_getHealth()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	@Deprecated
+	public int _INVALID_getMaxHealth()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_setHealth(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_setMaxHealth(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void damage(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void damage(double arg0, Entity arg1)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public double getHealth()
+	{
+		return health;
+	}
+	@Override
+	public double getMaxHealth()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void setHealth(double health)
+	{
+		this.health = health;
+	}
+	@Override
+	public void setMaxHealth(double arg0)
 	{
 		// TODO Auto-generated method stub
 

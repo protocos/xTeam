@@ -2,29 +2,28 @@ package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.command.BaseUserCommand;
+import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Open extends BaseUserCommand
+public class UserRemove extends BaseUserCommand
 {
-	public Open()
-	{
-		super();
-	}
-	public Open(Player sender, String command)
+	private String otherPlayer;
+
+	public UserRemove(Player sender, String command)
 	{
 		super(sender, command);
 	}
 	@Override
 	protected void act()
 	{
-		team.setOpenJoining(!team.isOpenJoining());
-		if (team.isOpenJoining())
-			originalSender.sendMessage("Open joining is now " + ChatColor.GREEN + "enabled");
-		else
-			originalSender.sendMessage("Open joining is now " + ChatColor.RED + "disabled");
+		team.removePlayer(otherPlayer);
+		Player other = Data.BUKKIT.getPlayer(otherPlayer);
+		if (other != null)
+			other.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
+		originalSender.sendMessage("You" + ChatColor.RED + " removed " + ChatColor.RESET + otherPlayer + " from your team");
 	}
 	@Override
 	public void checkRequirements() throws TeamException
@@ -33,9 +32,9 @@ public class Open extends BaseUserCommand
 		{
 			throw new TeamPlayerDoesNotExistException();
 		}
-		if (parseCommand.size() == 1)
+		if (parseCommand.size() == 2)
 		{
-
+			otherPlayer = parseCommand.get(1);
 		}
 		else
 		{
@@ -53,20 +52,28 @@ public class Open extends BaseUserCommand
 		{
 			throw new TeamPlayerNotLeaderException();
 		}
+		if (!team.getPlayers().contains(otherPlayer))
+		{
+			throw new TeamPlayerNotTeammateException();
+		}
+		if (teamPlayer.getName().equals(otherPlayer) && (team.getPlayers().size() > 1))
+		{
+			throw new TeamPlayerLeaderLeavingException();
+		}
 	}
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("open") + OPTIONAL_WHITE_SPACE;
+		return patternOneOrMore("re") + patternOneOrMore("move") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.leader.core.open";
+		return "xteam.leader.core.remove";
 	}
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " open";
+		return baseCommand + " remove [Player]";
 	}
 }

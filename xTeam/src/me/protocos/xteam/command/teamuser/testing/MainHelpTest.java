@@ -3,7 +3,7 @@ package me.protocos.xteam.command.teamuser.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.command.BaseUserCommand;
-import me.protocos.xteam.command.teamuser.MainHelp;
+import me.protocos.xteam.command.teamuser.UserMainHelp;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
 import org.junit.After;
@@ -23,11 +23,11 @@ public class MainHelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new MainHelp(fakePlayerSender, "", "/team");
+		BaseUserCommand fakeCommand = new UserMainHelp(fakePlayerSender, "", "/team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("------------------ [xTeam vCURRENT Help] ------------------\n" +
+		Assert.assertEquals("------------------ [xTeam vCURRENT UserHelp] ------------------\n" +
 				"xTeam is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!\n" +
 				"Type '/team help [Page Number]' to get started\n" +
 				"/team [command] = command for TEAM PLAYERS\n" +

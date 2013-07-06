@@ -8,15 +8,11 @@ import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class SetLeader extends BaseUserCommand
+public class UserSetLeader extends BaseUserCommand
 {
 	private String otherPlayer;
 
-	public SetLeader()
-	{
-		super();
-	}
-	public SetLeader(Player sender, String command)
+	public UserSetLeader(Player sender, String command)
 	{
 		super(sender, command);
 	}

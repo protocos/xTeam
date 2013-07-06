@@ -15,10 +15,6 @@ public class AdminHelp extends BaseServerAdminCommand
 	private HelpPages pages;
 	private int pageNum;
 
-	public AdminHelp()
-	{
-		super();
-	}
 	public AdminHelp(Player sender, String command, String commandID)
 	{
 		super(sender, command);

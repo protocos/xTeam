@@ -16,10 +16,6 @@ public class AdminOpen extends BaseServerAdminCommand
 {
 	String teamName;
 
-	public AdminOpen()
-	{
-		super();
-	}
 	public AdminOpen(Player sender, String command)
 	{
 		super(sender, command);
@@ -30,9 +26,9 @@ public class AdminOpen extends BaseServerAdminCommand
 		Team team = xTeam.tm.getTeam(teamName);
 		team.setOpenJoining(!team.isOpenJoining());
 		if (team.isOpenJoining())
-			originalSender.sendMessage("Open joining is now " + ChatColor.GREEN + "enabled" + ChatColor.RESET + " for team " + teamName);
+			originalSender.sendMessage("UserOpen joining is now " + ChatColor.GREEN + "enabled" + ChatColor.RESET + " for team " + teamName);
 		else
-			originalSender.sendMessage("Open joining is now " + ChatColor.RED + "disabled" + ChatColor.RESET + " for team " + teamName);
+			originalSender.sendMessage("UserOpen joining is now " + ChatColor.RED + "disabled" + ChatColor.RESET + " for team " + teamName);
 	}
 	@Override
 	public void checkRequirements() throws TeamException

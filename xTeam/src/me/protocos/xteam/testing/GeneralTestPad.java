@@ -7,5 +7,6 @@ public class GeneralTestPad
 	@Test
 	public void test()
 	{
+
 	}
 }

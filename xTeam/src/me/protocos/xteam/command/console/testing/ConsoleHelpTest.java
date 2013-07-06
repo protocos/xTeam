@@ -39,10 +39,10 @@ public class ConsoleHelpTest
 				"team demote [Team] [Player] - demote admin of team\n" +
 				"team remove [Team] [Player] - remove member of team\n" +
 				"team rename [Team] [Name] - rename a team\n" +
-				"team tag [Team] [Tag] - set team tag\n" +
+				"team tag [Team] [UserTag] - set team tag\n" +
 				"team disband [Team] - disband a team\n" +
 				"team open [Team] - open team to public joining\n" +
-				"team teleallhq - teleports everyone to their Headquarters\n" +
+				"team teleallhq - teleports everyone to their UserHeadquarters\n" +
 				"team reload - reloads the configuration file\n", fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}

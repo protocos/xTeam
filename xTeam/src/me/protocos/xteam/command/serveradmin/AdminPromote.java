@@ -14,10 +14,6 @@ public class AdminPromote extends BaseServerAdminCommand
 {
 	private String teamName, playerName;
 
-	public AdminPromote()
-	{
-		super();
-	}
 	public AdminPromote(Player sender, String command)
 	{
 		super(sender, command);

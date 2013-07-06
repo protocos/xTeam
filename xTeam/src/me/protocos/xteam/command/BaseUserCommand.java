@@ -9,15 +9,11 @@ public abstract class BaseUserCommand extends BasePlayerCommand
 	protected TeamPlayer teamPlayer;
 	protected Team team;
 
-	public BaseUserCommand()
-	{
-		super();
-	}
 	public BaseUserCommand(Player sender, String command)
 	{
 		super(sender, command);
-		teamPlayer = new TeamPlayer(player);
-		team = teamPlayer.getTeam();
+		teamPlayer = sender != null ? new TeamPlayer(player) : null;
+		team = teamPlayer != null ? teamPlayer.getTeam() : null;
 	}
 
 	public TeamPlayer getTeamPlayer()

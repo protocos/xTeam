@@ -13,10 +13,6 @@ public class ConsolePromote extends BaseConsoleCommand
 {
 	private String teamName, playerName;
 
-	public ConsolePromote()
-	{
-		super();
-	}
 	public ConsolePromote(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);

@@ -13,15 +13,11 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class Teleport extends BaseUserCommand
+public class UserTeleport extends BaseUserCommand
 {
 	private String playerName;
 
-	public Teleport()
-	{
-		super();
-	}
-	public Teleport(Player sender, String command)
+	public UserTeleport(Player sender, String command)
 	{
 		super(sender, command);
 	}
@@ -65,7 +61,7 @@ public class Teleport extends BaseUserCommand
 		if (Data.hasTeleported.containsKey(teamPlayer.getName()))
 		{
 			String error = "Player cannot teleport within " + Data.REFRESH_DELAY + " seconds of last teleport\nYou must wait " + (Data.REFRESH_DELAY - (System.currentTimeMillis() - Data.hasTeleported.get(teamPlayer.getName())) / 1000) + " more seconds";
-			if (Data.returnLocations.containsKey(teamPlayer) && teamPlayer.hasPermission("xteam.telereturn"))
+			if (Data.returnLocations.containsKey(teamPlayer.getOnlinePlayer()) && teamPlayer.hasPermission(getPermissionNode()))
 				error += "You can still use /team return";
 			throw new TeamPlayerTeleException(error);
 		}
@@ -132,7 +128,7 @@ public class Teleport extends BaseUserCommand
 			{
 				if (Data.damagedByPlayer.contains(finalPlayer.getName()))
 				{
-					finalPlayer.sendMessage(ChatColor.RED + "Teleport cancelled! You were attacked!");
+					finalPlayer.sendMessage(ChatColor.RED + "UserTeleport cancelled! You were attacked!");
 					Data.damagedByPlayer.remove(finalPlayer.getName());
 					Data.countWaitTime.remove(finalPlayer.getName());
 					Data.BUKKIT.getScheduler().cancelTask(Data.taskIDs.remove(finalPlayer.getName()));
@@ -140,7 +136,7 @@ public class Teleport extends BaseUserCommand
 				Location loc = finalPlayer.getLocation();
 				if (loc.getBlockX() != save.getBlockX() || loc.getBlockY() != save.getBlockY() || loc.getBlockZ() != save.getBlockZ())
 				{
-					finalPlayer.sendMessage(ChatColor.RED + "Teleport cancelled! You moved!");
+					finalPlayer.sendMessage(ChatColor.RED + "UserTeleport cancelled! You moved!");
 					Data.countWaitTime.remove(finalPlayer.getName());
 					Data.BUKKIT.getScheduler().cancelTask(Data.taskIDs.remove(finalPlayer.getName()));
 				}

@@ -14,10 +14,6 @@ public class ConsoleSet extends BaseConsoleCommand
 {
 	private String playerName, teamName;
 
-	public ConsoleSet()
-	{
-		super();
-	}
 	public ConsoleSet(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);

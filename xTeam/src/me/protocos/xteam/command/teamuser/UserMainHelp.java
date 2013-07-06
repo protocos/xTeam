@@ -9,15 +9,11 @@ import me.protocos.xteam.core.exception.TeamPlayerDoesNotExistException;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class MainHelp extends BaseUserCommand
+public class UserMainHelp extends BaseUserCommand
 {
 	String commandID;
 
-	public MainHelp()
-	{
-		super();
-	}
-	public MainHelp(Player sender, String command, String id)
+	public UserMainHelp(Player sender, String command, String id)
 	{
 		super(sender, command);
 		this.commandID = id;
@@ -26,7 +22,7 @@ public class MainHelp extends BaseUserCommand
 	protected void act()
 	{
 		ChatColor temp;
-		String message = (ChatColor.AQUA + "------------------ [xTeam v" + xTeam.VERSION + " Help] ------------------");
+		String message = (ChatColor.AQUA + "------------------ [xTeam v" + xTeam.VERSION + " UserHelp] ------------------");
 		message += "\n" + (ChatColor.GRAY + "xTeam is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!");
 		// line 6 begin
 		message += "\n" + (ChatColor.AQUA + "Type '" + commandID + " help [Page Number]' to get started");

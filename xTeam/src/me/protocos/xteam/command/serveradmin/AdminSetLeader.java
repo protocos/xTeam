@@ -14,10 +14,6 @@ public class AdminSetLeader extends BaseServerAdminCommand
 {
 	private String teamName, playerName;
 
-	public AdminSetLeader()
-	{
-		super();
-	}
 	public AdminSetLeader(Player sender, String command)
 	{
 		super(sender, command);

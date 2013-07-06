@@ -13,10 +13,6 @@ public class ConsoleTag extends BaseConsoleCommand
 {
 	private String teamName, newTag;
 
-	public ConsoleTag()
-	{
-		super();
-	}
 	public ConsoleTag(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);
@@ -63,6 +59,6 @@ public class ConsoleTag extends BaseConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " tag [Team] [Tag]";
+		return baseCommand + " tag [Team] [UserTag]";
 	}
 }

@@ -88,9 +88,9 @@ public class TeamPlayerTest
 		//ASSEMBLE
 		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		//ACT
-		int health = player.getHealth();
+		double health = player.getHealth();
 		//ASSERT
-		Assert.assertEquals(20, health);
+		Assert.assertEquals(20.0, health, 0);
 	}
 	@Test
 	public void ShouldBeLastPlayed()

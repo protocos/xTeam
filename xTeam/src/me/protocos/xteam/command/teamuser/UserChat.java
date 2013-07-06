@@ -8,15 +8,11 @@ import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Chat extends BaseUserCommand
+public class UserChat extends BaseUserCommand
 {
 	private String option;
 
-	public Chat()
-	{
-		super();
-	}
-	public Chat(Player sender, String command)
+	public UserChat(Player sender, String command)
 	{
 		super(sender, command);
 	}

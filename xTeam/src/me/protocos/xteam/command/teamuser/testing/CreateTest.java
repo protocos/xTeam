@@ -4,7 +4,7 @@ import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
-import me.protocos.xteam.command.teamuser.Create;
+import me.protocos.xteam.command.teamuser.UserCreate;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.testing.FakeLocation;
@@ -26,7 +26,7 @@ public class CreateTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create newteam");
+		BaseUserCommand fakeCommand = new UserCreate(fakePlayerSender, "create newteam");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -43,7 +43,7 @@ public class CreateTest
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create NEW");
+		BaseUserCommand fakeCommand = new UserCreate(fakePlayerSender, "create NEW");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -58,7 +58,7 @@ public class CreateTest
 		//ASSEMBLE
 		Data.TEAM_TAG_LENGTH = 10;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create newteamiswaytoolong");
+		BaseUserCommand fakeCommand = new UserCreate(fakePlayerSender, "create newteamiswaytoolong");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -72,7 +72,7 @@ public class CreateTest
 		//ASSEMBLE
 		Data.DEFAULT_TEAM_ONLY = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create newteam");
+		BaseUserCommand fakeCommand = new UserCreate(fakePlayerSender, "create newteam");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -85,7 +85,7 @@ public class CreateTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create newteam");
+		BaseUserCommand fakeCommand = new UserCreate(fakePlayerSender, "create newteam");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -98,7 +98,7 @@ public class CreateTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create one");
+		BaseUserCommand fakeCommand = new UserCreate(fakePlayerSender, "create one");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -114,7 +114,7 @@ public class CreateTest
 		Data.CREATE_INTERVAL = 1;
 		Data.lastCreated.put("Lonely", System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create newteam");
+		BaseUserCommand fakeCommand = new UserCreate(fakePlayerSender, "create newteam");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -128,7 +128,7 @@ public class CreateTest
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new Create(fakePlayerSender, "create ©§·");
+		BaseUserCommand fakeCommand = new UserCreate(fakePlayerSender, "create ©§·");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

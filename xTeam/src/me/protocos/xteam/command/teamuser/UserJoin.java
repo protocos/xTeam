@@ -12,15 +12,11 @@ import me.protocos.xteam.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Join extends BaseUserCommand
+public class UserJoin extends BaseUserCommand
 {
 	private String desiredTeam;
 
-	public Join()
-	{
-		super();
-	}
-	public Join(Player sender, String command)
+	public UserJoin(Player sender, String command)
 	{
 		super(sender, command);
 	}

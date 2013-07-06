@@ -368,12 +368,6 @@ public class FakePlayerSender implements Player, CommandSender
 		return null;
 	}
 	@Override
-	public int getLastDamage()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
 	public List<Block> getLastTwoTargetBlocks(HashSet<Byte> arg0, int arg1)
 	{
 		// TODO Auto-generated method stub
@@ -464,12 +458,6 @@ public class FakePlayerSender implements Player, CommandSender
 	}
 	@Override
 	public void setCustomNameVisible(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setLastDamage(int arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -744,43 +732,7 @@ public class FakePlayerSender implements Player, CommandSender
 
 	}
 	@Override
-	public void damage(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void damage(int arg0, Entity arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public int getHealth()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int getMaxHealth()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
 	public void resetMaxHealth()
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setHealth(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setMaxHealth(int arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -1331,6 +1283,122 @@ public class FakePlayerSender implements Player, CommandSender
 	{
 		// TODO Auto-generated method stub
 
+	}
+	@Override
+	@Deprecated
+	public int _INVALID_getLastDamage()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_setLastDamage(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void setLastDamage(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_damage(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_damage(int arg0, Entity arg1)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	@Deprecated
+	public int _INVALID_getHealth()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	@Deprecated
+	public int _INVALID_getMaxHealth()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_setHealth(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_setMaxHealth(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void damage(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void damage(double arg0, Entity arg1)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void setHealth(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void setMaxHealth(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public boolean isScaledHealth()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void setScaleHealth(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public double getLastDamage()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public double getHealth()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public double getMaxHealth()
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

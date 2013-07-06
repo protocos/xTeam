@@ -12,10 +12,6 @@ public class AdminHeadquarters extends BaseServerAdminCommand
 {
 	private String teamName;
 
-	public AdminHeadquarters()
-	{
-		super();
-	}
 	public AdminHeadquarters(Player sender, String command)
 	{
 		super(sender, command);

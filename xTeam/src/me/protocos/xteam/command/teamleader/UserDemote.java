@@ -1,51 +1,47 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.BaseUserCommand;
+import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Disband extends BaseUserCommand
+public class UserDemote extends BaseUserCommand
 {
-	public Disband()
-	{
-		super();
-	}
-	public Disband(Player sender, String command)
+	private String otherPlayer;
+
+	public UserDemote(Player sender, String command)
 	{
 		super(sender, command);
 	}
 	@Override
 	protected void act()
 	{
-		for (String p : teamPlayer.getOnlineTeammates())
-		{
-			TeamPlayer playerDisband = new TeamPlayer(p);
-			playerDisband.sendMessage("Team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by the leader");
-		}
-		xTeam.tm.removeTeam(team.getName());
-		originalSender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " your team");
+		team.demote(otherPlayer);
+		Player other = Data.BUKKIT.getPlayer(otherPlayer);
+		if (other != null)
+			other.sendMessage("You've been " + ChatColor.RED + "demoted");
+		originalSender.sendMessage("You" + ChatColor.RED + " demoted " + ChatColor.RESET + otherPlayer);
 	}
-
 	@Override
-	protected void checkRequirements() throws TeamException
+	public void checkRequirements() throws TeamException
 	{
 		if (teamPlayer == null)
 		{
 			throw new TeamPlayerDoesNotExistException();
 		}
-		if (parseCommand.size() == 1)
+		if (parseCommand.size() == 2)
 		{
-
+			otherPlayer = parseCommand.get(1);
 		}
 		else
 		{
 			throw new TeamInvalidCommandException();
 		}
+
 		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
 		{
 			throw new TeamPlayerPermissionException();
@@ -58,23 +54,30 @@ public class Disband extends BaseUserCommand
 		{
 			throw new TeamPlayerNotLeaderException();
 		}
-	}
 
+		if (!team.getPlayers().contains(otherPlayer))
+		{
+			throw new TeamPlayerNotTeammateException();
+		}
+		TeamPlayer demotePlayer = new TeamPlayer(otherPlayer);
+		if (demotePlayer.isLeader())
+		{
+			throw new TeamPlayerLeaderDemoteException();
+		}
+	}
 	@Override
 	public String getPattern()
 	{
-		return "disband" + OPTIONAL_WHITE_SPACE;
+		return patternOneOrMore("demote") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
-
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.leader.core.disband";
+		return "xteam.leader.core.demote";
 	}
-
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " disband";
+		return baseCommand + " demote [Player]";
 	}
 }
