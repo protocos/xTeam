@@ -3,7 +3,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseServerAdminCommand;
+import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminHeadquarters;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamNoHeadquartersException;
@@ -28,7 +28,7 @@ public class AdminHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location hq = xTeam.tm.getTeam("one").getHeadquarters();
-		BaseServerAdminCommand fakeCommand = new AdminHeadquarters(fakePlayerSender, "hq one");
+		ServerAdminCommand fakeCommand = new AdminHeadquarters(fakePlayerSender, "hq one");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -42,7 +42,7 @@ public class AdminHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		BaseServerAdminCommand fakeCommand = new AdminHeadquarters(fakePlayerSender, "hq team");
+		ServerAdminCommand fakeCommand = new AdminHeadquarters(fakePlayerSender, "hq team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -56,7 +56,7 @@ public class AdminHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		BaseServerAdminCommand fakeCommand = new AdminHeadquarters(fakePlayerSender, "hq two");
+		ServerAdminCommand fakeCommand = new AdminHeadquarters(fakePlayerSender, "hq two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

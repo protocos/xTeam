@@ -3,7 +3,7 @@ package me.protocos.xteam.command.console.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseConsoleCommand;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleHelp;
 import me.protocos.xteam.testing.FakeConsoleSender;
 import org.junit.After;
@@ -26,7 +26,7 @@ public class ConsoleHelpTest
 	public void ShouldBeConsoleHelpExecute()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleHelp(fakeConsoleSender, "", "team");
+		ConsoleCommand fakeCommand = new ConsoleHelp(fakeConsoleSender, "", "team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

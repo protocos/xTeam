@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.command.BaseServerAdminCommand;
+import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminChatSpy;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.testing.FakeLocation;
@@ -24,7 +24,7 @@ public class AdminChatSpyTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminChatSpy(fakePlayerSender, "chatspy");
+		ServerAdminCommand fakeCommand = new AdminChatSpy(fakePlayerSender, "chatspy");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -38,7 +38,7 @@ public class AdminChatSpyTest
 		//ASSEMBLE
 		Data.spies.add("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminChatSpy(fakePlayerSender, "chatspy");
+		ServerAdminCommand fakeCommand = new AdminChatSpy(fakePlayerSender, "chatspy");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

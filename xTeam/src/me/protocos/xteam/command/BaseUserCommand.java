@@ -4,7 +4,7 @@ import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import org.bukkit.entity.Player;
 
-public abstract class BaseUserCommand extends BasePlayerCommand
+public abstract class BaseUserCommand extends PlayerCommand
 {
 	protected TeamPlayer teamPlayer;
 	protected Team team;

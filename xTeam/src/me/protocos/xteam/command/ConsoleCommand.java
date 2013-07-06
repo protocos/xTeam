@@ -2,11 +2,11 @@ package me.protocos.xteam.command;
 
 import org.bukkit.command.ConsoleCommandSender;
 
-public abstract class BaseConsoleCommand extends BaseCommand implements IConsoleCommand
+public abstract class ConsoleCommand extends Command implements IConsoleCommand
 {
 	ConsoleCommandSender sender;
 
-	public BaseConsoleCommand(ConsoleCommandSender sender, String command)
+	public ConsoleCommand(ConsoleCommandSender sender, String command)
 	{
 		super(sender, command);
 		setSender(sender);

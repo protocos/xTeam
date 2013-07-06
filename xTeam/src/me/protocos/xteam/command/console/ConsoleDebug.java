@@ -1,14 +1,14 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.command.BaseConsoleCommand;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
 import org.bukkit.command.ConsoleCommandSender;
 
-public class ConsoleDebug extends BaseConsoleCommand
+public class ConsoleDebug extends ConsoleCommand
 {
 	private String subCommand;
 

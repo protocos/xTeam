@@ -3,7 +3,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseServerAdminCommand;
+import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminSet;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
@@ -28,7 +28,7 @@ public class AdminSetTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely two");
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -43,7 +43,7 @@ public class AdminSetTest
 		xTeam.tm.getTeam("one").removePlayer("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		Data.returnLocations.put(Data.BUKKIT.getPlayer("kmlanglois"), new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set kmlanglois two");
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set kmlanglois two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -60,7 +60,7 @@ public class AdminSetTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely three");
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely three");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -76,7 +76,7 @@ public class AdminSetTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set kmlanglois two");
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set kmlanglois two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -89,7 +89,7 @@ public class AdminSetTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set newbie one");
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set newbie one");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -101,7 +101,7 @@ public class AdminSetTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set protocos three");
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set protocos three");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -119,7 +119,7 @@ public class AdminSetTest
 		//ASSEMBLE
 		Data.MAX_PLAYERS = 2;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely one");
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely one");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseServerAdminCommand;
+import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
@@ -10,7 +10,7 @@ import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class AdminRemove extends BaseServerAdminCommand
+public class AdminRemove extends ServerAdminCommand
 {
 	private String teamName, playerName;
 

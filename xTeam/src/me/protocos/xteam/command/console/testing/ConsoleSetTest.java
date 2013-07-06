@@ -3,7 +3,7 @@ package me.protocos.xteam.command.console.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseConsoleCommand;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleSet;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
@@ -30,7 +30,7 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecute()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Lonely two");
+		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Lonely two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -43,7 +43,7 @@ public class ConsoleSetTest
 	{
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").removePlayer("protocos");
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set kmlanglois two");
+		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set kmlanglois two");
 		Data.returnLocations.put(Data.BUKKIT.getPlayer("kmlanglois"), new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
@@ -60,7 +60,7 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecuteCreateTeam()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Lonely three");
+		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Lonely three");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -75,7 +75,7 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecuteHasTeam()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set protocos two");
+		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set protocos two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -89,7 +89,7 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set kmlanglois two");
+		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set kmlanglois two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -100,7 +100,7 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecutePlayerHasNotPlayed()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set newbie one");
+		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set newbie one");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -112,7 +112,7 @@ public class ConsoleSetTest
 	{
 		//ASSEMBLE
 		Data.MAX_PLAYERS = 2;
-		BaseConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Lonely one");
+		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, "set Lonely one");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

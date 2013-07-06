@@ -3,7 +3,7 @@ package me.protocos.xteam.command.console.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseConsoleCommand;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleDisband;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.testing.FakeConsoleSender;
@@ -26,7 +26,7 @@ public class ConsoleDeleteTest
 	public void ShouldBeConsoleDeleteExecute()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleDisband(fakeConsoleSender, "disband one");
+		ConsoleCommand fakeCommand = new ConsoleDisband(fakeConsoleSender, "disband one");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -38,7 +38,7 @@ public class ConsoleDeleteTest
 	public void ShouldBeConsoleDeleteExecuteThrowsNoTeam()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleDisband(fakeConsoleSender, "disband team");
+		ConsoleCommand fakeCommand = new ConsoleDisband(fakeConsoleSender, "disband team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

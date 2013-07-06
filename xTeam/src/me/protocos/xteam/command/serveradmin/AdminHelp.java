@@ -2,15 +2,15 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseCommand;
-import me.protocos.xteam.command.BaseServerAdminCommand;
+import me.protocos.xteam.command.Command;
+import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.HelpPages;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class AdminHelp extends BaseServerAdminCommand
+public class AdminHelp extends ServerAdminCommand
 {
 	private HelpPages pages;
 	private int pageNum;
@@ -18,7 +18,7 @@ public class AdminHelp extends BaseServerAdminCommand
 	public AdminHelp(Player sender, String command, String commandID)
 	{
 		super(sender, command);
-		BaseCommand.baseCommand = commandID;
+		Command.baseCommand = commandID;
 		pages = new HelpPages();
 	}
 	@Override

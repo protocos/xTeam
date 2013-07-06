@@ -2,21 +2,21 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseCommand;
-import me.protocos.xteam.command.BaseConsoleCommand;
+import me.protocos.xteam.command.Command;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
 import me.protocos.xteam.util.HelpPages;
 import org.bukkit.command.ConsoleCommandSender;
 
-public class ConsoleHelp extends BaseConsoleCommand
+public class ConsoleHelp extends ConsoleCommand
 {
 	private HelpPages pages;
 
 	public ConsoleHelp(ConsoleCommandSender sender, String command, String commandID)
 	{
 		super(sender, command);
-		BaseCommand.baseCommand = commandID;
+		Command.baseCommand = commandID;
 		pages = new HelpPages();
 	}
 	@Override

@@ -2,7 +2,7 @@ package me.protocos.xteam.command.console.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.command.BaseConsoleCommand;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleList;
 import me.protocos.xteam.testing.FakeConsoleSender;
 import org.junit.After;
@@ -24,7 +24,7 @@ public class ConsoleListTest
 	public void ShouldBeConsoleListExecute()
 	{
 		//ASSEMBLE
-		BaseConsoleCommand fakeCommand = new ConsoleList(fakeConsoleSender, "list");
+		ConsoleCommand fakeCommand = new ConsoleList(fakeConsoleSender, "list");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

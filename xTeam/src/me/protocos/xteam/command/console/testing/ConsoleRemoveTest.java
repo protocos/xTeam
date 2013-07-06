@@ -3,7 +3,7 @@ package me.protocos.xteam.command.console.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseConsoleCommand;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleRemove;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
@@ -27,7 +27,7 @@ public class ConsoleRemoveTest
 	{
 		//ASSEMBLE
 		FakeConsoleSender fakeConsoleSender = new FakeConsoleSender();
-		BaseConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one protocos");
+		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -41,7 +41,7 @@ public class ConsoleRemoveTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").removePlayer("protocos");
 		FakeConsoleSender fakeConsoleSender = new FakeConsoleSender();
-		BaseConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one kmlanglois");
+		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -55,7 +55,7 @@ public class ConsoleRemoveTest
 	{
 		//ASSEMBLE
 		FakeConsoleSender fakeConsoleSender = new FakeConsoleSender();
-		BaseConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one Lonely");
+		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -68,7 +68,7 @@ public class ConsoleRemoveTest
 	{
 		//ASSEMBLE
 		FakeConsoleSender fakeConsoleSender = new FakeConsoleSender();
-		BaseConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one newbie");
+		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one newbie");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -81,7 +81,7 @@ public class ConsoleRemoveTest
 	{
 		//ASSEMBLE
 		FakeConsoleSender fakeConsoleSender = new FakeConsoleSender();
-		BaseConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one kmlanglois");
+		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

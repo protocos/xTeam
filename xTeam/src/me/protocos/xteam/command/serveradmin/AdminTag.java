@@ -2,14 +2,14 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseServerAdminCommand;
+import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.StringUtil;
 import org.bukkit.entity.Player;
 
-public class AdminTag extends BaseServerAdminCommand
+public class AdminTag extends ServerAdminCommand
 {
 	private String teamName, newTag;
 

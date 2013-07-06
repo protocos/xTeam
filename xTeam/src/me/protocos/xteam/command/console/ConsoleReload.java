@@ -1,13 +1,13 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.command.BaseConsoleCommand;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
 import org.bukkit.command.ConsoleCommandSender;
 
-public class ConsoleReload extends BaseConsoleCommand
+public class ConsoleReload extends ConsoleCommand
 {
 	public ConsoleReload(ConsoleCommandSender sender, String command)
 	{

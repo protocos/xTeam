@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.command.BaseServerAdminCommand;
+import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminUpdatePlayers;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
@@ -23,7 +23,7 @@ public class AdminUpdateTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminUpdatePlayers(fakePlayerSender, "update");
+		ServerAdminCommand fakeCommand = new AdminUpdatePlayers(fakePlayerSender, "update");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

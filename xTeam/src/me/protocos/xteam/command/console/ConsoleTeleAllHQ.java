@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.command.BaseConsoleCommand;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
@@ -10,7 +10,7 @@ import me.protocos.xteam.core.exception.TeamInvalidCommandException;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-public class ConsoleTeleAllHQ extends BaseConsoleCommand
+public class ConsoleTeleAllHQ extends ConsoleCommand
 {
 	public ConsoleTeleAllHQ(ConsoleCommandSender sender, String command)
 	{

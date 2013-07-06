@@ -2,14 +2,14 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseConsoleCommand;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.StringUtil;
 import org.bukkit.command.ConsoleCommandSender;
 
-public class ConsoleTag extends BaseConsoleCommand
+public class ConsoleTag extends ConsoleCommand
 {
 	private String teamName, newTag;
 

@@ -3,7 +3,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseServerAdminCommand;
+import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminTag;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
@@ -28,7 +28,7 @@ public class AdminTagTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminTag(fakePlayerSender, "tag one tag");
+		ServerAdminCommand fakeCommand = new AdminTag(fakePlayerSender, "tag one tag");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -41,7 +41,7 @@ public class AdminTagTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminTag(fakePlayerSender, "tag one two");
+		ServerAdminCommand fakeCommand = new AdminTag(fakePlayerSender, "tag one two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -55,7 +55,7 @@ public class AdminTagTest
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminTag(fakePlayerSender, "tag one ƒçß");
+		ServerAdminCommand fakeCommand = new AdminTag(fakePlayerSender, "tag one ƒçß");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -68,7 +68,7 @@ public class AdminTagTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminTag(fakePlayerSender, "tag three tag");
+		ServerAdminCommand fakeCommand = new AdminTag(fakePlayerSender, "tag three tag");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

@@ -16,7 +16,7 @@ public class CommandManager implements ICommandManager
 	}
 
 	@Override
-	public void registerCommand(String key, BaseCommand command)
+	public void registerCommand(String key, Command command)
 	{
 		patterns.put(key, command);
 		usages.put(key, command);

@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseCommand;
+import me.protocos.xteam.command.Command;
 import me.protocos.xteam.command.BaseUserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.*;
@@ -19,7 +19,7 @@ public class UserHelp extends BaseUserCommand
 	public UserHelp(Player sender, String command, String id)
 	{
 		super(sender, command);
-		BaseCommand.baseCommand = id;
+		Command.baseCommand = id;
 		pages = new HelpPages();
 	}
 	@Override

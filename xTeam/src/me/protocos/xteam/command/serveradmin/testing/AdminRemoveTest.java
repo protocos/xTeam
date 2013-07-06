@@ -3,7 +3,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseServerAdminCommand;
+import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminRemove;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
@@ -27,7 +27,7 @@ public class AdminRemoveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one protocos");
+		ServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -41,7 +41,7 @@ public class AdminRemoveTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").removePlayer("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one kmlanglois");
+		ServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -55,7 +55,7 @@ public class AdminRemoveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one Lonely");
+		ServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -68,7 +68,7 @@ public class AdminRemoveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one newbie");
+		ServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one newbie");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -81,7 +81,7 @@ public class AdminRemoveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one kmlanglois");
+		ServerAdminCommand fakeCommand = new AdminRemove(fakePlayerSender, "remove one kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

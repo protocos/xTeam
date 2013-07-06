@@ -71,7 +71,7 @@ public class CommandDelegate implements CommandExecutor
 	public boolean onConsoleCommand(ConsoleCommandSender sender, String commandID, String originalCommand)
 	{
 		xTeam.logger.info("console issued command: " + commandID + " " + originalCommand);
-		BaseConsoleCommand command;
+		ConsoleCommand command;
 		// /////////////////////|||||||\\\\\\\\\\\\\\\\\\\\\
 		// //////////////////             \\\\\\\\\\\\\\\\\\
 		// ================     CONSOLE     ================
@@ -121,7 +121,7 @@ public class CommandDelegate implements CommandExecutor
 	{
 		commandID = "/" + commandID;
 		xTeam.logger.info(sender.getName() + " issued command: " + commandID + " " + originalCommand);
-		BasePlayerCommand command;
+		PlayerCommand command;
 		// /////////////////////|||||\\\\\\\\\\\\\\\\\\\\\
 		// //////////////////           \\\\\\\\\\\\\\\\\\
 		// ================     ADMIN     ================

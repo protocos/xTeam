@@ -2,11 +2,11 @@ package me.protocos.xteam.command;
 
 import org.bukkit.entity.Player;
 
-public abstract class BasePlayerCommand extends BaseCommand implements IPlayerCommand
+public abstract class PlayerCommand extends Command implements IPlayerCommand
 {
 	protected Player player;
 
-	public BasePlayerCommand(Player sender, String command)
+	public PlayerCommand(Player sender, String command)
 	{
 		super(sender, command);
 		setPlayer(sender);

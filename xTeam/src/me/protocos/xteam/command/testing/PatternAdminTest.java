@@ -3,7 +3,7 @@ package me.protocos.xteam.command.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseCommand;
+import me.protocos.xteam.command.Command;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,7 +68,7 @@ public class PatternAdminTest
 	@After
 	public void takedown()
 	{
-		BaseCommand.setBaseCommand("/team");
+		Command.setBaseCommand("/team");
 		Assert.assertTrue(xTeam.cm.getUsage("admin_" + baseCmd).replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + xTeam.cm.getPattern("admin_" + baseCmd)));
 	}
 }

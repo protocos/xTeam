@@ -3,7 +3,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseServerAdminCommand;
+import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminDemote;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.testing.FakeLocation;
@@ -26,7 +26,7 @@ public class AdminDemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one protocos");
+		ServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -40,7 +40,7 @@ public class AdminDemoteTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").demote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one protocos");
+		ServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -52,7 +52,7 @@ public class AdminDemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one kmlanglois");
+		ServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -65,7 +65,7 @@ public class AdminDemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one mastermind");
+		ServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -77,7 +77,7 @@ public class AdminDemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one Lonely");
+		ServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -89,7 +89,7 @@ public class AdminDemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one newbie");
+		ServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote one newbie");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -101,7 +101,7 @@ public class AdminDemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote three protocos");
+		ServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, "demote three protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.command.BaseServerAdminCommand;
+import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
@@ -10,7 +10,7 @@ import me.protocos.xteam.core.exception.TeamPlayerPermissionException;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.entity.Player;
 
-public class AdminReload extends BaseServerAdminCommand
+public class AdminReload extends ServerAdminCommand
 {
 	public AdminReload(Player sender, String command)
 	{

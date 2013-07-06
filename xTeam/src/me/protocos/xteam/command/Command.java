@@ -8,13 +8,13 @@ import me.protocos.xteam.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-public abstract class BaseCommand implements ICommandUsage, ICommandPattern, IPermissionNode
+public abstract class Command implements ICommandUsage, ICommandPattern, IPermissionNode
 {
 	protected final CommandSender originalSender;
 	protected final List<String> parseCommand;
 	protected static String baseCommand = "";
 
-	public BaseCommand(CommandSender sender, String command)
+	public Command(CommandSender sender, String command)
 	{
 		originalSender = sender;
 		parseCommand = command != null ? CommonUtil.toList(command.split(StringUtil.WHITE_SPACE)) : null;
@@ -23,7 +23,7 @@ public abstract class BaseCommand implements ICommandUsage, ICommandPattern, IPe
 
 	public static void setBaseCommand(String baseCmd)
 	{
-		BaseCommand.baseCommand = baseCmd;
+		Command.baseCommand = baseCmd;
 	}
 	public static String getBaseCommand()
 	{

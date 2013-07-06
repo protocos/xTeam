@@ -3,7 +3,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseServerAdminCommand;
+import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminRename;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamAlreadyExistsException;
@@ -28,7 +28,7 @@ public class AdminRenameTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminRename(fakePlayerSender, "rename one newname");
+		ServerAdminCommand fakeCommand = new AdminRename(fakePlayerSender, "rename one newname");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -41,7 +41,7 @@ public class AdminRenameTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminRename(fakePlayerSender, "rename one two");
+		ServerAdminCommand fakeCommand = new AdminRename(fakePlayerSender, "rename one two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -55,7 +55,7 @@ public class AdminRenameTest
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminRename(fakePlayerSender, "rename one ƒçß");
+		ServerAdminCommand fakeCommand = new AdminRename(fakePlayerSender, "rename one ƒçß");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -68,7 +68,7 @@ public class AdminRenameTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseServerAdminCommand fakeCommand = new AdminRename(fakePlayerSender, "rename three newname");
+		ServerAdminCommand fakeCommand = new AdminRename(fakePlayerSender, "rename three newname");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
