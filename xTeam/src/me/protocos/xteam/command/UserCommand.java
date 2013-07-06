@@ -12,7 +12,7 @@ public abstract class UserCommand extends PlayerCommand
 	public UserCommand(Player sender, String command)
 	{
 		super(sender, command);
-		teamPlayer = sender != null ? new TeamPlayer(player) : null;
+		teamPlayer = sender != null ? new TeamPlayer(sender) : null;
 		team = teamPlayer != null ? teamPlayer.getTeam() : null;
 	}
 

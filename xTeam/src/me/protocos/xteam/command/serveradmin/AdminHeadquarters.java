@@ -20,8 +20,8 @@ public class AdminHeadquarters extends ServerAdminCommand
 	protected void act()
 	{
 		Team team = xTeam.tm.getTeam(teamName);
-		player.teleport(team.getHeadquarters());
-		player.sendMessage("You have been teleported to the headquarters of team " + teamName);
+		sender.teleport(team.getHeadquarters());
+		sender.sendMessage("You have been teleported to the headquarters of team " + teamName);
 	}
 	@Override
 	public void checkRequirements() throws TeamException
@@ -30,7 +30,7 @@ public class AdminHeadquarters extends ServerAdminCommand
 		{
 			throw new TeamPlayerPermissionException();
 		}
-		if (player == null)
+		if (sender == null)
 		{
 			throw new TeamPlayerDoesNotExistException();
 		}

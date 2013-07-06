@@ -20,15 +20,15 @@ public class AdminChatSpy extends ServerAdminCommand
 	@Override
 	protected void act()
 	{
-		if (!Data.spies.contains(player.getName()))
+		if (!Data.spies.contains(sender.getName()))
 		{
-			Data.spies.add(player.getName());
-			player.sendMessage("You are " + ChatColor.RED + "now" + ChatColor.RESET + " spying on team chat");
+			Data.spies.add(sender.getName());
+			sender.sendMessage("You are " + ChatColor.RED + "now" + ChatColor.RESET + " spying on team chat");
 		}
 		else
 		{
-			Data.spies.remove(player.getName());
-			player.sendMessage("You are " + ChatColor.GREEN + "no longer" + ChatColor.RESET + " spying on team chat");
+			Data.spies.remove(sender.getName());
+			sender.sendMessage("You are " + ChatColor.GREEN + "no longer" + ChatColor.RESET + " spying on team chat");
 		}
 	}
 	@Override
@@ -38,7 +38,7 @@ public class AdminChatSpy extends ServerAdminCommand
 		{
 			throw new TeamPlayerPermissionException();
 		}
-		if (player == null)
+		if (sender == null)
 		{
 			throw new TeamPlayerDoesNotExistException();
 		}

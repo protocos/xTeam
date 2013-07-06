@@ -24,12 +24,12 @@ public class AdminRemove extends ServerAdminCommand
 		TeamPlayer teamPlayer = new TeamPlayer(playerName);
 		Team team = teamPlayer.getTeam();
 		team.removePlayer(playerName);
-		if (!playerName.equals(player.getName()))
-			player.sendMessage("You " + ChatColor.RED + "removed" + ChatColor.RESET + " " + playerName + " from " + teamName);
+		if (!playerName.equals(sender.getName()))
+			sender.sendMessage("You " + ChatColor.RED + "removed" + ChatColor.RESET + " " + playerName + " from " + teamName);
 		teamPlayer.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName() + " by an admin");
 		if (team.isEmpty())
 		{
-			player.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
+			sender.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
 			xTeam.tm.removeTeam(team.getName());
 		}
 	}

@@ -203,7 +203,7 @@ public class xTeam extends JavaPlugin
 						"### alphanumericnames - When true, players can only create teams with alphanumeric names and no symbols (i.e. TeamAwesome123) (default=false)\n" +
 						"### displaycoordinates - When true, players can see coordinates of other team mates in team info (default=true)\n" +
 						"### tagcolor - Color representing the color of the tag in game (e.g. green, dark_red, light_purple)\n" +
-						"### chatnamecolor - Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)\n" +
+						"### chatnamecolor - Color representing the color of sender names in team chat (e.g. green, dark_red, light_purple)\n" +
 						"############################################\n" +
 						"playersonteam=10\n" +
 						"sethqinterval=0\n" +

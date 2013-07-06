@@ -29,7 +29,7 @@ public class AdminReload extends ServerAdminCommand
 		{
 			throw new TeamPlayerPermissionException();
 		}
-		if (player == null)
+		if (sender == null)
 		{
 			throw new TeamPlayerDoesNotExistException();
 		}

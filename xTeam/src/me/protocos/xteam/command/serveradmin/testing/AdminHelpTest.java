@@ -31,13 +31,13 @@ public class AdminHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Admin Commands: [Page 1/2] {optional} [required] pick/one\n" +
-				"/team set [Player] [Team] - <admin> set team of player\n" +
+				"/team set [Player] [Team] - <admin> set team of sender\n" +
 				"/team hq [Team] - <admin> teleport to team headquarters\n" +
 				"/team sethq [Team] - <admin> set team headquarters for team\n" +
 				"/team setleader [Team] [Player] - <admin> set leader of team\n" +
 				"/team promote [Team] [Player] - <admin> promote admin of team\n" +
 				"/team demote [Team] [Player] - <admin> demote admin of team\n" +
-				"/team remove [Team] [Player] - <admin> remove player of team\n" +
+				"/team remove [Team] [Player] - <admin> remove sender of team\n" +
 				"/team teleallhq - <admin> teleports everyone to their HQ\n" +
 				"/team tpall [Team] - <admin> teleports team to yourself", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);

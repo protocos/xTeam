@@ -23,8 +23,8 @@ public class AdminDemote extends ServerAdminCommand
 	{
 		Team team = xTeam.tm.getTeam(teamName);
 		team.demote(playerName);
-		if (!team.containsPlayer(player.getName()))
-			player.sendMessage("You " + ChatColor.RED + "demoted" + ChatColor.RESET + " " + playerName);
+		if (!team.containsPlayer(sender.getName()))
+			sender.sendMessage("You " + ChatColor.RED + "demoted" + ChatColor.RESET + " " + playerName);
 		TeamPlayer other = new TeamPlayer(playerName);
 		other.sendMessage("You have been " + ChatColor.RED + "demoted" + ChatColor.RESET + " by an admin");
 	}
@@ -35,7 +35,7 @@ public class AdminDemote extends ServerAdminCommand
 		{
 			throw new TeamPlayerPermissionException();
 		}
-		if (player == null)
+		if (sender == null)
 		{
 			throw new TeamPlayerDoesNotExistException();
 		}

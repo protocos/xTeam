@@ -23,9 +23,9 @@ public class ConsoleHelp extends ConsoleCommand
 	protected void act()
 	{
 		pages.setTitle("Console Commands: {optional} [required] pick/one");
-		pages.addLine(xTeam.cm.getUsage("console_info") + " - get info on player/team");
+		pages.addLine(xTeam.cm.getUsage("console_info") + " - get info on sender/team");
 		pages.addLine(xTeam.cm.getUsage("console_list") + " - list all teams on the server");
-		pages.addLine(xTeam.cm.getUsage("console_set") + " - set team of player");
+		pages.addLine(xTeam.cm.getUsage("console_set") + " - set team of sender");
 		pages.addLine(xTeam.cm.getUsage("console_setleader") + " - set leader of team");
 		pages.addLine(xTeam.cm.getUsage("console_promote") + " - promote admin of team");
 		pages.addLine(xTeam.cm.getUsage("console_demote") + " - demote admin of team");

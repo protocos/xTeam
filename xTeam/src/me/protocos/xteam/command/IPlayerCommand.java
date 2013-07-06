@@ -4,6 +4,6 @@ import org.bukkit.entity.Player;
 
 public interface IPlayerCommand extends ICommand
 {
-	public abstract void setPlayer(Player sender);
-	public abstract Player getPlayer();
+	public abstract void setSender(Player sender);
+	public abstract Player getSender();
 }

@@ -29,7 +29,7 @@ public class UserAccept extends UserCommand
 			if (mate.isOnline() && !teamPlayer.getName().equals(mate.getName()))
 				mate.sendMessage(teamPlayer.getName() + ChatColor.AQUA + " joined your team");
 		}
-		player.sendMessage("You joined " + ChatColor.AQUA + inviteTeam.getName());
+		sender.sendMessage("You joined " + ChatColor.AQUA + inviteTeam.getName());
 	}
 	@Override
 	public void checkRequirements() throws TeamException
@@ -45,7 +45,7 @@ public class UserAccept extends UserCommand
 		{
 			throw new TeamInvalidCommandException();
 		}
-		if (!PermissionUtil.hasPermission(player, getPermissionNode()))
+		if (!PermissionUtil.hasPermission(sender, getPermissionNode()))
 		{
 			throw new TeamPlayerPermissionException();
 		}

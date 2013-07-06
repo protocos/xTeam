@@ -92,34 +92,34 @@ public class TeamPvPEntityListener implements Listener
 				//					// Player hurt Wolf
 				//					if (damager instanceof Player)
 				//					{
-				//						TeamPlayer player = new TeamPlayer((Player) damager);
+				//						TeamPlayer sender = new TeamPlayer((Player) damager);
 				//						TeamWolf wolf = new TeamWolf((Wolf) entity);
-				//						if (player.hasTeam() && wolf.hasTeam() && player.getTeam().equals(wolf.getTeam()))
+				//						if (sender.hasTeam() && wolf.hasTeam() && sender.getTeam().equals(wolf.getTeam()))
 				//						{
 				//							event.setCancelled(true);
-				//							if (wolf.getOwner().equals(player))
+				//							if (wolf.getOwner().equals(sender))
 				//							{
-				//								player.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " pet your wolfie!");
+				//								sender.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " pet your wolfie!");
 				//							}
 				//							else
 				//							{
 				//								ITeamPlayer owner = wolf.getOwner();
 				//								if (owner.isOnline())
-				//									owner.sendMessage(ChatColor.GREEN + player.getName() + ChatColor.RESET + " pet your wolfie!");
-				//								player.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " pet " + ChatColor.GREEN + owner.getName() + "'s" + ChatColor.RESET + " wolfie!");
+				//									owner.sendMessage(ChatColor.GREEN + sender.getName() + ChatColor.RESET + " pet your wolfie!");
+				//								sender.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " pet " + ChatColor.GREEN + owner.getName() + "'s" + ChatColor.RESET + " wolfie!");
 				//							}
 				//						}
 				//					}
 				//					// Projectile hurt Wolf
 				//					else if (damager instanceof Projectile)
 				//					{
-				//						TeamPlayer player;
+				//						TeamPlayer sender;
 				//						if (((Projectile) damager).getShooter() instanceof Player)
-				//							player = new TeamPlayer((Player) ((Projectile) damager).getShooter());
+				//							sender = new TeamPlayer((Player) ((Projectile) damager).getShooter());
 				//						else
 				//							return;
 				//						TeamWolf wolf = new TeamWolf((Wolf) entity);
-				//						if (player.hasTeam() && wolf.hasTeam() && player.getTeam().equals(wolf.getTeam()))
+				//						if (sender.hasTeam() && wolf.hasTeam() && sender.getTeam().equals(wolf.getTeam()))
 				//						{
 				//							event.setCancelled(true);
 				//						}

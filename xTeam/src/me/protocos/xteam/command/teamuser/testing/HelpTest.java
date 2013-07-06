@@ -59,12 +59,12 @@ public class HelpTest
 				"/team chat {On/Off} - Toggle chatting with teammates\n" +
 				"/team message [UserMessage] - Send message to teammates\n" +
 				"/team sethq - Set headquarters of team (every 1 hours)\n" +
-				"/team invite [Player] - UserInvite player to your team\n" +
-				"/team promote [Player] - UserPromote player on your team\n" +
-				"/team demote [Player] - UserDemote player on your team\n" +
+				"/team invite [Player] - UserInvite sender to your team\n" +
+				"/team promote [Player] - UserPromote sender on your team\n" +
+				"/team demote [Player] - UserDemote sender on your team\n" +
 				"/team disband - UserDisband the team\n" +
 				"/team open - UserOpen team to public joining\n" +
-				"/team remove [Player] - UserRemove player from your team", fakePlayerSender.getLastMessage());
+				"/team remove [Player] - UserRemove sender from your team", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test

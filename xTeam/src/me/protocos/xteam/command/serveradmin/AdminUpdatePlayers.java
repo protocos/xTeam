@@ -23,7 +23,7 @@ public class AdminUpdatePlayers extends ServerAdminCommand
 	@Override
 	public void checkRequirements() throws TeamException
 	{
-		if (player == null)
+		if (sender == null)
 		{
 			throw new TeamPlayerDoesNotExistException();
 		}

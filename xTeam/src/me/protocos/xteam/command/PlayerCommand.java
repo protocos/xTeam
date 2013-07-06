@@ -4,21 +4,21 @@ import org.bukkit.entity.Player;
 
 public abstract class PlayerCommand extends Command implements IPlayerCommand
 {
-	protected Player player;
+	protected Player sender;
 
 	public PlayerCommand(Player sender, String command)
 	{
 		super(sender, command);
-		setPlayer(sender);
+		setSender(sender);
 	}
 
-	public void setPlayer(Player player)
+	public void setSender(Player sender)
 	{
-		this.player = player;
+		this.sender = sender;
 	}
 
-	public Player getPlayer()
+	public Player getSender()
 	{
-		return player;
+		return sender;
 	}
 }

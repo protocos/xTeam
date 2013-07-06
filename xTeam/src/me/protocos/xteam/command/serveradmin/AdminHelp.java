@@ -31,7 +31,7 @@ public class AdminHelp extends ServerAdminCommand
 	@Override
 	public void checkRequirements() throws TeamException
 	{
-		if (player == null)
+		if (sender == null)
 		{
 			throw new TeamPlayerDoesNotExistException();
 		}
@@ -53,7 +53,7 @@ public class AdminHelp extends ServerAdminCommand
 		}
 		String command;
 		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_set")))
-			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage(command) + " - <admin> set team of player");
+			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage(command) + " - <admin> set team of sender");
 		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_hq")))
 			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage(command) + " - <admin> teleport to team headquarters");
 		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_sethq")))
@@ -65,7 +65,7 @@ public class AdminHelp extends ServerAdminCommand
 		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_demote")))
 			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage(command) + " - <admin> demote admin of team");
 		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_remove")))
-			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage(command) + " - <admin> remove player of team");
+			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage(command) + " - <admin> remove sender of team");
 		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_teleallhq")))
 			pages.addLine(ChatColor.GRAY + xTeam.cm.getUsage(command) + " - <admin> teleports everyone to their HQ");
 		if (PermissionUtil.hasPermission(originalSender, xTeam.cm.getPermissionNode(command = "serveradmin_tpall")))

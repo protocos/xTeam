@@ -23,7 +23,7 @@ public class AdminDisband extends ServerAdminCommand
 		Team team = xTeam.tm.getTeam(teamName);
 		team.sendMessage("Your team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by an admin");
 		xTeam.tm.removeTeam(teamName);
-		player.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " " + teamName);
+		sender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " " + teamName);
 	}
 	@Override
 	public void checkRequirements() throws TeamException

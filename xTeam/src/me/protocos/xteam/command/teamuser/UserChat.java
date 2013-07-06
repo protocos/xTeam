@@ -22,12 +22,12 @@ public class UserChat extends UserCommand
 		if (option.equalsIgnoreCase("ON"))
 		{
 			Data.chatStatus.add(teamPlayer.getName());
-			player.sendMessage("You are now only chatting with " + ChatColor.GREEN + "your team");
+			sender.sendMessage("You are now only chatting with " + ChatColor.GREEN + "your team");
 		}
 		if (option.equalsIgnoreCase("OFF"))
 		{
 			Data.chatStatus.remove(teamPlayer.getName());
-			player.sendMessage("You are now chatting with " + ChatColor.RED + "everyone");
+			sender.sendMessage("You are now chatting with " + ChatColor.RED + "everyone");
 		}
 	}
 	@Override
@@ -53,7 +53,7 @@ public class UserChat extends UserCommand
 		{
 			throw new TeamInvalidCommandException();
 		}
-		if (!PermissionUtil.hasPermission(player, getPermissionNode()))
+		if (!PermissionUtil.hasPermission(sender, getPermissionNode()))
 		{
 			throw new TeamPlayerPermissionException();
 		}

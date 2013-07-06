@@ -22,14 +22,14 @@ public class AdminTag extends ServerAdminCommand
 	{
 		Team team = xTeam.tm.getTeam(teamName);
 		team.setTag(newTag);
-		if (!team.containsPlayer(player.getName()))
-			player.sendMessage("The team tag has been set to " + newTag);
+		if (!team.containsPlayer(sender.getName()))
+			sender.sendMessage("The team tag has been set to " + newTag);
 		team.sendMessage("The team tag has been set to " + newTag + " by an admin");
 	}
 	@Override
 	public void checkRequirements() throws TeamException
 	{
-		if (!player.hasPermission(getPermissionNode()))
+		if (!sender.hasPermission(getPermissionNode()))
 		{
 			throw new TeamPlayerPermissionException();
 		}

@@ -61,7 +61,7 @@ public class UserJoin extends UserCommand
 		{
 			throw new TeamDoesNotExistException();
 		}
-		//if player has not been invited to join a team OR player has been invited to another team
+		//if sender has not been invited to join a team OR sender has been invited to another team
 		if (!InviteHandler.hasInvite(teamPlayer.getName()) || !InviteHandler.getInviteTeam(teamPlayer.getName()).equals(foundTeam))
 		{
 			if (!foundTeam.isOpenJoining())

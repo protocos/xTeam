@@ -24,14 +24,14 @@ public class AdminRename extends ServerAdminCommand
 		xTeam.tm.removeTeam(teamName);
 		team.setName(newName);
 		xTeam.tm.addTeam(team);
-		if (!team.containsPlayer(player.getName()))
-			player.sendMessage("You renamed the team to " + ChatColor.AQUA + newName);
+		if (!team.containsPlayer(sender.getName()))
+			sender.sendMessage("You renamed the team to " + ChatColor.AQUA + newName);
 		team.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName + ChatColor.RESET + " by an admin");
 	}
 	@Override
 	public void checkRequirements() throws TeamException
 	{
-		if (!player.hasPermission(getPermissionNode()))
+		if (!sender.hasPermission(getPermissionNode()))
 		{
 			throw new TeamPlayerPermissionException();
 		}

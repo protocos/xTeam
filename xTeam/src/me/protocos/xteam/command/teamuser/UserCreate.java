@@ -24,7 +24,7 @@ public class UserCreate extends UserCommand
 		String leader = teamPlayer.getName();
 		xTeam.tm.createTeamWithLeader(desiredTeam, leader);
 		Data.lastCreated.put(leader, Long.valueOf(System.currentTimeMillis()));
-		player.sendMessage("You created " + ChatColor.AQUA + desiredTeam);
+		sender.sendMessage("You created " + ChatColor.AQUA + desiredTeam);
 	}
 	@Override
 	public void checkRequirements() throws TeamException
@@ -41,7 +41,7 @@ public class UserCreate extends UserCommand
 		{
 			throw new TeamInvalidCommandException();
 		}
-		if (!PermissionUtil.hasPermission(player, getPermissionNode()))
+		if (!PermissionUtil.hasPermission(sender, getPermissionNode()))
 		{
 			throw new TeamPlayerPermissionException();
 		}

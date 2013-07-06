@@ -32,7 +32,7 @@ public class UserHeadquarters extends UserCommand
 			}
 		}
 		teleHQ(teamPlayer);
-		player.sendMessage(ChatColor.GREEN + "WHOOSH!");
+		sender.sendMessage(ChatColor.GREEN + "WHOOSH!");
 	}
 	@Override
 	public void checkRequirements() throws TeamException
@@ -48,7 +48,7 @@ public class UserHeadquarters extends UserCommand
 		{
 			throw new TeamInvalidCommandException();
 		}
-		if (!PermissionUtil.hasPermission(player, getPermissionNode()))
+		if (!PermissionUtil.hasPermission(sender, getPermissionNode()))
 		{
 			throw new TeamPlayerPermissionException();
 		}

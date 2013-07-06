@@ -26,8 +26,8 @@ public class AdminTpAll extends ServerAdminCommand
 			TeamPlayer p = new TeamPlayer(teammember);
 			if (p.isOnline())
 			{
-				p.sendMessage("You have been teleported to " + player.getName());
-				p.teleport(player.getLocation());
+				p.sendMessage("You have been teleported to " + sender.getName());
+				p.teleport(sender.getLocation());
 			}
 		}
 		originalSender.sendMessage("Players teleported");
@@ -39,7 +39,7 @@ public class AdminTpAll extends ServerAdminCommand
 		{
 			throw new TeamPlayerPermissionException();
 		}
-		if (player == null)
+		if (sender == null)
 		{
 			throw new TeamPlayerDoesNotExistException();
 		}

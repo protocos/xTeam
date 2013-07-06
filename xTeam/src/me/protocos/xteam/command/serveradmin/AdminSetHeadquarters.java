@@ -21,8 +21,8 @@ public class AdminSetHeadquarters extends ServerAdminCommand
 	protected void act()
 	{
 		Team team = xTeam.tm.getTeam(teamName);
-		team.setHQ(new TeamHeadquarters(player.getLocation()));
-		player.sendMessage("You set the team headquarters for team " + teamName);
+		team.setHQ(new TeamHeadquarters(sender.getLocation()));
+		sender.sendMessage("You set the team headquarters for team " + teamName);
 	}
 	@Override
 	public void checkRequirements() throws TeamException
@@ -31,7 +31,7 @@ public class AdminSetHeadquarters extends ServerAdminCommand
 		{
 			throw new TeamPlayerPermissionException();
 		}
-		if (player == null)
+		if (sender == null)
 		{
 			throw new TeamPlayerDoesNotExistException();
 		}
