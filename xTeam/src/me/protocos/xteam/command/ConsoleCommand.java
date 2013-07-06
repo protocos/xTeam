@@ -2,7 +2,7 @@ package me.protocos.xteam.command;
 
 import org.bukkit.command.ConsoleCommandSender;
 
-public abstract class ConsoleCommand extends Command implements IConsoleCommand
+public abstract class ConsoleCommand extends Command
 {
 	ConsoleCommandSender sender;
 
@@ -22,7 +22,6 @@ public abstract class ConsoleCommand extends Command implements IConsoleCommand
 		return sender;
 	}
 
-	@Override
 	public String getPermissionNode()
 	{
 		return null;

@@ -3,7 +3,7 @@ package me.protocos.xteam.command.teamuser;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseUserCommand;
+import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
@@ -11,7 +11,7 @@ import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class UserInfo extends BaseUserCommand
+public class UserInfo extends UserCommand
 {
 	private String other;
 

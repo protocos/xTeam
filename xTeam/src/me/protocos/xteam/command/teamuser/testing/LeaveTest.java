@@ -3,7 +3,7 @@ package me.protocos.xteam.command.teamuser.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseUserCommand;
+import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamuser.UserLeave;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
@@ -28,7 +28,7 @@ public class LeaveTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Data.returnLocations.put(fakePlayerSender, new FakeLocation());
-		BaseUserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
+		UserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -42,7 +42,7 @@ public class LeaveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("mastermind", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
+		UserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -55,7 +55,7 @@ public class LeaveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
+		UserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -69,7 +69,7 @@ public class LeaveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
+		UserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -82,7 +82,7 @@ public class LeaveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
+		UserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

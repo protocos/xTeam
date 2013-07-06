@@ -1,14 +1,14 @@
 package me.protocos.xteam.command.teamadmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.command.BaseUserCommand;
+import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.TeamHeadquarters;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.entity.Player;
 
-public class UserSetHeadquarters extends BaseUserCommand
+public class UserSetHeadquarters extends UserCommand
 {
 	public UserSetHeadquarters(Player sender, String command)
 	{

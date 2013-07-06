@@ -2,14 +2,14 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseUserCommand;
+import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
 import me.protocos.xteam.core.exception.TeamPlayerDoesNotExistException;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class UserMainHelp extends BaseUserCommand
+public class UserMainHelp extends UserCommand
 {
 	String commandID;
 

@@ -3,7 +3,7 @@ package me.protocos.xteam.command.teamuser.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseUserCommand;
+import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamuser.UserInfo;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
@@ -26,7 +26,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -45,7 +45,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info two");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info two");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -62,7 +62,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info mastermind");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -79,7 +79,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info red");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info red");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -90,7 +90,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info strandedhelix");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info strandedhelix");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -110,7 +110,7 @@ public class InfoTest
 		xTeam.tm.getTeam("red").promote("strandedhelix");
 		xTeam.tm.getTeam("red").promote("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -131,7 +131,7 @@ public class InfoTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -151,7 +151,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -163,7 +163,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserInfo(fakePlayerSender, "info three");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info three");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

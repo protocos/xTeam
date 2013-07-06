@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamleader.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseUserCommand;
+import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamleader.UserDisband;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerNotLeaderException;
@@ -26,7 +26,7 @@ public class DisbandTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserDisband(fakePlayerSender, "disband");
+		UserCommand fakeCommand = new UserDisband(fakePlayerSender, "disband");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -39,7 +39,7 @@ public class DisbandTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserDisband(fakePlayerSender, "disband");
+		UserCommand fakeCommand = new UserDisband(fakePlayerSender, "disband");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -52,7 +52,7 @@ public class DisbandTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserDisband(fakePlayerSender, "open");
+		UserCommand fakeCommand = new UserDisband(fakePlayerSender, "open");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

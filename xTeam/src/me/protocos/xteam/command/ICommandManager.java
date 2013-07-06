@@ -1,6 +1,5 @@
 package me.protocos.xteam.command;
 
-
 public interface ICommandManager
 {
 	public abstract void registerCommand(String key, Command command);

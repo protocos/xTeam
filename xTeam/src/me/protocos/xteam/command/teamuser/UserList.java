@@ -3,7 +3,7 @@ package me.protocos.xteam.command.teamuser;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.ArrayList;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseUserCommand;
+import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
 import me.protocos.xteam.core.exception.TeamPlayerDoesNotExistException;
@@ -11,7 +11,7 @@ import me.protocos.xteam.core.exception.TeamPlayerPermissionException;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.entity.Player;
 
-public class UserList extends BaseUserCommand
+public class UserList extends UserCommand
 {
 	public UserList(Player sender, String command)
 	{

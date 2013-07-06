@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
-import me.protocos.xteam.command.BaseUserCommand;
+import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Functions;
 import me.protocos.xteam.core.TeamPlayer;
@@ -13,7 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class UserTeleport extends BaseUserCommand
+public class UserTeleport extends UserCommand
 {
 	private String playerName;
 

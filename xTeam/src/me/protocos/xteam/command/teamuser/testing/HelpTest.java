@@ -3,7 +3,7 @@ package me.protocos.xteam.command.teamuser.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseUserCommand;
+import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamuser.UserHelp;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamInvalidPageException;
@@ -30,7 +30,7 @@ public class HelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserHelp(fakePlayerSender, "help", "/team");
+		UserCommand fakeCommand = new UserHelp(fakePlayerSender, "help", "/team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -51,7 +51,7 @@ public class HelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserHelp(fakePlayerSender, "help 2", "/team");
+		UserCommand fakeCommand = new UserHelp(fakePlayerSender, "help 2", "/team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -72,7 +72,7 @@ public class HelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserHelp(fakePlayerSender, "help 3", "/team");
+		UserCommand fakeCommand = new UserHelp(fakePlayerSender, "help 3", "/team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -93,7 +93,7 @@ public class HelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserHelp(fakePlayerSender, "help 4", "/team");
+		UserCommand fakeCommand = new UserHelp(fakePlayerSender, "help 4", "/team");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

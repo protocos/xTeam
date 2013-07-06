@@ -3,7 +3,7 @@ package me.protocos.xteam.command.teamuser.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseUserCommand;
+import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamuser.UserAccept;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.InviteHandler;
@@ -32,7 +32,7 @@ public class AcceptTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserAccept(fakePlayerSender, "accept");
+		UserCommand fakeCommand = new UserAccept(fakePlayerSender, "accept");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -47,7 +47,7 @@ public class AcceptTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").addPlayer("stranger");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserAccept(fakePlayerSender, "accept");
+		UserCommand fakeCommand = new UserAccept(fakePlayerSender, "accept");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -62,7 +62,7 @@ public class AcceptTest
 		//ASSEMBLE
 		InviteHandler.removeInvite("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserAccept(fakePlayerSender, "accept");
+		UserCommand fakeCommand = new UserAccept(fakePlayerSender, "accept");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -76,7 +76,7 @@ public class AcceptTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		BaseUserCommand fakeCommand = new UserAccept(fakePlayerSender, "accept");
+		UserCommand fakeCommand = new UserAccept(fakePlayerSender, "accept");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

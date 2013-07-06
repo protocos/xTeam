@@ -4,12 +4,12 @@ import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import org.bukkit.entity.Player;
 
-public abstract class BaseUserCommand extends PlayerCommand
+public abstract class UserCommand extends PlayerCommand
 {
 	protected TeamPlayer teamPlayer;
 	protected Team team;
 
-	public BaseUserCommand(Player sender, String command)
+	public UserCommand(Player sender, String command)
 	{
 		super(sender, command);
 		teamPlayer = sender != null ? new TeamPlayer(player) : null;
