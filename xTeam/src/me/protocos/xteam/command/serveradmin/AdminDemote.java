@@ -2,6 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
@@ -14,9 +15,12 @@ public class AdminDemote extends ServerAdminCommand
 {
 	private String teamName, playerName;
 
-	public AdminDemote(Player sender, String command)
+	public AdminDemote(Player sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public AdminDemote()
+	{
 	}
 	@Override
 	protected void act()
@@ -89,6 +93,6 @@ public class AdminDemote extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " demote [Team] [Player]";
+		return parseCommand.getBaseCommand() + " demote [Team] [Player]";
 	}
 }

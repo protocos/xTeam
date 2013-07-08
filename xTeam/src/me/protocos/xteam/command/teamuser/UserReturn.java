@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Functions;
@@ -15,9 +16,12 @@ import org.bukkit.entity.Player;
 
 public class UserReturn extends UserCommand
 {
-	public UserReturn(Player sender, String command)
+	public UserReturn(Player sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public UserReturn()
+	{
 	}
 	@Override
 	protected void act()
@@ -127,7 +131,7 @@ public class UserReturn extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " return";
+		return parseCommand.getBaseCommand() + " return";
 	}
 	private void tele()
 	{

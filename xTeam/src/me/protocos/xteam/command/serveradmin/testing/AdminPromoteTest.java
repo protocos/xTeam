@@ -3,6 +3,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminPromote;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
@@ -28,7 +29,7 @@ public class AdminPromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, "promote one protocos");
+		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, new CommandParser("/team promote one protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -41,7 +42,7 @@ public class AdminPromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, "promote one Lonely");
+		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, new CommandParser("/team promote one Lonely"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -54,7 +55,7 @@ public class AdminPromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, "promote one newbie");
+		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, new CommandParser("/team promote one newbie"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -67,7 +68,7 @@ public class AdminPromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, "promote one mastermind");
+		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, new CommandParser("/team promote one mastermind"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -80,7 +81,7 @@ public class AdminPromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, "promote three protocos");
+		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, new CommandParser("/team promote three protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

@@ -10,6 +10,7 @@ import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
+import me.protocos.xteam.command.CommandParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class JoinTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserJoin(fakePlayerSender, "join one");
+		UserCommand fakeCommand = new UserJoin(fakePlayerSender, new CommandParser("/team join one"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -43,7 +44,7 @@ public class JoinTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").addPlayer("stranger");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserJoin(fakePlayerSender, "join one");
+		UserCommand fakeCommand = new UserJoin(fakePlayerSender, new CommandParser("/team join one"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -57,7 +58,7 @@ public class JoinTest
 		//ASSEMBLE
 		InviteHandler.removeInvite("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserJoin(fakePlayerSender, "join one");
+		UserCommand fakeCommand = new UserJoin(fakePlayerSender, new CommandParser("/team join one"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -71,7 +72,7 @@ public class JoinTest
 		//ASSEMBLE
 		Data.DEFAULT_TEAM_ONLY = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserJoin(fakePlayerSender, "join one");
+		UserCommand fakeCommand = new UserJoin(fakePlayerSender, new CommandParser("/team join one"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -84,7 +85,7 @@ public class JoinTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserJoin(fakePlayerSender, "join one");
+		UserCommand fakeCommand = new UserJoin(fakePlayerSender, new CommandParser("/team join one"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -97,7 +98,7 @@ public class JoinTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserJoin(fakePlayerSender, "join three");
+		UserCommand fakeCommand = new UserJoin(fakePlayerSender, new CommandParser("/team join three"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

@@ -2,6 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.*;
@@ -13,9 +14,12 @@ public class AdminDisband extends ServerAdminCommand
 {
 	private String teamName;
 
-	public AdminDisband(Player sender, String command)
+	public AdminDisband(Player sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public AdminDisband()
+	{
 	}
 	@Override
 	protected void act()
@@ -63,6 +67,6 @@ public class AdminDisband extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " disband [Team]";
+		return parseCommand.getBaseCommand() + " disband [Team]";
 	}
 }

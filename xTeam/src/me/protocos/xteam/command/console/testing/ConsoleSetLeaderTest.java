@@ -3,6 +3,7 @@ package me.protocos.xteam.command.console.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleSetLeader;
 import me.protocos.xteam.core.exception.*;
@@ -26,7 +27,7 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, "setleader one protocos");
+		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, new CommandParser("/team setleader one protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -38,7 +39,7 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, "setleader one newbie");
+		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, new CommandParser("/team setleader one newbie"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -50,7 +51,7 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, "setleader one Lonely");
+		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, new CommandParser("/team setleader one Lonely"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -62,7 +63,7 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecutePlayerNotOnTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, "setleader one mastermind");
+		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, new CommandParser("/team setleader one mastermind"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -74,7 +75,7 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecuteTeamIsDefault()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, "setleader red strandedhelix");
+		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, new CommandParser("/team setleader red strandedhelix"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -86,7 +87,7 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecuteTeamNotExist()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, "setleader three Lonely");
+		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, new CommandParser("/team setleader three Lonely"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

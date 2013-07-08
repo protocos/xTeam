@@ -6,6 +6,7 @@ import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamuser.UserList;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
+import me.protocos.xteam.command.CommandParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class ListTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserList(fakePlayerSender, "list");
+		UserCommand fakeCommand = new UserList(fakePlayerSender, new CommandParser("/team list"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

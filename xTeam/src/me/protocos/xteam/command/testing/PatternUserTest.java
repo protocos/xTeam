@@ -3,7 +3,6 @@ package me.protocos.xteam.command.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.Command;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -248,7 +247,6 @@ public class PatternUserTest
 	@After
 	public void takedown()
 	{
-		Command.setBaseCommand("/team");
 		Assert.assertTrue(xTeam.cm.getUsage("user_" + baseCmd).replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + xTeam.cm.getPattern("user_" + baseCmd)));
 	}
 }

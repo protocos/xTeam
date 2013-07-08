@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamException;
@@ -12,9 +13,12 @@ import org.bukkit.entity.Player;
 
 public class AdminReload extends ServerAdminCommand
 {
-	public AdminReload(Player sender, String command)
+	public AdminReload(Player sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public AdminReload()
+	{
 	}
 	@Override
 	protected void act()
@@ -55,6 +59,6 @@ public class AdminReload extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " reload";
+		return parseCommand.getBaseCommand() + " reload";
 	}
 }

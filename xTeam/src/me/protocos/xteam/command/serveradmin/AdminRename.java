@@ -2,6 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
@@ -13,9 +14,12 @@ public class AdminRename extends ServerAdminCommand
 {
 	private String teamName, newName;
 
-	public AdminRename(Player sender, String command)
+	public AdminRename(Player sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public AdminRename()
+	{
 	}
 	@Override
 	protected void act()
@@ -71,6 +75,6 @@ public class AdminRename extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " rename [Team] [Name]";
+		return parseCommand.getBaseCommand() + " rename [Team] [Name]";
 	}
 }

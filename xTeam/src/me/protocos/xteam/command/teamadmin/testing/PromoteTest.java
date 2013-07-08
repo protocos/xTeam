@@ -3,6 +3,7 @@ package me.protocos.xteam.command.teamadmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamadmin.UserPromote;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
@@ -27,7 +28,7 @@ public class PromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserPromote(fakePlayerSender, "promote protocos");
+		UserCommand fakeCommand = new UserPromote(fakePlayerSender, new CommandParser("/team promote protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -40,7 +41,7 @@ public class PromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserPromote(fakePlayerSender, "promote kmlanglois");
+		UserCommand fakeCommand = new UserPromote(fakePlayerSender, new CommandParser("/team promote kmlanglois"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -53,7 +54,7 @@ public class PromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserPromote(fakePlayerSender, "promote protocos");
+		UserCommand fakeCommand = new UserPromote(fakePlayerSender, new CommandParser("/team promote protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -65,7 +66,7 @@ public class PromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserPromote(fakePlayerSender, "promote Lonely");
+		UserCommand fakeCommand = new UserPromote(fakePlayerSender, new CommandParser("/team promote Lonely"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

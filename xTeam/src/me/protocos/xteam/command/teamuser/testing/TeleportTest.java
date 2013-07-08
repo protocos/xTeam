@@ -9,6 +9,7 @@ import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
 import org.bukkit.Location;
+import me.protocos.xteam.command.CommandParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class TeleportTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", Data.BUKKIT.getPlayer("protocos").getLocation());
-		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, "tele protocos");
+		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, new CommandParser("/team tele protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -39,7 +40,7 @@ public class TeleportTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", Data.BUKKIT.getPlayer("protocos").getLocation());
-		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, "tele");
+		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, new CommandParser("/team tele"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -54,7 +55,7 @@ public class TeleportTest
 		Data.taskIDs.put("kmlanglois", null);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, "tele mastermind");
+		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, new CommandParser("/team tele mastermind"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -69,7 +70,7 @@ public class TeleportTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", Data.BUKKIT.getPlayer("protocos").getLocation());
 		Location before = fakePlayerSender.getLocation();
 		fakePlayerSender.setNoDamageTicks(1);
-		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, "tele protocos");
+		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, new CommandParser("/team tele protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -83,7 +84,7 @@ public class TeleportTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, "tele protocos");
+		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, new CommandParser("/team tele protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -99,7 +100,7 @@ public class TeleportTest
 		Data.lastAttacked.put("kmlanglois", System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, "tele protocos");
+		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, new CommandParser("/team tele protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -114,7 +115,7 @@ public class TeleportTest
 		Data.taskIDs.put("kmlanglois", null);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, "tele protocos");
+		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, new CommandParser("/team tele protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -129,7 +130,7 @@ public class TeleportTest
 		Data.hasTeleported.put("kmlanglois", System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, "tele protocos");
+		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, new CommandParser("/team tele protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -144,7 +145,7 @@ public class TeleportTest
 		Data.taskIDs.put("kmlanglois", null);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, "tele kmlanglois");
+		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, new CommandParser("/team tele kmlanglois"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -158,7 +159,7 @@ public class TeleportTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("mastermind", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, "tele");
+		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, new CommandParser("/team tele"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

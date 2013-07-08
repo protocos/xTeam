@@ -3,6 +3,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminSetHeadquarters;
 import me.protocos.xteam.core.TeamHeadquarters;
@@ -27,7 +28,7 @@ public class AdminSetHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		TeamHeadquarters hq = new TeamHeadquarters(fakePlayerSender.getLocation());
-		ServerAdminCommand fakeCommand = new AdminSetHeadquarters(fakePlayerSender, "sethq two");
+		ServerAdminCommand fakeCommand = new AdminSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq two"));
 		//ACT 
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -40,7 +41,7 @@ public class AdminSetHeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSetHeadquarters(fakePlayerSender, "sethq three");
+		ServerAdminCommand fakeCommand = new AdminSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq three"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

@@ -3,6 +3,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminSetLeader;
 import me.protocos.xteam.core.exception.*;
@@ -25,7 +26,7 @@ public class AdminSetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSetLeader(fakePlayerSender, "setleader one protocos");
+		ServerAdminCommand fakeCommand = new AdminSetLeader(fakePlayerSender, new CommandParser("/team setleader one protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -38,7 +39,7 @@ public class AdminSetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSetLeader(fakePlayerSender, "setleader one newbie");
+		ServerAdminCommand fakeCommand = new AdminSetLeader(fakePlayerSender, new CommandParser("/team setleader one newbie"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -51,7 +52,7 @@ public class AdminSetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSetLeader(fakePlayerSender, "setleader one Lonely");
+		ServerAdminCommand fakeCommand = new AdminSetLeader(fakePlayerSender, new CommandParser("/team setleader one Lonely"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -64,7 +65,7 @@ public class AdminSetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSetLeader(fakePlayerSender, "setleader one mastermind");
+		ServerAdminCommand fakeCommand = new AdminSetLeader(fakePlayerSender, new CommandParser("/team setleader one mastermind"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -77,7 +78,7 @@ public class AdminSetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSetLeader(fakePlayerSender, "setleader red strandedhelix");
+		ServerAdminCommand fakeCommand = new AdminSetLeader(fakePlayerSender, new CommandParser("/team setleader red strandedhelix"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -90,7 +91,7 @@ public class AdminSetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSetLeader(fakePlayerSender, "setleader three protocos");
+		ServerAdminCommand fakeCommand = new AdminSetLeader(fakePlayerSender, new CommandParser("/team setleader three protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

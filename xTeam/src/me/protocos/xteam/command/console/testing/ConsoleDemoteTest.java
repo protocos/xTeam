@@ -3,6 +3,7 @@ package me.protocos.xteam.command.console.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleDemote;
 import me.protocos.xteam.core.exception.*;
@@ -27,7 +28,7 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote one protocos");
+		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote one protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -40,7 +41,7 @@ public class ConsoleDemoteTest
 	{
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").demote("protocos");
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote one protocos");
+		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote one protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -51,7 +52,7 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecuteDemoteLeader()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote one kmlanglois");
+		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote one kmlanglois"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -63,7 +64,7 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecuteIncorrectTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote one mastermind");
+		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote one mastermind"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -75,7 +76,7 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote one Lonely");
+		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote one Lonely"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -87,7 +88,7 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecutePlayerHasNotPlayed()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote one newbie");
+		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote one newbie"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -99,7 +100,7 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, "demote three protocos");
+		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote three protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

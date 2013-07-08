@@ -6,10 +6,15 @@ public abstract class ConsoleCommand extends Command
 {
 	ConsoleCommandSender sender;
 
-	public ConsoleCommand(ConsoleCommandSender sender, String command)
+	public ConsoleCommand(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
 		setSender(sender);
+	}
+
+	public ConsoleCommand()
+	{
+		super();
 	}
 
 	public void setSender(ConsoleCommandSender sender)

@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.teamadmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
@@ -12,9 +13,12 @@ public class UserPromote extends UserCommand
 {
 	private String otherPlayer;
 
-	public UserPromote(Player sender, String command)
+	public UserPromote(Player sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public UserPromote()
+	{
 	}
 	@Override
 	protected void act()
@@ -70,6 +74,6 @@ public class UserPromote extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " promote [Player]";
+		return parseCommand.getBaseCommand() + " promote [Player]";
 	}
 }

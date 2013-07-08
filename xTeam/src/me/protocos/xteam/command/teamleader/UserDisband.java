@@ -1,7 +1,8 @@
 package me.protocos.xteam.command.teamleader;
 
-import static me.protocos.xteam.util.StringUtil.*;
+import static me.protocos.xteam.util.StringUtil.OPTIONAL_WHITE_SPACE;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
@@ -11,9 +12,12 @@ import org.bukkit.entity.Player;
 
 public class UserDisband extends UserCommand
 {
-	public UserDisband(Player sender, String command)
+	public UserDisband(Player sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public UserDisband()
+	{
 	}
 	@Override
 	protected void act()
@@ -71,6 +75,6 @@ public class UserDisband extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " disband";
+		return parseCommand.getBaseCommand() + " disband";
 	}
 }

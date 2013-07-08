@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.*;
@@ -12,9 +13,12 @@ public class UserChat extends UserCommand
 {
 	private String option;
 
-	public UserChat(Player sender, String command)
+	public UserChat(Player sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public UserChat()
+	{
 	}
 	@Override
 	protected void act()
@@ -75,6 +79,6 @@ public class UserChat extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " chat {On/Off}";
+		return parseCommand.getBaseCommand() + " chat {On/Off}";
 	}
 }

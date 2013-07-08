@@ -2,7 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.Command;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
@@ -13,11 +13,13 @@ public class ConsoleHelp extends ConsoleCommand
 {
 	private HelpPages pages;
 
-	public ConsoleHelp(ConsoleCommandSender sender, String command, String commandID)
+	public ConsoleHelp(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-		Command.baseCommand = commandID;
 		pages = new HelpPages();
+	}
+	public ConsoleHelp()
+	{
 	}
 	@Override
 	protected void act()
@@ -61,6 +63,6 @@ public class ConsoleHelp extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " {help}";
+		return parseCommand.getBaseCommand() + " {help}";
 	}
 }

@@ -7,6 +7,7 @@ import me.protocos.xteam.command.teamuser.UserMessage;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
+import me.protocos.xteam.command.CommandParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class MessageTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserMessage(fakePlayerSender, "msg hello team");
+		UserCommand fakeCommand = new UserMessage(fakePlayerSender, new CommandParser("/team msg hello team"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -36,7 +37,7 @@ public class MessageTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserMessage(fakePlayerSender, "msg hello team");
+		UserCommand fakeCommand = new UserMessage(fakePlayerSender, new CommandParser("/team msg hello team"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

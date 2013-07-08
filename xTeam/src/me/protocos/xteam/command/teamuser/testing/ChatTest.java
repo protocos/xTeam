@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamuser.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamuser.UserChat;
 import me.protocos.xteam.core.Data;
@@ -25,7 +26,7 @@ public class ChatTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserChat(fakePlayerSender, "chat");
+		UserCommand fakeCommand = new UserChat(fakePlayerSender, new CommandParser("/team chat"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -38,7 +39,7 @@ public class ChatTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserChat(fakePlayerSender, "chat");
+		UserCommand fakeCommand = new UserChat(fakePlayerSender, new CommandParser("/team chat"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

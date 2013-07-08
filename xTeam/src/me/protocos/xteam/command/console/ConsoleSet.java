@@ -2,6 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
@@ -14,9 +15,12 @@ public class ConsoleSet extends ConsoleCommand
 {
 	private String playerName, teamName;
 
-	public ConsoleSet(ConsoleCommandSender sender, String command)
+	public ConsoleSet(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public ConsoleSet()
+	{
 	}
 	@Override
 	protected void act()
@@ -73,7 +77,7 @@ public class ConsoleSet extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " set [Player] [Team]";
+		return parseCommand.getBaseCommand() + " set [Player] [Team]";
 	}
 	private void removePlayer(TeamPlayer player)
 	{

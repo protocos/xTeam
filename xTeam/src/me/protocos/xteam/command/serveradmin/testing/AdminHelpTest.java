@@ -3,6 +3,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminHelp;
 import me.protocos.xteam.core.exception.TeamInvalidPageException;
@@ -26,7 +27,7 @@ public class AdminHelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminHelp(fakePlayerSender, "admin 1", "/team");
+		ServerAdminCommand fakeCommand = new AdminHelp(fakePlayerSender, new CommandParser("/team admin"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -47,7 +48,7 @@ public class AdminHelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminHelp(fakePlayerSender, "admin 2", "/team");
+		ServerAdminCommand fakeCommand = new AdminHelp(fakePlayerSender, new CommandParser("/team admin 2"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -68,7 +69,7 @@ public class AdminHelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminHelp(fakePlayerSender, "admin 3", "/team");
+		ServerAdminCommand fakeCommand = new AdminHelp(fakePlayerSender, new CommandParser("/team admin 3"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

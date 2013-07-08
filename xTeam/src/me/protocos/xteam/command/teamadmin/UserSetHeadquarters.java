@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.teamadmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.TeamHeadquarters;
@@ -10,9 +11,12 @@ import org.bukkit.entity.Player;
 
 public class UserSetHeadquarters extends UserCommand
 {
-	public UserSetHeadquarters(Player sender, String command)
+	public UserSetHeadquarters(Player sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public UserSetHeadquarters()
+	{
 	}
 	@Override
 	protected void act()
@@ -70,6 +74,6 @@ public class UserSetHeadquarters extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " sethq";
+		return parseCommand.getBaseCommand() + " sethq";
 	}
 }

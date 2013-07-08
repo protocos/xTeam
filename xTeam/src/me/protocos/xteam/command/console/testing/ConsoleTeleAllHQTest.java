@@ -2,6 +2,7 @@ package me.protocos.xteam.command.console.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleTeleAllHQ;
 import me.protocos.xteam.testing.FakeConsoleSender;
@@ -24,7 +25,7 @@ public class ConsoleTeleAllHQTest
 	public void ShouldBeConsoleSetExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleTeleAllHQ(fakeConsoleSender, "teleallhq");
+		ConsoleCommand fakeCommand = new ConsoleTeleAllHQ(fakeConsoleSender, new CommandParser("/team teleallhq"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

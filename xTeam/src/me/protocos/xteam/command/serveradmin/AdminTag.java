@@ -2,6 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
@@ -13,9 +14,12 @@ public class AdminTag extends ServerAdminCommand
 {
 	private String teamName, newTag;
 
-	public AdminTag(Player sender, String command)
+	public AdminTag(Player sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public AdminTag()
+	{
 	}
 	@Override
 	protected void act()
@@ -69,6 +73,6 @@ public class AdminTag extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " tag [Team] [UserTag]";
+		return parseCommand.getBaseCommand() + " tag [Team] [UserTag]";
 	}
 }

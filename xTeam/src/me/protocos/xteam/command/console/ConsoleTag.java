@@ -2,6 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
@@ -13,9 +14,12 @@ public class ConsoleTag extends ConsoleCommand
 {
 	private String teamName, newTag;
 
-	public ConsoleTag(ConsoleCommandSender sender, String command)
+	public ConsoleTag(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public ConsoleTag()
+	{
 	}
 	@Override
 	protected void act()
@@ -59,6 +63,6 @@ public class ConsoleTag extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " tag [Team] [UserTag]";
+		return parseCommand.getBaseCommand() + " tag [Team] [UserTag]";
 	}
 }

@@ -3,6 +3,7 @@ package me.protocos.xteam.command.teamadmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamadmin.UserSetHeadquarters;
 import me.protocos.xteam.core.Data;
@@ -32,7 +33,7 @@ public class SetHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamHeadquarters newHQ = new TeamHeadquarters(fakePlayerSender.getLocation());
-		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, "sethq");
+		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -47,7 +48,7 @@ public class SetHeadquartersTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamHeadquarters oldHQ = xTeam.tm.getTeam("one").getHeadquarters();
 		fakePlayerSender.setNoDamageTicks(1);
-		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, "sethq");
+		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -61,7 +62,7 @@ public class SetHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		TeamHeadquarters oldHQ = xTeam.tm.getTeam("one").getHeadquarters();
-		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, "sethq");
+		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -75,7 +76,7 @@ public class SetHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		TeamHeadquarters oldHQ = xTeam.tm.getTeam("one").getHeadquarters();
-		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, "sethq");
+		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -91,7 +92,7 @@ public class SetHeadquartersTest
 		xTeam.tm.getTeam("one").setTimeLastSet(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamHeadquarters oldHQ = xTeam.tm.getTeam("one").getHeadquarters();
-		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, "sethq");
+		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

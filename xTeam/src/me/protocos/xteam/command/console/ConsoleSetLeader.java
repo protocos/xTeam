@@ -2,6 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
@@ -13,9 +14,12 @@ public class ConsoleSetLeader extends ConsoleCommand
 {
 	private String teamName, playerName;
 
-	public ConsoleSetLeader(ConsoleCommandSender sender, String command)
+	public ConsoleSetLeader(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public ConsoleSetLeader()
+	{
 	}
 	@Override
 	protected void act()
@@ -77,6 +81,6 @@ public class ConsoleSetLeader extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " setleader [Team] [Player]";
+		return parseCommand.getBaseCommand() + " setleader [Team] [Player]";
 	}
 }

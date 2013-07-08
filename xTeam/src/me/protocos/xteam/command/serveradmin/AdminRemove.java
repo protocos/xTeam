@@ -2,6 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
@@ -14,9 +15,12 @@ public class AdminRemove extends ServerAdminCommand
 {
 	private String teamName, playerName;
 
-	public AdminRemove(Player sender, String command)
+	public AdminRemove(Player sender, CommandParser command)
 	{
 		super(sender, command);
+	}
+	public AdminRemove()
+	{
 	}
 	@Override
 	protected void act()
@@ -77,6 +81,6 @@ public class AdminRemove extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " remove [Team] [Player]";
+		return parseCommand.getBaseCommand() + " remove [Team] [Player]";
 	}
 }

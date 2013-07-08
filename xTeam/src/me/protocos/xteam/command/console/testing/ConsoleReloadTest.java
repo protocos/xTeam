@@ -2,6 +2,7 @@ package me.protocos.xteam.command.console.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleReload;
 import me.protocos.xteam.testing.FakeConsoleSender;
@@ -24,7 +25,7 @@ public class ConsoleReloadTest
 	public void ShouldBeConsoleReloadExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleReload(fakeConsoleSender, "reload");
+		ConsoleCommand fakeCommand = new ConsoleReload(fakeConsoleSender, new CommandParser("/team reload"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
