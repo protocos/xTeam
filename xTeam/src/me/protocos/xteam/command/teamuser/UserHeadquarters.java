@@ -16,12 +16,12 @@ import org.bukkit.entity.Player;
 
 public class UserHeadquarters extends UserCommand
 {
+	public UserHeadquarters()
+	{
+	}
 	public UserHeadquarters(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserHeadquarters()
-	{
 	}
 	@Override
 	protected void act()

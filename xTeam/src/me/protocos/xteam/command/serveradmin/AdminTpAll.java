@@ -14,12 +14,12 @@ public class AdminTpAll extends ServerAdminCommand
 {
 	private String teamName;
 
+	public AdminTpAll()
+	{
+	}
 	public AdminTpAll(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public AdminTpAll()
-	{
 	}
 	@Override
 	protected void act()

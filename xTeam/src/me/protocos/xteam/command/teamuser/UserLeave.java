@@ -13,12 +13,12 @@ import org.bukkit.entity.Player;
 
 public class UserLeave extends UserCommand
 {
+	public UserLeave()
+	{
+	}
 	public UserLeave(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserLeave()
-	{
 	}
 	@Override
 	protected void act()

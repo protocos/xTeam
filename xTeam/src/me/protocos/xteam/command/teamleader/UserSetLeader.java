@@ -13,12 +13,12 @@ public class UserSetLeader extends UserCommand
 {
 	private String otherPlayer;
 
+	public UserSetLeader()
+	{
+	}
 	public UserSetLeader(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserSetLeader()
-	{
 	}
 	@Override
 	protected void act()

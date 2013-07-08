@@ -49,6 +49,20 @@ public class TeleportTest
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
+	public void ShouldBeTeamUserTeleExecuteNoTeammatesOnline()
+	{
+		//ASSEMBLE
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("mastermind", new FakeLocation());
+		Location before = fakePlayerSender.getLocation();
+		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, new CommandParser("/team tele"));
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals((new TeamPlayerTeleException("Player has no teammates online")).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals(before, fakePlayerSender.getLocation());
+		Assert.assertFalse(fakeExecuteResponse);
+	}
+	@Test
 	public void ShouldBeTeamUserTeleExecuteNotTeammate()
 	{
 		//ASSEMBLE
@@ -150,20 +164,6 @@ public class TeleportTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport to themselves")).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals(before, fakePlayerSender.getLocation());
-		Assert.assertFalse(fakeExecuteResponse);
-	}
-	@Test
-	public void ShouldBeTeamUserTeleExecuteNoTeammatesOnline()
-	{
-		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("mastermind", new FakeLocation());
-		Location before = fakePlayerSender.getLocation();
-		UserCommand fakeCommand = new UserTeleport(fakePlayerSender, new CommandParser("/team tele"));
-		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
-		//ASSERT
-		Assert.assertEquals((new TeamPlayerTeleException("Player has no teammates online")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}

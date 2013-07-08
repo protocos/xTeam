@@ -14,12 +14,12 @@ public class ConsoleRename extends ConsoleCommand
 {
 	private String teamName, newName;
 
+	public ConsoleRename()
+	{
+	}
 	public ConsoleRename(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public ConsoleRename()
-	{
 	}
 	@Override
 	protected void act()

@@ -191,42 +191,6 @@ public class PatternConsoleTest
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
 	}
 	@Test
-	public void ShouldBeTeamConsoleTag()
-	{
-		baseCmd = "tag";
-		command = "tag TEAM TAG";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "tag TEAM TAG ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "tag TEAM TAG ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "t TEAM TAG ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "ta TEAM TAG";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "tg TEAM TAG ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "tg TEAM TAG sdfhkabkl";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-	}
-	@Test
-	public void ShouldBeTeamConsoleOpen()
-	{
-		baseCmd = "open";
-		command = "open TEAM";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "open TEAM ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "open TEAM ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "o TEAM ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "op TEAM";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-		command = "open TEAM sdfhkabkl";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
-	}
-	@Test
 	public void ShouldBeConsoleSet()
 	{
 		baseCmd = "set";
@@ -272,6 +236,42 @@ public class PatternConsoleTest
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
 		command = "tele ";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+	}
+	@Test
+	public void ShouldBeTeamConsoleOpen()
+	{
+		baseCmd = "open";
+		command = "open TEAM";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "open TEAM ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "open TEAM ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "o TEAM ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "op TEAM";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "open TEAM sdfhkabkl";
+		Assert.assertFalse(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+	}
+	@Test
+	public void ShouldBeTeamConsoleTag()
+	{
+		baseCmd = "tag";
+		command = "tag TEAM TAG";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "tag TEAM TAG ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "tag TEAM TAG ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "t TEAM TAG ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "ta TEAM TAG";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "tg TEAM TAG ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
+		command = "tg TEAM TAG sdfhkabkl";
+		Assert.assertFalse(command.matches(xTeam.cm.getPattern("console_" + baseCmd)));
 	}
 	@After
 	public void takedown()

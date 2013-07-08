@@ -13,12 +13,12 @@ public class UserRemove extends UserCommand
 {
 	private String otherPlayer;
 
+	public UserRemove()
+	{
+	}
 	public UserRemove(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserRemove()
-	{
 	}
 	@Override
 	protected void act()

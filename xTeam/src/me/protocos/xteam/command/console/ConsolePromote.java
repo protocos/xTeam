@@ -14,12 +14,12 @@ public class ConsolePromote extends ConsoleCommand
 {
 	private String teamName, playerName;
 
+	public ConsolePromote()
+	{
+	}
 	public ConsolePromote(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public ConsolePromote()
-	{
 	}
 	@Override
 	protected void act()

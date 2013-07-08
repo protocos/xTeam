@@ -15,12 +15,12 @@ public class UserTag extends UserCommand
 {
 	private String newTag;
 
+	public UserTag()
+	{
+	}
 	public UserTag(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserTag()
-	{
 	}
 	@Override
 	protected void act()

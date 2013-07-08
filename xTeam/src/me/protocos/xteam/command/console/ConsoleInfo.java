@@ -17,12 +17,12 @@ public class ConsoleInfo extends ConsoleCommand
 {
 	private String other;
 
+	public ConsoleInfo()
+	{
+	}
 	public ConsoleInfo(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public ConsoleInfo()
-	{
 	}
 	@Override
 	protected void act()
@@ -88,14 +88,14 @@ public class ConsoleInfo extends ConsoleCommand
 	{
 		return parseCommand.getBaseCommand() + " info [Player/Team]";
 	}
-	private boolean isTeam(String teamName)
-	{
-		return xTeam.tm.contains(teamName);
-	}
 	private boolean isPlayer(String playerName)
 	{
 		TeamPlayer p = new TeamPlayer(playerName);
 		return p.hasPlayedBefore();
+	}
+	private boolean isTeam(String teamName)
+	{
+		return xTeam.tm.contains(teamName);
 	}
 	private void otherTeamInfo(Team otherTeam)
 	{

@@ -15,12 +15,12 @@ public class ConsoleSet extends ConsoleCommand
 {
 	private String playerName, teamName;
 
+	public ConsoleSet()
+	{
+	}
 	public ConsoleSet(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public ConsoleSet()
-	{
 	}
 	@Override
 	protected void act()
@@ -38,6 +38,13 @@ public class ConsoleSet extends ConsoleCommand
 		{
 			addPlayerToTeam(player, xTeam.tm.getTeam(teamName));
 		}
+	}
+	private void addPlayerToTeam(TeamPlayer player, Team team)
+	{
+		team.addPlayer(player.getName());
+		originalSender.sendMessage(player.getName() + " has been added to " + team.getName());
+		player.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
+		player.sendMessageToTeam(player.getName() + " has been added to " + team.getName());
 	}
 	@Override
 	public void checkRequirements() throws TeamException
@@ -69,6 +76,12 @@ public class ConsoleSet extends ConsoleCommand
 			throw new TeamPlayerMaxException();
 		}
 	}
+	private void createTeamWithLeader(String team, String player)
+	{
+		xTeam.tm.createTeamWithLeader(team, player);
+		originalSender.sendMessage(team + " has been created");
+		originalSender.sendMessage(player + " has been added to " + team);
+	}
 	@Override
 	public String getPattern()
 	{
@@ -94,18 +107,5 @@ public class ConsoleSet extends ConsoleCommand
 			player.sendMessage(team.getName() + " has been " + ChatColor.RED + "disbanded");
 			xTeam.tm.removeTeam(team.getName());
 		}
-	}
-	private void createTeamWithLeader(String team, String player)
-	{
-		xTeam.tm.createTeamWithLeader(team, player);
-		originalSender.sendMessage(team + " has been created");
-		originalSender.sendMessage(player + " has been added to " + team);
-	}
-	private void addPlayerToTeam(TeamPlayer player, Team team)
-	{
-		team.addPlayer(player.getName());
-		originalSender.sendMessage(player.getName() + " has been added to " + team.getName());
-		player.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
-		player.sendMessageToTeam(player.getName() + " has been added to " + team.getName());
 	}
 }

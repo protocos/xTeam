@@ -7,18 +7,18 @@ public class InviteHandler
 {
 	public static HashMap<String, String> invites = new HashMap<String, String>();
 
-	private InviteHandler()
-	{
-
-	}
 	public static void addInvite(String player, Team team)
 	{
 		String invite = team.getName() + ":" + System.currentTimeMillis();
 		invites.put(player, invite);
 	}
-	public static void removeInvite(String player)
+	public static void clear()
 	{
-		invites.remove(player);
+		invites.clear();
+	}
+	public static String data()
+	{
+		return invites.toString();
 	}
 	public static Team getInviteTeam(String player)
 	{
@@ -40,12 +40,12 @@ public class InviteHandler
 			invites.remove(player);
 		return invites.containsKey(player);
 	}
-	public static void clear()
+	public static void removeInvite(String player)
 	{
-		invites.clear();
+		invites.remove(player);
 	}
-	public static String data()
+	private InviteHandler()
 	{
-		return invites.toString();
+
 	}
 }

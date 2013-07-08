@@ -15,12 +15,12 @@ public class AdminDemote extends ServerAdminCommand
 {
 	private String teamName, playerName;
 
+	public AdminDemote()
+	{
+	}
 	public AdminDemote(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public AdminDemote()
-	{
 	}
 	@Override
 	protected void act()

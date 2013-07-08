@@ -17,11 +17,6 @@ import org.getspout.spoutapi.SpoutManager;
 
 public class Functions
 {
-	private Functions()
-	{
-		throw new AssertionError();
-	}
-
 	public static boolean isEnemy(TeamPlayer player, Entity entity)
 	{
 		String type = entity.toString();
@@ -77,6 +72,7 @@ public class Functions
 		}
 		return false;
 	}
+
 	public static boolean isPlayerSender(CommandSender sender)
 	{
 		return sender instanceof Player;
@@ -253,5 +249,9 @@ public class Functions
 		{
 			e.printStackTrace();
 		}
+	}
+	private Functions()
+	{
+		throw new AssertionError();
 	}
 }

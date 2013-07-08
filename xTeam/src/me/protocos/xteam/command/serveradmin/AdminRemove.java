@@ -15,12 +15,12 @@ public class AdminRemove extends ServerAdminCommand
 {
 	private String teamName, playerName;
 
+	public AdminRemove()
+	{
+	}
 	public AdminRemove(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public AdminRemove()
-	{
 	}
 	@Override
 	protected void act()

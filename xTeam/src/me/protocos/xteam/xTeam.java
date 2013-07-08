@@ -34,6 +34,12 @@ public class xTeam extends JavaPlugin
 	public static ICommandManager cm;
 	public static CommandExecutor exec;
 
+	public static void registerAdminCommands(ICommandManager manager)
+	{
+		manager.registerCommand("admin_invite", new UserInvite());
+		manager.registerCommand("admin_promote", new UserPromote());
+		manager.registerCommand("admin_sethq", new UserSetHeadquarters());
+	}
 	public static void registerConsoleCommands(ICommandManager manager)
 	{
 		manager.registerCommand("console_debug", new ConsoleDebug());
@@ -51,6 +57,16 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("console_set", new ConsoleSet());
 		manager.registerCommand("console_setleader", new ConsoleSetLeader());
 		manager.registerCommand("console_teleallhq", new ConsoleTeleAllHQ());
+	}
+	public static void registerLeaderCommands(ICommandManager manager)
+	{
+		manager.registerCommand("leader_demote", new UserDemote());
+		manager.registerCommand("leader_disband", new UserDisband());
+		manager.registerCommand("leader_open", new UserOpen());
+		manager.registerCommand("leader_remove", new UserRemove());
+		manager.registerCommand("leader_rename", new UserRename());
+		manager.registerCommand("leader_setleader", new UserSetLeader());
+		manager.registerCommand("leader_tag", new UserTag());
 	}
 	public static void registerServerAdminCommands(ICommandManager manager)
 	{
@@ -72,22 +88,6 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("serveradmin_tpall", new AdminTpAll());
 		manager.registerCommand("serveradmin_update", new AdminUpdatePlayers());
 	}
-	public static void registerAdminCommands(ICommandManager manager)
-	{
-		manager.registerCommand("admin_invite", new UserInvite());
-		manager.registerCommand("admin_promote", new UserPromote());
-		manager.registerCommand("admin_sethq", new UserSetHeadquarters());
-	}
-	public static void registerLeaderCommands(ICommandManager manager)
-	{
-		manager.registerCommand("leader_demote", new UserDemote());
-		manager.registerCommand("leader_disband", new UserDisband());
-		manager.registerCommand("leader_open", new UserOpen());
-		manager.registerCommand("leader_remove", new UserRemove());
-		manager.registerCommand("leader_rename", new UserRename());
-		manager.registerCommand("leader_setleader", new UserSetLeader());
-		manager.registerCommand("leader_tag", new UserTag());
-	}
 	public static void registerUserCommands(ICommandManager manager)
 	{
 		manager.registerCommand("user_accept", new UserAccept());
@@ -103,54 +103,6 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("user_message", new UserMessage());
 		manager.registerCommand("user_return", new UserReturn());
 		manager.registerCommand("user_tele", new UserTeleport());
-	}
-	@Override
-	public void onEnable()
-	{
-		try
-		{
-			initFileSystem();
-			logger = new LogUtil(this);
-			VERSION = getDescription().getVersion();
-			Data.settings = new File(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
-			Data.load();
-			log.info("[xTeam] Config loaded.");
-			sm = new TeamServiceManager(this);
-			tm = new TeamManager();
-			cm = new CommandManager();
-			registerConsoleCommands(cm);
-			registerServerAdminCommands(cm);
-			registerAdminCommands(cm);
-			registerLeaderCommands(cm);
-			registerUserCommands(cm);
-			exec = new CommandDelegate(cm);
-			getCommand("team").setExecutor(exec);
-			Functions.readTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
-			Data.ensureDefaultTeams();
-			//		sm.loadConfig();
-			logger.custom("[xTeam] v" + VERSION + " enabled");
-		}
-		catch (Exception e)
-		{
-			logger.exception(e);
-			xTeam.log.info("[ERROR] Exception in xTeam onEnable() class [check logs]");
-		}
-	}
-	@Override
-	public void onDisable()
-	{
-		try
-		{
-			Functions.writeTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
-			//		sm.saveConfig();
-			logger.custom("[xTeam] v" + VERSION + " disabled");
-			logger.close();
-		}
-		catch (Exception e)
-		{
-			logger.exception(e);
-			xTeam.log.info("[ERROR] Exception in xTeam onDisable() class [check logs]");
-		}
 	}
 	public void initFileSystem()
 	{
@@ -313,6 +265,54 @@ public class xTeam extends JavaPlugin
 			{
 				e.printStackTrace();
 			}
+		}
+	}
+	@Override
+	public void onDisable()
+	{
+		try
+		{
+			Functions.writeTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
+			//		sm.saveConfig();
+			logger.custom("[xTeam] v" + VERSION + " disabled");
+			logger.close();
+		}
+		catch (Exception e)
+		{
+			logger.exception(e);
+			xTeam.log.info("[ERROR] Exception in xTeam onDisable() class [check logs]");
+		}
+	}
+	@Override
+	public void onEnable()
+	{
+		try
+		{
+			initFileSystem();
+			logger = new LogUtil(this);
+			VERSION = getDescription().getVersion();
+			Data.settings = new File(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
+			Data.load();
+			log.info("[xTeam] Config loaded.");
+			sm = new TeamServiceManager(this);
+			tm = new TeamManager();
+			cm = new CommandManager();
+			registerConsoleCommands(cm);
+			registerServerAdminCommands(cm);
+			registerAdminCommands(cm);
+			registerLeaderCommands(cm);
+			registerUserCommands(cm);
+			exec = new CommandDelegate(cm);
+			getCommand("team").setExecutor(exec);
+			Functions.readTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
+			Data.ensureDefaultTeams();
+			//		sm.loadConfig();
+			logger.custom("[xTeam] v" + VERSION + " enabled");
+		}
+		catch (Exception e)
+		{
+			logger.exception(e);
+			xTeam.log.info("[ERROR] Exception in xTeam onEnable() class [check logs]");
 		}
 	}
 }

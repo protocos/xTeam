@@ -16,12 +16,12 @@ import org.bukkit.entity.Player;
 
 public class UserReturn extends UserCommand
 {
+	public UserReturn()
+	{
+	}
 	public UserReturn(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserReturn()
-	{
 	}
 	@Override
 	protected void act()

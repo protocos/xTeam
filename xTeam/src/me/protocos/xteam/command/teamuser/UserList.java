@@ -14,12 +14,12 @@ import org.bukkit.entity.Player;
 
 public class UserList extends UserCommand
 {
+	public UserList()
+	{
+	}
 	public UserList(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserList()
-	{
 	}
 	@Override
 	protected void act()

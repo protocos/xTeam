@@ -13,12 +13,12 @@ public class UserPromote extends UserCommand
 {
 	private String otherPlayer;
 
+	public UserPromote()
+	{
+	}
 	public UserPromote(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserPromote()
-	{
 	}
 	@Override
 	protected void act()

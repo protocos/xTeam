@@ -33,6 +33,16 @@ public class TeamHeadquartersTest
 		Assert.assertEquals(0.0F, hq.getPitch(), 0);
 	}
 	@Test
+	public void ShouldBeTeamHeadquartersExists()
+	{
+		//ASSEMBLE
+		hq = new TeamHeadquarters(new FakeWorld(), 0, 0, 0, 0, 0);
+		//ACT
+		boolean exists = hq.exists();
+		//ASSERT
+		Assert.assertTrue(exists);
+	}
+	@Test
 	public void ShouldBeTeamHeadquartersFakeData()
 	{
 		//ASSEMBLE
@@ -45,16 +55,6 @@ public class TeamHeadquartersTest
 		Assert.assertEquals(0.0D, hq.getZ(), 0);
 		Assert.assertEquals(0.0F, hq.getYaw(), 0);
 		Assert.assertEquals(0.0F, hq.getPitch(), 0);
-	}
-	@Test
-	public void ShouldBeTeamHeadquartersExists()
-	{
-		//ASSEMBLE
-		hq = new TeamHeadquarters(new FakeWorld(), 0, 0, 0, 0, 0);
-		//ACT
-		boolean exists = hq.exists();
-		//ASSERT
-		Assert.assertTrue(exists);
 	}
 	@Test
 	public void ShouldBeTeamHeadquartersNotExists()

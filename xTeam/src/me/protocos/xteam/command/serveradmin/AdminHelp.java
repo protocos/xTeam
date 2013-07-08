@@ -15,13 +15,13 @@ public class AdminHelp extends ServerAdminCommand
 	private HelpPages pages;
 	private int pageNum;
 
+	public AdminHelp()
+	{
+	}
 	public AdminHelp(Player sender, CommandParser command)
 	{
 		super(sender, command);
 		pages = new HelpPages();
-	}
-	public AdminHelp()
-	{
 	}
 	@Override
 	protected void act()

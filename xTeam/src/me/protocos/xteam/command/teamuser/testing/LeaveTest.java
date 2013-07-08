@@ -24,18 +24,17 @@ public class LeaveTest
 		mockData();
 	}
 	@Test
-	public void ShouldBeTeamUserLeaveExecute()
+	public void ShouldBeDefaultTeamLeavingOnePerson()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		Data.returnLocations.put(fakePlayerSender, new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
 		UserCommand fakeCommand = new UserLeave(fakePlayerSender, new CommandParser("/team leave"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("protocos"));
-		Assert.assertFalse(Data.returnLocations.containsKey(fakePlayerSender));
+		Assert.assertEquals("You left red", fakePlayerSender.getLastMessage());
+		Assert.assertTrue(xTeam.tm.contains("red"));
+		Assert.assertFalse(xTeam.tm.getTeam("red").containsPlayer("strandedhelix"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -52,17 +51,18 @@ public class LeaveTest
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
-	public void ShouldBeDefaultTeamLeavingOnePerson()
+	public void ShouldBeTeamUserLeaveExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		Data.returnLocations.put(fakePlayerSender, new FakeLocation());
 		UserCommand fakeCommand = new UserLeave(fakePlayerSender, new CommandParser("/team leave"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
-		Assert.assertEquals("You left red", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.tm.contains("red"));
-		Assert.assertFalse(xTeam.tm.getTeam("red").containsPlayer("strandedhelix"));
+		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessage());
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("protocos"));
+		Assert.assertFalse(Data.returnLocations.containsKey(fakePlayerSender));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test

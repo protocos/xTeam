@@ -15,12 +15,12 @@ import org.bukkit.entity.Player;
 
 public class AdminTeleAllHQ extends ServerAdminCommand
 {
+	public AdminTeleAllHQ()
+	{
+	}
 	public AdminTeleAllHQ(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public AdminTeleAllHQ()
-	{
 	}
 	@Override
 	protected void act()

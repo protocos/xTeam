@@ -14,12 +14,12 @@ public class AdminSetHeadquarters extends ServerAdminCommand
 {
 	private String teamName;
 
+	public AdminSetHeadquarters()
+	{
+	}
 	public AdminSetHeadquarters(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public AdminSetHeadquarters()
-	{
 	}
 	@Override
 	protected void act()

@@ -14,13 +14,13 @@ public class UserMainHelp extends UserCommand
 {
 	String commandID;
 
+	public UserMainHelp()
+	{
+	}
 	public UserMainHelp(Player sender, CommandParser command)
 	{
 		super(sender, command);
 		this.commandID = command.getBaseCommand();
-	}
-	public UserMainHelp()
-	{
 	}
 	@Override
 	protected void act()

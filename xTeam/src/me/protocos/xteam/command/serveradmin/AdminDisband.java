@@ -14,12 +14,12 @@ public class AdminDisband extends ServerAdminCommand
 {
 	private String teamName;
 
+	public AdminDisband()
+	{
+	}
 	public AdminDisband(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public AdminDisband()
-	{
 	}
 	@Override
 	protected void act()

@@ -11,12 +11,12 @@ import org.bukkit.entity.Player;
 
 public class AdminUpdatePlayers extends ServerAdminCommand
 {
+	public AdminUpdatePlayers()
+	{
+	}
 	public AdminUpdatePlayers(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public AdminUpdatePlayers()
-	{
 	}
 	@Override
 	protected void act()

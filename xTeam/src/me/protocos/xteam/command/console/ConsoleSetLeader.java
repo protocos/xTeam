@@ -14,12 +14,12 @@ public class ConsoleSetLeader extends ConsoleCommand
 {
 	private String teamName, playerName;
 
+	public ConsoleSetLeader()
+	{
+	}
 	public ConsoleSetLeader(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public ConsoleSetLeader()
-	{
 	}
 	@Override
 	protected void act()

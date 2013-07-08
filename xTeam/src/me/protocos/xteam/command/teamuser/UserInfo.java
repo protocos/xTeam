@@ -16,12 +16,12 @@ public class UserInfo extends UserCommand
 {
 	private String other;
 
+	public UserInfo()
+	{
+	}
 	public UserInfo(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserInfo()
-	{
 	}
 	@Override
 	protected void act()

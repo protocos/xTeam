@@ -15,12 +15,12 @@ public class AdminPromote extends ServerAdminCommand
 {
 	private String teamName, playerName;
 
+	public AdminPromote()
+	{
+	}
 	public AdminPromote(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public AdminPromote()
-	{
 	}
 	@Override
 	protected void act()

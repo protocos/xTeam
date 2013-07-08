@@ -16,14 +16,14 @@ public class CommandParser
 		parameters = parsed.subList(1, parsed.size());
 	}
 
-	public String getBaseCommand()
-	{
-		return baseCommand;
-	}
-
 	public String get(int index)
 	{
 		return parameters.get(index);
+	}
+
+	public String getBaseCommand()
+	{
+		return baseCommand;
 	}
 
 	public String getCommandWithoutID()

@@ -13,12 +13,12 @@ import org.bukkit.entity.Player;
 
 public class AdminReload extends ServerAdminCommand
 {
+	public AdminReload()
+	{
+	}
 	public AdminReload(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public AdminReload()
-	{
 	}
 	@Override
 	protected void act()

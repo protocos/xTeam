@@ -11,12 +11,12 @@ import org.bukkit.entity.Player;
 
 public class UserMessage extends UserCommand
 {
+	public UserMessage()
+	{
+	}
 	public UserMessage(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserMessage()
-	{
 	}
 	@Override
 	protected void act()

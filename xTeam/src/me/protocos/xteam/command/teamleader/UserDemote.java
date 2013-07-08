@@ -14,12 +14,12 @@ public class UserDemote extends UserCommand
 {
 	private String otherPlayer;
 
+	public UserDemote()
+	{
+	}
 	public UserDemote(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserDemote()
-	{
 	}
 	@Override
 	protected void act()

@@ -26,6 +26,10 @@ public class TeamManager implements ITeamManager
 	{
 		teams.clear();
 	}
+	public boolean contains(String teamName)
+	{
+		return teams.get(teamName.toLowerCase()) != null;
+	}
 	public boolean createTeam(String teamName)
 	{
 		Team team = new Team.Builder(teamName).build();
@@ -37,18 +41,6 @@ public class TeamManager implements ITeamManager
 		List<String> admins = new ArrayList<String>(Arrays.asList(player));
 		Team team = new Team.Builder(teamName).players(players).admins(admins).leader(player).build();
 		return addTeam(team);
-	}
-	public Team getTeam(String teamName)
-	{
-		return teams.get(teamName.toLowerCase());
-	}
-	public Team removeTeam(String team)
-	{
-		return teams.remove(team.toLowerCase());
-	}
-	public boolean contains(String teamName)
-	{
-		return teams.get(teamName.toLowerCase()) != null;
 	}
 	public ArrayList<String> getAllTeamNames()
 	{
@@ -102,5 +94,13 @@ public class TeamManager implements ITeamManager
 				regularTeams.add(teams.get(x));
 		}
 		return regularTeams;
+	}
+	public Team getTeam(String teamName)
+	{
+		return teams.get(teamName.toLowerCase());
+	}
+	public Team removeTeam(String team)
+	{
+		return teams.remove(team.toLowerCase());
 	}
 }

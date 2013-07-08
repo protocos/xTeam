@@ -16,16 +16,14 @@ public class CommandManager implements ICommandManager
 	}
 
 	@Override
-	public void registerCommand(String key, Command command)
-	{
-		patterns.put(key, command);
-		usages.put(key, command);
-		nodes.put(key, command);
-	}
-	@Override
 	public String getPattern(String key)
 	{
 		return patterns.get(key).getPattern();
+	}
+	@Override
+	public String getPermissionNode(String key)
+	{
+		return nodes.get(key).getPermissionNode();
 	}
 	@Override
 	public String getUsage(String key)
@@ -33,8 +31,10 @@ public class CommandManager implements ICommandManager
 		return usages.get(key).getUsage();
 	}
 	@Override
-	public String getPermissionNode(String key)
+	public void registerCommand(String key, Command command)
 	{
-		return nodes.get(key).getPermissionNode();
+		patterns.put(key, command);
+		usages.put(key, command);
+		nodes.put(key, command);
 	}
 }

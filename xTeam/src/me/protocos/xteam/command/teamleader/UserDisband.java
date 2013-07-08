@@ -12,12 +12,12 @@ import org.bukkit.entity.Player;
 
 public class UserDisband extends UserCommand
 {
+	public UserDisband()
+	{
+	}
 	public UserDisband(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserDisband()
-	{
 	}
 	@Override
 	protected void act()

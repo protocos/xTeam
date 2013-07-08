@@ -15,12 +15,12 @@ public class ConsoleDisband extends ConsoleCommand
 {
 	private String teamName;
 
+	public ConsoleDisband()
+	{
+	}
 	public ConsoleDisband(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public ConsoleDisband()
-	{
 	}
 	@Override
 	protected void act()

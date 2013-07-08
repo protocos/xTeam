@@ -29,63 +29,7 @@ public class FakeWorld implements World
 		this.name = name;
 	}
 	@Override
-	public Set<String> getListeningPluginChannels()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void sendPluginMessage(Plugin arg0, String arg1, byte[] arg2)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<MetadataValue> getMetadata(String arg0)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean hasMetadata(String arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void removeMetadata(String arg0, Plugin arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setMetadata(String arg0, MetadataValue arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public boolean canGenerateStructures()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean createExplosion(Location arg0, float arg1)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean createExplosion(Location arg0, float arg1, boolean arg2)
 	{
 		// TODO Auto-generated method stub
 		return false;
@@ -107,6 +51,20 @@ public class FakeWorld implements World
 
 	@Override
 	public boolean createExplosion(double arg0, double arg1, double arg2, float arg3, boolean arg4, boolean arg5)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean createExplosion(Location arg0, float arg1)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean createExplosion(Location arg0, float arg1, boolean arg2)
 	{
 		// TODO Auto-generated method stub
 		return false;
@@ -176,13 +134,6 @@ public class FakeWorld implements World
 	}
 
 	@Override
-	public Block getBlockAt(Location arg0)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Block getBlockAt(int arg0, int arg1, int arg2)
 	{
 		// TODO Auto-generated method stub
@@ -190,10 +141,10 @@ public class FakeWorld implements World
 	}
 
 	@Override
-	public int getBlockTypeIdAt(Location arg0)
+	public Block getBlockAt(Location arg0)
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
@@ -204,10 +155,10 @@ public class FakeWorld implements World
 	}
 
 	@Override
-	public Chunk getChunkAt(Location arg0)
+	public int getBlockTypeIdAt(Location arg0)
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override
@@ -219,6 +170,13 @@ public class FakeWorld implements World
 
 	@Override
 	public Chunk getChunkAt(int arg0, int arg1)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Chunk getChunkAt(Location arg0)
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -282,14 +240,14 @@ public class FakeWorld implements World
 	}
 
 	@Override
-	public String getGameRuleValue(String arg0)
+	public String[] getGameRules()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String[] getGameRules()
+	public String getGameRuleValue(String arg0)
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -303,13 +261,6 @@ public class FakeWorld implements World
 	}
 
 	@Override
-	public Block getHighestBlockAt(Location arg0)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Block getHighestBlockAt(int arg0, int arg1)
 	{
 		// TODO Auto-generated method stub
@@ -317,14 +268,21 @@ public class FakeWorld implements World
 	}
 
 	@Override
-	public int getHighestBlockYAt(Location arg0)
+	public Block getHighestBlockAt(Location arg0)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getHighestBlockYAt(int arg0, int arg1)
 	{
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getHighestBlockYAt(int arg0, int arg1)
+	public int getHighestBlockYAt(Location arg0)
 	{
 		// TODO Auto-generated method stub
 		return 0;
@@ -342,6 +300,13 @@ public class FakeWorld implements World
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Set<String> getListeningPluginChannels()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -366,6 +331,13 @@ public class FakeWorld implements World
 	}
 
 	@Override
+	public List<MetadataValue> getMetadata(String arg0)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public int getMonsterSpawnLimit()
 	{
 		// TODO Auto-generated method stub
@@ -376,13 +348,6 @@ public class FakeWorld implements World
 	public String getName()
 	{
 		return name;
-	}
-
-	@Override
-	public boolean getPVP()
-	{
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -397,6 +362,13 @@ public class FakeWorld implements World
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean getPVP()
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -491,6 +463,13 @@ public class FakeWorld implements World
 	}
 
 	@Override
+	public boolean hasMetadata(String arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public boolean hasStorm()
 	{
 		// TODO Auto-generated method stub
@@ -568,14 +547,14 @@ public class FakeWorld implements World
 	}
 
 	@Override
-	public <T> void playEffect(Location arg0, Effect arg1, T arg2)
+	public void playEffect(Location arg0, Effect arg1, int arg2, int arg3)
 	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void playEffect(Location arg0, Effect arg1, int arg2, int arg3)
+	public <T> void playEffect(Location arg0, Effect arg1, T arg2)
 	{
 		// TODO Auto-generated method stub
 
@@ -610,7 +589,21 @@ public class FakeWorld implements World
 	}
 
 	@Override
+	public void removeMetadata(String arg0, Plugin arg1)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void save()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void sendPluginMessage(Plugin arg0, String arg1, byte[] arg2)
 	{
 		// TODO Auto-generated method stub
 
@@ -667,6 +660,13 @@ public class FakeWorld implements World
 
 	@Override
 	public void setKeepSpawnInMemory(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setMetadata(String arg0, MetadataValue arg1)
 	{
 		// TODO Auto-generated method stub
 
@@ -772,7 +772,7 @@ public class FakeWorld implements World
 
 	@Override
 	@Deprecated
-	public LivingEntity spawnCreature(Location arg0, EntityType arg1)
+	public LivingEntity spawnCreature(Location arg0, CreatureType arg1)
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -780,7 +780,7 @@ public class FakeWorld implements World
 
 	@Override
 	@Deprecated
-	public LivingEntity spawnCreature(Location arg0, CreatureType arg1)
+	public LivingEntity spawnCreature(Location arg0, EntityType arg1)
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -794,14 +794,14 @@ public class FakeWorld implements World
 	}
 
 	@Override
-	public FallingBlock spawnFallingBlock(Location arg0, Material arg1, byte arg2) throws IllegalArgumentException
+	public FallingBlock spawnFallingBlock(Location arg0, int arg1, byte arg2) throws IllegalArgumentException
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public FallingBlock spawnFallingBlock(Location arg0, int arg1, byte arg2) throws IllegalArgumentException
+	public FallingBlock spawnFallingBlock(Location arg0, Material arg1, byte arg2) throws IllegalArgumentException
 	{
 		// TODO Auto-generated method stub
 		return null;

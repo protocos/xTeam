@@ -15,12 +15,12 @@ public class UserRename extends UserCommand
 {
 	private String newName;
 
+	public UserRename()
+	{
+	}
 	public UserRename(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserRename()
-	{
 	}
 	@Override
 	protected void act()

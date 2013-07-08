@@ -14,20 +14,20 @@ public class ChatColorTest
 	{
 	}
 	@Test
-	public void ShouldBeGreen()
-	{
-		//ASSEMBLE
-		//ACT
-		//ASSERT
-		Assert.assertEquals(ChatColor.GREEN, ColorUtil.getColor("green"));
-	}
-	@Test
 	public void ShouldBeColor()
 	{
 		//ASSEMBLE
 		//ACT
 		//ASSERT
 		Assert.assertEquals(ChatColor.RESET, ColorUtil.getColor("notacolor"));
+	}
+	@Test
+	public void ShouldBeGreen()
+	{
+		//ASSEMBLE
+		//ACT
+		//ASSERT
+		Assert.assertEquals(ChatColor.GREEN, ColorUtil.getColor("green"));
 	}
 	@After
 	public void takedown()

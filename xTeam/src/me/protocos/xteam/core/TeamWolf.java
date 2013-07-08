@@ -15,6 +15,18 @@ public class TeamWolf implements ITeamWolf
 	{
 		this.wolf = w;
 	}
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (!(obj instanceof TeamWolf))
+			return false;
+
+		TeamWolf rhs = (TeamWolf) obj;
+		return new EqualsBuilder().append(getOwner(), rhs.getOwner()).isEquals();
+	}
 	@Override
 	public double getDistanceTo(ITeamEntity entity)
 	{
@@ -29,6 +41,11 @@ public class TeamWolf implements ITeamWolf
 	public Location getLocation()
 	{
 		return wolf.getLocation();
+	}
+	@Override
+	public TeamPlayer getOwner()
+	{
+		return new TeamPlayer(wolf.getOwner().getName());
 	}
 	@Override
 	public int getRelativeX()
@@ -65,20 +82,9 @@ public class TeamWolf implements ITeamWolf
 	{
 		return wolf.getWorld();
 	}
-	@Override
-	public boolean hasTeam()
+	public int hashCode()
 	{
-		return hasOwner() && getOwner().hasTeam();
-	}
-	@Override
-	public boolean isOnline()
-	{
-		return true;
-	}
-	@Override
-	public TeamPlayer getOwner()
-	{
-		return new TeamPlayer(wolf.getOwner().getName());
+		return new HashCodeBuilder(53, 89).append(getOwner()).append(getLocation()).toHashCode();
 	}
 	@Override
 	public boolean hasOwner()
@@ -86,33 +92,28 @@ public class TeamWolf implements ITeamWolf
 		return getOwner() != null;
 	}
 	@Override
-	public String toString()
+	public boolean hasTeam()
 	{
-		String wolfData = "";
-		return wolfData;
-	}
-	public int hashCode()
-	{
-		return new HashCodeBuilder(53, 89).append(getOwner()).append(getLocation()).toHashCode();
-	}
-	public boolean equals(Object obj)
-	{
-		if (obj == null)
-			return false;
-		if (obj == this)
-			return true;
-		if (!(obj instanceof TeamWolf))
-			return false;
-
-		TeamWolf rhs = (TeamWolf) obj;
-		return new EqualsBuilder().append(getOwner(), rhs.getOwner()).isEquals();
+		return hasOwner() && getOwner().hasTeam();
 	}
 	@Override
-	public boolean teleport(Location location)
+	public boolean isEnemy(ITeamEntity entity)
 	{
-		if (isOnline())
+		if (this.isOnSameTeam(entity))
+			return false;
+		return true;
+	}
+	@Override
+	public boolean isOnline()
+	{
+		return true;
+	}
+	@Override
+	public boolean isOnSameTeam(ITeamEntity entity)
+	{
+		if (isOnline() && entity.isOnline())
 		{
-			return wolf.teleport(location);
+			return getTeam().equals(entity.getTeam());
 		}
 		return false;
 	}
@@ -126,19 +127,18 @@ public class TeamWolf implements ITeamWolf
 		return false;
 	}
 	@Override
-	public boolean isOnSameTeam(ITeamEntity entity)
+	public boolean teleport(Location location)
 	{
-		if (isOnline() && entity.isOnline())
+		if (isOnline())
 		{
-			return getTeam().equals(entity.getTeam());
+			return wolf.teleport(location);
 		}
 		return false;
 	}
 	@Override
-	public boolean isEnemy(ITeamEntity entity)
+	public String toString()
 	{
-		if (this.isOnSameTeam(entity))
-			return false;
-		return true;
+		String wolfData = "";
+		return wolfData;
 	}
 }

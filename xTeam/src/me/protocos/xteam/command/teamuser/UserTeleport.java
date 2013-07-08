@@ -18,12 +18,12 @@ public class UserTeleport extends UserCommand
 {
 	private String playerName;
 
+	public UserTeleport()
+	{
+	}
 	public UserTeleport(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserTeleport()
-	{
 	}
 	@Override
 	protected void act()

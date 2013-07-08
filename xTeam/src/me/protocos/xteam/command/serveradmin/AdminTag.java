@@ -14,12 +14,12 @@ public class AdminTag extends ServerAdminCommand
 {
 	private String teamName, newTag;
 
+	public AdminTag()
+	{
+	}
 	public AdminTag(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public AdminTag()
-	{
 	}
 	@Override
 	protected void act()

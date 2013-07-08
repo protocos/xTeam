@@ -29,20 +29,6 @@ public class StringUtil
 		}
 		return returnString;
 	}
-	public static List<String> toLowerCase(List<String> arraylist)
-	{
-		List<String> lowercase = new ArrayList<String>();
-		for (String s : arraylist)
-			lowercase.add(s.toLowerCase());
-		return lowercase;
-	}
-	public static List<String> toUpperCase(List<String> arraylist)
-	{
-		List<String> uppercase = new ArrayList<String>();
-		for (String s : arraylist)
-			uppercase.add(s.toUpperCase());
-		return uppercase;
-	}
 	public static boolean matchesLowerCase(String str, String pattern)
 	{
 		return str.toLowerCase().matches(pattern);
@@ -75,5 +61,19 @@ public class StringUtil
 	{
 		StringBuffer sb = new StringBuffer(s);
 		return sb.reverse().toString();
+	}
+	public static List<String> toLowerCase(List<String> arraylist)
+	{
+		List<String> lowercase = new ArrayList<String>();
+		for (String s : arraylist)
+			lowercase.add(s.toLowerCase());
+		return lowercase;
+	}
+	public static List<String> toUpperCase(List<String> arraylist)
+	{
+		List<String> uppercase = new ArrayList<String>();
+		for (String s : arraylist)
+			uppercase.add(s.toUpperCase());
+		return uppercase;
 	}
 }

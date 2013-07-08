@@ -14,12 +14,12 @@ public class ConsoleTag extends ConsoleCommand
 {
 	private String teamName, newTag;
 
+	public ConsoleTag()
+	{
+	}
 	public ConsoleTag(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public ConsoleTag()
-	{
 	}
 	@Override
 	protected void act()

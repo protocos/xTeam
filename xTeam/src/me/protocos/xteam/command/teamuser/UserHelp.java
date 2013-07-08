@@ -16,13 +16,13 @@ public class UserHelp extends UserCommand
 	private HelpPages pages;
 	private int pageNum;
 
+	public UserHelp()
+	{
+	}
 	public UserHelp(Player sender, CommandParser command)
 	{
 		super(sender, command);
 		pages = new HelpPages();
-	}
-	public UserHelp()
-	{
 	}
 	@Override
 	protected void act()

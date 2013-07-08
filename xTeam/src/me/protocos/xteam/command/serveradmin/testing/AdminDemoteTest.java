@@ -36,19 +36,6 @@ public class AdminDemoteTest
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
-	public void ShouldBeServerAdminDemoteExecutePlayerNotAdmin()
-	{
-		//ASSEMBLE
-		xTeam.tm.getTeam("one").demote("protocos");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, new CommandParser("/team demote one protocos"));
-		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
-		//ASSERT
-		Assert.assertEquals((new TeamPlayerNotAdminException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(fakeExecuteResponse);
-	}
-	@Test
 	public void ShouldBeServerAdminDemoteExecuteDemoteLeader()
 	{
 		//ASSEMBLE
@@ -95,6 +82,19 @@ public class AdminDemoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertFalse(fakeExecuteResponse);
+	}
+	@Test
+	public void ShouldBeServerAdminDemoteExecutePlayerNotAdmin()
+	{
+		//ASSEMBLE
+		xTeam.tm.getTeam("one").demote("protocos");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
+		ServerAdminCommand fakeCommand = new AdminDemote(fakePlayerSender, new CommandParser("/team demote one protocos"));
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals((new TeamPlayerNotAdminException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test

@@ -57,344 +57,9 @@ public class FakePlayer implements Player
 		this.server = server;
 	}
 
-	public void setOnline(boolean isOnline)
-	{
-		this.isOnline = isOnline;
-	}
-
-	public void setLocation(Location location)
-	{
-		this.location = location;
-	}
-
 	@Override
-	public void closeInventory()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Inventory getEnderChest()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getExpToLevel()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public GameMode getGameMode()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public PlayerInventory getInventory()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemStack getItemInHand()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemStack getItemOnCursor()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getName()
-	{
-		return name;
-	}
-
-	@Override
-	public InventoryView getOpenInventory()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getSleepTicks()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean isBlocking()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isSleeping()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public InventoryView openEnchanting(Location arg0, boolean arg1)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public InventoryView openInventory(Inventory arg0)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void openInventory(InventoryView arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public InventoryView openWorkbench(Location arg0, boolean arg1)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setGameMode(GameMode arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setItemInHand(ItemStack arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setItemOnCursor(ItemStack arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean setWindowProperty(Property arg0, int arg1)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addPotionEffect(PotionEffect arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addPotionEffect(PotionEffect arg0, boolean arg1)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addPotionEffects(Collection<PotionEffect> arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Collection<PotionEffect> getActivePotionEffects()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean getCanPickupItems()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public EntityEquipment getEquipment()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public double getEyeHeight()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getEyeHeight(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Location getEyeLocation()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Player getKiller()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Block> getLastTwoTargetBlocks(HashSet<Byte> arg0, int arg1)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Block> getLineOfSight(HashSet<Byte> arg0, int arg1)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getMaximumAir()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getMaximumNoDamageTicks()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getNoDamageTicks()
-	{
-		return noDamageTicks;
-	}
-
-	@Override
-	public int getRemainingAir()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean getRemoveWhenFarAway()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Block getTargetBlock(HashSet<Byte> arg0, int arg1)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean hasLineOfSight(Entity arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean hasPotionEffect(PotionEffectType arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public <T extends Projectile> T launchProjectile(Class<? extends T> arg0)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void removePotionEffect(PotionEffectType arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setCanPickupItems(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setMaximumAir(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setMaximumNoDamageTicks(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setNoDamageTicks(int noDamageTicks)
-	{
-		this.noDamageTicks = noDamageTicks;
-	}
-
-	@Override
-	public void setRemainingAir(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setRemoveWhenFarAway(boolean arg0)
+	@Deprecated
+	public void _INVALID_damage(int arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -402,291 +67,76 @@ public class FakePlayer implements Player
 
 	@Override
 	@Deprecated
-	public Arrow shootArrow()
+	public void _INVALID_damage(int arg0, Entity arg1)
 	{
 		// TODO Auto-generated method stub
-		return null;
+
 	}
 
 	@Override
 	@Deprecated
-	public Egg throwEgg()
+	public int _INVALID_getHealth()
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override
 	@Deprecated
-	public Snowball throwSnowball()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean eject()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int getEntityId()
+	public int _INVALID_getLastDamage()
 	{
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public float getFallDistance()
+	@Deprecated
+	public int _INVALID_getMaxHealth()
 	{
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getFireTicks()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public EntityDamageEvent getLastDamageCause()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Location getLocation()
-	{
-		return location;
-	}
-
-	@Override
-	public Location getLocation(Location arg0)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getMaxFireTicks()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<Entity> getNearbyEntities(double arg0, double arg1, double arg2)
-	{
-		return new ArrayList<Entity>();
-	}
-
-	@Override
-	public Entity getPassenger()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Server getServer()
-	{
-		return server;
-	}
-
-	@Override
-	public int getTicksLived()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public EntityType getType()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public UUID getUniqueId()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Entity getVehicle()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Vector getVelocity()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public World getWorld()
-	{
-		return location.getWorld();
-	}
-
-	@Override
-	public boolean isDead()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isEmpty()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isInsideVehicle()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isValid()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean leaveVehicle()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void playEffect(EntityEffect arg0)
+	@Deprecated
+	public void _INVALID_setHealth(int arg0)
 	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void remove()
+	@Deprecated
+	public void _INVALID_setLastDamage(int arg0)
 	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setFallDistance(float arg0)
+	@Deprecated
+	public void _INVALID_setMaxHealth(int arg0)
 	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setFireTicks(int arg0)
+	public void abandonConversation(Conversation arg0)
 	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setLastDamageCause(EntityDamageEvent arg0)
+	public void abandonConversation(Conversation arg0, ConversationAbandonedEvent arg1)
 	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public boolean setPassenger(Entity arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setTicksLived(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setVelocity(Vector arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean teleport(Location arg0)
-	{
-		return true;
-	}
-
-	@Override
-	public boolean teleport(Entity arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean teleport(Location arg0, TeleportCause arg1)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean teleport(Entity arg0, TeleportCause arg1)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public List<MetadataValue> getMetadata(String arg0)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean hasMetadata(String arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void removeMetadata(String arg0, Plugin arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setMetadata(String arg0, MetadataValue arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resetMaxHealth()
+	public void acceptConversationInput(String arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -721,81 +171,28 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public Set<PermissionAttachmentInfo> getEffectivePermissions()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean hasPermission(String arg0)
-	{
-		return true;
-	}
-
-	@Override
-	public boolean hasPermission(Permission arg0)
+	public boolean addPotionEffect(PotionEffect arg0)
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean isPermissionSet(String arg0)
+	public boolean addPotionEffect(PotionEffect arg0, boolean arg1)
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean isPermissionSet(Permission arg0)
+	public boolean addPotionEffects(Collection<PotionEffect> arg0)
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void recalculatePermissions()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeAttachment(PermissionAttachment arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isOp()
-	{
-		return isOp;
-	}
-
-	@Override
-	public void setOp(boolean isOp)
-	{
-		this.isOp = isOp;
-	}
-
-	@Override
-	public void abandonConversation(Conversation arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void abandonConversation(Conversation arg0, ConversationAbandonedEvent arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void acceptConversationInput(String arg0)
+	public void awardAchievement(Achievement arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -806,116 +203,6 @@ public class FakePlayer implements Player
 	{
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public boolean isConversing()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void sendMessage(String arg0)
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void sendMessage(String[] arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public long getFirstPlayed()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public long getLastPlayed()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Player getPlayer()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean hasPlayedBefore()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isBanned()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isOnline()
-	{
-		return isOnline;
-	}
-
-	@Override
-	public boolean isWhitelisted()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setBanned(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setWhitelisted(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Map<String, Object> serialize()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<String> getListeningPluginChannels()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void sendPluginMessage(Plugin arg0, String arg1, byte[] arg2)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void awardAchievement(Achievement arg0)
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -930,6 +217,41 @@ public class FakePlayer implements Player
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void closeInventory()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void damage(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void damage(double arg0, Entity arg1)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean eject()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Collection<PotionEffect> getActivePotionEffects()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -954,6 +276,13 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public boolean getCanPickupItems()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public Location getCompassTarget()
 	{
 		// TODO Auto-generated method stub
@@ -961,7 +290,42 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public String getCustomName()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public String getDisplayName()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<PermissionAttachmentInfo> getEffectivePermissions()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Inventory getEnderChest()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getEntityId()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public EntityEquipment getEquipment()
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -982,6 +346,55 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public int getExpToLevel()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getEyeHeight()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getEyeHeight(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Location getEyeLocation()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public float getFallDistance()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getFireTicks()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long getFirstPlayed()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
 	public float getFlySpeed()
 	{
 		// TODO Auto-generated method stub
@@ -996,10 +409,180 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public GameMode getGameMode()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double getHealth()
+	{
+		return health;
+	}
+
+	@Override
+	public PlayerInventory getInventory()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStack getItemInHand()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStack getItemOnCursor()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Player getKiller()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double getLastDamage()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public EntityDamageEvent getLastDamageCause()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public long getLastPlayed()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Block> getLastTwoTargetBlocks(HashSet<Byte> arg0, int arg1)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public int getLevel()
 	{
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<Block> getLineOfSight(HashSet<Byte> arg0, int arg1)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<String> getListeningPluginChannels()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Location getLocation()
+	{
+		return location;
+	}
+
+	@Override
+	public Location getLocation(Location arg0)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getMaxFireTicks()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getMaxHealth()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMaximumAir()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMaximumNoDamageTicks()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<MetadataValue> getMetadata(String arg0)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getName()
+	{
+		return name;
+	}
+
+	@Override
+	public List<Entity> getNearbyEntities(double arg0, double arg1, double arg2)
+	{
+		return new ArrayList<Entity>();
+	}
+
+	@Override
+	public int getNoDamageTicks()
+	{
+		return noDamageTicks;
+	}
+
+	@Override
+	public InventoryView getOpenInventory()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Entity getPassenger()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Player getPlayer()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -1024,7 +607,62 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public WeatherType getPlayerWeather()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getRemainingAir()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean getRemoveWhenFarAway()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public float getSaturation()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Scoreboard getScoreboard()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Server getServer()
+	{
+		return server;
+	}
+
+	@Override
+	public int getSleepTicks()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Block getTargetBlock(HashSet<Byte> arg0, int arg1)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getTicksLived()
 	{
 		// TODO Auto-generated method stub
 		return 0;
@@ -1038,10 +676,44 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public EntityType getType()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UUID getUniqueId()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Entity getVehicle()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Vector getVelocity()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public float getWalkSpeed()
 	{
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public World getWorld()
+	{
+		return location.getWorld();
 	}
 
 	@Override
@@ -1056,6 +728,47 @@ public class FakePlayer implements Player
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public boolean hasLineOfSight(Entity arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasMetadata(String arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasPermission(Permission arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasPermission(String arg0)
+	{
+		return true;
+	}
+
+	@Override
+	public boolean hasPlayedBefore()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasPotionEffect(PotionEffectType arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -1094,6 +807,48 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public boolean isBanned()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isBlocking()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isConversing()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCustomNameVisible()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isDead()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEmpty()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public boolean isFlying()
 	{
 		// TODO Auto-generated method stub
@@ -1101,7 +856,62 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public boolean isInsideVehicle()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	@Deprecated
+	public boolean isOnGround()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isOnline()
+	{
+		return isOnline;
+	}
+
+	@Override
+	public boolean isOp()
+	{
+		return isOp;
+	}
+
+	@Override
+	public boolean isPermissionSet(Permission arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isPermissionSet(String arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public boolean isPlayerTimeRelative()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isScaledHealth()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isSleeping()
 	{
 		// TODO Auto-generated method stub
 		return false;
@@ -1129,10 +939,38 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public boolean isValid()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isWhitelisted()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public void kickPlayer(String arg0)
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public <T extends Projectile> T launchProjectile(Class<? extends T> arg0)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean leaveVehicle()
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -1143,10 +981,45 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public InventoryView openEnchanting(Location arg0, boolean arg1)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InventoryView openInventory(Inventory arg0)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void openInventory(InventoryView arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public InventoryView openWorkbench(Location arg0, boolean arg1)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public boolean performCommand(String arg0)
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void playEffect(EntityEffect arg0)
+	{
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -1185,7 +1058,56 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public void recalculatePermissions()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void remove()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeAttachment(PermissionAttachment arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeMetadata(String arg0, Plugin arg1)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removePotionEffect(PotionEffectType arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void resetMaxHealth()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void resetPlayerTime()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void resetPlayerWeather()
 	{
 		// TODO Auto-generated method stub
 
@@ -1199,14 +1121,14 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public void sendBlockChange(Location arg0, Material arg1, byte arg2)
+	public void sendBlockChange(Location arg0, int arg1, byte arg2)
 	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void sendBlockChange(Location arg0, int arg1, byte arg2)
+	public void sendBlockChange(Location arg0, Material arg1, byte arg2)
 	{
 		// TODO Auto-generated method stub
 
@@ -1227,6 +1149,26 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public void sendMessage(String arg0)
+	{
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void sendMessage(String[] arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void sendPluginMessage(Plugin arg0, String arg1, byte[] arg2)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void sendRawMessage(String arg0)
 	{
 		// TODO Auto-generated method stub
@@ -1234,7 +1176,21 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public Map<String, Object> serialize()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public void setAllowFlight(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setBanned(boolean arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -1255,7 +1211,28 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public void setCanPickupItems(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void setCompassTarget(Location arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setCustomName(String arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setCustomNameVisible(boolean arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -1283,7 +1260,14 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public void setFlySpeed(float arg0) throws IllegalArgumentException
+	public void setFallDistance(float arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setFireTicks(int arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -1297,7 +1281,55 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public void setFlySpeed(float arg0) throws IllegalArgumentException
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void setFoodLevel(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setGameMode(GameMode arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setHealth(double health)
+	{
+		this.health = health;
+	}
+
+	@Override
+	public void setItemInHand(ItemStack arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setItemOnCursor(ItemStack arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setLastDamage(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setLastDamageCause(EntityDamageEvent arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -1308,6 +1340,63 @@ public class FakePlayer implements Player
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	public void setLocation(Location location)
+	{
+		this.location = location;
+	}
+
+	@Override
+	public void setMaxHealth(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setMaximumAir(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setMaximumNoDamageTicks(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setMetadata(String arg0, MetadataValue arg1)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setNoDamageTicks(int noDamageTicks)
+	{
+		this.noDamageTicks = noDamageTicks;
+	}
+
+	public void setOnline(boolean isOnline)
+	{
+		this.isOnline = isOnline;
+	}
+
+	@Override
+	public void setOp(boolean isOp)
+	{
+		this.isOp = isOp;
+	}
+
+	@Override
+	public boolean setPassenger(Entity arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -1325,7 +1414,42 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public void setPlayerWeather(WeatherType arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setRemainingAir(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setRemoveWhenFarAway(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void setSaturation(float arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setScaleHealth(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setScoreboard(Scoreboard arg0) throws IllegalArgumentException, IllegalStateException
 	{
 		// TODO Auto-generated method stub
 
@@ -1360,7 +1484,21 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public void setTicksLived(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void setTotalExperience(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setVelocity(Vector arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -1374,10 +1512,74 @@ public class FakePlayer implements Player
 	}
 
 	@Override
+	public void setWhitelisted(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean setWindowProperty(Property arg0, int arg1)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	@Deprecated
+	public Arrow shootArrow()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public void showPlayer(Player arg0)
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public boolean teleport(Entity arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean teleport(Entity arg0, TeleportCause arg1)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean teleport(Location arg0)
+	{
+		return true;
+	}
+
+	@Override
+	public boolean teleport(Location arg0, TeleportCause arg1)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	@Deprecated
+	public Egg throwEgg()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Deprecated
+	public Snowball throwSnowball()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -1386,207 +1588,5 @@ public class FakePlayer implements Player
 	{
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public String getCustomName()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isCustomNameVisible()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setCustomName(String arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setCustomNameVisible(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public WeatherType getPlayerWeather()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	@Deprecated
-	public boolean isOnGround()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void resetPlayerWeather()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setPlayerWeather(WeatherType arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Scoreboard getScoreboard()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setScoreboard(Scoreboard arg0) throws IllegalArgumentException, IllegalStateException
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public int _INVALID_getLastDamage()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_setLastDamage(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setLastDamage(double arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_damage(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_damage(int arg0, Entity arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public int _INVALID_getHealth()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	@Deprecated
-	public int _INVALID_getMaxHealth()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_setHealth(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_setMaxHealth(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void damage(double arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void damage(double arg0, Entity arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setHealth(double health)
-	{
-		this.health = health;
-	}
-	@Override
-	public void setMaxHealth(double arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isScaledHealth()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setScaleHealth(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public double getHealth()
-	{
-		return health;
-	}
-
-	@Override
-	public double getMaxHealth()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getLastDamage()
-	{
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }

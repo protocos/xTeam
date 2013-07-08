@@ -13,12 +13,12 @@ import org.bukkit.entity.Player;
 
 public class ConsoleTeleAllHQ extends ConsoleCommand
 {
+	public ConsoleTeleAllHQ()
+	{
+	}
 	public ConsoleTeleAllHQ(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public ConsoleTeleAllHQ()
-	{
 	}
 	@Override
 	protected void act()

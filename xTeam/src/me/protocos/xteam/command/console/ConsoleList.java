@@ -11,12 +11,12 @@ import org.bukkit.command.ConsoleCommandSender;
 
 public class ConsoleList extends ConsoleCommand
 {
+	public ConsoleList()
+	{
+	}
 	public ConsoleList(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public ConsoleList()
-	{
 	}
 	@Override
 	protected void act()

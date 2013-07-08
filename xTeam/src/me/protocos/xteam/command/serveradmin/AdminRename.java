@@ -14,12 +14,12 @@ public class AdminRename extends ServerAdminCommand
 {
 	private String teamName, newName;
 
+	public AdminRename()
+	{
+	}
 	public AdminRename(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public AdminRename()
-	{
 	}
 	@Override
 	protected void act()

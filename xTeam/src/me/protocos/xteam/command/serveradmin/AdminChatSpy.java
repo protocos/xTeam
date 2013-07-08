@@ -14,13 +14,13 @@ import org.bukkit.entity.Player;
 
 public class AdminChatSpy extends ServerAdminCommand
 {
+	public AdminChatSpy()
+	{
+	}
+
 	public AdminChatSpy(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-
-	public AdminChatSpy()
-	{
 	}
 
 	@Override

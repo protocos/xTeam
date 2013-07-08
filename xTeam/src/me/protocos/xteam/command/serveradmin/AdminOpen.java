@@ -17,12 +17,12 @@ public class AdminOpen extends ServerAdminCommand
 {
 	String teamName;
 
+	public AdminOpen()
+	{
+	}
 	public AdminOpen(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public AdminOpen()
-	{
 	}
 	@Override
 	protected void act()

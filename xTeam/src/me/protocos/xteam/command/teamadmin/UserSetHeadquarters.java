@@ -11,12 +11,12 @@ import org.bukkit.entity.Player;
 
 public class UserSetHeadquarters extends UserCommand
 {
+	public UserSetHeadquarters()
+	{
+	}
 	public UserSetHeadquarters(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserSetHeadquarters()
-	{
 	}
 	@Override
 	protected void act()

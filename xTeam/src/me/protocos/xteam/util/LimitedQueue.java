@@ -17,6 +17,12 @@ public class LimitedQueue<T> extends AbstractQueue<T>
 	}
 
 	@Override
+	public Iterator<T> iterator()
+	{
+		return data.iterator();
+	}
+
+	@Override
 	public boolean offer(T element)
 	{
 		if (data.size() >= maxSize)
@@ -34,12 +40,6 @@ public class LimitedQueue<T> extends AbstractQueue<T>
 	public T poll()
 	{
 		return data.poll();
-	}
-
-	@Override
-	public Iterator<T> iterator()
-	{
-		return data.iterator();
 	}
 
 	@Override

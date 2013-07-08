@@ -30,35 +30,6 @@ public class FakeOfflinePlayer implements OfflinePlayer
 		this.hasPlayedBefore = hasPlayedBefore;
 	}
 
-	public void setOnline(boolean isOnline)
-	{
-		this.isOnline = isOnline;
-	}
-
-	public void setHasPlayedBefore(boolean hasPlayedBefore)
-	{
-		this.hasPlayedBefore = hasPlayedBefore;
-	}
-
-	@Override
-	public boolean isOp()
-	{
-		return isOp;
-	}
-
-	@Override
-	public void setOp(boolean isOp)
-	{
-		this.isOp = isOp;
-	}
-
-	@Override
-	public Map<String, Object> serialize()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public Location getBedSpawnLocation()
 	{
@@ -113,6 +84,12 @@ public class FakeOfflinePlayer implements OfflinePlayer
 	}
 
 	@Override
+	public boolean isOp()
+	{
+		return isOp;
+	}
+
+	@Override
 	public boolean isWhitelisted()
 	{
 		// TODO Auto-generated method stub
@@ -120,10 +97,33 @@ public class FakeOfflinePlayer implements OfflinePlayer
 	}
 
 	@Override
+	public Map<String, Object> serialize()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public void setBanned(boolean arg0)
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	public void setHasPlayedBefore(boolean hasPlayedBefore)
+	{
+		this.hasPlayedBefore = hasPlayedBefore;
+	}
+
+	public void setOnline(boolean isOnline)
+	{
+		this.isOnline = isOnline;
+	}
+
+	@Override
+	public void setOp(boolean isOp)
+	{
+		this.isOp = isOp;
 	}
 
 	@Override

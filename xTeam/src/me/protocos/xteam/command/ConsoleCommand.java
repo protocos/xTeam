@@ -6,20 +6,20 @@ public abstract class ConsoleCommand extends Command
 {
 	ConsoleCommandSender sender;
 
+	public ConsoleCommand()
+	{
+		super();
+	}
+
 	public ConsoleCommand(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
 		setSender(sender);
 	}
 
-	public ConsoleCommand()
+	public String getPermissionNode()
 	{
-		super();
-	}
-
-	public void setSender(ConsoleCommandSender sender)
-	{
-		this.sender = sender;
+		return null;
 	}
 
 	public ConsoleCommandSender getSender()
@@ -27,8 +27,8 @@ public abstract class ConsoleCommand extends Command
 		return sender;
 	}
 
-	public String getPermissionNode()
+	public void setSender(ConsoleCommandSender sender)
 	{
-		return null;
+		this.sender = sender;
 	}
 }

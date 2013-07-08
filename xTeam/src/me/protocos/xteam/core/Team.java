@@ -11,16 +11,6 @@ import org.bukkit.entity.Player;
 
 public class Team implements ITeam
 {
-	private String name;
-	private String tag;
-	private String leader;
-	private List<String> players;
-	private List<String> admins;
-	private TeamHeadquarters headquarters;
-	private long timeHeadquartersSet;
-	private boolean openJoining;
-	private boolean defaultTeam;
-
 	public static class Builder
 	{
 		//required
@@ -40,44 +30,9 @@ public class Team implements ITeam
 		{
 			this.name = name;
 		}
-		public Builder tag(@SuppressWarnings("hiding") String tag)
-		{
-			this.tag = tag;
-			return this;
-		}
-		public Builder leader(@SuppressWarnings("hiding") String leader)
-		{
-			this.leader = leader;
-			return this;
-		}
-		public Builder players(@SuppressWarnings("hiding") List<String> players)
-		{
-			this.players = players;
-			return this;
-		}
 		public Builder admins(@SuppressWarnings("hiding") List<String> admins)
 		{
 			this.admins = admins;
-			return this;
-		}
-		public Builder hq(@SuppressWarnings("hiding") TeamHeadquarters headquarters)
-		{
-			this.headquarters = headquarters;
-			return this;
-		}
-		public Builder timeHeadquartersSet(@SuppressWarnings("hiding") long timeHeadquartersSet)
-		{
-			this.timeHeadquartersSet = timeHeadquartersSet;
-			return this;
-		}
-		public Builder openJoining(@SuppressWarnings("hiding") boolean openJoining)
-		{
-			this.openJoining = openJoining;
-			return this;
-		}
-		public Builder defaultTeam(@SuppressWarnings("hiding") boolean defaultTeam)
-		{
-			this.defaultTeam = defaultTeam;
 			return this;
 		}
 		public Team build()
@@ -86,175 +41,41 @@ public class Team implements ITeam
 				tag = name;
 			return new Team(this);
 		}
-	}
-
-	public Team(Builder builder)
-	{
-		name = builder.name;
-		tag = builder.tag;
-		openJoining = builder.openJoining;
-		defaultTeam = builder.defaultTeam;
-		timeHeadquartersSet = builder.timeHeadquartersSet;
-		headquarters = builder.headquarters;
-		leader = builder.leader;
-		players = builder.players;
-		admins = builder.admins;
-	}
-	public boolean addPlayer(String player)
-	{
-		return players.add(player);
-	}
-	public boolean containsPlayer(String player)
-	{
-		return players.contains(player);
-	}
-	public boolean removePlayer(String player)
-	{
-		if (leader.equals(player))
-			this.leader = "";
-		if (admins.contains(player))
-			admins.remove(player);
-		return players.remove(player);
-	}
-	public boolean demote(String player)
-	{
-		if (players.contains(player) && admins.contains(player) && !leader.equals(player))
+		public Builder defaultTeam(@SuppressWarnings("hiding") boolean defaultTeam)
 		{
-			admins.remove(player);
-			return true;
+			this.defaultTeam = defaultTeam;
+			return this;
 		}
-		return false;
-	}
-	public int hashCode()
-	{
-		return new HashCodeBuilder(11, 71).append(name).append(tag).append(leader).toHashCode();
-	}
-	public boolean equals(Object obj)
-	{
-		if (obj == null)
-			return false;
-		if (obj == this)
-			return true;
-		if (!(obj instanceof Team))
-			return false;
-
-		Team rhs = (Team) obj;
-		return new EqualsBuilder().append(name, rhs.name).append(tag, rhs.tag).append(leader, rhs.leader).isEquals();
-	}
-	public List<String> getAdmins()
-	{
-		return admins;
-	}
-	public TeamHeadquarters getHeadquarters()
-	{
-		return headquarters;
-	}
-	public String getLeader()
-	{
-		return leader;
-	}
-	public String getName()
-	{
-		return name;
-	}
-	public List<String> getOnlinePlayers()
-	{
-		List<String> onlinePlayers = new ArrayList<String>();
-		for (String p : players)
+		public Builder hq(@SuppressWarnings("hiding") TeamHeadquarters headquarters)
 		{
-			TeamPlayer player = new TeamPlayer(p);
-			if (player.isOnline())
-				onlinePlayers.add(p);
+			this.headquarters = headquarters;
+			return this;
 		}
-		return onlinePlayers;
-	}
-	public List<String> getOfflinePlayers()
-	{
-		List<String> offlinePlayers = new ArrayList<String>();
-		for (String p : players)
+		public Builder leader(@SuppressWarnings("hiding") String leader)
 		{
-			TeamPlayer player = new TeamPlayer(p);
-			if (!player.isOnline())
-				offlinePlayers.add(p);
+			this.leader = leader;
+			return this;
 		}
-		return offlinePlayers;
-	}
-	public List<String> getPlayers()
-	{
-		return players;
-	}
-	public long getTimeLastSet()
-	{
-		return timeHeadquartersSet;
-	}
-	public boolean hasHQ()
-	{
-		return getHeadquarters() != null;
-	}
-	public boolean hasLeader()
-	{
-		return !leader.equals("");
-	}
-	public boolean isDefaultTeam()
-	{
-		return defaultTeam;
-	}
-	public boolean isEmpty()
-	{
-		return size() == 0;
-	}
-	public boolean isOpenJoining()
-	{
-		return openJoining;
-	}
-	public boolean promote(String player)
-	{
-		if (players.contains(player) && !admins.contains(player))
+		public Builder openJoining(@SuppressWarnings("hiding") boolean openJoining)
 		{
-			admins.add(player);
-			return true;
+			this.openJoining = openJoining;
+			return this;
 		}
-		return false;
-	}
-	public void setAdmins(List<String> admins)
-	{
-		this.admins = admins;
-	}
-	public void setDefaultTeam(boolean defaultTeam)
-	{
-		this.defaultTeam = defaultTeam;
-	}
-	public void setHQ(TeamHeadquarters headquarters)
-	{
-		this.headquarters = headquarters;
-	}
-	public void setLeader(String leader)
-	{
-		this.leader = leader;
-		if (!players.contains(leader))
-			players.add(leader);
-		if (!admins.contains(leader))
-			admins.add(leader);
-	}
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-	public void setOpenJoining(boolean openJoining)
-	{
-		this.openJoining = openJoining;
-	}
-	public void setPlayers(List<String> players)
-	{
-		this.players = players;
-	}
-	public void setTimeLastSet(long timeHeadquartersSet)
-	{
-		this.timeHeadquartersSet = timeHeadquartersSet;
-	}
-	public int size()
-	{
-		return getPlayers().size();
+		public Builder players(@SuppressWarnings("hiding") List<String> players)
+		{
+			this.players = players;
+			return this;
+		}
+		public Builder tag(@SuppressWarnings("hiding") String tag)
+		{
+			this.tag = tag;
+			return this;
+		}
+		public Builder timeHeadquartersSet(@SuppressWarnings("hiding") long timeHeadquartersSet)
+		{
+			this.timeHeadquartersSet = timeHeadquartersSet;
+			return this;
+		}
 	}
 	public static Team generateTeamFromProperties(String properties)
 	{
@@ -312,27 +133,148 @@ public class Team implements ITeam
 		}
 		return null;
 	}
-	public String toString()
+	private String name;
+	private String tag;
+	private String leader;
+	private List<String> players;
+	private List<String> admins;
+	private TeamHeadquarters headquarters;
+	private long timeHeadquartersSet;
+
+	private boolean openJoining;
+
+	private boolean defaultTeam;
+	public Team(Builder builder)
 	{
-		String teamData = "";
-		teamData += "name:" + getName();
-		teamData += " tag:" + getTag();
-		teamData += " open:" + isOpenJoining();
-		teamData += " default:" + isDefaultTeam();
-		teamData += " timeHeadquartersSet:" + getTimeLastSet();
-		teamData += " hq:" + (getHeadquarters() == null ? "" : getHeadquarters().getWorld().getName() + "," + getHeadquarters().getX() + "," + getHeadquarters().getY() + "," + getHeadquarters().getZ() + "," + getHeadquarters().getYaw() + "," + getHeadquarters().getPitch());
-		teamData += " leader:" + (getLeader() == null ? "" : getLeader());
-		teamData += " admins:" + getAdmins().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
-		teamData += " players:" + getPlayers().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
-		return teamData;
+		name = builder.name;
+		tag = builder.tag;
+		openJoining = builder.openJoining;
+		defaultTeam = builder.defaultTeam;
+		timeHeadquartersSet = builder.timeHeadquartersSet;
+		headquarters = builder.headquarters;
+		leader = builder.leader;
+		players = builder.players;
+		admins = builder.admins;
 	}
-	public void setTag(String tag)
+	public boolean addPlayer(String player)
 	{
-		this.tag = tag;
+		return players.add(player);
+	}
+	public boolean containsPlayer(String player)
+	{
+		return players.contains(player);
+	}
+	public boolean demote(String player)
+	{
+		if (players.contains(player) && admins.contains(player) && !leader.equals(player))
+		{
+			admins.remove(player);
+			return true;
+		}
+		return false;
+	}
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (!(obj instanceof Team))
+			return false;
+
+		Team rhs = (Team) obj;
+		return new EqualsBuilder().append(name, rhs.name).append(tag, rhs.tag).append(leader, rhs.leader).isEquals();
+	}
+	public List<String> getAdmins()
+	{
+		return admins;
+	}
+	public TeamHeadquarters getHeadquarters()
+	{
+		return headquarters;
+	}
+	public String getLeader()
+	{
+		return leader;
+	}
+	public String getName()
+	{
+		return name;
+	}
+	public List<String> getOfflinePlayers()
+	{
+		List<String> offlinePlayers = new ArrayList<String>();
+		for (String p : players)
+		{
+			TeamPlayer player = new TeamPlayer(p);
+			if (!player.isOnline())
+				offlinePlayers.add(p);
+		}
+		return offlinePlayers;
+	}
+	public List<String> getOnlinePlayers()
+	{
+		List<String> onlinePlayers = new ArrayList<String>();
+		for (String p : players)
+		{
+			TeamPlayer player = new TeamPlayer(p);
+			if (player.isOnline())
+				onlinePlayers.add(p);
+		}
+		return onlinePlayers;
+	}
+	public List<String> getPlayers()
+	{
+		return players;
 	}
 	public String getTag()
 	{
 		return tag;
+	}
+	public long getTimeLastSet()
+	{
+		return timeHeadquartersSet;
+	}
+	public int hashCode()
+	{
+		return new HashCodeBuilder(11, 71).append(name).append(tag).append(leader).toHashCode();
+	}
+	public boolean hasHQ()
+	{
+		return getHeadquarters() != null;
+	}
+	public boolean hasLeader()
+	{
+		return !leader.equals("");
+	}
+	public boolean isDefaultTeam()
+	{
+		return defaultTeam;
+	}
+	public boolean isEmpty()
+	{
+		return size() == 0;
+	}
+	public boolean isOpenJoining()
+	{
+		return openJoining;
+	}
+	public boolean promote(String player)
+	{
+		if (players.contains(player) && !admins.contains(player))
+		{
+			admins.add(player);
+			return true;
+		}
+		return false;
+	}
+	public boolean removePlayer(String player)
+	{
+		if (leader.equals(player))
+			this.leader = "";
+		if (admins.contains(player))
+			admins.remove(player);
+		return players.remove(player);
 	}
 	@Override
 	public void sendMessage(String message)
@@ -355,5 +297,63 @@ public class Team implements ITeam
 				player.sendMessage(message);
 			}
 		}
+	}
+	public void setAdmins(List<String> admins)
+	{
+		this.admins = admins;
+	}
+	public void setDefaultTeam(boolean defaultTeam)
+	{
+		this.defaultTeam = defaultTeam;
+	}
+	public void setHQ(TeamHeadquarters headquarters)
+	{
+		this.headquarters = headquarters;
+	}
+	public void setLeader(String leader)
+	{
+		this.leader = leader;
+		if (!players.contains(leader))
+			players.add(leader);
+		if (!admins.contains(leader))
+			admins.add(leader);
+	}
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	public void setOpenJoining(boolean openJoining)
+	{
+		this.openJoining = openJoining;
+	}
+	public void setPlayers(List<String> players)
+	{
+		this.players = players;
+	}
+	public void setTag(String tag)
+	{
+		this.tag = tag;
+	}
+	public void setTimeLastSet(long timeHeadquartersSet)
+	{
+		this.timeHeadquartersSet = timeHeadquartersSet;
+	}
+	public int size()
+	{
+		return getPlayers().size();
+	}
+	public String toString()
+	{
+		String teamData = "";
+		teamData += "name:" + getName();
+		teamData += " tag:" + getTag();
+		teamData += " open:" + isOpenJoining();
+		teamData += " default:" + isDefaultTeam();
+		teamData += " timeHeadquartersSet:" + getTimeLastSet();
+		teamData += " hq:" + (getHeadquarters() == null ? "" : getHeadquarters().getWorld().getName() + "," + getHeadquarters().getX() + "," + getHeadquarters().getY() + "," + getHeadquarters().getZ() + "," + getHeadquarters().getYaw() + "," + getHeadquarters().getPitch());
+		teamData += " leader:" + (getLeader() == null ? "" : getLeader());
+		teamData += " admins:" + getAdmins().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
+		teamData += " players:" + getPlayers().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
+		return teamData;
 	}
 }

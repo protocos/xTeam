@@ -13,12 +13,12 @@ public class UserChat extends UserCommand
 {
 	private String option;
 
+	public UserChat()
+	{
+	}
 	public UserChat(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserChat()
-	{
 	}
 	@Override
 	protected void act()

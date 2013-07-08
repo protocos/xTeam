@@ -13,12 +13,12 @@ public class ConsoleOpen extends ConsoleCommand
 {
 	String teamName;
 
+	public ConsoleOpen()
+	{
+	}
 	public ConsoleOpen(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public ConsoleOpen()
-	{
 	}
 	@Override
 	protected void act()

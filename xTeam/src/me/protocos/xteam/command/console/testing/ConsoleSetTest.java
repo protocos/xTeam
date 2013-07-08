@@ -40,24 +40,6 @@ public class ConsoleSetTest
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
-	public void ShouldBeConsoleSetExecuteLastPerson()
-	{
-		//ASSEMBLE
-		xTeam.tm.getTeam("one").removePlayer("protocos");
-		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, new CommandParser("/team set kmlanglois two"));
-		Data.returnLocations.put(Data.BUKKIT.getPlayer("kmlanglois"), new FakeLocation());
-		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
-		//ASSERT
-		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
-				"ONE has been disbanded\n" +
-				"kmlanglois has been added to two\n", fakeConsoleSender.getAllMessages());
-		Assert.assertFalse(xTeam.tm.contains("one"));
-		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("kmlanglois"));
-		Assert.assertFalse(Data.returnLocations.containsKey(Data.BUKKIT.getPlayer("kmlanglois")));
-		Assert.assertTrue(fakeExecuteResponse);
-	}
-	@Test
 	public void ShouldBeConsoleSetExecuteCreateTeam()
 	{
 		//ASSEMBLE
@@ -84,6 +66,24 @@ public class ConsoleSetTest
 				"protocos has been added to two\n", fakeConsoleSender.getAllMessages());
 		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("protocos"));
 		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("protocos"));
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+	@Test
+	public void ShouldBeConsoleSetExecuteLastPerson()
+	{
+		//ASSEMBLE
+		xTeam.tm.getTeam("one").removePlayer("protocos");
+		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, new CommandParser("/team set kmlanglois two"));
+		Data.returnLocations.put(Data.BUKKIT.getPlayer("kmlanglois"), new FakeLocation());
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
+				"ONE has been disbanded\n" +
+				"kmlanglois has been added to two\n", fakeConsoleSender.getAllMessages());
+		Assert.assertFalse(xTeam.tm.contains("one"));
+		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("kmlanglois"));
+		Assert.assertFalse(Data.returnLocations.containsKey(Data.BUKKIT.getPlayer("kmlanglois")));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test

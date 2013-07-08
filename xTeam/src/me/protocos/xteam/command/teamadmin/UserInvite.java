@@ -14,12 +14,12 @@ public class UserInvite extends UserCommand
 {
 	private String otherPlayer;
 
+	public UserInvite()
+	{
+	}
 	public UserInvite(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserInvite()
-	{
 	}
 	@Override
 	protected void act()

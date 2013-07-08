@@ -55,12 +55,6 @@ public class Data
 	public static List<String> DEFAULT_TEAM_NAMES = new ArrayList<String>();
 	public static List<String> DISABLED_WORLDS = new ArrayList<String>();
 
-	private Data()
-	{
-		//we don't want the default constructor to be called from within the class either...
-		throw new AssertionError();
-	}
-
 	public static void ensureDefaultTeams()
 	{
 		for (String name : DEFAULT_TEAM_NAMES)
@@ -76,6 +70,7 @@ public class Data
 				xTeam.tm.addTeam(team);
 		}
 	}
+
 	public static void load()
 	{
 		readConfig(settings);
@@ -113,5 +108,10 @@ public class Data
 		NAME_COLOR = reader.getString("chatnamecolor", "dark_green");
 		DEFAULT_TEAM_NAMES = CommonUtil.toList(reader.getString("defaultteams", "").replace(" ", "").split(","));
 		DISABLED_WORLDS = CommonUtil.toList(reader.getString("disabledworlds", "").replace(" ", "").split(","));
+	}
+	private Data()
+	{
+		//we don't want the default constructor to be called from within the class either...
+		throw new AssertionError();
 	}
 }

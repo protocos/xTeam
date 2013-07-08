@@ -10,12 +10,12 @@ import org.bukkit.command.ConsoleCommandSender;
 
 public class ConsoleReload extends ConsoleCommand
 {
+	public ConsoleReload()
+	{
+	}
 	public ConsoleReload(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public ConsoleReload()
-	{
 	}
 	@Override
 	protected void act()

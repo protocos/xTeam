@@ -10,12 +10,12 @@ import org.bukkit.entity.Player;
 
 public class UserOpen extends UserCommand
 {
+	public UserOpen()
+	{
+	}
 	public UserOpen(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserOpen()
-	{
 	}
 	@Override
 	protected void act()

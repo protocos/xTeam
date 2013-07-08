@@ -15,12 +15,12 @@ public class UserCreate extends UserCommand
 {
 	private String desiredTeam;
 
+	public UserCreate()
+	{
+	}
 	public UserCreate(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserCreate()
-	{
 	}
 	@Override
 	protected void act()

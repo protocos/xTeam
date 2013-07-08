@@ -14,12 +14,12 @@ public class ConsoleRemove extends ConsoleCommand
 {
 	private String teamName, playerName;
 
+	public ConsoleRemove()
+	{
+	}
 	public ConsoleRemove(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public ConsoleRemove()
-	{
 	}
 	@Override
 	protected void act()

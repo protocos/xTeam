@@ -17,12 +17,12 @@ public class UserJoin extends UserCommand
 {
 	private String desiredTeam;
 
+	public UserJoin()
+	{
+	}
 	public UserJoin(Player sender, CommandParser command)
 	{
 		super(sender, command);
-	}
-	public UserJoin()
-	{
 	}
 	@Override
 	protected void act()

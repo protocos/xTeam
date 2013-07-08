@@ -33,17 +33,26 @@ public class HashList<K, V> extends HashMap<K, V>
 		}
 		this.keepSorted = false;
 	}
-	public K getKey(int index)
+	public void clear()
 	{
-		return order.get(index);
+		order.clear();
+		super.clear();
 	}
 	public V get(int index)
 	{
 		return get(order.get(index));
 	}
+	public K getKey(int index)
+	{
+		return order.get(index);
+	}
 	public ArrayList<K> getOrder()
 	{
 		return new ArrayList<K>(order);
+	}
+	public boolean isSorted()
+	{
+		return this.keepSorted;
 	}
 	public V put(K key, V value)
 	{
@@ -66,6 +75,10 @@ public class HashList<K, V> extends HashMap<K, V>
 		order.remove(key);
 		return super.remove(key);
 	}
+	public void setKeepSorted(boolean keepSorted)
+	{
+		this.keepSorted = keepSorted;
+	}
 	public boolean setOrder(ArrayList<K> newOrder)
 	{
 		for (K object : newOrder)
@@ -76,10 +89,10 @@ public class HashList<K, V> extends HashMap<K, V>
 		order = newOrder;
 		return true;
 	}
-	public void clear()
+	public void sort()
 	{
-		order.clear();
-		super.clear();
+		Set<K> sorted = new TreeSet<K>(order);
+		order = new ArrayList<K>(sorted);
 	}
 	public String toString()
 	{
@@ -88,19 +101,6 @@ public class HashList<K, V> extends HashMap<K, V>
 			output += ", " + order.get(x) + "=" + get(order.get(x));
 		output += "}";
 		return output;
-	}
-	public void sort()
-	{
-		Set<K> sorted = new TreeSet<K>(order);
-		order = new ArrayList<K>(sorted);
-	}
-	public void setKeepSorted(boolean keepSorted)
-	{
-		this.keepSorted = keepSorted;
-	}
-	public boolean isSorted()
-	{
-		return this.keepSorted;
 	}
 	//	public boolean containsKeyIgnoreCase(K key)
 	//	{

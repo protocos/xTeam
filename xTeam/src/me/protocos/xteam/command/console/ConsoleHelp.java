@@ -13,13 +13,13 @@ public class ConsoleHelp extends ConsoleCommand
 {
 	private HelpPages pages;
 
+	public ConsoleHelp()
+	{
+	}
 	public ConsoleHelp(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
 		pages = new HelpPages();
-	}
-	public ConsoleHelp()
-	{
 	}
 	@Override
 	protected void act()

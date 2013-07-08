@@ -63,10 +63,16 @@ public class FakeCommandSender implements CommandSender
 	}
 
 	@Override
-	public boolean hasPermission(String arg0)
+	public String getName()
+	{
+		return name;
+	}
+
+	@Override
+	public Server getServer()
 	{
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -77,14 +83,27 @@ public class FakeCommandSender implements CommandSender
 	}
 
 	@Override
-	public boolean isPermissionSet(String arg0)
+	public boolean hasPermission(String arg0)
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
+	public boolean isOp()
+	{
+		return isOp;
+	}
+
+	@Override
 	public boolean isPermissionSet(Permission arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isPermissionSet(String arg0)
 	{
 		// TODO Auto-generated method stub
 		return false;
@@ -105,31 +124,6 @@ public class FakeCommandSender implements CommandSender
 	}
 
 	@Override
-	public boolean isOp()
-	{
-		return isOp;
-	}
-
-	@Override
-	public void setOp(boolean isOp)
-	{
-		this.isOp = isOp;
-	}
-
-	@Override
-	public String getName()
-	{
-		return name;
-	}
-
-	@Override
-	public Server getServer()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void sendMessage(String arg0)
 	{
 		// TODO Auto-generated method stub
@@ -141,6 +135,12 @@ public class FakeCommandSender implements CommandSender
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void setOp(boolean isOp)
+	{
+		this.isOp = isOp;
 	}
 
 }

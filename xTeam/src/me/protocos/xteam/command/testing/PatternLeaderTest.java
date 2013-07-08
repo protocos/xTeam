@@ -97,6 +97,23 @@ public class PatternLeaderTest
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
 	}
 	@Test
+	public void ShouldBeTeamLeaderSetleader()
+	{
+		baseCmd = "setleader";
+		command = "setleader PLAYER";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "setleader PLAYER ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "setl PLAYER";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "setlead PLAYER ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "set PLAYER dfsa";
+		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "stl PLAYER ";
+		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+	}
+	@Test
 	public void ShouldBeTeamLeaderTag()
 	{
 		baseCmd = "tag";
@@ -113,23 +130,6 @@ public class PatternLeaderTest
 		command = "tg TEAM ";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
 		command = "tg TEAM sdfhkabkl";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
-	}
-	@Test
-	public void ShouldBeTeamLeaderSetleader()
-	{
-		baseCmd = "setleader";
-		command = "setleader PLAYER";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
-		command = "setleader PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
-		command = "setl PLAYER";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
-		command = "setlead PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
-		command = "set PLAYER dfsa";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
-		command = "stl PLAYER ";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
 	}
 	@After
