@@ -88,7 +88,7 @@ public class Team implements ITeam
 		}
 	}
 
-	public Team(Builder builder)
+	private Team(Builder builder)
 	{
 		name = builder.name;
 		tag = builder.tag;
