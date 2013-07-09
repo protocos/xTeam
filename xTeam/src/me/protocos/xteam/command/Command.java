@@ -25,6 +25,7 @@ public abstract class Command implements ICommandUsage, ICommandPattern, IPermis
 	protected abstract void act();
 
 	protected abstract void checkRequirements() throws TeamException;
+
 	public boolean execute()
 	{
 		try

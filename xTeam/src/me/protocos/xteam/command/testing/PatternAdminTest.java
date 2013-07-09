@@ -22,6 +22,7 @@ public class PatternAdminTest
 	@Test
 	public void ShouldBeTeamAdminInvite()
 	{
+		// "/team invite bob123"
 		baseCmd = "invite";
 		command = "invite PLAYER";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));

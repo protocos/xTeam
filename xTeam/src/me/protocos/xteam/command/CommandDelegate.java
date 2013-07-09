@@ -77,6 +77,7 @@ public class CommandDelegate implements CommandExecutor
 		// ================     CONSOLE     ================
 		// \\\\\\\\\\\\\\\\\\             //////////////////
 		// \\\\\\\\\\\\\\\\\\\\\|||||||/////////////////////
+
 		if (parseCommand.getCommandWithoutID().toLowerCase().matches(manager.getPattern("console_debug")))
 			command = new ConsoleDebug(sender, parseCommand);
 		else if (parseCommand.getCommandWithoutID().toLowerCase().matches(manager.getPattern("console_help")))
@@ -113,7 +114,7 @@ public class CommandDelegate implements CommandExecutor
 			xTeam.logger.info("FAIL: " + (new TeamInvalidCommandException()).getMessage());
 			return false;
 		}
-		if (command.execute())
+		if (command.execute() == true)
 			Functions.writeTeamData(new File("plugins/xTeam/teams.txt"));
 		return true;
 	}

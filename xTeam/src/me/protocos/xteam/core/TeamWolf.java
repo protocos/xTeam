@@ -45,7 +45,9 @@ public class TeamWolf implements ITeamWolf
 	@Override
 	public TeamPlayer getOwner()
 	{
-		return new TeamPlayer(wolf.getOwner().getName());
+		if (wolf.getOwner() != null)
+			return new TeamPlayer(wolf.getOwner().getName());
+		return null;
 	}
 	@Override
 	public int getRelativeX()

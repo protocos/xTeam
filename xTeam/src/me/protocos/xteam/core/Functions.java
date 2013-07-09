@@ -9,7 +9,6 @@ import me.protocos.xteam.util.SpoutUtil;
 import me.protocos.xteam.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -64,18 +63,13 @@ public class Functions
 		if (type.startsWith("CraftWolf"))
 		{
 			Wolf w = (Wolf) entity;
-			//FIX by using TeamWolf
-			String wolfOwner = w.getOwner().getName();
-			if (player.getTeam().containsPlayer(wolfOwner))
+			TeamWolf wolf = new TeamWolf(w);
+			TeamPlayer owner = wolf.getOwner();
+			if (owner != null && player.getTeam().containsPlayer(owner.getName()))
 				return false;
 			return true;
 		}
 		return false;
-	}
-
-	public static boolean isPlayerSender(CommandSender sender)
-	{
-		return sender instanceof Player;
 	}
 	@Deprecated
 	public static void readOldData(File f) throws NumberFormatException, IOException
