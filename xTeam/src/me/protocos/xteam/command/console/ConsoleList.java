@@ -3,6 +3,7 @@ package me.protocos.xteam.command.console;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
@@ -10,7 +11,10 @@ import org.bukkit.command.ConsoleCommandSender;
 
 public class ConsoleList extends ConsoleCommand
 {
-	public ConsoleList(ConsoleCommandSender sender, String command)
+	public ConsoleList()
+	{
+	}
+	public ConsoleList(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -40,6 +44,6 @@ public class ConsoleList extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " list";
+		return parseCommand.getBaseCommand() + " list";
 	}
 }

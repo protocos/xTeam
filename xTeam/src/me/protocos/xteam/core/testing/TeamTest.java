@@ -30,26 +30,6 @@ public class TeamTest
 		Assert.assertTrue(team.getPlayers().contains("protocos"));
 	}
 	@Test
-	public void ShouldBeDefaultTeamTag()
-	{
-		//ASSEMBLE
-		//ACT
-		String tag = team.getTag();
-		//ASSERT
-		Assert.assertEquals("test", tag);
-	}
-	@Test
-	public void ShouldBeSetTeamTag()
-	{
-		//ASSEMBLE
-		String tag = "tag";
-		//ACT
-		team.setTag(tag);
-		tag = team.getTag();
-		//ASSERT
-		Assert.assertEquals("tag", tag);
-	}
-	@Test
 	public void ShouldBeContains()
 	{
 		//ASSEMBLE
@@ -68,6 +48,15 @@ public class TeamTest
 		team.setDefaultTeam(true);
 		//ASSERT
 		Assert.assertTrue(team.isDefaultTeam());
+	}
+	@Test
+	public void ShouldBeDefaultTeamTag()
+	{
+		//ASSEMBLE
+		//ACT
+		String tag = team.getTag();
+		//ASSERT
+		Assert.assertEquals("test", tag);
 	}
 	@Test
 	public void ShouldBeDemote()
@@ -190,6 +179,17 @@ public class TeamTest
 		Assert.assertEquals("protocos", team.getLeader());
 	}
 	@Test
+	public void ShouldBeSetTeamTag()
+	{
+		//ASSEMBLE
+		String tag = "tag";
+		//ACT
+		team.setTag(tag);
+		tag = team.getTag();
+		//ASSERT
+		Assert.assertEquals("tag", tag);
+	}
+	@Test
 	public void ShouldBeSize()
 	{
 		//ASSEMBLE
@@ -207,56 +207,6 @@ public class TeamTest
 		//ACT
 		//ASSERT
 		Assert.assertEquals("name:test tag:test open:false default:false timeHeadquartersSet:0 hq: leader: admins: players:", team.toString());
-	}
-	@Test
-	public void ShouldBeTeamFromPropertiesRegular1()
-	{
-		//ASSEMBLE
-		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 UserHeadquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
-		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
-		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos", t.toString());
-	}
-	@Test
-	public void ShouldBeTeamFromPropertiesRegular2()
-	{
-		//ASSEMBLE
-		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 UserHeadquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
-		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
-		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos", t.toString());
-	}
-	@Test
-	public void ShouldBeTeamFromPropertiesDefault1()
-	{
-		//ASSEMBLE
-		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersSet:1361318508899 UserHeadquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
-		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
-		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:kmlanglois,protocos", t.toString());
-	}
-	@Test
-	public void ShouldBeTeamFromPropertiesDefault2()
-	{
-		//ASSEMBLE
-		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersSet:1361318508899 UserHeadquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
-		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
-		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:kmlanglois,protocos", t.toString());
-	}
-	@Test
-	public void ShouldBeTeamInputEqualsOutput()
-	{
-		//ASSEMBLE
-		String properties = "name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos";
-		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
-		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos", t.toString());
 	}
 	@Test
 	public void ShouldBeTeamBlankProperties1()
@@ -297,6 +247,56 @@ public class TeamTest
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
 		Assert.assertEquals("name:red tag:red open:false default:true timeHeadquartersSet:0 hq: leader: admins: players:protocos", t.toString());
+	}
+	@Test
+	public void ShouldBeTeamFromPropertiesDefault1()
+	{
+		//ASSEMBLE
+		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersSet:1361318508899 UserHeadquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
+		//ACT
+		Team t = Team.generateTeamFromProperties(properties);
+		//ASSERT
+		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:kmlanglois,protocos", t.toString());
+	}
+	@Test
+	public void ShouldBeTeamFromPropertiesDefault2()
+	{
+		//ASSEMBLE
+		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersSet:1361318508899 UserHeadquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
+		//ACT
+		Team t = Team.generateTeamFromProperties(properties);
+		//ASSERT
+		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:kmlanglois,protocos", t.toString());
+	}
+	@Test
+	public void ShouldBeTeamFromPropertiesRegular1()
+	{
+		//ASSEMBLE
+		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 UserHeadquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
+		//ACT
+		Team t = Team.generateTeamFromProperties(properties);
+		//ASSERT
+		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos", t.toString());
+	}
+	@Test
+	public void ShouldBeTeamFromPropertiesRegular2()
+	{
+		//ASSEMBLE
+		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 UserHeadquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
+		//ACT
+		Team t = Team.generateTeamFromProperties(properties);
+		//ASSERT
+		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos", t.toString());
+	}
+	@Test
+	public void ShouldBeTeamInputEqualsOutput()
+	{
+		//ASSEMBLE
+		String properties = "name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos";
+		//ACT
+		Team t = Team.generateTeamFromProperties(properties);
+		//ASSERT
+		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos", t.toString());
 	}
 	@After
 	public void takedown()

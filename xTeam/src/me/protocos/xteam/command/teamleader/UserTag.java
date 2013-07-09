@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.TeamPlayer;
@@ -14,7 +15,10 @@ public class UserTag extends UserCommand
 {
 	private String newTag;
 
-	public UserTag(Player sender, String command)
+	public UserTag()
+	{
+	}
+	public UserTag(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -82,6 +86,6 @@ public class UserTag extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " tag [UserTag]";
+		return parseCommand.getBaseCommand() + " tag [UserTag]";
 	}
 }

@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.*;
@@ -14,7 +15,10 @@ public class UserCreate extends UserCommand
 {
 	private String desiredTeam;
 
-	public UserCreate(Player sender, String command)
+	public UserCreate()
+	{
+	}
+	public UserCreate(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -83,6 +87,6 @@ public class UserCreate extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " create [Name]";
+		return parseCommand.getBaseCommand() + " create [Name]";
 	}
 }

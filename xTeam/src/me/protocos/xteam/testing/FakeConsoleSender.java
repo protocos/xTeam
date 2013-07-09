@@ -23,6 +23,27 @@ public class FakeConsoleSender implements ConsoleCommandSender
 	}
 
 	@Override
+	public void abandonConversation(Conversation arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void abandonConversation(Conversation arg0, ConversationAbandonedEvent arg1)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void acceptConversationInput(String arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public PermissionAttachment addAttachment(Plugin arg0)
 	{
 		// TODO Auto-generated method stub
@@ -51,16 +72,51 @@ public class FakeConsoleSender implements ConsoleCommandSender
 	}
 
 	@Override
+	public boolean beginConversation(Conversation arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public String getAllMessages()
+	{
+		String messages = "";
+		for (String s : messageLog)
+			messages += s + "\n";
+		return messages;
+	}
+
+	@Override
 	public Set<PermissionAttachmentInfo> getEffectivePermissions()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public boolean hasPermission(String anyPermission)
+	public String getLastMessage()
 	{
-		return true;
+		return messageLog.getLast().replaceAll("¤.", "");
+	}
+
+	public String getMessage(int index)
+	{
+		if (index < 0 || index >= STORED_MESSAGES)
+			throw new IndexOutOfBoundsException();
+		return messageLog.get(index).replaceAll("¤.", "");
+	}
+
+	@Override
+	public String getName()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Server getServer()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -70,14 +126,31 @@ public class FakeConsoleSender implements ConsoleCommandSender
 	}
 
 	@Override
-	public boolean isPermissionSet(String arg0)
+	public boolean hasPermission(String anyPermission)
+	{
+		return true;
+	}
+
+	@Override
+	public boolean isConversing()
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	@Override
+	public boolean isOp()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
 	@Override
 	public boolean isPermissionSet(Permission arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean isPermissionSet(String arg0)
 	{
 		// TODO Auto-generated method stub
 		return false;
@@ -98,10 +171,13 @@ public class FakeConsoleSender implements ConsoleCommandSender
 	}
 
 	@Override
-	public Server getServer()
+	public void sendMessage(String message)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if (messageLog.size() == STORED_MESSAGES)
+		{
+			messageLog.removeFirst();
+		}
+		messageLog.addLast(message);
 	}
 
 	@Override
@@ -112,90 +188,14 @@ public class FakeConsoleSender implements ConsoleCommandSender
 	}
 
 	@Override
-	public void sendMessage(String message)
-	{
-		if (messageLog.size() == STORED_MESSAGES)
-		{
-			messageLog.removeFirst();
-		}
-		messageLog.addLast(message);
-	}
-
-	public String getMessage(int index)
-	{
-		if (index < 0 || index >= STORED_MESSAGES)
-			throw new IndexOutOfBoundsException();
-		return messageLog.get(index).replaceAll("¤.", "");
-	}
-
-	public String getAllMessages()
-	{
-		String messages = "";
-		for (String s : messageLog)
-			messages += s + "\n";
-		return messages;
-	}
-
-	public String getLastMessage()
-	{
-		return messageLog.getLast().replaceAll("¤.", "");
-	}
-	@Override
-	public boolean isOp()
+	public void sendRawMessage(String arg0)
 	{
 		// TODO Auto-generated method stub
-		return false;
+
 	}
+
 	@Override
 	public void setOp(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public String getName()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void abandonConversation(Conversation arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void abandonConversation(Conversation arg0, ConversationAbandonedEvent arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void acceptConversationInput(String arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean beginConversation(Conversation arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isConversing()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void sendRawMessage(String arg0)
 	{
 		// TODO Auto-generated method stub
 

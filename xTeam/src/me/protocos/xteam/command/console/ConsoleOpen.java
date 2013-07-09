@@ -2,6 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
@@ -12,7 +13,10 @@ public class ConsoleOpen extends ConsoleCommand
 {
 	String teamName;
 
-	public ConsoleOpen(ConsoleCommandSender sender, String command)
+	public ConsoleOpen()
+	{
+	}
+	public ConsoleOpen(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -46,6 +50,6 @@ public class ConsoleOpen extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " open [Team]";
+		return parseCommand.getBaseCommand() + " open [Team]";
 	}
 }

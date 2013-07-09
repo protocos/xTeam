@@ -18,12 +18,40 @@ public class HashListTest
 		list = new HashList<String, String>();
 	}
 	@Test
+	public void ShouldBeClear()
+	{
+		//ASSEMBLE
+		list.put("0", "zero");
+		list.put("1", "one");
+		list.put("2", "two");
+		list.put("3", "three");
+		list.put("4", "four");
+		list.put("5", "five");
+		list.put("6", "six");
+		//ACT
+		list.clear();
+		//ASSERT
+		Assert.assertEquals("{}", list.toString());
+	}
+	@Test
 	public void ShouldBeGet()
 	{
 		//ASSEMBLE
 		list.put("1", "one");
 		//ACT
 		String s = list.get("1");
+		//ASSERT
+		Assert.assertEquals("one", s);
+		Assert.assertEquals(1, list.getOrder().size());
+		Assert.assertEquals(1, list.size());
+	}
+	@Test
+	public void ShouldBeGetFromIndex()
+	{
+		//ASSEMBLE
+		list.put("1", "one");
+		//ACT
+		String s = list.get(0);
 		//ASSERT
 		Assert.assertEquals("one", s);
 		Assert.assertEquals(1, list.getOrder().size());
@@ -38,18 +66,6 @@ public class HashListTest
 		String s = list.getKey(0);
 		//ASSERT
 		Assert.assertEquals("1", s);
-		Assert.assertEquals(1, list.getOrder().size());
-		Assert.assertEquals(1, list.size());
-	}
-	@Test
-	public void ShouldBeGetFromIndex()
-	{
-		//ASSEMBLE
-		list.put("1", "one");
-		//ACT
-		String s = list.get(0);
-		//ASSERT
-		Assert.assertEquals("one", s);
 		Assert.assertEquals(1, list.getOrder().size());
 		Assert.assertEquals(1, list.size());
 	}
@@ -195,22 +211,6 @@ public class HashListTest
 		Assert.assertEquals(7, list.getOrder().size());
 		Assert.assertEquals(7, list.size());
 		Assert.assertTrue(ordered);
-	}
-	@Test
-	public void ShouldBeClear()
-	{
-		//ASSEMBLE
-		list.put("0", "zero");
-		list.put("1", "one");
-		list.put("2", "two");
-		list.put("3", "three");
-		list.put("4", "four");
-		list.put("5", "five");
-		list.put("6", "six");
-		//ACT
-		list.clear();
-		//ASSERT
-		Assert.assertEquals("{}", list.toString());
 	}
 	@Test
 	public void ShouldBeSorted()

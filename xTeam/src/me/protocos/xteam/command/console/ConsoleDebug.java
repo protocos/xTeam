@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.InviteHandler;
@@ -12,7 +13,10 @@ public class ConsoleDebug extends ConsoleCommand
 {
 	private String subCommand;
 
-	public ConsoleDebug(ConsoleCommandSender sender, String command)
+	public ConsoleDebug()
+	{
+	}
+	public ConsoleDebug(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -62,6 +66,6 @@ public class ConsoleDebug extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " debug [Option]";
+		return parseCommand.getBaseCommand() + " debug [Option]";
 	}
 }

@@ -28,33 +28,37 @@ public class TeamPlayerTest
 		mockData();
 	}
 	@Test
-	public void ShouldBePlayerFromName()
+	public void ShouldBeDistanceTo()
 	{
 		//ASSEMBLE
+		World world = new FakeWorld();
+		TeamPlayer player1 = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		TeamPlayer player2 = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 200, 64, 0)));
 		//ACT
-		player = new TeamPlayer("protocos");
+		double distance = player1.getDistanceTo(player2);
 		//ASSERT
-		Assert.assertEquals("protocos", player.getName());
+		Assert.assertEquals(200.0D, distance, 0);
 	}
 	@Test
-	public void ShouldBeOfflinePlayer()
+	public void ShouldBeEquals()
 	{
 		//ASSEMBLE
-		OfflinePlayer offlinePlayer = new FakeOfflinePlayer("protocos");
+		TeamPlayer player1 = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		TeamPlayer player2 = new TeamPlayer(new FakeOfflinePlayer("protocos", true, true, true));
 		//ACT
-		player = new TeamPlayer(offlinePlayer);
+		boolean equals = player1.equals(player2);
 		//ASSERT
-		Assert.assertEquals(offlinePlayer, player.getOfflinePlayer());
+		Assert.assertTrue(equals);
 	}
 	@Test
-	public void ShouldBeOnlinePlayer()
+	public void ShouldBeGetHealth()
 	{
 		//ASSEMBLE
-		Player onlinePlayer = new FakePlayer("protocos");
+		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		//ACT
-		player = new TeamPlayer(onlinePlayer);
+		double health = player.getHealth();
 		//ASSERT
-		Assert.assertEquals(onlinePlayer, player.getOnlinePlayer());
+		Assert.assertEquals(20.0, health, 0);
 	}
 	@Test
 	public void ShouldBeGetLocation()
@@ -71,51 +75,6 @@ public class TeamPlayerTest
 		Assert.assertEquals(0.0D, location.getZ(), 0);
 	}
 	@Test
-	public void ShouldBeDistanceTo()
-	{
-		//ASSEMBLE
-		World world = new FakeWorld();
-		TeamPlayer player1 = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
-		TeamPlayer player2 = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 200, 64, 0)));
-		//ACT
-		double distance = player1.getDistanceTo(player2);
-		//ASSERT
-		Assert.assertEquals(200.0D, distance, 0);
-	}
-	@Test
-	public void ShouldBeGetHealth()
-	{
-		//ASSEMBLE
-		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
-		//ACT
-		double health = player.getHealth();
-		//ASSERT
-		Assert.assertEquals(20.0, health, 0);
-	}
-	@Test
-	public void ShouldBeLastPlayed()
-	{
-		//ASSEMBLE
-		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
-		//ACT
-		String lastPlayed = player.getLastPlayed();
-		//ASSERT
-		Assert.assertEquals("Dec 31 @ 6:00 PM", lastPlayed);
-	}
-	@Test
-	public void ShouldBeRelativeXYZ()
-	{
-		//ASSEMBLE
-		Location location = new FakeLocation(new FakeWorld(), 64.4, 64.6, 64.4);
-		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, location));
-		//ACT
-		double relativeX = player.getRelativeX(), relativeY = player.getRelativeY(), relativeZ = player.getRelativeZ();
-		//ASSERT
-		Assert.assertEquals(Math.round(location.getX()), relativeX, 0);
-		Assert.assertEquals(Math.round(location.getY()), relativeY, 0);
-		Assert.assertEquals(Math.round(location.getZ()), relativeZ, 0);
-	}
-	@Test
 	public void ShouldBeGetServer()
 	{
 		//ASSEMBLE
@@ -124,16 +83,6 @@ public class TeamPlayerTest
 		//ACT
 		//ASSERT
 		Assert.assertEquals(server, player.getServer());
-	}
-	@Test
-	public void ShouldBeGetWorld()
-	{
-		//ASSEMBLE
-		World world = new FakeWorld();
-		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
-		//ACT
-		//ASSERT
-		Assert.assertEquals(world, player.getWorld());
 	}
 	@Test
 	public void ShouldBeGetTeam()
@@ -146,14 +95,30 @@ public class TeamPlayerTest
 		Assert.assertEquals(xTeam.tm.getTeam("one"), team);
 	}
 	@Test
-	public void ShouldBeHasTeam()
+	public void ShouldBeGetTeammates()
 	{
 		//ASSEMBLE
-		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		Team team = new Team.Builder("test").build();
+		TeamPlayer player1 = new TeamPlayer("one");
+		team.addPlayer("one");
+		team.addPlayer("two");
+		team.addPlayer("thr");
+		xTeam.tm.addTeam(team);
 		//ACT
-		boolean hasTeam = player.hasTeam();
 		//ASSERT
-		Assert.assertTrue(hasTeam);
+		Assert.assertEquals(true, player1.getTeammates().contains("two"));
+		Assert.assertEquals(true, player1.getTeammates().contains("thr"));
+		Assert.assertEquals(2, player1.getTeammates().size());
+	}
+	@Test
+	public void ShouldBeGetWorld()
+	{
+		//ASSEMBLE
+		World world = new FakeWorld();
+		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		//ACT
+		//ASSERT
+		Assert.assertEquals(world, player.getWorld());
 	}
 	@Test
 	public void ShouldBeHasPermission()
@@ -174,6 +139,16 @@ public class TeamPlayerTest
 		boolean hasPlayedbefore = player.hasPlayedBefore();
 		//ASSERT
 		Assert.assertTrue(hasPlayedbefore);
+	}
+	@Test
+	public void ShouldBeHasTeam()
+	{
+		//ASSEMBLE
+		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		//ACT
+		boolean hasTeam = player.hasTeam();
+		//ASSERT
+		Assert.assertTrue(hasTeam);
 	}
 	@Test
 	public void ShouldBeIsOnline()
@@ -230,54 +205,35 @@ public class TeamPlayerTest
 		Assert.assertTrue(isTeamLeader);
 	}
 	@Test
-	public void ShouldBeSendMessage()
+	public void ShouldBeLastPlayed()
 	{
 		//ASSEMBLE
 		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		//ACT
-		boolean sendMessage = player.sendMessage("test message");
+		String lastPlayed = player.getLastPlayed();
 		//ASSERT
-		Assert.assertEquals(true, sendMessage);
+		Assert.assertEquals("Dec 31 @ 6:00 PM", lastPlayed);
 	}
 	@Test
-	public void ShouldBeTeleportLocation()
+	public void ShouldBeNotEquals()
 	{
 		//ASSEMBLE
-		World world = new FakeWorld();
-		Location location = new FakeLocation(world, 0, 64, 0);
-		player = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		TeamPlayer player1 = new TeamPlayer(new FakeOfflinePlayer("protocos", true, true, true));
+		TeamPlayer player2 = new TeamPlayer(new FakeOfflinePlayer("kmlanglois", true, true, true));
 		//ACT
-		boolean teleport = player.teleport(location);
+		boolean equals = player1.equals(player2);
 		//ASSERT
-		Assert.assertEquals(true, teleport);
+		Assert.assertFalse(equals);
 	}
 	@Test
-	public void ShouldBeTeleportEntity()
+	public void ShouldBeOfflinePlayer()
 	{
 		//ASSEMBLE
-		World world = new FakeWorld();
-		TeamPlayer player1 = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
-		TeamPlayer player2 = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		OfflinePlayer offlinePlayer = new FakeOfflinePlayer("protocos");
 		//ACT
-		boolean teleport = player1.teleport(player2);
+		player = new TeamPlayer(offlinePlayer);
 		//ASSERT
-		Assert.assertEquals(true, teleport);
-	}
-	@Test
-	public void ShouldBeGetTeammates()
-	{
-		//ASSEMBLE
-		Team team = new Team.Builder("test").build();
-		TeamPlayer player1 = new TeamPlayer("one");
-		team.addPlayer("one");
-		team.addPlayer("two");
-		team.addPlayer("thr");
-		xTeam.tm.addTeam(team);
-		//ACT
-		//ASSERT
-		Assert.assertEquals(true, player1.getTeammates().contains("two"));
-		Assert.assertEquals(true, player1.getTeammates().contains("thr"));
-		Assert.assertEquals(2, player1.getTeammates().size());
+		Assert.assertEquals(offlinePlayer, player.getOfflinePlayer());
 	}
 	@Test
 	public void ShouldBeOfflineTeammates()
@@ -303,6 +259,16 @@ public class TeamPlayerTest
 		Assert.assertEquals(1, player1.getOfflineTeammates().size());
 	}
 	@Test
+	public void ShouldBeOnlinePlayer()
+	{
+		//ASSEMBLE
+		Player onlinePlayer = new FakePlayer("protocos");
+		//ACT
+		player = new TeamPlayer(onlinePlayer);
+		//ASSERT
+		Assert.assertEquals(onlinePlayer, player.getOnlinePlayer());
+	}
+	@Test
 	public void ShouldBeOnlineTeammates()
 	{
 		//ASSEMBLE
@@ -326,26 +292,60 @@ public class TeamPlayerTest
 		Assert.assertEquals(1, player1.getOnlineTeammates().size());
 	}
 	@Test
-	public void ShouldBeEquals()
+	public void ShouldBePlayerFromName()
 	{
 		//ASSEMBLE
-		TeamPlayer player1 = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
-		TeamPlayer player2 = new TeamPlayer(new FakeOfflinePlayer("protocos", true, true, true));
 		//ACT
-		boolean equals = player1.equals(player2);
+		player = new TeamPlayer("protocos");
 		//ASSERT
-		Assert.assertTrue(equals);
+		Assert.assertEquals("protocos", player.getName());
 	}
 	@Test
-	public void ShouldBeNotEquals()
+	public void ShouldBeRelativeXYZ()
 	{
 		//ASSEMBLE
-		TeamPlayer player1 = new TeamPlayer(new FakeOfflinePlayer("protocos", true, true, true));
-		TeamPlayer player2 = new TeamPlayer(new FakeOfflinePlayer("kmlanglois", true, true, true));
+		Location location = new FakeLocation(new FakeWorld(), 64.4, 64.6, 64.4);
+		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, location));
 		//ACT
-		boolean equals = player1.equals(player2);
+		double relativeX = player.getRelativeX(), relativeY = player.getRelativeY(), relativeZ = player.getRelativeZ();
 		//ASSERT
-		Assert.assertFalse(equals);
+		Assert.assertEquals(Math.round(location.getX()), relativeX, 0);
+		Assert.assertEquals(Math.round(location.getY()), relativeY, 0);
+		Assert.assertEquals(Math.round(location.getZ()), relativeZ, 0);
+	}
+	@Test
+	public void ShouldBeSendMessage()
+	{
+		//ASSEMBLE
+		player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		//ACT
+		boolean sendMessage = player.sendMessage("test message");
+		//ASSERT
+		Assert.assertEquals(true, sendMessage);
+	}
+	@Test
+	public void ShouldBeTeleportEntity()
+	{
+		//ASSEMBLE
+		World world = new FakeWorld();
+		TeamPlayer player1 = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		TeamPlayer player2 = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		//ACT
+		boolean teleport = player1.teleport(player2);
+		//ASSERT
+		Assert.assertEquals(true, teleport);
+	}
+	@Test
+	public void ShouldBeTeleportLocation()
+	{
+		//ASSEMBLE
+		World world = new FakeWorld();
+		Location location = new FakeLocation(world, 0, 64, 0);
+		player = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		//ACT
+		boolean teleport = player.teleport(location);
+		//ASSERT
+		Assert.assertEquals(true, teleport);
 	}
 	@Test
 	public void ShouldBeToString()

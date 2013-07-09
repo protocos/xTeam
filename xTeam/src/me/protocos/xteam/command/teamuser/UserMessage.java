@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.util.List;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
@@ -11,9 +11,10 @@ import org.bukkit.entity.Player;
 
 public class UserMessage extends UserCommand
 {
-	private List<String> list;
-
-	public UserMessage(Player sender, String command)
+	public UserMessage()
+	{
+	}
+	public UserMessage(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -21,10 +22,9 @@ public class UserMessage extends UserCommand
 	protected void act()
 	{
 		String message = "";
-		list = parseCommand.subList(1, parseCommand.size());
-		for (String s : list)
+		for (int i = 1; i < parseCommand.size(); i++)
 		{
-			message = message + " " + s;
+			message += " " + parseCommand.get(i);
 		}
 		for (String p : teamPlayer.getOnlineTeammates())
 		{
@@ -69,6 +69,6 @@ public class UserMessage extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " message [UserMessage]";
+		return parseCommand.getBaseCommand() + " message [UserMessage]";
 	}
 }

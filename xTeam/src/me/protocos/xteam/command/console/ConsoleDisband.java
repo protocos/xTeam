@@ -2,6 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
@@ -14,7 +15,10 @@ public class ConsoleDisband extends ConsoleCommand
 {
 	private String teamName;
 
-	public ConsoleDisband(ConsoleCommandSender sender, String command)
+	public ConsoleDisband()
+	{
+	}
+	public ConsoleDisband(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -55,6 +59,6 @@ public class ConsoleDisband extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " disband [Team]";
+		return parseCommand.getBaseCommand() + " disband [Team]";
 	}
 }

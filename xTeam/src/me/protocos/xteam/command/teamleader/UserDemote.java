@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.TeamPlayer;
@@ -13,7 +14,10 @@ public class UserDemote extends UserCommand
 {
 	private String otherPlayer;
 
-	public UserDemote(Player sender, String command)
+	public UserDemote()
+	{
+	}
+	public UserDemote(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -78,6 +82,6 @@ public class UserDemote extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " demote [Player]";
+		return parseCommand.getBaseCommand() + " demote [Player]";
 	}
 }

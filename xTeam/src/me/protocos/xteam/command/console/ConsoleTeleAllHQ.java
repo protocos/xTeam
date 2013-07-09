@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
@@ -12,7 +13,10 @@ import org.bukkit.entity.Player;
 
 public class ConsoleTeleAllHQ extends ConsoleCommand
 {
-	public ConsoleTeleAllHQ(ConsoleCommandSender sender, String command)
+	public ConsoleTeleAllHQ()
+	{
+	}
+	public ConsoleTeleAllHQ(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -61,6 +65,6 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " teleallhq";
+		return parseCommand.getBaseCommand() + " teleallhq";
 	}
 }

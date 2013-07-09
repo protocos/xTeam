@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
@@ -9,7 +10,10 @@ import org.bukkit.entity.Player;
 
 public class UserOpen extends UserCommand
 {
-	public UserOpen(Player sender, String command)
+	public UserOpen()
+	{
+	}
+	public UserOpen(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -63,6 +67,6 @@ public class UserOpen extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " open";
+		return parseCommand.getBaseCommand() + " open";
 	}
 }

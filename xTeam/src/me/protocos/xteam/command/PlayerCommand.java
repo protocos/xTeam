@@ -6,19 +6,22 @@ public abstract class PlayerCommand extends Command implements IPlayerCommand
 {
 	protected Player sender;
 
-	public PlayerCommand(Player sender, String command)
+	public PlayerCommand()
+	{
+	}
+	public PlayerCommand(Player sender, CommandParser command)
 	{
 		super(sender, command);
 		setSender(sender);
 	}
 
-	public void setSender(Player sender)
-	{
-		this.sender = sender;
-	}
-
 	public Player getSender()
 	{
 		return sender;
+	}
+
+	public void setSender(Player sender)
+	{
+		this.sender = sender;
 	}
 }

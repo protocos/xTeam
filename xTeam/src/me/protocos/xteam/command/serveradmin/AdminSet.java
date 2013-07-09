@@ -2,6 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
@@ -15,7 +16,10 @@ public class AdminSet extends ServerAdminCommand
 {
 	private String playerName, teamName;
 
-	public AdminSet(Player sender, String command)
+	public AdminSet()
+	{
+	}
+	public AdminSet(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -34,6 +38,16 @@ public class AdminSet extends ServerAdminCommand
 		else
 		{
 			addPlayerToTeam(p, xTeam.tm.getTeam(teamName));
+		}
+	}
+	private void addPlayerToTeam(TeamPlayer p, Team team)
+	{
+		team.addPlayer(p.getName());
+		sender.sendMessage(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
+		if (!p.getName().equals(sender.getName()))
+		{
+			p.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName() + " by an admin");
+			p.sendMessageToTeam(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName() + " by an admin", sender);
 		}
 	}
 	@Override
@@ -75,6 +89,18 @@ public class AdminSet extends ServerAdminCommand
 			throw new TeamPlayerMaxException();
 		}
 	}
+	private void createTeamWithLeader(String team, String p)
+	{
+		xTeam.tm.createTeamWithLeader(team, p);
+		Team t = xTeam.tm.getTeam(team);
+		sender.sendMessage(team + " has been " + ChatColor.AQUA + "created");
+		sender.sendMessage(p + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team);
+		if (!p.equals(sender.getName()))
+		{
+			t.sendMessage(team + " has been " + ChatColor.AQUA + "created" + ChatColor.RESET + " by an admin");
+			t.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team + " by an admin");
+		}
+	}
 	@Override
 	public String getPattern()
 	{
@@ -88,7 +114,7 @@ public class AdminSet extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " set [Player] [Team]";
+		return parseCommand.getBaseCommand() + " set [Player] [Team]";
 	}
 	private void removePlayer(TeamPlayer p)
 	{
@@ -106,28 +132,6 @@ public class AdminSet extends ServerAdminCommand
 			if (!p.getName().equals(sender.getName()))
 				p.sendMessage(team.getName() + " has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by an admin");
 			xTeam.tm.removeTeam(team.getName());
-		}
-	}
-	private void createTeamWithLeader(String team, String p)
-	{
-		xTeam.tm.createTeamWithLeader(team, p);
-		Team t = xTeam.tm.getTeam(team);
-		sender.sendMessage(team + " has been " + ChatColor.AQUA + "created");
-		sender.sendMessage(p + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team);
-		if (!p.equals(sender.getName()))
-		{
-			t.sendMessage(team + " has been " + ChatColor.AQUA + "created" + ChatColor.RESET + " by an admin");
-			t.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team + " by an admin");
-		}
-	}
-	private void addPlayerToTeam(TeamPlayer p, Team team)
-	{
-		team.addPlayer(p.getName());
-		sender.sendMessage(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
-		if (!p.getName().equals(sender.getName()))
-		{
-			p.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName() + " by an admin");
-			p.sendMessageToTeam(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName() + " by an admin", sender);
 		}
 	}
 }

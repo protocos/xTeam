@@ -2,6 +2,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminReload;
 import me.protocos.xteam.testing.FakeLocation;
@@ -23,7 +24,7 @@ public class AdminReloadTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminReload(fakePlayerSender, "reload");
+		ServerAdminCommand fakeCommand = new AdminReload(fakePlayerSender, new CommandParser("/team reload"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

@@ -32,9 +32,14 @@ public class TeamServiceManager
 		tpm = new TeamPlayerManager();
 		config = plugin.getConfig();
 	}
-	public void registerEvents(Listener listener)
+	public OfflinePlayer getOfflinePlayer(String name)
 	{
-		pm.registerEvents(listener, plugin);
+		for (OfflinePlayer offline : bukkit.getOfflinePlayers())
+		{
+			if (offline.getName().equals(name))
+				return offline;
+		}
+		return null;
 	}
 	public Player getPlayer(String name)
 	{
@@ -42,15 +47,6 @@ public class TeamServiceManager
 		{
 			if (online.getName().equals(name))
 				return online;
-		}
-		return null;
-	}
-	public OfflinePlayer getOfflinePlayer(String name)
-	{
-		for (OfflinePlayer offline : bukkit.getOfflinePlayers())
-		{
-			if (offline.getName().equals(name))
-				return offline;
 		}
 		return null;
 	}
@@ -112,13 +108,17 @@ public class TeamServiceManager
 		if (!config.contains(setting = "spout.name_reveal_time"))
 			config.set(setting, 5);
 	}
-	public void saveConfig()
+	public void registerEvents(Listener listener)
 	{
-		plugin.saveConfig();
+		pm.registerEvents(listener, plugin);
 	}
 	public void reloadConfig()
 	{
 		plugin.reloadConfig();
 		loadConfig();
+	}
+	public void saveConfig()
+	{
+		plugin.saveConfig();
 	}
 }

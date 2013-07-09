@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.Command;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.HelpPages;
@@ -15,10 +15,12 @@ public class AdminHelp extends ServerAdminCommand
 	private HelpPages pages;
 	private int pageNum;
 
-	public AdminHelp(Player sender, String command, String commandID)
+	public AdminHelp()
+	{
+	}
+	public AdminHelp(Player sender, CommandParser command)
 	{
 		super(sender, command);
-		Command.baseCommand = commandID;
 		pages = new HelpPages();
 	}
 	@Override
@@ -104,6 +106,6 @@ public class AdminHelp extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " admin";
+		return parseCommand.getBaseCommand() + " admin";
 	}
 }

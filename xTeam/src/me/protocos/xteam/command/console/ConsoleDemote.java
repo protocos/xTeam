@@ -2,6 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
@@ -13,7 +14,10 @@ public class ConsoleDemote extends ConsoleCommand
 {
 	private String teamName, playerName;
 
-	public ConsoleDemote(ConsoleCommandSender sender, String command)
+	public ConsoleDemote()
+	{
+	}
+	public ConsoleDemote(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -75,6 +79,6 @@ public class ConsoleDemote extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " demote [Team] [Player]";
+		return parseCommand.getBaseCommand() + " demote [Team] [Player]";
 	}
 }

@@ -9,6 +9,7 @@ import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamInvalidPageException;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
+import me.protocos.xteam.command.CommandParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +31,7 @@ public class HelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserHelp(fakePlayerSender, "help", "/team");
+		UserCommand fakeCommand = new UserHelp(fakePlayerSender, new CommandParser("/team help"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -51,7 +52,7 @@ public class HelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserHelp(fakePlayerSender, "help 2", "/team");
+		UserCommand fakeCommand = new UserHelp(fakePlayerSender, new CommandParser("/team help 2"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -72,7 +73,7 @@ public class HelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserHelp(fakePlayerSender, "help 3", "/team");
+		UserCommand fakeCommand = new UserHelp(fakePlayerSender, new CommandParser("/team help 3"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -93,7 +94,7 @@ public class HelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserHelp(fakePlayerSender, "help 4", "/team");
+		UserCommand fakeCommand = new UserHelp(fakePlayerSender, new CommandParser("/team help 4"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

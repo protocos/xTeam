@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.*;
@@ -12,7 +13,10 @@ public class UserRemove extends UserCommand
 {
 	private String otherPlayer;
 
-	public UserRemove(Player sender, String command)
+	public UserRemove()
+	{
+	}
+	public UserRemove(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -74,6 +78,6 @@ public class UserRemove extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " remove [Player]";
+		return parseCommand.getBaseCommand() + " remove [Player]";
 	}
 }

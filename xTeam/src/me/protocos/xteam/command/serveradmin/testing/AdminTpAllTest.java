@@ -2,6 +2,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminTpAll;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
@@ -24,7 +25,7 @@ public class AdminTpAllTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminTpAll(fakePlayerSender, "tpall one");
+		ServerAdminCommand fakeCommand = new AdminTpAll(fakePlayerSender, new CommandParser("/team tpall one"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -36,7 +37,7 @@ public class AdminTpAllTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminTpAll(fakePlayerSender, "tpall three");
+		ServerAdminCommand fakeCommand = new AdminTpAll(fakePlayerSender, new CommandParser("/team tpall three"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

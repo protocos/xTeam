@@ -3,6 +3,7 @@ package me.protocos.xteam.command.console.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleRename;
 import me.protocos.xteam.core.Data;
@@ -29,7 +30,7 @@ public class ConsoleRenameTest
 	public void ShouldBeConsoleRenameExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleRename(fakeConsoleSender, "rename one newname");
+		ConsoleCommand fakeCommand = new ConsoleRename(fakeConsoleSender, new CommandParser("/team rename one newname"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -41,7 +42,7 @@ public class ConsoleRenameTest
 	public void ShouldBeConsoleRenameExecuteTeamAlreadyExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleRename(fakeConsoleSender, "rename two one");
+		ConsoleCommand fakeCommand = new ConsoleRename(fakeConsoleSender, new CommandParser("/team rename two one"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -53,7 +54,7 @@ public class ConsoleRenameTest
 	public void ShouldBeConsoleRenameExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleRename(fakeConsoleSender, "rename three one");
+		ConsoleCommand fakeCommand = new ConsoleRename(fakeConsoleSender, new CommandParser("/team rename three one"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -66,7 +67,7 @@ public class ConsoleRenameTest
 	{
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
-		ConsoleCommand fakeCommand = new ConsoleRename(fakeConsoleSender, "rename two Ã");
+		ConsoleCommand fakeCommand = new ConsoleRename(fakeConsoleSender, new CommandParser("/team rename two Ã"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

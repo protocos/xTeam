@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamException;
@@ -13,10 +14,15 @@ import org.bukkit.entity.Player;
 
 public class AdminChatSpy extends ServerAdminCommand
 {
-	public AdminChatSpy(Player sender, String command)
+	public AdminChatSpy()
+	{
+	}
+
+	public AdminChatSpy(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
+
 	@Override
 	protected void act()
 	{
@@ -64,6 +70,6 @@ public class AdminChatSpy extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " chatspy";
+		return parseCommand.getBaseCommand() + " chatspy";
 	}
 }

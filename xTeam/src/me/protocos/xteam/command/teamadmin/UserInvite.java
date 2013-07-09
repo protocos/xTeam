@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.teamadmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.TeamPlayer;
@@ -13,7 +14,10 @@ public class UserInvite extends UserCommand
 {
 	private String otherPlayer;
 
-	public UserInvite(Player sender, String command)
+	public UserInvite()
+	{
+	}
+	public UserInvite(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -80,6 +84,6 @@ public class UserInvite extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " invite [Player]";
+		return parseCommand.getBaseCommand() + " invite [Player]";
 	}
 }

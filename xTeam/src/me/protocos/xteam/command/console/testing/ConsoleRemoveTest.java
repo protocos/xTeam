@@ -3,6 +3,7 @@ package me.protocos.xteam.command.console.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleRemove;
 import me.protocos.xteam.core.Data;
@@ -27,7 +28,7 @@ public class ConsoleRemoveTest
 	{
 		//ASSEMBLE
 		FakeConsoleSender fakeConsoleSender = new FakeConsoleSender();
-		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one protocos");
+		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, new CommandParser("/team remove one protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -36,26 +37,11 @@ public class ConsoleRemoveTest
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
-	public void ShouldBeConsoleRemoveExecuteLastConsole()
-	{
-		//ASSEMBLE
-		xTeam.tm.getTeam("one").removePlayer("protocos");
-		FakeConsoleSender fakeConsoleSender = new FakeConsoleSender();
-		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one kmlanglois");
-		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
-		//ASSERT
-		Assert.assertEquals("You removed kmlanglois from one", fakeConsoleSender.getMessage(0));
-		Assert.assertEquals("one has been disbanded", fakeConsoleSender.getMessage(1));
-		Assert.assertFalse(xTeam.tm.contains("one"));
-		Assert.assertTrue(fakeExecuteResponse);
-	}
-	@Test
 	public void ShouldBeConsoleRemoveExecuteConsoleHasNoTeam()
 	{
 		//ASSEMBLE
 		FakeConsoleSender fakeConsoleSender = new FakeConsoleSender();
-		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one Lonely");
+		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, new CommandParser("/team remove one Lonely"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -68,7 +54,7 @@ public class ConsoleRemoveTest
 	{
 		//ASSEMBLE
 		FakeConsoleSender fakeConsoleSender = new FakeConsoleSender();
-		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one newbie");
+		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, new CommandParser("/team remove one newbie"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -81,13 +67,28 @@ public class ConsoleRemoveTest
 	{
 		//ASSEMBLE
 		FakeConsoleSender fakeConsoleSender = new FakeConsoleSender();
-		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, "remove one kmlanglois");
+		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, new CommandParser("/team remove one kmlanglois"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
+	}
+	@Test
+	public void ShouldBeConsoleRemoveExecuteLastConsole()
+	{
+		//ASSEMBLE
+		xTeam.tm.getTeam("one").removePlayer("protocos");
+		FakeConsoleSender fakeConsoleSender = new FakeConsoleSender();
+		ConsoleCommand fakeCommand = new ConsoleRemove(fakeConsoleSender, new CommandParser("/team remove one kmlanglois"));
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals("You removed kmlanglois from one", fakeConsoleSender.getMessage(0));
+		Assert.assertEquals("one has been disbanded", fakeConsoleSender.getMessage(1));
+		Assert.assertFalse(xTeam.tm.contains("one"));
+		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@After
 	public void takedown()

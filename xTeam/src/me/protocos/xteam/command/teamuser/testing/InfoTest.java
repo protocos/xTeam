@@ -9,6 +9,7 @@ import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
+import me.protocos.xteam.command.CommandParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -45,7 +46,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info two");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info two"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -62,7 +63,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info mastermind");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info mastermind"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -79,7 +80,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info red");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info red"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -90,7 +91,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info strandedhelix");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info strandedhelix"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -110,7 +111,7 @@ public class InfoTest
 		xTeam.tm.getTeam("red").promote("strandedhelix");
 		xTeam.tm.getTeam("red").promote("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -131,7 +132,7 @@ public class InfoTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -151,7 +152,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -163,7 +164,7 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, "info three");
+		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info three"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

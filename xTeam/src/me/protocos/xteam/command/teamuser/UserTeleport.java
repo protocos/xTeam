@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Functions;
@@ -17,7 +18,10 @@ public class UserTeleport extends UserCommand
 {
 	private String playerName;
 
-	public UserTeleport(Player sender, String command)
+	public UserTeleport()
+	{
+	}
+	public UserTeleport(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -184,7 +188,7 @@ public class UserTeleport extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " tele {Player}";
+		return parseCommand.getBaseCommand() + " tele {Player}";
 	}
 	private void tele(String teammate)
 	{

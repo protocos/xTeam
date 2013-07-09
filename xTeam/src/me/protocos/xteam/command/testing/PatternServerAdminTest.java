@@ -3,7 +3,6 @@ package me.protocos.xteam.command.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.Command;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -176,42 +175,6 @@ public class PatternServerAdminTest
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
 	}
 	@Test
-	public void ShouldBeTeamAdminTag()
-	{
-		baseCmd = "tag";
-		command = "tag TEAM TAG";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "tag TEAM TAG ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "tag TEAM TAG ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "t TEAM TAG ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "ta TEAM TAG";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "tg TEAM TAG ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "tg TEAM TAG sdfhkabkl";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-	}
-	@Test
-	public void ShouldBeTeamAdminOpen()
-	{
-		baseCmd = "open";
-		command = "open TEAM";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "open TEAM ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "open TEAM ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "o TEAM ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "op TEAM";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-		command = "open TEAM sdfhkabkl";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
-	}
-	@Test
 	public void ShouldBeServerAdminSet()
 	{
 		baseCmd = "set";
@@ -319,10 +282,45 @@ public class PatternServerAdminTest
 		command = "update eqwlkejrnfs";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
 	}
+	@Test
+	public void ShouldBeTeamAdminOpen()
+	{
+		baseCmd = "open";
+		command = "open TEAM";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+		command = "open TEAM ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+		command = "open TEAM ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+		command = "o TEAM ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+		command = "op TEAM";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+		command = "open TEAM sdfhkabkl";
+		Assert.assertFalse(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+	}
+	@Test
+	public void ShouldBeTeamAdminTag()
+	{
+		baseCmd = "tag";
+		command = "tag TEAM TAG";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+		command = "tag TEAM TAG ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+		command = "tag TEAM TAG ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+		command = "t TEAM TAG ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+		command = "ta TEAM TAG";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+		command = "tg TEAM TAG ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+		command = "tg TEAM TAG sdfhkabkl";
+		Assert.assertFalse(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+	}
 	@After
 	public void takedown()
 	{
-		Command.setBaseCommand("/team");
 		Assert.assertTrue(xTeam.cm.getUsage("serveradmin_" + baseCmd).replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + xTeam.cm.getPattern("serveradmin_" + baseCmd)));
 	}
 }

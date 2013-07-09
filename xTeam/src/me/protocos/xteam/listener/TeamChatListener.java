@@ -4,7 +4,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.util.ColorUtil;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -37,16 +37,16 @@ public class TeamChatListener implements Listener
 				Team team = teamPlayer.getTeam();
 				String playerName = teamPlayer.getName();
 				String teamTag = "[" + teamPlayer.getTeam().getTag() + "]";
-				event.setFormat(ColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.RESET + " " + format);
+				event.setFormat(ChatColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.RESET + " " + format);
 				if (Data.chatStatus.contains(playerName))
 				{
 					event.setCancelled(true);
-					team.sendMessage("[" + ColorUtil.getColor(Data.NAME_COLOR) + playerName + ChatColor.RESET + "] " + msg);
+					team.sendMessage("[" + ChatColorUtil.getColor(Data.NAME_COLOR) + playerName + ChatColor.RESET + "] " + msg);
 					for (String p : Data.spies)
 					{
 						TeamPlayer spy = new TeamPlayer(p);
 						if (!spy.isOnSameTeam(teamPlayer))
-							spy.sendMessage(ColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
+							spy.sendMessage(ChatColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
 					}
 					xTeam.log.info("[" + playerName + "] " + event.getMessage());
 				}

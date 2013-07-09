@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamuser.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamuser.UserMainHelp;
 import me.protocos.xteam.testing.FakeLocation;
@@ -23,7 +24,7 @@ public class MainHelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserMainHelp(fakePlayerSender, "", "/team");
+		UserCommand fakeCommand = new UserMainHelp(fakePlayerSender, new CommandParser("/team"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

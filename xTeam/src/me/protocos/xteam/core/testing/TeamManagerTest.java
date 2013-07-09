@@ -14,6 +14,17 @@ public class TeamManagerTest
 	{
 	}
 	@Test
+	public void ShouldBeClear()
+	{
+		//ASSEMBLE
+		xTeam.tm.createTeamWithLeader("test1", "protocos");
+		xTeam.tm.createTeamWithLeader("test2", "kmlanglois");
+		//ACT
+		xTeam.tm.clear();
+		//ASSERT
+		Assert.assertTrue(xTeam.tm.getAllTeams().size() == 0);
+	}
+	@Test
 	public void ShouldBeCreateTeam()
 	{
 		//ASSEMBLE
@@ -33,15 +44,15 @@ public class TeamManagerTest
 		Assert.assertEquals("protocos", xTeam.tm.getTeam("test").getLeader());
 	}
 	@Test
-	public void ShouldBeClear()
+	public void ShouldBeGetAllTeams()
 	{
 		//ASSEMBLE
 		xTeam.tm.createTeamWithLeader("test1", "protocos");
 		xTeam.tm.createTeamWithLeader("test2", "kmlanglois");
 		//ACT
-		xTeam.tm.clear();
 		//ASSERT
-		Assert.assertTrue(xTeam.tm.getAllTeams().size() == 0);
+		Assert.assertEquals("[name:test1 tag:test1 open:false default:false timeHeadquartersSet:0 hq: leader:protocos admins:protocos players:protocos, " +
+				"name:test2 tag:test2 open:false default:false timeHeadquartersSet:0 hq: leader:kmlanglois admins:kmlanglois players:kmlanglois]", xTeam.tm.getAllTeams().toString());
 	}
 	@Test
 	public void ShouldBeGetTeam()
@@ -52,17 +63,6 @@ public class TeamManagerTest
 		Team test = xTeam.tm.getTeam("one");
 		//ASSERT
 		Assert.assertEquals("one", test.getName());
-	}
-	@Test
-	public void ShouldBeGetAllTeams()
-	{
-		//ASSEMBLE
-		xTeam.tm.createTeamWithLeader("test1", "protocos");
-		xTeam.tm.createTeamWithLeader("test2", "kmlanglois");
-		//ACT
-		//ASSERT
-		Assert.assertEquals("[name:test1 tag:test1 open:false default:false timeHeadquartersSet:0 hq: leader:protocos admins:protocos players:protocos, " +
-				"name:test2 tag:test2 open:false default:false timeHeadquartersSet:0 hq: leader:kmlanglois admins:kmlanglois players:kmlanglois]", xTeam.tm.getAllTeams().toString());
 	}
 	@Test
 	public void ShouldBeSameNameConflict()

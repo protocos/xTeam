@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.TeamPlayer;
@@ -14,7 +15,10 @@ public class UserRename extends UserCommand
 {
 	private String newName;
 
-	public UserRename(Player sender, String command)
+	public UserRename()
+	{
+	}
+	public UserRename(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -84,6 +88,6 @@ public class UserRename extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " rename [Name]";
+		return parseCommand.getBaseCommand() + " rename [Name]";
 	}
 }

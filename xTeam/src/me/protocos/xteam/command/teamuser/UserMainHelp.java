@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
@@ -13,10 +14,13 @@ public class UserMainHelp extends UserCommand
 {
 	String commandID;
 
-	public UserMainHelp(Player sender, String command, String id)
+	public UserMainHelp()
+	{
+	}
+	public UserMainHelp(Player sender, CommandParser command)
 	{
 		super(sender, command);
-		this.commandID = id;
+		this.commandID = command.getBaseCommand();
 	}
 	@Override
 	protected void act()
@@ -60,6 +64,6 @@ public class UserMainHelp extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " {help}";
+		return parseCommand.getBaseCommand() + " {help}";
 	}
 }

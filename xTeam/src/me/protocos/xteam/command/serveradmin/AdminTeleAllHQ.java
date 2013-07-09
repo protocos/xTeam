@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
@@ -14,7 +15,10 @@ import org.bukkit.entity.Player;
 
 public class AdminTeleAllHQ extends ServerAdminCommand
 {
-	public AdminTeleAllHQ(Player sender, String command)
+	public AdminTeleAllHQ()
+	{
+	}
+	public AdminTeleAllHQ(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -77,6 +81,6 @@ public class AdminTeleAllHQ extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " teleallhq";
+		return parseCommand.getBaseCommand() + " teleallhq";
 	}
 }

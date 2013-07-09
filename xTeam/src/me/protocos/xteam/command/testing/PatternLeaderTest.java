@@ -3,7 +3,6 @@ package me.protocos.xteam.command.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.Command;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -98,6 +97,23 @@ public class PatternLeaderTest
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
 	}
 	@Test
+	public void ShouldBeTeamLeaderSetleader()
+	{
+		baseCmd = "setleader";
+		command = "setleader PLAYER";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "setleader PLAYER ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "setl PLAYER";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "setlead PLAYER ";
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "set PLAYER dfsa";
+		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+		command = "stl PLAYER ";
+		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
+	}
+	@Test
 	public void ShouldBeTeamLeaderTag()
 	{
 		baseCmd = "tag";
@@ -116,27 +132,9 @@ public class PatternLeaderTest
 		command = "tg TEAM sdfhkabkl";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
 	}
-	@Test
-	public void ShouldBeTeamLeaderSetleader()
-	{
-		baseCmd = "setleader";
-		command = "setleader PLAYER";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
-		command = "setleader PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
-		command = "setl PLAYER";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
-		command = "setlead PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
-		command = "set PLAYER dfsa";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
-		command = "stl PLAYER ";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("leader_" + baseCmd)));
-	}
 	@After
 	public void takedown()
 	{
-		Command.setBaseCommand("/team");
 		Assert.assertTrue(xTeam.cm.getUsage("leader_" + baseCmd).replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + xTeam.cm.getPattern("leader_" + baseCmd)));
 	}
 }

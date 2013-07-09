@@ -2,6 +2,7 @@ package me.protocos.xteam.command.console.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleInfo;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
@@ -26,7 +27,7 @@ public class ConsoleInfoTest
 	public void ShouldBeConsoleInfoExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleInfo(fakeConsoleSender, "info protocos");
+		ConsoleCommand fakeCommand = new ConsoleInfo(fakeConsoleSender, new CommandParser("/team info protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -52,7 +53,7 @@ public class ConsoleInfoTest
 	public void ShouldBeConsoleInfoExecute2()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleInfo(fakeConsoleSender, "info two");
+		ConsoleCommand fakeCommand = new ConsoleInfo(fakeConsoleSender, new CommandParser("/team info two"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -74,7 +75,7 @@ public class ConsoleInfoTest
 	public void ShouldBeConsoleInfoExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleInfo(fakeConsoleSender, "info Lonely");
+		ConsoleCommand fakeCommand = new ConsoleInfo(fakeConsoleSender, new CommandParser("/team info Lonely"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -85,7 +86,7 @@ public class ConsoleInfoTest
 	public void ShouldBeConsoleInfoExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleInfo(fakeConsoleSender, "info three");
+		ConsoleCommand fakeCommand = new ConsoleInfo(fakeConsoleSender, new CommandParser("/team info three"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

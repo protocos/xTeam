@@ -11,9 +11,9 @@ public class TeamPlayerManager implements ITeamPlayerManager
 		players = new HashList<String, ITeamPlayer>();
 	}
 
-	public void logOn(ITeamPlayer player)
+	public ITeamPlayer getTeamPlayer(String name)
 	{
-		players.put(player.getName(), player);
+		return players.get(name);
 	}
 
 	public void logOff(String name)
@@ -21,9 +21,9 @@ public class TeamPlayerManager implements ITeamPlayerManager
 		players.remove(name);
 	}
 
-	public ITeamPlayer getTeamPlayer(String name)
+	public void logOn(ITeamPlayer player)
 	{
-		return players.get(name);
+		players.put(player.getName(), player);
 	}
 
 }

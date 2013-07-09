@@ -10,6 +10,7 @@ import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
 import org.bukkit.Location;
+import me.protocos.xteam.command.CommandParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class ReturnTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
 		Data.returnLocations.put(fakePlayerSender, returnLocation);
-		UserCommand fakeCommand = new UserReturn(fakePlayerSender, "return");
+		UserCommand fakeCommand = new UserReturn(fakePlayerSender, new CommandParser("/team return"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -42,7 +43,7 @@ public class ReturnTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("mastermind", new FakeLocation());
-		UserCommand fakeCommand = new UserReturn(fakePlayerSender, "return");
+		UserCommand fakeCommand = new UserReturn(fakePlayerSender, new CommandParser("/team return"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -58,7 +59,7 @@ public class ReturnTest
 		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
 		Data.returnLocations.put(fakePlayerSender, returnLocation);
 		fakePlayerSender.setNoDamageTicks(1);
-		UserCommand fakeCommand = new UserReturn(fakePlayerSender, "return");
+		UserCommand fakeCommand = new UserReturn(fakePlayerSender, new CommandParser("/team return"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -73,7 +74,7 @@ public class ReturnTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
 		Data.returnLocations.put(fakePlayerSender, returnLocation);
-		UserCommand fakeCommand = new UserReturn(fakePlayerSender, "return");
+		UserCommand fakeCommand = new UserReturn(fakePlayerSender, new CommandParser("/team return"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -90,7 +91,7 @@ public class ReturnTest
 		Location before = fakePlayerSender.getLocation();
 		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
 		Data.returnLocations.put(fakePlayerSender, returnLocation);
-		UserCommand fakeCommand = new UserReturn(fakePlayerSender, "return");
+		UserCommand fakeCommand = new UserReturn(fakePlayerSender, new CommandParser("/team return"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -107,7 +108,7 @@ public class ReturnTest
 		Location before = fakePlayerSender.getLocation();
 		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
 		Data.returnLocations.put(fakePlayerSender, returnLocation);
-		UserCommand fakeCommand = new UserReturn(fakePlayerSender, "return");
+		UserCommand fakeCommand = new UserReturn(fakePlayerSender, new CommandParser("/team return"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

@@ -1,7 +1,8 @@
 package me.protocos.xteam.command.teamuser;
 
-import static me.protocos.xteam.util.StringUtil.*;
+import static me.protocos.xteam.util.StringUtil.OPTIONAL_WHITE_SPACE;
 import java.util.List;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Functions;
@@ -15,7 +16,10 @@ import org.bukkit.entity.Player;
 
 public class UserHeadquarters extends UserCommand
 {
-	public UserHeadquarters(Player sender, String command)
+	public UserHeadquarters()
+	{
+	}
+	public UserHeadquarters(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -133,7 +137,7 @@ public class UserHeadquarters extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " hq";
+		return parseCommand.getBaseCommand() + " hq";
 	}
 	private void teleHQ(final TeamPlayer playerTele)
 	{

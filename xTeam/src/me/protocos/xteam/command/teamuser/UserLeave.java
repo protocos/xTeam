@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.TeamPlayer;
@@ -12,7 +13,10 @@ import org.bukkit.entity.Player;
 
 public class UserLeave extends UserCommand
 {
-	public UserLeave(Player sender, String command)
+	public UserLeave()
+	{
+	}
+	public UserLeave(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -72,6 +76,6 @@ public class UserLeave extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " leave";
+		return parseCommand.getBaseCommand() + " leave";
 	}
 }

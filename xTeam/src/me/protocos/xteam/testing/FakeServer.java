@@ -26,20 +26,6 @@ public class FakeServer implements Server
 {
 
 	@Override
-	public Set<String> getListeningPluginChannels()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void sendPluginMessage(Plugin arg0, String arg1, byte[] arg2)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public boolean addRecipe(Recipe arg0)
 	{
 		// TODO Auto-generated method stub
@@ -82,13 +68,6 @@ public class FakeServer implements Server
 	}
 
 	@Override
-	public Inventory createInventory(InventoryHolder arg0, InventoryType arg1)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Inventory createInventory(InventoryHolder arg0, int arg1)
 	{
 		// TODO Auto-generated method stub
@@ -97,6 +76,13 @@ public class FakeServer implements Server
 
 	@Override
 	public Inventory createInventory(InventoryHolder arg0, int arg1, String arg2)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Inventory createInventory(InventoryHolder arg0, InventoryType arg1)
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -215,13 +201,6 @@ public class FakeServer implements Server
 	}
 
 	@Override
-	public Set<String> getIPBans()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getIp()
 	{
 		// TODO Auto-generated method stub
@@ -229,7 +208,21 @@ public class FakeServer implements Server
 	}
 
 	@Override
+	public Set<String> getIPBans()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public ItemFactory getItemFactory()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<String> getListeningPluginChannels()
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -369,6 +362,13 @@ public class FakeServer implements Server
 	}
 
 	@Override
+	public ScoreboardManager getScoreboardManager()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public String getServerId()
 	{
 		// TODO Auto-generated method stub
@@ -488,14 +488,14 @@ public class FakeServer implements Server
 	}
 
 	@Override
-	public String getWorldType()
+	public List<World> getWorlds()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<World> getWorlds()
+	public String getWorldType()
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -565,6 +565,13 @@ public class FakeServer implements Server
 	}
 
 	@Override
+	public void sendPluginMessage(Plugin arg0, String arg1, byte[] arg2)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void setDefaultGameMode(GameMode arg0)
 	{
 		// TODO Auto-generated method stub
@@ -618,13 +625,6 @@ public class FakeServer implements Server
 	{
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public ScoreboardManager getScoreboardManager()
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

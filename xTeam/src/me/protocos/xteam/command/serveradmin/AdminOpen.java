@@ -2,6 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
@@ -16,7 +17,10 @@ public class AdminOpen extends ServerAdminCommand
 {
 	String teamName;
 
-	public AdminOpen(Player sender, String command)
+	public AdminOpen()
+	{
+	}
+	public AdminOpen(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -63,6 +67,6 @@ public class AdminOpen extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " open [Team]";
+		return parseCommand.getBaseCommand() + " open [Team]";
 	}
 }

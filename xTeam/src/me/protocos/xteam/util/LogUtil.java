@@ -46,24 +46,22 @@ public class LogUtil implements ILog
 			e.printStackTrace();
 		}
 	}
+	public void close()
+	{
+		printStream.close();
+	}
+	public void custom(String message)
+	{
+		write(message);
+	}
 	public void debug(String message)
 	{
 		message = "[DEBUG] " + message;
 		write(message);
 	}
-	public void info(String message)
-	{
-		message = "[INFO] " + message;
-		write(message);
-	}
 	public void error(String message)
 	{
 		message = "[ERROR] " + message;
-		write(message);
-	}
-	public void fatal(String message)
-	{
-		message = "[FATAL] " + message;
 		write(message);
 	}
 	public void exception(Exception e)
@@ -77,17 +75,19 @@ public class LogUtil implements ILog
 			}
 		}
 	}
-	public void custom(String message)
+	public void fatal(String message)
 	{
+		message = "[FATAL] " + message;
+		write(message);
+	}
+	public void info(String message)
+	{
+		message = "[INFO] " + message;
 		write(message);
 	}
 	public void write(String message)
 	{
 		Timestamp t = new Timestamp(System.currentTimeMillis());
 		printStream.println(t.toString().substring(0, t.toString().indexOf('.')) + " " + message);
-	}
-	public void close()
-	{
-		printStream.close();
 	}
 }

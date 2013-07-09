@@ -3,6 +3,7 @@ package me.protocos.xteam.command.serveradmin.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminSet;
 import me.protocos.xteam.core.Data;
@@ -24,16 +25,45 @@ public class AdminSetTest
 		mockData();
 	}
 	@Test
+	public void ShouldBeConsoleSetMaxPlayers()
+	{
+		//ASSEMBLE
+		Data.MAX_PLAYERS = 2;
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, new CommandParser("/team set Lonely one"));
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertFalse(fakeExecuteResponse);
+	}
+	@Test
 	public void ShouldBeServerAdminSetExecute()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely two");
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, new CommandParser("/team set Lonely two"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
 		Assert.assertEquals("Lonely has been added to two", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("Lonely"));
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+	@Test
+	public void ShouldBeServerAdminSetExecuteCreateTeam()
+	{
+		//ASSEMBLE
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, new CommandParser("/team set Lonely three"));
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals("three has been created\n" +
+				"Lonely has been added to three\n", fakePlayerSender.getAllMessages());
+		Assert.assertTrue(xTeam.tm.contains("three"));
+		Assert.assertTrue(xTeam.tm.getTeam("three").containsPlayer("Lonely"));
+		Assert.assertEquals(1, xTeam.tm.getTeam("three").size());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -43,7 +73,7 @@ public class AdminSetTest
 		xTeam.tm.getTeam("one").removePlayer("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		Data.returnLocations.put(Data.BUKKIT.getPlayer("kmlanglois"), new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set kmlanglois two");
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, new CommandParser("/team set kmlanglois two"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -56,27 +86,11 @@ public class AdminSetTest
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
-	public void ShouldBeServerAdminSetExecuteCreateTeam()
-	{
-		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely three");
-		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
-		//ASSERT
-		Assert.assertEquals("three has been created\n" +
-				"Lonely has been added to three\n", fakePlayerSender.getAllMessages());
-		Assert.assertTrue(xTeam.tm.contains("three"));
-		Assert.assertTrue(xTeam.tm.getTeam("three").containsPlayer("Lonely"));
-		Assert.assertEquals(1, xTeam.tm.getTeam("three").size());
-		Assert.assertTrue(fakeExecuteResponse);
-	}
-	@Test
 	public void ShouldBeServerAdminSetExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set kmlanglois two");
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, new CommandParser("/team set kmlanglois two"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -89,7 +103,7 @@ public class AdminSetTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set newbie one");
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, new CommandParser("/team set newbie one"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -101,7 +115,7 @@ public class AdminSetTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set protocos three");
+		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, new CommandParser("/team set protocos three"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -112,19 +126,6 @@ public class AdminSetTest
 		Assert.assertTrue(xTeam.tm.contains("three"));
 		Assert.assertTrue(xTeam.tm.getTeam("three").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
-	}
-	@Test
-	public void ShouldBeConsoleSetMaxPlayers()
-	{
-		//ASSEMBLE
-		Data.MAX_PLAYERS = 2;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSet(fakePlayerSender, "set Lonely one");
-		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
-		//ASSERT
-		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After
 	public void takedown()

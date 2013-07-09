@@ -1,34 +1,31 @@
 package me.protocos.xteam.command;
 
-import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 public abstract class Command implements ICommandUsage, ICommandPattern, IPermissionNode
 {
 	protected final CommandSender originalSender;
-	protected final List<String> parseCommand;
-	protected static String baseCommand = "";
+	protected final CommandParser parseCommand;
 
-	public Command(CommandSender sender, String command)
+	public Command()
+	{
+		originalSender = null;
+		parseCommand = new CommandParser("/team");
+	}
+
+	public Command(CommandSender sender, CommandParser command)
 	{
 		originalSender = sender;
-		parseCommand = command != null ? CommonUtil.toList(command.split(StringUtil.WHITE_SPACE)) : null;
-		baseCommand = "/team";
+		parseCommand = command;
 	}
 
-	public static void setBaseCommand(String baseCmd)
-	{
-		Command.baseCommand = baseCmd;
-	}
-	public static String getBaseCommand()
-	{
-		return baseCommand;
-	}
+	protected abstract void act();
+
+	protected abstract void checkRequirements() throws TeamException;
+
 	public boolean execute()
 	{
 		try
@@ -44,19 +41,13 @@ public abstract class Command implements ICommandUsage, ICommandPattern, IPermis
 		}
 		return false;
 	}
-	protected abstract void act();
-	protected abstract void checkRequirements() throws TeamException;
 
 	public CommandSender getCommandSender()
 	{
 		return originalSender;
 	}
-	public List<String> getParseCommand()
+	public CommandParser getParseCommand()
 	{
 		return parseCommand;
-	}
-	public String toString()
-	{
-		return baseCommand + StringUtil.concatenate(parseCommand.toArray());
 	}
 }

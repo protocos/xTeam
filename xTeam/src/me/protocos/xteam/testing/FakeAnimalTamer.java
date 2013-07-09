@@ -12,15 +12,6 @@ public class FakeAnimalTamer implements AnimalTamer
 	{
 		this.name = name;
 	}
-	@Override
-	public String getName()
-	{
-		return name;
-	}
-	public int hashCode()
-	{
-		return new HashCodeBuilder(73, 3).append(name).toHashCode();
-	}
 	public boolean equals(Object obj)
 	{
 		if (obj == null)
@@ -32,6 +23,15 @@ public class FakeAnimalTamer implements AnimalTamer
 
 		FakeAnimalTamer rhs = (FakeAnimalTamer) obj;
 		return new EqualsBuilder().append(name, rhs.name).isEquals();
+	}
+	@Override
+	public String getName()
+	{
+		return name;
+	}
+	public int hashCode()
+	{
+		return new HashCodeBuilder(73, 3).append(name).toHashCode();
 	}
 
 }

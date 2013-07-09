@@ -3,6 +3,7 @@ package me.protocos.xteam.command.teamuser;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.ArrayList;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
@@ -13,10 +14,12 @@ import org.bukkit.entity.Player;
 
 public class UserList extends UserCommand
 {
-	public UserList(Player sender, String command)
+	public UserList()
+	{
+	}
+	public UserList(Player sender, CommandParser command)
 	{
 		super(sender, command);
-
 	}
 	@Override
 	protected void act()
@@ -57,6 +60,6 @@ public class UserList extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " list";
+		return parseCommand.getBaseCommand() + " list";
 	}
 }

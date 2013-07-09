@@ -3,6 +3,7 @@ package me.protocos.xteam.command.teamleader.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamleader.UserRename;
 import me.protocos.xteam.core.Data;
@@ -26,7 +27,7 @@ public class RenameTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserRename(fakePlayerSender, "rename name");
+		UserCommand fakeCommand = new UserRename(fakePlayerSender, new CommandParser("/team rename name"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -40,7 +41,7 @@ public class RenameTest
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserRename(fakePlayerSender, "rename two");
+		UserCommand fakeCommand = new UserRename(fakePlayerSender, new CommandParser("/team rename two"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -54,7 +55,7 @@ public class RenameTest
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserRename(fakePlayerSender, "rename ÃºÃ");
+		UserCommand fakeCommand = new UserRename(fakePlayerSender, new CommandParser("/team rename ÃºÃ"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -68,7 +69,7 @@ public class RenameTest
 		//ASSEMBLE
 		Data.TEAM_TAG_LENGTH = 10;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserRename(fakePlayerSender, "rename nameiswaytoolong");
+		UserCommand fakeCommand = new UserRename(fakePlayerSender, new CommandParser("/team rename nameiswaytoolong"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -81,7 +82,7 @@ public class RenameTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserRename(fakePlayerSender, "rename name");
+		UserCommand fakeCommand = new UserRename(fakePlayerSender, new CommandParser("/team rename name"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -94,7 +95,7 @@ public class RenameTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserRename(fakePlayerSender, "rename name");
+		UserCommand fakeCommand = new UserRename(fakePlayerSender, new CommandParser("/team rename name"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

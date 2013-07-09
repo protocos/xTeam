@@ -3,6 +3,7 @@ package me.protocos.xteam.command.console;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
@@ -16,7 +17,10 @@ public class ConsoleInfo extends ConsoleCommand
 {
 	private String other;
 
-	public ConsoleInfo(ConsoleCommandSender sender, String command)
+	public ConsoleInfo()
+	{
+	}
+	public ConsoleInfo(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -82,16 +86,16 @@ public class ConsoleInfo extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " info [Player/Team]";
-	}
-	private boolean isTeam(String teamName)
-	{
-		return xTeam.tm.contains(teamName);
+		return parseCommand.getBaseCommand() + " info [Player/Team]";
 	}
 	private boolean isPlayer(String playerName)
 	{
 		TeamPlayer p = new TeamPlayer(playerName);
 		return p.hasPlayedBefore();
+	}
+	private boolean isTeam(String teamName)
+	{
+		return xTeam.tm.contains(teamName);
 	}
 	private void otherTeamInfo(Team otherTeam)
 	{

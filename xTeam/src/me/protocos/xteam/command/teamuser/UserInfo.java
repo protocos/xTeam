@@ -3,6 +3,7 @@ package me.protocos.xteam.command.teamuser;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
@@ -15,7 +16,10 @@ public class UserInfo extends UserCommand
 {
 	private String other;
 
-	public UserInfo(Player sender, String command)
+	public UserInfo()
+	{
+	}
+	public UserInfo(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -105,7 +109,7 @@ public class UserInfo extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " info {Team/Player}";
+		return parseCommand.getBaseCommand() + " info {Team/Player}";
 	}
 	private boolean isPlayer(String playerName)
 	{

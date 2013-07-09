@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
@@ -12,7 +13,10 @@ public class UserSetLeader extends UserCommand
 {
 	private String otherPlayer;
 
-	public UserSetLeader(Player sender, String command)
+	public UserSetLeader()
+	{
+	}
+	public UserSetLeader(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -71,6 +75,6 @@ public class UserSetLeader extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " setleader [Player]";
+		return parseCommand.getBaseCommand() + " setleader [Player]";
 	}
 }

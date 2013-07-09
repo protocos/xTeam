@@ -2,6 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
@@ -13,7 +14,10 @@ public class ConsoleRename extends ConsoleCommand
 {
 	private String teamName, newName;
 
-	public ConsoleRename(ConsoleCommandSender sender, String command)
+	public ConsoleRename()
+	{
+	}
+	public ConsoleRename(ConsoleCommandSender sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -61,6 +65,6 @@ public class ConsoleRename extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " rename [Team] [Name]";
+		return parseCommand.getBaseCommand() + " rename [Team] [Name]";
 	}
 }

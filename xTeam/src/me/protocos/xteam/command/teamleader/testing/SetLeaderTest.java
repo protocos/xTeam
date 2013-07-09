@@ -3,6 +3,7 @@ package me.protocos.xteam.command.teamleader.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamleader.UserSetLeader;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
@@ -26,7 +27,7 @@ public class SetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserSetLeader(fakePlayerSender, "setleader protocos");
+		UserCommand fakeCommand = new UserSetLeader(fakePlayerSender, new CommandParser("/team setleader protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -40,7 +41,7 @@ public class SetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserSetLeader(fakePlayerSender, "setleader protocos");
+		UserCommand fakeCommand = new UserSetLeader(fakePlayerSender, new CommandParser("/team setleader protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -52,7 +53,7 @@ public class SetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserSetLeader(fakePlayerSender, "setleader protocos");
+		UserCommand fakeCommand = new UserSetLeader(fakePlayerSender, new CommandParser("/team setleader protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -65,7 +66,7 @@ public class SetLeaderTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserSetLeader(fakePlayerSender, "setleader newbie");
+		UserCommand fakeCommand = new UserSetLeader(fakePlayerSender, new CommandParser("/team setleader newbie"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

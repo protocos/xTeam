@@ -20,11 +20,11 @@ public class TeamPlayer implements ITeamPlayer
 	private OfflinePlayer offlinePlayer;
 	private Player onlinePlayer;
 
-	public TeamPlayer(String playerName)
+	public TeamPlayer(OfflinePlayer player)
 	{
-		name = playerName;
-		offlinePlayer = xTeam.sm.getOfflinePlayer(playerName);
-		onlinePlayer = xTeam.sm.getPlayer(playerName);
+		name = player.getName();
+		onlinePlayer = xTeam.sm.getPlayer(name);
+		offlinePlayer = player;
 	}
 	public TeamPlayer(Player player)
 	{
@@ -32,35 +32,24 @@ public class TeamPlayer implements ITeamPlayer
 		onlinePlayer = player;
 		offlinePlayer = xTeam.sm.getOfflinePlayer(name);
 	}
-	public TeamPlayer(OfflinePlayer player)
+	public TeamPlayer(String playerName)
 	{
-		name = player.getName();
-		onlinePlayer = xTeam.sm.getPlayer(name);
-		offlinePlayer = player;
+		name = playerName;
+		offlinePlayer = xTeam.sm.getOfflinePlayer(playerName);
+		onlinePlayer = xTeam.sm.getPlayer(playerName);
 	}
-	@Override
-	public String getName()
+	public boolean equals(Object obj)
 	{
-		return name;
-	}
-	@Override
-	public OfflinePlayer getOfflinePlayer()
-	{
-		return offlinePlayer;
-	}
-	@Override
-	public Player getOnlinePlayer()
-	{
-		return onlinePlayer;
-	}
-	@Override
-	public Location getLocation()
-	{
-		if (isOnline())
-		{
-			return onlinePlayer.getLocation();
-		}
-		return null;
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (!(obj instanceof TeamPlayer))
+			return false;
+
+		TeamPlayer rhs = (TeamPlayer) obj;
+		return new EqualsBuilder().append(name, rhs.name).isEquals();
+
 	}
 	@Override
 	public double getDistanceTo(ITeamEntity entity)
@@ -89,6 +78,60 @@ public class TeamPlayer implements ITeamPlayer
 		formatter = new SimpleDateFormat("h:mm a");
 		String hour_minute_am_pm = formatter.format(calendar.getTime());
 		return month_day + " @ " + hour_minute_am_pm;
+	}
+	@Override
+	public Location getLocation()
+	{
+		if (isOnline())
+		{
+			return onlinePlayer.getLocation();
+		}
+		return null;
+	}
+	@Override
+	public String getName()
+	{
+		return name;
+	}
+	@Override
+	public OfflinePlayer getOfflinePlayer()
+	{
+		return offlinePlayer;
+	}
+	@Override
+	public List<String> getOfflineTeammates()
+	{
+		List<String> offlineMates = new ArrayList<String>();
+		if (hasTeam())
+		{
+			for (String p : getTeam().getPlayers())
+			{
+				TeamPlayer mate = new TeamPlayer(p);
+				if (!mate.isOnline() && !name.equals(p))
+					offlineMates.add(p);
+			}
+		}
+		return offlineMates;
+	}
+	@Override
+	public Player getOnlinePlayer()
+	{
+		return onlinePlayer;
+	}
+	@Override
+	public List<String> getOnlineTeammates()
+	{
+		List<String> onlineMates = new ArrayList<String>();
+		if (hasTeam())
+		{
+			for (String p : getTeam().getPlayers())
+			{
+				TeamPlayer mate = new TeamPlayer(p);
+				if (mate.isOnline() && !name.equals(p))
+					onlineMates.add(p);
+			}
+		}
+		return onlineMates;
 	}
 	@Override
 	public int getRelativeX()
@@ -130,15 +173,6 @@ public class TeamPlayer implements ITeamPlayer
 		return null;
 	}
 	@Override
-	public World getWorld()
-	{
-		if (isOnline())
-		{
-			return onlinePlayer.getWorld();
-		}
-		return null;
-	}
-	@Override
 	public Team getTeam()
 	{
 		for (Team team : xTeam.tm.getAllTeams())
@@ -147,9 +181,31 @@ public class TeamPlayer implements ITeamPlayer
 		return null;
 	}
 	@Override
-	public boolean hasTeam()
+	public List<String> getTeammates()
 	{
-		return getTeam() != null;
+		List<String> mates = new ArrayList<String>();
+		if (hasTeam())
+		{
+			for (String p : getTeam().getPlayers())
+			{
+				if (!name.equals(p))
+					mates.add(p);
+			}
+		}
+		return mates;
+	}
+	@Override
+	public World getWorld()
+	{
+		if (isOnline())
+		{
+			return onlinePlayer.getWorld();
+		}
+		return null;
+	}
+	public int hashCode()
+	{
+		return new HashCodeBuilder(17, 41).append(name).toHashCode();
 	}
 	@Override
 	public boolean hasPermission(String permission)
@@ -166,6 +222,36 @@ public class TeamPlayer implements ITeamPlayer
 		if (offlinePlayer == null)
 			return false;
 		return offlinePlayer.hasPlayedBefore() || offlinePlayer.isOnline();
+	}
+	@Override
+	public boolean hasTeam()
+	{
+		return getTeam() != null;
+	}
+	@Override
+	public boolean isAdmin()
+	{
+		if (hasTeam())
+		{
+			return getTeam().getAdmins().contains(name);
+		}
+		return false;
+	}
+	@Override
+	public boolean isEnemy(ITeamEntity entity)
+	{
+		if (this.isOnSameTeam(entity))
+			return false;
+		return true;
+	}
+	@Override
+	public boolean isLeader()
+	{
+		if (hasTeam())
+		{
+			return getTeam().getLeader().equals(name);
+		}
+		return false;
 	}
 	@Override
 	public boolean isOnline()
@@ -189,24 +275,6 @@ public class TeamPlayer implements ITeamPlayer
 		return offlinePlayer.isOp();
 	}
 	@Override
-	public boolean isAdmin()
-	{
-		if (hasTeam())
-		{
-			return getTeam().getAdmins().contains(name);
-		}
-		return false;
-	}
-	@Override
-	public boolean isLeader()
-	{
-		if (hasTeam())
-		{
-			return getTeam().getLeader().equals(name);
-		}
-		return false;
-	}
-	@Override
 	public boolean sendMessage(String message)
 	{
 		if (isOnline())
@@ -215,103 +283,6 @@ public class TeamPlayer implements ITeamPlayer
 			return true;
 		}
 		return false;
-	}
-	@Override
-	public boolean teleport(Location location)
-	{
-		if (isOnline())
-		{
-			return onlinePlayer.teleport(location);
-		}
-		return false;
-	}
-	@Override
-	public boolean teleport(ITeamEntity entity)
-	{
-		if (isOnline() && entity.isOnline())
-		{
-			return onlinePlayer.teleport(entity.getLocation());
-		}
-		return false;
-	}
-	public int hashCode()
-	{
-		return new HashCodeBuilder(17, 41).append(name).toHashCode();
-	}
-	public boolean equals(Object obj)
-	{
-		if (obj == null)
-			return false;
-		if (obj == this)
-			return true;
-		if (!(obj instanceof TeamPlayer))
-			return false;
-
-		TeamPlayer rhs = (TeamPlayer) obj;
-		return new EqualsBuilder().append(name, rhs.name).isEquals();
-
-	}
-	@Override
-	public List<String> getTeammates()
-	{
-		List<String> mates = new ArrayList<String>();
-		if (hasTeam())
-		{
-			for (String p : getTeam().getPlayers())
-			{
-				if (!name.equals(p))
-					mates.add(p);
-			}
-		}
-		return mates;
-	}
-	@Override
-	public List<String> getOfflineTeammates()
-	{
-		List<String> offlineMates = new ArrayList<String>();
-		if (hasTeam())
-		{
-			for (String p : getTeam().getPlayers())
-			{
-				TeamPlayer mate = new TeamPlayer(p);
-				if (!mate.isOnline() && !name.equals(p))
-					offlineMates.add(p);
-			}
-		}
-		return offlineMates;
-	}
-	@Override
-	public List<String> getOnlineTeammates()
-	{
-		List<String> onlineMates = new ArrayList<String>();
-		if (hasTeam())
-		{
-			for (String p : getTeam().getPlayers())
-			{
-				TeamPlayer mate = new TeamPlayer(p);
-				if (mate.isOnline() && !name.equals(p))
-					onlineMates.add(p);
-			}
-		}
-		return onlineMates;
-	}
-	@Override
-	public String toString()
-	{
-		String playerData = "";
-		playerData += "name:" + getName();
-		playerData += " hasPlayed:" + hasPlayedBefore();
-		playerData += " team:" + (hasTeam() ? getTeam().getName() : "none");
-		playerData += " admin:" + (isAdmin() ? "true" : "false");
-		playerData += " leader:" + (isLeader() ? "true" : "false");
-		return playerData;
-	}
-	@Override
-	public boolean isEnemy(ITeamEntity entity)
-	{
-		if (this.isOnSameTeam(entity))
-			return false;
-		return true;
 	}
 	@Override
 	public void sendMessageToTeam(String message)
@@ -334,5 +305,34 @@ public class TeamPlayer implements ITeamPlayer
 				player.sendMessage(message);
 			}
 		}
+	}
+	@Override
+	public boolean teleport(ITeamEntity entity)
+	{
+		if (isOnline() && entity.isOnline())
+		{
+			return onlinePlayer.teleport(entity.getLocation());
+		}
+		return false;
+	}
+	@Override
+	public boolean teleport(Location location)
+	{
+		if (isOnline())
+		{
+			return onlinePlayer.teleport(location);
+		}
+		return false;
+	}
+	@Override
+	public String toString()
+	{
+		String playerData = "";
+		playerData += "name:" + getName();
+		playerData += " hasPlayed:" + hasPlayedBefore();
+		playerData += " team:" + (hasTeam() ? getTeam().getName() : "none");
+		playerData += " admin:" + (isAdmin() ? "true" : "false");
+		playerData += " leader:" + (isLeader() ? "true" : "false");
+		return playerData;
 	}
 }

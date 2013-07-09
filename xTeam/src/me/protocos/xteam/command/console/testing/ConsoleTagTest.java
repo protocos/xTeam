@@ -3,6 +3,7 @@ package me.protocos.xteam.command.console.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsoleTag;
 import me.protocos.xteam.core.Data;
@@ -29,7 +30,7 @@ public class ConsoleTagTest
 	public void ShouldBeConsoleTagExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleTag(fakeConsoleSender, "tag one three");
+		ConsoleCommand fakeCommand = new ConsoleTag(fakeConsoleSender, new CommandParser("/team tag one three"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -41,7 +42,7 @@ public class ConsoleTagTest
 	public void ShouldBeConsoleTagExecuteTeamAlreadyExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleTag(fakeConsoleSender, "tag two one");
+		ConsoleCommand fakeCommand = new ConsoleTag(fakeConsoleSender, new CommandParser("/team tag two one"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -53,7 +54,7 @@ public class ConsoleTagTest
 	public void ShouldBeConsoleTagExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleTag(fakeConsoleSender, "tag three one");
+		ConsoleCommand fakeCommand = new ConsoleTag(fakeConsoleSender, new CommandParser("/team tag three one"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -66,7 +67,7 @@ public class ConsoleTagTest
 	{
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
-		ConsoleCommand fakeCommand = new ConsoleTag(fakeConsoleSender, "tag two Ã");
+		ConsoleCommand fakeCommand = new ConsoleTag(fakeConsoleSender, new CommandParser("/team tag two Ã"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

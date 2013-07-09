@@ -10,6 +10,7 @@ import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.testing.FakeLocation;
 import me.protocos.xteam.testing.FakePlayerSender;
+import me.protocos.xteam.command.CommandParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,39 +24,11 @@ public class LeaveTest
 		mockData();
 	}
 	@Test
-	public void ShouldBeTeamUserLeaveExecute()
-	{
-		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		Data.returnLocations.put(fakePlayerSender, new FakeLocation());
-		UserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
-		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
-		//ASSERT
-		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("protocos"));
-		Assert.assertFalse(Data.returnLocations.containsKey(fakePlayerSender));
-		Assert.assertTrue(fakeExecuteResponse);
-	}
-	@Test
-	public void ShouldBeRegularTeamLeavingOnePerson()
-	{
-		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("mastermind", new FakeLocation());
-		UserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
-		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
-		//ASSERT
-		Assert.assertEquals("You left two", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.tm.contains("two"));
-		Assert.assertTrue(fakeExecuteResponse);
-	}
-	@Test
 	public void ShouldBeDefaultTeamLeavingOnePerson()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
-		UserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
+		UserCommand fakeCommand = new UserLeave(fakePlayerSender, new CommandParser("/team leave"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -65,11 +38,39 @@ public class LeaveTest
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
+	public void ShouldBeRegularTeamLeavingOnePerson()
+	{
+		//ASSEMBLE
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("mastermind", new FakeLocation());
+		UserCommand fakeCommand = new UserLeave(fakePlayerSender, new CommandParser("/team leave"));
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals("You left two", fakePlayerSender.getLastMessage());
+		Assert.assertFalse(xTeam.tm.contains("two"));
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+	@Test
+	public void ShouldBeTeamUserLeaveExecute()
+	{
+		//ASSEMBLE
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		Data.returnLocations.put(fakePlayerSender, new FakeLocation());
+		UserCommand fakeCommand = new UserLeave(fakePlayerSender, new CommandParser("/team leave"));
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute();
+		//ASSERT
+		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessage());
+		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("protocos"));
+		Assert.assertFalse(Data.returnLocations.containsKey(fakePlayerSender));
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+	@Test
 	public void ShouldBeTeamUserLeaveExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
+		UserCommand fakeCommand = new UserLeave(fakePlayerSender, new CommandParser("/team leave"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -82,7 +83,7 @@ public class LeaveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserLeave(fakePlayerSender, "leave");
+		UserCommand fakeCommand = new UserLeave(fakePlayerSender, new CommandParser("/team leave"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

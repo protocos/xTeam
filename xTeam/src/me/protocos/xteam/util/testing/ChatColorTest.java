@@ -1,6 +1,6 @@
 package me.protocos.xteam.util.testing;
 
-import me.protocos.xteam.util.ColorUtil;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.ChatColor;
 import org.junit.After;
 import org.junit.Assert;
@@ -14,20 +14,20 @@ public class ChatColorTest
 	{
 	}
 	@Test
-	public void ShouldBeGreen()
-	{
-		//ASSEMBLE
-		//ACT
-		//ASSERT
-		Assert.assertEquals(ChatColor.GREEN, ColorUtil.getColor("green"));
-	}
-	@Test
 	public void ShouldBeColor()
 	{
 		//ASSEMBLE
 		//ACT
 		//ASSERT
-		Assert.assertEquals(ChatColor.RESET, ColorUtil.getColor("notacolor"));
+		Assert.assertEquals(ChatColor.RESET, ChatColorUtil.getColor("notacolor"));
+	}
+	@Test
+	public void ShouldBeGreen()
+	{
+		//ASSEMBLE
+		//ACT
+		//ASSERT
+		Assert.assertEquals(ChatColor.GREEN, ChatColorUtil.getColor("green"));
 	}
 	@After
 	public void takedown()

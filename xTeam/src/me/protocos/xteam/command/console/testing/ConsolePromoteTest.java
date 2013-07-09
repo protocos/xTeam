@@ -3,6 +3,7 @@ package me.protocos.xteam.command.console.testing;
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.console.ConsolePromote;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
@@ -30,7 +31,7 @@ public class ConsolePromoteTest
 	{
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").demote("protocos");
-		ConsoleCommand fakeCommand = new ConsolePromote(fakeConsoleSender, "promote one protocos");
+		ConsoleCommand fakeCommand = new ConsolePromote(fakeConsoleSender, new CommandParser("/team promote one protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -42,7 +43,7 @@ public class ConsolePromoteTest
 	public void ShouldBeConsolePromoteExecuteIncorrectTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsolePromote(fakeConsoleSender, "promote one mastermind");
+		ConsoleCommand fakeCommand = new ConsolePromote(fakeConsoleSender, new CommandParser("/team promote one mastermind"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -54,7 +55,7 @@ public class ConsolePromoteTest
 	public void ShouldBeConsolePromoteExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsolePromote(fakeConsoleSender, "promote one Lonely");
+		ConsoleCommand fakeCommand = new ConsolePromote(fakeConsoleSender, new CommandParser("/team promote one Lonely"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -66,7 +67,7 @@ public class ConsolePromoteTest
 	public void ShouldBeConsolePromoteExecutePlayerHasNotPlayed()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsolePromote(fakeConsoleSender, "promote one newbie");
+		ConsoleCommand fakeCommand = new ConsolePromote(fakeConsoleSender, new CommandParser("/team promote one newbie"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT
@@ -78,7 +79,7 @@ public class ConsolePromoteTest
 	public void ShouldBeConsolePromoteExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsolePromote(fakeConsoleSender, "promote three protocos");
+		ConsoleCommand fakeCommand = new ConsolePromote(fakeConsoleSender, new CommandParser("/team promote three protocos"));
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute();
 		//ASSERT

@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.InviteHandler;
@@ -16,7 +17,10 @@ public class UserJoin extends UserCommand
 {
 	private String desiredTeam;
 
-	public UserJoin(Player sender, String command)
+	public UserJoin()
+	{
+	}
+	public UserJoin(Player sender, CommandParser command)
 	{
 		super(sender, command);
 	}
@@ -85,6 +89,6 @@ public class UserJoin extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return baseCommand + " join [Team]";
+		return parseCommand.getBaseCommand() + " join [Team]";
 	}
 }
