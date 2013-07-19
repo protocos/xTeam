@@ -1194,6 +1194,11 @@ public class FakePlayerSender implements Player, CommandSender
 		// TODO Auto-generated method stub
 
 	}
+	public void setLocation(Location location)
+	{
+		this.location = location;
+	}
+
 	@Override
 	public void setMaxHealth(double arg0)
 	{
@@ -1355,28 +1360,31 @@ public class FakePlayerSender implements Player, CommandSender
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
-	public boolean teleport(Entity arg0)
+	public boolean teleport(Entity entity)
 	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean teleport(Entity arg0, TeleportCause arg1)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean teleport(@SuppressWarnings("hiding") Location location)
-	{
-		this.location = location;
+		setLocation(entity.getLocation());
 		return true;
 	}
 	@Override
-	public boolean teleport(Location arg0, TeleportCause arg1)
+	public boolean teleport(Entity entity, TeleportCause arg1)
 	{
-		// TODO Auto-generated method stub
+		setLocation(entity.getLocation());
+		return true;
+	}
+
+	@Override
+	public boolean teleport(Location location)
+	{
+		setLocation(location);
+		return true;
+	}
+
+	@Override
+	public boolean teleport(Location location, TeleportCause arg1)
+	{
+		setLocation(location);
 		return false;
 	}
 	@Override

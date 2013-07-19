@@ -1,34 +1,25 @@
 package me.protocos.xteam.command;
 
+import java.io.InvalidClassException;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamInvalidCommandException;
+import me.protocos.xteam.util.StringUtil;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 
-public abstract class ConsoleCommand extends Command
+public abstract class ConsoleCommand extends BaseCommand
 {
-	ConsoleCommandSender sender;
-
 	public ConsoleCommand()
 	{
 		super();
 	}
 
-	public ConsoleCommand(ConsoleCommandSender sender, CommandParser command)
+	@Override
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		super(sender, command);
-		setSender(sender);
-	}
-
-	public String getPermissionNode()
-	{
-		return null;
-	}
-
-	public ConsoleCommandSender getSender()
-	{
-		return sender;
-	}
-
-	public void setSender(ConsoleCommandSender sender)
-	{
-		this.sender = sender;
+		if (!(originalSender instanceof ConsoleCommandSender))
+			throw new InvalidClassException("Sender not an instance of ConsoleCommandSender");
+		if (!parseCommand.getCommandWithoutID().matches(StringUtil.IGNORE_CASE + getPattern()))
+			throw new TeamInvalidCommandException();
 	}
 }

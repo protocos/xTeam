@@ -30,9 +30,9 @@ public class ConsoleRenameTest
 	public void ShouldBeConsoleRenameExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleRename(fakeConsoleSender, new CommandParser("/team rename one newname"));
+		ConsoleCommand fakeCommand = new ConsoleRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team rename one newname"));
 		//ASSERT
 		Assert.assertEquals("You renamed the team to newname", fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("newname", xTeam.tm.getTeam("newname").getName());
@@ -42,9 +42,9 @@ public class ConsoleRenameTest
 	public void ShouldBeConsoleRenameExecuteTeamAlreadyExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleRename(fakeConsoleSender, new CommandParser("/team rename two one"));
+		ConsoleCommand fakeCommand = new ConsoleRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team rename two one"));
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
@@ -54,9 +54,9 @@ public class ConsoleRenameTest
 	public void ShouldBeConsoleRenameExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleRename(fakeConsoleSender, new CommandParser("/team rename three one"));
+		ConsoleCommand fakeCommand = new ConsoleRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team rename three one"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
@@ -67,9 +67,9 @@ public class ConsoleRenameTest
 	{
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
-		ConsoleCommand fakeCommand = new ConsoleRename(fakeConsoleSender, new CommandParser("/team rename two Ã"));
+		ConsoleCommand fakeCommand = new ConsoleRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team rename two Ã"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());

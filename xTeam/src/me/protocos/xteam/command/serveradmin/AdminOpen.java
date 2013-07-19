@@ -1,17 +1,14 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamInvalidCommandException;
-import me.protocos.xteam.core.exception.TeamPlayerDoesNotExistException;
-import me.protocos.xteam.core.exception.TeamPlayerPermissionException;
-import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class AdminOpen extends ServerAdminCommand
 {
@@ -19,13 +16,11 @@ public class AdminOpen extends ServerAdminCommand
 
 	public AdminOpen()
 	{
+		super();
 	}
-	public AdminOpen(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Team team = xTeam.tm.getTeam(teamName);
 		team.setOpenJoining(!team.isOpenJoining());
@@ -35,24 +30,10 @@ public class AdminOpen extends ServerAdminCommand
 			originalSender.sendMessage("UserOpen joining is now " + ChatColor.RED + "disabled" + ChatColor.RESET + " for team " + teamName);
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (sender == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 2)
-		{
-			teamName = parseCommand.get(1);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		teamName = parseCommand.get(1);
 	}
 	@Override
 	public String getPattern()
@@ -67,6 +48,6 @@ public class AdminOpen extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " open [Team]";
+		return "/team open [Team]";
 	}
 }

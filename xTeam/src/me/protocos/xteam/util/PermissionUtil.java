@@ -5,10 +5,10 @@ import org.bukkit.command.CommandSender;
 
 public class PermissionUtil
 {
-	public static boolean hasPermission(CommandSender sender, String permission)
+	public static boolean hasPermission(CommandSender sender, String node)
 	{
-		if (Data.NO_PERMISSIONS && (permission.startsWith("xteam.player.") || permission.startsWith("xteam.admin.") || permission.startsWith("xteam.leader.")))
+		if (Data.NO_PERMISSIONS && (node.startsWith("xteam.player.") || node.startsWith("xteam.admin.") || node.startsWith("xteam.leader.")))
 			return true;
-		return sender.hasPermission(permission);
+		return sender.hasPermission(node);
 	}
 }

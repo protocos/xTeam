@@ -1,28 +1,29 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamPlayerHasNoInviteException;
+import me.protocos.xteam.core.exception.TeamPlayerHasTeamException;
+import me.protocos.xteam.core.exception.TeamPlayerMaxException;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class UserAccept extends UserCommand
 {
 	public UserAccept()
 	{
+		super();
 	}
-	public UserAccept(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Team inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
 		inviteTeam.addPlayer(teamPlayer.getName());
@@ -33,26 +34,12 @@ public class UserAccept extends UserCommand
 			if (mate.isOnline() && !teamPlayer.getName().equals(mate.getName()))
 				mate.sendMessage(teamPlayer.getName() + ChatColor.AQUA + " joined your team");
 		}
-		sender.sendMessage("You joined " + ChatColor.AQUA + inviteTeam.getName());
+		originalSender.sendMessage("You joined " + ChatColor.AQUA + inviteTeam.getName());
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (teamPlayer == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 1)
-		{
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
-		if (!PermissionUtil.hasPermission(sender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
 		if (teamPlayer.hasTeam())
 		{
 			throw new TeamPlayerHasTeamException();
@@ -80,6 +67,6 @@ public class UserAccept extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " accept";
+		return "/team accept";
 	}
 }

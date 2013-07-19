@@ -1,27 +1,27 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
+import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class UserLeave extends UserCommand
 {
 	public UserLeave()
 	{
+		super();
 	}
-	public UserLeave(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		team.removePlayer(teamPlayer.getName());
 		if (team.size() == 0 && !team.isDefaultTeam())
@@ -37,23 +37,9 @@ public class UserLeave extends UserCommand
 		originalSender.sendMessage("You left " + ChatColor.AQUA + team.getName());
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (teamPlayer == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 1)
-		{
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
 		if (!teamPlayer.hasTeam())
 		{
 			throw new TeamPlayerHasNoTeamException();
@@ -76,6 +62,6 @@ public class UserLeave extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " leave";
+		return "/team leave";
 	}
 }

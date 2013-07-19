@@ -33,9 +33,9 @@ public class SetHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamHeadquarters newHQ = new TeamHeadquarters(fakePlayerSender.getLocation());
-		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq"));
+		UserCommand fakeCommand = new UserSetHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq"));
 		//ASSERT
 		Assert.assertEquals("You set the team headquarters", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(newHQ, xTeam.tm.getTeam("one").getHeadquarters());
@@ -48,9 +48,9 @@ public class SetHeadquartersTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamHeadquarters oldHQ = xTeam.tm.getTeam("one").getHeadquarters();
 		fakePlayerSender.setNoDamageTicks(1);
-		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq"));
+		UserCommand fakeCommand = new UserSetHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerDyingException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(oldHQ, xTeam.tm.getTeam("one").getHeadquarters());
@@ -62,9 +62,9 @@ public class SetHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		TeamHeadquarters oldHQ = xTeam.tm.getTeam("one").getHeadquarters();
-		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq"));
+		UserCommand fakeCommand = new UserSetHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotAdminException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(oldHQ, xTeam.tm.getTeam("one").getHeadquarters());
@@ -76,9 +76,9 @@ public class SetHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		TeamHeadquarters oldHQ = xTeam.tm.getTeam("one").getHeadquarters();
-		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq"));
+		UserCommand fakeCommand = new UserSetHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(oldHQ, xTeam.tm.getTeam("one").getHeadquarters());
@@ -92,9 +92,9 @@ public class SetHeadquartersTest
 		xTeam.tm.getTeam("one").setTimeLastSet(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamHeadquarters oldHQ = xTeam.tm.getTeam("one").getHeadquarters();
-		UserCommand fakeCommand = new UserSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq"));
+		UserCommand fakeCommand = new UserSetHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq"));
 		//ASSERT
 		Assert.assertEquals((new TeamHqSetRecentlyException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(oldHQ, xTeam.tm.getTeam("one").getHeadquarters());

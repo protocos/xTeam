@@ -1,54 +1,90 @@
 package me.protocos.xteam.command;
 
 import me.protocos.xteam.util.HashList;
+import me.protocos.xteam.util.StringUtil;
 
 public class CommandManager implements ICommandManager
 {
-	private HashList<String, Command> commands;
-	private HashList<String, ICommandPattern> patterns;
-	private HashList<String, ICommandUsage> usages;
-	private HashList<String, IPermissionNode> nodes;
+	private HashList<String, BaseCommand> commands;
 
 	public CommandManager()
 	{
-		commands = new HashList<String, Command>();
-		patterns = new HashList<String, ICommandPattern>();
-		usages = new HashList<String, ICommandUsage>();
-		nodes = new HashList<String, IPermissionNode>();
+		commands = new HashList<String, BaseCommand>();
 	}
 
 	@Override
-	public Command match(String s)
+	public void registerCommand(String key, BaseCommand command)
 	{
-		for (int x = 0; x < patterns.size(); x++)
-		{
-			String pat = patterns.get(x).getPattern();
-			if (s.matches(pat))
-				return commands.get(patterns.getKey(x));
-		}
-		return null;
+		commands.put(key, command);
+	}
+	@Override
+	public BaseCommand get(String key)
+	{
+		return commands.get(key);
 	}
 	@Override
 	public String getPattern(String key)
 	{
-		return patterns.get(key).getPattern();
+		return commands.get(key).getPattern();
 	}
 	@Override
 	public String getPermissionNode(String key)
 	{
-		return nodes.get(key).getPermissionNode();
+		if (commands.get(key) instanceof IPermissionNode)
+			return ((IPermissionNode) commands.get(key)).getPermissionNode();
+		return null;
 	}
 	@Override
 	public String getUsage(String key)
 	{
-		return usages.get(key).getUsage();
+		return commands.get(key).getUsage();
 	}
 	@Override
-	public void registerCommand(String key, Command command)
+	public ConsoleCommand matchConsole(String pattern)
 	{
-		commands.put(key, command);
-		patterns.put(key, command);
-		usages.put(key, command);
-		nodes.put(key, command);
+		for (int x = 0; x < commands.size(); x++)
+			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("console_"))
+				return (ConsoleCommand) commands.get(x);
+		return null;
+	}
+	@Override
+	public PlayerCommand matchPlayer(String pattern)
+	{
+		PlayerCommand match = matchServerAdmin(pattern);
+		if (match == null)
+			match = matchTeamLeader(pattern);
+		if (match == null)
+			match = matchTeamAdmin(pattern);
+		if (match == null)
+			match = matchTeamUser(pattern);
+		return match;
+	}
+	public PlayerCommand matchServerAdmin(String pattern)
+	{
+		for (int x = 0; x < commands.size(); x++)
+			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("serveradmin_"))
+				return (PlayerCommand) commands.get(x);
+		return null;
+	}
+	public PlayerCommand matchTeamLeader(String pattern)
+	{
+		for (int x = 0; x < commands.size(); x++)
+			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("leader_"))
+				return (PlayerCommand) commands.get(x);
+		return null;
+	}
+	public PlayerCommand matchTeamAdmin(String pattern)
+	{
+		for (int x = 0; x < commands.size(); x++)
+			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("admin_"))
+				return (PlayerCommand) commands.get(x);
+		return null;
+	}
+	public PlayerCommand matchTeamUser(String pattern)
+	{
+		for (int x = 0; x < commands.size(); x++)
+			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("user_"))
+				return (PlayerCommand) commands.get(x);
+		return null;
 	}
 }

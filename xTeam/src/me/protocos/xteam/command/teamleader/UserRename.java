@@ -1,15 +1,15 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class UserRename extends UserCommand
 {
@@ -17,13 +17,11 @@ public class UserRename extends UserCommand
 
 	public UserRename()
 	{
+		super();
 	}
-	public UserRename(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		xTeam.tm.removeTeam(team.getName());
 		team.setName(newName);
@@ -36,24 +34,10 @@ public class UserRename extends UserCommand
 		originalSender.sendMessage("You renamed the team to " + ChatColor.AQUA + newName);
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (teamPlayer == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 2)
-		{
-			newName = parseCommand.get(1);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		newName = parseCommand.get(1);
 		if (!teamPlayer.hasTeam())
 		{
 			throw new TeamPlayerHasNoTeamException();
@@ -88,6 +72,6 @@ public class UserRename extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " rename [Name]";
+		return "/team rename [Name]";
 	}
 }

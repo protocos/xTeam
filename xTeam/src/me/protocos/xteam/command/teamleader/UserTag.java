@@ -1,15 +1,15 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class UserTag extends UserCommand
 {
@@ -17,13 +17,11 @@ public class UserTag extends UserCommand
 
 	public UserTag()
 	{
+		super();
 	}
-	public UserTag(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		team.setTag(newTag);
 		teamPlayer.sendMessage("The team tag has been set to " + ChatColor.AQUA + newTag);
@@ -34,24 +32,10 @@ public class UserTag extends UserCommand
 		}
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (teamPlayer == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 2)
-		{
-			newTag = parseCommand.get(1);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		newTag = parseCommand.get(1);
 		if (!teamPlayer.hasTeam())
 		{
 			throw new TeamPlayerHasNoTeamException();
@@ -86,6 +70,6 @@ public class UserTag extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " tag [UserTag]";
+		return "/team tag [UserTag]";
 	}
 }

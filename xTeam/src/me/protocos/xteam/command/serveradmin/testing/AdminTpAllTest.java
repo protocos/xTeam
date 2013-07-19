@@ -25,9 +25,9 @@ public class AdminTpAllTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminTpAll(fakePlayerSender, new CommandParser("/team tpall one"));
+		ServerAdminCommand fakeCommand = new AdminTpAll();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tpall one"));
 		//ASSERT
 		Assert.assertEquals("Players teleported", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -37,9 +37,9 @@ public class AdminTpAllTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminTpAll(fakePlayerSender, new CommandParser("/team tpall three"));
+		ServerAdminCommand fakeCommand = new AdminTpAll();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tpall three"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

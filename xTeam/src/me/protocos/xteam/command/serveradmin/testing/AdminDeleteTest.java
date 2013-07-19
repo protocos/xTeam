@@ -26,9 +26,9 @@ public class AdminDeleteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminDisband(fakePlayerSender, new CommandParser("/team disband one"));
+		ServerAdminCommand fakeCommand = new AdminDisband();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team disband one"));
 		//ASSERT
 		Assert.assertEquals("You disbanded one", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.contains("one"));
@@ -39,9 +39,9 @@ public class AdminDeleteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminDisband(fakePlayerSender, new CommandParser("/team disband team"));
+		ServerAdminCommand fakeCommand = new AdminDisband();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team disband team"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.contains("one"));

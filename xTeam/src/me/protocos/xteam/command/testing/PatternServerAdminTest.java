@@ -88,6 +88,7 @@ public class PatternServerAdminTest
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
 		command = " ";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+
 	}
 	@Test
 	public void ShouldBeServerAdminHQ()
@@ -321,6 +322,6 @@ public class PatternServerAdminTest
 	@After
 	public void takedown()
 	{
-		Assert.assertTrue(xTeam.cm.getUsage("serveradmin_" + baseCmd).replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + xTeam.cm.getPattern("serveradmin_" + baseCmd)));
+		Assert.assertTrue(xTeam.cm.getUsage("serveradmin_" + baseCmd).replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + xTeam.cm.getPattern("serveradmin_" + baseCmd)));
 	}
 }

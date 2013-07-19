@@ -1,13 +1,16 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
-import org.bukkit.entity.Player;
+import me.protocos.xteam.core.TeamPlayer;
+import me.protocos.xteam.core.exception.TeamDoesNotExistException;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamNoHeadquartersException;
+import org.bukkit.command.CommandSender;
 
 public class AdminHeadquarters extends ServerAdminCommand
 {
@@ -15,37 +18,21 @@ public class AdminHeadquarters extends ServerAdminCommand
 
 	public AdminHeadquarters()
 	{
+		super();
 	}
-	public AdminHeadquarters(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Team team = xTeam.tm.getTeam(teamName);
-		sender.teleport(team.getHeadquarters());
-		sender.sendMessage("You have been teleported to the headquarters of team " + teamName);
+		teamPlayer.teleport(team.getHeadquarters());
+		originalSender.sendMessage("You have been teleported to the headquarters of team " + teamName);
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
-		if (sender == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 2)
-		{
-			teamName = parseCommand.get(1);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		teamName = parseCommand.get(1);
 		Team team = xTeam.tm.getTeam(teamName);
 		if (team == null)
 		{
@@ -69,6 +56,6 @@ public class AdminHeadquarters extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " hq [Team]";
+		return "/team hq [Team]";
 	}
 }

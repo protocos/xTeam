@@ -333,7 +333,8 @@ public class TeamPlayerTest
 		//ACT
 		boolean teleport = player1.teleport(player2);
 		//ASSERT
-		Assert.assertEquals(true, teleport);
+		Assert.assertTrue(teleport);
+		Assert.assertEquals(player2.getLocation(), player1.getLocation());
 	}
 	@Test
 	public void ShouldBeTeleportLocation()
@@ -341,11 +342,12 @@ public class TeamPlayerTest
 		//ASSEMBLE
 		World world = new FakeWorld();
 		Location location = new FakeLocation(world, 0, 64, 0);
-		player = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		player = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 1, 64, 1)));
 		//ACT
 		boolean teleport = player.teleport(location);
 		//ASSERT
-		Assert.assertEquals(true, teleport);
+		Assert.assertTrue(teleport);
+		Assert.assertEquals(location, player.getLocation());
 	}
 	@Test
 	public void ShouldBeToString()

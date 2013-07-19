@@ -1,15 +1,15 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class AdminPromote extends ServerAdminCommand
 {
@@ -17,41 +17,25 @@ public class AdminPromote extends ServerAdminCommand
 
 	public AdminPromote()
 	{
+		super();
 	}
-	public AdminPromote(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Team team = xTeam.tm.getTeam(teamName);
 		team.promote(playerName);
-		if (!team.containsPlayer(sender.getName()))
-			sender.sendMessage("You " + ChatColor.GREEN + "promoted" + ChatColor.RESET + " " + playerName);
+		if (!team.containsPlayer(originalSender.getName()))
+			originalSender.sendMessage("You " + ChatColor.GREEN + "promoted" + ChatColor.RESET + " " + playerName);
 		TeamPlayer other = new TeamPlayer(playerName);
 		other.sendMessage("You've been " + ChatColor.GREEN + "promoted" + ChatColor.RESET + " by an admin");
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (sender == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 3)
-		{
-			teamName = parseCommand.get(1);
-			playerName = parseCommand.get(2);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		teamName = parseCommand.get(1);
+		playerName = parseCommand.get(2);
 		Team desiredTeam = xTeam.tm.getTeam(teamName);
 		TeamPlayer playerPromote = new TeamPlayer(playerName);
 		Team team = playerPromote.getTeam();
@@ -85,6 +69,6 @@ public class AdminPromote extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " promote [Team] [Player]";
+		return "/team promote [Team] [Player]";
 	}
 }

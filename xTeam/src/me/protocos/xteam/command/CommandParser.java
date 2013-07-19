@@ -28,7 +28,7 @@ public class CommandParser
 
 	public String getCommandWithoutID()
 	{
-		return toString().substring(toString().indexOf(" ") + 1);
+		return StringUtil.concatenate(parameters.toArray());
 	}
 
 	public int size()

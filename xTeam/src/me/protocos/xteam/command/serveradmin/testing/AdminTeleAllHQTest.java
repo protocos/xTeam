@@ -24,9 +24,9 @@ public class AdminTeleAllHQTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminTeleAllHQ(fakePlayerSender, new CommandParser("/team teleallhq"));
+		ServerAdminCommand fakeCommand = new AdminTeleAllHQ();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team teleallhq"));
 		//ASSERT
 		Assert.assertEquals("Players teleported", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);

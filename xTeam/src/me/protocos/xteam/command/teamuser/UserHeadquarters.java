@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.teamuser;
 
-import static me.protocos.xteam.util.StringUtil.OPTIONAL_WHITE_SPACE;
+import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import java.util.List;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
@@ -8,23 +9,20 @@ import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Functions;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 
 public class UserHeadquarters extends UserCommand
 {
 	public UserHeadquarters()
 	{
+		super();
 	}
-	public UserHeadquarters(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		List<Entity> nearbyEntities = teamPlayer.getOnlinePlayer().getNearbyEntities(Data.ENEMY_PROX, 5.0D, Data.ENEMY_PROX);
 		for (Entity entity : nearbyEntities)
@@ -36,26 +34,12 @@ public class UserHeadquarters extends UserCommand
 			}
 		}
 		teleHQ(teamPlayer);
-		sender.sendMessage(ChatColor.GREEN + "WHOOSH!");
+		originalSender.sendMessage(ChatColor.GREEN + "WHOOSH!");
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (teamPlayer == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 1)
-		{
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
-		if (!PermissionUtil.hasPermission(sender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
 		if (!teamPlayer.hasTeam())
 		{
 			throw new TeamPlayerHasNoTeamException();
@@ -127,7 +111,7 @@ public class UserHeadquarters extends UserCommand
 	@Override
 	public String getPattern()
 	{
-		return "hq" + OPTIONAL_WHITE_SPACE;
+		return patternOneOrMore("head") + patternOneOrMore("quarters") + OPTIONAL_WHITE_SPACE;
 	}
 	@Override
 	public String getPermissionNode()
@@ -137,7 +121,7 @@ public class UserHeadquarters extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " hq";
+		return "/team hq";
 	}
 	private void teleHQ(final TeamPlayer playerTele)
 	{

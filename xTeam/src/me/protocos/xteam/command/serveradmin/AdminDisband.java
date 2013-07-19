@@ -1,14 +1,16 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
+import me.protocos.xteam.core.exception.TeamDoesNotExistException;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamIsDefaultException;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class AdminDisband extends ServerAdminCommand
 {
@@ -16,34 +18,22 @@ public class AdminDisband extends ServerAdminCommand
 
 	public AdminDisband()
 	{
+		super();
 	}
-	public AdminDisband(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Team team = xTeam.tm.getTeam(teamName);
 		team.sendMessage("Your team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by an admin");
 		xTeam.tm.removeTeam(teamName);
-		sender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " " + teamName);
+		originalSender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " " + teamName);
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
-		if (parseCommand.size() == 2)
-		{
-			teamName = parseCommand.get(1);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		teamName = parseCommand.get(1);
 		Team team = xTeam.tm.getTeam(teamName);
 		if (team == null)
 		{
@@ -67,6 +57,6 @@ public class AdminDisband extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " disband [Team]";
+		return "/team disband [Team]";
 	}
 }

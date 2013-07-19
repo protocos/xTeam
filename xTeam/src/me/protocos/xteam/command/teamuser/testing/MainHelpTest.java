@@ -24,9 +24,9 @@ public class MainHelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserMainHelp(fakePlayerSender, new CommandParser("/team"));
+		UserCommand fakeCommand = new UserMainHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team"));
 		//ASSERT
 		Assert.assertEquals("------------------ [xTeam vCURRENT UserHelp] ------------------\n" +
 				"xTeam is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!\n" +

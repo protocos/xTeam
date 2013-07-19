@@ -31,9 +31,9 @@ public class HelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserHelp(fakePlayerSender, new CommandParser("/team help"));
+		UserCommand fakeCommand = new UserHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help"));
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 1/3] {optional} [required] pick/one\n" +
 				"/team info {Team/Player} - Get team info or other team's info\n" +
@@ -52,9 +52,9 @@ public class HelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserHelp(fakePlayerSender, new CommandParser("/team help 2"));
+		UserCommand fakeCommand = new UserHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help 2"));
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 2/3] {optional} [required] pick/one\n" +
 				"/team chat {On/Off} - Toggle chatting with teammates\n" +
@@ -73,9 +73,9 @@ public class HelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserHelp(fakePlayerSender, new CommandParser("/team help 3"));
+		UserCommand fakeCommand = new UserHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help 3"));
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 3/3] {optional} [required] pick/one\n" +
 				"/team rename [Name] - UserRename the team\n" +
@@ -94,9 +94,9 @@ public class HelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserHelp(fakePlayerSender, new CommandParser("/team help 4"));
+		UserCommand fakeCommand = new UserHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help 4"));
 		//ASSERT
 		Assert.assertEquals((new TeamInvalidPageException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

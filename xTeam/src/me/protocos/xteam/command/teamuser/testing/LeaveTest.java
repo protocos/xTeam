@@ -28,9 +28,9 @@ public class LeaveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
-		UserCommand fakeCommand = new UserLeave(fakePlayerSender, new CommandParser("/team leave"));
+		UserCommand fakeCommand = new UserLeave();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals("You left red", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.contains("red"));
@@ -42,9 +42,9 @@ public class LeaveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("mastermind", new FakeLocation());
-		UserCommand fakeCommand = new UserLeave(fakePlayerSender, new CommandParser("/team leave"));
+		UserCommand fakeCommand = new UserLeave();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals("You left two", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.contains("two"));
@@ -56,9 +56,9 @@ public class LeaveTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Data.returnLocations.put(fakePlayerSender, new FakeLocation());
-		UserCommand fakeCommand = new UserLeave(fakePlayerSender, new CommandParser("/team leave"));
+		UserCommand fakeCommand = new UserLeave();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("protocos"));
@@ -70,9 +70,9 @@ public class LeaveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserLeave(fakePlayerSender, new CommandParser("/team leave"));
+		UserCommand fakeCommand = new UserLeave();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("kmlanglois"));
@@ -83,9 +83,9 @@ public class LeaveTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserLeave(fakePlayerSender, new CommandParser("/team leave"));
+		UserCommand fakeCommand = new UserLeave();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

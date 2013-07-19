@@ -25,9 +25,9 @@ public class MessageTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserMessage(fakePlayerSender, new CommandParser("/team msg hello team"));
+		UserCommand fakeCommand = new UserMessage();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team msg hello team"));
 		//ASSERT
 		Assert.assertEquals("[protocos] hello team", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -37,9 +37,9 @@ public class MessageTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserMessage(fakePlayerSender, new CommandParser("/team msg hello team"));
+		UserCommand fakeCommand = new UserMessage();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team msg hello team"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

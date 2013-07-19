@@ -1,13 +1,13 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamInvalidCommandException;
 import me.protocos.xteam.util.HelpPages;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.CommandSender;
 
 public class ConsoleHelp extends ConsoleCommand
 {
@@ -15,15 +15,13 @@ public class ConsoleHelp extends ConsoleCommand
 
 	public ConsoleHelp()
 	{
+		super();
 	}
-	public ConsoleHelp(ConsoleCommandSender sender, CommandParser command)
-	{
-		super(sender, command);
-		pages = new HelpPages();
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
+		pages = new HelpPages();
 		pages.setTitle("Console Commands: {optional} [required] pick/one");
 		pages.addLine(xTeam.cm.getUsage("console_info") + " - get info on sender/team");
 		pages.addLine(xTeam.cm.getUsage("console_list") + " - list all teams on the server");
@@ -45,15 +43,9 @@ public class ConsoleHelp extends ConsoleCommand
 		}
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (parseCommand.size() == 0 || parseCommand.size() == 1)
-		{
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
 	}
 	@Override
 	public String getPattern()
@@ -63,6 +55,6 @@ public class ConsoleHelp extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " {help}";
+		return "/team {help}";
 	}
 }

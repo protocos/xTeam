@@ -30,9 +30,9 @@ public class DemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserDemote(fakePlayerSender, new CommandParser("/team demote protocos"));
+		UserCommand fakeCommand = new UserDemote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team demote protocos"));
 		//ASSERT
 		Assert.assertEquals("You demoted protocos", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));
@@ -43,9 +43,9 @@ public class DemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserDemote(fakePlayerSender, new CommandParser("/team demote kmlanglois"));
+		UserCommand fakeCommand = new UserDemote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team demote kmlanglois"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderDemoteException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));
@@ -56,9 +56,9 @@ public class DemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserDemote(fakePlayerSender, new CommandParser("/team demote protocos"));
+		UserCommand fakeCommand = new UserDemote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team demote protocos"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));
@@ -69,9 +69,9 @@ public class DemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserDemote(fakePlayerSender, new CommandParser("/team demote protocos"));
+		UserCommand fakeCommand = new UserDemote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team demote protocos"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));
@@ -82,9 +82,9 @@ public class DemoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserDemote(fakePlayerSender, new CommandParser("/team demote mastermind"));
+		UserCommand fakeCommand = new UserDemote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team demote mastermind"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotTeammateException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));

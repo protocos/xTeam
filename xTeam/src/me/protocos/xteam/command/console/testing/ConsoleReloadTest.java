@@ -25,9 +25,9 @@ public class ConsoleReloadTest
 	public void ShouldBeConsoleReloadExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleReload(fakeConsoleSender, new CommandParser("/team reload"));
+		ConsoleCommand fakeCommand = new ConsoleReload();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team reload"));
 		//ASSERT
 		Assert.assertEquals("Config reloaded", fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);

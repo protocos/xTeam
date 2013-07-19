@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
@@ -8,23 +9,22 @@ import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class AdminSet extends ServerAdminCommand
 {
 	private String playerName, teamName;
+	private Player sender;
 
 	public AdminSet()
 	{
+		super();
 	}
-	public AdminSet(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		TeamPlayer p = new TeamPlayer(playerName);
 		if (p.hasTeam())
@@ -51,25 +51,12 @@ public class AdminSet extends ServerAdminCommand
 		}
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
-		if (sender == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 3)
-		{
-			playerName = parseCommand.get(1);
-			teamName = parseCommand.get(2);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		sender = (Player) originalSender;
+		playerName = parseCommand.get(1);
+		teamName = parseCommand.get(2);
 		TeamPlayer p = new TeamPlayer(playerName);
 		Team team = p.getTeam();
 		if (!p.hasPlayedBefore())
@@ -114,7 +101,7 @@ public class AdminSet extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " set [Player] [Team]";
+		return "/team set [Player] [Team]";
 	}
 	private void removePlayer(TeamPlayer p)
 	{

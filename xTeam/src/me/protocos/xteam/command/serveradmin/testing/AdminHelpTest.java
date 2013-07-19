@@ -27,9 +27,9 @@ public class AdminHelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminHelp(fakePlayerSender, new CommandParser("/team admin"));
+		ServerAdminCommand fakeCommand = new AdminHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team admin"));
 		//ASSERT
 		Assert.assertEquals("Admin Commands: [Page 1/2] {optional} [required] pick/one\n" +
 				"/team set [Player] [Team] - <admin> set team of sender\n" +
@@ -48,9 +48,9 @@ public class AdminHelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminHelp(fakePlayerSender, new CommandParser("/team admin 2"));
+		ServerAdminCommand fakeCommand = new AdminHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team admin 2"));
 		//ASSERT
 		Assert.assertEquals("Admin Commands: [Page 2/2] {optional} [required] pick/one\n" +
 				"/team chatspy - <admin> spy on team chat\n" +
@@ -69,9 +69,9 @@ public class AdminHelpTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminHelp(fakePlayerSender, new CommandParser("/team admin 3"));
+		ServerAdminCommand fakeCommand = new AdminHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team admin 3"));
 		//ASSERT
 		Assert.assertEquals((new TeamInvalidPageException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

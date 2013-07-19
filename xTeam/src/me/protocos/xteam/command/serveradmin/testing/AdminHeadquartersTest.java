@@ -29,9 +29,9 @@ public class AdminHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location hq = xTeam.tm.getTeam("one").getHeadquarters();
-		ServerAdminCommand fakeCommand = new AdminHeadquarters(fakePlayerSender, new CommandParser("/team hq one"));
+		ServerAdminCommand fakeCommand = new AdminHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq one"));
 		//ASSERT
 		Assert.assertEquals("You have been teleported to the headquarters of team one", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(hq, fakePlayerSender.getLocation());
@@ -43,9 +43,9 @@ public class AdminHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		ServerAdminCommand fakeCommand = new AdminHeadquarters(fakePlayerSender, new CommandParser("/team hq team"));
+		ServerAdminCommand fakeCommand = new AdminHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq team"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -57,9 +57,9 @@ public class AdminHeadquartersTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		ServerAdminCommand fakeCommand = new AdminHeadquarters(fakePlayerSender, new CommandParser("/team hq two"));
+		ServerAdminCommand fakeCommand = new AdminHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq two"));
 		//ASSERT
 		Assert.assertEquals((new TeamNoHeadquartersException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());

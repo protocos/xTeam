@@ -27,9 +27,9 @@ public class ConsoleHelpTest
 	public void ShouldBeConsoleHelpExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleHelp(fakeConsoleSender, new CommandParser("/team"));
+		ConsoleCommand fakeCommand = new ConsoleHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team"));
 		//ASSERT
 		Assert.assertEquals("Console Commands: {optional} [required] pick/one\n" +
 				"/team info [Player/Team] - get info on sender/team\n" +

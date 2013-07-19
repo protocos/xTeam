@@ -24,9 +24,9 @@ public class AdminReloadTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminReload(fakePlayerSender, new CommandParser("/team reload"));
+		ServerAdminCommand fakeCommand = new AdminReload();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team reload"));
 		//ASSERT
 		Assert.assertEquals("Config reloaded", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);

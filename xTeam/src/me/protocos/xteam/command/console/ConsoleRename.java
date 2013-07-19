@@ -1,14 +1,18 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.core.exception.TeamAlreadyExistsException;
+import me.protocos.xteam.core.exception.TeamDoesNotExistException;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamNameNotAlphaException;
 import org.bukkit.ChatColor;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.CommandSender;
 
 public class ConsoleRename extends ConsoleCommand
 {
@@ -16,13 +20,11 @@ public class ConsoleRename extends ConsoleCommand
 
 	public ConsoleRename()
 	{
+		super();
 	}
-	public ConsoleRename(ConsoleCommandSender sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Team team = xTeam.tm.getTeam(teamName);
 		xTeam.tm.removeTeam(teamName);
@@ -32,17 +34,11 @@ public class ConsoleRename extends ConsoleCommand
 		team.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName);
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (parseCommand.size() == 3)
-		{
-			teamName = parseCommand.get(1);
-			newName = parseCommand.get(2);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		teamName = parseCommand.get(1);
+		newName = parseCommand.get(2);
 		Team desiredTeam = xTeam.tm.getTeam(teamName);
 		if (desiredTeam == null)
 		{
@@ -65,6 +61,6 @@ public class ConsoleRename extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " rename [Team] [Name]";
+		return "/team rename [Team] [Name]";
 	}
 }

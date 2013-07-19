@@ -24,9 +24,9 @@ public class AdminUpdateTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminUpdatePlayers(fakePlayerSender, new CommandParser("/team update"));
+		ServerAdminCommand fakeCommand = new AdminUpdatePlayers();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team update"));
 		//ASSERT
 		Assert.assertEquals("Players updated", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);

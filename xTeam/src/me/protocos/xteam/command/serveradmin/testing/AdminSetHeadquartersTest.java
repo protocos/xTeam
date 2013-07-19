@@ -27,13 +27,13 @@ public class AdminSetHeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		TeamHeadquarters hq = new TeamHeadquarters(fakePlayerSender.getLocation());
-		ServerAdminCommand fakeCommand = new AdminSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq two"));
+		TeamHeadquarters newHQ = new TeamHeadquarters(fakePlayerSender.getLocation());
+		ServerAdminCommand fakeCommand = new AdminSetHeadquarters();
 		//ACT 
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq two"));
 		//ASSERT
 		Assert.assertEquals("You set the team headquarters for team two", fakePlayerSender.getLastMessage());
-		Assert.assertEquals(hq, xTeam.tm.getTeam("two").getHeadquarters());
+		Assert.assertEquals(newHQ, xTeam.tm.getTeam("two").getHeadquarters());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -41,9 +41,9 @@ public class AdminSetHeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminSetHeadquarters(fakePlayerSender, new CommandParser("/team sethq three"));
+		ServerAdminCommand fakeCommand = new AdminSetHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq three"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

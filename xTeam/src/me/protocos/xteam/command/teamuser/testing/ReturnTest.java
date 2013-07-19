@@ -30,9 +30,9 @@ public class ReturnTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
 		Data.returnLocations.put(fakePlayerSender, returnLocation);
-		UserCommand fakeCommand = new UserReturn(fakePlayerSender, new CommandParser("/team return"));
+		UserCommand fakeCommand = new UserReturn();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
 		//ASSERT
 		Assert.assertEquals("WHOOSH!", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(returnLocation, fakePlayerSender.getLocation());
@@ -43,9 +43,9 @@ public class ReturnTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("mastermind", new FakeLocation());
-		UserCommand fakeCommand = new UserReturn(fakePlayerSender, new CommandParser("/team return"));
+		UserCommand fakeCommand = new UserReturn();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoReturnException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -59,9 +59,9 @@ public class ReturnTest
 		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
 		Data.returnLocations.put(fakePlayerSender, returnLocation);
 		fakePlayerSender.setNoDamageTicks(1);
-		UserCommand fakeCommand = new UserReturn(fakePlayerSender, new CommandParser("/team return"));
+		UserCommand fakeCommand = new UserReturn();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerDyingException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -74,9 +74,9 @@ public class ReturnTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
 		Data.returnLocations.put(fakePlayerSender, returnLocation);
-		UserCommand fakeCommand = new UserReturn(fakePlayerSender, new CommandParser("/team return"));
+		UserCommand fakeCommand = new UserReturn();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -91,9 +91,9 @@ public class ReturnTest
 		Location before = fakePlayerSender.getLocation();
 		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
 		Data.returnLocations.put(fakePlayerSender, returnLocation);
-		UserCommand fakeCommand = new UserReturn(fakePlayerSender, new CommandParser("/team return"));
+		UserCommand fakeCommand = new UserReturn();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerTeleException("Player was attacked in the last 15 seconds\nYou must wait 15 more seconds")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -108,9 +108,9 @@ public class ReturnTest
 		Location before = fakePlayerSender.getLocation();
 		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
 		Data.returnLocations.put(fakePlayerSender, returnLocation);
-		UserCommand fakeCommand = new UserReturn(fakePlayerSender, new CommandParser("/team return"));
+		UserCommand fakeCommand = new UserReturn();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerTeleRequestException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());

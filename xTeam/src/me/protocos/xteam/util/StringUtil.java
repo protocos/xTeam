@@ -13,6 +13,8 @@ public class StringUtil
 	public static final String OPTIONAL_ANY_CHARS = "\\S*";
 	public static final String ALPHA_NUMERIC = "\\w+";
 	public static final String OPTIONAL_ALPHA_NUMERIC = "\\w*";
+	public static final String IGNORE_CASE = "(?i)";
+	public static final String CASE_SENSITIVE = "(?-i)";
 
 	public static String concatenate(Object[] o)
 	{

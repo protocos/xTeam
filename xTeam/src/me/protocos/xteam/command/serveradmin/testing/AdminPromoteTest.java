@@ -29,9 +29,9 @@ public class AdminPromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, new CommandParser("/team promote one protocos"));
+		ServerAdminCommand fakeCommand = new AdminPromote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team promote one protocos"));
 		//ASSERT
 		Assert.assertEquals("You promoted protocos", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));
@@ -42,9 +42,9 @@ public class AdminPromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, new CommandParser("/team promote one Lonely"));
+		ServerAdminCommand fakeCommand = new AdminPromote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team promote one Lonely"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").getAdmins().contains("Lonely"));
@@ -55,9 +55,9 @@ public class AdminPromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, new CommandParser("/team promote one newbie"));
+		ServerAdminCommand fakeCommand = new AdminPromote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team promote one newbie"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").getAdmins().contains("newbie"));
@@ -68,9 +68,9 @@ public class AdminPromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, new CommandParser("/team promote one mastermind"));
+		ServerAdminCommand fakeCommand = new AdminPromote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team promote one mastermind"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").getAdmins().contains("mastermind"));
@@ -81,9 +81,9 @@ public class AdminPromoteTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminPromote(fakePlayerSender, new CommandParser("/team promote three protocos"));
+		ServerAdminCommand fakeCommand = new AdminPromote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team promote three protocos"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));

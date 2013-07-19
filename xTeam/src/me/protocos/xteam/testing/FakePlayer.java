@@ -1541,28 +1541,29 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public boolean teleport(Entity arg0)
+	public boolean teleport(Entity entity)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		setLocation(entity.getLocation());
+		return true;
 	}
 	@Override
-	public boolean teleport(Entity arg0, TeleportCause arg1)
+	public boolean teleport(Entity entity, TeleportCause arg1)
 	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean teleport(Location arg0)
-	{
+		setLocation(entity.getLocation());
 		return true;
 	}
 
 	@Override
-	public boolean teleport(Location arg0, TeleportCause arg1)
+	public boolean teleport(Location location)
 	{
-		// TODO Auto-generated method stub
+		setLocation(location);
+		return true;
+	}
+
+	@Override
+	public boolean teleport(Location location, TeleportCause arg1)
+	{
+		setLocation(location);
 		return false;
 	}
 

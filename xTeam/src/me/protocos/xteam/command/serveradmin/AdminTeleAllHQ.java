@@ -1,29 +1,24 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamInvalidCommandException;
-import me.protocos.xteam.core.exception.TeamPlayerDoesNotExistException;
-import me.protocos.xteam.core.exception.TeamPlayerPermissionException;
-import me.protocos.xteam.util.PermissionUtil;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class AdminTeleAllHQ extends ServerAdminCommand
 {
 	public AdminTeleAllHQ()
 	{
-	}
-	public AdminTeleAllHQ(Player sender, CommandParser command)
-	{
-		super(sender, command);
+		super();
 	}
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Player[] players = Data.BUKKIT.getOnlinePlayers();
 		for (Player p : players)
@@ -33,11 +28,11 @@ public class AdminTeleAllHQ extends ServerAdminCommand
 			{
 				if (team == null)
 				{
-					sender.sendMessage(otherPlayer.getName() + " does not have a team and was not teleported");
+					originalSender.sendMessage(otherPlayer.getName() + " does not have a team and was not teleported");
 				}
 				else if (!team.hasHQ())
 				{
-					sender.sendMessage("No team headquarters set for team " + team.getName() + " for " + p.getName());
+					originalSender.sendMessage("No team headquarters set for team " + team.getName() + " for " + p.getName());
 				}
 				else
 				{
@@ -49,24 +44,9 @@ public class AdminTeleAllHQ extends ServerAdminCommand
 		originalSender.sendMessage("Players teleported");
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
-		if (sender == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 1)
-		{
-
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
 	}
 	@Override
 	public String getPattern()
@@ -81,6 +61,6 @@ public class AdminTeleAllHQ extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " teleallhq";
+		return "/team teleallhq";
 	}
 }

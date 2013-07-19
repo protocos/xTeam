@@ -27,9 +27,9 @@ public class CreateTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserCreate(fakePlayerSender, new CommandParser("/team create newteam"));
+		UserCommand fakeCommand = new UserCreate();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team create newteam"));
 		//ASSERT
 		Assert.assertEquals("You created newteam", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.contains("newteam"));
@@ -44,9 +44,9 @@ public class CreateTest
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserCreate(fakePlayerSender, new CommandParser("/team create NEW"));
+		UserCommand fakeCommand = new UserCreate();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team create NEW"));
 		//ASSERT
 		Assert.assertEquals("You created NEW", fakePlayerSender.getLastMessage());
 		Assert.assertEquals("NEW", xTeam.tm.getTeam("NEW").getName());
@@ -59,9 +59,9 @@ public class CreateTest
 		//ASSEMBLE
 		Data.TEAM_TAG_LENGTH = 10;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserCreate(fakePlayerSender, new CommandParser("/team create newteamiswaytoolong"));
+		UserCommand fakeCommand = new UserCreate();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team create newteamiswaytoolong"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameTooLongException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.contains("newteamiswaytoolong"));
@@ -73,9 +73,9 @@ public class CreateTest
 		//ASSEMBLE
 		Data.DEFAULT_TEAM_ONLY = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserCreate(fakePlayerSender, new CommandParser("/team create newteam"));
+		UserCommand fakeCommand = new UserCreate();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team create newteam"));
 		//ASSERT
 		Assert.assertEquals((new TeamOnlyJoinDefaultException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.contains("newteam"));
@@ -86,9 +86,9 @@ public class CreateTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserCreate(fakePlayerSender, new CommandParser("/team create newteam"));
+		UserCommand fakeCommand = new UserCreate();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team create newteam"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.contains("newteam"));
@@ -99,9 +99,9 @@ public class CreateTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserCreate(fakePlayerSender, new CommandParser("/team create one"));
+		UserCommand fakeCommand = new UserCreate();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team create one"));
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.contains("one"));
@@ -115,9 +115,9 @@ public class CreateTest
 		Data.CREATE_INTERVAL = 1;
 		Data.lastCreated.put("Lonely", System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserCreate(fakePlayerSender, new CommandParser("/team create newteam"));
+		UserCommand fakeCommand = new UserCreate();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team create newteam"));
 		//ASSERT
 		Assert.assertEquals((new TeamCreatedRecentlyException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.contains("newteam"));
@@ -129,9 +129,9 @@ public class CreateTest
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserCreate(fakePlayerSender, new CommandParser("/team create ©§·"));
+		UserCommand fakeCommand = new UserCreate();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team create ©§·"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.contains("©§·"));

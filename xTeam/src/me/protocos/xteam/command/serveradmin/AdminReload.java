@@ -1,50 +1,30 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamInvalidCommandException;
-import me.protocos.xteam.core.exception.TeamPlayerDoesNotExistException;
-import me.protocos.xteam.core.exception.TeamPlayerPermissionException;
-import me.protocos.xteam.util.PermissionUtil;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class AdminReload extends ServerAdminCommand
 {
 	public AdminReload()
 	{
+		super();
 	}
-	public AdminReload(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Data.load();
 		originalSender.sendMessage("Config reloaded");
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
-		if (sender == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 1)
-		{
-
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
 	}
 	@Override
 	public String getPattern()
@@ -59,6 +39,6 @@ public class AdminReload extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " reload";
+		return "/team reload";
 	}
 }

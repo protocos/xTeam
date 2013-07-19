@@ -25,9 +25,9 @@ public class AdminChatSpyTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminChatSpy(fakePlayerSender, new CommandParser("/team chatspy"));
+		ServerAdminCommand fakeCommand = new AdminChatSpy();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team chatspy"));
 		//ASSERT
 		Assert.assertEquals("You are now spying on team chat", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(Data.spies.contains("protocos"));
@@ -39,9 +39,9 @@ public class AdminChatSpyTest
 		//ASSEMBLE
 		Data.spies.add("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		ServerAdminCommand fakeCommand = new AdminChatSpy(fakePlayerSender, new CommandParser("/team chatspy"));
+		ServerAdminCommand fakeCommand = new AdminChatSpy();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team chatspy"));
 		//ASSERT
 		Assert.assertEquals("You are no longer spying on team chat", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(Data.spies.contains("protocos"));

@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -8,7 +9,7 @@ import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.CommandSender;
 
 public class ConsolePromote extends ConsoleCommand
 {
@@ -16,13 +17,11 @@ public class ConsolePromote extends ConsoleCommand
 
 	public ConsolePromote()
 	{
+		super();
 	}
-	public ConsolePromote(ConsoleCommandSender sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Team team = xTeam.tm.getTeam(teamName);
 		team.promote(playerName);
@@ -32,17 +31,11 @@ public class ConsolePromote extends ConsoleCommand
 			other.sendMessage("You've been " + ChatColor.GREEN + "promoted");
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (parseCommand.size() == 3)
-		{
-			teamName = parseCommand.get(1);
-			playerName = parseCommand.get(2);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		teamName = parseCommand.get(1);
+		playerName = parseCommand.get(2);
 		Team desiredTeam = xTeam.tm.getTeam(teamName);
 		TeamPlayer player = new TeamPlayer(playerName);
 		Team team = player.getTeam();
@@ -71,6 +64,6 @@ public class ConsolePromote extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " promote [Team] [Player]";
+		return "/team promote [Team] [Player]";
 	}
 }

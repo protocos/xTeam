@@ -1,27 +1,25 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamInvalidCommandException;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ConsoleTeleAllHQ extends ConsoleCommand
 {
 	public ConsoleTeleAllHQ()
 	{
+		super();
 	}
-	public ConsoleTeleAllHQ(ConsoleCommandSender sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Player[] players = Data.BUKKIT.getOnlinePlayers();
 		for (Player p : players)
@@ -47,15 +45,9 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 		originalSender.sendMessage("Players teleported");
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (parseCommand.size() == 1)
-		{
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
 	}
 	@Override
 	public String getPattern()
@@ -65,6 +57,6 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " teleallhq";
+		return "/team teleallhq";
 	}
 }

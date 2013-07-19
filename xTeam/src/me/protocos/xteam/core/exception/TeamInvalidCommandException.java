@@ -5,7 +5,7 @@ public class TeamInvalidCommandException extends TeamException
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4774506979536580599L;
+	private static final long serialVersionUID = 2065963142386150210L;
 
 	public TeamInvalidCommandException()
 	{

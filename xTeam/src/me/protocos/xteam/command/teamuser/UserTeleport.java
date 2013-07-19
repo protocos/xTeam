@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import java.util.List;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
@@ -8,11 +9,10 @@ import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Functions;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 
 public class UserTeleport extends UserCommand
 {
@@ -20,39 +20,23 @@ public class UserTeleport extends UserCommand
 
 	public UserTeleport()
 	{
+		super();
 	}
-	public UserTeleport(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		String closestTeammate = getClosestTeammate().getName();
 		tele(closestTeammate);
 		originalSender.sendMessage("You've been teleported to " + ChatColor.GREEN + closestTeammate);
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (teamPlayer == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 1)
-		{
-		}
-		else if (parseCommand.size() == 2)
+		super.checkRequirements(originalSender, parseCommand);
+		if (parseCommand.size() == 2)
 		{
 			playerName = parseCommand.get(1);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
 		}
 		if (!teamPlayer.hasTeam())
 		{
@@ -188,7 +172,7 @@ public class UserTeleport extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " tele {Player}";
+		return "/team tele {Player}";
 	}
 	private void tele(String teammate)
 	{

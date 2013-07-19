@@ -1,14 +1,18 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.core.exception.TeamDoesNotExistException;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamNameConflictsWithTagException;
+import me.protocos.xteam.core.exception.TeamNameNotAlphaException;
 import me.protocos.xteam.util.StringUtil;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class AdminTag extends ServerAdminCommand
 {
@@ -16,36 +20,24 @@ public class AdminTag extends ServerAdminCommand
 
 	public AdminTag()
 	{
+		super();
 	}
-	public AdminTag(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Team team = xTeam.tm.getTeam(teamName);
 		team.setTag(newTag);
-		if (!team.containsPlayer(sender.getName()))
-			sender.sendMessage("The team tag has been set to " + newTag);
+		if (!team.containsPlayer(originalSender.getName()))
+			originalSender.sendMessage("The team tag has been set to " + newTag);
 		team.sendMessage("The team tag has been set to " + newTag + " by an admin");
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (!sender.hasPermission(getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
-		if (parseCommand.size() == 3)
-		{
-			teamName = parseCommand.get(1);
-			newTag = parseCommand.get(2);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		teamName = parseCommand.get(1);
+		newTag = parseCommand.get(2);
 		Team desiredTeam = xTeam.tm.getTeam(teamName);
 		if (desiredTeam == null)
 		{
@@ -73,6 +65,6 @@ public class AdminTag extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " tag [Team] [UserTag]";
+		return "/team tag [Team] [UserTag]";
 	}
 }

@@ -1,14 +1,13 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamInvalidCommandException;
-import me.protocos.xteam.core.exception.TeamPlayerDoesNotExistException;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class UserMainHelp extends UserCommand
 {
@@ -16,14 +15,11 @@ public class UserMainHelp extends UserCommand
 
 	public UserMainHelp()
 	{
+		super();
 	}
-	public UserMainHelp(Player sender, CommandParser command)
-	{
-		super(sender, command);
-		this.commandID = command.getBaseCommand();
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		ChatColor temp;
 		String message = (ChatColor.AQUA + "------------------ [xTeam v" + xTeam.VERSION + " UserHelp] ------------------");
@@ -37,19 +33,10 @@ public class UserMainHelp extends UserCommand
 		originalSender.sendMessage(message);
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (teamPlayer == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 0 || parseCommand.size() == 1)
-		{
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		commandID = parseCommand.getBaseCommand();
 	}
 	@Override
 	public String getPattern()
@@ -64,6 +51,6 @@ public class UserMainHelp extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " {help}";
+		return "/team {help}";
 	}
 }

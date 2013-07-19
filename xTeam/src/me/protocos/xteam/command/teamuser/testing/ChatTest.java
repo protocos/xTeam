@@ -26,9 +26,9 @@ public class ChatTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserChat(fakePlayerSender, new CommandParser("/team chat"));
+		UserCommand fakeCommand = new UserChat();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team chat"));
 		//ASSERT
 		Assert.assertEquals("You are now only chatting with your team", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(Data.chatStatus.contains("protocos"));
@@ -39,9 +39,9 @@ public class ChatTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserChat(fakePlayerSender, new CommandParser("/team chat"));
+		UserCommand fakeCommand = new UserChat();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team chat"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(Data.chatStatus.contains("Lonely"));

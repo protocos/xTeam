@@ -1,13 +1,14 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class UserDemote extends UserCommand
@@ -16,13 +17,11 @@ public class UserDemote extends UserCommand
 
 	public UserDemote()
 	{
+		super();
 	}
-	public UserDemote(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		team.demote(otherPlayer);
 		Player other = Data.BUKKIT.getPlayer(otherPlayer);
@@ -31,25 +30,10 @@ public class UserDemote extends UserCommand
 		originalSender.sendMessage("You" + ChatColor.RED + " demoted " + ChatColor.RESET + otherPlayer);
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (teamPlayer == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 2)
-		{
-			otherPlayer = parseCommand.get(1);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
-
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		otherPlayer = parseCommand.get(1);
 		if (!teamPlayer.hasTeam())
 		{
 			throw new TeamPlayerHasNoTeamException();
@@ -82,6 +66,6 @@ public class UserDemote extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " demote [Player]";
+		return "/team demote [Player]";
 	}
 }

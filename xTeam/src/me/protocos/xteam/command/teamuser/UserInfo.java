@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
@@ -8,23 +9,25 @@ import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.core.exception.TeamDoesNotExistException;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class UserInfo extends UserCommand
 {
 	private String other;
+	Player sender;
 
 	public UserInfo()
 	{
+		super();
 	}
-	public UserInfo(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Team otherTeam = null;
 		if (isTeam(other))
@@ -45,12 +48,10 @@ public class UserInfo extends UserCommand
 		}
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (teamPlayer == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		sender = (Player) originalSender;
 		if (parseCommand.size() == 1)
 		{
 			other = teamPlayer.getName();
@@ -58,10 +59,6 @@ public class UserInfo extends UserCommand
 		else if (parseCommand.size() == 2)
 		{
 			other = parseCommand.get(1);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
 		}
 		if (isTeam(other))
 		{
@@ -109,7 +106,7 @@ public class UserInfo extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " info {Team/Player}";
+		return "/team info {Team/Player}";
 	}
 	private boolean isPlayer(String playerName)
 	{
@@ -133,7 +130,7 @@ public class UserInfo extends UserCommand
 		else
 			message += "\n" + (ChatColor.RESET + "Team UserHeadquarters - " + ChatColor.RED + "None set");
 		message += teammateStatus(otherTeam);
-		originalSender.sendMessage(message);
+		sender.sendMessage(message);
 	}
 	private void teamInfo()
 	{
@@ -150,7 +147,7 @@ public class UserInfo extends UserCommand
 		else
 			message += "\n" + (ChatColor.RESET + "Team UserHeadquarters - " + ChatColor.RED + "None set");
 		message += teammateStatus(team);
-		originalSender.sendMessage(message);
+		sender.sendMessage(message);
 	}
 	private String teammateStatus(Team t)
 	{

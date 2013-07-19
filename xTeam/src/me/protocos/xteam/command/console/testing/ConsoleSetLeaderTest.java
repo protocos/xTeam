@@ -27,9 +27,9 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, new CommandParser("/team setleader one protocos"));
+		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team setleader one protocos"));
 		//ASSERT
 		Assert.assertEquals("protocos is now the team leader for ONE", fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("protocos", xTeam.tm.getTeam("one").getLeader());
@@ -39,9 +39,9 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, new CommandParser("/team setleader one newbie"));
+		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team setleader one newbie"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
@@ -51,9 +51,9 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, new CommandParser("/team setleader one Lonely"));
+		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team setleader one Lonely"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
@@ -63,9 +63,9 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecutePlayerNotOnTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, new CommandParser("/team setleader one mastermind"));
+		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team setleader one mastermind"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
@@ -75,9 +75,9 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecuteTeamIsDefault()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, new CommandParser("/team setleader red strandedhelix"));
+		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team setleader red strandedhelix"));
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());
@@ -87,9 +87,9 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecuteTeamNotExist()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader(fakeConsoleSender, new CommandParser("/team setleader three Lonely"));
+		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team setleader three Lonely"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.tm.getTeam("one").getLeader());

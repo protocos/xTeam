@@ -31,9 +31,9 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, new CommandParser("/team set Lonely two"));
+		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set Lonely two"));
 		//ASSERT
 		Assert.assertEquals("Lonely has been added to two", fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("two").containsPlayer("Lonely"));
@@ -43,9 +43,9 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecuteCreateTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, new CommandParser("/team set Lonely three"));
+		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set Lonely three"));
 		//ASSERT
 		Assert.assertEquals("three has been created\n" +
 				"Lonely has been added to three\n", fakeConsoleSender.getAllMessages());
@@ -58,9 +58,9 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecuteHasTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, new CommandParser("/team set protocos two"));
+		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set protocos two"));
 		//ASSERT
 		Assert.assertEquals("protocos has been removed from ONE\n" +
 				"protocos has been added to two\n", fakeConsoleSender.getAllMessages());
@@ -73,10 +73,10 @@ public class ConsoleSetTest
 	{
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").removePlayer("protocos");
-		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, new CommandParser("/team set kmlanglois two"));
 		Data.returnLocations.put(Data.BUKKIT.getPlayer("kmlanglois"), new FakeLocation());
+		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set kmlanglois two"));
 		//ASSERT
 		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
 				"ONE has been disbanded\n" +
@@ -90,9 +90,9 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, new CommandParser("/team set kmlanglois two"));
+		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set kmlanglois two"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -101,9 +101,9 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecutePlayerHasNotPlayed()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, new CommandParser("/team set newbie one"));
+		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set newbie one"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -113,9 +113,9 @@ public class ConsoleSetTest
 	{
 		//ASSEMBLE
 		Data.MAX_PLAYERS = 2;
-		ConsoleCommand fakeCommand = new ConsoleSet(fakeConsoleSender, new CommandParser("/team set Lonely one"));
+		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set Lonely one"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

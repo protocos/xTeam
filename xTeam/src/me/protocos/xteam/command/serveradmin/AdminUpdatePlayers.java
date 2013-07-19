@@ -1,44 +1,30 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Functions;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamInvalidCommandException;
-import me.protocos.xteam.core.exception.TeamPlayerDoesNotExistException;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class AdminUpdatePlayers extends ServerAdminCommand
 {
 	public AdminUpdatePlayers()
 	{
+		super();
 	}
-	public AdminUpdatePlayers(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Functions.updatePlayers();
 		originalSender.sendMessage("Players updated");
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (sender == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 1)
-		{
-
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
 	}
 	@Override
 	public String getPattern()
@@ -53,6 +39,6 @@ public class AdminUpdatePlayers extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " update";
+		return "/team update";
 	}
 }

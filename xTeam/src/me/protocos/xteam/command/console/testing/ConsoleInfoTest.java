@@ -27,9 +27,9 @@ public class ConsoleInfoTest
 	public void ShouldBeConsoleInfoExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleInfo(fakeConsoleSender, new CommandParser("/team info protocos"));
+		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info protocos"));
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE" +
 				"Team UserTag - TeamAwesome" +
@@ -53,9 +53,9 @@ public class ConsoleInfoTest
 	public void ShouldBeConsoleInfoExecute2()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleInfo(fakeConsoleSender, new CommandParser("/team info two"));
+		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info two"));
 		//ASSERT
 		Assert.assertEquals("Team Name - two" +
 				"Team Leader - mastermind" +
@@ -75,9 +75,9 @@ public class ConsoleInfoTest
 	public void ShouldBeConsoleInfoExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleInfo(fakeConsoleSender, new CommandParser("/team info Lonely"));
+		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info Lonely"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -86,9 +86,9 @@ public class ConsoleInfoTest
 	public void ShouldBeConsoleInfoExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleInfo(fakeConsoleSender, new CommandParser("/team info three"));
+		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info three"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

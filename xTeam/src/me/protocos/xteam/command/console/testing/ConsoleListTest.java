@@ -25,9 +25,9 @@ public class ConsoleListTest
 	public void ShouldBeConsoleListExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleList(fakeConsoleSender, new CommandParser("/team list"));
+		ConsoleCommand fakeCommand = new ConsoleList();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team list"));
 		//ASSERT
 		Assert.assertEquals("Teams: ONE, two, red, blue", fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);

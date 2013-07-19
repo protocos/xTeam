@@ -1,15 +1,15 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
 import me.protocos.xteam.util.StringUtil;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class UserCreate extends UserCommand
 {
@@ -17,38 +17,22 @@ public class UserCreate extends UserCommand
 
 	public UserCreate()
 	{
+		super();
 	}
-	public UserCreate(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		String leader = teamPlayer.getName();
 		xTeam.tm.createTeamWithLeader(desiredTeam, leader);
 		Data.lastCreated.put(leader, Long.valueOf(System.currentTimeMillis()));
-		sender.sendMessage("You created " + ChatColor.AQUA + desiredTeam);
+		originalSender.sendMessage("You created " + ChatColor.AQUA + desiredTeam);
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (teamPlayer == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 2)
-		{
-			desiredTeam = parseCommand.get(1);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
-		if (!PermissionUtil.hasPermission(sender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		desiredTeam = parseCommand.get(1);
 		if (teamPlayer.hasTeam())
 		{
 			throw new TeamPlayerHasTeamException();
@@ -87,6 +71,6 @@ public class UserCreate extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " create [Name]";
+		return "/team create [Name]";
 	}
 }

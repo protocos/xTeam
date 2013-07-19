@@ -30,9 +30,9 @@ public class ConsoleTagTest
 	public void ShouldBeConsoleTagExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleTag(fakeConsoleSender, new CommandParser("/team tag one three"));
+		ConsoleCommand fakeCommand = new ConsoleTag();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team tag one three"));
 		//ASSERT
 		Assert.assertEquals("The team tag has been set to three", fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("three", xTeam.tm.getTeam("one").getTag());
@@ -42,9 +42,9 @@ public class ConsoleTagTest
 	public void ShouldBeConsoleTagExecuteTeamAlreadyExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleTag(fakeConsoleSender, new CommandParser("/team tag two one"));
+		ConsoleCommand fakeCommand = new ConsoleTag();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team tag two one"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameConflictsWithTagException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("TeamAwesome", xTeam.tm.getTeam("one").getTag());
@@ -54,9 +54,9 @@ public class ConsoleTagTest
 	public void ShouldBeConsoleTagExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleTag(fakeConsoleSender, new CommandParser("/team tag three one"));
+		ConsoleCommand fakeCommand = new ConsoleTag();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team tag three one"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("TeamAwesome", xTeam.tm.getTeam("one").getTag());
@@ -67,9 +67,9 @@ public class ConsoleTagTest
 	{
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
-		ConsoleCommand fakeCommand = new ConsoleTag(fakeConsoleSender, new CommandParser("/team tag two Ã"));
+		ConsoleCommand fakeCommand = new ConsoleTag();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team tag two Ã"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("TeamAwesome", xTeam.tm.getTeam("one").getTag());

@@ -28,9 +28,9 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote one protocos"));
+		ConsoleCommand fakeCommand = new ConsoleDemote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team demote one protocos"));
 		//ASSERT
 		Assert.assertEquals("You demoted protocos", fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));
@@ -40,9 +40,9 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecuteDemoteLeader()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote one kmlanglois"));
+		ConsoleCommand fakeCommand = new ConsoleDemote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team demote one kmlanglois"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderDemoteException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));
@@ -52,9 +52,9 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecuteIncorrectTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote one mastermind"));
+		ConsoleCommand fakeCommand = new ConsoleDemote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team demote one mastermind"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));
@@ -64,9 +64,9 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote one Lonely"));
+		ConsoleCommand fakeCommand = new ConsoleDemote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team demote one Lonely"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));
@@ -76,9 +76,9 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecutePlayerHasNotPlayed()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote one newbie"));
+		ConsoleCommand fakeCommand = new ConsoleDemote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team demote one newbie"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));
@@ -89,9 +89,9 @@ public class ConsoleDemoteTest
 	{
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").demote("protocos");
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote one protocos"));
+		ConsoleCommand fakeCommand = new ConsoleDemote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team demote one protocos"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotAdminException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -100,9 +100,9 @@ public class ConsoleDemoteTest
 	public void ShouldBeConsoleDemoteExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDemote(fakeConsoleSender, new CommandParser("/team demote three protocos"));
+		ConsoleCommand fakeCommand = new ConsoleDemote();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team demote three protocos"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").getAdmins().contains("protocos"));

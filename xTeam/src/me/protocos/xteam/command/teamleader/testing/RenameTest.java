@@ -27,9 +27,9 @@ public class RenameTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserRename(fakePlayerSender, new CommandParser("/team rename name"));
+		UserCommand fakeCommand = new UserRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename name"));
 		//ASSERT
 		Assert.assertEquals("You renamed the team to name", fakePlayerSender.getLastMessage());
 		Assert.assertEquals("name", xTeam.tm.getTeam("name").getName());
@@ -41,9 +41,9 @@ public class RenameTest
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserRename(fakePlayerSender, new CommandParser("/team rename two"));
+		UserCommand fakeCommand = new UserRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename two"));
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
@@ -55,9 +55,9 @@ public class RenameTest
 		//ASSEMBLE
 		Data.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserRename(fakePlayerSender, new CommandParser("/team rename ÃºÃ"));
+		UserCommand fakeCommand = new UserRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename ÃºÃ"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
@@ -69,9 +69,9 @@ public class RenameTest
 		//ASSEMBLE
 		Data.TEAM_TAG_LENGTH = 10;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserRename(fakePlayerSender, new CommandParser("/team rename nameiswaytoolong"));
+		UserCommand fakeCommand = new UserRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename nameiswaytoolong"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameTooLongException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
@@ -82,9 +82,9 @@ public class RenameTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserRename(fakePlayerSender, new CommandParser("/team rename name"));
+		UserCommand fakeCommand = new UserRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename name"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());
@@ -95,9 +95,9 @@ public class RenameTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserRename(fakePlayerSender, new CommandParser("/team rename name"));
+		UserCommand fakeCommand = new UserRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename name"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("ONE", xTeam.tm.getTeam("one").getName());

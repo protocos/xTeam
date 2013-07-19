@@ -25,9 +25,9 @@ public class ConsoleTeleAllHQTest
 	public void ShouldBeConsoleSetExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleTeleAllHQ(fakeConsoleSender, new CommandParser("/team teleallhq"));
+		ConsoleCommand fakeCommand = new ConsoleTeleAllHQ();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team teleallhq"));
 		//ASSERT
 		Assert.assertEquals("Players teleported", fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);

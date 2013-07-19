@@ -1,27 +1,38 @@
 package me.protocos.xteam.command;
 
+import java.io.InvalidClassException;
+import me.protocos.xteam.core.Team;
+import me.protocos.xteam.core.TeamPlayer;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamInvalidCommandException;
+import me.protocos.xteam.core.exception.TeamPlayerPermissionException;
+import me.protocos.xteam.util.PermissionUtil;
+import me.protocos.xteam.util.StringUtil;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public abstract class PlayerCommand extends Command implements IPlayerCommand
+public abstract class PlayerCommand extends BaseCommand implements IPermissionNode
 {
-	protected Player sender;
+	protected Player player;
+	protected TeamPlayer teamPlayer;
+	protected Team team;
 
 	public PlayerCommand()
 	{
-	}
-	public PlayerCommand(Player sender, CommandParser command)
-	{
-		super(sender, command);
-		setSender(sender);
+		super();
 	}
 
-	public Player getSender()
+	@Override
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		return sender;
-	}
-
-	public void setSender(Player sender)
-	{
-		this.sender = sender;
+		if (!(originalSender instanceof Player))
+			throw new InvalidClassException("Sender not an instance of Player");
+		player = (Player) originalSender;
+		teamPlayer = new TeamPlayer(player);
+		team = teamPlayer.getTeam();
+		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
+			throw new TeamPlayerPermissionException();
+		if (!parseCommand.getCommandWithoutID().matches(StringUtil.IGNORE_CASE + getPattern()))
+			throw new TeamInvalidCommandException("Not a valid command: \"" + parseCommand.getCommandWithoutID() + "\" does not match \"" + getPattern() + "\"");
 	}
 }

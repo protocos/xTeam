@@ -1,13 +1,13 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamInvalidCommandException;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.CommandSender;
 
 public class ConsoleDebug extends ConsoleCommand
 {
@@ -15,13 +15,11 @@ public class ConsoleDebug extends ConsoleCommand
 
 	public ConsoleDebug()
 	{
+		super();
 	}
-	public ConsoleDebug(ConsoleCommandSender sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		if (subCommand.equalsIgnoreCase("chat"))
 			originalSender.sendMessage("UserChat statuses: " + Data.chatStatus.toString());
@@ -43,8 +41,9 @@ public class ConsoleDebug extends ConsoleCommand
 			originalSender.sendMessage("Options are: debug [chat, invites, spies, return, tasks, tele, attacked, created]");
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
+		super.checkRequirements(originalSender, parseCommand);
 		if (parseCommand.size() == 1)
 		{
 			subCommand = "";
@@ -52,10 +51,6 @@ public class ConsoleDebug extends ConsoleCommand
 		else if (parseCommand.size() == 2)
 		{
 			subCommand = parseCommand.get(1);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
 		}
 	}
 	@Override
@@ -66,6 +61,6 @@ public class ConsoleDebug extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " debug [Option]";
+		return "/team debug [Option]";
 	}
 }

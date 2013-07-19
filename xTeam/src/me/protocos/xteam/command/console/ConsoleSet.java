@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -9,21 +10,21 @@ import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 
 public class ConsoleSet extends ConsoleCommand
 {
 	private String playerName, teamName;
+	ConsoleCommandSender sender;
 
 	public ConsoleSet()
 	{
+		super();
 	}
-	public ConsoleSet(ConsoleCommandSender sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		TeamPlayer player = new TeamPlayer(playerName);
 		if (player.hasTeam())
@@ -42,22 +43,17 @@ public class ConsoleSet extends ConsoleCommand
 	private void addPlayerToTeam(TeamPlayer player, Team team)
 	{
 		team.addPlayer(player.getName());
-		originalSender.sendMessage(player.getName() + " has been added to " + team.getName());
+		sender.sendMessage(player.getName() + " has been added to " + team.getName());
 		player.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
 		player.sendMessageToTeam(player.getName() + " has been added to " + team.getName());
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (parseCommand.size() == 3)
-		{
-			playerName = parseCommand.get(1);
-			teamName = parseCommand.get(2);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
+		sender = (ConsoleCommandSender) originalSender;
+		playerName = parseCommand.get(1);
+		teamName = parseCommand.get(2);
 		TeamPlayer p = new TeamPlayer(playerName);
 		if (!p.hasPlayedBefore())
 		{
@@ -79,8 +75,8 @@ public class ConsoleSet extends ConsoleCommand
 	private void createTeamWithLeader(String team, String player)
 	{
 		xTeam.tm.createTeamWithLeader(team, player);
-		originalSender.sendMessage(team + " has been created");
-		originalSender.sendMessage(player + " has been added to " + team);
+		sender.sendMessage(team + " has been created");
+		sender.sendMessage(player + " has been added to " + team);
 	}
 	@Override
 	public String getPattern()
@@ -90,7 +86,7 @@ public class ConsoleSet extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " set [Player] [Team]";
+		return "/team set [Player] [Team]";
 	}
 	private void removePlayer(TeamPlayer player)
 	{
@@ -99,11 +95,11 @@ public class ConsoleSet extends ConsoleCommand
 		team.sendMessage(player.getName() + " has been removed from " + team.getName());
 		Data.chatStatus.remove(player.getName());
 		Data.returnLocations.remove(player.getOnlinePlayer());
-		originalSender.sendMessage(player.getName() + " has been removed from " + team.getName());
+		sender.sendMessage(player.getName() + " has been removed from " + team.getName());
 		player.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
 		if (team.isEmpty() && !team.isDefaultTeam())
 		{
-			originalSender.sendMessage(team.getName() + " has been disbanded");
+			sender.sendMessage(team.getName() + " has been disbanded");
 			player.sendMessage(team.getName() + " has been " + ChatColor.RED + "disbanded");
 			xTeam.tm.removeTeam(team.getName());
 		}

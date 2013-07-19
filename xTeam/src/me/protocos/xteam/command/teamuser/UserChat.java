@@ -1,13 +1,14 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class UserChat extends UserCommand
 {
@@ -15,32 +16,27 @@ public class UserChat extends UserCommand
 
 	public UserChat()
 	{
+		super();
 	}
-	public UserChat(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		if (option.equalsIgnoreCase("ON"))
 		{
 			Data.chatStatus.add(teamPlayer.getName());
-			sender.sendMessage("You are now only chatting with " + ChatColor.GREEN + "your team");
+			originalSender.sendMessage("You are now only chatting with " + ChatColor.GREEN + "your team");
 		}
 		if (option.equalsIgnoreCase("OFF"))
 		{
 			Data.chatStatus.remove(teamPlayer.getName());
-			sender.sendMessage("You are now chatting with " + ChatColor.RED + "everyone");
+			originalSender.sendMessage("You are now chatting with " + ChatColor.RED + "everyone");
 		}
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (teamPlayer == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
 		//FIX move this if statememt to the act method
 		if (parseCommand.size() == 1)
 		{
@@ -52,14 +48,6 @@ public class UserChat extends UserCommand
 		else if (parseCommand.size() == 2 && (parseCommand.get(1).equalsIgnoreCase("ON") || parseCommand.get(1).equalsIgnoreCase("OFF")))
 		{
 			option = parseCommand.get(1);
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
-		if (!PermissionUtil.hasPermission(sender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
 		}
 		if (!teamPlayer.hasTeam())
 		{
@@ -79,6 +67,6 @@ public class UserChat extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " chat {On/Off}";
+		return "/team chat {On/Off}";
 	}
 }

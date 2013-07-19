@@ -30,9 +30,9 @@ public class JoinTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserJoin(fakePlayerSender, new CommandParser("/team join one"));
+		UserCommand fakeCommand = new UserJoin();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team join one"));
 		//ASSERT
 		Assert.assertEquals("You joined ONE", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.tm.getTeam("one").containsPlayer("Lonely"));
@@ -44,9 +44,9 @@ public class JoinTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").addPlayer("stranger");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserJoin(fakePlayerSender, new CommandParser("/team join one"));
+		UserCommand fakeCommand = new UserJoin();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team join one"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("Lonely"));
@@ -58,9 +58,9 @@ public class JoinTest
 		//ASSEMBLE
 		InviteHandler.removeInvite("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserJoin(fakePlayerSender, new CommandParser("/team join one"));
+		UserCommand fakeCommand = new UserJoin();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team join one"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoInviteException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("Lonely"));
@@ -72,9 +72,9 @@ public class JoinTest
 		//ASSEMBLE
 		Data.DEFAULT_TEAM_ONLY = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserJoin(fakePlayerSender, new CommandParser("/team join one"));
+		UserCommand fakeCommand = new UserJoin();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team join one"));
 		//ASSERT
 		Assert.assertEquals((new TeamOnlyJoinDefaultException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("Lonely"));
@@ -85,9 +85,9 @@ public class JoinTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		UserCommand fakeCommand = new UserJoin(fakePlayerSender, new CommandParser("/team join one"));
+		UserCommand fakeCommand = new UserJoin();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team join one"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("Lonely"));
@@ -98,9 +98,9 @@ public class JoinTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserJoin(fakePlayerSender, new CommandParser("/team join three"));
+		UserCommand fakeCommand = new UserJoin();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team join three"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.tm.getTeam("one").containsPlayer("Lonely"));

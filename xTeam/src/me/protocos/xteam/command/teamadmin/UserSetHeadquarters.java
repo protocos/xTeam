@@ -1,49 +1,32 @@
 package me.protocos.xteam.command.teamadmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.TeamHeadquarters;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.PermissionUtil;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class UserSetHeadquarters extends UserCommand
 {
 	public UserSetHeadquarters()
 	{
+		super();
 	}
-	public UserSetHeadquarters(Player sender, CommandParser command)
-	{
-		super(sender, command);
-	}
+
 	@Override
-	protected void act()
+	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		team.setHQ(new TeamHeadquarters(teamPlayer.getLocation()));
 		team.setTimeLastSet(System.currentTimeMillis());
 		originalSender.sendMessage("You set the team headquarters");
 	}
 	@Override
-	public void checkRequirements() throws TeamException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
-		if (teamPlayer == null)
-		{
-			throw new TeamPlayerDoesNotExistException();
-		}
-		if (parseCommand.size() == 1)
-		{
-
-		}
-		else
-		{
-			throw new TeamInvalidCommandException();
-		}
-		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
-		{
-			throw new TeamPlayerPermissionException();
-		}
+		super.checkRequirements(originalSender, parseCommand);
 		if (!teamPlayer.hasTeam())
 		{
 			throw new TeamPlayerHasNoTeamException();
@@ -74,6 +57,6 @@ public class UserSetHeadquarters extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return parseCommand.getBaseCommand() + " sethq";
+		return "/team sethq";
 	}
 }

@@ -27,9 +27,9 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info"));
+		UserCommand fakeCommand = new UserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE\n" +
 				"Team UserTag - TeamAwesome\n" +
@@ -46,9 +46,9 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info two"));
+		UserCommand fakeCommand = new UserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info two"));
 		//ASSERT
 		Assert.assertEquals("Team Name - two\n" +
 				"Team Leader - mastermind\n" +
@@ -63,9 +63,9 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info mastermind"));
+		UserCommand fakeCommand = new UserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info mastermind"));
 		//ASSERT
 		Assert.assertEquals("Team Name - two\n" +
 				"Team Leader - mastermind\n" +
@@ -80,9 +80,9 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info red"));
+		UserCommand fakeCommand = new UserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info red"));
 		//ASSERT
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -91,9 +91,9 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info strandedhelix"));
+		UserCommand fakeCommand = new UserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info strandedhelix"));
 		//ASSERT
 		Assert.assertEquals("Team Name - red\n" +
 				"Team UserTag - RED\n" +
@@ -111,9 +111,9 @@ public class InfoTest
 		xTeam.tm.getTeam("red").promote("strandedhelix");
 		xTeam.tm.getTeam("red").promote("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info"));
+		UserCommand fakeCommand = new UserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
 		//ASSERT
 		Assert.assertEquals("Team Name - red\n" +
 				"Team UserTag - RED\n" +
@@ -132,9 +132,9 @@ public class InfoTest
 		//ASSEMBLE
 		xTeam.tm.getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info"));
+		UserCommand fakeCommand = new UserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE\n" +
 				"Team UserTag - TeamAwesome\n" +
@@ -152,9 +152,9 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info"));
+		UserCommand fakeCommand = new UserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -164,9 +164,9 @@ public class InfoTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		UserCommand fakeCommand = new UserInfo(fakePlayerSender, new CommandParser("/team info three"));
+		UserCommand fakeCommand = new UserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute();
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info three"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
