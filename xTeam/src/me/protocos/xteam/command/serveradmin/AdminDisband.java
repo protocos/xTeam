@@ -15,6 +15,7 @@ import org.bukkit.command.CommandSender;
 public class AdminDisband extends ServerAdminCommand
 {
 	private String teamName;
+	private Team changeTeam;
 
 	public AdminDisband()
 	{
@@ -24,8 +25,7 @@ public class AdminDisband extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.tm.getTeam(teamName);
-		team.sendMessage("Your team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by an admin");
+		changeTeam.sendMessage("Your team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by an admin");
 		xTeam.tm.removeTeam(teamName);
 		originalSender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " " + teamName);
 	}
@@ -34,12 +34,12 @@ public class AdminDisband extends ServerAdminCommand
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
-		Team team = xTeam.tm.getTeam(teamName);
-		if (team == null)
+		changeTeam = xTeam.tm.getTeam(teamName);
+		if (changeTeam == null)
 		{
 			throw new TeamDoesNotExistException();
 		}
-		if (team.isDefaultTeam())
+		if (changeTeam.isDefaultTeam())
 		{
 			throw new TeamIsDefaultException();
 		}

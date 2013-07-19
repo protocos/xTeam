@@ -12,7 +12,8 @@ import org.bukkit.command.CommandSender;
 
 public class AdminOpen extends ServerAdminCommand
 {
-	String teamName;
+	private String teamName;
+	private Team changeTeam;
 
 	public AdminOpen()
 	{
@@ -22,9 +23,8 @@ public class AdminOpen extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.tm.getTeam(teamName);
-		team.setOpenJoining(!team.isOpenJoining());
-		if (team.isOpenJoining())
+		changeTeam.setOpenJoining(!changeTeam.isOpenJoining());
+		if (changeTeam.isOpenJoining())
 			originalSender.sendMessage("UserOpen joining is now " + ChatColor.GREEN + "enabled" + ChatColor.RESET + " for team " + teamName);
 		else
 			originalSender.sendMessage("UserOpen joining is now " + ChatColor.RED + "disabled" + ChatColor.RESET + " for team " + teamName);
@@ -34,6 +34,7 @@ public class AdminOpen extends ServerAdminCommand
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
+		changeTeam = xTeam.tm.getTeam(teamName);
 	}
 	@Override
 	public String getPattern()

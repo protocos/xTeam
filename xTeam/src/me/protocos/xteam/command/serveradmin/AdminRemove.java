@@ -14,6 +14,8 @@ import org.bukkit.command.CommandSender;
 public class AdminRemove extends ServerAdminCommand
 {
 	private String teamName, playerName;
+	private TeamPlayer changeTeamPlayer;
+	private Team changeTeam;
 
 	public AdminRemove()
 	{
@@ -23,16 +25,14 @@ public class AdminRemove extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		TeamPlayer teamPlayer = new TeamPlayer(playerName);
-		Team team = teamPlayer.getTeam();
-		team.removePlayer(playerName);
+		changeTeam.removePlayer(playerName);
 		if (!playerName.equals(originalSender.getName()))
 			originalSender.sendMessage("You " + ChatColor.RED + "removed" + ChatColor.RESET + " " + playerName + " from " + teamName);
-		teamPlayer.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName() + " by an admin");
-		if (team.isEmpty())
+		changeTeamPlayer.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + changeTeam.getName() + " by an admin");
+		if (changeTeam.isEmpty())
 		{
 			originalSender.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
-			xTeam.tm.removeTeam(team.getName());
+			xTeam.tm.removeTeam(changeTeam.getName());
 		}
 	}
 	@Override
@@ -41,17 +41,17 @@ public class AdminRemove extends ServerAdminCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		TeamPlayer p = new TeamPlayer(playerName);
-		Team team = p.getTeam();
-		if (!p.hasPlayedBefore())
+		changeTeamPlayer = new TeamPlayer(playerName);
+		changeTeam = changeTeamPlayer.getTeam();
+		if (!changeTeamPlayer.hasPlayedBefore())
 		{
 			throw new TeamPlayerNeverPlayedException();
 		}
-		if (team == null)
+		if (changeTeam == null)
 		{
 			throw new TeamPlayerHasNoTeamException();
 		}
-		if (team.getLeader().equals(playerName) && team.getPlayers().size() > 1)
+		if (changeTeam.getLeader().equals(playerName) && changeTeam.getPlayers().size() > 1)
 		{
 			throw new TeamPlayerLeaderLeavingException();
 		}

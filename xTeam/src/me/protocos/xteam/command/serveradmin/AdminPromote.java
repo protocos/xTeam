@@ -14,6 +14,7 @@ import org.bukkit.command.CommandSender;
 public class AdminPromote extends ServerAdminCommand
 {
 	private String teamName, playerName;
+	private Team changeTeam;
 
 	public AdminPromote()
 	{
@@ -23,9 +24,8 @@ public class AdminPromote extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.tm.getTeam(teamName);
-		team.promote(playerName);
-		if (!team.containsPlayer(originalSender.getName()))
+		changeTeam.promote(playerName);
+		if (!changeTeam.containsPlayer(originalSender.getName()))
 			originalSender.sendMessage("You " + ChatColor.GREEN + "promoted" + ChatColor.RESET + " " + playerName);
 		TeamPlayer other = new TeamPlayer(playerName);
 		other.sendMessage("You've been " + ChatColor.GREEN + "promoted" + ChatColor.RESET + " by an admin");
@@ -36,22 +36,22 @@ public class AdminPromote extends ServerAdminCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		Team desiredTeam = xTeam.tm.getTeam(teamName);
+		changeTeam = xTeam.tm.getTeam(teamName);
 		TeamPlayer playerPromote = new TeamPlayer(playerName);
-		Team team = playerPromote.getTeam();
+		Team playerTeam = playerPromote.getTeam();
 		if (!playerPromote.hasPlayedBefore())
 		{
 			throw new TeamPlayerNeverPlayedException();
 		}
-		if (desiredTeam == null)
+		if (changeTeam == null)
 		{
 			throw new TeamDoesNotExistException();
 		}
-		if (team == null)
+		if (playerTeam == null)
 		{
 			throw new TeamPlayerHasNoTeamException();
 		}
-		if (!desiredTeam.equals(team))
+		if (!changeTeam.equals(playerTeam))
 		{
 			throw new TeamPlayerNotOnTeamException();
 		}

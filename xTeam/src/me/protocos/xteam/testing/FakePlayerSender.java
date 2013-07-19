@@ -1375,16 +1375,16 @@ public class FakePlayerSender implements Player, CommandSender
 	}
 
 	@Override
-	public boolean teleport(Location location)
+	public boolean teleport(Location loc)
 	{
-		setLocation(location);
+		setLocation(loc);
 		return true;
 	}
 
 	@Override
-	public boolean teleport(Location location, TeleportCause arg1)
+	public boolean teleport(Location loc, TeleportCause arg1)
 	{
-		setLocation(location);
+		setLocation(loc);
 		return false;
 	}
 	@Override

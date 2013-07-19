@@ -40,14 +40,14 @@ public class AdminSet extends ServerAdminCommand
 			addPlayerToTeam(p, xTeam.tm.getTeam(teamName));
 		}
 	}
-	private void addPlayerToTeam(TeamPlayer p, Team team)
+	private void addPlayerToTeam(TeamPlayer p, Team changeTeam)
 	{
-		team.addPlayer(p.getName());
-		sender.sendMessage(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
+		changeTeam.addPlayer(p.getName());
+		sender.sendMessage(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + changeTeam.getName());
 		if (!p.getName().equals(sender.getName()))
 		{
-			p.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName() + " by an admin");
-			p.sendMessageToTeam(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName() + " by an admin", sender);
+			p.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + changeTeam.getName() + " by an admin");
+			p.sendMessageToTeam(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + changeTeam.getName() + " by an admin", sender);
 		}
 	}
 	@Override

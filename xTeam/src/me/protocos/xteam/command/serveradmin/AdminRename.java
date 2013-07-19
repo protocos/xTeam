@@ -17,6 +17,7 @@ import org.bukkit.command.CommandSender;
 public class AdminRename extends ServerAdminCommand
 {
 	private String teamName, newName;
+	private Team changeTeam;
 
 	public AdminRename()
 	{
@@ -26,13 +27,12 @@ public class AdminRename extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.tm.getTeam(teamName);
 		xTeam.tm.removeTeam(teamName);
-		team.setName(newName);
-		xTeam.tm.addTeam(team);
-		if (!team.containsPlayer(originalSender.getName()))
+		changeTeam.setName(newName);
+		xTeam.tm.addTeam(changeTeam);
+		if (!changeTeam.containsPlayer(originalSender.getName()))
 			originalSender.sendMessage("You renamed the team to " + ChatColor.AQUA + newName);
-		team.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName + ChatColor.RESET + " by an admin");
+		changeTeam.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName + ChatColor.RESET + " by an admin");
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
@@ -40,12 +40,12 @@ public class AdminRename extends ServerAdminCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		newName = parseCommand.get(2);
-		Team desiredTeam = xTeam.tm.getTeam(teamName);
-		if (desiredTeam == null)
+		changeTeam = xTeam.tm.getTeam(teamName);
+		if (changeTeam == null)
 		{
 			throw new TeamDoesNotExistException();
 		}
-		if (xTeam.tm.contains(newName) && !desiredTeam.getName().equalsIgnoreCase(newName))
+		if (xTeam.tm.contains(newName) && !changeTeam.getName().equalsIgnoreCase(newName))
 		{
 			throw new TeamAlreadyExistsException();
 		}
