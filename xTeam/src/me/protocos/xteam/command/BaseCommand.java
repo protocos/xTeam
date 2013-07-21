@@ -6,7 +6,7 @@ import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-public abstract class BaseCommand implements ICommand, ICommandUsage, ICommandPattern
+public abstract class BaseCommand implements ICommand
 {
 	public BaseCommand()
 	{
