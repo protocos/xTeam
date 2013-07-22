@@ -14,6 +14,7 @@ import org.bukkit.command.CommandSender;
 public class AdminTpAll extends ServerAdminCommand
 {
 	private String teamName;
+	Team changeTeam;
 
 	public AdminTpAll()
 	{
@@ -23,9 +24,7 @@ public class AdminTpAll extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.tm.getTeam(teamName);
-		TeamPlayer teamPlayer = new TeamPlayer(originalSender.getName());
-		for (String teammember : team.getOnlinePlayers())
+		for (String teammember : changeTeam.getOnlinePlayers())
 		{
 			TeamPlayer p = new TeamPlayer(teammember);
 			if (p.isOnline())
@@ -41,8 +40,8 @@ public class AdminTpAll extends ServerAdminCommand
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
-		Team team = xTeam.tm.getTeam(teamName);
-		if (team == null)
+		changeTeam = xTeam.tm.getTeam(teamName);
+		if (changeTeam == null)
 		{
 			throw new TeamDoesNotExistException();
 		}

@@ -17,6 +17,7 @@ import org.bukkit.command.CommandSender;
 public class AdminTag extends ServerAdminCommand
 {
 	private String teamName, newTag;
+	private Team changeTeam;
 
 	public AdminTag()
 	{
@@ -26,11 +27,10 @@ public class AdminTag extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.tm.getTeam(teamName);
-		team.setTag(newTag);
-		if (!team.containsPlayer(originalSender.getName()))
+		changeTeam.setTag(newTag);
+		if (!changeTeam.containsPlayer(originalSender.getName()))
 			originalSender.sendMessage("The team tag has been set to " + newTag);
-		team.sendMessage("The team tag has been set to " + newTag + " by an admin");
+		changeTeam.sendMessage("The team tag has been set to " + newTag + " by an admin");
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
@@ -38,12 +38,12 @@ public class AdminTag extends ServerAdminCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		newTag = parseCommand.get(2);
-		Team desiredTeam = xTeam.tm.getTeam(teamName);
-		if (desiredTeam == null)
+		changeTeam = xTeam.tm.getTeam(teamName);
+		if (changeTeam == null)
 		{
 			throw new TeamDoesNotExistException();
 		}
-		if (!newTag.equalsIgnoreCase(desiredTeam.getName()) && StringUtil.toLowerCase(xTeam.tm.getAllTeamNames()).contains(newTag.toLowerCase()))
+		if (!newTag.equalsIgnoreCase(changeTeam.getName()) && StringUtil.toLowerCase(xTeam.tm.getAllTeamNames()).contains(newTag.toLowerCase()))
 		{
 			throw new TeamNameConflictsWithTagException();
 		}

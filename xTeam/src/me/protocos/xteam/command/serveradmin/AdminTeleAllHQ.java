@@ -24,19 +24,19 @@ public class AdminTeleAllHQ extends ServerAdminCommand
 		for (Player p : players)
 		{
 			TeamPlayer otherPlayer = new TeamPlayer(p);
-			Team team = otherPlayer.getTeam();
+			Team playerTeam = otherPlayer.getTeam();
 			{
-				if (team == null)
+				if (playerTeam == null)
 				{
 					originalSender.sendMessage(otherPlayer.getName() + " does not have a team and was not teleported");
 				}
-				else if (!team.hasHQ())
+				else if (!playerTeam.hasHQ())
 				{
-					originalSender.sendMessage("No team headquarters set for team " + team.getName() + " for " + p.getName());
+					originalSender.sendMessage("No team headquarters set for team " + playerTeam.getName() + " for " + p.getName());
 				}
 				else
 				{
-					otherPlayer.teleport(team.getHeadquarters());
+					otherPlayer.teleport(playerTeam.getHeadquarters());
 					otherPlayer.sendMessage("You have been teleported to the team headquarters by an admin");
 				}
 			}

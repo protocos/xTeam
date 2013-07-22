@@ -24,14 +24,14 @@ public class AdminSetLeader extends ServerAdminCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		TeamPlayer playerSet = new TeamPlayer(playerName);
-		Team team = playerSet.getTeam();
-		team.setLeader(playerName);
+		Team playerTeam = playerSet.getTeam();
+		playerTeam.setLeader(playerName);
 		if (playerSet.isOnline() && !playerSet.getName().equals(originalSender.getName()))
 			playerSet.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " are now the team leader");
-		TeamPlayer previousLeader = new TeamPlayer(team.getLeader());
+		TeamPlayer previousLeader = new TeamPlayer(playerTeam.getLeader());
 		if (previousLeader.isOnline() && !previousLeader.getName().equals(originalSender.getName()))
 			previousLeader.sendMessage(ChatColor.GREEN + playerName + ChatColor.RESET + " is now the team leader");
-		originalSender.sendMessage(ChatColor.GREEN + playerName + ChatColor.RESET + " is now the team leader for " + team.getName());
+		originalSender.sendMessage(ChatColor.GREEN + playerName + ChatColor.RESET + " is now the team leader for " + playerTeam.getName());
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
@@ -41,7 +41,7 @@ public class AdminSetLeader extends ServerAdminCommand
 		playerName = parseCommand.get(2);
 		Team desiredTeam = xTeam.tm.getTeam(teamName);
 		TeamPlayer playerSet = new TeamPlayer(playerName);
-		Team team = playerSet.getTeam();
+		Team playerTeam = playerSet.getTeam();
 		if (!playerSet.hasPlayedBefore())
 		{
 			throw new TeamPlayerNeverPlayedException();
@@ -50,15 +50,15 @@ public class AdminSetLeader extends ServerAdminCommand
 		{
 			throw new TeamDoesNotExistException();
 		}
-		if (team == null)
+		if (playerTeam == null)
 		{
 			throw new TeamPlayerHasNoTeamException();
 		}
-		if (!desiredTeam.equals(team))
+		if (!desiredTeam.equals(playerTeam))
 		{
 			throw new TeamPlayerNotOnTeamException();
 		}
-		if (team.isDefaultTeam())
+		if (playerTeam.isDefaultTeam())
 		{
 			throw new TeamIsDefaultException();
 		}
