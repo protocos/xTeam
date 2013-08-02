@@ -55,7 +55,7 @@ public class TeamChatListener implements Listener
 		catch (Exception e)
 		{
 			xTeam.logger.exception(e);
-			xTeam.log.info("[ERROR] Exception in xTeam onPlayerChat() class [check logs]");
+			xTeam.log.info("[ERROR] Exception in " + this.getClass().getName() + " class [check logs]");
 		}
 	}
 }

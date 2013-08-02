@@ -57,6 +57,7 @@ public class StaticTestFunctions
 		Data.TEAM_TAG_LENGTH = 20;
 		Data.MAX_NUM_LOCATIONS = 10;
 		Data.REFRESH_DELAY = 60;
+		Data.TAG_COLOR = "dark_green";
 	}
 	public static void mockData()
 	{

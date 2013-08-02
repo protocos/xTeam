@@ -96,7 +96,7 @@ public class TeamPvPEntityListener implements Listener
 				//						TeamWolf wolf = new TeamWolf((Wolf) entity);
 				//						if (sender.hasTeam() && wolf.hasTeam() && sender.getTeam().equals(wolf.getTeam()))
 				//						{
-				//							event.setCancelled(true);
+				//							mockEvent.setCancelled(true);
 				//							if (wolf.getOwner().equals(sender))
 				//							{
 				//								sender.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " pet your wolfie!");
@@ -121,7 +121,7 @@ public class TeamPvPEntityListener implements Listener
 				//						TeamWolf wolf = new TeamWolf((Wolf) entity);
 				//						if (sender.hasTeam() && wolf.hasTeam() && sender.getTeam().equals(wolf.getTeam()))
 				//						{
-				//							event.setCancelled(true);
+				//							mockEvent.setCancelled(true);
 				//						}
 				//					}
 				//					else

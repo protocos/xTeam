@@ -39,7 +39,7 @@ public class FakePlayer implements Player
 
 	public FakePlayer(String name)
 	{
-		this(name, false, false, -1, null);
+		this(name, false, false, -1, new FakeLocation());
 	}
 
 	public FakePlayer(String name, boolean isOp, boolean isOnline, double health, Location location)

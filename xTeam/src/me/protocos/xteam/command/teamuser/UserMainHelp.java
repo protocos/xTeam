@@ -23,7 +23,7 @@ public class UserMainHelp extends UserCommand
 	{
 		ChatColor temp;
 		String message = (ChatColor.AQUA + "------------------ [xTeam v" + xTeam.VERSION + " UserHelp] ------------------");
-		message += "\n" + (ChatColor.GRAY + "xTeam is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!");
+		message += "\n" + (ChatColor.GRAY + "xTeam is a team-based PvP fakePlugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!");
 		// line 6 begin
 		message += "\n" + (ChatColor.AQUA + "Type '" + commandID + " help [Page Number]' to get started");
 		message += "\n" + ((temp = ChatColor.GRAY) + commandID + " [command]" + ChatColor.RESET + " = command for " + temp + "TEAM PLAYERS");

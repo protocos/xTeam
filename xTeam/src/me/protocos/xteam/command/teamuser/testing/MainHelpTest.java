@@ -29,7 +29,7 @@ public class MainHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team"));
 		//ASSERT
 		Assert.assertEquals("------------------ [xTeam vCURRENT UserHelp] ------------------\n" +
-				"xTeam is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!\n" +
+				"xTeam is a team-based PvP fakePlugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!\n" +
 				"Type '/team help [Page Number]' to get started\n" +
 				"/team [command] = command for TEAM PLAYERS\n" +
 				"/team [command] = command for TEAM ADMINS\n" +

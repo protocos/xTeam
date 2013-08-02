@@ -15,9 +15,9 @@ public class TeamScoreListener implements Listener
 	{
 		//		Player victim;
 		//		Player killer;
-		//		if (event.getEntity() instanceof Player)
+		//		if (mockEvent.getEntity() instanceof Player)
 		//		{
-		//			victim = (Player) event.getEntity();
+		//			victim = (Player) mockEvent.getEntity();
 		//			if (victim.getKiller()!=null)
 		//			{
 		//				killer = victim.getKiller();
@@ -31,7 +31,7 @@ public class TeamScoreListener implements Listener
 		//			}
 		//			else
 		//			{
-		//				p("Unknown damage cause: " + event.getEntity().getLastDamageCause());
+		//				p("Unknown damage cause: " + mockEvent.getEntity().getLastDamageCause());
 		//				return;
 		//			}
 		//		}

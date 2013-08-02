@@ -8,57 +8,49 @@ public class FakeLog implements ILog
 	@Override
 	public void close()
 	{
-		// TODO Auto-generated method stub
-
+		System.out.println("In FakeLog close methods");
 	}
 
 	@Override
 	public void custom(String message)
 	{
-		// TODO Auto-generated method stub
-
+		System.out.println("Custom: " + message);
 	}
 
 	@Override
 	public void debug(String message)
 	{
-		// TODO Auto-generated method stub
-
+		System.out.println("Debug: " + message);
 	}
 
 	@Override
 	public void error(String message)
 	{
-		// TODO Auto-generated method stub
-
+		System.out.println("Error: " + message);
 	}
 
 	@Override
 	public void exception(Exception e)
 	{
-		// TODO Auto-generated method stub
-
+		e.printStackTrace();
 	}
 
 	@Override
 	public void fatal(String message)
 	{
-		// TODO Auto-generated method stub
-
+		System.out.println("Fatal: " + message);
 	}
 
 	@Override
 	public void info(String message)
 	{
-		// TODO Auto-generated method stub
-
+		System.out.println("Info: " + message);
 	}
 
 	@Override
 	public void write(String message)
 	{
-		// TODO Auto-generated method stub
-
+		System.out.println("In FakeLog write method");
 	}
 
 }
