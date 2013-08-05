@@ -3,7 +3,8 @@ package me.protocos.xteam.core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import me.protocos.xteam.util.HashList;
+import me.protocos.xteam.api.collections.HashList;
+import me.protocos.xteam.api.core.ITeamManager;
 
 public class TeamManager implements ITeamManager
 {

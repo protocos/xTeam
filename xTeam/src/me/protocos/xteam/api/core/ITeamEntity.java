@@ -1,5 +1,6 @@
-package me.protocos.xteam.core;
+package me.protocos.xteam.api.core;
 
+import me.protocos.xteam.core.Team;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;

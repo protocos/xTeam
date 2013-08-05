@@ -2,11 +2,11 @@ package me.protocos.xteam.command.teamuser.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.api.fakeobjects.FakeLocation;
+import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamuser.UserMessage;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
-import me.protocos.xteam.testing.FakeLocation;
-import me.protocos.xteam.testing.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import org.junit.After;
 import org.junit.Before;

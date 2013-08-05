@@ -1,9 +1,9 @@
-package me.protocos.xteam.util.testing;
+package me.protocos.xteam.api.fakeobjects.testing;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import me.protocos.xteam.util.HashList;
+import me.protocos.xteam.api.collections.HashList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

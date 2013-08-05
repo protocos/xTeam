@@ -3,6 +3,8 @@ package me.protocos.xteam.util;
 import java.io.*;
 import java.sql.Timestamp;
 import java.util.Scanner;
+import me.protocos.xteam.api.collections.LimitedQueue;
+import me.protocos.xteam.api.util.ILog;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class LogUtil implements ILog

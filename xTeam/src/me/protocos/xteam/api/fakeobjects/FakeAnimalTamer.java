@@ -1,4 +1,4 @@
-package me.protocos.xteam.testing;
+package me.protocos.xteam.api.fakeobjects;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;

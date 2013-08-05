@@ -1,4 +1,4 @@
-package me.protocos.xteam.core;
+package me.protocos.xteam.api.core;
 
 import java.util.List;
 import org.bukkit.OfflinePlayer;

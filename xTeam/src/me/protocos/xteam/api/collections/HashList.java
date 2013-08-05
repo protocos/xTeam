@@ -1,4 +1,4 @@
-package me.protocos.xteam.util;
+package me.protocos.xteam.api.collections;
 
 import java.util.*;
 

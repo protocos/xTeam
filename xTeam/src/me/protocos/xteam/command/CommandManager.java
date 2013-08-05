@@ -1,6 +1,8 @@
 package me.protocos.xteam.command;
 
-import me.protocos.xteam.util.HashList;
+import me.protocos.xteam.api.collections.HashList;
+import me.protocos.xteam.api.command.ICommandManager;
+import me.protocos.xteam.api.command.IPermissionNode;
 import me.protocos.xteam.util.StringUtil;
 
 public class CommandManager implements ICommandManager

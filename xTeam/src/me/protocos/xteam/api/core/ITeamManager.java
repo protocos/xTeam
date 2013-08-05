@@ -1,6 +1,7 @@
-package me.protocos.xteam.core;
+package me.protocos.xteam.api.core;
 
 import java.util.List;
+import me.protocos.xteam.core.Team;
 
 public interface ITeamManager
 {

@@ -1,4 +1,4 @@
-package me.protocos.xteam.command;
+package me.protocos.xteam.api.command;
 
 public interface IPermissionNode
 {

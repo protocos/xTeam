@@ -1,5 +1,7 @@
 package me.protocos.xteam.core;
 
+import me.protocos.xteam.api.core.ITeamEntity;
+import me.protocos.xteam.api.core.ITeamWolf;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.Location;

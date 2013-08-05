@@ -3,6 +3,7 @@ package me.protocos.xteam.listener;
 import java.util.ArrayList;
 import java.util.Random;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.*;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;

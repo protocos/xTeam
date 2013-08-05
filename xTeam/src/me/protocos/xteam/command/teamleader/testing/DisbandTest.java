@@ -2,13 +2,13 @@ package me.protocos.xteam.command.teamleader.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.fakeobjects.FakeLocation;
+import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.teamleader.UserDisband;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerNotLeaderException;
-import me.protocos.xteam.testing.FakeLocation;
-import me.protocos.xteam.testing.FakePlayerSender;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

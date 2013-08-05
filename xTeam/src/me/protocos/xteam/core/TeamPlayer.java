@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamEntity;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.Location;

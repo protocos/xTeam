@@ -1,5 +1,6 @@
-package me.protocos.xteam.command;
+package me.protocos.xteam.api.command;
 
+import me.protocos.xteam.command.CommandParser;
 import org.bukkit.command.CommandSender;
 
 public interface ICommand

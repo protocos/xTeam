@@ -1,6 +1,8 @@
 package me.protocos.xteam.core;
 
-import me.protocos.xteam.util.HashList;
+import me.protocos.xteam.api.collections.HashList;
+import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.api.core.ITeamPlayerManager;
 
 public class TeamPlayerManager implements ITeamPlayerManager
 {

@@ -1,4 +1,4 @@
-package me.protocos.xteam.testing;
+package me.protocos.xteam.api.fakeobjects;
 
 import java.util.Set;
 import org.bukkit.Server;

@@ -2,8 +2,10 @@ package me.protocos.xteam.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import me.protocos.xteam.api.collections.HashList;
+import me.protocos.xteam.api.core.ITeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.HashList;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.World;

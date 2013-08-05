@@ -1,6 +1,7 @@
 package me.protocos.xteam.command;
 
 import java.io.InvalidClassException;
+import me.protocos.xteam.api.command.IPermissionNode;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;

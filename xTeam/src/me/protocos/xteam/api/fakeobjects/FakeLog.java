@@ -1,6 +1,6 @@
-package me.protocos.xteam.testing;
+package me.protocos.xteam.api.fakeobjects;
 
-import me.protocos.xteam.util.ILog;
+import me.protocos.xteam.api.util.ILog;
 
 public class FakeLog implements ILog
 {

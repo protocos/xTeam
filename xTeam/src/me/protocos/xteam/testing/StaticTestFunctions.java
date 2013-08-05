@@ -3,6 +3,7 @@ package me.protocos.xteam.testing;
 import static org.mockito.Mockito.*;
 import java.io.File;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.fakeobjects.*;
 import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.core.*;
 import org.bukkit.Location;

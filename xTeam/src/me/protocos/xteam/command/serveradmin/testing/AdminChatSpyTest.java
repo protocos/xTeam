@@ -2,12 +2,12 @@ package me.protocos.xteam.command.serveradmin.testing;
 
 import static me.protocos.xteam.testing.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.api.fakeobjects.FakeLocation;
+import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.serveradmin.AdminChatSpy;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.testing.FakeLocation;
-import me.protocos.xteam.testing.FakePlayerSender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
