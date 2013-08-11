@@ -5,6 +5,7 @@ import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.command.action.SetCommandAction;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
@@ -16,7 +17,7 @@ import org.bukkit.command.ConsoleCommandSender;
 public class ConsoleSet extends ConsoleCommand
 {
 	private String playerName, teamName;
-	ConsoleCommandSender sender;
+	private ConsoleCommandSender sender;
 
 	public ConsoleSet()
 	{
@@ -26,27 +27,28 @@ public class ConsoleSet extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
+		SetCommandAction set = new SetCommandAction(originalSender);
 		TeamPlayer player = new TeamPlayer(playerName);
 		if (player.hasTeam())
 		{
-			removePlayer(player);
+			set.removePlayer(player);
 		}
 		if (!xTeam.tm.contains(teamName))
 		{
-			createTeamWithLeader(teamName, playerName);
+			set.createTeamWithLeader(teamName, player);
 		}
 		else
 		{
-			addPlayerToTeam(player, xTeam.tm.getTeam(teamName));
+			set.addPlayerToTeam(player, xTeam.tm.getTeam(teamName));
 		}
 	}
-	private void addPlayerToTeam(TeamPlayer player, Team team)
-	{
-		team.addPlayer(player.getName());
-		sender.sendMessage(player.getName() + " has been added to " + team.getName());
-		player.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
-		player.sendMessageToTeam(player.getName() + " has been added to " + team.getName());
-	}
+	//	private void addPlayerToTeam(TeamPlayer player, Team team)
+	//	{
+	//		team.addPlayer(player.getName());
+	//		sender.sendMessage(player.getName() + " has been added to " + team.getName());
+	//		player.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + team.getName());
+	//		player.sendMessageToTeam(player.getName() + " has been added to " + team.getName());
+	//	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
@@ -55,11 +57,12 @@ public class ConsoleSet extends ConsoleCommand
 		playerName = parseCommand.get(1);
 		teamName = parseCommand.get(2);
 		TeamPlayer p = new TeamPlayer(playerName);
+		Team playerTeam = p.getTeam();
 		if (!p.hasPlayedBefore())
 		{
 			throw new TeamPlayerNeverPlayedException();
 		}
-		if (p.hasTeam() && p.isLeader() && p.getTeam().size() > 1)
+		if (p.hasTeam() && p.isLeader() && playerTeam.size() > 1)
 		{
 			throw new TeamPlayerLeaderLeavingException();
 		}
@@ -72,12 +75,12 @@ public class ConsoleSet extends ConsoleCommand
 			throw new TeamPlayerMaxException();
 		}
 	}
-	private void createTeamWithLeader(String team, String player)
-	{
-		xTeam.tm.createTeamWithLeader(team, player);
-		sender.sendMessage(team + " has been created");
-		sender.sendMessage(player + " has been added to " + team);
-	}
+	//	private void createTeamWithLeader(String team, String player)
+	//	{
+	//		xTeam.tm.createTeamWithLeader(team, player);
+	//		sender.sendMessage(team + " has been created");
+	//		sender.sendMessage(player + " has been added to " + team);
+	//	}
 	@Override
 	public String getPattern()
 	{
@@ -88,20 +91,20 @@ public class ConsoleSet extends ConsoleCommand
 	{
 		return "/team set [Player] [Team]";
 	}
-	private void removePlayer(TeamPlayer player)
-	{
-		Team team = player.getTeam();
-		team.removePlayer(player.getName());
-		team.sendMessage(player.getName() + " has been removed from " + team.getName());
-		Data.chatStatus.remove(player.getName());
-		Data.returnLocations.remove(player.getOnlinePlayer());
-		sender.sendMessage(player.getName() + " has been removed from " + team.getName());
-		player.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
-		if (team.isEmpty() && !team.isDefaultTeam())
-		{
-			sender.sendMessage(team.getName() + " has been disbanded");
-			player.sendMessage(team.getName() + " has been " + ChatColor.RED + "disbanded");
-			xTeam.tm.removeTeam(team.getName());
-		}
-	}
+	//	private void removePlayer(TeamPlayer player)
+	//	{
+	//		Team team = player.getTeam();
+	//		team.removePlayer(player.getName());
+	//		team.sendMessage(player.getName() + " has been removed from " + team.getName());
+	//		Data.chatStatus.remove(player.getName());
+	//		Data.returnLocations.remove(player.getOnlinePlayer());
+	//		sender.sendMessage(player.getName() + " has been removed from " + team.getName());
+	//		player.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
+	//		if (team.isEmpty() && !team.isDefaultTeam())
+	//		{
+	//			sender.sendMessage(team.getName() + " has been disbanded");
+	//			player.sendMessage(team.getName() + " has been " + ChatColor.RED + "disbanded");
+	//			xTeam.tm.removeTeam(team.getName());
+	//		}
+	//	}
 }

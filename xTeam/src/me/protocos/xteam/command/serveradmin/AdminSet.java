@@ -5,6 +5,7 @@ import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
+import me.protocos.xteam.command.action.SetCommandAction;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
@@ -26,30 +27,31 @@ public class AdminSet extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
+		SetCommandAction set = new SetCommandAction(originalSender);
 		TeamPlayer p = new TeamPlayer(playerName);
 		if (p.hasTeam())
 		{
-			removePlayer(p);
+			set.removePlayer(p);
 		}
 		if (!xTeam.tm.contains(teamName))
 		{
-			createTeamWithLeader(teamName, playerName);
+			set.createTeamWithLeader(teamName, p);
 		}
 		else
 		{
-			addPlayerToTeam(p, xTeam.tm.getTeam(teamName));
+			set.addPlayerToTeam(p, xTeam.tm.getTeam(teamName));
 		}
 	}
-	private void addPlayerToTeam(TeamPlayer p, Team changeTeam)
-	{
-		changeTeam.addPlayer(p.getName());
-		sender.sendMessage(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + changeTeam.getName());
-		if (!p.getName().equals(sender.getName()))
-		{
-			p.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + changeTeam.getName() + " by an admin");
-			p.sendMessageToTeam(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + changeTeam.getName() + " by an admin", sender);
-		}
-	}
+	//	private void addPlayerToTeam(TeamPlayer p, Team changeTeam)
+	//	{
+	//		changeTeam.addPlayer(p.getName());
+	//		sender.sendMessage(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + changeTeam.getName());
+	//		if (!p.getName().equals(sender.getName()))
+	//		{
+	//			p.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + changeTeam.getName() + " by an admin");
+	//		}
+	//		p.sendMessageToTeam(p.getName() + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + changeTeam.getName() + " by an admin", sender);
+	//	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
@@ -63,7 +65,7 @@ public class AdminSet extends ServerAdminCommand
 		{
 			throw new TeamPlayerNeverPlayedException();
 		}
-		if (playerTeam != null && playerTeam.getLeader().equals(playerName) && playerTeam.getPlayers().size() > 1)
+		if (p.hasTeam() && p.isLeader() && playerTeam.size() > 1)
 		{
 			throw new TeamPlayerLeaderLeavingException();
 		}
@@ -76,18 +78,18 @@ public class AdminSet extends ServerAdminCommand
 			throw new TeamPlayerMaxException();
 		}
 	}
-	private void createTeamWithLeader(String newTeamName, String p)
-	{
-		xTeam.tm.createTeamWithLeader(newTeamName, p);
-		Team t = xTeam.tm.getTeam(newTeamName);
-		sender.sendMessage(newTeamName + " has been " + ChatColor.AQUA + "created");
-		sender.sendMessage(p + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + newTeamName);
-		if (!p.equals(sender.getName()))
-		{
-			t.sendMessage(newTeamName + " has been " + ChatColor.AQUA + "created" + ChatColor.RESET + " by an admin");
-			t.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + newTeamName + " by an admin");
-		}
-	}
+	//	private void createTeamWithLeader(String newTeamName, String p)
+	//	{
+	//		xTeam.tm.createTeamWithLeader(newTeamName, p);
+	//		Team t = xTeam.tm.getTeam(newTeamName);
+	//		sender.sendMessage(newTeamName + " has been " + ChatColor.AQUA + "created");
+	//		sender.sendMessage(p + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + newTeamName);
+	//		if (!p.equals(sender.getName()))
+	//		{
+	//			t.sendMessage(newTeamName + " has been " + ChatColor.AQUA + "created" + ChatColor.RESET + " by an admin");
+	//			t.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + newTeamName + " by an admin");
+	//		}
+	//	}
 	@Override
 	public String getPattern()
 	{
@@ -103,22 +105,22 @@ public class AdminSet extends ServerAdminCommand
 	{
 		return "/team set [Player] [Team]";
 	}
-	private void removePlayer(TeamPlayer p)
-	{
-		Team playerTeam = p.getTeam();
-		playerTeam.removePlayer(p.getName());
-		playerTeam.sendMessage(p.getName() + " has been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + playerTeam.getName() + " by an admin", sender);
-		Data.chatStatus.remove(p.getName());
-		Data.returnLocations.remove(p.getOnlinePlayer());
-		sender.sendMessage(p.getName() + " has been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + playerTeam.getName());
-		if (!p.getName().equals(sender.getName()))
-			p.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + playerTeam.getName() + " by an admin");
-		if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
-		{
-			sender.sendMessage(playerTeam.getName() + " has been " + ChatColor.RED + "disbanded");
-			if (!p.getName().equals(sender.getName()))
-				p.sendMessage(playerTeam.getName() + " has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by an admin");
-			xTeam.tm.removeTeam(playerTeam.getName());
-		}
-	}
+	//	private void removePlayer(TeamPlayer p)
+	//	{
+	//		Team playerTeam = p.getTeam();
+	//		playerTeam.removePlayer(p.getName());
+	//		playerTeam.sendMessage(p.getName() + " has been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + playerTeam.getName() + " by an admin", sender);
+	//		Data.chatStatus.remove(p.getName());
+	//		Data.returnLocations.remove(p.getOnlinePlayer());
+	//		sender.sendMessage(p.getName() + " has been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + playerTeam.getName());
+	//		if (!p.getName().equals(sender.getName()))
+	//			p.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + playerTeam.getName() + " by an admin");
+	//		if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
+	//		{
+	//			sender.sendMessage(playerTeam.getName() + " has been " + ChatColor.RED + "disbanded");
+	//			if (!p.getName().equals(sender.getName()))
+	//				p.sendMessage(playerTeam.getName() + " has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by an admin");
+	//			xTeam.tm.removeTeam(playerTeam.getName());
+	//		}
+	//	}
 }

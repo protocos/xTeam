@@ -82,7 +82,7 @@ public class FakeConsoleSender implements ConsoleCommandSender
 	{
 		String messages = "";
 		for (String s : messageLog)
-			messages += s + "\n";
+			messages += s.replaceAll("¤.", "") + "\n";
 		return messages;
 	}
 
