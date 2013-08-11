@@ -24,7 +24,7 @@ public class CommandDelegate implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandID, String[] args)
 	{
-		//		UserList<Permission> perms = pdf.getPermissions();
+		//		List<Permission> perms = pdf.getPermissions();
 		//		for (Iterator iterator = perms.iterator(); iterator.hasNext();)
 		//		{
 		//			Permission permission = (Permission) iterator.next();

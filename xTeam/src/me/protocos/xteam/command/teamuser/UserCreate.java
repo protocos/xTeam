@@ -61,7 +61,7 @@ public class UserCreate extends UserCommand
 	@Override
 	public String getPattern()
 	{
-		return "c" + patternOneOrMore("reate") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
+		return patternOneOrMore("create") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
 	@Override
 	public String getPermissionNode()

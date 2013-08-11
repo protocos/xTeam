@@ -22,13 +22,13 @@ public class ConsoleDebug extends ConsoleCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		if (subCommand.equalsIgnoreCase("chat"))
-			originalSender.sendMessage("UserChat statuses: " + Data.chatStatus.toString());
+			originalSender.sendMessage("Chat statuses: " + Data.chatStatus.toString());
 		else if (subCommand.equalsIgnoreCase("invites"))
 			originalSender.sendMessage("Invites: " + InviteHandler.data());
 		else if (subCommand.equalsIgnoreCase("spies"))
 			originalSender.sendMessage("Spies: " + Data.spies.toString());
 		else if (subCommand.equalsIgnoreCase("return"))
-			originalSender.sendMessage("UserReturn locations: " + Data.returnLocations.toString());
+			originalSender.sendMessage("Return locations: " + Data.returnLocations.toString());
 		else if (subCommand.equalsIgnoreCase("tasks"))
 			originalSender.sendMessage("Task IDs: " + Data.taskIDs.toString());
 		else if (subCommand.equalsIgnoreCase("tele"))

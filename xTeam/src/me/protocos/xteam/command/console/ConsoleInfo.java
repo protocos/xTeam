@@ -96,16 +96,16 @@ public class ConsoleInfo extends ConsoleCommand
 	{
 		sender.sendMessage("Team Name - " + otherTeam.getName());
 		if (!otherTeam.getTag().equals(otherTeam.getName()))
-			sender.sendMessage("Team UserTag - " + otherTeam.getTag());
+			sender.sendMessage("Team Tag - " + otherTeam.getTag());
 		if (otherTeam.hasLeader())
 			sender.sendMessage("Team Leader - " + otherTeam.getLeader());
 		if (otherTeam.getAdmins().size() > 1)
 			sender.sendMessage("Team Admins - " + otherTeam.getAdmins().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(otherTeam.getLeader() + ", ", ""));
-		sender.sendMessage("Team Joining - " + (otherTeam.isOpenJoining() == false ? "Closed" : "UserOpen"));
+		sender.sendMessage("Team Joining - " + (otherTeam.isOpenJoining() == false ? "Closed" : "Open"));
 		if (otherTeam.hasHQ())
-			sender.sendMessage("Team UserHeadquarters - " + "X:" + Math.round(otherTeam.getHeadquarters().getX()) + " Y:" + Math.round(otherTeam.getHeadquarters().getY()) + " Z:" + Math.round(otherTeam.getHeadquarters().getZ()));
+			sender.sendMessage("Team Headquarters - " + "X:" + Math.round(otherTeam.getHeadquarters().getX()) + " Y:" + Math.round(otherTeam.getHeadquarters().getY()) + " Z:" + Math.round(otherTeam.getHeadquarters().getZ()));
 		else
-			sender.sendMessage("Team UserHeadquarters - " + "none set");
+			sender.sendMessage("Team Headquarters - " + "none set");
 		teammateStatus(otherTeam);
 	}
 	private void teammateStatus(Team team)

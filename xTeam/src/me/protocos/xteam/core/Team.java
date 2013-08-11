@@ -279,7 +279,7 @@ public class Team implements ITeam
 			//modify timeLastSet from the previous versions
 			teamProperties.updateKey("timeLastSet", "timeHeadquartersSet");
 			long timeHeadquartersSet = Long.parseLong(teamProperties.get("timeHeadquartersSet") != null ? teamProperties.get("timeHeadquartersSet") : "0");
-			String hq = teamProperties.get("UserHeadquarters") != null ? teamProperties.get("UserHeadquarters") : (hq = teamProperties.get("hq") != null ? teamProperties.get("hq") : "");
+			String hq = teamProperties.get("Headquarters") != null ? teamProperties.get("Headquarters") : (hq = teamProperties.get("hq") != null ? teamProperties.get("hq") : "");
 			if (teamProperties.containsKey("world"))
 				hq = teamProperties.get("world") + "," + hq;
 			String leader = teamProperties.get("leader");// != null ? teamProperties.get("leader") : "";

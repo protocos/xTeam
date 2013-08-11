@@ -70,6 +70,6 @@ public class UserTag extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team tag [UserTag]";
+		return "/team tag [Tag]";
 	}
 }

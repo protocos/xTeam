@@ -65,6 +65,6 @@ public class AdminTag extends ServerAdminCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team tag [Team] [UserTag]";
+		return "/team tag [Team] [Tag]";
 	}
 }

@@ -54,6 +54,6 @@ public class UserMessage extends UserCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team message [UserMessage]";
+		return "/team message [Message]";
 	}
 }

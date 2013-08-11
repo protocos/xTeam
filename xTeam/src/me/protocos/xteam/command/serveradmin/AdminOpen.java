@@ -25,9 +25,9 @@ public class AdminOpen extends ServerAdminCommand
 	{
 		changeTeam.setOpenJoining(!changeTeam.isOpenJoining());
 		if (changeTeam.isOpenJoining())
-			originalSender.sendMessage("UserOpen joining is now " + ChatColor.GREEN + "enabled" + ChatColor.RESET + " for team " + teamName);
+			originalSender.sendMessage("Open joining is now " + ChatColor.GREEN + "enabled" + ChatColor.RESET + " for team " + teamName);
 		else
-			originalSender.sendMessage("UserOpen joining is now " + ChatColor.RED + "disabled" + ChatColor.RESET + " for team " + teamName);
+			originalSender.sendMessage("Open joining is now " + ChatColor.RED + "disabled" + ChatColor.RESET + " for team " + teamName);
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException

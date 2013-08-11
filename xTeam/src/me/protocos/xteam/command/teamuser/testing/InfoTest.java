@@ -32,10 +32,10 @@ public class InfoTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE\n" +
-				"Team UserTag - TeamAwesome\n" +
+				"Team Tag - TeamAwesome\n" +
 				"Team Leader - kmlanglois\n" +
 				"Team Joining - Closed\n" +
-				"Team UserHeadquarters - X:170 Y:65 Z:209\n" +
+				"Team Headquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +
 				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"\n" +
 				"    protocos Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
@@ -53,7 +53,7 @@ public class InfoTest
 		Assert.assertEquals("Team Name - two\n" +
 				"Team Leader - mastermind\n" +
 				"Team Joining - Closed\n" +
-				"Team UserHeadquarters - None set\n" +
+				"Team Headquarters - None set\n" +
 				"Teammates online:\n" +
 				"    mastermind", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -70,7 +70,7 @@ public class InfoTest
 		Assert.assertEquals("Team Name - two\n" +
 				"Team Leader - mastermind\n" +
 				"Team Joining - Closed\n" +
-				"Team UserHeadquarters - None set\n" +
+				"Team Headquarters - None set\n" +
 				"Teammates online:\n" +
 				"    mastermind", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -96,9 +96,9 @@ public class InfoTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info strandedhelix"));
 		//ASSERT
 		Assert.assertEquals("Team Name - red\n" +
-				"Team UserTag - RED\n" +
-				"Team Joining - UserOpen\n" +
-				"Team UserHeadquarters - None set\n" +
+				"Team Tag - RED\n" +
+				"Team Joining - Open\n" +
+				"Team Headquarters - None set\n" +
 				"Teammates offline:\n" +
 				"    strandedhelix", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -116,10 +116,10 @@ public class InfoTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
 		//ASSERT
 		Assert.assertEquals("Team Name - red\n" +
-				"Team UserTag - RED\n" +
+				"Team Tag - RED\n" +
 				"Team Admins - strandedhelix, Lonely\n" +
-				"Team Joining - UserOpen\n" +
-				"Team UserHeadquarters - None set\n" +
+				"Team Joining - Open\n" +
+				"Team Headquarters - None set\n" +
 				"Teammates online:\n" +
 				"    Lonely Health: 100% Location: 0 64 0 in \"world\"\n" +
 				"Teammates offline:\n" +
@@ -137,11 +137,11 @@ public class InfoTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE\n" +
-				"Team UserTag - TeamAwesome\n" +
+				"Team Tag - TeamAwesome\n" +
 				"Team Leader - kmlanglois\n" +
 				"Team Admins - protocos\n" +
 				"Team Joining - Closed\n" +
-				"Team UserHeadquarters - X:170 Y:65 Z:209\n" +
+				"Team Headquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +
 				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"\n" +
 				"    protocos Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());

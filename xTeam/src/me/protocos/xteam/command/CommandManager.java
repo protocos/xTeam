@@ -61,28 +61,28 @@ public class CommandManager implements ICommandManager
 			match = matchTeamUser(pattern);
 		return match;
 	}
-	public PlayerCommand matchServerAdmin(String pattern)
+	private PlayerCommand matchServerAdmin(String pattern)
 	{
 		for (int x = 0; x < commands.size(); x++)
 			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("serveradmin_"))
 				return (PlayerCommand) commands.get(x);
 		return null;
 	}
-	public PlayerCommand matchTeamLeader(String pattern)
+	private PlayerCommand matchTeamLeader(String pattern)
 	{
 		for (int x = 0; x < commands.size(); x++)
 			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("leader_"))
 				return (PlayerCommand) commands.get(x);
 		return null;
 	}
-	public PlayerCommand matchTeamAdmin(String pattern)
+	private PlayerCommand matchTeamAdmin(String pattern)
 	{
 		for (int x = 0; x < commands.size(); x++)
 			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("admin_"))
 				return (PlayerCommand) commands.get(x);
 		return null;
 	}
-	public PlayerCommand matchTeamUser(String pattern)
+	private PlayerCommand matchTeamUser(String pattern)
 	{
 		for (int x = 0; x < commands.size(); x++)
 			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("user_"))

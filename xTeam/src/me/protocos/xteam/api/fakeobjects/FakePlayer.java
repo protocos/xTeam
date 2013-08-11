@@ -27,7 +27,7 @@ public class FakePlayer implements Player
 	private String name;
 	private boolean isOp;
 	private boolean isOnline;
-	private double health;
+	private int health;
 	private Location location;
 	private int noDamageTicks;
 	private Server server;
@@ -42,12 +42,12 @@ public class FakePlayer implements Player
 		this(name, false, false, -1, new FakeLocation());
 	}
 
-	public FakePlayer(String name, boolean isOp, boolean isOnline, double health, Location location)
+	public FakePlayer(String name, boolean isOp, boolean isOnline, int health, Location location)
 	{
 		this(name, isOp, isOnline, health, location, null);
 	}
 
-	public FakePlayer(String name, boolean isOp, boolean isOnline, double health, Location location, Server server)
+	public FakePlayer(String name, boolean isOp, boolean isOnline, int health, Location location, Server server)
 	{
 		this.name = name;
 		this.isOp = isOp;
@@ -55,70 +55,6 @@ public class FakePlayer implements Player
 		this.health = health;
 		this.location = location;
 		this.server = server;
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_damage(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_damage(int arg0, Entity arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public int _INVALID_getHealth()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	@Deprecated
-	public int _INVALID_getLastDamage()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	@Deprecated
-	public int _INVALID_getMaxHealth()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_setHealth(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_setLastDamage(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_setMaxHealth(int arg0)
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -221,20 +157,6 @@ public class FakePlayer implements Player
 
 	@Override
 	public void closeInventory()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void damage(double arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void damage(double arg0, Entity arg1)
 	{
 		// TODO Auto-generated method stub
 
@@ -416,7 +338,7 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public double getHealth()
+	public int getHealth()
 	{
 		return health;
 	}
@@ -450,7 +372,7 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public double getLastDamage()
+	public int getLastDamage()
 	{
 		// TODO Auto-generated method stub
 		return 0;
@@ -519,7 +441,7 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public double getMaxHealth()
+	public int getMaxHealth()
 	{
 		// TODO Auto-generated method stub
 		return 0;
@@ -1295,7 +1217,7 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public void setHealth(double health)
+	public void setHealth(int health)
 	{
 		this.health = health;
 	}
@@ -1315,7 +1237,7 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public void setLastDamage(double arg0)
+	public void setLastDamage(int arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -1341,7 +1263,7 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public void setMaxHealth(double arg0)
+	public void setMaxHealth(int arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -1578,58 +1500,17 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public Entity getLeashHolder() throws IllegalStateException
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isLeashed()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setLeashHolder(Entity arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public double getHealthScale()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean isHealthScaled()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void playSound(Location arg0, String arg1, float arg2, float arg3)
+	public void damage(int arg0)
 	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setHealthScale(double arg0) throws IllegalArgumentException
+	public void damage(int arg0, Entity arg1)
 	{
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public void setHealthScaled(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
 }

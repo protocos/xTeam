@@ -252,7 +252,7 @@ public class TeamTest
 	public void ShouldBeTeamFromPropertiesDefault1()
 	{
 		//ASSEMBLE
-		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersSet:1361318508899 UserHeadquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
+		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
@@ -262,7 +262,7 @@ public class TeamTest
 	public void ShouldBeTeamFromPropertiesDefault2()
 	{
 		//ASSEMBLE
-		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersSet:1361318508899 UserHeadquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
+		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
@@ -272,7 +272,7 @@ public class TeamTest
 	public void ShouldBeTeamFromPropertiesRegular1()
 	{
 		//ASSEMBLE
-		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 UserHeadquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
+		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
@@ -282,7 +282,7 @@ public class TeamTest
 	public void ShouldBeTeamFromPropertiesRegular2()
 	{
 		//ASSEMBLE
-		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 UserHeadquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
+		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT

@@ -32,10 +32,10 @@ public class ConsoleInfoTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info protocos"));
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE" +
-				"Team UserTag - TeamAwesome" +
+				"Team Tag - TeamAwesome" +
 				"Team Leader - kmlanglois" +
 				"Team Joining - Closed" +
-				"Team UserHeadquarters - X:170 Y:65 Z:209" +
+				"Team Headquarters - X:170 Y:65 Z:209" +
 				"Teammates online:" +
 				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"" +
 				"    protocos Health: 100% Location: 0 64 0 in \"world\"",
@@ -60,7 +60,7 @@ public class ConsoleInfoTest
 		Assert.assertEquals("Team Name - two" +
 				"Team Leader - mastermind" +
 				"Team Joining - Closed" +
-				"Team UserHeadquarters - none set" +
+				"Team Headquarters - none set" +
 				"Teammates online:" +
 				"    mastermind Health: 100% Location: 0 64 0 in \"world\"",
 				fakeConsoleSender.getMessage(0) +

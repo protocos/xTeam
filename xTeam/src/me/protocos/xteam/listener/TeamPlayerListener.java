@@ -82,11 +82,11 @@ public class TeamPlayerListener implements Listener
 					if (team.hasHQ())
 					{
 						player.teleport(team.getHeadquarters());
-						player.sendMessage(ChatColor.RED + "You've been teleported to your UserHeadquarters");
+						player.sendMessage(ChatColor.RED + "You've been teleported to your Headquarters");
 					}
 					else
 					{
-						player.sendMessage(ChatColor.RED + "Your team does not have an UserHeadquarters");
+						player.sendMessage(ChatColor.RED + "Your team does not have an Headquarters");
 					}
 				}
 			}
@@ -139,7 +139,7 @@ public class TeamPlayerListener implements Listener
 					}
 					else
 					{
-						player.sendMessage(ChatColor.RED + "You have not set an UserHeadquarters yet.");
+						player.sendMessage(ChatColor.RED + "You have not set an Headquarters yet.");
 					}
 				}
 			}

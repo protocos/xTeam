@@ -9,7 +9,7 @@ public class TeamInvalidCommandException extends TeamException
 
 	public TeamInvalidCommandException()
 	{
-		super("Not a valid command");
+		super("Not a valid team command");
 	}
 	public TeamInvalidCommandException(String message)
 	{

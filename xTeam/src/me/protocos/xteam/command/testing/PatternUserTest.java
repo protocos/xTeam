@@ -66,7 +66,7 @@ public class PatternUserTest
 		command = "creat TEAM ";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("user_" + baseCmd)));
 		command = "c TEAM ";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.cm.getPattern("user_" + baseCmd)));
 		command = "c ";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("user_" + baseCmd)));
 	}
@@ -86,6 +86,9 @@ public class PatternUserTest
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("user_" + baseCmd)));
 		command = "2 ";
 		Assert.assertTrue(command.matches(xTeam.cm.getPattern("user_" + baseCmd)));
+
+		command = "";
+		Assert.assertFalse(command.matches(xTeam.cm.getPattern("user_" + baseCmd)));
 		command = "1 dfas";
 		Assert.assertFalse(command.matches(xTeam.cm.getPattern("user_" + baseCmd)));
 		command = "11 ?";

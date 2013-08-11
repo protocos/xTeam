@@ -19,7 +19,7 @@ import org.bukkit.util.Vector;
 public class FakeWolf implements Wolf
 {
 	private String owner;
-	private double health;
+	private int health;
 	private Location location;
 	private Server server;
 
@@ -33,69 +33,6 @@ public class FakeWolf implements Wolf
 		this.health = health;
 		this.location = location;
 		this.server = server;
-	}
-	@Override
-	@Deprecated
-	public void _INVALID_damage(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_damage(int arg0, Entity arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public int _INVALID_getHealth()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	@Deprecated
-	public int _INVALID_getLastDamage()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	@Deprecated
-	public int _INVALID_getMaxHealth()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_setHealth(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_setLastDamage(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Deprecated
-	public void _INVALID_setMaxHealth(int arg0)
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -124,20 +61,6 @@ public class FakeWolf implements Wolf
 	{
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public void damage(double arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void damage(double arg0, Entity arg1)
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -239,7 +162,7 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public double getHealth()
+	public int getHealth()
 	{
 		return health;
 	}
@@ -252,7 +175,7 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public double getLastDamage()
+	public int getLastDamage()
 	{
 		// TODO Auto-generated method stub
 		return 0;
@@ -300,7 +223,7 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public double getMaxHealth()
+	public int getMaxHealth()
 	{
 		// TODO Auto-generated method stub
 		return 0;
@@ -654,13 +577,13 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public void setHealth(double health)
+	public void setHealth(int health)
 	{
 		this.health = health;
 	}
 
 	@Override
-	public void setLastDamage(double arg0)
+	public void setLastDamage(int arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -674,7 +597,7 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public void setMaxHealth(double arg0)
+	public void setMaxHealth(int arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -806,22 +729,16 @@ public class FakeWolf implements Wolf
 		return null;
 	}
 	@Override
-	public Entity getLeashHolder() throws IllegalStateException
+	public void damage(int arg0)
 	{
 		// TODO Auto-generated method stub
-		return null;
+
 	}
 	@Override
-	public boolean isLeashed()
+	public void damage(int arg0, Entity arg1)
 	{
 		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean setLeashHolder(Entity arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
+
 	}
 
 }

@@ -138,8 +138,8 @@ public class Functions
 	public static void readTeamData(File f)
 	{
 		// < 1.6.4 format = name password world 1362778787799 hq: 158.01133435293434 66.0 204.6646064980176 -205.5249 28.20008 protocos~~
-		// < 1.7.4 format = name:one world:world open:true leader:protocos timeHeadquartersSet:1362778406367 UserHeadquarters:161.56076240936164,64.0,221.25238913113412,-206.87492,30.750084 players:protocos admins:protocos
-		// = 1.7.4 format = name:one open:false default:false timeHeadquartersSet:0 UserHeadquarters: leader:protocos admins:protocos players:protocos,kmlanglois
+		// < 1.7.4 format = name:one world:world open:true leader:protocos timeHeadquartersSet:1362778406367 Headquarters:161.56076240936164,64.0,221.25238913113412,-206.87492,30.750084 players:protocos admins:protocos
+		// = 1.7.4 format = name:one open:false default:false timeHeadquartersSet:0 Headquarters: leader:protocos admins:protocos players:protocos,kmlanglois
 		try
 		{
 			//			File f = new File("plugins/xTeam/teams.txt");

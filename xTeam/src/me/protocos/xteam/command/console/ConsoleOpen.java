@@ -24,9 +24,9 @@ public class ConsoleOpen extends ConsoleCommand
 		Team team = xTeam.tm.getTeam(teamName);
 		team.setOpenJoining(!team.isOpenJoining());
 		if (team.isOpenJoining())
-			originalSender.sendMessage("UserOpen joining is now enabled for team " + teamName);
+			originalSender.sendMessage("Open joining is now enabled for team " + teamName);
 		else
-			originalSender.sendMessage("UserOpen joining is now disabled for team " + teamName);
+			originalSender.sendMessage("Open joining is now disabled for team " + teamName);
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
