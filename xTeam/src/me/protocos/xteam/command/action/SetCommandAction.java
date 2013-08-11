@@ -4,6 +4,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
+import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -14,6 +15,45 @@ public class SetCommandAction
 	public SetCommandAction(CommandSender originalSender)
 	{
 		this.originalSender = originalSender;
+	}
+
+	public void checkRequorementsOn(String playerName, String teamName) throws TeamException
+	{
+		TeamPlayer p = new TeamPlayer(playerName);
+		Team playerTeam = p.getTeam();
+		if (!p.hasPlayedBefore())
+		{
+			throw new TeamPlayerNeverPlayedException();
+		}
+		if (p.hasTeam() && p.isLeader() && playerTeam.size() > 1)
+		{
+			throw new TeamPlayerLeaderLeavingException();
+		}
+		if (p.hasTeam() && p.getTeam().getName().equalsIgnoreCase(teamName))
+		{
+			throw new TeamPlayerAlreadyOnTeamException();
+		}
+		if (xTeam.tm.contains(teamName) && xTeam.tm.getTeam(teamName).size() >= Data.MAX_PLAYERS && Data.MAX_PLAYERS > 0)
+		{
+			throw new TeamPlayerMaxException();
+		}
+	}
+
+	public void actOn(String playerName, String teamName)
+	{
+		TeamPlayer p = new TeamPlayer(playerName);
+		if (p.hasTeam())
+		{
+			removePlayer(p);
+		}
+		if (!xTeam.tm.contains(teamName))
+		{
+			createTeamWithLeader(teamName, p);
+		}
+		else
+		{
+			addPlayerToTeam(p, xTeam.tm.getTeam(teamName));
+		}
 	}
 
 	public void removePlayer(TeamPlayer player)

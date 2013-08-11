@@ -814,12 +814,6 @@ public class FakePlayerSender implements Player, CommandSender
 		return false;
 	}
 	@Override
-	public boolean isScaledHealth()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
 	public boolean isSleeping()
 	{
 		// TODO Auto-generated method stub
@@ -1276,12 +1270,6 @@ public class FakePlayerSender implements Player, CommandSender
 
 	}
 	@Override
-	public void setScaleHealth(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
 	public void setScoreboard(Scoreboard arg0) throws IllegalArgumentException, IllegalStateException
 	{
 		// TODO Auto-generated method stub
@@ -1404,6 +1392,54 @@ public class FakePlayerSender implements Player, CommandSender
 	@Override
 	@Deprecated
 	public void updateInventory()
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public Entity getLeashHolder() throws IllegalStateException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean isLeashed()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean setLeashHolder(Entity arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public double getHealthScale()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public boolean isHealthScaled()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void playSound(Location arg0, String arg1, float arg2, float arg3)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void setHealthScale(double arg0) throws IllegalArgumentException
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void setHealthScaled(boolean arg0)
 	{
 		// TODO Auto-generated method stub
 

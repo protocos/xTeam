@@ -805,5 +805,23 @@ public class FakeWolf implements Wolf
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Entity getLeashHolder() throws IllegalStateException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean isLeashed()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean setLeashHolder(Entity arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }
