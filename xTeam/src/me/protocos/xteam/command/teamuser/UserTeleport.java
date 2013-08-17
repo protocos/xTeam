@@ -33,6 +33,7 @@ public class UserTeleport extends UserCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
 	{
+		playerName = null;
 		super.checkRequirements(originalSender, parseCommand);
 		if (parseCommand.size() == 2)
 		{
@@ -116,7 +117,7 @@ public class UserTeleport extends UserCommand
 			{
 				if (Data.damagedByPlayer.contains(finalPlayer.getName()))
 				{
-					finalPlayer.sendMessage(ChatColor.RED + "UserTeleport cancelled! You were attacked!");
+					finalPlayer.sendMessage(ChatColor.RED + "Teleport cancelled! You were attacked!");
 					Data.damagedByPlayer.remove(finalPlayer.getName());
 					Data.countWaitTime.remove(finalPlayer.getName());
 					Data.BUKKIT.getScheduler().cancelTask(Data.taskIDs.remove(finalPlayer.getName()));
@@ -124,7 +125,7 @@ public class UserTeleport extends UserCommand
 				Location loc = finalPlayer.getLocation();
 				if (loc.getBlockX() != save.getBlockX() || loc.getBlockY() != save.getBlockY() || loc.getBlockZ() != save.getBlockZ())
 				{
-					finalPlayer.sendMessage(ChatColor.RED + "UserTeleport cancelled! You moved!");
+					finalPlayer.sendMessage(ChatColor.RED + "Teleport cancelled! You moved!");
 					Data.countWaitTime.remove(finalPlayer.getName());
 					Data.BUKKIT.getScheduler().cancelTask(Data.taskIDs.remove(finalPlayer.getName()));
 				}

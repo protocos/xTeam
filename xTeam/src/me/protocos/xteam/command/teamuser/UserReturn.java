@@ -76,7 +76,7 @@ public class UserReturn extends UserCommand
 			{
 				if (Data.damagedByPlayer.contains(finalPlayer.getName()))
 				{
-					finalPlayer.sendMessage(ChatColor.RED + "UserTeleport cancelled! You were attacked!");
+					finalPlayer.sendMessage(ChatColor.RED + "Teleport cancelled! You were attacked!");
 					Data.damagedByPlayer.remove(finalPlayer.getName());
 					Data.countWaitTime.remove(finalPlayer.getName());
 					Data.BUKKIT.getScheduler().cancelTask(Data.taskIDs.remove(finalPlayer.getName()));
@@ -84,7 +84,7 @@ public class UserReturn extends UserCommand
 				Location loc1 = finalPlayer.getLocation();
 				if (loc1.getBlockX() != finalLocation.getBlockX() || loc1.getBlockY() != finalLocation.getBlockY() || loc1.getBlockZ() != finalLocation.getBlockZ())
 				{
-					finalPlayer.sendMessage(ChatColor.RED + "UserTeleport cancelled! You moved!");
+					finalPlayer.sendMessage(ChatColor.RED + "Teleport cancelled! You moved!");
 					Data.countWaitTime.remove(finalPlayer.getName());
 					Data.BUKKIT.getScheduler().cancelTask(Data.taskIDs.remove(finalPlayer.getName()));
 				}

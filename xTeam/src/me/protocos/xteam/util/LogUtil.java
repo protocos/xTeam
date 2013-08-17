@@ -13,6 +13,7 @@ public class LogUtil implements ILog
 	private File file;
 	private FileOutputStream output;
 	private PrintStream printStream;
+	private ErrorReportUtil errorReporter;
 
 	public LogUtil(JavaPlugin plugin)
 	{
@@ -47,6 +48,7 @@ public class LogUtil implements ILog
 		{
 			e.printStackTrace();
 		}
+		errorReporter = new ErrorReportUtil(plugin);
 	}
 	public void close()
 	{
@@ -76,6 +78,7 @@ public class LogUtil implements ILog
 				error("\t@ " + elem.toString().replaceAll(pluginPackageID, ""));
 			}
 		}
+		errorReporter.sendErrorReport(e);
 	}
 	public void fatal(String message)
 	{
