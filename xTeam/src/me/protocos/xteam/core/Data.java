@@ -39,6 +39,7 @@ public class Data
 	public static boolean NO_PERMISSIONS;
 	public static boolean ALPHA_NUM;
 	public static boolean DISPLAY_COORDINATES;
+	public static boolean SEND_ANONYMOUS_ERROR_REPORTS;
 	public static int MAX_PLAYERS;
 	public static int REVEAL_TIME;
 	public static int HQ_INTERVAL;
@@ -93,6 +94,7 @@ public class Data
 		NO_PERMISSIONS = reader.getBoolean("nopermissions", false);
 		ALPHA_NUM = reader.getBoolean("alphanumericnames", false);
 		DISPLAY_COORDINATES = reader.getBoolean("displaycoordinates", true);
+		SEND_ANONYMOUS_ERROR_REPORTS = reader.getBoolean("anonymouserrorreporting", true);
 		MAX_PLAYERS = reader.getInteger("playersonteam", 10);
 		REVEAL_TIME = reader.getInteger("namerevealtime", 5);
 		HQ_INTERVAL = reader.getInteger("sethqinterval", 0);

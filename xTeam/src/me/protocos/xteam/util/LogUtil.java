@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.Scanner;
 import me.protocos.xteam.api.collections.LimitedQueue;
 import me.protocos.xteam.api.util.ILog;
+import me.protocos.xteam.core.Data;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class LogUtil implements ILog
@@ -78,7 +79,8 @@ public class LogUtil implements ILog
 				error("\t@ " + elem.toString().replaceAll(pluginPackageID, ""));
 			}
 		}
-		errorReporter.sendErrorReport(e);
+		if (Data.SEND_ANONYMOUS_ERROR_REPORTS)
+			errorReporter.sendErrorReport(e);
 	}
 	public void fatal(String message)
 	{

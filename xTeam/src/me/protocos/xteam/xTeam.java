@@ -150,6 +150,7 @@ public class xTeam extends JavaPlugin
 						"### balanceteams - Balance teams when someone randomly joins (default=false)\n" +
 						"### onlyjoindefaultteam - When true, players can only join one of the default teams listed above (default=false)\n" +
 						"### defaulthqonjoin - When true, players on default teams are teleported to their headqloaduarters on join (default=false)\n" +
+						"### anonymouserrorreporting - When true, sends anonymous error reports for faster debugging (default=true)\n" +
 						"### lastattackeddelay - How long a teamPlayer has to wait after being attacked to teleport (default=15)\n" +
 						"### teamtagenabled - When true, players have their team tag displayed when in chat (default=true)\n" +
 						"### teamtagmaxlength - Maximum length of a team tag (default=0 == no maximum tag length)\n" +
@@ -175,6 +176,7 @@ public class xTeam extends JavaPlugin
 						"balanceteams=false\n" +
 						"onlyjoindefaultteam=false\n" +
 						"defaulthqonjoin=false\n" +
+						"anonymouserrorreporting=true\n" +
 						"teamtagenabled=true\n" +
 						"teamtagmaxlength=0\n" +
 						"teamfriendlyfire=false\n" +
