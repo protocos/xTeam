@@ -1,7 +1,11 @@
 package me.protocos.xteam.util;
 
 import java.util.Properties;
-import javax.mail.*;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -9,11 +13,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ErrorReportUtil
 {
 	private static final String errorReporter = "xteam.errors@gmail.com";
-	private static Properties props;
-	private static Session session;
 	private String pluginPackageID;
-	static
+	private Properties props;
+	private Session session;
+
+	public ErrorReportUtil(JavaPlugin plugin)
 	{
+		String packageString = plugin.getClass().getPackage().toString();
+		this.pluginPackageID = packageString.substring(packageString.indexOf(' ') + 1, packageString.lastIndexOf('.') + 1);
 		props = new Properties();
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.auth", "true");
@@ -28,12 +35,6 @@ public class ErrorReportUtil
 						return new PasswordAuthentication(errorReporter, "~g84fOz9!");
 					}
 				});
-	}
-
-	public ErrorReportUtil(JavaPlugin plugin)
-	{
-		String packageString = plugin.getClass().getPackage().toString();
-		this.pluginPackageID = packageString.substring(packageString.indexOf(' ') + 1, packageString.lastIndexOf('.') + 1);
 	}
 
 	public void sendErrorReport(Exception e)

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="MacRoman" standalone="no"?>
 <jardesc>
     <jar path="/Users/zjlanglois/plugins/xTeam.jar"/>
-    <options buildIfNeeded="true" compress="true" descriptionLocation="/xTeam/deploy.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/xTeam/deploy.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
-    <manifest generateManifest="false" manifestLocation="/xTeam/MANIFEST.MF" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+    <manifest generateManifest="false" manifestLocation="/xTeam/META-INF/MANIFEST.MF" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
         <sealing sealJar="false">
             <packagesToSeal/>
             <packagesToUnSeal/>
         </sealing>
     </manifest>
-    <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
         <file path="/xTeam/plugin.yml"/>
         <file path="/xTeam/.classpath"/>
         <javaElement handleIdentifier="=xTeam/src"/>
-        <file path="/xTeam/MANIFEST.MF"/>
         <file path="/xTeam/.project"/>
         <file path="/xTeam/.gitignore"/>
     </selectedElements>
