@@ -7,7 +7,10 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
+import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
+import me.protocos.xteam.core.exception.TeamPlayerNeverPlayedException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
