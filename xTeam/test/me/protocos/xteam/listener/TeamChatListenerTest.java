@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 import junit.framework.Assert;
 import me.protocos.xteam.api.fakeobjects.FakePlayer;
-import me.protocos.xteam.listener.TeamChatListener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.junit.After;

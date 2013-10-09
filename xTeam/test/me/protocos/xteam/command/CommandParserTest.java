@@ -1,7 +1,6 @@
 package me.protocos.xteam.command;
 
 import junit.framework.Assert;
-import me.protocos.xteam.command.CommandParser;
 import org.junit.Before;
 import org.junit.Test;
 

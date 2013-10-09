@@ -5,7 +5,6 @@ import junit.framework.Assert;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.command.console.ConsoleTeleAllHQ;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

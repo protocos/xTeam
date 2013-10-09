@@ -7,7 +7,6 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
-import me.protocos.xteam.command.serveradmin.AdminSetLeader;
 import me.protocos.xteam.core.exception.*;
 import org.junit.After;
 import org.junit.Before;

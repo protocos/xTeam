@@ -1,7 +1,6 @@
 package me.protocos.xteam.core;
 
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.core.Team;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

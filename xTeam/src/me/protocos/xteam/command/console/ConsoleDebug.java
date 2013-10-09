@@ -2,6 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
@@ -37,8 +38,20 @@ public class ConsoleDebug extends ConsoleCommand
 			originalSender.sendMessage("Last attacked: " + Data.lastAttacked.toString());
 		else if (subCommand.equalsIgnoreCase("created"))
 			originalSender.sendMessage("Last created: " + Data.lastCreated.toString());
+		else if (subCommand.equalsIgnoreCase("email"))
+		{
+			try
+			{
+				xTeam.logger.exception(new Exception("Test message!"));
+				originalSender.sendMessage("Email sent!");
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 		else
-			originalSender.sendMessage("Options are: debug [chat, invites, spies, return, tasks, tele, attacked, created]");
+			originalSender.sendMessage("Options are: debug [chat, invites, spies, return, tasks, tele, attacked, created, email]");
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException

@@ -3,7 +3,6 @@ package me.protocos.xteam.api.collections;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import me.protocos.xteam.api.collections.HashList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

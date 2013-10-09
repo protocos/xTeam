@@ -7,7 +7,6 @@ import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.command.console.ConsoleSet;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.core.exception.TeamPlayerMaxException;

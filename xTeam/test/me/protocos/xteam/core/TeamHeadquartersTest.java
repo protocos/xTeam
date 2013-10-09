@@ -2,7 +2,6 @@ package me.protocos.xteam.core;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.api.fakeobjects.FakeWorld;
-import me.protocos.xteam.core.TeamHeadquarters;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

@@ -2,8 +2,6 @@ package me.protocos.xteam.core;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import static org.mockito.Mockito.*;
-import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamHeadquarters;
 import org.bukkit.World;
 import org.junit.After;
 import org.junit.Assert;

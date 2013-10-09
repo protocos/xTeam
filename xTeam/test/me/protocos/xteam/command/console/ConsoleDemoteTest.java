@@ -6,7 +6,6 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.command.console.ConsoleDemote;
 import me.protocos.xteam.core.exception.*;
 import org.junit.After;
 import org.junit.Before;

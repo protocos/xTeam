@@ -7,7 +7,6 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
-import me.protocos.xteam.command.serveradmin.AdminHeadquarters;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamNoHeadquartersException;
 import org.bukkit.Location;

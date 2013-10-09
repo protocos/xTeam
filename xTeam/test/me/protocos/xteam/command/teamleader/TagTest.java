@@ -6,7 +6,6 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.command.teamleader.UserTag;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.*;
 import org.junit.After;
