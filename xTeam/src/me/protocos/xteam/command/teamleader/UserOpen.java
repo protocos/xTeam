@@ -22,9 +22,9 @@ public class UserOpen extends UserCommand
 	{
 		team.setOpenJoining(!team.isOpenJoining());
 		if (team.isOpenJoining())
-			originalSender.sendMessage("UserOpen joining is now " + ChatColor.GREEN + "enabled");
+			originalSender.sendMessage("Open joining is now " + ChatColor.GREEN + "enabled");
 		else
-			originalSender.sendMessage("UserOpen joining is now " + ChatColor.RED + "disabled");
+			originalSender.sendMessage("Open joining is now " + ChatColor.RED + "disabled");
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException

@@ -310,7 +310,7 @@ public class FakePlayerSender implements Player, CommandSender
 		return null;
 	}
 	@Override
-	public int getHealth()
+	public double getHealth()
 	{
 		// TODO Auto-generated method stub
 		return 0;
@@ -340,7 +340,7 @@ public class FakePlayerSender implements Player, CommandSender
 		return null;
 	}
 	@Override
-	public int getLastDamage()
+	public double getLastDamage()
 	{
 		// TODO Auto-generated method stub
 		return 0;
@@ -403,7 +403,7 @@ public class FakePlayerSender implements Player, CommandSender
 		return 0;
 	}
 	@Override
-	public int getMaxHealth()
+	public double getMaxHealth()
 	{
 		// TODO Auto-generated method stub
 		return 0;
@@ -1077,12 +1077,6 @@ public class FakePlayerSender implements Player, CommandSender
 
 	}
 	@Override
-	public void setHealth(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
 	public void setItemInHand(ItemStack arg0)
 	{
 		// TODO Auto-generated method stub
@@ -1090,12 +1084,6 @@ public class FakePlayerSender implements Player, CommandSender
 	}
 	@Override
 	public void setItemOnCursor(ItemStack arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setLastDamage(int arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -1115,13 +1103,6 @@ public class FakePlayerSender implements Player, CommandSender
 	public void setLocation(Location location)
 	{
 		this.location = location;
-	}
-
-	@Override
-	public void setMaxHealth(int arg0)
-	{
-		// TODO Auto-generated method stub
-
 	}
 	@Override
 	public void setMaximumAir(int arg0)
@@ -1321,13 +1302,136 @@ public class FakePlayerSender implements Player, CommandSender
 
 	}
 	@Override
-	public void damage(int arg0)
+	@Deprecated
+	public int _INVALID_getLastDamage()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_setLastDamage(int arg0)
 	{
 		// TODO Auto-generated method stub
 
 	}
 	@Override
-	public void damage(int arg0, Entity arg1)
+	public Entity getLeashHolder() throws IllegalStateException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean isLeashed()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void setLastDamage(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public boolean setLeashHolder(Entity arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_damage(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_damage(int arg0, Entity arg1)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	@Deprecated
+	public int _INVALID_getHealth()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	@Deprecated
+	public int _INVALID_getMaxHealth()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_setHealth(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	@Deprecated
+	public void _INVALID_setMaxHealth(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void damage(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void damage(double arg0, Entity arg1)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void setHealth(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void setMaxHealth(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public double getHealthScale()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public boolean isHealthScaled()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	@Deprecated
+	public void playSound(Location arg0, String arg1, float arg2, float arg3)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void setHealthScale(double arg0) throws IllegalArgumentException
+	{
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void setHealthScaled(boolean arg0)
 	{
 		// TODO Auto-generated method stub
 
