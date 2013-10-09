@@ -2,6 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -19,6 +20,32 @@ public class ConsoleListTest
 		//MOCK data
 		mockData();
 		fakeConsoleSender = new FakeConsoleSender();
+	}
+	@Test
+	public void ShouldBeTeamUserListExecuteNoTeams()
+	{
+		//ASSEMBLE
+		xTeam.tm.clear();
+		ConsoleCommand fakeCommand = new ConsoleList();
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team list"));
+		//ASSERT
+		Assert.assertEquals("There are no teams", fakeConsoleSender.getLastMessage());
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+	@Test
+	public void ShouldBeTeamUserListExecuteOneTeam()
+	{
+		//ASSEMBLE
+		xTeam.tm.removeTeam("ONE");
+		xTeam.tm.removeTeam("TWO");
+		xTeam.tm.removeTeam("blue");
+		ConsoleCommand fakeCommand = new ConsoleList();
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team list"));
+		//ASSERT
+		Assert.assertEquals("Teams: red", fakeConsoleSender.getLastMessage());
+		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeConsoleListExecute()

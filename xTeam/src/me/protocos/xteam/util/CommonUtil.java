@@ -149,6 +149,8 @@ public class CommonUtil
 	}
 	public static ArrayList<String> toList(String... strings)
 	{
+		if (strings.length == 1 && strings[0].equals(""))
+			return new ArrayList<String>();
 		return new ArrayList<String>(Arrays.asList(strings));
 	}
 	public static String stringHex(String str)

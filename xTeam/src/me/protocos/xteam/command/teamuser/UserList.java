@@ -20,8 +20,11 @@ public class UserList extends UserCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		ArrayList<String> teams = xTeam.tm.getAllTeamNames();
-		String message = "Teams: " + teams.toString().replaceAll("[\\[\\]]", "");
-		originalSender.sendMessage(message);
+		String message = "Teams: " + teams.toString().replaceAll("\\[|\\]", "");
+		if (teams.isEmpty())
+			originalSender.sendMessage("There are no teams");
+		else
+			originalSender.sendMessage(message);
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException

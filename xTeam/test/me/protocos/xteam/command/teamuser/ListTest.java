@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -17,6 +18,34 @@ public class ListTest
 	{
 		//MOCK data
 		mockData();
+	}
+	@Test
+	public void ShouldBeTeamUserListExecuteNoTeams()
+	{
+		//ASSEMBLE
+		xTeam.tm.clear();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		UserCommand fakeCommand = new UserList();
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team list"));
+		//ASSERT
+		Assert.assertEquals("There are no teams", fakePlayerSender.getLastMessage());
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+	@Test
+	public void ShouldBeTeamUserListExecuteOneTeam()
+	{
+		//ASSEMBLE
+		xTeam.tm.removeTeam("ONE");
+		xTeam.tm.removeTeam("TWO");
+		xTeam.tm.removeTeam("blue");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		UserCommand fakeCommand = new UserList();
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team list"));
+		//ASSERT
+		Assert.assertEquals("Teams: red", fakePlayerSender.getLastMessage());
+		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeTeamUserListExecute()
