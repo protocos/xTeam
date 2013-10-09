@@ -11,7 +11,7 @@ public class TeamInvalidCommandException extends TeamException
 
 	public TeamInvalidCommandException()
 	{
-		super("Not a valid team command (use " + (new UserHelp()).getUsage() + ")");
+		super("Not a valid team command (use '" + (new UserHelp()).getUsage() + "')");
 	}
 	public TeamInvalidCommandException(String message)
 	{
