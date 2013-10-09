@@ -1,5 +1,7 @@
 package me.protocos.xteam.core.exception;
 
+import me.protocos.xteam.command.teamuser.UserHelp;
+
 public class TeamInvalidCommandException extends TeamException
 {
 	/**
@@ -9,7 +11,7 @@ public class TeamInvalidCommandException extends TeamException
 
 	public TeamInvalidCommandException()
 	{
-		super("Not a valid team command");
+		super("Not a valid team command (use " + (new UserHelp()).getUsage() + ")");
 	}
 	public TeamInvalidCommandException(String message)
 	{

@@ -28,12 +28,7 @@ public class UserAccept extends UserCommand
 		Team inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
 		inviteTeam.addPlayer(teamPlayer.getName());
 		InviteHandler.removeInvite(teamPlayer.getName());
-		for (String teammate : inviteTeam.getPlayers())
-		{
-			TeamPlayer mate = new TeamPlayer(teammate);
-			if (mate.isOnline() && !teamPlayer.getName().equals(mate.getName()))
-				mate.sendMessage(teamPlayer.getName() + ChatColor.AQUA + " joined your team");
-		}
+		teamPlayer.sendMessageToTeam(ChatColor.AQUA + teamPlayer.getName() + ChatColor.RESET + " joined your team");
 		originalSender.sendMessage("You joined " + ChatColor.AQUA + inviteTeam.getName());
 	}
 	@Override

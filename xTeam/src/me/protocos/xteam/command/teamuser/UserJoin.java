@@ -28,7 +28,7 @@ public class UserJoin extends UserCommand
 		Team foundTeam = xTeam.tm.getTeam(desiredTeam);
 		foundTeam.addPlayer(teamPlayer.getName());
 		InviteHandler.removeInvite(teamPlayer.getName());
-		teamPlayer.sendMessageToTeam(ChatColor.AQUA + " joined your team");
+		teamPlayer.sendMessageToTeam(ChatColor.AQUA + teamPlayer.getName() + ChatColor.RESET + " joined your team");
 		originalSender.sendMessage("You joined " + ChatColor.AQUA + foundTeam.getName());
 	}
 	@Override

@@ -64,11 +64,9 @@ public class CommandDelegate implements CommandExecutor
 			{
 				sender.sendMessage(ChatColor.RED + (new TeamInvalidCommandException()).getMessage());
 				xTeam.logger.info("FAIL: " + (new TeamInvalidCommandException()).getMessage());
-				return false;
 			}
 			else if (command.execute(sender, parseCommand) == true)
 				Functions.writeTeamData(new File("plugins/xTeam/teams.txt"));
-			return true;
 		}
 		catch (Exception e)
 		{

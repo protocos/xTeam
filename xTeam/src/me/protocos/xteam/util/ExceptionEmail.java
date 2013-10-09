@@ -29,7 +29,7 @@ public class ExceptionEmail
 	{
 		ExceptionEmail email = new ExceptionEmail();
 		String errorString = e.toString();
-		email.subject = errorString.substring(errorString.lastIndexOf(".") + 1) + " in project";
+		email.subject = errorString.substring(errorString.lastIndexOf(".") + 1) + " from anonymous user: " + SystemUtil.getUUID();
 		email.body = "[ERROR] " + errorString;
 		for (StackTraceElement elem : e.getStackTrace())
 		{
