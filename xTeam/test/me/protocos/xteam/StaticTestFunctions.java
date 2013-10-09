@@ -59,6 +59,7 @@ public class StaticTestFunctions
 		Data.REFRESH_DELAY = 60;
 		Data.TAG_COLOR = "dark_green";
 	}
+
 	public static void mockData()
 	{
 		xTeam.cm = new CommandManager();

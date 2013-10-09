@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project default="jar">
+    <target name="jar">
+        <unzip dest="build">
+        	<fileset dir="lib">
+        		<include name="**/*.jar"/>
+        	</fileset>
+        </unzip>
+    	<delete dir="build/META-INF/"/>
+    	<zip destfile="../../../plugins/xTeam.jar">
+            <fileset dir="" includes="**/*.yml"/>
+            <fileset dir="bin"/>
+            <fileset dir="build"/>
+    	</zip>
+    </target>
+</project>

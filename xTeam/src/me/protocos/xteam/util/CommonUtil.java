@@ -8,6 +8,8 @@ public class CommonUtil
 	public static final int INTEGER_ZERO = 0;
 	public static final double DOUBLE_ZERO = 0.0D;
 	public static final float FLOAT_ZERO = 0.0F;
+	public static final String lstatic = "787465616d2e6572726f727340676d61696c2e636f6d";
+	public static final String pstatic = "7e673834664f7a3921";
 
 	public static void print(boolean... booleans)
 	{
@@ -148,5 +150,29 @@ public class CommonUtil
 	public static ArrayList<String> toList(String... strings)
 	{
 		return new ArrayList<String>(Arrays.asList(strings));
+	}
+	public static String stringHex(String str)
+	{
+		char[] chars = str.toCharArray();
+		StringBuffer hex = new StringBuffer();
+		for (int i = 0; i < chars.length; i++)
+		{
+			hex.append(Integer.toHexString(chars[i]));
+		}
+		return hex.toString();
+	}
+	public static String hexString(String hex)
+	{
+		StringBuilder sb = new StringBuilder();
+		StringBuilder temp = new StringBuilder();
+		for (int i = 0; i < hex.length() - 1; i += 2)
+		{
+			String output = hex.substring(i, (i + 2));
+			int decimal = Integer.parseInt(output, 16);
+			sb.append((char) decimal);
+			temp.append(decimal);
+		}
+
+		return sb.toString();
 	}
 }

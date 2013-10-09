@@ -2,6 +2,7 @@ package me.protocos.xteam.util;
 
 import java.io.*;
 import java.util.HashMap;
+import me.protocos.xteam.xTeam;
 
 public class FileReader
 {
@@ -146,7 +147,7 @@ public class FileReader
 		}
 		else
 		{
-			System.out.println("File " + this.file.getAbsoluteFile() + " not found.");
+			xTeam.logger.error("File " + this.file.getAbsoluteFile() + " not found.");
 			return false;
 		}
 		return true;
