@@ -1,13 +1,24 @@
 package me.protocos.xteam.core;
 
+import java.util.List;
+import java.util.UUID;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamWolf;
+import me.protocos.xteam.util.BukkitUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.bukkit.EntityEffect;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Wolf;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.metadata.MetadataValue;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.util.Vector;
 
 public class TeamWolf implements ITeamWolf
 {
@@ -101,13 +112,6 @@ public class TeamWolf implements ITeamWolf
 		return hasOwner() && getOwner().hasTeam();
 	}
 	@Override
-	public boolean isEnemy(ITeamEntity entity)
-	{
-		if (this.isOnSameTeam(entity))
-			return false;
-		return true;
-	}
-	@Override
 	public boolean isOnline()
 	{
 		return true;
@@ -122,7 +126,7 @@ public class TeamWolf implements ITeamWolf
 		return false;
 	}
 	@Override
-	public boolean teleport(ITeamEntity entity)
+	public boolean teleportTo(ITeamEntity entity)
 	{
 		if (isOnline() && entity.isOnline())
 		{
@@ -144,5 +148,208 @@ public class TeamWolf implements ITeamWolf
 	{
 		String wolfData = "";
 		return wolfData;
+	}
+	@Override
+	public String getEntityName()
+	{
+		if (this.hasOwner())
+			return this.getOwner() + "'s  Wolfie";
+		return "Wild Wolfie";
+	}
+	@Override
+	public boolean isTeleportable()
+	{
+		return true;
+	}
+	@Override
+	public boolean isVulnerable()
+	{
+		return true;
+	}
+	@Override
+	public boolean sendMessage(String message)
+	{
+		System.out.println("Bark!");
+		return true;
+	}
+	@Override
+	public List<Entity> getNearbyEntities(int radius)
+	{
+		return BukkitUtil.getNearbyEntities(this.getLocation(), radius);
+	}
+	@Override
+	public boolean eject()
+	{
+		return wolf.eject();
+	}
+	@Override
+	public int getEntityId()
+	{
+		return wolf.getEntityId();
+	}
+	@Override
+	public float getFallDistance()
+	{
+		return wolf.getFallDistance();
+	}
+	@Override
+	public int getFireTicks()
+	{
+		return wolf.getFireTicks();
+	}
+	@Override
+	public EntityDamageEvent getLastDamageCause()
+	{
+		return wolf.getLastDamageCause();
+	}
+	@Override
+	public Location getLocation(Location arg0)
+	{
+		return wolf.getLocation(arg0);
+	}
+	@Override
+	public int getMaxFireTicks()
+	{
+		return wolf.getMaxFireTicks();
+	}
+	@Override
+	public List<Entity> getNearbyEntities(double arg0, double arg1, double arg2)
+	{
+		return wolf.getNearbyEntities(arg0, arg1, arg2);
+	}
+	@Override
+	public Entity getPassenger()
+	{
+		return wolf.getPassenger();
+	}
+	@Override
+	public int getTicksLived()
+	{
+		return wolf.getTicksLived();
+	}
+	@Override
+	public EntityType getType()
+	{
+		return wolf.getType();
+	}
+	@Override
+	public UUID getUniqueId()
+	{
+		return wolf.getUniqueId();
+	}
+	@Override
+	public Entity getVehicle()
+	{
+		return wolf.getVehicle();
+	}
+	@Override
+	public Vector getVelocity()
+	{
+		return wolf.getVelocity();
+	}
+	@Override
+	public boolean isDead()
+	{
+		return wolf.isDead();
+	}
+	@Override
+	public boolean isEmpty()
+	{
+		return wolf.isEmpty();
+	}
+	@Override
+	public boolean isInsideVehicle()
+	{
+		return wolf.isInsideVehicle();
+	}
+	@Override
+	public boolean isOnGround()
+	{
+		return wolf.isOnGround();
+	}
+	@Override
+	public boolean isValid()
+	{
+		return wolf.isValid();
+	}
+	@Override
+	public boolean leaveVehicle()
+	{
+		return wolf.leaveVehicle();
+	}
+	@Override
+	public void playEffect(EntityEffect arg0)
+	{
+		wolf.playEffect(arg0);
+	}
+	@Override
+	public void remove()
+	{
+		wolf.remove();
+	}
+	@Override
+	public void setFallDistance(float arg0)
+	{
+		wolf.setFallDistance(arg0);
+	}
+	@Override
+	public void setFireTicks(int arg0)
+	{
+		wolf.setFireTicks(arg0);
+	}
+	@Override
+	public void setLastDamageCause(EntityDamageEvent arg0)
+	{
+		wolf.setLastDamageCause(arg0);
+	}
+	@Override
+	public boolean setPassenger(Entity arg0)
+	{
+		return wolf.setPassenger(arg0);
+	}
+	@Override
+	public void setTicksLived(int arg0)
+	{
+		wolf.setTicksLived(arg0);
+	}
+	@Override
+	public void setVelocity(Vector arg0)
+	{
+		wolf.setVelocity(arg0);
+	}
+	@Override
+	public boolean teleport(Entity arg0)
+	{
+		return wolf.teleport(arg0);
+	}
+	@Override
+	public boolean teleport(Location arg0, TeleportCause arg1)
+	{
+		return wolf.teleport(arg0);
+	}
+	@Override
+	public boolean teleport(Entity arg0, TeleportCause arg1)
+	{
+		return wolf.teleport(arg0);
+	}
+	@Override
+	public List<MetadataValue> getMetadata(String arg0)
+	{
+		return wolf.getMetadata(arg0);
+	}
+	@Override
+	public boolean hasMetadata(String arg0)
+	{
+		return wolf.hasMetadata(arg0);
+	}
+	@Override
+	public void removeMetadata(String arg0, Plugin arg1)
+	{
+		wolf.removeMetadata(arg0, arg1);
+	}
+	@Override
+	public void setMetadata(String arg0, MetadataValue arg1)
+	{
+		wolf.setMetadata(arg0, arg1);
 	}
 }

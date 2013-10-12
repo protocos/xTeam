@@ -28,7 +28,6 @@ public class UserTeleport extends UserCommand
 	{
 		String closestTeammate = getClosestTeammate().getName();
 		tele(closestTeammate);
-		originalSender.sendMessage("You've been teleported to " + ChatColor.GREEN + closestTeammate);
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
@@ -65,7 +64,7 @@ public class UserTeleport extends UserCommand
 		TeamPlayer teammate;
 		if (playerName == null)
 		{
-			List<String> onlineTeammates = teamPlayer.getOnlineTeammates();
+			List<TeamPlayer> onlineTeammates = teamPlayer.getOnlineTeammates();
 			if (onlineTeammates.isEmpty())
 			{
 				throw new TeamPlayerTeammateException("Player has no teammates online");
@@ -145,12 +144,11 @@ public class UserTeleport extends UserCommand
 	}
 	private TeamPlayer getClosestTeammate()
 	{
-		List<String> onlineTeammates = teamPlayer.getOnlineTeammates();
-		TeamPlayer closestTeammate = new TeamPlayer(onlineTeammates.get(0));
+		List<TeamPlayer> onlineTeammates = teamPlayer.getOnlineTeammates();
+		TeamPlayer closestTeammate = onlineTeammates.get(0);
 		double distance = teamPlayer.getOnlinePlayer().getLocation().distance(closestTeammate.getOnlinePlayer().getLocation());
-		for (String p : onlineTeammates)
+		for (TeamPlayer mate : onlineTeammates)
 		{
-			TeamPlayer mate = new TeamPlayer(p);
 			double tempDistance = teamPlayer.getDistanceTo(mate);
 			if (tempDistance < distance)
 			{
@@ -204,6 +202,7 @@ public class UserTeleport extends UserCommand
 			}
 		}, Data.REFRESH_DELAY * 20L);
 		playerTele.teleport(other.getLocation());
+		playerTele.sendMessage("You've been teleported to " + ChatColor.GREEN + other.getName());
 		Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(Data.BUKKIT.getPluginManager().getPlugin("xTeam"), new Runnable()
 		{
 			@Override

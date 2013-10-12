@@ -22,9 +22,8 @@ public class UserDisband extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		for (String p : teamPlayer.getOnlineTeammates())
+		for (TeamPlayer playerDisband : teamPlayer.getOnlineTeammates())
 		{
-			TeamPlayer playerDisband = new TeamPlayer(p);
 			playerDisband.sendMessage("Team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by the leader");
 		}
 		xTeam.tm.removeTeam(team.getName());

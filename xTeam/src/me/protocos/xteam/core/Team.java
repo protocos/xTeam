@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.core.ITeam;
-import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.api.core.ITeamEntity;
+import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Server;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class Team implements ITeam
@@ -155,10 +160,6 @@ public class Team implements ITeam
 	{
 		return leader;
 	}
-	public String getName()
-	{
-		return name;
-	}
 	public List<String> getOnlinePlayers()
 	{
 		List<String> onlinePlayers = new ArrayList<String>();
@@ -189,7 +190,7 @@ public class Team implements ITeam
 	{
 		return timeHeadquartersSet;
 	}
-	public boolean hasHQ()
+	public boolean hasHeadquarters()
 	{
 		return getHeadquarters() != null;
 	}
@@ -337,25 +338,126 @@ public class Team implements ITeam
 		return tag;
 	}
 	@Override
-	public void sendMessage(String message)
+	public String getName()
+	{
+		return name;
+	}
+	@Override
+	public int getRelativeX()
+	{
+		return getHeadquarters().getBlockX();
+	}
+	@Override
+	public int getRelativeY()
+	{
+		return getHeadquarters().getBlockY();
+	}
+	@Override
+	public int getRelativeZ()
+	{
+		return getHeadquarters().getBlockZ();
+	}
+	@Override
+	public Team getTeam()
+	{
+		return this;
+	}
+	@Override
+	public World getWorld()
+	{
+		if (this.hasHeadquarters())
+			return getHeadquarters().getWorld();
+		return null;
+	}
+	@Override
+	public Server getServer()
+	{
+		return Bukkit.getServer();
+	}
+	@Override
+	public double getDistanceTo(ITeamEntity entity)
+	{
+		return this.getHeadquarters().distance(entity.getLocation());
+	}
+	@Override
+	public boolean hasTeam()
+	{
+		return true;
+	}
+	@Override
+	public boolean teleportTo(ITeamEntity entity)
+	{
+		return false;
+	}
+	@Override
+	public boolean isOnSameTeam(ITeamEntity entity)
+	{
+		if (entity instanceof Team)
+		{
+			Team otherTeam = (Team) entity;
+			return this.equals(otherTeam);
+		}
+		if (entity instanceof TeamPlayer)
+		{
+			TeamPlayer otherPlayer = (TeamPlayer) entity;
+			return this.containsPlayer(otherPlayer.getName());
+		}
+		return false;
+	}
+	@Override
+	public boolean isOnline()
+	{
+		return true;
+	}
+	@Override
+	public boolean isTeleportable()
+	{
+		return false;
+	}
+	@Override
+	public boolean isVulnerable()
+	{
+		return false;
+	}
+	@Override
+	public List<Entity> getNearbyEntities(int radius)
+	{
+		if (this.hasHeadquarters())
+			return BukkitUtil.getNearbyEntities(this.getHeadquarters(), radius);
+		return CommonUtil.emptyList();
+	}
+	@Override
+	public Location getLocation()
+	{
+		return this.getHeadquarters();
+	}
+	@Override
+	public String getEntityName()
+	{
+		return this.getName();
+	}
+	@Override
+	public boolean sendMessage(String message)
 	{
 		List<String> onlinePlayers = getOnlinePlayers();
 		for (String p : onlinePlayers)
 		{
-			ITeamPlayer player = new TeamPlayer(p);
+			TeamPlayer player = new TeamPlayer(p);
 			player.sendMessage(message);
 		}
+		return true;
 	}
-	public void sendMessage(String message, Player exclude)
+	public boolean sendMessage(String message, Player exclude)
 	{
 		List<String> onlinePlayers = getOnlinePlayers();
 		for (String p : onlinePlayers)
 		{
 			if (!p.equals(exclude.getName()))
 			{
-				ITeamPlayer player = new TeamPlayer(p);
+				TeamPlayer player = new TeamPlayer(p);
 				player.sendMessage(message);
 			}
 		}
+		return true;
 	}
 }

@@ -285,7 +285,7 @@ public class TeamPlayerTest
 		xTeam.tm.addTeam(team);
 		//ACT
 		//ASSERT
-		Assert.assertEquals(true, player1.getOnlineTeammates().contains("two"));
+		Assert.assertEquals(true, player1.getOnlineTeammates().contains(player2));
 		Assert.assertEquals(1, player1.getOnlineTeammates().size());
 	}
 	@Test
@@ -328,7 +328,7 @@ public class TeamPlayerTest
 		TeamPlayer player1 = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
 		TeamPlayer player2 = new TeamPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
 		//ACT
-		boolean teleport = player1.teleport(player2);
+		boolean teleport = player1.teleportTo(player2);
 		//ASSERT
 		Assert.assertTrue(teleport);
 		Assert.assertEquals(player2.getLocation(), player1.getLocation());

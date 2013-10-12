@@ -25,9 +25,8 @@ public class UserTag extends UserCommand
 	{
 		team.setTag(newTag);
 		teamPlayer.sendMessage("The team tag has been set to " + ChatColor.AQUA + newTag);
-		for (String p : teamPlayer.getOnlineTeammates())
+		for (TeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
-			TeamPlayer mate = new TeamPlayer(p);
 			mate.sendMessage("The team tag has been set to " + ChatColor.AQUA + newTag);
 		}
 	}

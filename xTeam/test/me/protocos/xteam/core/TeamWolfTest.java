@@ -151,7 +151,7 @@ public class TeamWolfTest
 		TeamWolf wolf1 = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		TeamWolf wolf2 = new TeamWolf(new FakeWolf("kmlanglois", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		//ACT
-		boolean teleport = wolf1.teleport(wolf2);
+		boolean teleport = wolf1.teleportTo(wolf2);
 		//ASSERT
 		Assert.assertTrue(teleport);
 	}

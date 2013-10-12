@@ -88,7 +88,7 @@ public class TeamTest
 		TeamHeadquarters hq = new TeamHeadquarters(world, 1.0D, 1.0D, 1.0D, 1.0F, 1.0F);
 		//ACT
 		team.setHQ(hq);
-		boolean hasHQ = team.hasHQ();
+		boolean hasHQ = team.hasHeadquarters();
 		//ASSERT
 		Assert.assertTrue(hasHQ);
 	}
@@ -125,7 +125,7 @@ public class TeamTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean hasHQ = team.hasHQ();
+		boolean hasHQ = team.hasHeadquarters();
 		//ASSERT
 		Assert.assertFalse(hasHQ);
 	}

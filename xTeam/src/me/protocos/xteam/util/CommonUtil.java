@@ -2,6 +2,7 @@ package me.protocos.xteam.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class CommonUtil
 {
@@ -176,5 +177,9 @@ public class CommonUtil
 		}
 
 		return sb.toString();
+	}
+	public static <T> List<T> emptyList()
+	{
+		return new ArrayList<T>();
 	}
 }

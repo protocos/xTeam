@@ -44,7 +44,7 @@ public class UserHeadquarters extends UserCommand
 		{
 			throw new TeamPlayerHasNoTeamException();
 		}
-		if (!team.hasHQ())
+		if (!team.hasHeadquarters())
 		{
 			throw new TeamNoHeadquartersException();
 		}

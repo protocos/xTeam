@@ -30,7 +30,7 @@ public class AdminTeleAllHQ extends ServerAdminCommand
 				{
 					originalSender.sendMessage(otherPlayer.getName() + " does not have a team and was not teleported");
 				}
-				else if (!playerTeam.hasHQ())
+				else if (!playerTeam.hasHeadquarters())
 				{
 					originalSender.sendMessage("No team headquarters set for team " + playerTeam.getName() + " for " + p.getName());
 				}

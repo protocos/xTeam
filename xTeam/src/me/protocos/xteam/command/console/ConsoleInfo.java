@@ -102,7 +102,7 @@ public class ConsoleInfo extends ConsoleCommand
 		if (otherTeam.getAdmins().size() > 1)
 			sender.sendMessage("Team Admins - " + otherTeam.getAdmins().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(otherTeam.getLeader() + ", ", ""));
 		sender.sendMessage("Team Joining - " + (otherTeam.isOpenJoining() == false ? "Closed" : "Open"));
-		if (otherTeam.hasHQ())
+		if (otherTeam.hasHeadquarters())
 			sender.sendMessage("Team Headquarters - " + "X:" + Math.round(otherTeam.getHeadquarters().getX()) + " Y:" + Math.round(otherTeam.getHeadquarters().getY()) + " Z:" + Math.round(otherTeam.getHeadquarters().getZ()));
 		else
 			sender.sendMessage("Team Headquarters - " + "none set");

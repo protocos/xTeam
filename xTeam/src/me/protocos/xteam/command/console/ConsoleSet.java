@@ -4,14 +4,14 @@ import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.command.action.SetCommandAction;
+import me.protocos.xteam.command.action.SetTeamAction;
 import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.command.CommandSender;
 
 public class ConsoleSet extends ConsoleCommand
 {
 	private String playerName, teamName;
-	private SetCommandAction set;
+	private SetTeamAction set;
 
 	public ConsoleSet()
 	{
@@ -29,7 +29,7 @@ public class ConsoleSet extends ConsoleCommand
 		super.checkRequirements(originalSender, parseCommand);
 		playerName = parseCommand.get(1);
 		teamName = parseCommand.get(2);
-		set = new SetCommandAction(originalSender);
+		set = new SetTeamAction(originalSender);
 		set.checkRequorementsOn(playerName, teamName);
 	}
 	@Override

@@ -63,11 +63,9 @@ public class TeamPlayerListener implements Listener
 						Team team = availableTeams.get(index);
 						team.addPlayer(player.getName());
 						player.sendMessage("You joined " + ChatColor.AQUA + team.getName());
-						for (String p : player.getOnlineTeammates())
+						for (ITeamPlayer teammate : player.getOnlineTeammates())
 						{
-							ITeamPlayer teammate = new TeamPlayer(p);
-							if (teammate.isOnline())
-								teammate.sendMessage(player.getName() + ChatColor.AQUA + " joined your team");
+							teammate.sendMessage(player.getName() + ChatColor.AQUA + " joined your team");
 						}
 						xTeam.log.info("Added " + player.getName() + " to team " + team.getName());
 					}
@@ -82,7 +80,7 @@ public class TeamPlayerListener implements Listener
 				if (player.hasTeam() && player.getTeam().isDefaultTeam())
 				{
 					Team team = player.getTeam();
-					if (team.hasHQ())
+					if (team.hasHeadquarters())
 					{
 						player.teleport(team.getHeadquarters());
 						player.sendMessage(ChatColor.RED + "You've been teleported to your Headquarters");
@@ -136,7 +134,7 @@ public class TeamPlayerListener implements Listener
 			{
 				if (player.hasTeam())
 				{
-					if (player.getTeam().hasHQ())
+					if (player.getTeam().hasHeadquarters())
 					{
 						event.setRespawnLocation(player.getTeam().getHeadquarters());
 					}

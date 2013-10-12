@@ -51,10 +51,6 @@ public class TeamServiceManager
 		}
 		return null;
 	}
-	public ITeamPlayer getTeamPlayer(String name)
-	{
-		return tpm.getTeamPlayer(name);
-	}
 	public void loadConfig()
 	{
 		String setting;

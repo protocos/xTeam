@@ -37,7 +37,7 @@ public class AdminHeadquarters extends ServerAdminCommand
 		{
 			throw new TeamDoesNotExistException();
 		}
-		if (!changeTeam.hasHQ())
+		if (!changeTeam.hasHeadquarters())
 		{
 			throw new TeamNoHeadquartersException();
 		}

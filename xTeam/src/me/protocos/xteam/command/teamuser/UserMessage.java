@@ -25,9 +25,8 @@ public class UserMessage extends UserCommand
 		{
 			message += " " + parseCommand.get(i);
 		}
-		for (String p : teamPlayer.getOnlineTeammates())
+		for (TeamPlayer teammate : teamPlayer.getOnlineTeammates())
 		{
-			TeamPlayer teammate = new TeamPlayer(p);
 			teammate.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
 		}
 		originalSender.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);

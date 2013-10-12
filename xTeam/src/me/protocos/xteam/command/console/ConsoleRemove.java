@@ -17,6 +17,8 @@ import org.bukkit.command.CommandSender;
 public class ConsoleRemove extends ConsoleCommand
 {
 	private String teamName, playerName;
+	private TeamPlayer changeTeamPlayer;
+	private Team changeTeam;
 
 	public ConsoleRemove()
 	{
@@ -26,16 +28,14 @@ public class ConsoleRemove extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		TeamPlayer p = new TeamPlayer(playerName);
-		Team team = p.getTeam();
-		team.removePlayer(playerName);
+		changeTeam.removePlayer(playerName);
 		originalSender.sendMessage("You" + ChatColor.RED + " removed " + ChatColor.RESET + playerName + " from " + teamName);
-		if (p.isOnline())
-			p.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
-		if (team.isEmpty())
+		if (changeTeamPlayer.isOnline())
+			changeTeamPlayer.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + changeTeam.getName());
+		if (changeTeam.isEmpty())
 		{
 			originalSender.sendMessage(teamName + " has been disbanded");
-			xTeam.tm.removeTeam(team.getName());
+			xTeam.tm.removeTeam(changeTeam.getName());
 		}
 	}
 	@Override
@@ -44,17 +44,17 @@ public class ConsoleRemove extends ConsoleCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		TeamPlayer p = new TeamPlayer(playerName);
-		Team team = p.getTeam();
-		if (!p.hasPlayedBefore())
+		changeTeamPlayer = new TeamPlayer(playerName);
+		changeTeam = changeTeamPlayer.getTeam();
+		if (!changeTeamPlayer.hasPlayedBefore())
 		{
 			throw new TeamPlayerNeverPlayedException();
 		}
-		if (team == null)
+		if (changeTeam == null)
 		{
 			throw new TeamPlayerHasNoTeamException();
 		}
-		if (team.getLeader().equals(playerName) && team.getPlayers().size() > 1)
+		if (changeTeam.getLeader().equals(playerName) && changeTeam.getPlayers().size() > 1)
 		{
 			throw new TeamPlayerLeaderLeavingException();
 		}

@@ -3,7 +3,7 @@ package me.protocos.xteam.api.core;
 import java.util.List;
 import me.protocos.xteam.core.TeamHeadquarters;
 
-public interface ITeam
+public interface ITeam extends ITeamEntity
 {
 	public abstract boolean addPlayer(String player);
 	public abstract boolean containsPlayer(String player);
@@ -13,5 +13,4 @@ public interface ITeam
 	public abstract List<String> getOnlinePlayers();
 	public abstract List<String> getPlayers();
 	public abstract boolean removePlayer(String player);
-	public abstract void sendMessage(String message);
 }

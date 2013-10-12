@@ -31,7 +31,7 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 				{
 					originalSender.sendMessage(player.getName() + " does not have a team and was not teleported");
 				}
-				else if (!team.hasHQ())
+				else if (!team.hasHeadquarters())
 				{
 					originalSender.sendMessage("No team headquarters set for team " + team.getName() + " for " + p.getName());
 				}

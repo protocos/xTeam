@@ -125,7 +125,7 @@ public class UserInfo extends UserCommand
 		if (otherTeam.hasLeader())
 			message += "\n" + (ChatColor.RESET + "Team Leader - " + ChatColor.GREEN + otherTeam.getLeader());
 		message += "\n" + (ChatColor.RESET + "Team Joining - " + (otherTeam.isOpenJoining() == false ? ChatColor.RED + "Closed" : ChatColor.GREEN + "Open"));
-		if (otherTeam.hasHQ())
+		if (otherTeam.hasHeadquarters())
 			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + ChatColor.GREEN + "Set");
 		else
 			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + ChatColor.RED + "None set");
@@ -142,7 +142,7 @@ public class UserInfo extends UserCommand
 		if (team.getAdmins().size() > 1)
 			message += "\n" + (ChatColor.RESET + "Team Admins - " + ChatColor.GREEN + team.getAdmins().toString().replaceAll("\\[|\\]" + (team.hasLeader() ? "|" + team.getLeader() + ", " : ""), ""));
 		message += "\n" + (ChatColor.RESET + "Team Joining - " + (team.isOpenJoining() == false ? ChatColor.RED + "Closed" : ChatColor.GREEN + "Open"));
-		if (team.hasHQ())
+		if (team.hasHeadquarters())
 			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + ChatColor.GREEN + "X:" + Math.round(team.getHeadquarters().getX()) + " Y:" + Math.round(team.getHeadquarters().getY()) + " Z:" + Math.round(team.getHeadquarters().getZ()));
 		else
 			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + ChatColor.RED + "None set");

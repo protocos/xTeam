@@ -26,9 +26,8 @@ public class UserRename extends UserCommand
 		xTeam.tm.removeTeam(team.getName());
 		team.setName(newName);
 		xTeam.tm.addTeam(team);
-		for (String p : teamPlayer.getOnlineTeammates())
+		for (TeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
-			TeamPlayer mate = new TeamPlayer(p);
 			mate.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName);
 		}
 		originalSender.sendMessage("You renamed the team to " + ChatColor.AQUA + newName);

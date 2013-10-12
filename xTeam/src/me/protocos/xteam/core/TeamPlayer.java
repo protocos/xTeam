@@ -5,16 +5,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.util.BukkitUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.Server;
-import org.bukkit.World;
+import org.bukkit.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.metadata.MetadataValue;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.util.Vector;
 
 public class TeamPlayer implements ITeamPlayer
 {
@@ -63,13 +69,12 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public double getHealth()
 	{
-		if (isOnline())
+		if (this.isOnline())
 		{
 			return onlinePlayer.getHealth();
 		}
 		return -1.0;
 	}
-	@Override
 	public String getLastPlayed()
 	{
 		long milliSeconds = offlinePlayer.getLastPlayed();
@@ -84,23 +89,20 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public Location getLocation()
 	{
-		if (isOnline())
+		if (this.isOnline())
 		{
 			return onlinePlayer.getLocation();
 		}
 		return null;
 	}
-	@Override
 	public String getName()
 	{
 		return name;
 	}
-	@Override
 	public OfflinePlayer getOfflinePlayer()
 	{
 		return offlinePlayer;
 	}
-	@Override
 	public List<String> getOfflineTeammates()
 	{
 		List<String> offlineMates = new ArrayList<String>();
@@ -115,22 +117,20 @@ public class TeamPlayer implements ITeamPlayer
 		}
 		return offlineMates;
 	}
-	@Override
 	public Player getOnlinePlayer()
 	{
 		return onlinePlayer;
 	}
-	@Override
-	public List<String> getOnlineTeammates()
+	public List<TeamPlayer> getOnlineTeammates()
 	{
-		List<String> onlineMates = new ArrayList<String>();
+		List<TeamPlayer> onlineMates = new ArrayList<TeamPlayer>();
 		if (hasTeam())
 		{
 			for (String p : getTeam().getPlayers())
 			{
 				TeamPlayer mate = new TeamPlayer(p);
 				if (mate.isOnline() && !name.equals(p))
-					onlineMates.add(p);
+					onlineMates.add(mate);
 			}
 		}
 		return onlineMates;
@@ -138,7 +138,7 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public int getRelativeX()
 	{
-		if (isOnline())
+		if (this.isOnline())
 		{
 			Location loc = getLocation();
 			return (int) Math.round(loc.getX());
@@ -148,7 +148,7 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public int getRelativeY()
 	{
-		if (isOnline())
+		if (this.isOnline())
 		{
 			Location loc = getLocation();
 			return (int) Math.round(loc.getY());
@@ -158,7 +158,7 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public int getRelativeZ()
 	{
-		if (isOnline())
+		if (this.isOnline())
 		{
 			Location loc = getLocation();
 			return (int) Math.round(loc.getZ());
@@ -168,7 +168,7 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public Server getServer()
 	{
-		if (isOnline())
+		if (this.isOnline())
 		{
 			return onlinePlayer.getServer();
 		}
@@ -182,7 +182,6 @@ public class TeamPlayer implements ITeamPlayer
 				return team;
 		return null;
 	}
-	@Override
 	public List<String> getTeammates()
 	{
 		List<String> mates = new ArrayList<String>();
@@ -199,7 +198,7 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public World getWorld()
 	{
-		if (isOnline())
+		if (this.isOnline())
 		{
 			return onlinePlayer.getWorld();
 		}
@@ -209,16 +208,14 @@ public class TeamPlayer implements ITeamPlayer
 	{
 		return new HashCodeBuilder(17, 41).append(name).toHashCode();
 	}
-	@Override
 	public boolean hasPermission(String permission)
 	{
-		if (isOnline())
+		if (this.isOnline())
 		{
 			return onlinePlayer.hasPermission(permission);
 		}
 		return false;
 	}
-	@Override
 	public boolean hasPlayedBefore()
 	{
 		if (offlinePlayer == null)
@@ -230,7 +227,6 @@ public class TeamPlayer implements ITeamPlayer
 	{
 		return getTeam() != null;
 	}
-	@Override
 	public boolean isAdmin()
 	{
 		if (hasTeam())
@@ -239,17 +235,15 @@ public class TeamPlayer implements ITeamPlayer
 		}
 		return false;
 	}
-	@Override
 	public boolean isEnemy(ITeamEntity entity)
 	{
 		if (this.isOnSameTeam(entity))
 			return false;
 		return true;
 	}
-	@Override
 	public boolean isLeader()
 	{
-		if (hasTeam())
+		if (this.hasTeam())
 		{
 			return getTeam().getLeader().equals(name);
 		}
@@ -258,20 +252,19 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public boolean isOnline()
 	{
-		if (hasPlayedBefore())
+		if (this.hasPlayedBefore())
 			return offlinePlayer.isOnline();
 		return false;
 	}
 	@Override
 	public boolean isOnSameTeam(ITeamEntity otherEntity)
 	{
-		if (hasTeam() && otherEntity.hasTeam())
+		if (this.hasTeam() && otherEntity.hasTeam())
 		{
 			return getTeam().equals(otherEntity.getTeam());
 		}
 		return false;
 	}
-	@Override
 	public boolean isOp()
 	{
 		return offlinePlayer.isOp();
@@ -279,39 +272,36 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public boolean sendMessage(String message)
 	{
-		if (isOnline())
+		if (this.isOnline())
 		{
 			onlinePlayer.sendMessage(message);
 			return true;
 		}
 		return false;
 	}
-	@Override
 	public void sendMessageToTeam(String message)
 	{
-		List<String> onlinePlayers = getOnlineTeammates();
-		for (String p : onlinePlayers)
+		List<TeamPlayer> onlinePlayers = getOnlineTeammates();
+		for (TeamPlayer player : onlinePlayers)
 		{
-			ITeamPlayer player = new TeamPlayer(p);
 			player.sendMessage(message);
 		}
 	}
 	public void sendMessageToTeam(String message, Player exclude)
 	{
-		List<String> onlinePlayers = getOnlineTeammates();
-		for (String p : onlinePlayers)
+		List<TeamPlayer> onlinePlayers = getOnlineTeammates();
+		for (TeamPlayer player : onlinePlayers)
 		{
-			if (!p.equals(exclude.getName()))
+			if (!player.getName().equals(exclude.getName()))
 			{
-				ITeamPlayer player = new TeamPlayer(p);
 				player.sendMessage(message);
 			}
 		}
 	}
 	@Override
-	public boolean teleport(ITeamEntity entity)
+	public boolean teleportTo(ITeamEntity entity)
 	{
-		if (isOnline() && entity.isOnline())
+		if (this.isOnline() && entity.isOnline())
 		{
 			return onlinePlayer.teleport(entity.getLocation());
 		}
@@ -320,7 +310,7 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public boolean teleport(Location location)
 	{
-		if (isOnline())
+		if (this.isOnline())
 		{
 			return onlinePlayer.teleport(location);
 		}
@@ -336,5 +326,201 @@ public class TeamPlayer implements ITeamPlayer
 		playerData += " admin:" + (isAdmin() ? "true" : "false");
 		playerData += " leader:" + (isLeader() ? "true" : "false");
 		return playerData;
+	}
+	@Override
+	public boolean eject()
+	{
+		return onlinePlayer.eject();
+	}
+	@Override
+	public int getEntityId()
+	{
+		return onlinePlayer.getEntityId();
+	}
+	@Override
+	public float getFallDistance()
+	{
+		return onlinePlayer.getFallDistance();
+	}
+	@Override
+	public int getFireTicks()
+	{
+		return onlinePlayer.getFireTicks();
+	}
+	@Override
+	public EntityDamageEvent getLastDamageCause()
+	{
+		return onlinePlayer.getLastDamageCause();
+	}
+	@Override
+	public Location getLocation(Location arg0)
+	{
+		return onlinePlayer.getLocation(arg0);
+	}
+	@Override
+	public int getMaxFireTicks()
+	{
+		return onlinePlayer.getMaxFireTicks();
+	}
+	@Override
+	public List<Entity> getNearbyEntities(double arg0, double arg1, double arg2)
+	{
+		return onlinePlayer.getNearbyEntities(arg0, arg1, arg2);
+	}
+	@Override
+	public Entity getPassenger()
+	{
+		return onlinePlayer.getPassenger();
+	}
+	@Override
+	public int getTicksLived()
+	{
+		return onlinePlayer.getTicksLived();
+	}
+	@Override
+	public EntityType getType()
+	{
+		return onlinePlayer.getType();
+	}
+	@Override
+	public UUID getUniqueId()
+	{
+		return onlinePlayer.getUniqueId();
+	}
+	@Override
+	public Entity getVehicle()
+	{
+		return onlinePlayer.getVehicle();
+	}
+	@Override
+	public Vector getVelocity()
+	{
+		return onlinePlayer.getVelocity();
+	}
+	@Override
+	public boolean isDead()
+	{
+		return onlinePlayer.isDead();
+	}
+	@Override
+	public boolean isEmpty()
+	{
+		return onlinePlayer.isEmpty();
+	}
+	@Override
+	public boolean isInsideVehicle()
+	{
+		return onlinePlayer.isInsideVehicle();
+	}
+	@Override
+	@Deprecated
+	public boolean isOnGround()
+	{
+		return onlinePlayer.isOnGround();
+	}
+	@Override
+	public boolean isValid()
+	{
+		return onlinePlayer.isValid();
+	}
+	@Override
+	public boolean leaveVehicle()
+	{
+		return onlinePlayer.leaveVehicle();
+	}
+	@Override
+	public void playEffect(EntityEffect arg0)
+	{
+		onlinePlayer.playEffect(arg0);
+	}
+	@Override
+	public void remove()
+	{
+		onlinePlayer.remove();
+	}
+	@Override
+	public void setFallDistance(float arg0)
+	{
+		onlinePlayer.setFallDistance(arg0);
+	}
+	@Override
+	public void setFireTicks(int arg0)
+	{
+		onlinePlayer.setFireTicks(arg0);
+	}
+	@Override
+	public void setLastDamageCause(EntityDamageEvent arg0)
+	{
+		onlinePlayer.setLastDamageCause(arg0);
+	}
+	@Override
+	public boolean setPassenger(Entity arg0)
+	{
+		return onlinePlayer.setPassenger(arg0);
+	}
+	@Override
+	public void setTicksLived(int arg0)
+	{
+		onlinePlayer.setTicksLived(arg0);
+	}
+	@Override
+	public void setVelocity(Vector arg0)
+	{
+		onlinePlayer.setVelocity(arg0);
+	}
+	@Override
+	public boolean teleport(Entity arg0)
+	{
+		return onlinePlayer.teleport(arg0);
+	}
+	@Override
+	public boolean teleport(Location arg0, TeleportCause arg1)
+	{
+		return onlinePlayer.teleport(arg0);
+	}
+	@Override
+	public boolean teleport(Entity arg0, TeleportCause arg1)
+	{
+		return onlinePlayer.teleport(arg0);
+	}
+	@Override
+	public List<MetadataValue> getMetadata(String arg0)
+	{
+		return onlinePlayer.getMetadata(arg0);
+	}
+	@Override
+	public boolean hasMetadata(String arg0)
+	{
+		return onlinePlayer.hasMetadata(arg0);
+	}
+	@Override
+	public void removeMetadata(String arg0, Plugin arg1)
+	{
+		onlinePlayer.removeMetadata(arg0, arg1);
+	}
+	@Override
+	public void setMetadata(String arg0, MetadataValue arg1)
+	{
+		onlinePlayer.setMetadata(arg0, arg1);
+	}
+	@Override
+	public boolean isTeleportable()
+	{
+		return true;
+	}
+	@Override
+	public boolean isVulnerable()
+	{
+		return true;
+	}
+	@Override
+	public String getEntityName()
+	{
+		return onlinePlayer.getName();
+	}
+	@Override
+	public List<Entity> getNearbyEntities(int radius)
+	{
+		return BukkitUtil.getNearbyEntities(this.getLocation(), radius);
 	}
 }

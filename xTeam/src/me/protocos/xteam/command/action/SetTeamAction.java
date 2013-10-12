@@ -8,11 +8,11 @@ import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-public class SetCommandAction
+public class SetTeamAction
 {
 	private CommandSender originalSender;
 
-	public SetCommandAction(CommandSender originalSender)
+	public SetTeamAction(CommandSender originalSender)
 	{
 		this.originalSender = originalSender;
 	}

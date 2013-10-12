@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
@@ -12,7 +13,7 @@ import org.bukkit.entity.Player;
 
 public class UserRemove extends UserCommand
 {
-	private String otherPlayer;
+	private String teamName, otherPlayer;
 
 	public UserRemove()
 	{
@@ -27,6 +28,11 @@ public class UserRemove extends UserCommand
 		if (other != null)
 			other.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + team.getName());
 		originalSender.sendMessage("You" + ChatColor.RED + " removed " + ChatColor.RESET + otherPlayer + " from your team");
+		if (team.isEmpty())
+		{
+			originalSender.sendMessage(teamName + " has been disbanded");
+			xTeam.tm.removeTeam(team.getName());
+		}
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
@@ -37,6 +43,7 @@ public class UserRemove extends UserCommand
 		{
 			throw new TeamPlayerHasNoTeamException();
 		}
+		teamName = teamPlayer.getTeam().getName();
 		if (!teamPlayer.isLeader())
 		{
 			throw new TeamPlayerNotLeaderException();
@@ -45,7 +52,7 @@ public class UserRemove extends UserCommand
 		{
 			throw new TeamPlayerNotTeammateException();
 		}
-		if (teamPlayer.getName().equals(otherPlayer) && (team.getPlayers().size() > 1))
+		if (team.getLeader().equals(otherPlayer) && team.getPlayers().size() > 1)
 		{
 			throw new TeamPlayerLeaderLeavingException();
 		}
