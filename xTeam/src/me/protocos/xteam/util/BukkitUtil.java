@@ -7,6 +7,9 @@ import org.bukkit.entity.Entity;
 
 public class BukkitUtil
 {
+	public static final long LONG_ZERO = 0L;
+	public static final long ONE_SECOND_IN_TICKS = 20L;
+
 	public static List<Entity> getNearbyEntities(Location location, int radius)
 	{
 		List<Entity> nearbyEntities = new ArrayList<Entity>();

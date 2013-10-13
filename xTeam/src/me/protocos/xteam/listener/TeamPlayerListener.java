@@ -9,6 +9,7 @@ import me.protocos.xteam.core.Functions;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -22,7 +23,10 @@ public class TeamPlayerListener implements Listener
 	{
 		try
 		{
-			ITeamPlayer player = new TeamPlayer(event.getPlayer());
+			Player eventPlayer = event.getPlayer();
+			String name = eventPlayer.getName();
+			xTeam.pm.addPlayer(name);
+			ITeamPlayer player = new TeamPlayer(eventPlayer);
 			if (player.hasPlayedBefore() && Data.DISABLED_WORLDS.contains(player.getWorld().getName()))
 			{
 				return;
@@ -110,9 +114,12 @@ public class TeamPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event)
 	{
+		Player eventPlayer = event.getPlayer();
+		String name = eventPlayer.getName();
+		xTeam.pm.removePlayer(name);
 		try
 		{
-			Data.chatStatus.remove(event.getPlayer().getName());
+			Data.chatStatus.remove(eventPlayer.getName());
 		}
 		catch (Exception e)
 		{

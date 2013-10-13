@@ -1,6 +1,5 @@
 package me.protocos.xteam.core;
 
-import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.listener.TeamChatListener;
 import me.protocos.xteam.listener.TeamPlayerListener;
 import me.protocos.xteam.listener.TeamPvPEntityListener;

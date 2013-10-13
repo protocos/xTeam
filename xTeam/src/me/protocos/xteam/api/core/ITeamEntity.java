@@ -21,6 +21,7 @@ public interface ITeamEntity extends ILocatable
 	public abstract boolean isTeleportable();
 	public abstract boolean isVulnerable();
 	public abstract boolean sendMessage(String message);
+	public abstract List<ITeamPlayer> getTeammates();
 	public abstract List<Entity> getNearbyEntities(int radius);
 	public abstract Location getLocation();
 }

@@ -103,8 +103,6 @@ public class TeamPlayerTest
 		xTeam.tm.addTeam(team);
 		//ACT
 		//ASSERT
-		Assert.assertEquals(true, player1.getTeammates().contains("two"));
-		Assert.assertEquals(true, player1.getTeammates().contains("thr"));
 		Assert.assertEquals(2, player1.getTeammates().size());
 	}
 	@Test

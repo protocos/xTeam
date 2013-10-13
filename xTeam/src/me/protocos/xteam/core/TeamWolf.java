@@ -3,8 +3,10 @@ package me.protocos.xteam.core;
 import java.util.List;
 import java.util.UUID;
 import me.protocos.xteam.api.core.ITeamEntity;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.api.core.ITeamWolf;
 import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.EntityEffect;
@@ -325,12 +327,12 @@ public class TeamWolf implements ITeamWolf
 	@Override
 	public boolean teleport(Location arg0, TeleportCause arg1)
 	{
-		return wolf.teleport(arg0);
+		return wolf.teleport(arg0, arg1);
 	}
 	@Override
 	public boolean teleport(Entity arg0, TeleportCause arg1)
 	{
-		return wolf.teleport(arg0);
+		return wolf.teleport(arg0, arg1);
 	}
 	@Override
 	public List<MetadataValue> getMetadata(String arg0)
@@ -351,5 +353,18 @@ public class TeamWolf implements ITeamWolf
 	public void setMetadata(String arg0, MetadataValue arg1)
 	{
 		wolf.setMetadata(arg0, arg1);
+	}
+	@Override
+	public List<ITeamPlayer> getTeammates()
+	{
+		List<ITeamPlayer> mates = CommonUtil.emptyList();
+		if (hasTeam())
+		{
+			for (String p : getTeam().getPlayers())
+			{
+				mates.add(new TeamPlayer(p));
+			}
+		}
+		return mates;
 	}
 }

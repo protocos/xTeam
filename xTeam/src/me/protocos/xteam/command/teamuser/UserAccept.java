@@ -7,7 +7,6 @@ import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoInviteException;
 import me.protocos.xteam.core.exception.TeamPlayerHasTeamException;

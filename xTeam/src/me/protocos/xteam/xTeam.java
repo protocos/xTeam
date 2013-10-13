@@ -16,12 +16,11 @@ import me.protocos.xteam.command.teamadmin.UserPromote;
 import me.protocos.xteam.command.teamadmin.UserSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
-import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.Functions;
-import me.protocos.xteam.core.TeamManager;
-import me.protocos.xteam.core.TeamServiceManager;
+import me.protocos.xteam.core.*;
 import me.protocos.xteam.util.LogUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class xTeam extends JavaPlugin
@@ -31,6 +30,7 @@ public class xTeam extends JavaPlugin
 	public static String VERSION;
 	public static TeamServiceManager sm;
 	public static TeamManager tm;
+	public static TeamPlayerManager pm;
 	public static ICommandManager cm;
 	public static CommandExecutor exec;
 
@@ -298,6 +298,7 @@ public class xTeam extends JavaPlugin
 			log.info("[xTeam] Config loaded.");
 			sm = new TeamServiceManager(this);
 			tm = new TeamManager();
+			pm = new TeamPlayerManager();
 			cm = new CommandManager();
 			registerConsoleCommands(cm);
 			registerServerAdminCommands(cm);
@@ -316,5 +317,9 @@ public class xTeam extends JavaPlugin
 			logger.exception(e);
 			xTeam.log.info("[ERROR] Exception in xTeam onEnable() class [check logs]");
 		}
+	}
+	public static Plugin getSelf()
+	{
+		return Bukkit.getPluginManager().getPlugin("xTeam");
 	}
 }

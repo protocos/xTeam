@@ -5,6 +5,7 @@ import java.util.List;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamEntity;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -407,7 +408,7 @@ public class Team implements ITeam
 	@Override
 	public boolean isOnline()
 	{
-		return true;
+		return hasHeadquarters();
 	}
 	@Override
 	public boolean isTeleportable()
@@ -418,6 +419,16 @@ public class Team implements ITeam
 	public boolean isVulnerable()
 	{
 		return false;
+	}
+	@Override
+	public List<ITeamPlayer> getTeammates()
+	{
+		List<ITeamPlayer> mates = CommonUtil.emptyList();
+		for (String p : this.getPlayers())
+		{
+			mates.add(new TeamPlayer(p));
+		}
+		return mates;
 	}
 	@Override
 	public List<Entity> getNearbyEntities(int radius)

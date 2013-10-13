@@ -10,6 +10,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.*;
@@ -27,6 +28,7 @@ public class TeamPlayer implements ITeamPlayer
 	private String name;
 	private OfflinePlayer offlinePlayer;
 	private Player onlinePlayer;
+	private Long lastTeleported = 0L;
 
 	public TeamPlayer(OfflinePlayer player)
 	{
@@ -75,6 +77,12 @@ public class TeamPlayer implements ITeamPlayer
 		}
 		return -1.0;
 	}
+
+	public Long getLastTeleported()
+	{
+		return lastTeleported;
+	}
+
 	public String getLastPlayed()
 	{
 		long milliSeconds = offlinePlayer.getLastPlayed();
@@ -182,15 +190,16 @@ public class TeamPlayer implements ITeamPlayer
 				return team;
 		return null;
 	}
-	public List<String> getTeammates()
+	@Override
+	public List<ITeamPlayer> getTeammates()
 	{
-		List<String> mates = new ArrayList<String>();
+		List<ITeamPlayer> mates = CommonUtil.emptyList();
 		if (hasTeam())
 		{
 			for (String p : getTeam().getPlayers())
 			{
 				if (!name.equals(p))
-					mates.add(p);
+					mates.add(new TeamPlayer(p));
 			}
 		}
 		return mates;
@@ -303,6 +312,7 @@ public class TeamPlayer implements ITeamPlayer
 	{
 		if (this.isOnline() && entity.isOnline())
 		{
+			lastTeleported = Long.valueOf(System.currentTimeMillis());
 			return onlinePlayer.teleport(entity.getLocation());
 		}
 		return false;
@@ -312,6 +322,7 @@ public class TeamPlayer implements ITeamPlayer
 	{
 		if (this.isOnline())
 		{
+			lastTeleported = Long.valueOf(System.currentTimeMillis());
 			return onlinePlayer.teleport(location);
 		}
 		return false;
@@ -471,17 +482,20 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public boolean teleport(Entity arg0)
 	{
+		lastTeleported = Long.valueOf(System.currentTimeMillis());
 		return onlinePlayer.teleport(arg0);
 	}
 	@Override
 	public boolean teleport(Location arg0, TeleportCause arg1)
 	{
-		return onlinePlayer.teleport(arg0);
+		lastTeleported = Long.valueOf(System.currentTimeMillis());
+		return onlinePlayer.teleport(arg0, arg1);
 	}
 	@Override
 	public boolean teleport(Entity arg0, TeleportCause arg1)
 	{
-		return onlinePlayer.teleport(arg0);
+		lastTeleported = Long.valueOf(System.currentTimeMillis());
+		return onlinePlayer.teleport(arg0, arg1);
 	}
 	@Override
 	public List<MetadataValue> getMetadata(String arg0)
