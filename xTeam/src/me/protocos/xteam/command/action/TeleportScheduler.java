@@ -37,9 +37,9 @@ public class TeleportScheduler
 		return currentTaskIDs;
 	}
 
-	public Integer setCurrentTask(TeamPlayer teamPlayer, Integer ID)
+	public void setCurrentTask(TeamPlayer teamPlayer, Integer ID)
 	{
-		return currentTaskIDs.put(teamPlayer, ID);
+		currentTaskIDs.put(teamPlayer, ID);
 	}
 
 	public boolean hasCurrentTask(TeamPlayer entity)
@@ -47,9 +47,9 @@ public class TeleportScheduler
 		return currentTaskIDs.containsKey(entity);
 	}
 
-	public Integer removeCurrentTask(TeamPlayer teamPlayer)
+	public void removeCurrentTask(TeamPlayer teamPlayer)
 	{
-		return currentTaskIDs.remove(teamPlayer);
+		taskScheduler.cancelTask(currentTaskIDs.remove(teamPlayer));
 	}
 	public static TeleportScheduler getInstance()
 	{
