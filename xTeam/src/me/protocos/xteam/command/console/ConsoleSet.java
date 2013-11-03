@@ -30,7 +30,7 @@ public class ConsoleSet extends ConsoleCommand
 		playerName = parseCommand.get(1);
 		teamName = parseCommand.get(2);
 		set = new SetTeamAction(originalSender);
-		set.checkRequorementsOn(playerName, teamName);
+		set.checkRequirementsOn(playerName, teamName);
 	}
 	@Override
 	public String getPattern()

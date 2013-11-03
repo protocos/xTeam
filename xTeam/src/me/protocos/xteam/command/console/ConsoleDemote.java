@@ -6,6 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.*;
@@ -37,33 +38,14 @@ public class ConsoleDemote extends ConsoleCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		Team desiredTeam = xTeam.getTeamManager().getTeam(teamName);
 		ITeamPlayer player = PlayerManager.getPlayer(playerName);
-		Team team = player.getTeam();
-		if (desiredTeam == null)
-		{
-			throw new TeamDoesNotExistException();
-		}
-		if (!player.hasPlayedBefore())
-		{
-			throw new TeamPlayerNeverPlayedException();
-		}
-		if (team == null)
-		{
-			throw new TeamPlayerHasNoTeamException();
-		}
-		if (!player.isAdmin())
-		{
-			throw new TeamPlayerNotAdminException();
-		}
-		if (!desiredTeam.equals(team))
-		{
-			throw new TeamPlayerNotOnTeamException();
-		}
-		if (player.isLeader())
-		{
-			throw new TeamPlayerLeaderDemoteException();
-		}
+		Team team = xTeam.getTeamManager().getTeam(teamName);
+		Requirements.checkTeamExists(teamName);
+		Requirements.checkPlayerHasPlayedBefore(player);
+		Requirements.checkPlayerHasTeam(player);
+		Requirements.checkPlayerIsAdmin(player);
+		Requirements.checkPlayerOnTeam(player, team);
+		Requirements.checkPlayerLeaderDemote(player);
 	}
 	@Override
 	public String getPattern()

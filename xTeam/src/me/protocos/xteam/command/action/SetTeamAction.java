@@ -18,26 +18,13 @@ public class SetTeamAction
 		this.originalSender = originalSender;
 	}
 
-	public void checkRequorementsOn(String playerName, String teamName) throws TeamException
+	public void checkRequirementsOn(String playerName, String teamName) throws TeamException
 	{
-		ITeamPlayer p = PlayerManager.getPlayer(playerName);
-		Team playerTeam = p.getTeam();
-		if (!p.hasPlayedBefore())
-		{
-			throw new TeamPlayerNeverPlayedException();
-		}
-		if (p.hasTeam() && p.isLeader() && playerTeam.size() > 1)
-		{
-			throw new TeamPlayerLeaderLeavingException();
-		}
-		if (p.hasTeam() && p.getTeam().getName().equalsIgnoreCase(teamName))
-		{
-			throw new TeamPlayerAlreadyOnTeamException();
-		}
-		if (xTeam.getTeamManager().contains(teamName) && xTeam.getTeamManager().getTeam(teamName).size() >= Data.MAX_PLAYERS && Data.MAX_PLAYERS > 0)
-		{
-			throw new TeamPlayerMaxException();
-		}
+		ITeamPlayer player = PlayerManager.getPlayer(playerName);
+		Requirements.checkPlayerHasPlayedBefore(player);
+		Requirements.checkPlayerLeaderLeaving(player);
+		Requirements.checkPlayerAlreadyOnTeam(player, teamName);
+		Requirements.checkTeamPlayerMax(teamName);
 	}
 
 	public void actOn(String playerName, String teamName)

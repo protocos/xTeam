@@ -6,9 +6,10 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -43,29 +44,13 @@ public class ConsoleSetLeader extends ConsoleCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		Team desiredTeam = xTeam.getTeamManager().getTeam(teamName);
 		ITeamPlayer player = PlayerManager.getPlayer(playerName);
-		Team team = player.getTeam();
-		if (!player.hasPlayedBefore())
-		{
-			throw new TeamPlayerNeverPlayedException();
-		}
-		if (desiredTeam == null)
-		{
-			throw new TeamDoesNotExistException();
-		}
-		if (team == null)
-		{
-			throw new TeamPlayerHasNoTeamException();
-		}
-		if (!desiredTeam.equals(team))
-		{
-			throw new TeamPlayerNotOnTeamException();
-		}
-		if (team.isDefaultTeam())
-		{
-			throw new TeamIsDefaultException();
-		}
+		Team team = xTeam.getTeamManager().getTeam(teamName);
+		Requirements.checkPlayerHasPlayedBefore(player);
+		Requirements.checkTeamExists(teamName);
+		Requirements.checkPlayerHasTeam(player);
+		Requirements.checkPlayerOnTeam(player, team);
+		Requirements.checkTeamIsDefault(team);
 	}
 	@Override
 	public String getPattern()

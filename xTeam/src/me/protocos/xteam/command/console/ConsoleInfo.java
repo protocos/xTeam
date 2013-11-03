@@ -133,22 +133,5 @@ public class ConsoleInfo extends ConsoleCommand
 				sender.sendMessage("    " + getLastOnline(player));
 			}
 		}
-		//		List<String> teammates = team.getPlayers();
-		//		if (team.getOnlinePlayers().size() > 0)
-		//			sender.sendMessage("Teammates online:");
-		//		for (String s : teammates)
-		//		{
-		//			ITeamPlayer p = PlayerManager.getPlayer(s);
-		//			if (p.isOnline())
-		//				sender.sendMessage("    " + p.quickInfo());
-		//		}
-		//		if (team.getOfflinePlayers().size() > 0)
-		//			sender.sendMessage("Teammates offline:");
-		//		for (String s : teammates)
-		//		{
-		//			ITeamPlayer p = PlayerManager.getPlayer(s);
-		//			if (!p.isOnline())
-		//				sender.sendMessage("    " + p.quickInfo());
-		//		}
 	}
 }

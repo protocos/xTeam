@@ -6,12 +6,10 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
-import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
-import me.protocos.xteam.core.exception.TeamPlayerNeverPlayedException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -47,18 +45,9 @@ public class ConsoleRemove extends ConsoleCommand
 		playerName = parseCommand.get(2);
 		changeTeamPlayer = PlayerManager.getPlayer(playerName);
 		changeTeam = changeTeamPlayer.getTeam();
-		if (!changeTeamPlayer.hasPlayedBefore())
-		{
-			throw new TeamPlayerNeverPlayedException();
-		}
-		if (changeTeam == null)
-		{
-			throw new TeamPlayerHasNoTeamException();
-		}
-		if (changeTeam.getLeader().equals(playerName) && changeTeam.getPlayers().size() > 1)
-		{
-			throw new TeamPlayerLeaderLeavingException();
-		}
+		Requirements.checkPlayerHasPlayedBefore(changeTeamPlayer);
+		Requirements.checkPlayerHasTeam(changeTeamPlayer);
+		Requirements.checkLeaderLeaving(changeTeam, playerName);
 	}
 	@Override
 	public String getPattern()
