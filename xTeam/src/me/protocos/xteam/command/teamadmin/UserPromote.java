@@ -2,9 +2,10 @@ package me.protocos.xteam.command.teamadmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.TeamPlayer;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
@@ -23,7 +24,7 @@ public class UserPromote extends UserCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		team.promote(otherPlayer);
-		TeamPlayer other = new TeamPlayer(otherPlayer);
+		ITeamPlayer other = PlayerManager.getPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColor.GREEN + "promoted");
 		originalSender.sendMessage("You" + ChatColor.GREEN + " promoted " + ChatColor.RESET + otherPlayer);

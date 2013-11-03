@@ -34,7 +34,7 @@ public class AdminOpen extends ServerAdminCommand
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
-		changeTeam = xTeam.tm.getTeam(teamName);
+		changeTeam = xTeam.getTeamManager().getTeam(teamName);
 	}
 	@Override
 	public String getPattern()

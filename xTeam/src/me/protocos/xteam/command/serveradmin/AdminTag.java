@@ -38,12 +38,12 @@ public class AdminTag extends ServerAdminCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		newTag = parseCommand.get(2);
-		changeTeam = xTeam.tm.getTeam(teamName);
+		changeTeam = xTeam.getTeamManager().getTeam(teamName);
 		if (changeTeam == null)
 		{
 			throw new TeamDoesNotExistException();
 		}
-		if (!newTag.equalsIgnoreCase(changeTeam.getName()) && StringUtil.toLowerCase(xTeam.tm.getAllTeamNames()).contains(newTag.toLowerCase()))
+		if (!newTag.equalsIgnoreCase(changeTeam.getName()) && StringUtil.toLowerCase(xTeam.getTeamManager().getAllTeamNames()).contains(newTag.toLowerCase()))
 		{
 			throw new TeamNameConflictsWithTagException();
 		}

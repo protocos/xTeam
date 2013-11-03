@@ -26,10 +26,10 @@ public class ConsoleRename extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.tm.getTeam(teamName);
-		xTeam.tm.removeTeam(teamName);
+		Team team = xTeam.getTeamManager().getTeam(teamName);
+		xTeam.getTeamManager().removeTeam(teamName);
 		team.setName(newName);
-		xTeam.tm.addTeam(team);
+		xTeam.getTeamManager().addTeam(team);
 		originalSender.sendMessage("You renamed the team to " + newName);
 		team.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName);
 	}
@@ -39,12 +39,12 @@ public class ConsoleRename extends ConsoleCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		newName = parseCommand.get(2);
-		Team desiredTeam = xTeam.tm.getTeam(teamName);
+		Team desiredTeam = xTeam.getTeamManager().getTeam(teamName);
 		if (desiredTeam == null)
 		{
 			throw new TeamDoesNotExistException();
 		}
-		if (xTeam.tm.contains(newName) && !desiredTeam.getName().equalsIgnoreCase(newName))
+		if (xTeam.getTeamManager().contains(newName) && !desiredTeam.getName().equalsIgnoreCase(newName))
 		{
 			throw new TeamAlreadyExistsException();
 		}

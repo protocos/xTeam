@@ -4,23 +4,20 @@ import me.protocos.xteam.listener.TeamChatListener;
 import me.protocos.xteam.listener.TeamPlayerListener;
 import me.protocos.xteam.listener.TeamPvPEntityListener;
 import me.protocos.xteam.listener.TeamScoreListener;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class TeamServiceManager
+public class ServiceManager
 {
 	private final Server bukkit;
 	private final JavaPlugin plugin;
 	private final PluginManager pm;
-	private final TeamPlayerManager tpm;
 	private final FileConfiguration config;
 
-	public TeamServiceManager(JavaPlugin plugin)
+	public ServiceManager(JavaPlugin plugin)
 	{
 		this.plugin = plugin;
 		bukkit = Data.BUKKIT;
@@ -29,27 +26,30 @@ public class TeamServiceManager
 		pm.registerEvents(new TeamPlayerListener(), plugin);
 		pm.registerEvents(new TeamScoreListener(), plugin);
 		pm.registerEvents(new TeamChatListener(), plugin);
-		tpm = new TeamPlayerManager();
 		config = plugin.getConfig();
 	}
-	public OfflinePlayer getOfflinePlayer(String name)
-	{
-		for (OfflinePlayer offline : bukkit.getOfflinePlayers())
-		{
-			if (offline.getName().equals(name))
-				return offline;
-		}
-		return null;
-	}
-	public Player getPlayer(String name)
-	{
-		for (Player online : bukkit.getOnlinePlayers())
-		{
-			if (online.getName().equals(name))
-				return online;
-		}
-		return null;
-	}
+	//	public OfflinePlayer getOfflinePlayer(String name)
+	//	{
+	//		for (OfflinePlayer offline : bukkit.getOfflinePlayers())
+	//		{
+	//			if (offline.getName().equals(name))
+	//				return offline;
+	//		}
+	//		return null;
+	//	}
+	//	public Player getPlayer(String name)
+	//	{
+	//		for (Player online : bukkit.getOnlinePlayers())
+	//		{
+	//			if (online.getName().equals(name))
+	//				return online;
+	//		}
+	//		return null;
+	//	}
+	//	public PlayerManager getPlayerManager()
+	//	{
+	//		return tpm;
+	//	}
 	public void loadConfig()
 	{
 		String setting;

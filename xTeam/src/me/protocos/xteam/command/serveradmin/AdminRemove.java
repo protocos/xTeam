@@ -3,10 +3,11 @@ package me.protocos.xteam.command.serveradmin;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
@@ -17,7 +18,7 @@ import org.bukkit.command.CommandSender;
 public class AdminRemove extends ServerAdminCommand
 {
 	private String teamName, playerName;
-	private TeamPlayer changeTeamPlayer;
+	private ITeamPlayer changeTeamPlayer;
 	private Team changeTeam;
 
 	public AdminRemove()
@@ -35,7 +36,7 @@ public class AdminRemove extends ServerAdminCommand
 		if (changeTeam.isEmpty())
 		{
 			originalSender.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
-			xTeam.tm.removeTeam(changeTeam.getName());
+			xTeam.getTeamManager().removeTeam(changeTeam.getName());
 		}
 	}
 	@Override
@@ -44,7 +45,7 @@ public class AdminRemove extends ServerAdminCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		changeTeamPlayer = new TeamPlayer(playerName);
+		changeTeamPlayer = PlayerManager.getPlayer(playerName);
 		changeTeam = changeTeamPlayer.getTeam();
 		if (!changeTeamPlayer.hasPlayedBefore())
 		{

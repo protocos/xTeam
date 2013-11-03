@@ -3,10 +3,10 @@ package me.protocos.xteam.command.teamleader;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -23,10 +23,10 @@ public class UserRename extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		xTeam.tm.removeTeam(team.getName());
+		xTeam.getTeamManager().removeTeam(team.getName());
 		team.setName(newName);
-		xTeam.tm.addTeam(team);
-		for (TeamPlayer mate : teamPlayer.getOnlineTeammates())
+		xTeam.getTeamManager().addTeam(team);
+		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
 			mate.sendMessage("The team has been renamed to " + ChatColor.AQUA + newName);
 		}
@@ -49,7 +49,7 @@ public class UserRename extends UserCommand
 		{
 			throw new TeamNameTooLongException();
 		}
-		if (xTeam.tm.contains(newName) && !team.getName().equalsIgnoreCase(newName))
+		if (xTeam.getTeamManager().contains(newName) && !team.getName().equalsIgnoreCase(newName))
 		{
 			throw new TeamAlreadyExistsException();
 		}

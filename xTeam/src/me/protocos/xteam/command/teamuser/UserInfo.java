@@ -4,11 +4,10 @@ import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
 import java.util.List;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
+import me.protocos.xteam.core.*;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
@@ -32,11 +31,11 @@ public class UserInfo extends UserCommand
 		Team otherTeam = null;
 		if (isTeam(other))
 		{
-			otherTeam = xTeam.tm.getTeam(other);
+			otherTeam = xTeam.getTeamManager().getTeam(other);
 		}
 		else if (isPlayer(other))
 		{
-			TeamPlayer p = new TeamPlayer(other);
+			ITeamPlayer p = PlayerManager.getPlayer(other);
 			otherTeam = p.getTeam();
 		}
 		if (otherTeam != null)
@@ -66,7 +65,7 @@ public class UserInfo extends UserCommand
 		}
 		else if (isPlayer(other))
 		{
-			TeamPlayer p = new TeamPlayer(other);
+			ITeamPlayer p = PlayerManager.getPlayer(other);
 			if (!p.hasTeam())
 			{
 				throw new TeamPlayerHasNoTeamException();
@@ -87,7 +86,7 @@ public class UserInfo extends UserCommand
 			return ChatColor.RESET + " Health: " + (health >= 15 ? ChatColor.GREEN : ChatColor.RED) + health * 5 + "%" + location;
 		return "";
 	}
-	private String getLastOnline(TeamPlayer p)
+	private String getLastOnline(ITeamPlayer p)
 	{
 		if (p.isOnSameTeam(teamPlayer))
 			return ChatColor.RESET + " was last online on " + p.getLastPlayed();
@@ -110,12 +109,12 @@ public class UserInfo extends UserCommand
 	}
 	private boolean isPlayer(String playerName)
 	{
-		TeamPlayer p = new TeamPlayer(playerName);
+		ITeamPlayer p = PlayerManager.getPlayer(playerName);
 		return p.hasPlayedBefore();
 	}
 	private boolean isTeam(String teamName)
 	{
-		return xTeam.tm.contains(teamName);
+		return xTeam.getTeamManager().contains(teamName);
 	}
 	private void otherTeamInfo(Team otherTeam)
 	{
@@ -152,22 +151,23 @@ public class UserInfo extends UserCommand
 	private String teammateStatus(Team t)
 	{
 		String message = "";
-		List<String> teammates = t.getPlayers();
-		if (t.getOnlinePlayers().size() > 0)
+		List<TeamPlayer> onlineTeammates = t.getOnlineTeammates();
+		if (onlineTeammates.size() > 0)
+		{
 			message += "\n" + (ChatColor.RESET + "Teammates online:");
-		for (String s : teammates)
-		{
-			TeamPlayer p = new TeamPlayer(s);
-			if (p.isOnline())
-				message += "\n" + (ChatColor.GREEN + "    " + s + getCurrentUserData(p));
+			for (TeamPlayer p : onlineTeammates)
+			{
+				message += "\n" + (ChatColor.GREEN + "    " + p.getName() + getCurrentUserData(p));
+			}
 		}
-		if (teammates.size() > t.getOnlinePlayers().size())
-			message += "\n" + (ChatColor.RESET + "Teammates offline:");
-		for (String s : teammates)
+		List<OfflineTeamPlayer> offlineTeammates = t.getOfflineTeammates();
+		if (offlineTeammates.size() > 0)
 		{
-			TeamPlayer p = new TeamPlayer(s);
-			if (!p.isOnline())
-				message += "\n" + (ChatColor.RED + "    " + s + getLastOnline(p));
+			message += "\n" + (ChatColor.RESET + "Teammates offline:");
+			for (OfflineTeamPlayer p : offlineTeammates)
+			{
+				message += "\n" + (ChatColor.RED + "    " + p.getName() + getLastOnline(p));
+			}
 		}
 		return message;
 	}

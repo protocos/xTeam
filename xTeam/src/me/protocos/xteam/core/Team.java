@@ -1,13 +1,16 @@
 package me.protocos.xteam.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import me.protocos.xteam.api.collections.HashList;
+import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
+import me.protocos.xteam.util.MessageUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.Bukkit;
@@ -15,7 +18,6 @@ import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 
 public class Team implements ITeam
 {
@@ -161,28 +163,28 @@ public class Team implements ITeam
 	{
 		return leader;
 	}
-	public List<String> getOnlinePlayers()
-	{
-		List<String> onlinePlayers = new ArrayList<String>();
-		for (String p : players)
-		{
-			TeamPlayer player = new TeamPlayer(p);
-			if (player.isOnline())
-				onlinePlayers.add(p);
-		}
-		return onlinePlayers;
-	}
-	public List<String> getOfflinePlayers()
-	{
-		List<String> offlinePlayers = new ArrayList<String>();
-		for (String p : players)
-		{
-			TeamPlayer player = new TeamPlayer(p);
-			if (!player.isOnline())
-				offlinePlayers.add(p);
-		}
-		return offlinePlayers;
-	}
+	//	public List<String> getOnlinePlayers()
+	//	{
+	//		List<String> onlinePlayers = new ArrayList<String>();
+	//		for (String p : players)
+	//		{
+	//			ITeamPlayer player = PlayerManager.getPlayer(p);
+	//			if (player.isOnline())
+	//				onlinePlayers.add(p);
+	//		}
+	//		return onlinePlayers;
+	//	}
+	//	public List<String> getOfflinePlayers()
+	//	{
+	//		List<String> offlinePlayers = new ArrayList<String>();
+	//		for (String p : players)
+	//		{
+	//			ITeamPlayer player = PlayerManager.getPlayer(p);
+	//			if (!player.isOnline())
+	//				offlinePlayers.add(p);
+	//		}
+	//		return offlinePlayers;
+	//	}
 	public List<String> getPlayers()
 	{
 		return players;
@@ -346,17 +348,17 @@ public class Team implements ITeam
 	@Override
 	public int getRelativeX()
 	{
-		return getHeadquarters().getBlockX();
+		return getHeadquarters().getRelativeX();
 	}
 	@Override
 	public int getRelativeY()
 	{
-		return getHeadquarters().getBlockY();
+		return getHeadquarters().getRelativeY();
 	}
 	@Override
 	public int getRelativeZ()
 	{
-		return getHeadquarters().getBlockZ();
+		return getHeadquarters().getRelativeZ();
 	}
 	@Override
 	public Team getTeam()
@@ -376,7 +378,7 @@ public class Team implements ITeam
 		return Bukkit.getServer();
 	}
 	@Override
-	public double getDistanceTo(ITeamEntity entity)
+	public double getDistanceTo(ILocatable entity)
 	{
 		return this.getHeadquarters().distance(entity.getLocation());
 	}
@@ -386,7 +388,7 @@ public class Team implements ITeam
 		return true;
 	}
 	@Override
-	public boolean teleportTo(ITeamEntity entity)
+	public boolean teleportTo(ILocatable entity)
 	{
 		return false;
 	}
@@ -411,24 +413,24 @@ public class Team implements ITeam
 		return hasHeadquarters();
 	}
 	@Override
-	public boolean isTeleportable()
-	{
-		return false;
-	}
-	@Override
 	public boolean isVulnerable()
 	{
 		return false;
 	}
 	@Override
+	public List<TeamPlayer> getOnlineTeammates()
+	{
+		return PlayerManager.getOnlineTeammatesOf(this);
+	}
+	@Override
+	public List<OfflineTeamPlayer> getOfflineTeammates()
+	{
+		return PlayerManager.getOfflineTeammatesOf(this);
+	}
+	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
-		List<ITeamPlayer> mates = CommonUtil.emptyList();
-		for (String p : this.getPlayers())
-		{
-			mates.add(new TeamPlayer(p));
-		}
-		return mates;
+		return PlayerManager.getTeammatesOf(this);
 	}
 	@Override
 	public List<Entity> getNearbyEntities(int radius)
@@ -443,32 +445,47 @@ public class Team implements ITeam
 		return this.getHeadquarters();
 	}
 	@Override
-	public String getEntityName()
-	{
-		return this.getName();
-	}
-	@Override
 	public boolean sendMessage(String message)
 	{
-		List<String> onlinePlayers = getOnlinePlayers();
-		for (String p : onlinePlayers)
-		{
-			TeamPlayer player = new TeamPlayer(p);
-			player.sendMessage(message);
-		}
-		return true;
+		return MessageUtil.sendMessageToTeam(this, message);
 	}
-	public boolean sendMessage(String message, Player exclude)
+
+	public static Team createTeam(String teamName)
 	{
-		List<String> onlinePlayers = getOnlinePlayers();
-		for (String p : onlinePlayers)
-		{
-			if (!p.equals(exclude.getName()))
-			{
-				TeamPlayer player = new TeamPlayer(p);
-				player.sendMessage(message);
-			}
-		}
-		return true;
+		Team team = new Team.Builder(teamName).build();
+		return team;
 	}
+	public static Team createTeamWithLeader(String teamName, String player)
+	{
+		List<String> players = new ArrayList<String>(Arrays.asList(player));
+		List<String> admins = new ArrayList<String>(Arrays.asList(player));
+		Team team = new Team.Builder(teamName).players(players).admins(admins).leader(player).build();
+		return team;
+	}
+	//	@Override
+	//	public String quickInfo()
+	//	{
+	//		String returnString = "";
+	//		List<TeamPlayer> onlineMates = getOnlineTeammates();
+	//		if (onlineMates.size() > 0)
+	//		{
+	//			if (onlineMates.size() > 0)
+	//				returnString += "Teammates online:";
+	//			for (TeamPlayer player : onlineMates)
+	//			{
+	//				returnString += "\n    " + player.quickInfo();
+	//			}
+	//		}
+	//		List<OfflineTeamPlayer> offlineMates = getOfflineTeammates();
+	//		if (offlineMates.size() > 0)
+	//		{
+	//			if (offlineMates.size() > 0)
+	//				returnString += "\nTeammates offline:";
+	//			for (OfflineTeamPlayer player : offlineMates)
+	//			{
+	//				returnString += "\n    " + player.quickInfo();
+	//			}
+	//		}
+	//		return returnString;
+	//	}
 }

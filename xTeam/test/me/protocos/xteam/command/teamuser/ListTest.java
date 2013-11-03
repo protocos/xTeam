@@ -23,7 +23,7 @@ public class ListTest
 	public void ShouldBeTeamUserListExecuteNoTeams()
 	{
 		//ASSEMBLE
-		xTeam.tm.clear();
+		xTeam.getTeamManager().clear();
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserList();
 		//ACT
@@ -36,9 +36,9 @@ public class ListTest
 	public void ShouldBeTeamUserListExecuteOneTeam()
 	{
 		//ASSEMBLE
-		xTeam.tm.removeTeam("ONE");
-		xTeam.tm.removeTeam("TWO");
-		xTeam.tm.removeTeam("blue");
+		xTeam.getTeamManager().removeTeam("ONE");
+		xTeam.getTeamManager().removeTeam("TWO");
+		xTeam.getTeamManager().removeTeam("blue");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserList();
 		//ACT

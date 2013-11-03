@@ -19,7 +19,7 @@ public class ConsoleList extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		List<String> teams = xTeam.tm.getAllTeamNames();
+		List<String> teams = xTeam.getTeamManager().getAllTeamNames();
 		String message = "Teams: " + teams.toString().replaceAll("\\[|\\]", "");
 		if (teams.isEmpty())
 			originalSender.sendMessage("There are no teams");

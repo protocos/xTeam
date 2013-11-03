@@ -3,10 +3,11 @@ package me.protocos.xteam.command.serveradmin;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -27,7 +28,7 @@ public class AdminDemote extends ServerAdminCommand
 		changeTeam.demote(playerName);
 		if (!changeTeam.containsPlayer(originalSender.getName()))
 			originalSender.sendMessage("You " + ChatColor.RED + "demoted" + ChatColor.RESET + " " + playerName);
-		TeamPlayer other = new TeamPlayer(playerName);
+		ITeamPlayer other = PlayerManager.getPlayer(playerName);
 		other.sendMessage("You have been " + ChatColor.RED + "demoted" + ChatColor.RESET + " by an admin");
 	}
 	@Override
@@ -36,8 +37,8 @@ public class AdminDemote extends ServerAdminCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		changeTeam = xTeam.tm.getTeam(teamName);
-		TeamPlayer playerDemote = new TeamPlayer(playerName);
+		changeTeam = xTeam.getTeamManager().getTeam(teamName);
+		ITeamPlayer playerDemote = PlayerManager.getPlayer(playerName);
 		Team playerTeam = playerDemote.getTeam();
 		if (!playerDemote.hasPlayedBefore())
 		{

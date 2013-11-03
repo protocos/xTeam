@@ -2,9 +2,9 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.bukkit.ChatColor;
@@ -25,7 +25,7 @@ public class UserMessage extends UserCommand
 		{
 			message += " " + parseCommand.get(i);
 		}
-		for (TeamPlayer teammate : teamPlayer.getOnlineTeammates())
+		for (ITeamPlayer teammate : teamPlayer.getOnlineTeammates())
 		{
 			teammate.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
 		}

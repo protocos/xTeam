@@ -1,9 +1,10 @@
 package me.protocos.xteam.listener;
 
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -20,15 +21,15 @@ public class TeamChatListener implements Listener
 		try
 		{
 			Player player = event.getPlayer();
-			TeamPlayer teamPlayer = new TeamPlayer(player);
+			World playerWorld = player.getWorld();
 			String msg = event.getMessage();
 			String format = event.getFormat();
-			World teamPlayerWorld = teamPlayer.getWorld();
+			ITeamPlayer teamPlayer = PlayerManager.getPlayer(player);
 			if (event.isCancelled())
 			{
 				return;
 			}
-			if (teamPlayer.hasPlayedBefore() && Data.DISABLED_WORLDS.contains(teamPlayerWorld.getName()))
+			if (teamPlayer.hasPlayedBefore() && Data.DISABLED_WORLDS.contains(playerWorld.getName()))
 			{
 				return;
 			}
@@ -44,7 +45,7 @@ public class TeamChatListener implements Listener
 					team.sendMessage("[" + ChatColorUtil.getColor(Data.NAME_COLOR) + playerName + ChatColor.RESET + "] " + msg);
 					for (String p : Data.spies)
 					{
-						TeamPlayer spy = new TeamPlayer(p);
+						ITeamPlayer spy = PlayerManager.getPlayer(p);
 						if (!spy.isOnSameTeam(teamPlayer))
 							spy.sendMessage(ChatColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
 					}
@@ -54,7 +55,7 @@ public class TeamChatListener implements Listener
 		}
 		catch (Exception e)
 		{
-			xTeam.logger.exception(e);
+			xTeam.getLog().exception(e);
 			xTeam.log.info("[ERROR] Exception in " + this.getClass().getName() + " class [check logs]");
 		}
 	}

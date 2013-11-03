@@ -17,7 +17,7 @@ public class PatternAdminTest
 	{
 		//MOCK data
 		mockData();
-		xTeam.registerAdminCommands(xTeam.cm);
+		xTeam.registerAdminCommands(xTeam.getCommandManager());
 	}
 	@Test
 	public void ShouldBeTeamAdminInvite()
@@ -25,49 +25,49 @@ public class PatternAdminTest
 		// "/team invite bob123"
 		baseCmd = "invite";
 		command = "invite PLAYER";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "invite PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "inv PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "i PLAYER";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "in PLAYER ";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "inv PLAYER 2";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 	}
 	@Test
 	public void ShouldBeTeamAdminPromote()
 	{
 		baseCmd = "promote";
 		command = "promote PLAYER";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "promote PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "p PLAYER";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "pmte PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "promote PLAYER dfsagf";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 	}
 	@Test
 	public void ShouldBeTeamAdminSethq()
 	{
 		baseCmd = "sethq";
 		command = "sethq";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "sethq ";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "shq";
-		Assert.assertTrue(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "sethq dsaf ";
-		Assert.assertFalse(command.matches(xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 	}
 	@After
 	public void takedown()
 	{
-		Assert.assertTrue(xTeam.cm.getUsage("admin_" + baseCmd).replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + xTeam.cm.getPattern("admin_" + baseCmd)));
+		Assert.assertTrue(xTeam.getCommandManager().getUsage("admin_" + baseCmd).replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + xTeam.getCommandManager().getPattern("admin_" + baseCmd)));
 	}
 }

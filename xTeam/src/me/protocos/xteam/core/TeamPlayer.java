@@ -1,19 +1,21 @@
 package me.protocos.xteam.core;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
+import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.util.StringUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.bukkit.*;
+import org.bukkit.EntityEffect;
+import org.bukkit.Location;
+import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -23,247 +25,168 @@ import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
-public class TeamPlayer implements ITeamPlayer
+public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 {
-	private String name;
-	private OfflinePlayer offlinePlayer;
-	private Player onlinePlayer;
-	private Long lastTeleported = 0L;
+	private Player player;
 
-	public TeamPlayer(OfflinePlayer player)
-	{
-		name = player.getName();
-		onlinePlayer = xTeam.sm.getPlayer(name);
-		offlinePlayer = player;
-	}
 	public TeamPlayer(Player player)
 	{
-		name = player.getName();
-		onlinePlayer = player;
-		offlinePlayer = xTeam.sm.getOfflinePlayer(name);
+		this.player = player;
 	}
-	public TeamPlayer(String playerName)
+
+	public static TeamPlayer teamPlayerFromUnknown(ITeamPlayer player)
 	{
-		name = playerName;
-		offlinePlayer = xTeam.sm.getOfflinePlayer(playerName);
-		onlinePlayer = xTeam.sm.getPlayer(playerName);
+		if (!player.isOnline())
+		{
+			throw new AssertionError(player.getName() + " is not online");
+		}
+		return (TeamPlayer) player;
 	}
+
+	@Override
 	public boolean equals(Object obj)
 	{
 		if (obj == null)
 			return false;
 		if (obj == this)
 			return true;
-		if (!(obj instanceof TeamPlayer))
+		if (!(obj instanceof ITeamPlayer))
 			return false;
 
-		TeamPlayer rhs = (TeamPlayer) obj;
-		return new EqualsBuilder().append(name, rhs.name).isEquals();
-
+		ITeamPlayer rhs = (ITeamPlayer) obj;
+		return new EqualsBuilder().append(this.getName(), rhs.getName()).isEquals();
 	}
 	@Override
-	public double getDistanceTo(ITeamEntity entity)
+	public double getDistanceTo(ILocatable entity)
 	{
-		if (this.isOnline() && entity.isOnline())
-			return getLocation().distance(entity.getLocation());
-		return Double.MAX_VALUE;
+		return this.getLocation().distance(entity.getLocation());
 	}
 	@Override
 	public double getHealth()
 	{
-		if (this.isOnline())
-		{
-			return onlinePlayer.getHealth();
-		}
-		return -1.0;
+		return player.getHealth();
 	}
 
-	public Long getLastTeleported()
+	@Override
+	public void setLastTeleported(long lastTeleported)
 	{
-		return lastTeleported;
+		PlayerManager.setLastTeleported(this, lastTeleported);
 	}
 
+	@Override
+	public long getLastTeleported()
+	{
+		return PlayerManager.getLastTeleported(this.getName());
+	}
+
+	@Override
 	public String getLastPlayed()
 	{
-		long milliSeconds = offlinePlayer.getLastPlayed();
-		DateFormat formatter = new SimpleDateFormat("MMM d");
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(milliSeconds);
-		String month_day = formatter.format(calendar.getTime());
-		formatter = new SimpleDateFormat("h:mm a");
-		String hour_minute_am_pm = formatter.format(calendar.getTime());
-		return month_day + " @ " + hour_minute_am_pm;
+		return StringUtil.formatDateToMonthDay(player.getLastPlayed());
 	}
 	@Override
 	public Location getLocation()
 	{
-		if (this.isOnline())
-		{
-			return onlinePlayer.getLocation();
-		}
-		return null;
+		return player.getLocation();
 	}
+	@Override
 	public String getName()
 	{
-		return name;
+		return player.getName();
 	}
-	public OfflinePlayer getOfflinePlayer()
+	@Override
+	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return offlinePlayer;
+		return PlayerManager.getOfflineTeammatesOf(this);
 	}
-	public List<String> getOfflineTeammates()
-	{
-		List<String> offlineMates = new ArrayList<String>();
-		if (hasTeam())
-		{
-			for (String p : getTeam().getPlayers())
-			{
-				TeamPlayer mate = new TeamPlayer(p);
-				if (!mate.isOnline() && !name.equals(p))
-					offlineMates.add(p);
-			}
-		}
-		return offlineMates;
-	}
-	public Player getOnlinePlayer()
-	{
-		return onlinePlayer;
-	}
+	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		List<TeamPlayer> onlineMates = new ArrayList<TeamPlayer>();
-		if (hasTeam())
-		{
-			for (String p : getTeam().getPlayers())
-			{
-				TeamPlayer mate = new TeamPlayer(p);
-				if (mate.isOnline() && !name.equals(p))
-					onlineMates.add(mate);
-			}
-		}
-		return onlineMates;
+		return PlayerManager.getOnlineTeammatesOf(this);
 	}
 	@Override
 	public int getRelativeX()
 	{
-		if (this.isOnline())
-		{
-			Location loc = getLocation();
-			return (int) Math.round(loc.getX());
-		}
-		return 0;
+		Location loc = getLocation();
+		return (int) Math.round(loc.getX());
 	}
 	@Override
 	public int getRelativeY()
 	{
-		if (this.isOnline())
-		{
-			Location loc = getLocation();
-			return (int) Math.round(loc.getY());
-		}
-		return 0;
+		Location loc = getLocation();
+		return (int) Math.round(loc.getY());
 	}
 	@Override
 	public int getRelativeZ()
 	{
-		if (this.isOnline())
-		{
-			Location loc = getLocation();
-			return (int) Math.round(loc.getZ());
-		}
-		return 0;
+		Location loc = getLocation();
+		return (int) Math.round(loc.getZ());
 	}
 	@Override
 	public Server getServer()
 	{
-		if (this.isOnline())
-		{
-			return onlinePlayer.getServer();
-		}
-		return null;
+		return player.getServer();
 	}
 	@Override
 	public Team getTeam()
 	{
-		for (Team team : xTeam.tm.getAllTeams())
-			if (team.containsPlayer(name))
-				return team;
-		return null;
+		return xTeam.getTeamManager().getTeamFromPlayer(player.getName());
 	}
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
-		List<ITeamPlayer> mates = CommonUtil.emptyList();
-		if (hasTeam())
-		{
-			for (String p : getTeam().getPlayers())
-			{
-				if (!name.equals(p))
-					mates.add(new TeamPlayer(p));
-			}
-		}
-		return mates;
+		return PlayerManager.getTeammatesOf(this);
 	}
 	@Override
 	public World getWorld()
 	{
-		if (this.isOnline())
-		{
-			return onlinePlayer.getWorld();
-		}
-		return null;
+		return player.getWorld();
 	}
 	public int hashCode()
 	{
-		return new HashCodeBuilder(17, 41).append(name).toHashCode();
+		return new HashCodeBuilder(17, 41).append(this.getName()).toHashCode();
 	}
+	@Override
 	public boolean hasPermission(String permission)
 	{
-		if (this.isOnline())
-		{
-			return onlinePlayer.hasPermission(permission);
-		}
-		return false;
+		return player.hasPermission(permission);
 	}
+	@Override
 	public boolean hasPlayedBefore()
 	{
-		if (offlinePlayer == null)
-			return false;
-		return offlinePlayer.hasPlayedBefore() || offlinePlayer.isOnline();
+		return true;
 	}
 	@Override
 	public boolean hasTeam()
 	{
 		return getTeam() != null;
 	}
+	@Override
 	public boolean isAdmin()
 	{
 		if (hasTeam())
 		{
-			return getTeam().getAdmins().contains(name);
+			return getTeam().getAdmins().contains(this.getName());
 		}
 		return false;
 	}
 	public boolean isEnemy(ITeamEntity entity)
 	{
-		if (this.isOnSameTeam(entity))
-			return false;
-		return true;
+		return !this.isOnSameTeam(entity);
 	}
+	@Override
 	public boolean isLeader()
 	{
 		if (this.hasTeam())
 		{
-			return getTeam().getLeader().equals(name);
+			return getTeam().getLeader().equals(this.getName());
 		}
 		return false;
 	}
 	@Override
 	public boolean isOnline()
 	{
-		if (this.hasPlayedBefore())
-			return offlinePlayer.isOnline();
-		return false;
+		return true;
 	}
 	@Override
 	public boolean isOnSameTeam(ITeamEntity otherEntity)
@@ -274,58 +197,32 @@ public class TeamPlayer implements ITeamPlayer
 		}
 		return false;
 	}
+	@Override
 	public boolean isOp()
 	{
-		return offlinePlayer.isOp();
+		return player.isOp();
 	}
 	@Override
 	public boolean sendMessage(String message)
 	{
-		if (this.isOnline())
-		{
-			onlinePlayer.sendMessage(message);
-			return true;
-		}
-		return false;
-	}
-	public void sendMessageToTeam(String message)
-	{
-		List<TeamPlayer> onlinePlayers = getOnlineTeammates();
-		for (TeamPlayer player : onlinePlayers)
-		{
-			player.sendMessage(message);
-		}
-	}
-	public void sendMessageToTeam(String message, Player exclude)
-	{
-		List<TeamPlayer> onlinePlayers = getOnlineTeammates();
-		for (TeamPlayer player : onlinePlayers)
-		{
-			if (!player.getName().equals(exclude.getName()))
-			{
-				player.sendMessage(message);
-			}
-		}
+		player.sendMessage(message);
+		return true;
 	}
 	@Override
-	public boolean teleportTo(ITeamEntity entity)
+	public void sendMessageToTeam(String message)
 	{
-		if (this.isOnline() && entity.isOnline())
-		{
-			lastTeleported = Long.valueOf(System.currentTimeMillis());
-			return onlinePlayer.teleport(entity.getLocation());
-		}
-		return false;
+		MessageUtil.sendMessageToTeam(this, message);
+	}
+	@Override
+	public boolean teleportTo(ILocatable entity)
+	{
+		TeleportScheduler.getInstance().teleport(this, entity.getLocation());
+		return true;
 	}
 	@Override
 	public boolean teleport(Location location)
 	{
-		if (this.isOnline())
-		{
-			lastTeleported = Long.valueOf(System.currentTimeMillis());
-			return onlinePlayer.teleport(location);
-		}
-		return false;
+		return player.teleport(location);
 	}
 	@Override
 	public String toString()
@@ -341,186 +238,181 @@ public class TeamPlayer implements ITeamPlayer
 	@Override
 	public boolean eject()
 	{
-		return onlinePlayer.eject();
+		return player.eject();
 	}
 	@Override
 	public int getEntityId()
 	{
-		return onlinePlayer.getEntityId();
+		return player.getEntityId();
 	}
 	@Override
 	public float getFallDistance()
 	{
-		return onlinePlayer.getFallDistance();
+		return player.getFallDistance();
 	}
 	@Override
 	public int getFireTicks()
 	{
-		return onlinePlayer.getFireTicks();
+		return player.getFireTicks();
 	}
 	@Override
 	public EntityDamageEvent getLastDamageCause()
 	{
-		return onlinePlayer.getLastDamageCause();
+		return player.getLastDamageCause();
 	}
 	@Override
 	public Location getLocation(Location arg0)
 	{
-		return onlinePlayer.getLocation(arg0);
+		return player.getLocation(arg0);
 	}
 	@Override
 	public int getMaxFireTicks()
 	{
-		return onlinePlayer.getMaxFireTicks();
+		return player.getMaxFireTicks();
 	}
 	@Override
 	public List<Entity> getNearbyEntities(double arg0, double arg1, double arg2)
 	{
-		return onlinePlayer.getNearbyEntities(arg0, arg1, arg2);
+		return player.getNearbyEntities(arg0, arg1, arg2);
 	}
 	@Override
 	public Entity getPassenger()
 	{
-		return onlinePlayer.getPassenger();
+		return player.getPassenger();
 	}
 	@Override
 	public int getTicksLived()
 	{
-		return onlinePlayer.getTicksLived();
+		return player.getTicksLived();
 	}
 	@Override
 	public EntityType getType()
 	{
-		return onlinePlayer.getType();
+		return player.getType();
 	}
 	@Override
 	public UUID getUniqueId()
 	{
-		return onlinePlayer.getUniqueId();
+		return player.getUniqueId();
 	}
 	@Override
 	public Entity getVehicle()
 	{
-		return onlinePlayer.getVehicle();
+		return player.getVehicle();
 	}
 	@Override
 	public Vector getVelocity()
 	{
-		return onlinePlayer.getVelocity();
+		return player.getVelocity();
 	}
 	@Override
 	public boolean isDead()
 	{
-		return onlinePlayer.isDead();
+		return player.isDead();
 	}
 	@Override
 	public boolean isEmpty()
 	{
-		return onlinePlayer.isEmpty();
+		return player.isEmpty();
 	}
 	@Override
 	public boolean isInsideVehicle()
 	{
-		return onlinePlayer.isInsideVehicle();
+		return player.isInsideVehicle();
 	}
 	@Override
 	@Deprecated
 	public boolean isOnGround()
 	{
-		return onlinePlayer.isOnGround();
+		return player.isOnGround();
 	}
 	@Override
 	public boolean isValid()
 	{
-		return onlinePlayer.isValid();
+		return player.isValid();
 	}
 	@Override
 	public boolean leaveVehicle()
 	{
-		return onlinePlayer.leaveVehicle();
+		return player.leaveVehicle();
 	}
 	@Override
 	public void playEffect(EntityEffect arg0)
 	{
-		onlinePlayer.playEffect(arg0);
+		player.playEffect(arg0);
 	}
 	@Override
 	public void remove()
 	{
-		onlinePlayer.remove();
+		player.remove();
 	}
 	@Override
 	public void setFallDistance(float arg0)
 	{
-		onlinePlayer.setFallDistance(arg0);
+		player.setFallDistance(arg0);
 	}
 	@Override
 	public void setFireTicks(int arg0)
 	{
-		onlinePlayer.setFireTicks(arg0);
+		player.setFireTicks(arg0);
 	}
 	@Override
 	public void setLastDamageCause(EntityDamageEvent arg0)
 	{
-		onlinePlayer.setLastDamageCause(arg0);
+		player.setLastDamageCause(arg0);
 	}
 	@Override
 	public boolean setPassenger(Entity arg0)
 	{
-		return onlinePlayer.setPassenger(arg0);
+		return player.setPassenger(arg0);
 	}
 	@Override
 	public void setTicksLived(int arg0)
 	{
-		onlinePlayer.setTicksLived(arg0);
+		player.setTicksLived(arg0);
 	}
 	@Override
 	public void setVelocity(Vector arg0)
 	{
-		onlinePlayer.setVelocity(arg0);
+		player.setVelocity(arg0);
 	}
 	@Override
 	public boolean teleport(Entity arg0)
 	{
-		lastTeleported = Long.valueOf(System.currentTimeMillis());
-		return onlinePlayer.teleport(arg0);
+		setLastTeleported(System.currentTimeMillis());
+		return player.teleport(arg0);
 	}
 	@Override
 	public boolean teleport(Location arg0, TeleportCause arg1)
 	{
-		lastTeleported = Long.valueOf(System.currentTimeMillis());
-		return onlinePlayer.teleport(arg0, arg1);
+		setLastTeleported(System.currentTimeMillis());
+		return player.teleport(arg0, arg1);
 	}
 	@Override
 	public boolean teleport(Entity arg0, TeleportCause arg1)
 	{
-		lastTeleported = Long.valueOf(System.currentTimeMillis());
-		return onlinePlayer.teleport(arg0, arg1);
+		setLastTeleported(System.currentTimeMillis());
+		return player.teleport(arg0, arg1);
 	}
 	@Override
 	public List<MetadataValue> getMetadata(String arg0)
 	{
-		return onlinePlayer.getMetadata(arg0);
+		return player.getMetadata(arg0);
 	}
 	@Override
 	public boolean hasMetadata(String arg0)
 	{
-		return onlinePlayer.hasMetadata(arg0);
+		return player.hasMetadata(arg0);
 	}
 	@Override
 	public void removeMetadata(String arg0, Plugin arg1)
 	{
-		onlinePlayer.removeMetadata(arg0, arg1);
+		player.removeMetadata(arg0, arg1);
 	}
 	@Override
 	public void setMetadata(String arg0, MetadataValue arg1)
 	{
-		onlinePlayer.setMetadata(arg0, arg1);
-	}
-	@Override
-	public boolean isTeleportable()
-	{
-		return true;
+		player.setMetadata(arg0, arg1);
 	}
 	@Override
 	public boolean isVulnerable()
@@ -528,13 +420,51 @@ public class TeamPlayer implements ITeamPlayer
 		return true;
 	}
 	@Override
-	public String getEntityName()
-	{
-		return onlinePlayer.getName();
-	}
-	@Override
 	public List<Entity> getNearbyEntities(int radius)
 	{
 		return BukkitUtil.getNearbyEntities(this.getLocation(), radius);
 	}
+	@Override
+	public void setReturnLocation(Location returnLocation)
+	{
+		PlayerManager.setReturnLocation(this, returnLocation);
+	}
+	@Override
+	public Location getReturnLocation()
+	{
+		return PlayerManager.getReturnLocation(this.getName());
+	}
+	@Override
+	public boolean hasReturnLocation()
+	{
+		return this.getReturnLocation() != null;
+	}
+	@Override
+	public void removeReturnLocation()
+	{
+		PlayerManager.setReturnLocation(this, null);
+	}
+
+	@Override
+	public void setLastAttacked(long lastAttacked)
+	{
+		PlayerManager.setLastAttacked(this, lastAttacked);
+	}
+
+	@Override
+	public long getLastAttacked()
+	{
+		return PlayerManager.getLastAttacked(this.getName());
+	}
+	@Override
+	public boolean isDamaged()
+	{
+		return player.getNoDamageTicks() > 0;
+	}
+
+	//	@Override
+	//	public String quickInfo()
+	//	{
+	//		return this.getName() + " Health: " + this.getHealth() * 5 + "% Location: " + this.getRelativeX() + " " + this.getRelativeY() + " " + this.getRelativeZ() + " in \"" + this.getWorld().getName() + "\"";
+	//	}
 }

@@ -2,6 +2,7 @@ package me.protocos.xteam.core;
 
 import java.util.List;
 import java.util.UUID;
+import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.api.core.ITeamWolf;
@@ -43,7 +44,7 @@ public class TeamWolf implements ITeamWolf
 		return new EqualsBuilder().append(getOwner(), rhs.getOwner()).isEquals();
 	}
 	@Override
-	public double getDistanceTo(ITeamEntity entity)
+	public double getDistanceTo(ILocatable entity)
 	{
 		return getLocation().distance(entity.getLocation());
 	}
@@ -58,10 +59,10 @@ public class TeamWolf implements ITeamWolf
 		return wolf.getLocation();
 	}
 	@Override
-	public TeamPlayer getOwner()
+	public ITeamPlayer getOwner()
 	{
 		if (wolf.getOwner() != null)
-			return new TeamPlayer(wolf.getOwner().getName());
+			return PlayerManager.getPlayer(wolf.getOwner().getName());
 		return null;
 	}
 	@Override
@@ -121,29 +122,17 @@ public class TeamWolf implements ITeamWolf
 	@Override
 	public boolean isOnSameTeam(ITeamEntity entity)
 	{
-		if (isOnline() && entity.isOnline())
-		{
-			return getTeam().equals(entity.getTeam());
-		}
-		return false;
+		return getTeam().equals(entity.getTeam());
 	}
 	@Override
-	public boolean teleportTo(ITeamEntity entity)
+	public boolean teleportTo(ILocatable entity)
 	{
-		if (isOnline() && entity.isOnline())
-		{
-			return wolf.teleport(entity.getLocation());
-		}
-		return false;
+		return teleport(entity.getLocation());
 	}
 	@Override
 	public boolean teleport(Location location)
 	{
-		if (isOnline())
-		{
-			return wolf.teleport(location);
-		}
-		return false;
+		return wolf.teleport(location);
 	}
 	@Override
 	public String toString()
@@ -152,16 +141,11 @@ public class TeamWolf implements ITeamWolf
 		return wolfData;
 	}
 	@Override
-	public String getEntityName()
+	public String getName()
 	{
 		if (this.hasOwner())
 			return this.getOwner() + "'s  Wolfie";
 		return "Wild Wolfie";
-	}
-	@Override
-	public boolean isTeleportable()
-	{
-		return true;
 	}
 	@Override
 	public boolean isVulnerable()
@@ -362,9 +346,19 @@ public class TeamWolf implements ITeamWolf
 		{
 			for (String p : getTeam().getPlayers())
 			{
-				mates.add(new TeamPlayer(p));
+				mates.add(PlayerManager.getPlayer(p));
 			}
 		}
 		return mates;
+	}
+	@Override
+	public List<OfflineTeamPlayer> getOfflineTeammates()
+	{
+		return PlayerManager.getOfflineTeammatesOf(this);
+	}
+	@Override
+	public List<TeamPlayer> getOnlineTeammates()
+	{
+		return PlayerManager.getOnlineTeammatesOf(this);
 	}
 }

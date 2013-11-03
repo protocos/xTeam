@@ -2,6 +2,7 @@ package me.protocos.xteam.command;
 
 import java.io.InvalidClassException;
 import me.protocos.xteam.api.command.IPermissionNode;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
@@ -29,7 +30,7 @@ public abstract class PlayerCommand extends BaseCommand implements IPermissionNo
 		if (!(originalSender instanceof Player))
 			throw new InvalidClassException("Sender not an instance of Player");
 		player = (Player) originalSender;
-		teamPlayer = new TeamPlayer(player);
+		teamPlayer = PlayerManager.getPlayer(player);
 		team = teamPlayer.getTeam();
 		if (!PermissionUtil.hasPermission(originalSender, getPermissionNode()))
 			throw new TeamPlayerPermissionException();

@@ -6,9 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.FileReader;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Server;
-import org.bukkit.entity.Player;
 
 public class Data
 {
@@ -17,17 +15,15 @@ public class Data
 	public static File settings;
 	public static TreeSet<String> chatStatus = new TreeSet<String>();
 	public static HashSet<String> spies = new HashSet<String>();
-	public static HashSet<String> damagedByPlayer = new HashSet<String>();
-	public static HashMap<Player, Location> returnLocations = new HashMap<Player, Location>();
-	public static HashMap<String, Integer> taskIDs = new HashMap<String, Integer>();
-	public static HashMap<String, Integer> countWaitTime = new HashMap<String, Integer>();
-	public static HashMap<String, Long> hasTeleported = new HashMap<String, Long>();
-	public static HashMap<String, Long> lastAttacked = new HashMap<String, Long>();
 	public static HashMap<String, Long> lastCreated = new HashMap<String, Long>();
-	public static boolean SPOUT_ENABLED;
+	//	public static HashSet<String> damagedByPlayer = new HashSet<String>();
+	//	public static HashMap<Player, Location> returnLocations = new HashMap<Player, Location>();
+	//	public static HashMap<String, Integer> taskIDs = new HashMap<String, Integer>();
+	//	public static HashMap<String, Integer> countWaitTime = new HashMap<String, Integer>();
+	//	public static HashMap<String, Long> hasTeleported = new HashMap<String, Long>();
+	//	public static HashMap<String, Long> lastAttacked = new HashMap<String, Long>();
 	public static boolean LOCATIONS_ENABLED;
 	public static boolean CAN_CHAT;
-	public static boolean HIDE_NAMES;
 	public static boolean HQ_ON_DEATH;
 	public static boolean TEAM_WOLVES;
 	public static boolean RANDOM_TEAM;
@@ -41,7 +37,6 @@ public class Data
 	public static boolean DISPLAY_COORDINATES;
 	public static boolean SEND_ANONYMOUS_ERROR_REPORTS;
 	public static int MAX_PLAYERS;
-	public static int REVEAL_TIME;
 	public static int HQ_INTERVAL;
 	public static int TELE_RADIUS;
 	public static int ENEMY_PROX;
@@ -50,7 +45,7 @@ public class Data
 	public static int LAST_ATTACKED_DELAY;
 	public static int TEAM_TAG_LENGTH;
 	public static int MAX_NUM_LOCATIONS;
-	public static int REFRESH_DELAY;
+	public static int TELE_REFRESH_DELAY;
 	public static String TAG_COLOR;
 	public static String NAME_COLOR;
 	public static List<String> DEFAULT_TEAM_NAMES = new ArrayList<String>();
@@ -62,13 +57,13 @@ public class Data
 		{
 			Team team = new Team.Builder(name).defaultTeam(true).openJoining(true).build();
 			boolean contains = false;
-			for (String teamName : xTeam.tm.getDefaultTeamNames())
+			for (String teamName : xTeam.getTeamManager().getDefaultTeamNames())
 			{
 				if (teamName.equals(name))
 					contains = true;
 			}
 			if (!contains)
-				xTeam.tm.addTeam(team);
+				xTeam.getTeamManager().addTeam(team);
 		}
 	}
 
@@ -79,10 +74,8 @@ public class Data
 	public static void readConfig(File file)
 	{
 		FileReader reader = new FileReader(file, false);
-		SPOUT_ENABLED = Data.BUKKIT.getPluginManager().getPlugin("Spout") != null;
 		LOCATIONS_ENABLED = Data.BUKKIT.getPluginManager().getPlugin("xTeamLocations") != null;
 		CAN_CHAT = reader.getBoolean("canteamchat", true);
-		HIDE_NAMES = reader.getBoolean("teamhidename", true);
 		HQ_ON_DEATH = reader.getBoolean("hqondeath", true);
 		TEAM_WOLVES = reader.getBoolean("teamwolves", true);
 		RANDOM_TEAM = reader.getBoolean("randomjointeam", false);
@@ -96,7 +89,6 @@ public class Data
 		DISPLAY_COORDINATES = reader.getBoolean("displaycoordinates", true);
 		SEND_ANONYMOUS_ERROR_REPORTS = reader.getBoolean("anonymouserrorreporting", true);
 		MAX_PLAYERS = reader.getInteger("playersonteam", 10);
-		REVEAL_TIME = reader.getInteger("namerevealtime", 5);
 		HQ_INTERVAL = reader.getInteger("sethqinterval", 0);
 		TELE_RADIUS = reader.getInteger("teleportradius", 500);
 		ENEMY_PROX = reader.getInteger("enemyproximity", 16);
@@ -105,7 +97,7 @@ public class Data
 		LAST_ATTACKED_DELAY = reader.getInteger("lastattackeddelay", 15);
 		TEAM_TAG_LENGTH = reader.getInteger("teamtagmaxlength", 0);
 		MAX_NUM_LOCATIONS = reader.getInteger("maxnumlocations", 9);
-		REFRESH_DELAY = reader.getInteger("telerefreshdelay", 60);
+		TELE_REFRESH_DELAY = reader.getInteger("telerefreshdelay", 60);
 		TAG_COLOR = reader.getString("tagcolor", "green");
 		NAME_COLOR = reader.getString("chatnamecolor", "dark_green");
 		DEFAULT_TEAM_NAMES = CommonUtil.toList(reader.getString("defaultteams", "").replace(" ", "").split(","));

@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
-import java.util.ArrayList;
+import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
@@ -20,7 +20,7 @@ public class UserList extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		ArrayList<String> teams = xTeam.tm.getAllTeamNames();
+		List<String> teams = xTeam.getTeamManager().getAllTeamNames();
 		String message = "Teams: " + teams.toString().replaceAll("\\[|\\]", "");
 		if (teams.isEmpty())
 			originalSender.sendMessage(ChatColor.RED + "There are no teams");

@@ -4,8 +4,11 @@ import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
 import java.util.List;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.core.OfflineTeamPlayer;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
@@ -30,11 +33,11 @@ public class ConsoleInfo extends ConsoleCommand
 		Team otherTeam = null;
 		if (isTeam(other))
 		{
-			otherTeam = xTeam.tm.getTeam(other);
+			otherTeam = xTeam.getTeamManager().getTeam(other);
 		}
 		else if (isPlayer(other))
 		{
-			TeamPlayer p = new TeamPlayer(other);
+			ITeamPlayer p = PlayerManager.getPlayer(other);
 			otherTeam = p.getTeam();
 		}
 		if (otherTeam != null)
@@ -52,7 +55,7 @@ public class ConsoleInfo extends ConsoleCommand
 		}
 		else if (isPlayer(other))
 		{
-			TeamPlayer p = new TeamPlayer(other);
+			ITeamPlayer p = PlayerManager.getPlayer(other);
 			Team t = p.getTeam();
 			if (t == null)
 			{
@@ -69,7 +72,7 @@ public class ConsoleInfo extends ConsoleCommand
 		int health = (int) player.getHealth();
 		return player.getName() + " Health: " + health * 5 + "% Location: " + player.getRelativeX() + " " + player.getRelativeY() + " " + player.getRelativeZ() + " in \"" + player.getWorld().getName() + "\"";
 	}
-	private String getLastOnline(TeamPlayer player)
+	private String getLastOnline(OfflineTeamPlayer player)
 	{
 		return player.getName() + " was last online on " + player.getLastPlayed();
 	}
@@ -85,12 +88,12 @@ public class ConsoleInfo extends ConsoleCommand
 	}
 	private boolean isPlayer(String playerName)
 	{
-		TeamPlayer p = new TeamPlayer(playerName);
+		ITeamPlayer p = PlayerManager.getPlayer(playerName);
 		return p.hasPlayedBefore();
 	}
 	private boolean isTeam(String teamName)
 	{
-		return xTeam.tm.contains(teamName);
+		return xTeam.getTeamManager().contains(teamName);
 	}
 	private void otherTeamInfo(Team otherTeam)
 	{
@@ -110,22 +113,42 @@ public class ConsoleInfo extends ConsoleCommand
 	}
 	private void teammateStatus(Team team)
 	{
-		List<String> teammates = team.getPlayers();
-		if (team.getOnlinePlayers().size() > 0)
-			sender.sendMessage("Teammates online:");
-		for (String s : teammates)
+		List<TeamPlayer> onlineMates = team.getOnlineTeammates();
+		if (onlineMates.size() > 0)
 		{
-			TeamPlayer p = new TeamPlayer(s);
-			if (p.isOnline())
-				sender.sendMessage("    " + getCurrentUserData(p));
+			if (onlineMates.size() > 0)
+				sender.sendMessage("Teammates online:");
+			for (TeamPlayer player : onlineMates)
+			{
+				sender.sendMessage("    " + getCurrentUserData(player));
+			}
 		}
-		if (teammates.size() > team.getOnlinePlayers().size())
-			sender.sendMessage("Teammates offline:");
-		for (String s : teammates)
+		List<OfflineTeamPlayer> offlineMates = team.getOfflineTeammates();
+		if (offlineMates.size() > 0)
 		{
-			TeamPlayer p = new TeamPlayer(s);
-			if (!p.isOnline())
-				sender.sendMessage("    " + getLastOnline(p));
+			if (offlineMates.size() > 0)
+				sender.sendMessage("Teammates offline:");
+			for (OfflineTeamPlayer player : offlineMates)
+			{
+				sender.sendMessage("    " + getLastOnline(player));
+			}
 		}
+		//		List<String> teammates = team.getPlayers();
+		//		if (team.getOnlinePlayers().size() > 0)
+		//			sender.sendMessage("Teammates online:");
+		//		for (String s : teammates)
+		//		{
+		//			ITeamPlayer p = PlayerManager.getPlayer(s);
+		//			if (p.isOnline())
+		//				sender.sendMessage("    " + p.quickInfo());
+		//		}
+		//		if (team.getOfflinePlayers().size() > 0)
+		//			sender.sendMessage("Teammates offline:");
+		//		for (String s : teammates)
+		//		{
+		//			ITeamPlayer p = PlayerManager.getPlayer(s);
+		//			if (!p.isOnline())
+		//				sender.sendMessage("    " + p.quickInfo());
+		//		}
 	}
 }

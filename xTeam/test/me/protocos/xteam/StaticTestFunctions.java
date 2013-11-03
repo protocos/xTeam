@@ -4,6 +4,7 @@ import static org.mockito.Mockito.*;
 import java.io.File;
 import me.protocos.xteam.api.fakeobjects.*;
 import me.protocos.xteam.command.CommandManager;
+import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.*;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -23,18 +24,18 @@ public class StaticTestFunctions
 	{
 		Data.chatStatus.clear();
 		Data.spies.clear();
-		Data.damagedByPlayer.clear();
-		Data.returnLocations.clear();
-		Data.taskIDs.clear();
-		Data.countWaitTime.clear();
-		Data.hasTeleported.clear();
-		Data.lastAttacked.clear();
+		//		Data.damagedByPlayer.clear();
+		//		Data.returnLocations.clear();
+		//		Data.taskIDs.clear();
+		//		Data.countWaitTime.clear();
+		//		Data.hasTeleported.clear();
+		//		Data.lastAttacked.clear();
 		Data.lastCreated.clear();
 		InviteHandler.clear();
-		Data.SPOUT_ENABLED = true;
+		//		Data.SPOUT_ENABLED = true;
 		Data.LOCATIONS_ENABLED = true;
 		Data.CAN_CHAT = true;
-		Data.HIDE_NAMES = true;
+		//		Data.HIDE_NAMES = true;
 		Data.HQ_ON_DEATH = true;
 		Data.TEAM_WOLVES = true;
 		Data.RANDOM_TEAM = false;
@@ -47,7 +48,7 @@ public class StaticTestFunctions
 		Data.ALPHA_NUM = true;
 		Data.DISPLAY_COORDINATES = true;
 		Data.MAX_PLAYERS = 0;
-		Data.REVEAL_TIME = 10;
+		//		Data.REVEAL_TIME = 10;
 		Data.HQ_INTERVAL = 1;
 		Data.TELE_RADIUS = 500;
 		Data.ENEMY_PROX = 20;
@@ -56,21 +57,18 @@ public class StaticTestFunctions
 		Data.LAST_ATTACKED_DELAY = 15;
 		Data.TEAM_TAG_LENGTH = 20;
 		Data.MAX_NUM_LOCATIONS = 10;
-		Data.REFRESH_DELAY = 60;
+		Data.TELE_REFRESH_DELAY = 60;
 		Data.TAG_COLOR = "dark_green";
 	}
 
 	public static void mockData()
 	{
-		xTeam.cm = new CommandManager();
-		xTeam.logger = new FakeLog();
 		//MOCK variables
 		PluginManager mockPM = mock(PluginManager.class);
 		JavaPlugin mockSpout = mock(JavaPlugin.class);
 		JavaPlugin mockxTeam = mock(JavaPlugin.class);
 		BukkitScheduler mockScheduler = mock(BukkitScheduler.class);
 		Data.settings = new File("/Users/zjlanglois/Desktop/Bukkit Server/plugins/xTeam/xTeam.cfg");
-		xTeam.VERSION = "CURRENT";
 		initData();
 
 		//MOCK server
@@ -80,25 +78,29 @@ public class StaticTestFunctions
 		when(Data.BUKKIT.getPluginManager().getPlugin("Spout")).thenReturn(mockSpout);
 		when(Data.BUKKIT.getPluginManager().getPlugin("xTeam")).thenReturn(mockxTeam);
 		when(Data.BUKKIT.getWorld("world")).thenReturn(mockLocation.getWorld());
+		when(xTeam.getSelf()).thenReturn(mockxTeam);
 
-		//MOCK players
-		mockPlayers();
+		//MOCK main data
+		PlayerManager.clearData();
+		TeleportScheduler.getInstance().clearTasks();
+		xTeam.fakeData(new CommandManager(), new ServiceManager(mockxTeam), new TeamManager(), new FakeLog(), "CURRENT");
 
 		//MOCK team
-		xTeam.tm = new TeamManager();
 		Team team1 = Team.generateTeamFromProperties("name:ONE tag:TeamAwesome world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois");
-		xTeam.tm.addTeam(team1);
+		xTeam.getTeamManager().addTeam(team1);
 		Team team2 = Team.generateTeamFromProperties("name:two world:world open:false leader:mastermind timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 players:mastermind admins:mastermind");
-		xTeam.tm.addTeam(team2);
+		xTeam.getTeamManager().addTeam(team2);
 		/////////////////////////////////////////////////
 		Data.DEFAULT_TEAM_NAMES.add("red");
 		Data.DEFAULT_TEAM_NAMES.add("blue");
 		/////////////////////////////////////////////////
 		Team team3 = Team.generateTeamFromProperties("name:red tag:RED world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:strandedhelix");
-		xTeam.tm.addTeam(team3);
+		xTeam.getTeamManager().addTeam(team3);
 		Team team4 = Team.generateTeamFromProperties("name:blue world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:");
-		xTeam.tm.addTeam(team4);
-		xTeam.sm = new TeamServiceManager(mockxTeam);
+		xTeam.getTeamManager().addTeam(team4);
+
+		//MOCK players
+		mockPlayers();
 	}
 	public static void mockPlayers()
 	{
@@ -129,8 +131,8 @@ public class StaticTestFunctions
 		//MOCK strandedhelix
 		FakeOfflinePlayer strandedhelixOffline = new FakeOfflinePlayer("strandedhelix", false, false, true);
 		when(Data.BUKKIT.getOfflinePlayer("strandedhelix")).thenReturn(strandedhelixOffline);
-		FakePlayer strandedhelixOnline = new FakePlayer("strandedhelix", false, false, 20, mockLocation);
-		when(Data.BUKKIT.getPlayer("strandedhelix")).thenReturn(strandedhelixOnline);
+		//		FakePlayer strandedhelixOnline = new FakePlayer("strandedhelix", false, false, 20, mockLocation);
+		//		when(Data.BUKKIT.getPlayer("strandedhelix")).thenReturn(strandedhelixOnline);
 
 		//MOCK kestra
 		FakeOfflinePlayer kestraOffline = new FakeOfflinePlayer("kestra", false, false, true);
@@ -154,5 +156,12 @@ public class StaticTestFunctions
 		//MOCK onlinePlayers
 		when(Data.BUKKIT.getOnlinePlayers()).thenReturn(new Player[] { protocosOnline, kmlangloisOnline, mastermindOnline, LonelyOnline });
 		when(Data.BUKKIT.getOfflinePlayers()).thenReturn(new OfflinePlayer[] { protocosOffline, kmlangloisOffline, mastermindOffline, LonelyOffline, strandedhelixOffline, kestraOffline, newbieOffline, threeOffline, oneOffline, twoOffline, thrOffline });
+
+		//MOCK teamPlayerManager
+		//		PlayerManager.addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(protocosOnline));
+		//		PlayerManager.addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(kmlangloisOnline));
+		//		PlayerManager.addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(mastermindOnline));
+		//		PlayerManager.addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(strandedhelixOnline));
+		//		PlayerManager.addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(LonelyOnline));
 	}
 }

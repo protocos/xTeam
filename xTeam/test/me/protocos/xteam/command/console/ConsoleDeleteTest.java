@@ -31,7 +31,7 @@ public class ConsoleDeleteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team disband one"));
 		//ASSERT
 		Assert.assertEquals("You disbanded one", fakeConsoleSender.getLastMessage());
-		Assert.assertFalse(xTeam.tm.getAllTeamNames().contains("one"));
+		Assert.assertFalse(xTeam.getTeamManager().getAllTeamNames().contains("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -43,8 +43,8 @@ public class ConsoleDeleteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team disband team"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("[ONE, two, red, blue]", xTeam.tm.getAllTeamNames().toString());
-		Assert.assertTrue(xTeam.tm.contains("one"));
+		Assert.assertEquals("[ONE, two, red, blue]", xTeam.getTeamManager().getAllTeamNames().toString());
+		Assert.assertTrue(xTeam.getTeamManager().contains("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

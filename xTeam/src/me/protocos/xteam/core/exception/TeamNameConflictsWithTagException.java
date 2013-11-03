@@ -9,7 +9,7 @@ public class TeamNameConflictsWithTagException extends TeamException
 
 	public TeamNameConflictsWithTagException()
 	{
-		super("Team tag conflicts with name");
+		super("Team tag conflicts with other team name");
 	}
 	public TeamNameConflictsWithTagException(String message)
 	{

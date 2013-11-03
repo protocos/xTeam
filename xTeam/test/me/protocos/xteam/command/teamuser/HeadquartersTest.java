@@ -3,12 +3,17 @@ package me.protocos.xteam.command.teamuser;
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
+import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.PlayerManager;
+import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.junit.After;
 import org.junit.Before;
@@ -35,7 +40,7 @@ public class HeadquartersTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq"));
 		//ASSERT
 		Assert.assertEquals("WHOOSH!", fakePlayerSender.getLastMessage());
-		Assert.assertEquals(xTeam.tm.getTeam("one").getHeadquarters(), fakePlayerSender.getLocation());
+		Assert.assertEquals(xTeam.getTeamManager().getTeam("one").getHeadquarters(), fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 		//TODO assert everything! (including teleport)
 	}
@@ -84,13 +89,13 @@ public class HeadquartersTest
 	{
 		//ASSEMBLE
 		Data.LAST_ATTACKED_DELAY = 15;
-		Data.lastAttacked.put("kmlanglois", System.currentTimeMillis());
+		PlayerManager.getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		UserCommand fakeCommand = new UserHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq"));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerTeleException("Player was attacked in the last 15 seconds\nYou must wait 15 more seconds")).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerTeleException("Player was attacked in the last " + Data.LAST_ATTACKED_DELAY + " seconds\nYou must wait " + Data.LAST_ATTACKED_DELAY + " more seconds")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -98,7 +103,8 @@ public class HeadquartersTest
 	public void ShouldBeTeamUserHQRecentRequest()
 	{
 		//ASSEMBLE
-		Data.taskIDs.put("kmlanglois", null);
+		TeamPlayer teamPlayer = CommonUtil.subTypeFromSuperType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeleportScheduler.getInstance().setCurrentTask(teamPlayer, 0);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		UserCommand fakeCommand = new UserHeadquarters();
 		//ACT
@@ -112,21 +118,22 @@ public class HeadquartersTest
 	public void ShouldBeTeamUserHQRecentTeleport()
 	{
 		//ASSEMBLE
-		Data.hasTeleported.put("kmlanglois", System.currentTimeMillis());
+		PlayerManager.getPlayer("kmlanglois").teleportTo(xTeam.getTeamManager().getTeam("ONE"));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		UserCommand fakeCommand = new UserHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq"));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within 60 seconds of last teleport\nYou must wait 60 more seconds")).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within " + Data.TELE_REFRESH_DELAY + " seconds of last teleport\nYou must wait " + Data.TELE_REFRESH_DELAY + " more seconds\nPlayer can still use /team return")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After
 	public void takedown()
 	{
-		Data.LAST_ATTACKED_DELAY = 0;
-		Data.hasTeleported.clear();
-		Data.lastAttacked.clear();
+		ITeamPlayer kmlanglois = PlayerManager.getPlayer("kmlanglois");
+		kmlanglois.setLastAttacked(0L);
+		kmlanglois.setLastTeleported(0L);
+		kmlanglois.setReturnLocation(null);
 	}
 }

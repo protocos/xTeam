@@ -31,7 +31,7 @@ public class UserRemove extends UserCommand
 		if (team.isEmpty())
 		{
 			originalSender.sendMessage(teamName + " has been disbanded");
-			xTeam.tm.removeTeam(team.getName());
+			xTeam.getTeamManager().removeTeam(team.getName());
 		}
 	}
 	@Override

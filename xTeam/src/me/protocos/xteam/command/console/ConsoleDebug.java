@@ -28,21 +28,13 @@ public class ConsoleDebug extends ConsoleCommand
 			originalSender.sendMessage("Invites: " + InviteHandler.data());
 		else if (subCommand.equalsIgnoreCase("spies"))
 			originalSender.sendMessage("Spies: " + Data.spies.toString());
-		else if (subCommand.equalsIgnoreCase("return"))
-			originalSender.sendMessage("Return locations: " + Data.returnLocations.toString());
-		else if (subCommand.equalsIgnoreCase("tasks"))
-			originalSender.sendMessage("Task IDs: " + Data.taskIDs.toString());
-		else if (subCommand.equalsIgnoreCase("tele"))
-			originalSender.sendMessage("Teleported: " + Data.hasTeleported.toString());
-		else if (subCommand.equalsIgnoreCase("attacked"))
-			originalSender.sendMessage("Last attacked: " + Data.lastAttacked.toString());
 		else if (subCommand.equalsIgnoreCase("created"))
 			originalSender.sendMessage("Last created: " + Data.lastCreated.toString());
 		else if (subCommand.equalsIgnoreCase("email"))
 		{
 			try
 			{
-				xTeam.logger.exception(new Exception("Test message!"));
+				xTeam.getLog().exception(new Exception("Test message!"));
 				originalSender.sendMessage("Email sent!");
 			}
 			catch (Exception e)

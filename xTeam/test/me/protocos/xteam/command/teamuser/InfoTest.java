@@ -106,9 +106,9 @@ public class InfoTest
 	public void ShouldBeTeamUserInfoExecute6()
 	{
 		//ASSEMBLE
-		xTeam.tm.getTeam("red").addPlayer("Lonely");
-		xTeam.tm.getTeam("red").promote("strandedhelix");
-		xTeam.tm.getTeam("red").promote("Lonely");
+		xTeam.getTeamManager().getTeam("red").addPlayer("Lonely");
+		xTeam.getTeamManager().getTeam("red").promote("strandedhelix");
+		xTeam.getTeamManager().getTeam("red").promote("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
 		UserCommand fakeCommand = new UserInfo();
 		//ACT
@@ -129,7 +129,7 @@ public class InfoTest
 	public void ShouldBeTeamUserInfoExecute7()
 	{
 		//ASSEMBLE
-		xTeam.tm.getTeam("one").promote("protocos");
+		xTeam.getTeamManager().getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserInfo();
 		//ACT

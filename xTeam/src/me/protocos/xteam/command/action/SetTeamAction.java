@@ -1,9 +1,10 @@
 package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -19,7 +20,7 @@ public class SetTeamAction
 
 	public void checkRequorementsOn(String playerName, String teamName) throws TeamException
 	{
-		TeamPlayer p = new TeamPlayer(playerName);
+		ITeamPlayer p = PlayerManager.getPlayer(playerName);
 		Team playerTeam = p.getTeam();
 		if (!p.hasPlayedBefore())
 		{
@@ -33,7 +34,7 @@ public class SetTeamAction
 		{
 			throw new TeamPlayerAlreadyOnTeamException();
 		}
-		if (xTeam.tm.contains(teamName) && xTeam.tm.getTeam(teamName).size() >= Data.MAX_PLAYERS && Data.MAX_PLAYERS > 0)
+		if (xTeam.getTeamManager().contains(teamName) && xTeam.getTeamManager().getTeam(teamName).size() >= Data.MAX_PLAYERS && Data.MAX_PLAYERS > 0)
 		{
 			throw new TeamPlayerMaxException();
 		}
@@ -41,22 +42,22 @@ public class SetTeamAction
 
 	public void actOn(String playerName, String teamName)
 	{
-		TeamPlayer p = new TeamPlayer(playerName);
+		ITeamPlayer p = PlayerManager.getPlayer(playerName);
 		if (p.hasTeam())
 		{
 			removePlayer(p);
 		}
-		if (!xTeam.tm.contains(teamName))
+		if (!xTeam.getTeamManager().contains(teamName))
 		{
 			createTeamWithLeader(teamName, p);
 		}
 		else
 		{
-			addPlayerToTeam(p, xTeam.tm.getTeam(teamName));
+			addPlayerToTeam(p, xTeam.getTeamManager().getTeam(teamName));
 		}
 	}
 
-	public void removePlayer(TeamPlayer player)
+	public void removePlayer(ITeamPlayer player)
 	{
 		Team playerTeam = player.getTeam();
 		String teamName = playerTeam.getName();
@@ -64,7 +65,7 @@ public class SetTeamAction
 		String senderName = originalSender.getName();
 		playerTeam.removePlayer(player.getName());
 		Data.chatStatus.remove(playerName);
-		Data.returnLocations.remove(player.getOnlinePlayer());
+		player.removeReturnLocation();
 		playerTeam.sendMessage(playerName + " has been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + teamName);
 		if (playerName.equals(senderName))
 		{
@@ -72,7 +73,7 @@ public class SetTeamAction
 			originalSender.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
-				xTeam.tm.removeTeam(teamName);
+				xTeam.getTeamManager().removeTeam(teamName);
 				originalSender.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
 			}
 		}
@@ -83,14 +84,14 @@ public class SetTeamAction
 			player.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
-				xTeam.tm.removeTeam(teamName);
+				xTeam.getTeamManager().removeTeam(teamName);
 				originalSender.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
 				player.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
 			}
 		}
 	}
 
-	public void addPlayerToTeam(TeamPlayer player, Team changeTeam)
+	public void addPlayerToTeam(ITeamPlayer player, Team changeTeam)
 	{
 		String senderName = originalSender.getName();
 		String playerName = player.getName();
@@ -110,11 +111,12 @@ public class SetTeamAction
 		player.sendMessageToTeam(playerName + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + teamName);
 	}
 
-	public void createTeamWithLeader(String teamName, TeamPlayer player)
+	public void createTeamWithLeader(String teamName, ITeamPlayer player)
 	{
 		String senderName = originalSender.getName();
 		String playerName = player.getName();
-		xTeam.tm.createTeamWithLeader(teamName, playerName);
+		Team newTeam = Team.createTeamWithLeader(teamName, playerName);
+		xTeam.getTeamManager().addTeam(newTeam);
 		if (playerName.equals(senderName))
 		{
 			//first person

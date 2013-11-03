@@ -3,10 +3,10 @@ package me.protocos.xteam.command.teamleader;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -25,7 +25,7 @@ public class UserTag extends UserCommand
 	{
 		team.setTag(newTag);
 		teamPlayer.sendMessage("The team tag has been set to " + ChatColor.AQUA + newTag);
-		for (TeamPlayer mate : teamPlayer.getOnlineTeammates())
+		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
 			mate.sendMessage("The team tag has been set to " + ChatColor.AQUA + newTag);
 		}
@@ -51,7 +51,7 @@ public class UserTag extends UserCommand
 		{
 			throw new TeamNameNotAlphaException();
 		}
-		if (!newTag.equalsIgnoreCase(team.getName()) && toLowerCase(xTeam.tm.getAllTeamNames()).contains(newTag.toLowerCase()))
+		if (!newTag.equalsIgnoreCase(team.getName()) && toLowerCase(xTeam.getTeamManager().getAllTeamNames()).contains(newTag.toLowerCase()))
 		{
 			throw new TeamNameConflictsWithTagException();
 		}

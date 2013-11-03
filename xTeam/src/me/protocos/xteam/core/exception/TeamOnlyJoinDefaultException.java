@@ -10,7 +10,7 @@ public class TeamOnlyJoinDefaultException extends TeamException
 
 	public TeamOnlyJoinDefaultException()
 	{
-		super("Only default teams are available\nTeams: " + xTeam.tm.getDefaultTeamNames().toString().replaceAll("[\\[\\]]", ""));
+		super("Only default teams are available\nTeams: " + xTeam.getTeamManager().getDefaultTeamNames().toString().replaceAll("[\\[\\]]", ""));
 	}
 	public TeamOnlyJoinDefaultException(String message)
 	{

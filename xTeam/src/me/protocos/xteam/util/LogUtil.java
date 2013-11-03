@@ -3,6 +3,7 @@ package me.protocos.xteam.util;
 import java.io.*;
 import java.sql.Timestamp;
 import java.util.Scanner;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.collections.LimitedQueue;
 import me.protocos.xteam.api.util.ILog;
 import me.protocos.xteam.core.Data;
@@ -69,7 +70,7 @@ public class LogUtil implements ILog
 		message = "[ERROR] " + message;
 		write(message);
 	}
-	public void exception(Exception e)
+	public void exception(final Exception e)
 	{
 		error(e.toString());
 		for (StackTraceElement elem : e.getStackTrace())
@@ -80,7 +81,17 @@ public class LogUtil implements ILog
 			}
 		}
 		if (Data.SEND_ANONYMOUS_ERROR_REPORTS)
-			errorReporter.sendErrorReport(e);
+		{
+			class EmailReport implements Runnable
+			{
+				@Override
+				public void run()
+				{
+					errorReporter.sendErrorReport(e);
+				}
+			}
+			Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(xTeam.getSelf(), new EmailReport(), CommonUtil.LONG_ZERO);
+		}
 	}
 	public void fatal(String message)
 	{

@@ -6,6 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.StringUtil;
 import org.bukkit.ChatColor;
@@ -24,7 +25,8 @@ public class UserCreate extends UserCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		String leader = teamPlayer.getName();
-		xTeam.tm.createTeamWithLeader(desiredTeam, leader);
+		Team newTeam = Team.createTeamWithLeader(desiredTeam, leader);
+		xTeam.getTeamManager().addTeam(newTeam);
 		Data.lastCreated.put(leader, Long.valueOf(System.currentTimeMillis()));
 		originalSender.sendMessage("You created " + ChatColor.AQUA + desiredTeam);
 	}
@@ -53,7 +55,7 @@ public class UserCreate extends UserCommand
 		{
 			throw new TeamNameNotAlphaException();
 		}
-		if (toLowerCase(xTeam.tm.getAllTeamNames()).contains(desiredTeam.toLowerCase()))
+		if (toLowerCase(xTeam.getTeamManager().getAllTeamNames()).contains(desiredTeam.toLowerCase()))
 		{
 			throw new TeamAlreadyExistsException();
 		}

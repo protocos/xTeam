@@ -35,7 +35,7 @@ public class UserSetHeadquarters extends UserCommand
 		{
 			throw new TeamPlayerNotAdminException();
 		}
-		if (teamPlayer.getOnlinePlayer().getNoDamageTicks() > 0)
+		if (teamPlayer.isDamaged())
 		{
 			throw new TeamPlayerDyingException();
 		}

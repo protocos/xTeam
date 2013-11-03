@@ -3,9 +3,9 @@ package me.protocos.xteam.command.teamleader;
 import static me.protocos.xteam.util.StringUtil.OPTIONAL_WHITE_SPACE;
 import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerNotLeaderException;
@@ -22,11 +22,11 @@ public class UserDisband extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		for (TeamPlayer playerDisband : teamPlayer.getOnlineTeammates())
+		for (ITeamPlayer playerDisband : teamPlayer.getOnlineTeammates())
 		{
 			playerDisband.sendMessage("Team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by the leader");
 		}
-		xTeam.tm.removeTeam(team.getName());
+		xTeam.getTeamManager().removeTeam(team.getName());
 		originalSender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " your team");
 	}
 

@@ -26,7 +26,7 @@ public class ConsoleTag extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.tm.getTeam(teamName);
+		Team team = xTeam.getTeamManager().getTeam(teamName);
 		team.setTag(newTag);
 		originalSender.sendMessage("The team tag has been set to " + newTag);
 		team.sendMessage("The team tag has been set to " + newTag + " by an admin");
@@ -37,12 +37,12 @@ public class ConsoleTag extends ConsoleCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		newTag = parseCommand.get(2);
-		Team desiredTeam = xTeam.tm.getTeam(teamName);
+		Team desiredTeam = xTeam.getTeamManager().getTeam(teamName);
 		if (desiredTeam == null)
 		{
 			throw new TeamDoesNotExistException();
 		}
-		if (!newTag.equalsIgnoreCase(desiredTeam.getName()) && StringUtil.toLowerCase(xTeam.tm.getAllTeamNames()).contains(newTag.toLowerCase()))
+		if (!newTag.equalsIgnoreCase(desiredTeam.getName()) && StringUtil.toLowerCase(xTeam.getTeamManager().getAllTeamNames()).contains(newTag.toLowerCase()))
 		{
 			throw new TeamNameConflictsWithTagException();
 		}

@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.util.SpoutUtil;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.util.StringUtil;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
-import org.getspout.spoutapi.SpoutManager;
 
 public class Functions
 {
@@ -54,7 +52,7 @@ public class Functions
 		if (type.startsWith("CraftPlayer"))
 		{
 			Player p = (Player) entity;
-			TeamPlayer otherPlayer = new TeamPlayer(p);
+			ITeamPlayer otherPlayer = PlayerManager.getPlayer(p);
 			Team otherTeam = otherPlayer.getTeam();
 			if (player.getTeam().equals(otherTeam))
 				return false;
@@ -64,7 +62,7 @@ public class Functions
 		{
 			Wolf w = (Wolf) entity;
 			TeamWolf wolf = new TeamWolf(w);
-			TeamPlayer owner = wolf.getOwner();
+			ITeamPlayer owner = wolf.getOwner();
 			if (owner != null && player.getTeam().containsPlayer(owner.getName()))
 				return false;
 			return true;
@@ -112,7 +110,7 @@ public class Functions
 			}
 			if (StringUtil.toLowerCase(Data.DEFAULT_TEAM_NAMES).contains(teamName.toLowerCase()))
 			{
-				for (Team team : xTeam.tm.getDefaultTeams())
+				for (Team team : xTeam.getTeamManager().getDefaultTeams())
 				{
 					if (team.getName().toLowerCase().equalsIgnoreCase(teamName))
 					{
@@ -129,7 +127,7 @@ public class Functions
 				{
 					s[i] = s[i].replaceAll("~", "");
 				}
-				xTeam.tm.addTeam(team);
+				xTeam.getTeamManager().addTeam(team);
 			}
 		}
 		br.close();
@@ -156,7 +154,7 @@ public class Functions
 			while ((line = br.readLine()) != null)
 			{
 				Team team = Team.generateTeamFromProperties(line);
-				xTeam.tm.addTeam(team);
+				xTeam.getTeamManager().addTeam(team);
 			}
 			br.close();
 		}
@@ -165,40 +163,40 @@ public class Functions
 			e.printStackTrace();
 		}
 	}
-	public static void showPlayer(Player player)
-	{
-		Player[] OnlinePlayers = player.getServer().getOnlinePlayers();
-		for (Player p : OnlinePlayers)
-		{
-			SpoutManager.getPlayer(player).resetTitleFor(SpoutManager.getPlayer(p));
-		}
-	}
-	public static void updatePlayers()
-	{
-		if (Data.HIDE_NAMES && Data.SPOUT_ENABLED)
-		{
-			SpoutUtil.hidePlayerNames(Data.BUKKIT.getOnlinePlayers());
-			for (Player player1 : Data.BUKKIT.getOnlinePlayers())
-			{
-				for (Player player2 : Data.BUKKIT.getOnlinePlayers())
-				{
-					TeamPlayer p1 = new TeamPlayer(player1);
-					TeamPlayer p2 = new TeamPlayer(player2);
-					if (p1.isOnSameTeam(p2))
-					{
-						try
-						{
-							SpoutManager.getPlayer(player1).setTitleFor(SpoutManager.getPlayer(player2), ChatColor.GREEN + p1.getName());
-						}
-						catch (NullPointerException e)
-						{
-
-						}
-					}
-				}
-			}
-		}
-	}
+	//	public static void showPlayer(Player player)
+	//	{
+	//		Player[] OnlinePlayers = player.getServer().getOnlinePlayers();
+	//		for (Player p : OnlinePlayers)
+	//		{
+	//			SpoutManager.getPlayer(player).resetTitleFor(SpoutManager.getPlayer(p));
+	//		}
+	//	}
+	//	public static void updatePlayers()
+	//	{
+	//		if (Data.HIDE_NAMES && Data.SPOUT_ENABLED)
+	//		{
+	//			SpoutUtil.hidePlayerNames(Data.BUKKIT.getOnlinePlayers());
+	//			for (Player player1 : Data.BUKKIT.getOnlinePlayers())
+	//			{
+	//				for (Player player2 : Data.BUKKIT.getOnlinePlayers())
+	//				{
+	//					ITeamPlayer p1 = PlayerManager.getPlayer(player1);
+	//					ITeamPlayer p2 = PlayerManager.getPlayer(player2);
+	//					if (p1.isOnSameTeam(p2))
+	//					{
+	//						try
+	//						{
+	//							SpoutManager.getPlayer(player1).setTitleFor(SpoutManager.getPlayer(player2), ChatColor.GREEN + p1.getName());
+	//						}
+	//						catch (NullPointerException e)
+	//						{
+	//
+	//						}
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
 	@Deprecated
 	public static void writeOldData(File f)
 	{
@@ -206,7 +204,7 @@ public class Functions
 		{
 			//			File f = new File("plugins/xTeam/teams.txt");
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-			List<Team> teams = xTeam.tm.getAllTeams();
+			List<Team> teams = xTeam.getTeamManager().getAllTeams();
 			for (Team t : teams)
 				bw.write(t.toString() + "\n");
 			bw.close();
@@ -221,7 +219,7 @@ public class Functions
 		ArrayList<String> data = new ArrayList<String>();
 		try
 		{
-			List<Team> teams = xTeam.tm.getAllTeams();
+			List<Team> teams = xTeam.getTeamManager().getAllTeams();
 			for (Team team : teams)
 				data.add(team.toString());
 		}

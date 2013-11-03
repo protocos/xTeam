@@ -2,10 +2,11 @@ package me.protocos.xteam.command.teamadmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.InviteHandler;
-import me.protocos.xteam.core.TeamPlayer;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -23,7 +24,7 @@ public class UserInvite extends UserCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		InviteHandler.addInvite(otherPlayer, team);
-		TeamPlayer other = new TeamPlayer(otherPlayer);
+		ITeamPlayer other = PlayerManager.getPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColor.GREEN + "invited " + ChatColor.RESET + "to join " + ChatColor.AQUA + team.getName());
 		originalSender.sendMessage("You " + ChatColor.GREEN + "invited " + ChatColor.RESET + other.getName());
@@ -45,7 +46,7 @@ public class UserInvite extends UserCommand
 		{
 			throw new TeamPlayerInviteException("Player cannot invite self");
 		}
-		TeamPlayer p = new TeamPlayer(otherPlayer);
+		ITeamPlayer p = PlayerManager.getPlayer(otherPlayer);
 		if (!p.hasPlayedBefore())
 		{
 			throw new TeamPlayerNeverPlayedException();

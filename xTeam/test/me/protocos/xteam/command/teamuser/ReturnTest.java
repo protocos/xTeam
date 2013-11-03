@@ -7,8 +7,12 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
+import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.PlayerManager;
+import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.junit.After;
 import org.junit.Before;
@@ -27,14 +31,16 @@ public class ReturnTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
-		Data.returnLocations.put(fakePlayerSender, returnLocation);
+		TeamPlayer teamPlayer = CommonUtil.subTypeFromSuperType(PlayerManager.getPlayer("protocos"), TeamPlayer.class);
+		Location returnLocation = xTeam.getTeamManager().getTeam("one").getHeadquarters();
+		PlayerManager.getPlayer("protocos").setReturnLocation(returnLocation);
 		UserCommand fakeCommand = new UserReturn();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
 		//ASSERT
 		Assert.assertEquals("WHOOSH!", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(returnLocation, fakePlayerSender.getLocation());
+		Assert.assertFalse(teamPlayer.hasReturnLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -55,8 +61,7 @@ public class ReturnTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
-		Data.returnLocations.put(fakePlayerSender, returnLocation);
+		PlayerManager.getPlayer("protocos").setReturnLocation(new FakeLocation());
 		fakePlayerSender.setNoDamageTicks(1);
 		UserCommand fakeCommand = new UserReturn();
 		//ACT
@@ -71,8 +76,7 @@ public class ReturnTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
-		Data.returnLocations.put(fakePlayerSender, returnLocation);
+		PlayerManager.getPlayer("protocos").setReturnLocation(new FakeLocation());
 		UserCommand fakeCommand = new UserReturn();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
@@ -85,11 +89,10 @@ public class ReturnTest
 	{
 		//ASSEMBLE
 		Data.LAST_ATTACKED_DELAY = 15;
-		Data.lastAttacked.put("protocos", System.currentTimeMillis());
+		PlayerManager.getPlayer("protocos").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
-		Data.returnLocations.put(fakePlayerSender, returnLocation);
+		PlayerManager.getPlayer("protocos").setReturnLocation(new FakeLocation());
 		UserCommand fakeCommand = new UserReturn();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
@@ -102,11 +105,11 @@ public class ReturnTest
 	public void ShouldBeTeamUserReturnExecuteRecentRequest()
 	{
 		//ASSEMBLE
-		Data.taskIDs.put("protocos", null);
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		TeamPlayer teamPlayer = CommonUtil.subTypeFromSuperType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeleportScheduler.getInstance().setCurrentTask(teamPlayer, 0);
+		teamPlayer.setReturnLocation(new FakeLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		Location returnLocation = xTeam.tm.getTeam("one").getHeadquarters();
-		Data.returnLocations.put(fakePlayerSender, returnLocation);
 		UserCommand fakeCommand = new UserReturn();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
@@ -118,6 +121,6 @@ public class ReturnTest
 	@After
 	public void takedown()
 	{
-		Data.returnLocations.clear();
+		//		Data.returnLocations.clear();
 	}
 }

@@ -12,7 +12,7 @@ public class HashList<K, V> extends HashMap<K, V>
 	{
 		this.keepSorted = false;
 	}
-	public HashList(ArrayList<K> keys, ArrayList<V> values)
+	public HashList(List<K> keys, List<V> values)
 	{
 		if (keys.size() == values.size())
 		{
@@ -46,7 +46,7 @@ public class HashList<K, V> extends HashMap<K, V>
 	{
 		return order.get(index);
 	}
-	public ArrayList<K> getOrder()
+	public List<K> getOrder()
 	{
 		return new ArrayList<K>(order);
 	}
@@ -79,7 +79,7 @@ public class HashList<K, V> extends HashMap<K, V>
 	{
 		this.keepSorted = keepSorted;
 	}
-	public boolean setOrder(ArrayList<K> newOrder)
+	public boolean setOrder(List<K> newOrder)
 	{
 		for (K object : newOrder)
 		{
@@ -115,6 +115,8 @@ public class HashList<K, V> extends HashMap<K, V>
 	//	}
 	public boolean updateKey(K oldKey, K newKey)
 	{
+		if (oldKey == null || newKey == null)
+			return false;
 		if (!containsKey(oldKey))
 			return false;
 		int position = order.indexOf(oldKey);

@@ -32,7 +32,7 @@ public class AdminHeadquarters extends ServerAdminCommand
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
-		changeTeam = xTeam.tm.getTeam(teamName);
+		changeTeam = xTeam.getTeamManager().getTeam(teamName);
 		if (changeTeam == null)
 		{
 			throw new TeamDoesNotExistException();

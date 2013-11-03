@@ -5,6 +5,7 @@ import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
@@ -24,7 +25,7 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 		Player[] players = Data.BUKKIT.getOnlinePlayers();
 		for (Player p : players)
 		{
-			TeamPlayer player = new TeamPlayer(p);
+			TeamPlayer player = PlayerManager.getPlayer(p);
 			Team team = player.getTeam();
 			{
 				if (team == null)

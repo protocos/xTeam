@@ -32,7 +32,7 @@ public class AdminSetHeadquartersTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq two"));
 		//ASSERT
 		Assert.assertEquals("You set the team headquarters for team two", fakePlayerSender.getLastMessage());
-		Assert.assertEquals(newHQ, xTeam.tm.getTeam("two").getHeadquarters());
+		Assert.assertEquals(newHQ, xTeam.getTeamManager().getTeam("two").getHeadquarters());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test

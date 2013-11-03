@@ -1,13 +1,26 @@
 package me.protocos.xteam.api.core;
 
-import java.util.List;
-import me.protocos.xteam.core.TeamPlayer;
-import org.bukkit.entity.Entity;
+import org.bukkit.Location;
 
-public interface ITeamPlayer extends ITeamEntity, Entity
+public interface ITeamPlayer extends ITeamEntity
 {
-	public abstract String getName();
 	public abstract double getHealth();
+	public abstract String getLastPlayed();
+	public abstract String getName();
+	public abstract boolean hasPermission(String permissionNode);
 	public abstract boolean hasPlayedBefore();
-	public abstract List<TeamPlayer> getOnlineTeammates();
+	public abstract boolean hasReturnLocation();
+	public abstract boolean isAdmin();
+	public abstract boolean isDamaged();
+	public abstract boolean isLeader();
+	public abstract boolean isOp();
+	public abstract void sendMessageToTeam(String message);
+	public abstract void setLastTeleported(long lastTeleported);
+	public abstract long getLastTeleported();
+	public abstract void setLastAttacked(long lastAttacked);
+	public abstract long getLastAttacked();
+	public abstract void setReturnLocation(Location location);
+	public abstract Location getReturnLocation();
+	public abstract void removeReturnLocation();
+	public abstract boolean teleportTo(ILocatable entity);
 }

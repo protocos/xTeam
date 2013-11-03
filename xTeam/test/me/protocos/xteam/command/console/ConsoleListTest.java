@@ -25,7 +25,7 @@ public class ConsoleListTest
 	public void ShouldBeTeamUserListExecuteNoTeams()
 	{
 		//ASSEMBLE
-		xTeam.tm.clear();
+		xTeam.getTeamManager().clear();
 		ConsoleCommand fakeCommand = new ConsoleList();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team list"));
@@ -37,9 +37,9 @@ public class ConsoleListTest
 	public void ShouldBeTeamUserListExecuteOneTeam()
 	{
 		//ASSEMBLE
-		xTeam.tm.removeTeam("ONE");
-		xTeam.tm.removeTeam("TWO");
-		xTeam.tm.removeTeam("blue");
+		xTeam.getTeamManager().removeTeam("ONE");
+		xTeam.getTeamManager().removeTeam("TWO");
+		xTeam.getTeamManager().removeTeam("blue");
 		ConsoleCommand fakeCommand = new ConsoleList();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team list"));

@@ -147,7 +147,7 @@ public class FileReader
 		}
 		else
 		{
-			xTeam.logger.error("File " + this.file.getAbsoluteFile() + " not found.");
+			xTeam.getLog().error("File " + this.file.getAbsoluteFile() + " not found.");
 			return false;
 		}
 		return true;

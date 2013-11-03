@@ -19,7 +19,7 @@ public class ConsoleHelpTest
 	{
 		//MOCK data
 		mockData();
-		xTeam.registerConsoleCommands(xTeam.cm);
+		xTeam.registerConsoleCommands(xTeam.getCommandManager());
 		fakeConsoleSender = new FakeConsoleSender();
 	}
 	@Test

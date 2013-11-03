@@ -6,8 +6,12 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
+import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.PlayerManager;
+import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.junit.After;
 import org.junit.Before;
@@ -65,7 +69,6 @@ public class TeleportTest
 	public void ShouldBeTeamUserTeleExecuteNotTeammate()
 	{
 		//ASSEMBLE
-		Data.taskIDs.put("kmlanglois", null);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		UserCommand fakeCommand = new UserTeleport();
@@ -110,7 +113,7 @@ public class TeleportTest
 	{
 		//ASSEMBLE
 		Data.LAST_ATTACKED_DELAY = 15;
-		Data.lastAttacked.put("kmlanglois", System.currentTimeMillis());
+		PlayerManager.getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		UserCommand fakeCommand = new UserTeleport();
@@ -125,7 +128,8 @@ public class TeleportTest
 	public void ShouldBeTeamUserTeleExecuteRecentRequest()
 	{
 		//ASSEMBLE
-		Data.taskIDs.put("kmlanglois", null);
+		TeamPlayer testPlayer = CommonUtil.subTypeFromSuperType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeleportScheduler.getInstance().getCurrentTasks().put(testPlayer, 0);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		UserCommand fakeCommand = new UserTeleport();
@@ -140,14 +144,15 @@ public class TeleportTest
 	public void ShouldBeTeamUserTeleExecuteRecentTeleport()
 	{
 		//ASSEMBLE
-		Data.hasTeleported.put("kmlanglois", System.currentTimeMillis());
+		TeamPlayer teamPlayer = CommonUtil.subTypeFromSuperType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeleportScheduler.getInstance().teleport(teamPlayer, new FakeLocation());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		UserCommand fakeCommand = new UserTeleport();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele protocos"));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within 60 seconds of last teleport\nYou must wait 60 more seconds")).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within 60 seconds of last teleport\nYou must wait 60 more seconds\nYou can still use /team return")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -155,7 +160,6 @@ public class TeleportTest
 	public void ShouldBeTeamUserTeleExecuteSelfTele()
 	{
 		//ASSEMBLE
-		Data.taskIDs.put("kmlanglois", null);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		UserCommand fakeCommand = new UserTeleport();
@@ -170,7 +174,8 @@ public class TeleportTest
 	public void takedown()
 	{
 		Data.LAST_ATTACKED_DELAY = 0;
-		Data.hasTeleported.clear();
-		Data.lastAttacked.clear();
+		//		Data.hasTeleported.clear();
+		//		Data.lastAttacked.clear();
+		TeleportScheduler.getInstance().clearTasks();
 	}
 }

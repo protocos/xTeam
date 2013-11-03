@@ -23,7 +23,7 @@ public class InviteHandler
 	public static Team getInviteTeam(String player)
 	{
 		if (invites.containsKey(player))
-			return xTeam.tm.getTeam(invites.get(player).split(":")[0]);
+			return xTeam.getTeamManager().getTeam(invites.get(player).split(":")[0]);
 		return null;
 	}
 	public static long getInviteTime(String player)

@@ -26,7 +26,7 @@ public class AdminDisband extends ServerAdminCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		changeTeam.sendMessage("Your team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by an admin");
-		xTeam.tm.removeTeam(teamName);
+		xTeam.getTeamManager().removeTeam(teamName);
 		originalSender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " " + teamName);
 	}
 	@Override
@@ -34,7 +34,7 @@ public class AdminDisband extends ServerAdminCommand
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
-		changeTeam = xTeam.tm.getTeam(teamName);
+		changeTeam = xTeam.getTeamManager().getTeam(teamName);
 		if (changeTeam == null)
 		{
 			throw new TeamDoesNotExistException();

@@ -25,7 +25,7 @@ public class UserJoin extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team foundTeam = xTeam.tm.getTeam(desiredTeam);
+		Team foundTeam = xTeam.getTeamManager().getTeam(desiredTeam);
 		foundTeam.addPlayer(teamPlayer.getName());
 		InviteHandler.removeInvite(teamPlayer.getName());
 		teamPlayer.sendMessageToTeam(ChatColor.AQUA + teamPlayer.getName() + ChatColor.RESET + " joined your team");
@@ -44,7 +44,7 @@ public class UserJoin extends UserCommand
 		{
 			throw new TeamOnlyJoinDefaultException();
 		}
-		Team foundTeam = xTeam.tm.getTeam(desiredTeam);
+		Team foundTeam = xTeam.getTeamManager().getTeam(desiredTeam);
 		if (foundTeam == null)
 		{
 			throw new TeamDoesNotExistException();

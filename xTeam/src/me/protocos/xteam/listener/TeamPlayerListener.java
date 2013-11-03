@@ -5,35 +5,41 @@ import java.util.Random;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.Functions;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class TeamPlayerListener implements Listener
 {
+	@EventHandler
+	public void onPlayerJoin(PlayerTeleportEvent event)
+	{
+		//TODO maybe use this for updateing in the PLayerManager?
+	}
+
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
 		try
 		{
-			Player eventPlayer = event.getPlayer();
-			String name = eventPlayer.getName();
-			xTeam.pm.addPlayer(name);
-			ITeamPlayer player = new TeamPlayer(eventPlayer);
-			if (player.hasPlayedBefore() && Data.DISABLED_WORLDS.contains(player.getWorld().getName()))
+			Player player = event.getPlayer();
+			World playerWorld = player.getWorld();
+			ITeamPlayer teamPlayer = PlayerManager.getPlayer(player);
+			if (teamPlayer.hasPlayedBefore() && Data.DISABLED_WORLDS.contains(playerWorld.getName()))
 			{
 				return;
 			}
 			if (Data.RANDOM_TEAM)
 			{
-				if (!player.hasTeam() || !player.hasPlayedBefore())
+				if (!teamPlayer.hasTeam() || !teamPlayer.hasPlayedBefore())
 				{
 					Random r = new Random();
 					if (Data.DEFAULT_TEAM_NAMES.size() > 0)
@@ -41,8 +47,8 @@ public class TeamPlayerListener implements Listener
 						ArrayList<Team> availableTeams = new ArrayList<Team>();
 						if (Data.BALANCE_TEAMS)
 						{
-							int smallest = xTeam.tm.getDefaultTeams().get(0).size();
-							for (Team t : xTeam.tm.getDefaultTeams())
+							int smallest = xTeam.getTeamManager().getDefaultTeams().get(0).size();
+							for (Team t : xTeam.getTeamManager().getDefaultTeams())
 							{
 								if (t.size() < smallest)
 								{
@@ -58,20 +64,20 @@ public class TeamPlayerListener implements Listener
 						}
 						else
 						{
-							for (Team t : xTeam.tm.getDefaultTeams())
+							for (Team t : xTeam.getTeamManager().getDefaultTeams())
 							{
 								availableTeams.add(t);
 							}
 						}
 						int index = r.nextInt(availableTeams.size());
 						Team team = availableTeams.get(index);
-						team.addPlayer(player.getName());
-						player.sendMessage("You joined " + ChatColor.AQUA + team.getName());
-						for (ITeamPlayer teammate : player.getOnlineTeammates())
+						team.addPlayer(teamPlayer.getName());
+						teamPlayer.sendMessage("You joined " + ChatColor.AQUA + team.getName());
+						for (ITeamPlayer teammate : teamPlayer.getOnlineTeammates())
 						{
-							teammate.sendMessage(player.getName() + ChatColor.AQUA + " joined your team");
+							teammate.sendMessage(teamPlayer.getName() + ChatColor.AQUA + " joined your team");
 						}
-						xTeam.log.info("Added " + player.getName() + " to team " + team.getName());
+						xTeam.log.info("Added " + teamPlayer.getName() + " to team " + team.getName());
 					}
 					else
 					{
@@ -81,49 +87,47 @@ public class TeamPlayerListener implements Listener
 			}
 			if (Data.DEFAULT_HQ_ON_JOIN)
 			{
-				if (player.hasTeam() && player.getTeam().isDefaultTeam())
+				if (teamPlayer.hasTeam() && teamPlayer.getTeam().isDefaultTeam())
 				{
-					Team team = player.getTeam();
+					Team team = teamPlayer.getTeam();
 					if (team.hasHeadquarters())
 					{
-						player.teleport(team.getHeadquarters());
-						player.sendMessage(ChatColor.RED + "You've been teleported to your Headquarters");
+						teamPlayer.teleportTo(team.getHeadquarters());
+						teamPlayer.sendMessage(ChatColor.RED + "You've been teleported to your Headquarters");
 					}
 					else
 					{
-						player.sendMessage(ChatColor.RED + "Your team does not have an Headquarters");
+						teamPlayer.sendMessage(ChatColor.RED + "Your team does not have an Headquarters");
 					}
 				}
 			}
-			int seconds = 5;
-			Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(Data.BUKKIT.getPluginManager().getPlugin("xTeam"), new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					Functions.updatePlayers();
-				}
-			}, seconds * 20L);
+			//			int seconds = 5;
+			//			Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(Data.BUKKIT.getPluginManager().getPlugin("xTeam"), new Runnable()
+			//			{
+			//				@Override
+			//				public void run()
+			//				{
+			//					Functions.updatePlayers();
+			//				}
+			//			}, seconds * 20L);
 		}
 		catch (Exception e)
 		{
-			xTeam.logger.exception(e);
+			xTeam.getLog().exception(e);
 			xTeam.log.info("[ERROR] Exception in xTeam onPlayerJoin() class [check logs]");
 		}
 	}
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event)
 	{
-		Player eventPlayer = event.getPlayer();
-		String name = eventPlayer.getName();
-		xTeam.pm.removePlayer(name);
+		Player player = event.getPlayer();
 		try
 		{
-			Data.chatStatus.remove(eventPlayer.getName());
+			Data.chatStatus.remove(player.getName());
 		}
 		catch (Exception e)
 		{
-			xTeam.logger.exception(e);
+			xTeam.getLog().exception(e);
 			xTeam.log.info("[ERROR] Exception in xTeam onPlayerQuit() class [check logs]");
 		}
 	}
@@ -132,7 +136,7 @@ public class TeamPlayerListener implements Listener
 	{
 		try
 		{
-			ITeamPlayer player = new TeamPlayer(event.getPlayer());
+			ITeamPlayer player = PlayerManager.getPlayer(event.getPlayer());
 			if (Data.DISABLED_WORLDS.contains(event.getPlayer().getWorld().getName()))
 			{
 				return;
@@ -151,22 +155,22 @@ public class TeamPlayerListener implements Listener
 					}
 				}
 			}
-			int seconds = 3;
-			if (Data.SPOUT_ENABLED)
-			{
-				Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(Data.BUKKIT.getPluginManager().getPlugin("xTeam"), new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						Functions.updatePlayers();
-					}
-				}, seconds * 20L);
-			}
+			//			int seconds = 3;
+			//			if (Data.SPOUT_ENABLED)
+			//			{
+			//				Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(Data.BUKKIT.getPluginManager().getPlugin("xTeam"), new Runnable()
+			//				{
+			//					@Override
+			//					public void run()
+			//					{
+			//						Functions.updatePlayers();
+			//					}
+			//				}, seconds * 20L);
+			//			}
 		}
 		catch (Exception e)
 		{
-			xTeam.logger.exception(e);
+			xTeam.getLog().exception(e);
 			xTeam.log.info("[ERROR] Exception in xTeam onPlayerRespawn() class [check logs]");
 		}
 	}

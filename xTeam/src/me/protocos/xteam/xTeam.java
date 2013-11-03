@@ -16,9 +16,11 @@ import me.protocos.xteam.command.teamadmin.UserPromote;
 import me.protocos.xteam.command.teamadmin.UserSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
-import me.protocos.xteam.core.*;
+import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Functions;
+import me.protocos.xteam.core.ServiceManager;
+import me.protocos.xteam.core.TeamManager;
 import me.protocos.xteam.util.LogUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,13 +28,42 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class xTeam extends JavaPlugin
 {
 	public static final Logger log = Logger.getLogger("Minecraft");
-	public static ILog logger;
-	public static String VERSION;
-	public static TeamServiceManager sm;
-	public static TeamManager tm;
-	public static TeamPlayerManager pm;
-	public static ICommandManager cm;
-	public static CommandExecutor exec;
+	private static ILog logger;
+	private static String VERSION;
+	private static ServiceManager serviceManager;
+	private static ICommandManager commandManager;
+	private static CommandExecutor commandExecutor;
+	private static TeamManager teamManager;
+
+	public static ILog getLog()
+	{
+		return logger;
+	}
+
+	public static String getVersion()
+	{
+		return VERSION;
+	}
+
+	public static ServiceManager getServiceManager()
+	{
+		return serviceManager;
+	}
+
+	public static ICommandManager getCommandManager()
+	{
+		return commandManager;
+	}
+
+	public static CommandExecutor getCommandExecutor()
+	{
+		return commandExecutor;
+	}
+
+	public static TeamManager getTeamManager()
+	{
+		return teamManager;
+	}
 
 	public static void registerAdminCommands(ICommandManager manager)
 	{
@@ -86,7 +117,6 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("serveradmin_setleader", new AdminSetLeader());
 		manager.registerCommand("serveradmin_teleallhq", new AdminTeleAllHQ());
 		manager.registerCommand("serveradmin_tpall", new AdminTpAll());
-		manager.registerCommand("serveradmin_update", new AdminUpdatePlayers());
 	}
 	public static void registerUserCommands(ICommandManager manager)
 	{
@@ -275,7 +305,7 @@ public class xTeam extends JavaPlugin
 		try
 		{
 			Functions.writeTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
-			//		sm.saveConfig();
+			//		serviceManager.saveConfig();
 			logger.custom("[xTeam] v" + VERSION + " disabled");
 			logger.close();
 		}
@@ -296,20 +326,19 @@ public class xTeam extends JavaPlugin
 			Data.settings = new File(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
 			Data.load();
 			log.info("[xTeam] Config loaded.");
-			sm = new TeamServiceManager(this);
-			tm = new TeamManager();
-			pm = new TeamPlayerManager();
-			cm = new CommandManager();
-			registerConsoleCommands(cm);
-			registerServerAdminCommands(cm);
-			registerAdminCommands(cm);
-			registerLeaderCommands(cm);
-			registerUserCommands(cm);
-			exec = new CommandDelegate(cm);
-			getCommand("team").setExecutor(exec);
+			serviceManager = new ServiceManager(this);
+			commandManager = new CommandManager();
+			teamManager = new TeamManager();
+			registerConsoleCommands(commandManager);
+			registerServerAdminCommands(commandManager);
+			registerAdminCommands(commandManager);
+			registerLeaderCommands(commandManager);
+			registerUserCommands(commandManager);
+			commandExecutor = new CommandDelegate(commandManager);
+			getCommand("team").setExecutor(commandExecutor);
 			Functions.readTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
 			Data.ensureDefaultTeams();
-			//		sm.loadConfig();
+			//		serviceManager.loadConfig();
 			logger.custom("[xTeam] v" + VERSION + " enabled");
 		}
 		catch (Exception e)
@@ -320,6 +349,14 @@ public class xTeam extends JavaPlugin
 	}
 	public static Plugin getSelf()
 	{
-		return Bukkit.getPluginManager().getPlugin("xTeam");
+		return Data.BUKKIT.getPluginManager().getPlugin("xTeam");
+	}
+	static void fakeData(ICommandManager fakeCommandManager, ServiceManager fakeServiceManager, TeamManager fakeTeamManager, ILog fakeLogger, String fakeVersion)
+	{
+		commandManager = fakeCommandManager;
+		serviceManager = fakeServiceManager;
+		teamManager = fakeTeamManager;
+		logger = fakeLogger;
+		VERSION = fakeVersion;
 	}
 }

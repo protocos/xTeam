@@ -24,13 +24,12 @@ public class AdminTpAll extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		for (String teammember : changeTeam.getOnlinePlayers())
+		for (TeamPlayer teammate : changeTeam.getOnlineTeammates())
 		{
-			TeamPlayer p = new TeamPlayer(teammember);
-			if (p.isOnline())
+			if (teammate.isOnline())
 			{
-				p.sendMessage("You have been teleported to " + originalSender.getName());
-				p.teleport(teamPlayer.getLocation());
+				teammate.teleport(teamPlayer.getLocation());
+				teammate.sendMessage("You have been teleported to " + originalSender.getName());
 			}
 		}
 		originalSender.sendMessage("Players teleported");
@@ -40,7 +39,7 @@ public class AdminTpAll extends ServerAdminCommand
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
-		changeTeam = xTeam.tm.getTeam(teamName);
+		changeTeam = xTeam.getTeamManager().getTeam(teamName);
 		if (changeTeam == null)
 		{
 			throw new TeamDoesNotExistException();

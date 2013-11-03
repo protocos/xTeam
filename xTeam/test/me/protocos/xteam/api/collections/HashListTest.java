@@ -3,6 +3,7 @@ package me.protocos.xteam.api.collections;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,14 +20,7 @@ public class HashListTest
 	@Test
 	public void ShouldBeClear()
 	{
-		//ASSEMBLE
-		list.put("0", "zero");
-		list.put("1", "one");
-		list.put("2", "two");
-		list.put("3", "three");
-		list.put("4", "four");
-		list.put("5", "five");
-		list.put("6", "six");
+		addKeyValuePairsInOrder();
 		//ACT
 		list.clear();
 		//ASSERT
@@ -99,7 +93,7 @@ public class HashListTest
 		map.put("6", "six");
 		list.putAll(map);
 		//ACT
-		ArrayList<String> newOrder = new ArrayList<String>();
+		List<String> newOrder = new ArrayList<String>();
 		newOrder.add("0");
 		newOrder.add("1");
 		newOrder.add("2");
@@ -162,18 +156,10 @@ public class HashListTest
 	@Test
 	public void ShouldBeSetOrder()
 	{
-		HashMap<String, String> map = new HashMap<String, String>();
 		//ASSEMBLE
-		map.put("0", "zero");
-		map.put("1", "one");
-		map.put("2", "two");
-		map.put("3", "three");
-		map.put("4", "four");
-		map.put("5", "five");
-		map.put("6", "six");
-		list.putAll(map);
+		addKeyValuePairsInOrder();
 		//ACT
-		ArrayList<String> newOrder = new ArrayList<String>();
+		List<String> newOrder = new ArrayList<String>();
 		newOrder.add("0");
 		newOrder.add("1");
 		newOrder.add("2");
@@ -191,18 +177,10 @@ public class HashListTest
 	@Test
 	public void ShouldBeSort()
 	{
-		HashMap<String, String> map = new HashMap<String, String>();
 		//ASSEMBLE
-		map.put("0", "zero");
-		map.put("1", "one");
-		map.put("2", "two");
-		map.put("3", "three");
-		map.put("4", "four");
-		map.put("5", "five");
-		map.put("6", "six");
-		list.putAll(map);
+		addKeyValuePairsInOrder();
 		//ACT
-		ArrayList<String> order = list.getOrder();
+		List<String> order = list.getOrder();
 		Collections.sort(order);
 		boolean ordered = list.setOrder(order);
 		//ASSERT
@@ -230,14 +208,7 @@ public class HashListTest
 	@Test
 	public void ShouldBeUpdateKey()
 	{
-		//ASSEMBLE
-		list.put("0", "zero");
-		list.put("1", "one");
-		list.put("2", "two");
-		list.put("3", "three");
-		list.put("4", "four");
-		list.put("5", "five");
-		list.put("6", "six");
+		addKeyValuePairsInOrder();
 		//ACT
 		boolean updated = list.updateKey("0", "ZERO");
 		//ASSERT
@@ -264,7 +235,26 @@ public class HashListTest
 	@Test
 	public void ShouldBeUpdateKeyWithoutKey()
 	{
+		addKeyValuePairsInOrder();
+		//ACT
+		boolean updated = list.updateKey("00", "ZERO");
+		//ASSERT
+		Assert.assertEquals("{0=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
+		Assert.assertFalse(updated);
+	}
+	@Test
+	public void ShouldBeCannotUpdateKeyToNull()
+	{
 		//ASSEMBLE
+		addKeyValuePairsInOrder();
+		//ACT
+		boolean updated = list.updateKey("0", null);
+		//ASSERT
+		Assert.assertEquals("{0=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
+		Assert.assertFalse(updated);
+	}
+	public void addKeyValuePairsInOrder()
+	{
 		list.put("0", "zero");
 		list.put("1", "one");
 		list.put("2", "two");
@@ -272,10 +262,5 @@ public class HashListTest
 		list.put("4", "four");
 		list.put("5", "five");
 		list.put("6", "six");
-		//ACT
-		boolean updated = list.updateKey("00", "ZERO");
-		//ASSERT
-		Assert.assertEquals("{0=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
-		Assert.assertFalse(updated);
 	}
 }

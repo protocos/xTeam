@@ -34,7 +34,7 @@ public class ConsoleTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team tag one three"));
 		//ASSERT
 		Assert.assertEquals("The team tag has been set to three", fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("three", xTeam.tm.getTeam("one").getTag());
+		Assert.assertEquals("three", xTeam.getTeamManager().getTeam("one").getTag());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -46,7 +46,7 @@ public class ConsoleTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team tag two one"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameConflictsWithTagException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", xTeam.tm.getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", xTeam.getTeamManager().getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -58,7 +58,7 @@ public class ConsoleTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team tag three one"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", xTeam.tm.getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", xTeam.getTeamManager().getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -71,7 +71,7 @@ public class ConsoleTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team tag two Ã"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", xTeam.tm.getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", xTeam.getTeamManager().getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

@@ -2,11 +2,13 @@ package me.protocos.xteam.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class CommonUtil
 {
 	public static final int INTEGER_ZERO = 0;
+	public static final long LONG_ZERO = 0;
 	public static final double DOUBLE_ZERO = 0.0D;
 	public static final float FLOAT_ZERO = 0.0F;
 	public static final String lstatic = "787465616d2e6572726f727340676d61696c2e636f6d";
@@ -178,8 +180,36 @@ public class CommonUtil
 
 		return sb.toString();
 	}
+	public static long getElapsedTimeSince(long time)
+	{
+		return (System.currentTimeMillis() - time) / 1000;
+	}
 	public static <T> List<T> emptyList()
 	{
 		return new ArrayList<T>();
+	}
+	public static <K, V> HashMap<K, V> emptyHashMap()
+	{
+		return new HashMap<K, V>();
+	}
+	@SuppressWarnings("unchecked")
+	public static <SubType, SuperType> List<SubType> subListOfType(List<SuperType> list, Class<SubType> subType)
+	{
+		List<SubType> returnList = emptyList();
+		for (SuperType superType : list)
+		{
+			if (superType.getClass().equals(subType))
+				returnList.add((SubType) superType);
+		}
+		return returnList;
+	}
+	@SuppressWarnings("unchecked")
+	public static <SubType, SuperType> SubType subTypeFromSuperType(SuperType instance, Class<SubType> subType)
+	{
+		if (!instance.getClass().equals(subType))
+		{
+			throw new IncompatibleClassChangeError(instance + " is not and instance of " + subType.getSimpleName());
+		}
+		return (SubType) instance;
 	}
 }

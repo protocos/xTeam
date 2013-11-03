@@ -3,10 +3,11 @@ package me.protocos.xteam.command.teamuser;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.TeamPlayer;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
@@ -25,12 +26,11 @@ public class UserLeave extends UserCommand
 	{
 		team.removePlayer(teamPlayer.getName());
 		if (team.size() == 0 && !team.isDefaultTeam())
-			xTeam.tm.removeTeam(team.getName());
+			xTeam.getTeamManager().removeTeam(team.getName());
 		Data.chatStatus.remove(teamPlayer.getName());
-		Data.returnLocations.remove(teamPlayer.getOnlinePlayer());
 		for (String teammate : team.getPlayers())
 		{
-			TeamPlayer mate = new TeamPlayer(teammate);
+			ITeamPlayer mate = PlayerManager.getPlayer(teammate);
 			if (mate.isOnline())
 				mate.sendMessage(teamPlayer.getName() + ChatColor.RED + " left your team");
 		}

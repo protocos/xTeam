@@ -1,6 +1,9 @@
 package me.protocos.xteam.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class StringUtil
@@ -77,5 +80,15 @@ public class StringUtil
 		for (String s : arraylist)
 			uppercase.add(s.toUpperCase());
 		return uppercase;
+	}
+	public static String formatDateToMonthDay(long milliSeconds)
+	{
+		DateFormat formatter = new SimpleDateFormat("MMM d");
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(milliSeconds);
+		String month_day = formatter.format(calendar.getTime());
+		formatter = new SimpleDateFormat("h:mm a");
+		String hour_minute_am_pm = formatter.format(calendar.getTime());
+		return month_day + " @ " + hour_minute_am_pm;
 	}
 }

@@ -3,10 +3,11 @@ package me.protocos.xteam.command.console;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -23,10 +24,10 @@ public class ConsoleDemote extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.tm.getTeam(teamName);
+		Team team = xTeam.getTeamManager().getTeam(teamName);
 		team.demote(playerName);
 		originalSender.sendMessage("You demoted " + playerName);
-		TeamPlayer other = new TeamPlayer(playerName);
+		ITeamPlayer other = PlayerManager.getPlayer(playerName);
 		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColor.RED + "demoted");
 	}
@@ -36,8 +37,8 @@ public class ConsoleDemote extends ConsoleCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		Team desiredTeam = xTeam.tm.getTeam(teamName);
-		TeamPlayer player = new TeamPlayer(playerName);
+		Team desiredTeam = xTeam.getTeamManager().getTeam(teamName);
+		ITeamPlayer player = PlayerManager.getPlayer(playerName);
 		Team team = player.getTeam();
 		if (desiredTeam == null)
 		{

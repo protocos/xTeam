@@ -24,7 +24,7 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		World world = new FakeWorld();
-		TeamPlayer player = new TeamPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		TeamPlayer player = PlayerManager.getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
 		TeamWolf wolf = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(world, 200, 64, 0)));
 		//ACT
 		double distance = player.getDistanceTo(wolf);
@@ -86,7 +86,7 @@ public class TeamWolfTest
 		//ACT
 		Team team = wolf.getTeam();
 		//ASSERT
-		Assert.assertEquals(xTeam.tm.getTeam("one"), team);
+		Assert.assertEquals(xTeam.getTeamManager().getTeam("one"), team);
 	}
 	@Test
 	public void ShouldBeGetWorld()

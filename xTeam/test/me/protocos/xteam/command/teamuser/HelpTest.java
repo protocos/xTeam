@@ -21,9 +21,9 @@ public class HelpTest
 		//MOCK data
 		mockData();
 		Data.LOCATIONS_ENABLED = false;
-		xTeam.registerAdminCommands(xTeam.cm);
-		xTeam.registerLeaderCommands(xTeam.cm);
-		xTeam.registerUserCommands(xTeam.cm);
+		xTeam.registerAdminCommands(xTeam.getCommandManager());
+		xTeam.registerLeaderCommands(xTeam.getCommandManager());
+		xTeam.registerUserCommands(xTeam.getCommandManager());
 	}
 	@Test
 	public void ShouldBeTeamUserHelpPageExecute()
