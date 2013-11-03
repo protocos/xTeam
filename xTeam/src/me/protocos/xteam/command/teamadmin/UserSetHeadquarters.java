@@ -5,7 +5,7 @@ import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.TeamHeadquarters;
+import me.protocos.xteam.core.Headquarters;
 import me.protocos.xteam.core.exception.*;
 import org.bukkit.command.CommandSender;
 
@@ -19,7 +19,7 @@ public class UserSetHeadquarters extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		team.setHQ(new TeamHeadquarters(teamPlayer.getLocation()));
+		team.setHQ(new Headquarters(teamPlayer.getLocation()));
 		team.setTimeLastSet(System.currentTimeMillis());
 		originalSender.sendMessage("You set the team headquarters");
 	}

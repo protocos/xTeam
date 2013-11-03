@@ -6,6 +6,7 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.ReturnLocation;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.ChatColor;
@@ -23,8 +24,8 @@ public class UserReturn extends UserCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		TeleportScheduler teleporter = TeleportScheduler.getInstance();
-		teleporter.teleport(teamPlayer, teamPlayer.getReturnLocation());
-		originalSender.sendMessage(ChatColor.GREEN + "WHOOSH!");
+		Location returnLocation = teamPlayer.getReturnLocation();
+		teleporter.teleport(teamPlayer, new ReturnLocation(returnLocation));
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException

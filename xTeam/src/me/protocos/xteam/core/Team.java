@@ -26,7 +26,7 @@ public class Team implements ITeam
 	private String leader;
 	private List<String> players;
 	private List<String> admins;
-	private TeamHeadquarters headquarters;
+	private Headquarters headquarters;
 	private long timeHeadquartersSet;
 	private boolean openJoining;
 	private boolean defaultTeam;
@@ -41,7 +41,7 @@ public class Team implements ITeam
 		private String leader = "";
 		private List<String> players = new ArrayList<String>();
 		private List<String> admins = new ArrayList<String>();;
-		private TeamHeadquarters headquarters = null;
+		private Headquarters headquarters = null;
 		private long timeHeadquartersSet = 0L;
 		private boolean openJoining = false;
 		private boolean defaultTeam = false;
@@ -70,7 +70,7 @@ public class Team implements ITeam
 			this.admins = admins;
 			return this;
 		}
-		public Builder hq(@SuppressWarnings("hiding") TeamHeadquarters headquarters)
+		public Builder hq(@SuppressWarnings("hiding") Headquarters headquarters)
 		{
 			this.headquarters = headquarters;
 			return this;
@@ -155,7 +155,7 @@ public class Team implements ITeam
 	{
 		return admins;
 	}
-	public TeamHeadquarters getHeadquarters()
+	public Headquarters getHeadquarters()
 	{
 		return headquarters;
 	}
@@ -230,7 +230,7 @@ public class Team implements ITeam
 	{
 		this.defaultTeam = defaultTeam;
 	}
-	public void setHQ(TeamHeadquarters headquarters)
+	public void setHQ(Headquarters headquarters)
 	{
 		this.headquarters = headquarters;
 	}
@@ -299,7 +299,7 @@ public class Team implements ITeam
 				double Z = Double.parseDouble(locationData[3]);
 				float yaw = Float.parseFloat(locationData[4]);
 				float pitch = Float.parseFloat(locationData[5]);
-				team.setHQ(new TeamHeadquarters(world, X, Y, Z, yaw, pitch));
+				team.setHQ(new Headquarters(world, X, Y, Z, yaw, pitch));
 			}
 			team.setPlayers(players == null ? new ArrayList<String>() : CommonUtil.split(players, ","));
 			team.setAdmins(admins == null ? new ArrayList<String>() : CommonUtil.split(admins, ","));
@@ -436,7 +436,7 @@ public class Team implements ITeam
 	public List<Entity> getNearbyEntities(int radius)
 	{
 		if (this.hasHeadquarters())
-			return BukkitUtil.getNearbyEntities(this.getHeadquarters(), radius);
+			return this.getHeadquarters().getNearbyEntities(radius);
 		return CommonUtil.emptyList();
 	}
 	@Override

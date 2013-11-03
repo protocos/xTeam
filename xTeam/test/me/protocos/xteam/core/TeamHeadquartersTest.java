@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class TeamHeadquartersTest
 {
-	TeamHeadquarters hq;
+	Headquarters hq;
 
 	@Before
 	public void setup()
@@ -21,7 +21,7 @@ public class TeamHeadquartersTest
 	public void ShouldBeTeamHeadquartersDefault()
 	{
 		//ASSEMBLE
-		hq = new TeamHeadquarters();
+		hq = new Headquarters();
 		//ACT
 		//ASSERT
 		Assert.assertEquals("world", hq.getWorld().getName());
@@ -35,7 +35,7 @@ public class TeamHeadquartersTest
 	public void ShouldBeTeamHeadquartersExists()
 	{
 		//ASSEMBLE
-		hq = new TeamHeadquarters(new FakeWorld(), 0, 0, 0, 0, 0);
+		hq = new Headquarters(new FakeWorld(), 0, 0, 0, 0, 0);
 		//ACT
 		boolean exists = hq.exists();
 		//ASSERT
@@ -45,7 +45,7 @@ public class TeamHeadquartersTest
 	public void ShouldBeTeamHeadquartersFakeData()
 	{
 		//ASSEMBLE
-		hq = new TeamHeadquarters(new FakeWorld(), 0, 0, 0, 0, 0);
+		hq = new Headquarters(new FakeWorld(), 0, 0, 0, 0, 0);
 		//ACT
 		//ASSERT
 		Assert.assertEquals("world", hq.getWorld().getName());
@@ -59,7 +59,7 @@ public class TeamHeadquartersTest
 	public void ShouldBeTeamHeadquartersNotExists()
 	{
 		//ASSEMBLE
-		hq = new TeamHeadquarters(null, 0, 0, 0, 0, 0);
+		hq = new Headquarters(null, 0, 0, 0, 0, 0);
 		//ACT
 		boolean notExists = hq.exists();
 		//ASSERT

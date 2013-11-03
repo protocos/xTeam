@@ -7,7 +7,7 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
-import me.protocos.xteam.core.TeamHeadquarters;
+import me.protocos.xteam.core.Headquarters;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +26,7 @@ public class AdminSetHeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		TeamHeadquarters newHQ = new TeamHeadquarters(fakePlayerSender.getLocation());
+		Headquarters newHQ = new Headquarters(fakePlayerSender.getLocation());
 		ServerAdminCommand fakeCommand = new AdminSetHeadquarters();
 		//ACT 
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq two"));

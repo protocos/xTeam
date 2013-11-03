@@ -9,7 +9,7 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.InviteHandler;
-import me.protocos.xteam.core.TeamHeadquarters;
+import me.protocos.xteam.core.Headquarters;
 import me.protocos.xteam.core.exception.TeamHqSetRecentlyException;
 import me.protocos.xteam.core.exception.TeamPlayerDyingException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
@@ -31,7 +31,7 @@ public class SetHeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamHeadquarters newHQ = new TeamHeadquarters(fakePlayerSender.getLocation());
+		Headquarters newHQ = new Headquarters(fakePlayerSender.getLocation());
 		UserCommand fakeCommand = new UserSetHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq"));
@@ -45,7 +45,7 @@ public class SetHeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamHeadquarters oldHQ = xTeam.getTeamManager().getTeam("one").getHeadquarters();
+		Headquarters oldHQ = xTeam.getTeamManager().getTeam("one").getHeadquarters();
 		fakePlayerSender.setNoDamageTicks(1);
 		UserCommand fakeCommand = new UserSetHeadquarters();
 		//ACT
@@ -60,7 +60,7 @@ public class SetHeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		TeamHeadquarters oldHQ = xTeam.getTeamManager().getTeam("one").getHeadquarters();
+		Headquarters oldHQ = xTeam.getTeamManager().getTeam("one").getHeadquarters();
 		UserCommand fakeCommand = new UserSetHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq"));
@@ -74,7 +74,7 @@ public class SetHeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		TeamHeadquarters oldHQ = xTeam.getTeamManager().getTeam("one").getHeadquarters();
+		Headquarters oldHQ = xTeam.getTeamManager().getTeam("one").getHeadquarters();
 		UserCommand fakeCommand = new UserSetHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq"));
@@ -90,7 +90,7 @@ public class SetHeadquartersTest
 		Data.HQ_INTERVAL = 1;
 		xTeam.getTeamManager().getTeam("one").setTimeLastSet(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamHeadquarters oldHQ = xTeam.getTeamManager().getTeam("one").getHeadquarters();
+		Headquarters oldHQ = xTeam.getTeamManager().getTeam("one").getHeadquarters();
 		UserCommand fakeCommand = new UserSetHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq"));

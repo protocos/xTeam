@@ -23,7 +23,6 @@ public class UserHeadquarters extends UserCommand
 	{
 		TeleportScheduler teleporter = TeleportScheduler.getInstance();
 		teleporter.teleport(teamPlayer, teamPlayer.getTeam().getHeadquarters());
-		originalSender.sendMessage(ChatColor.GREEN + "WHOOSH!");
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException

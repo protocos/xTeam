@@ -85,7 +85,7 @@ public class TeamTest
 		//ASSEMBLE
 		World world = mock(World.class);
 		when(world.getName()).thenReturn("world");
-		TeamHeadquarters hq = new TeamHeadquarters(world, 1.0D, 1.0D, 1.0D, 1.0F, 1.0F);
+		Headquarters hq = new Headquarters(world, 1.0D, 1.0D, 1.0D, 1.0F, 1.0F);
 		//ACT
 		team.setHQ(hq);
 		boolean hasHQ = team.hasHeadquarters();

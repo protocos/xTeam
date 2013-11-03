@@ -8,6 +8,7 @@ import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.StringUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -107,20 +108,20 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	@Override
 	public int getRelativeX()
 	{
-		Location loc = getLocation();
-		return (int) Math.round(loc.getX());
+		Location loc = this.getLocation();
+		return CommonUtil.round(loc.getX());
 	}
 	@Override
 	public int getRelativeY()
 	{
-		Location loc = getLocation();
-		return (int) Math.round(loc.getY());
+		Location loc = this.getLocation();
+		return CommonUtil.round(loc.getY());
 	}
 	@Override
 	public int getRelativeZ()
 	{
-		Location loc = getLocation();
-		return (int) Math.round(loc.getZ());
+		Location loc = this.getLocation();
+		return CommonUtil.round(loc.getZ());
 	}
 	@Override
 	public Server getServer()
@@ -216,7 +217,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	@Override
 	public boolean teleportTo(ILocatable entity)
 	{
-		TeleportScheduler.getInstance().teleport(this, entity.getLocation());
+		TeleportScheduler.getInstance().teleport(this, entity);
 		return true;
 	}
 	@Override

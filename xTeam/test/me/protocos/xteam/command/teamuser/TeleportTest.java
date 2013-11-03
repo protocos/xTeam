@@ -9,6 +9,7 @@ import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.PlayerManager;
+import me.protocos.xteam.core.ReturnLocation;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.CommonUtil;
@@ -145,7 +146,7 @@ public class TeleportTest
 	{
 		//ASSEMBLE
 		TeamPlayer teamPlayer = CommonUtil.subTypeFromSuperType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
-		TeleportScheduler.getInstance().teleport(teamPlayer, new FakeLocation());
+		TeleportScheduler.getInstance().teleport(teamPlayer, new ReturnLocation(new FakeLocation()));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		UserCommand fakeCommand = new UserTeleport();

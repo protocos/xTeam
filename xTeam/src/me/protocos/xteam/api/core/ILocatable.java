@@ -8,6 +8,7 @@ import org.bukkit.entity.Entity;
 
 public interface ILocatable
 {
+	public abstract String getName();
 	public abstract Location getLocation();
 	public abstract World getWorld();
 	public abstract Server getServer();

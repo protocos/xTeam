@@ -82,7 +82,7 @@ public class Functions
 			// String pass = s[1];
 			World world = Data.BUKKIT.getWorld(s[2]);
 			long timeHeadquartersSet = Long.valueOf(s[3]).longValue();
-			TeamHeadquarters HQ = new TeamHeadquarters(world, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
+			Headquarters HQ = new Headquarters(world, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
 			ArrayList<String> players = new ArrayList<String>();
 			ArrayList<String> admins = new ArrayList<String>();
 			String leader = "";

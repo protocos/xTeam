@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamHeadquarters;
+import me.protocos.xteam.core.Headquarters;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.command.CommandSender;
@@ -24,7 +24,7 @@ public class AdminSetHeadquarters extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		changeTeam.setHQ(new TeamHeadquarters(teamPlayer.getLocation()));
+		changeTeam.setHQ(new Headquarters(teamPlayer.getLocation()));
 		originalSender.sendMessage("You set the team headquarters for team " + teamName);
 	}
 	@Override

@@ -9,6 +9,7 @@ import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class ConsoleDebug extends ConsoleCommand
 {
@@ -30,6 +31,15 @@ public class ConsoleDebug extends ConsoleCommand
 			originalSender.sendMessage("Spies: " + Data.spies.toString());
 		else if (subCommand.equalsIgnoreCase("created"))
 			originalSender.sendMessage("Last created: " + Data.lastCreated.toString());
+		else if (subCommand.equalsIgnoreCase("resetplayers"))
+		{
+			for (Player player : Data.BUKKIT.getOnlinePlayers())
+			{
+				player.setHealth(20);
+				player.setFoodLevel(20);
+			}
+			originalSender.sendMessage("All players health reset");
+		}
 		else if (subCommand.equalsIgnoreCase("email"))
 		{
 			try
@@ -43,7 +53,7 @@ public class ConsoleDebug extends ConsoleCommand
 			}
 		}
 		else
-			originalSender.sendMessage("Options are: debug [chat, invites, spies, return, tasks, tele, attacked, created, email]");
+			originalSender.sendMessage("Options are: debug [chat, invites, spies, created, resetplayers, email]");
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException

@@ -86,6 +86,11 @@ public class CommonUtil
 	{
 		System.out.println(Arrays.toString(shorts).substring(1, Arrays.toString(shorts).length() - 1).replaceAll(", ", "\n"));
 	}
+	public static int round(double d)
+	{
+		return (int) Math.round(d);
+	}
+
 	public static ArrayList<String> split(String string, String delimiter)
 	{
 		return toList(string.split(delimiter));

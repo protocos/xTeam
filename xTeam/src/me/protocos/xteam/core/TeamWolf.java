@@ -69,19 +69,19 @@ public class TeamWolf implements ITeamWolf
 	public int getRelativeX()
 	{
 		Location loc = getLocation();
-		return (int) Math.round(loc.getX());
+		return CommonUtil.round(loc.getX());
 	}
 	@Override
 	public int getRelativeY()
 	{
 		Location loc = getLocation();
-		return (int) Math.round(loc.getY());
+		return CommonUtil.round(loc.getY());
 	}
 	@Override
 	public int getRelativeZ()
 	{
 		Location loc = getLocation();
-		return (int) Math.round(loc.getZ());
+		return CommonUtil.round(loc.getZ());
 	}
 	@Override
 	public Server getServer()

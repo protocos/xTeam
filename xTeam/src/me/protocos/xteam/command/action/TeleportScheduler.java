@@ -3,6 +3,7 @@ package me.protocos.xteam.command.action;
 import java.util.HashMap;
 import java.util.List;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.PlayerManager;
@@ -51,6 +52,7 @@ public class TeleportScheduler
 	{
 		taskScheduler.cancelTask(currentTaskIDs.remove(teamPlayer));
 	}
+
 	public static TeleportScheduler getInstance()
 	{
 		if (teleporter == null)
@@ -72,7 +74,7 @@ public class TeleportScheduler
 		}
 	}
 
-	public void teleport(TeamPlayer teamPlayer, Location toLocation)
+	public void teleport(TeamPlayer teamPlayer, ILocatable toLocation)
 	{
 		if (teamPlayer.isVulnerable())
 		{
@@ -83,30 +85,19 @@ public class TeleportScheduler
 		}
 	}
 
-	private void delayTeleportTo(final TeamPlayer fromPlayer, final TeamPlayer toEntity)
-	{
-		delayTeleportTo(fromPlayer, toEntity.getLocation());
-	}
-
-	private void delayTeleportTo(final TeamPlayer teamPlayer, final Location toLocation)
+	private void delayTeleportTo(final TeamPlayer teamPlayer, final ILocatable toLocatable)
 	{
 		countWaitTime.put(teamPlayer, 0);
 		final Location currentLocation = teamPlayer.getLocation();
 		teamPlayer.sendMessage(ChatColor.RED + "You cannot teleport with enemies nearby");
 		teamPlayer.sendMessage(ChatColor.RED + "You must wait " + Data.TELE_DELAY + " seconds");
-		Runnable teleportWait = new TeleportWait(teamPlayer, toLocation, currentLocation);
+		Runnable teleportWait = new TeleportWait(teamPlayer, toLocatable, currentLocation);
 		setCurrentTask(teamPlayer, taskScheduler.scheduleSyncRepeatingTask(xTeam.getSelf(), teleportWait, CommonUtil.LONG_ZERO, 2L));
 	}
 
-	private void teleportTo(final TeamPlayer fromEntity, final TeamPlayer toEntity)
+	private void teleportTo(final TeamPlayer teamPlayer, final ILocatable toLocatable)
 	{
-		teleportTo(fromEntity, toEntity.getLocation());
-		fromEntity.sendMessage("You've been teleported to " + ChatColor.GREEN + toEntity.getName());
-	}
-
-	private void teleportTo(final TeamPlayer teamPlayer, final Location location)
-	{
-		if (location.equals(teamPlayer.getReturnLocation()))
+		if (toLocatable.getLocation().equals(teamPlayer.getReturnLocation()))
 		{
 			teamPlayer.removeReturnLocation();
 		}
@@ -117,7 +108,8 @@ public class TeleportScheduler
 			taskScheduler.scheduleSyncDelayedTask(xTeam.getSelf(), teleRefreshMessage, Data.TELE_REFRESH_DELAY * BukkitUtil.ONE_SECOND_IN_TICKS);
 			teamPlayer.setLastTeleported(System.currentTimeMillis());
 		}
-		teamPlayer.teleport(location);
+		teamPlayer.teleport(toLocatable.getLocation());
+		teamPlayer.sendMessage("You've been teleported to " + ChatColor.GREEN + toLocatable.getName());
 	}
 
 	private boolean hasNearbyEnemies(TeamPlayer entity)
@@ -196,14 +188,14 @@ public class TeleportScheduler
 	class TeleportWait implements Runnable
 	{
 		private TeamPlayer fromEntity;
-		private Location toLocation;
+		private ILocatable toLocatable;
 		private Location previousLocation;
 
-		public TeleportWait(TeamPlayer fromEntity, Location toLocation, Location currentLocation)
+		public TeleportWait(TeamPlayer fromEntity, ILocatable toLocatable, Location previousLocation)
 		{
 			this.fromEntity = fromEntity;
-			this.toLocation = toLocation;
-			this.previousLocation = currentLocation;
+			this.toLocatable = toLocatable;
+			this.previousLocation = previousLocation;
 		}
 
 		@Override
@@ -227,7 +219,7 @@ public class TeleportScheduler
 				int temp = countWaitTime.remove(fromEntity);
 				if (temp == Data.TELE_DELAY * 10)
 				{
-					teleportTo(fromEntity, toLocation);
+					teleportTo(fromEntity, toLocatable);
 					removeCurrentTask(fromEntity);
 				}
 				temp++;
