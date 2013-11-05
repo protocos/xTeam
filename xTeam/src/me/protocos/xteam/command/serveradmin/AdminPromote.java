@@ -31,6 +31,7 @@ public class AdminPromote extends ServerAdminCommand
 		ITeamPlayer other = PlayerManager.getPlayer(playerName);
 		other.sendMessage("You've been " + ChatColor.GREEN + "promoted" + ChatColor.RESET + " by an admin");
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -44,16 +45,19 @@ public class AdminPromote extends ServerAdminCommand
 		Requirements.checkPlayerHasTeam(playerPromote);
 		Requirements.checkPlayerOnTeam(playerPromote, changeTeam);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("promote") + WHITE_SPACE + ANY_CHARS + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.serveradmin.core.promote";
 	}
+
 	@Override
 	public String getUsage()
 	{

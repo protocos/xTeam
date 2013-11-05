@@ -14,6 +14,7 @@ public class HelpPagesTest
 	{
 		help = new HelpPages();
 	}
+
 	@Test
 	public void ShouldBeAddLine()
 	{
@@ -21,9 +22,10 @@ public class HelpPagesTest
 		//ACT
 		help.addLine("info item 1");
 		//ASSERT
-		Assert.assertEquals("info item 1", help.get(0));
-		Assert.assertEquals(1, help.size());
+		Assert.assertEquals("info item 1", help.getLine(0));
+		Assert.assertEquals(1, help.getNumLines());
 	}
+
 	@Test
 	public void ShouldBeGetBlankLinesOnPage1()
 	{
@@ -44,6 +46,7 @@ public class HelpPagesTest
 		//ASSERT
 		Assert.assertEquals(0, help.getNumBlankLines(0));
 	}
+
 	@Test
 	public void ShouldBeGetBlankLinesOnPage2()
 	{
@@ -64,6 +67,7 @@ public class HelpPagesTest
 		//ASSERT
 		Assert.assertEquals(6, help.getNumBlankLines(1));
 	}
+
 	@Test
 	public void ShouldBeGetBlankLinesOnPage3()
 	{
@@ -84,6 +88,7 @@ public class HelpPagesTest
 		//ASSERT
 		Assert.assertEquals(9, help.getNumBlankLines(2));
 	}
+
 	@Test
 	public void ShouldBeGetLinesPerPage()
 	{
@@ -92,6 +97,7 @@ public class HelpPagesTest
 		//ASSERT
 		Assert.assertEquals(10, help.getLinesPerPage());
 	}
+
 	@Test
 	public void ShouldBeGetPage1()
 	{
@@ -121,6 +127,7 @@ public class HelpPagesTest
 				"info item 8\n" +
 				"info item 9", help.getPage(0));
 	}
+
 	@Test
 	public void ShouldBeGetPage2()
 	{
@@ -150,6 +157,7 @@ public class HelpPagesTest
 				" \n" +
 				" ", help.getPage(1));
 	}
+
 	@Test
 	public void ShouldBeGetPageTotalPagesEquals0()
 	{
@@ -158,6 +166,7 @@ public class HelpPagesTest
 		//ASSERT
 		Assert.assertEquals(0, help.getTotalPages());
 	}
+
 	@Test
 	public void ShouldBeGetPageTotalPagesEquals1()
 	{
@@ -175,6 +184,7 @@ public class HelpPagesTest
 		//ASSERT
 		Assert.assertEquals(1, help.getTotalPages());
 	}
+
 	@Test
 	public void ShouldBeGetPageTotalPagesEquals2()
 	{
@@ -195,6 +205,7 @@ public class HelpPagesTest
 		//ASSERT
 		Assert.assertEquals(2, help.getTotalPages());
 	}
+
 	@Test
 	public void ShouldBeGetPageTotalPagesEquals3()
 	{
@@ -222,6 +233,7 @@ public class HelpPagesTest
 		//ASSERT
 		Assert.assertEquals(3, help.getTotalPages());
 	}
+
 	@Test
 	public void ShouldBeGetPageWithNoPages()
 	{
@@ -239,24 +251,7 @@ public class HelpPagesTest
 				" \n" +
 				" ", help.getPage(100));
 	}
-	@Test
-	public void ShouldBeGetSetLinesPerPage()
-	{
-		//ASSEMBLE
-		//ACT
-		help.setLinesPerPage(20);
-		//ASSERT
-		Assert.assertEquals(20, help.getLinesPerPage());
-	}
-	@Test
-	public void ShouldBeGetSetTitle()
-	{
-		//ASSEMBLE
-		//ACT
-		help.setTitle("New Title");
-		//ASSERT
-		Assert.assertEquals("New Title", help.getTitle());
-	}
+
 	@Test
 	public void ShouldBeGetTitle()
 	{
@@ -265,6 +260,7 @@ public class HelpPagesTest
 		//ASSERT
 		Assert.assertEquals("Title", help.getTitle());
 	}
+
 	@Test
 	public void ShouldBeRemoveLine()
 	{
@@ -274,9 +270,10 @@ public class HelpPagesTest
 		//ACT
 		help.removeLine(0);
 		//ASSERT
-		Assert.assertEquals("info item 2", help.get(0));
-		Assert.assertEquals(1, help.size());
+		Assert.assertEquals("info item 2", help.getLine(0));
+		Assert.assertEquals(1, help.getNumLines());
 	}
+
 	@After
 	public void takedown()
 	{

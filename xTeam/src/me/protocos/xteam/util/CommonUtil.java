@@ -18,74 +18,92 @@ public class CommonUtil
 	{
 		System.out.println(Arrays.toString(booleans));
 	}
+
 	public static void print(byte... bytes)
 	{
 		System.out.println(Arrays.toString(bytes));
 	}
+
 	public static void print(char... characters)
 	{
 		System.out.println(Arrays.toString(characters));
 	}
+
 	public static void print(double... doubles)
 	{
 		System.out.println(Arrays.toString(doubles));
 	}
+
 	public static void print(float... floats)
 	{
 		System.out.println(Arrays.toString(floats));
 	}
+
 	public static void print(int... integers)
 	{
 		System.out.println(Arrays.toString(integers));
 	}
+
 	public static void print(long... longs)
 	{
 		System.out.println(Arrays.toString(longs));
 	}
+
 	public static void print(Object... objects)
 	{
 		System.out.println(Arrays.toString(objects));
 	}
+
 	public static void print(short... shorts)
 	{
 		System.out.println(Arrays.toString(shorts));
 	}
+
 	public static void println(boolean... booleans)
 	{
 		System.out.println(Arrays.toString(booleans).substring(1, Arrays.toString(booleans).length() - 1).replaceAll(", ", "\n"));
 	}
+
 	public static void println(byte... bytes)
 	{
 		System.out.println(Arrays.toString(bytes).substring(1, Arrays.toString(bytes).length() - 1).replaceAll(", ", "\n"));
 	}
+
 	public static void println(char... characters)
 	{
 		System.out.println(Arrays.toString(characters).substring(1, Arrays.toString(characters).length() - 1).replaceAll(", ", "\n"));
 	}
+
 	public static void println(double... doubles)
 	{
 		System.out.println(Arrays.toString(doubles).substring(1, Arrays.toString(doubles).length() - 1).replaceAll(", ", "\n"));
 	}
+
 	public static void println(float... floats)
 	{
 		System.out.println(Arrays.toString(floats).substring(1, Arrays.toString(floats).length() - 1).replaceAll(", ", "\n"));
 	}
+
 	public static void println(int... integers)
 	{
 		System.out.println(Arrays.toString(integers).substring(1, Arrays.toString(integers).length() - 1).replaceAll(", ", "\n"));
 	}
+
 	public static void println(long... longs)
 	{
 		System.out.println(Arrays.toString(longs).substring(1, Arrays.toString(longs).length() - 1).replaceAll(", ", "\n"));
 	}
+
 	public static void println(Object... objects)
 	{
 		System.out.println(Arrays.toString(objects).substring(1, Arrays.toString(objects).length() - 1).replaceAll(", ", "\n"));
 	}
+
 	public static void println(short... shorts)
 	{
 		System.out.println(Arrays.toString(shorts).substring(1, Arrays.toString(shorts).length() - 1).replaceAll(", ", "\n"));
 	}
+
 	public static int round(double d)
 	{
 		return (int) Math.round(d);
@@ -95,6 +113,7 @@ public class CommonUtil
 	{
 		return toList(string.split(delimiter));
 	}
+
 	public static ArrayList<Boolean> toList(boolean... booleans)
 	{
 		ArrayList<Boolean> list = new ArrayList<Boolean>(booleans.length);
@@ -102,6 +121,7 @@ public class CommonUtil
 			list.add(b);
 		return list;
 	}
+
 	public static ArrayList<Byte> toList(byte... bytes)
 	{
 		ArrayList<Byte> list = new ArrayList<Byte>(bytes.length);
@@ -109,6 +129,7 @@ public class CommonUtil
 			list.add(b);
 		return list;
 	}
+
 	public static ArrayList<Character> toList(char... characters)
 	{
 		ArrayList<Character> list = new ArrayList<Character>(characters.length);
@@ -116,6 +137,7 @@ public class CommonUtil
 			list.add(c);
 		return list;
 	}
+
 	public static ArrayList<Double> toList(double... doubles)
 	{
 		ArrayList<Double> list = new ArrayList<Double>(doubles.length);
@@ -123,6 +145,7 @@ public class CommonUtil
 			list.add(d);
 		return list;
 	}
+
 	public static ArrayList<Float> toList(float... floats)
 	{
 		ArrayList<Float> list = new ArrayList<Float>(floats.length);
@@ -130,6 +153,7 @@ public class CommonUtil
 			list.add(f);
 		return list;
 	}
+
 	public static ArrayList<Integer> toList(int... integers)
 	{
 		ArrayList<Integer> list = new ArrayList<Integer>(integers.length);
@@ -137,6 +161,7 @@ public class CommonUtil
 			list.add(i);
 		return list;
 	}
+
 	public static ArrayList<Long> toList(long... longs)
 	{
 		ArrayList<Long> list = new ArrayList<Long>(longs.length);
@@ -144,10 +169,12 @@ public class CommonUtil
 			list.add(l);
 		return list;
 	}
+
 	public static ArrayList<Object> toList(Object... objects)
 	{
 		return new ArrayList<Object>(Arrays.asList(objects));
 	}
+
 	public static ArrayList<Short> toList(short... shorts)
 	{
 		ArrayList<Short> list = new ArrayList<Short>(shorts.length);
@@ -155,12 +182,14 @@ public class CommonUtil
 			list.add(s);
 		return list;
 	}
+
 	public static ArrayList<String> toList(String... strings)
 	{
 		if (strings.length == 1 && strings[0].equals(""))
 			return new ArrayList<String>();
 		return new ArrayList<String>(Arrays.asList(strings));
 	}
+
 	public static String stringHex(String str)
 	{
 		char[] chars = str.toCharArray();
@@ -171,6 +200,7 @@ public class CommonUtil
 		}
 		return hex.toString();
 	}
+
 	public static String hexString(String hex)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -185,18 +215,27 @@ public class CommonUtil
 
 		return sb.toString();
 	}
+
 	public static long getElapsedTimeSince(long time)
 	{
 		return (System.currentTimeMillis() - time) / 1000;
 	}
+
 	public static <T> List<T> emptyList()
 	{
 		return new ArrayList<T>();
 	}
+
+	public static <T> List<T> emptyList(int size)
+	{
+		return new ArrayList<T>(size);
+	}
+
 	public static <K, V> HashMap<K, V> emptyHashMap()
 	{
 		return new HashMap<K, V>();
 	}
+
 	@SuppressWarnings("unchecked")
 	public static <SubType, SuperType> List<SubType> subListOfType(List<SuperType> list, Class<SubType> subType)
 	{
@@ -209,6 +248,7 @@ public class CommonUtil
 		}
 		return returnList;
 	}
+
 	@SuppressWarnings("unchecked")
 	public static <SubType, SuperType> SubType assignFromType(SuperType instance, Class<SubType> subType) throws IncompatibleClassChangeError
 	{

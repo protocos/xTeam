@@ -26,6 +26,28 @@ public class PlayerManager
 		returnLocationMap.clear();
 	}
 
+	public static List<TeamPlayer> getOnlinePlayers()
+	{
+		Player[] players = Data.BUKKIT.getOnlinePlayers();
+		List<TeamPlayer> onlinePlayers = CommonUtil.emptyList(players.length);
+		for (Player player : players)
+		{
+			onlinePlayers.add(getPlayer(player));
+		}
+		return onlinePlayers;
+	}
+
+	public static List<OfflineTeamPlayer> getOfflinePlayers()
+	{
+		OfflinePlayer[] players = Data.BUKKIT.getOfflinePlayers();
+		List<OfflineTeamPlayer> offlinePlayers = CommonUtil.emptyList(players.length);
+		for (OfflinePlayer player : players)
+		{
+			offlinePlayers.add(getPlayer(player));
+		}
+		return offlinePlayers;
+	}
+
 	public static TeamPlayer getPlayer(Player player)
 	{
 		if (player != null)
@@ -141,12 +163,14 @@ public class PlayerManager
 		}
 		return returnPlayer;
 	}
+
 	public static Long getLastAttacked(String playerName)
 	{
 		if (!lastAttackedMap.containsKey(playerName))
 			lastAttackedMap.put(playerName, 0L);
 		return lastAttackedMap.get(playerName);
 	}
+
 	public static Long getLastTeleported(String playerName)
 	{
 		if (!lastTeleportedMap.containsKey(playerName))

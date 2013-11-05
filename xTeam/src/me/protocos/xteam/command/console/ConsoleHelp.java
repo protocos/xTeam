@@ -36,21 +36,24 @@ public class ConsoleHelp extends ConsoleCommand
 		pages.addLine(xTeam.getCommandManager().getUsage("console_teleallhq") + " - teleports everyone to their Headquarters");
 		pages.addLine(xTeam.getCommandManager().getUsage("console_reload") + " - reloads the configuration file");
 		originalSender.sendMessage(pages.getTitle());
-		for (int index = 0; index < pages.size(); index++)
+		for (int index = 0; index < pages.getNumLines(); index++)
 		{
-			originalSender.sendMessage(pages.get(index));
+			originalSender.sendMessage(pages.getLine(index));
 		}
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "(" + patternOneOrMore("help") + "|\\?+)?" + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getUsage()
 	{

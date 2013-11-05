@@ -3,13 +3,10 @@ package me.protocos.xteam.command.console;
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.PlayerManager;
-import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class ConsoleTeleAllHQ extends ConsoleCommand
 {
@@ -21,39 +18,37 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Player[] players = Data.BUKKIT.getOnlinePlayers();
-		for (Player p : players)
+		for (TeamPlayer player : PlayerManager.getOnlinePlayers())
 		{
-			TeamPlayer player = PlayerManager.getPlayer(p);
-			Team team = player.getTeam();
+			if (!player.hasTeam())
 			{
-				if (team == null)
-				{
-					originalSender.sendMessage(player.getName() + " does not have a team and was not teleported");
-				}
-				else if (!team.hasHeadquarters())
-				{
-					originalSender.sendMessage("No team headquarters set for team " + team.getName() + " for " + p.getName());
-				}
-				else
-				{
-					player.teleport(team.getHeadquarters());
-					player.sendMessage("You have been teleported to the team headquarters by an admin");
-				}
+				originalSender.sendMessage(player.getName() + " does not have a team and was not teleported");
+			}
+			else if (player.getTeam().hasHeadquarters())
+			{
+				originalSender.sendMessage("No team headquarters set for team " + player.getTeam().getName() + " for " + player.getName());
+			}
+			else
+			{
+				player.teleport(player.getTeam().getHeadquarters());
+				player.sendMessage("You have been teleported to the team headquarters by an admin");
 			}
 		}
 		originalSender.sendMessage("Players teleported");
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("teleallhq") + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getUsage()
 	{

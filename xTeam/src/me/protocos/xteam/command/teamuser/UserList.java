@@ -26,21 +26,25 @@ public class UserList extends UserCommand
 		else
 			originalSender.sendMessage(message);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("list") + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.player.core.list";
 	}
+
 	@Override
 	public String getUsage()
 	{

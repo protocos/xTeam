@@ -18,6 +18,10 @@ import org.bukkit.command.CommandSender;
 
 public class Requirements
 {
+	private Requirements()
+	{
+	}
+
 	public static void checkPlayerHasPermission(CommandSender originalSender, String permissionNode) throws TeamPlayerPermissionException
 	{
 		if (!PermissionUtil.hasPermission(originalSender, permissionNode))
