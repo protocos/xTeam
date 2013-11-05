@@ -12,10 +12,7 @@ import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.MessageUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Server;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 
 public class Team implements ITeam
@@ -461,30 +458,54 @@ public class Team implements ITeam
 		Team team = new Team.Builder(teamName).players(players).admins(admins).leader(player).build();
 		return team;
 	}
-	//	@Override
-	//	public String quickInfo()
-	//	{
-	//		String returnString = "";
-	//		List<TeamPlayer> onlineMates = getOnlineTeammates();
-	//		if (onlineMates.size() > 0)
-	//		{
-	//			if (onlineMates.size() > 0)
-	//				returnString += "Teammates online:";
-	//			for (TeamPlayer player : onlineMates)
-	//			{
-	//				returnString += "\n    " + player.quickInfo();
-	//			}
-	//		}
-	//		List<OfflineTeamPlayer> offlineMates = getOfflineTeammates();
-	//		if (offlineMates.size() > 0)
-	//		{
-	//			if (offlineMates.size() > 0)
-	//				returnString += "\nTeammates offline:";
-	//			for (OfflineTeamPlayer player : offlineMates)
-	//			{
-	//				returnString += "\n    " + player.quickInfo();
-	//			}
-	//		}
-	//		return returnString;
-	//	}
+	@Override
+	public String getPublicInfo()
+	{
+		return getInfo(true);
+	}
+	@Override
+	public String getPrivateInfo()
+	{
+		return getInfo(false);
+	}
+	private String getInfo(boolean usePublicData)
+	{
+		String message = (ChatColor.RESET + "Team Name - " + ChatColor.GREEN + this.getName());
+		if (!this.getTag().equals(this.getName()))
+			message += "\n" + (ChatColor.RESET + "Team Tag - " + ChatColor.GREEN + this.getTag());
+		if (this.hasLeader())
+			message += "\n" + (ChatColor.RESET + "Team Leader - " + ChatColor.GREEN + this.getLeader());
+		if (this.getAdmins().size() > 1)
+			message += "\n" + (ChatColor.RESET + "Team Admins - " + ChatColor.GREEN + this.getAdmins().toString().replaceAll("\\[|\\]" + (this.hasLeader() ? "|" + this.getLeader() + ", " : ""), ""));
+		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (ChatColor.GREEN + "Open") : (ChatColor.RED + "Closed")));
+		if (usePublicData)
+			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (ChatColor.GREEN + "Set") : (ChatColor.RED + "None set")));
+		else
+			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (ChatColor.GREEN + "X:" + this.getHeadquarters().getRelativeX() + " Y:" + this.getHeadquarters().getRelativeY() + " Z:" + this.getHeadquarters().getRelativeZ()) : (ChatColor.RED + "None set")));
+		List<TeamPlayer> onlineTeammates = this.getOnlineTeammates();
+		if (onlineTeammates.size() > 0)
+		{
+			message += "\n" + (ChatColor.RESET + "Teammates online:");
+			for (TeamPlayer p : onlineTeammates)
+			{
+				if (usePublicData)
+					message += "\n" + p.getPublicInfo();
+				else
+					message += "\n" + p.getPrivateInfo();
+			}
+		}
+		List<OfflineTeamPlayer> offlineTeammates = this.getOfflineTeammates();
+		if (offlineTeammates.size() > 0)
+		{
+			message += "\n" + (ChatColor.RESET + "Teammates offline:");
+			for (OfflineTeamPlayer p : offlineTeammates)
+			{
+				if (usePublicData)
+					message += "\n" + p.getPublicInfo();
+				else
+					message += "\n" + p.getPrivateInfo();
+			}
+		}
+		return message;
+	}
 }

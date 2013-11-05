@@ -128,17 +128,19 @@ public class PlayerManager
 
 	private static ITeamPlayer playerWithValues(String playerName)
 	{
-		ITeamPlayer returnPlayer = getPlayer(playerName);
+		ITeamPlayer returnPlayer = null;
+		if (Data.BUKKIT.getPlayer(playerName) != null)
+			returnPlayer = getPlayer(Data.BUKKIT.getPlayer(playerName));
+		else if (Data.BUKKIT.getOfflinePlayer(playerName) != null)
+			returnPlayer = getPlayer(Data.BUKKIT.getOfflinePlayer(playerName));
 		if (returnPlayer != null)
 		{
 			returnPlayer.setLastAttacked(getLastAttacked(playerName));
 			returnPlayer.setLastTeleported(getLastTeleported(playerName));
 			returnPlayer.setReturnLocation(getReturnLocation(playerName));
-			return returnPlayer;
 		}
-		return null;
+		return returnPlayer;
 	}
-
 	public static Long getLastAttacked(String playerName)
 	{
 		if (!lastAttackedMap.containsKey(playerName))

@@ -361,4 +361,14 @@ public class TeamWolf implements ITeamWolf
 	{
 		return PlayerManager.getOnlineTeammatesOf(this);
 	}
+	@Override
+	public String getPublicInfo()
+	{
+		return "Someone else's wolfie";
+	}
+	@Override
+	public String getPrivateInfo()
+	{
+		return this.getOwner() + "'s wolfie";
+	}
 }

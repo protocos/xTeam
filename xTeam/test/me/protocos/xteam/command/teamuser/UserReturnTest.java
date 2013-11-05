@@ -18,7 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ReturnTest
+public class UserReturnTest
 {
 	@Before
 	public void setup()

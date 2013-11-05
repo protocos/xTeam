@@ -8,6 +8,7 @@ import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.StringUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 
@@ -213,5 +214,15 @@ public class OfflineTeamPlayer implements ITeamPlayer
 
 		ITeamPlayer rhs = (ITeamPlayer) obj;
 		return new EqualsBuilder().append(this.getName(), rhs.getName()).isEquals();
+	}
+	@Override
+	public String getPublicInfo()
+	{
+		return ChatColor.RED + "    " + this.getName();
+	}
+	@Override
+	public String getPrivateInfo()
+	{
+		return ChatColor.RED + "    " + this.getName() + " was last online on " + this.getLastPlayed();
 	}
 }

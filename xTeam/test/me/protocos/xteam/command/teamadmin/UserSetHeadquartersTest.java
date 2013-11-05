@@ -18,7 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SetHeadquartersTest
+public class UserSetHeadquartersTest
 {
 	@Before
 	public void setup()

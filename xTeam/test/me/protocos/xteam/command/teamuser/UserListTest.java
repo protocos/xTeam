@@ -11,7 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ListTest
+public class UserListTest
 {
 	@Before
 	public void setup()

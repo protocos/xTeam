@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SetLeaderTest
+public class UserSetLeaderTest
 {
 	@Before
 	public void setup()

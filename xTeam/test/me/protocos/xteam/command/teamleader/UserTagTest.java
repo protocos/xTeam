@@ -13,7 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TagTest
+public class UserTagTest
 {
 	@Before
 	public void setup()

@@ -14,7 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PromoteTest
+public class UserPromoteTest
 {
 	@Before
 	public void setup()

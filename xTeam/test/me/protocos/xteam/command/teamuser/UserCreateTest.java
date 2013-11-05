@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CreateTest
+public class UserCreateTest
 {
 	@Before
 	public void setup()

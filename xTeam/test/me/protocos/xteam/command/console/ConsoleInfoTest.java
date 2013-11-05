@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.core.exception.TeamDoesNotExistException;
+import me.protocos.xteam.core.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.junit.After;
 import org.junit.Before;
@@ -31,21 +31,14 @@ public class ConsoleInfoTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info protocos"));
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE" +
-				"Team Tag - TeamAwesome" +
-				"Team Leader - kmlanglois" +
-				"Team Joining - Closed" +
-				"Team Headquarters - X:170 Y:65 Z:209" +
-				"Teammates online:" +
-				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"" +
-				"    protocos Health: 100% Location: 0 64 0 in \"world\"",
-				fakeConsoleSender.getMessage(0) +
-						fakeConsoleSender.getMessage(1) +
-						fakeConsoleSender.getMessage(2) +
-						fakeConsoleSender.getMessage(3) +
-						fakeConsoleSender.getMessage(4) +
-						fakeConsoleSender.getMessage(5) +
-						fakeConsoleSender.getMessage(6) +
-						fakeConsoleSender.getMessage(7));
+				"\nTeam Tag - TeamAwesome" +
+				"\nTeam Leader - kmlanglois" +
+				"\nTeam Joining - Closed" +
+				"\nTeam Headquarters - X:170 Y:65 Z:209" +
+				"\nTeammates online:" +
+				"\n    kmlanglois Health: 100% Location: 0 64 0 in \"world\"" +
+				"\n    protocos Health: 100% Location: 0 64 0 in \"world\"",
+				fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -57,17 +50,12 @@ public class ConsoleInfoTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info two"));
 		//ASSERT
 		Assert.assertEquals("Team Name - two" +
-				"Team Leader - mastermind" +
-				"Team Joining - Closed" +
-				"Team Headquarters - none set" +
-				"Teammates online:" +
-				"    mastermind Health: 100% Location: 0 64 0 in \"world\"",
-				fakeConsoleSender.getMessage(0) +
-						fakeConsoleSender.getMessage(1) +
-						fakeConsoleSender.getMessage(2) +
-						fakeConsoleSender.getMessage(3) +
-						fakeConsoleSender.getMessage(4) +
-						fakeConsoleSender.getMessage(5));
+				"\nTeam Leader - mastermind" +
+				"\nTeam Joining - Closed" +
+				"\nTeam Headquarters - None set" +
+				"\nTeammates online:" +
+				"\n    mastermind Health: 100% Location: 0 64 0 in \"world\"",
+				fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -87,9 +75,9 @@ public class ConsoleInfoTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info three"));
+		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info truck"));
 		//ASSERT
-		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamOrPlayerDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

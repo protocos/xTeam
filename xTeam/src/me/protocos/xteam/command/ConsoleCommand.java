@@ -8,6 +8,8 @@ import org.bukkit.command.ConsoleCommandSender;
 
 public abstract class ConsoleCommand extends BaseCommand
 {
+	protected ConsoleCommandSender sender;
+
 	public ConsoleCommand()
 	{
 		super();
@@ -16,6 +18,7 @@ public abstract class ConsoleCommand extends BaseCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
+		sender = CommonUtil.assignFromType(originalSender, ConsoleCommandSender.class);
 		CommonUtil.assignFromType(originalSender, ConsoleCommandSender.class);
 		Requirements.checkPlayerCommandIsValid(parseCommand, getPattern());
 	}

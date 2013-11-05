@@ -17,4 +17,6 @@ public interface ITeamEntity
 	public abstract List<TeamPlayer> getOnlineTeammates();
 	public abstract List<ITeamPlayer> getTeammates();
 	public abstract boolean sendMessage(String message);
+	public abstract String getPublicInfo();
+	public abstract String getPrivateInfo();
 }

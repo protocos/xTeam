@@ -13,10 +13,7 @@ import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.StringUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.bukkit.EntityEffect;
-import org.bukkit.Location;
-import org.bukkit.Server;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -463,6 +460,21 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 		return player.getNoDamageTicks() > 0;
 	}
 
+	@Override
+	public String getPublicInfo()
+	{
+		return ChatColor.GREEN + "    " + this.getName();
+	}
+
+	@Override
+	public String getPrivateInfo()
+	{
+		String location = "";
+		int health = (int) this.getHealth();
+		if (Data.DISPLAY_COORDINATES)
+			location += " Location: " + ChatColor.RED + this.getRelativeX() + " " + ChatColor.GREEN + this.getRelativeY() + " " + ChatColor.BLUE + this.getRelativeZ() + ChatColor.RESET + " in \"" + this.getWorld().getName() + "\"";
+		return ChatColor.GREEN + "    " + this.getName() + " Health: " + (health >= 15 ? ChatColor.GREEN : ChatColor.RED) + health * 5 + "%" + ChatColor.RESET + location;
+	}
 	//	@Override
 	//	public String quickInfo()
 	//	{

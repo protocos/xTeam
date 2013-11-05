@@ -12,7 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ChatTest
+public class UserChatTest
 {
 	@Before
 	public void setup()

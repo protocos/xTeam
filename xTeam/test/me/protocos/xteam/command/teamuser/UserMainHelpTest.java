@@ -10,7 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MainHelpTest
+public class UserMainHelpTest
 {
 	@Before
 	public void setup()
