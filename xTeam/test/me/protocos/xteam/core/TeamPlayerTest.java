@@ -17,7 +17,7 @@ import org.junit.Test;
 
 public class TeamPlayerTest
 {
-	ITeamPlayer player;
+	TeamPlayer player;
 
 	@Before
 	public void setup()
@@ -63,7 +63,7 @@ public class TeamPlayerTest
 	{
 		//ASSEMBLE
 		World world = new FakeWorld();
-		TeamPlayer player = PlayerManager.getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		player = PlayerManager.getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
 		//ACT
 		Location location = player.getLocation();
 		//ASSERT
@@ -77,7 +77,7 @@ public class TeamPlayerTest
 	{
 		//ASSEMBLE
 		Server server = new FakeServer();
-		TeamPlayer player = PlayerManager.getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0), server));
+		player = PlayerManager.getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0), server));
 		//ACT
 		//ASSERT
 		Assert.assertEquals(server, player.getServer());
@@ -111,7 +111,7 @@ public class TeamPlayerTest
 	{
 		//ASSEMBLE
 		World world = new FakeWorld();
-		TeamPlayer player = PlayerManager.getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		player = PlayerManager.getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
 		//ACT
 		//ASSERT
 		Assert.assertEquals(world, player.getWorld());
@@ -130,9 +130,9 @@ public class TeamPlayerTest
 	public void ShouldBeHasPlayedBefore()
 	{
 		//ASSEMBLE
-		player = PlayerManager.getPlayer(new FakeOfflinePlayer("protocos", true, true, true));
+		ITeamPlayer p = PlayerManager.getPlayer(new FakeOfflinePlayer("protocos", true, true, true));
 		//ACT
-		boolean hasPlayedbefore = player.hasPlayedBefore();
+		boolean hasPlayedbefore = p.hasPlayedBefore();
 		//ASSERT
 		Assert.assertTrue(hasPlayedbefore);
 	}
@@ -301,7 +301,7 @@ public class TeamPlayerTest
 	{
 		//ASSEMBLE
 		Location location = new FakeLocation(new FakeWorld(), 64.4, 64.6, 64.4);
-		TeamPlayer player = PlayerManager.getPlayer(new FakePlayer("protocos", true, true, 20, location));
+		player = PlayerManager.getPlayer(new FakePlayer("protocos", true, true, 20, location));
 		//ACT
 		double relativeX = player.getRelativeX(), relativeY = player.getRelativeY(), relativeZ = player.getRelativeZ();
 		//ASSERT
@@ -338,7 +338,7 @@ public class TeamPlayerTest
 		//ASSEMBLE
 		World world = new FakeWorld();
 		Location location = new FakeLocation(world, 0, 64, 0);
-		TeamPlayer player = PlayerManager.getPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 1, 64, 1)));
+		player = PlayerManager.getPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 1, 64, 1)));
 		//ACT
 		boolean teleport = player.teleport(location);
 		//ASSERT

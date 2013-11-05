@@ -20,7 +20,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 public class TeamPlayerListener implements Listener
 {
 	@EventHandler
-	public void onPlayerJoin(PlayerTeleportEvent event)
+	public void onPlayerJoin(@SuppressWarnings("unused") PlayerTeleportEvent event)
 	{
 		//TODO maybe use this for updateing in the PLayerManager?
 	}
