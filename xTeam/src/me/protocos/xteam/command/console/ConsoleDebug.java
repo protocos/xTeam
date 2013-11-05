@@ -1,7 +1,6 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -56,7 +55,7 @@ public class ConsoleDebug extends ConsoleCommand
 			originalSender.sendMessage("Options are: debug [chat, invites, spies, created, resetplayers, email]");
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		if (parseCommand.size() == 1)

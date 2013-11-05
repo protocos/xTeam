@@ -1,12 +1,11 @@
 package me.protocos.xteam.command.teamadmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Headquarters;
-import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.command.CommandSender;
 
 public class UserSetHeadquarters extends UserCommand
@@ -24,25 +23,13 @@ public class UserSetHeadquarters extends UserCommand
 		originalSender.sendMessage("You set the team headquarters");
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
-		if (!teamPlayer.hasTeam())
-		{
-			throw new TeamPlayerHasNoTeamException();
-		}
-		if (!teamPlayer.isAdmin())
-		{
-			throw new TeamPlayerNotAdminException();
-		}
-		if (teamPlayer.isDamaged())
-		{
-			throw new TeamPlayerDyingException();
-		}
-		if (System.currentTimeMillis() - team.getTimeLastSet() < Data.HQ_INTERVAL * 60 * 60 * 1000)
-		{
-			throw new TeamHqSetRecentlyException();
-		}
+		Requirements.checkPlayerHasTeam(teamPlayer);
+		Requirements.checkPlayerIsTeamAdmin(teamPlayer);
+		Requirements.checkPlayerNotDamaged(teamPlayer);
+		Requirements.checkTeamHeadquartersRecentlySet(team);
 	}
 	@Override
 	public String getPattern()

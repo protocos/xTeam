@@ -1,7 +1,6 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -31,14 +30,14 @@ public class ConsoleRename extends ConsoleCommand
 		team.sendMessage("The team has been renamed to " + ChatColor.AQUA + desiredName);
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		desiredName = parseCommand.get(2);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkTeamAlreadyExists(desiredName);
-		Requirements.checkTeamAlphaNumericName(desiredName);
+		Requirements.checkTeamNameAlphaNumeric(desiredName);
 	}
 	@Override
 	public String getPattern()

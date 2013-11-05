@@ -1,7 +1,6 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
@@ -9,7 +8,7 @@ import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -33,7 +32,7 @@ public class ConsoleDemote extends ConsoleCommand
 			other.sendMessage("You've been " + ChatColor.RED + "demoted");
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
@@ -43,7 +42,7 @@ public class ConsoleDemote extends ConsoleCommand
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkPlayerHasPlayedBefore(player);
 		Requirements.checkPlayerHasTeam(player);
-		Requirements.checkPlayerIsAdmin(player);
+		Requirements.checkPlayerIsTeamAdmin(player);
 		Requirements.checkPlayerOnTeam(player, team);
 		Requirements.checkPlayerLeaderDemote(player);
 	}

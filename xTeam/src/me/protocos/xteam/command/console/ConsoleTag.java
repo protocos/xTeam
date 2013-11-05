@@ -1,7 +1,6 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -28,15 +27,15 @@ public class ConsoleTag extends ConsoleCommand
 		team.sendMessage("The team tag has been set to " + desiredTag + " by an admin");
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		desiredTag = parseCommand.get(2);
 		Team team = xTeam.getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);
-		Requirements.checkTeamNameAgainstTags(desiredTag, team);
-		Requirements.checkTeamAlphaNumericName(desiredTag);
+		Requirements.checkTeamNameAlreadyUsed(desiredTag, team);
+		Requirements.checkTeamNameAlphaNumeric(desiredTag);
 	}
 	@Override
 	public String getPattern()

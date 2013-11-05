@@ -1,16 +1,12 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamPlayerHasNoInviteException;
-import me.protocos.xteam.core.exception.TeamPlayerHasTeamException;
-import me.protocos.xteam.core.exception.TeamPlayerMaxException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -31,22 +27,13 @@ public class UserAccept extends UserCommand
 		originalSender.sendMessage("You joined " + ChatColor.AQUA + inviteTeam.getName());
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
-		if (teamPlayer.hasTeam())
-		{
-			throw new TeamPlayerHasTeamException();
-		}
-		if (!InviteHandler.hasInvite(teamPlayer.getName()))
-		{
-			throw new TeamPlayerHasNoInviteException();
-		}
+		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
+		Requirements.checkPlayerDoesNotHaveInvite(teamPlayer);
 		Team inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
-		if (inviteTeam.getPlayers().size() >= Data.MAX_PLAYERS && Data.MAX_PLAYERS > 0)
-		{
-			throw new TeamPlayerMaxException();
-		}
+		Requirements.checkTeamPlayerMax(inviteTeam.getName());
 	}
 	@Override
 	public String getPattern()

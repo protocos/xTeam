@@ -1,14 +1,12 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamInvalidPageException;
-import me.protocos.xteam.core.exception.TeamPlayerPermissionException;
 import me.protocos.xteam.util.HelpPages;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
@@ -32,7 +30,7 @@ public class UserHelp extends UserCommand
 		originalSender.sendMessage(pages.getPage(pageNum));
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		if (parseCommand.size() == 1 && parseCommand.get(0).matches("[0-9]+"))
@@ -104,14 +102,8 @@ public class UserHelp extends UserCommand
 			if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(temp = "leader_setleader")))
 				pages.addLine(ChatColor.LIGHT_PURPLE + xTeam.getCommandManager().getUsage(temp) + " - Set new leader for the team");
 		}
-		if (pages.getTotalPages() == 0)
-		{
-			throw new TeamPlayerPermissionException();
-		}
-		if (pageNum > pages.getTotalPages())
-		{
-			throw new TeamInvalidPageException();
-		}
+		Requirements.checkPlayerHasCommands(pages);
+		Requirements.checkPlayerCommandPageRange(pages, pageNum);
 	}
 	@Override
 	public String getPattern()

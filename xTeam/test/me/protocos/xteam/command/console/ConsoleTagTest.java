@@ -8,7 +8,7 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
-import me.protocos.xteam.core.exception.TeamNameConflictsWithTagException;
+import me.protocos.xteam.core.exception.TeamNameConflictsWithNameException;
 import me.protocos.xteam.core.exception.TeamNameNotAlphaException;
 import org.junit.After;
 import org.junit.Before;
@@ -45,7 +45,7 @@ public class ConsoleTagTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team tag two one"));
 		//ASSERT
-		Assert.assertEquals((new TeamNameConflictsWithTagException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamNameConflictsWithNameException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("TeamAwesome", xTeam.getTeamManager().getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}

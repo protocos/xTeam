@@ -1,12 +1,11 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -34,7 +33,7 @@ public class UserChat extends UserCommand
 		}
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		//FIX move this if statememt to the act method
@@ -49,10 +48,7 @@ public class UserChat extends UserCommand
 		{
 			option = parseCommand.get(1);
 		}
-		if (!teamPlayer.hasTeam())
-		{
-			throw new TeamPlayerHasNoTeamException();
-		}
+		Requirements.checkPlayerHasTeam(teamPlayer);
 	}
 	@Override
 	public String getPattern()

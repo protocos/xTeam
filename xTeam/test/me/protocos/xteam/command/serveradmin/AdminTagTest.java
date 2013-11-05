@@ -9,7 +9,7 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
-import me.protocos.xteam.core.exception.TeamNameConflictsWithTagException;
+import me.protocos.xteam.core.exception.TeamNameConflictsWithNameException;
 import me.protocos.xteam.core.exception.TeamNameNotAlphaException;
 import org.junit.After;
 import org.junit.Before;
@@ -45,7 +45,7 @@ public class AdminTagTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tag one two"));
 		//ASSERT
-		Assert.assertEquals((new TeamNameConflictsWithTagException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamNameConflictsWithNameException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("TeamAwesome", xTeam.getTeamManager().getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}

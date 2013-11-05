@@ -1,16 +1,15 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.*;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -47,7 +46,7 @@ public class UserInfo extends UserCommand
 		}
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		sender = (Player) originalSender;
@@ -66,10 +65,7 @@ public class UserInfo extends UserCommand
 		else if (isPlayer(other))
 		{
 			ITeamPlayer p = PlayerManager.getPlayer(other);
-			if (!p.hasTeam())
-			{
-				throw new TeamPlayerHasNoTeamException();
-			}
+			Requirements.checkPlayerHasTeam(p);
 		}
 		else
 		{

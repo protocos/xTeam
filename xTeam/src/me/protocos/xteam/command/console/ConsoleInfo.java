@@ -1,19 +1,18 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.OfflineTeamPlayer;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 
@@ -44,7 +43,7 @@ public class ConsoleInfo extends ConsoleCommand
 			otherTeamInfo(otherTeam);
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		sender = (ConsoleCommandSender) originalSender;
@@ -56,11 +55,7 @@ public class ConsoleInfo extends ConsoleCommand
 		else if (isPlayer(other))
 		{
 			ITeamPlayer p = PlayerManager.getPlayer(other);
-			Team t = p.getTeam();
-			if (t == null)
-			{
-				throw new TeamPlayerHasNoTeamException();
-			}
+			Requirements.checkPlayerHasTeam(p);
 		}
 		else
 		{

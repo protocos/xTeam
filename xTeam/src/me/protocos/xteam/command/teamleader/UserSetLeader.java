@@ -1,15 +1,12 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
-import me.protocos.xteam.core.exception.TeamPlayerNotLeaderException;
-import me.protocos.xteam.core.exception.TeamPlayerNotTeammateException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -33,22 +30,14 @@ public class UserSetLeader extends UserCommand
 				"\nYou can now leave the team");
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		otherPlayer = parseCommand.get(1);
-		if (!teamPlayer.hasTeam())
-		{
-			throw new TeamPlayerHasNoTeamException();
-		}
-		if (!teamPlayer.isLeader())
-		{
-			throw new TeamPlayerNotLeaderException();
-		}
-		if (!team.getPlayers().contains(otherPlayer))
-		{
-			throw new TeamPlayerNotTeammateException();
-		}
+		ITeamPlayer other = PlayerManager.getPlayer(otherPlayer);
+		Requirements.checkPlayerHasTeam(teamPlayer);
+		Requirements.checkPlayerIsTeamLeader(teamPlayer);
+		Requirements.checkPlayerIsTeammate(teamPlayer, other);
 	}
 	@Override
 	public String getPattern()

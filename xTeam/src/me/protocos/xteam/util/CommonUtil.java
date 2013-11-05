@@ -203,17 +203,19 @@ public class CommonUtil
 		List<SubType> returnList = emptyList();
 		for (SuperType superType : list)
 		{
-			if (superType.getClass().equals(subType))
+			//			if (superType.getClass().equals(subType))
+			if (subType.isAssignableFrom(superType.getClass()))
 				returnList.add((SubType) superType);
 		}
 		return returnList;
 	}
 	@SuppressWarnings("unchecked")
-	public static <SubType, SuperType> SubType subTypeFromSuperType(SuperType instance, Class<SubType> subType)
+	public static <SubType, SuperType> SubType assignFromType(SuperType instance, Class<SubType> subType) throws IncompatibleClassChangeError
 	{
-		if (!instance.getClass().equals(subType))
+		//		if (!instance.getClass().equals(subType))
+		if (!subType.isAssignableFrom(instance.getClass()))
 		{
-			throw new IncompatibleClassChangeError(instance + " is not and instance of " + subType.getSimpleName());
+			throw new IncompatibleClassChangeError(instance.getClass().getSimpleName() + " '" + instance + "' cannot be assigned to an instance of " + subType.getSimpleName());
 		}
 		return (SubType) instance;
 	}

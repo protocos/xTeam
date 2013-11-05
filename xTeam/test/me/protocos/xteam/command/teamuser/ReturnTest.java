@@ -31,7 +31,7 @@ public class ReturnTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		TeamPlayer teamPlayer = CommonUtil.subTypeFromSuperType(PlayerManager.getPlayer("protocos"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(PlayerManager.getPlayer("protocos"), TeamPlayer.class);
 		Location returnLocation = xTeam.getTeamManager().getTeam("one").getHeadquarters();
 		PlayerManager.getPlayer("protocos").setReturnLocation(returnLocation);
 		UserCommand fakeCommand = new UserReturn();
@@ -105,7 +105,7 @@ public class ReturnTest
 	public void ShouldBeTeamUserReturnExecuteRecentRequest()
 	{
 		//ASSEMBLE
-		TeamPlayer teamPlayer = CommonUtil.subTypeFromSuperType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().setCurrentTask(teamPlayer, 0);
 		teamPlayer.setReturnLocation(new FakeLocation());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());

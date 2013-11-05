@@ -1,7 +1,6 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
@@ -16,8 +15,7 @@ import org.bukkit.command.CommandSender;
 public class ConsoleRemove extends ConsoleCommand
 {
 	private String teamName, playerName;
-	private ITeamPlayer changeTeamPlayer;
-	private Team changeTeam;
+	private ITeamPlayer changePlayer;
 
 	public ConsoleRemove()
 	{
@@ -27,10 +25,11 @@ public class ConsoleRemove extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
+		Team changeTeam = changePlayer.getTeam();
 		changeTeam.removePlayer(playerName);
 		originalSender.sendMessage("You" + ChatColor.RED + " removed " + ChatColor.RESET + playerName + " from " + teamName);
-		if (changeTeamPlayer.isOnline())
-			changeTeamPlayer.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + changeTeam.getName());
+		if (changePlayer.isOnline())
+			changePlayer.sendMessage("You've been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + changeTeam.getName());
 		if (changeTeam.isEmpty())
 		{
 			originalSender.sendMessage(teamName + " has been disbanded");
@@ -38,16 +37,15 @@ public class ConsoleRemove extends ConsoleCommand
 		}
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		changeTeamPlayer = PlayerManager.getPlayer(playerName);
-		changeTeam = changeTeamPlayer.getTeam();
-		Requirements.checkPlayerHasPlayedBefore(changeTeamPlayer);
-		Requirements.checkPlayerHasTeam(changeTeamPlayer);
-		Requirements.checkLeaderLeaving(changeTeam, playerName);
+		changePlayer = PlayerManager.getPlayer(playerName);
+		Requirements.checkPlayerHasPlayedBefore(changePlayer);
+		Requirements.checkPlayerHasTeam(changePlayer);
+		Requirements.checkPlayerLeaderLeaving(changePlayer);
 	}
 	@Override
 	public String getPattern()

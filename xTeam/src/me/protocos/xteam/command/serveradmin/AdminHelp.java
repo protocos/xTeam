@@ -1,13 +1,11 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
-import me.protocos.xteam.core.exception.TeamInvalidPageException;
-import me.protocos.xteam.core.exception.TeamPlayerPermissionException;
 import me.protocos.xteam.util.HelpPages;
 import me.protocos.xteam.util.PermissionUtil;
 import me.protocos.xteam.util.StringUtil;
@@ -32,7 +30,7 @@ public class AdminHelp extends ServerAdminCommand
 		originalSender.sendMessage(pages.getPage(pageNum));
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		if (parseCommand.size() == 1 && parseCommand.get(0).matches(StringUtil.NUMBERS))
@@ -79,14 +77,8 @@ public class AdminHelp extends ServerAdminCommand
 			pages.addLine(ChatColor.GRAY + xTeam.getCommandManager().getUsage(command) + " - <admin> open team to public joining");
 		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_reload")))
 			pages.addLine(ChatColor.GRAY + xTeam.getCommandManager().getUsage(command) + " - <admin> reload the config files");
-		if (pages.getTotalPages() == 0)
-		{
-			throw new TeamPlayerPermissionException();
-		}
-		if (pageNum > pages.getTotalPages())
-		{
-			throw new TeamInvalidPageException();
-		}
+		Requirements.checkPlayerHasCommands(pages);
+		Requirements.checkPlayerCommandPageRange(pages, pageNum);
 	}
 	@Override
 	public String getPattern()

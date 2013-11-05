@@ -5,7 +5,7 @@ import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 

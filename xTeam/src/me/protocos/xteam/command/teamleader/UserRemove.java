@@ -1,19 +1,21 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.core.PlayerManager;
+import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class UserRemove extends UserCommand
 {
-	private String teamName, otherPlayer;
+	private String otherPlayer;
 
 	public UserRemove()
 	{
@@ -23,6 +25,7 @@ public class UserRemove extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
+		String teamName = teamPlayer.getTeam().getName();
 		team.removePlayer(otherPlayer);
 		Player other = Data.BUKKIT.getPlayer(otherPlayer);
 		if (other != null)
@@ -35,27 +38,15 @@ public class UserRemove extends UserCommand
 		}
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		otherPlayer = parseCommand.get(1);
-		if (!teamPlayer.hasTeam())
-		{
-			throw new TeamPlayerHasNoTeamException();
-		}
-		teamName = teamPlayer.getTeam().getName();
-		if (!teamPlayer.isLeader())
-		{
-			throw new TeamPlayerNotLeaderException();
-		}
-		if (!team.getPlayers().contains(otherPlayer))
-		{
-			throw new TeamPlayerNotTeammateException();
-		}
-		if (team.getLeader().equals(otherPlayer) && team.getPlayers().size() > 1)
-		{
-			throw new TeamPlayerLeaderLeavingException();
-		}
+		ITeamPlayer other = PlayerManager.getPlayer(otherPlayer);
+		Requirements.checkPlayerHasTeam(teamPlayer);
+		Requirements.checkPlayerIsTeamLeader(teamPlayer);
+		Requirements.checkPlayerIsTeammate(teamPlayer, other);
+		Requirements.checkPlayerLeaderLeaving(other);
 	}
 	@Override
 	public String getPattern()

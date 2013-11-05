@@ -103,7 +103,7 @@ public class HeadquartersTest
 	public void ShouldBeTeamUserHQRecentRequest()
 	{
 		//ASSEMBLE
-		TeamPlayer teamPlayer = CommonUtil.subTypeFromSuperType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().setCurrentTask(teamPlayer, 0);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		UserCommand fakeCommand = new UserHeadquarters();
@@ -124,7 +124,7 @@ public class HeadquartersTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq"));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within " + Data.TELE_REFRESH_DELAY + " seconds of last teleport\nYou must wait " + Data.TELE_REFRESH_DELAY + " more seconds\nPlayer can still use /team return")).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within " + Data.TELE_REFRESH_DELAY + " seconds of last teleport\nPlayer must wait " + Data.TELE_REFRESH_DELAY + " more seconds\n'/team return' is still available")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}

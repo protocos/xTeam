@@ -1,10 +1,10 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import java.io.InvalidClassException;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.exception.*;
@@ -31,28 +31,16 @@ public class UserDemote extends UserCommand
 		originalSender.sendMessage("You" + ChatColor.RED + " demoted " + ChatColor.RESET + otherPlayer);
 	}
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, InvalidClassException
+	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		otherPlayer = parseCommand.get(1);
-		if (!teamPlayer.hasTeam())
-		{
-			throw new TeamPlayerHasNoTeamException();
-		}
-		if (!teamPlayer.isLeader())
-		{
-			throw new TeamPlayerNotLeaderException();
-		}
-
-		if (!team.getPlayers().contains(otherPlayer))
-		{
-			throw new TeamPlayerNotTeammateException();
-		}
+		ITeamPlayer other = PlayerManager.getPlayer(otherPlayer);
 		ITeamPlayer demotePlayer = PlayerManager.getPlayer(otherPlayer);
-		if (demotePlayer.isLeader())
-		{
-			throw new TeamPlayerLeaderDemoteException();
-		}
+		Requirements.checkPlayerHasTeam(teamPlayer);
+		Requirements.checkPlayerIsTeamLeader(teamPlayer);
+		Requirements.checkPlayerIsTeammate(teamPlayer, other);
+		Requirements.checkPlayerLeaderDemote(demotePlayer);
 	}
 	@Override
 	public String getPattern()

@@ -129,7 +129,7 @@ public class TeleportTest
 	public void ShouldBeTeamUserTeleExecuteRecentRequest()
 	{
 		//ASSEMBLE
-		TeamPlayer testPlayer = CommonUtil.subTypeFromSuperType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer testPlayer = CommonUtil.assignFromType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().getCurrentTasks().put(testPlayer, 0);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
@@ -145,7 +145,7 @@ public class TeleportTest
 	public void ShouldBeTeamUserTeleExecuteRecentTeleport()
 	{
 		//ASSEMBLE
-		TeamPlayer teamPlayer = CommonUtil.subTypeFromSuperType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().teleport(teamPlayer, new ReturnLocation(new FakeLocation()));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
@@ -153,7 +153,7 @@ public class TeleportTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele protocos"));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within 60 seconds of last teleport\nYou must wait 60 more seconds\nYou can still use /team return")).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within 60 seconds of last teleport\nPlayer must wait 60 more seconds\n'/team return' is still available")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
