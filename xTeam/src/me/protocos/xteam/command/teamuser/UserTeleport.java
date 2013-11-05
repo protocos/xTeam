@@ -8,8 +8,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.TeamPlayer;
-import me.protocos.xteam.core.exception.*;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.command.CommandSender;
 
 public class UserTeleport extends UserCommand
@@ -26,7 +25,6 @@ public class UserTeleport extends UserCommand
 	{
 		TeleportScheduler teleporter = TeleportScheduler.getInstance();
 		teleporter.teleport(teamPlayer, teamMate);
-		originalSender.sendMessage(ChatColor.GREEN + "You've been teleported to " + teamMate.getName());
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError

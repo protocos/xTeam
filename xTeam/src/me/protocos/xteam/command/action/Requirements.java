@@ -30,7 +30,6 @@ public class Requirements
 	{
 		if (!parseCommand.getCommandWithoutID().matches(StringUtil.IGNORE_CASE + pattern))
 		{
-			//			throw new TeamInvalidCommandException("Not a valid command: \"" + parseCommand.getCommandWithoutID() + "\" does not match \"" + pattern + "\"");
 			throw new TeamInvalidCommandException();
 		}
 	}
@@ -273,7 +272,7 @@ public class Requirements
 		if (timeSinceLastTeleport < Data.TELE_REFRESH_DELAY)
 		{
 			String error = "Player cannot teleport within " + Data.TELE_REFRESH_DELAY + " seconds of last teleport\nPlayer must wait " + (Data.TELE_REFRESH_DELAY - timeSinceLastTeleport) + " more seconds";
-			if (teamPlayer.hasReturnLocation() && teamPlayer.hasPermission(permissionNode))
+			if (teamPlayer.hasReturnLocation() && (teamPlayer.hasPermission(permissionNode) || Data.NO_PERMISSIONS))
 				error += "\n'/team return' is still available";
 			throw new TeamPlayerTeleException(error);
 		}

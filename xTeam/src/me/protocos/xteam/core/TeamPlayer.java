@@ -7,10 +7,7 @@ import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.MessageUtil;
-import me.protocos.xteam.util.StringUtil;
+import me.protocos.xteam.util.*;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.*;
@@ -147,7 +144,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	@Override
 	public boolean hasPermission(String permission)
 	{
-		return player.hasPermission(permission);
+		return PermissionUtil.hasPermission(player, permission);
 	}
 	@Override
 	public boolean hasPlayedBefore()
@@ -473,11 +470,6 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 		int health = (int) this.getHealth();
 		if (Data.DISPLAY_COORDINATES)
 			location += " Location: " + ChatColor.RED + this.getRelativeX() + " " + ChatColor.GREEN + this.getRelativeY() + " " + ChatColor.BLUE + this.getRelativeZ() + ChatColor.RESET + " in \"" + this.getWorld().getName() + "\"";
-		return ChatColor.GREEN + "    " + this.getName() + " Health: " + (health >= 15 ? ChatColor.GREEN : ChatColor.RED) + health * 5 + "%" + ChatColor.RESET + location;
+		return ChatColor.GREEN + "    " + this.getName() + ChatColor.RESET + " Health: " + (health >= 15 ? ChatColor.GREEN : ChatColor.RED) + health * 5 + "%" + ChatColor.RESET + location;
 	}
-	//	@Override
-	//	public String quickInfo()
-	//	{
-	//		return this.getName() + " Health: " + this.getHealth() * 5 + "% Location: " + this.getRelativeX() + " " + this.getRelativeY() + " " + this.getRelativeZ() + " in \"" + this.getWorld().getName() + "\"";
-	//	}
 }

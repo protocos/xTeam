@@ -109,7 +109,7 @@ public class TeleportScheduler
 			teamPlayer.setLastTeleported(System.currentTimeMillis());
 		}
 		teamPlayer.teleport(toLocatable.getLocation());
-		teamPlayer.sendMessage("You've been teleported to " + ChatColor.GREEN + toLocatable.getName());
+		teamPlayer.sendMessage("You've been teleported to " + toLocatable.getName());
 	}
 
 	private boolean hasNearbyEnemies(TeamPlayer entity)

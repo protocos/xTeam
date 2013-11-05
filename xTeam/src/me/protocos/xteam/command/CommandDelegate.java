@@ -30,7 +30,7 @@ public class CommandDelegate implements CommandExecutor
 		//			Permission permission = (Permission) iterator.next();
 		//			//			System.out.println(permission.getName());
 		//			if (sender instanceof Player)
-		//				System.out.println(sender.getName() + ": " + sender.hasPermission(permission.getName()) + " - " + permission.getName());
+		//				System.out.println(sender.getName() + ": " + PermissionUtil.hasPermission(sender, permission.getName()) + " - " + permission.getName());
 		//		}
 		//		if (Data.LOCATIONS_ENABLED)
 		//		{
