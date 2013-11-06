@@ -95,7 +95,6 @@ public class SetTeamAction
 			originalSender.sendMessage(playerName + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + teamName);
 			player.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + teamName);
 		}
-		player.sendMessageToTeam(playerName + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + teamName);
 	}
 
 	public void createTeamWithLeader(String teamName, ITeamPlayer player)
