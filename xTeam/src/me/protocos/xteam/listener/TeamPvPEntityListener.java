@@ -95,14 +95,14 @@ public class TeamPvPEntityListener implements Listener
 				//							mockEvent.setCancelled(true);
 				//							if (wolf.getOwner().equals(sender))
 				//							{
-				//								sender.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " pet your wolfie!");
+				//								sender.sendMessage(ChatColorUtil.formatPositive("You") + ChatColor.RESET + " pet your wolfie!");
 				//							}
 				//							else
 				//							{
 				//								ITeamPlayer owner = wolf.getOwner();
 				//								if (owner.isOnline())
 				//									owner.sendMessage(ChatColor.GREEN + sender.getName() + ChatColor.RESET + " pet your wolfie!");
-				//								sender.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " pet " + ChatColor.GREEN + owner.getName() + "'s" + ChatColor.RESET + " wolfie!");
+				//								sender.sendMessage(ChatColorUtil.formatPositive("You") + ChatColor.RESET + " pet " + ChatColor.GREEN + owner.getName() + "'s" + ChatColor.RESET + " wolfie!");
 				//							}
 				//						}
 				//					}

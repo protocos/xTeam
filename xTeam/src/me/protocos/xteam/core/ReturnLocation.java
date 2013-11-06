@@ -5,7 +5,6 @@ import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -21,7 +20,7 @@ public class ReturnLocation extends Location implements ILocatable
 	@Override
 	public String getName()
 	{
-		return "your " + ChatColor.GREEN + "return location";
+		return "return location";
 	}
 
 	@Override

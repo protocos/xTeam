@@ -9,7 +9,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class AdminSetLeader extends ServerAdminCommand
@@ -28,12 +28,13 @@ public class AdminSetLeader extends ServerAdminCommand
 		Team playerTeam = playerSet.getTeam();
 		playerTeam.setLeader(playerName);
 		if (playerSet.isOnline() && !playerSet.getName().equals(originalSender.getName()))
-			playerSet.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " are now the team leader");
+			playerSet.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
 		ITeamPlayer previousLeader = PlayerManager.getPlayer(playerTeam.getLeader());
 		if (previousLeader.isOnline() && !previousLeader.getName().equals(originalSender.getName()))
-			previousLeader.sendMessage(ChatColor.GREEN + playerName + ChatColor.RESET + " is now the team leader");
-		originalSender.sendMessage(ChatColor.GREEN + playerName + ChatColor.RESET + " is now the team leader for " + playerTeam.getName());
+			previousLeader.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader"));
+		originalSender.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader") + " for " + playerTeam.getName());
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -49,16 +50,19 @@ public class AdminSetLeader extends ServerAdminCommand
 		Requirements.checkPlayerOnTeam(playerSet, desiredTeam);
 		Requirements.checkTeamIsDefault(playerTeam);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "set" + patternOneOrMore("leader") + WHITE_SPACE + ANY_CHARS + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.serveradmin.core.setleader";
 	}
+
 	@Override
 	public String getUsage()
 	{

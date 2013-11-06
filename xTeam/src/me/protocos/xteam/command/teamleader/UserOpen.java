@@ -5,7 +5,7 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class UserOpen extends UserCommand
@@ -20,9 +20,9 @@ public class UserOpen extends UserCommand
 	{
 		team.setOpenJoining(!team.isOpenJoining());
 		if (team.isOpenJoining())
-			originalSender.sendMessage("Open joining is now " + ChatColor.GREEN + "enabled");
+			originalSender.sendMessage("Open joining is now " + ChatColorUtil.positiveMessage("enabled"));
 		else
-			originalSender.sendMessage("Open joining is now " + ChatColor.RED + "disabled");
+			originalSender.sendMessage("Open joining is now " + ChatColorUtil.negativeMessage("disabled"));
 	}
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError

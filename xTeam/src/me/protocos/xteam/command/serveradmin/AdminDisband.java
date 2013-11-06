@@ -7,7 +7,7 @@ import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class AdminDisband extends ServerAdminCommand
@@ -23,10 +23,11 @@ public class AdminDisband extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		changeTeam.sendMessage("Your team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by an admin");
+		changeTeam.sendMessage("Your team has been " + ChatColorUtil.negativeMessage("disbanded") + " by an admin");
 		xTeam.getTeamManager().removeTeam(teamName);
-		originalSender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " " + teamName);
+		originalSender.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " " + teamName);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -36,16 +37,19 @@ public class AdminDisband extends ServerAdminCommand
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkTeamIsDefault(changeTeam);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "disband" + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.serveradmin.core.disband";
 	}
+
 	@Override
 	public String getUsage()
 	{

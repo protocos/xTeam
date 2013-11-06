@@ -6,7 +6,7 @@ import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class UserChat extends UserCommand
@@ -24,14 +24,15 @@ public class UserChat extends UserCommand
 		if (option.equalsIgnoreCase("ON"))
 		{
 			Data.chatStatus.add(teamPlayer.getName());
-			originalSender.sendMessage("You are now only chatting with " + ChatColor.GREEN + "your team");
+			originalSender.sendMessage("You are now only chatting with " + ChatColorUtil.positiveMessage("your team"));
 		}
 		if (option.equalsIgnoreCase("OFF"))
 		{
 			Data.chatStatus.remove(teamPlayer.getName());
-			originalSender.sendMessage("You are now chatting with " + ChatColor.RED + "everyone");
+			originalSender.sendMessage("You are now chatting with " + ChatColorUtil.negativeMessage("everyone"));
 		}
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -50,16 +51,19 @@ public class UserChat extends UserCommand
 		}
 		Requirements.checkPlayerHasTeam(teamPlayer);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "c" + patternOneOrMore("hat") + "(" + WHITE_SPACE + ANY_CHARS + ")?" + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.player.core.chat";
 	}
+
 	@Override
 	public String getUsage()
 	{

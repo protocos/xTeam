@@ -8,6 +8,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Headquarters;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class AdminSetHeadquarters extends ServerAdminCommand
@@ -24,8 +25,9 @@ public class AdminSetHeadquarters extends ServerAdminCommand
 	{
 		Team changeTeam = xTeam.getTeamManager().getTeam(teamName);
 		changeTeam.setHQ(new Headquarters(teamPlayer.getLocation()));
-		originalSender.sendMessage("You set the team headquarters for team " + teamName);
+		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team headquarters for team " + teamName);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -33,16 +35,19 @@ public class AdminSetHeadquarters extends ServerAdminCommand
 		teamName = parseCommand.get(1);
 		Requirements.checkTeamExists(teamName);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "set" + patternOneOrMore("hq") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.serveradmin.core.sethq";
 	}
+
 	@Override
 	public String getUsage()
 	{

@@ -26,6 +26,7 @@ public class UserReturnTest
 		//MOCK data
 		mockData();
 	}
+
 	@Test
 	public void ShouldBeTeamUserReturnExecute()
 	{
@@ -38,11 +39,12 @@ public class UserReturnTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
 		//ASSERT
-		Assert.assertEquals("You've been teleported to your return location", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You've been teleported to return location", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(returnLocation, fakePlayerSender.getLocation());
 		Assert.assertFalse(teamPlayer.hasReturnLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserReturnExecuteNoReturn()
 	{
@@ -55,6 +57,7 @@ public class UserReturnTest
 		Assert.assertEquals((new TeamPlayerHasNoReturnException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserReturnExecutePlayerDying()
 	{
@@ -71,6 +74,7 @@ public class UserReturnTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserReturnExecutePlayerNoTeam()
 	{
@@ -84,6 +88,7 @@ public class UserReturnTest
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserReturnExecuteRecentAttacked()
 	{
@@ -101,6 +106,7 @@ public class UserReturnTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserReturnExecuteRecentRequest()
 	{
@@ -118,6 +124,7 @@ public class UserReturnTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

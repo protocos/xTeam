@@ -51,11 +51,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 		ITeamPlayer rhs = (ITeamPlayer) obj;
 		return new EqualsBuilder().append(this.getName(), rhs.getName()).isEquals();
 	}
+
 	@Override
 	public double getDistanceTo(ILocatable entity)
 	{
 		return this.getLocation().distance(entity.getLocation());
 	}
+
 	@Override
 	public double getHealth()
 	{
@@ -79,83 +81,99 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	{
 		return StringUtil.formatDateToMonthDay(player.getLastPlayed());
 	}
+
 	@Override
 	public Location getLocation()
 	{
 		return player.getLocation();
 	}
+
 	@Override
 	public String getName()
 	{
 		return player.getName();
 	}
+
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
 		return PlayerManager.getOfflineTeammatesOf(this);
 	}
+
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
 		return PlayerManager.getOnlineTeammatesOf(this);
 	}
+
 	@Override
 	public int getRelativeX()
 	{
 		Location loc = this.getLocation();
 		return CommonUtil.round(loc.getX());
 	}
+
 	@Override
 	public int getRelativeY()
 	{
 		Location loc = this.getLocation();
 		return CommonUtil.round(loc.getY());
 	}
+
 	@Override
 	public int getRelativeZ()
 	{
 		Location loc = this.getLocation();
 		return CommonUtil.round(loc.getZ());
 	}
+
 	@Override
 	public Server getServer()
 	{
 		return player.getServer();
 	}
+
 	@Override
 	public Team getTeam()
 	{
 		return xTeam.getTeamManager().getTeamFromPlayer(player.getName());
 	}
+
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
 		return PlayerManager.getTeammatesOf(this);
 	}
+
 	@Override
 	public World getWorld()
 	{
 		return player.getWorld();
 	}
+
 	public int hashCode()
 	{
 		return new HashCodeBuilder(17, 41).append(this.getName()).toHashCode();
 	}
+
 	@Override
 	public boolean hasPermission(String permission)
 	{
 		return PermissionUtil.hasPermission(player, permission);
 	}
+
 	@Override
 	public boolean hasPlayedBefore()
 	{
 		return true;
 	}
+
 	@Override
 	public boolean hasTeam()
 	{
 		return getTeam() != null;
 	}
+
 	@Override
 	public boolean isAdmin()
 	{
@@ -165,10 +183,12 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 		}
 		return false;
 	}
+
 	public boolean isEnemy(ITeamEntity entity)
 	{
 		return !this.isOnSameTeam(entity);
 	}
+
 	@Override
 	public boolean isLeader()
 	{
@@ -178,11 +198,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 		}
 		return false;
 	}
+
 	@Override
 	public boolean isOnline()
 	{
 		return true;
 	}
+
 	@Override
 	public boolean isOnSameTeam(ITeamEntity otherEntity)
 	{
@@ -192,33 +214,39 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 		}
 		return false;
 	}
+
 	@Override
 	public boolean isOp()
 	{
 		return player.isOp();
 	}
+
 	@Override
 	public boolean sendMessage(String message)
 	{
 		player.sendMessage(message);
 		return true;
 	}
+
 	@Override
 	public void sendMessageToTeam(String message)
 	{
 		MessageUtil.sendMessageToTeam(this, message);
 	}
+
 	@Override
 	public boolean teleportTo(ILocatable entity)
 	{
 		TeleportScheduler.getInstance().teleport(this, entity);
 		return true;
 	}
+
 	@Override
 	public boolean teleport(Location location)
 	{
 		return player.teleport(location);
 	}
+
 	@Override
 	public String toString()
 	{
@@ -230,210 +258,251 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 		playerData += " leader:" + (isLeader() ? "true" : "false");
 		return playerData;
 	}
+
 	@Override
 	public boolean eject()
 	{
 		return player.eject();
 	}
+
 	@Override
 	public int getEntityId()
 	{
 		return player.getEntityId();
 	}
+
 	@Override
 	public float getFallDistance()
 	{
 		return player.getFallDistance();
 	}
+
 	@Override
 	public int getFireTicks()
 	{
 		return player.getFireTicks();
 	}
+
 	@Override
 	public EntityDamageEvent getLastDamageCause()
 	{
 		return player.getLastDamageCause();
 	}
+
 	@Override
 	public Location getLocation(Location arg0)
 	{
 		return player.getLocation(arg0);
 	}
+
 	@Override
 	public int getMaxFireTicks()
 	{
 		return player.getMaxFireTicks();
 	}
+
 	@Override
 	public List<Entity> getNearbyEntities(double arg0, double arg1, double arg2)
 	{
 		return player.getNearbyEntities(arg0, arg1, arg2);
 	}
+
 	@Override
 	public Entity getPassenger()
 	{
 		return player.getPassenger();
 	}
+
 	@Override
 	public int getTicksLived()
 	{
 		return player.getTicksLived();
 	}
+
 	@Override
 	public EntityType getType()
 	{
 		return player.getType();
 	}
+
 	@Override
 	public UUID getUniqueId()
 	{
 		return player.getUniqueId();
 	}
+
 	@Override
 	public Entity getVehicle()
 	{
 		return player.getVehicle();
 	}
+
 	@Override
 	public Vector getVelocity()
 	{
 		return player.getVelocity();
 	}
+
 	@Override
 	public boolean isDead()
 	{
 		return player.isDead();
 	}
+
 	@Override
 	public boolean isEmpty()
 	{
 		return player.isEmpty();
 	}
+
 	@Override
 	public boolean isInsideVehicle()
 	{
 		return player.isInsideVehicle();
 	}
+
 	@Override
 	@Deprecated
 	public boolean isOnGround()
 	{
 		return player.isOnGround();
 	}
+
 	@Override
 	public boolean isValid()
 	{
 		return player.isValid();
 	}
+
 	@Override
 	public boolean leaveVehicle()
 	{
 		return player.leaveVehicle();
 	}
+
 	@Override
 	public void playEffect(EntityEffect arg0)
 	{
 		player.playEffect(arg0);
 	}
+
 	@Override
 	public void remove()
 	{
 		player.remove();
 	}
+
 	@Override
 	public void setFallDistance(float arg0)
 	{
 		player.setFallDistance(arg0);
 	}
+
 	@Override
 	public void setFireTicks(int arg0)
 	{
 		player.setFireTicks(arg0);
 	}
+
 	@Override
 	public void setLastDamageCause(EntityDamageEvent arg0)
 	{
 		player.setLastDamageCause(arg0);
 	}
+
 	@Override
 	public boolean setPassenger(Entity arg0)
 	{
 		return player.setPassenger(arg0);
 	}
+
 	@Override
 	public void setTicksLived(int arg0)
 	{
 		player.setTicksLived(arg0);
 	}
+
 	@Override
 	public void setVelocity(Vector arg0)
 	{
 		player.setVelocity(arg0);
 	}
+
 	@Override
 	public boolean teleport(Entity arg0)
 	{
 		setLastTeleported(System.currentTimeMillis());
 		return player.teleport(arg0);
 	}
+
 	@Override
 	public boolean teleport(Location arg0, TeleportCause arg1)
 	{
 		setLastTeleported(System.currentTimeMillis());
 		return player.teleport(arg0, arg1);
 	}
+
 	@Override
 	public boolean teleport(Entity arg0, TeleportCause arg1)
 	{
 		setLastTeleported(System.currentTimeMillis());
 		return player.teleport(arg0, arg1);
 	}
+
 	@Override
 	public List<MetadataValue> getMetadata(String arg0)
 	{
 		return player.getMetadata(arg0);
 	}
+
 	@Override
 	public boolean hasMetadata(String arg0)
 	{
 		return player.hasMetadata(arg0);
 	}
+
 	@Override
 	public void removeMetadata(String arg0, Plugin arg1)
 	{
 		player.removeMetadata(arg0, arg1);
 	}
+
 	@Override
 	public void setMetadata(String arg0, MetadataValue arg1)
 	{
 		player.setMetadata(arg0, arg1);
 	}
+
 	@Override
 	public boolean isVulnerable()
 	{
 		return true;
 	}
+
 	@Override
 	public List<Entity> getNearbyEntities(int radius)
 	{
 		return BukkitUtil.getNearbyEntities(this.getLocation(), radius);
 	}
+
 	@Override
 	public void setReturnLocation(Location returnLocation)
 	{
 		PlayerManager.setReturnLocation(this, returnLocation);
 	}
+
 	@Override
 	public Location getReturnLocation()
 	{
 		return PlayerManager.getReturnLocation(this.getName());
 	}
+
 	@Override
 	public boolean hasReturnLocation()
 	{
 		return this.getReturnLocation() != null;
 	}
+
 	@Override
 	public void removeReturnLocation()
 	{
@@ -451,6 +520,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	{
 		return PlayerManager.getLastAttacked(this.getName());
 	}
+
 	@Override
 	public boolean isDamaged()
 	{

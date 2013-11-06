@@ -30,6 +30,7 @@ public class UserHeadquartersTest
 		mockData();
 		before = new FakeLocation();
 	}
+
 	@Test
 	public void ShouldBeTeamUserHQ()
 	{
@@ -39,11 +40,12 @@ public class UserHeadquartersTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq"));
 		//ASSERT
-		Assert.assertEquals("You've been teleported to the team headquarters", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You've been teleported to team headquarters", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(xTeam.getTeamManager().getTeam("one").getHeadquarters(), fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 		//TODO assert everything! (including teleport)
 	}
+
 	@Test
 	public void ShouldBeTeamUserHQNoHeadquarters()
 	{
@@ -57,6 +59,7 @@ public class UserHeadquartersTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserHQPlayerDying()
 	{
@@ -71,6 +74,7 @@ public class UserHeadquartersTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserHQPlayerNoTeam()
 	{
@@ -84,6 +88,7 @@ public class UserHeadquartersTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserHQRecentAttacked()
 	{
@@ -99,6 +104,7 @@ public class UserHeadquartersTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserHQRecentRequest()
 	{
@@ -114,6 +120,7 @@ public class UserHeadquartersTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserHQRecentTeleport()
 	{
@@ -124,10 +131,11 @@ public class UserHeadquartersTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq"));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within " + Data.TELE_REFRESH_DELAY + " seconds of last teleport\nPlayer must wait " + Data.TELE_REFRESH_DELAY + " more seconds\n'/team return' is still available")).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within " + Data.TELE_REFRESH_DELAY + " seconds of last teleport\nPlayer must wait " + Data.TELE_REFRESH_DELAY + " more seconds\n/team return is still available")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

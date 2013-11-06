@@ -9,7 +9,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class ConsoleSetLeader extends ConsoleCommand
@@ -28,15 +28,16 @@ public class ConsoleSetLeader extends ConsoleCommand
 		Team team = player.getTeam();
 		team.setLeader(playerName);
 		if (player.isOnline())
-			player.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " are now the team leader");
+			player.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
 		if (!team.isDefaultTeam())
 		{
 			ITeamPlayer previousLeader = PlayerManager.getPlayer(team.getLeader());
 			if (previousLeader.isOnline())
-				previousLeader.sendMessage(ChatColor.GREEN + playerName + ChatColor.RESET + " is now the team leader");
+				previousLeader.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader"));
 		}
-		originalSender.sendMessage(playerName + " is now the team leader for " + team.getName());
+		originalSender.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader") + " for " + team.getName());
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -51,11 +52,13 @@ public class ConsoleSetLeader extends ConsoleCommand
 		Requirements.checkPlayerOnTeam(player, team);
 		Requirements.checkTeamIsDefault(team);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "set" + patternOneOrMore("leader") + WHITE_SPACE + ANY_CHARS + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getUsage()
 	{

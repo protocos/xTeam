@@ -7,6 +7,7 @@ import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class AdminHeadquarters extends ServerAdminCommand
@@ -23,8 +24,9 @@ public class AdminHeadquarters extends ServerAdminCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		teamPlayer.teleport(changeTeam.getHeadquarters());
-		originalSender.sendMessage("You have been teleported to the headquarters of team " + teamName);
+		originalSender.sendMessage("You have been " + ChatColorUtil.positiveMessage("teleported") + " to the headquarters of team " + teamName);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -34,16 +36,19 @@ public class AdminHeadquarters extends ServerAdminCommand
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkTeamHasHeadquarters(changeTeam);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "hq" + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.serveradmin.core.hq";
 	}
+
 	@Override
 	public String getUsage()
 	{

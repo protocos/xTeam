@@ -7,7 +7,7 @@ import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class UserPromote extends UserCommand
@@ -25,9 +25,10 @@ public class UserPromote extends UserCommand
 		team.promote(otherPlayer);
 		ITeamPlayer other = PlayerManager.getPlayer(otherPlayer);
 		if (other.isOnline())
-			other.sendMessage("You've been " + ChatColor.GREEN + "promoted");
-		originalSender.sendMessage("You" + ChatColor.GREEN + " promoted " + ChatColor.RESET + otherPlayer);
+			other.sendMessage("You've been " + ChatColorUtil.positiveMessage("promoted"));
+		originalSender.sendMessage("You" + ChatColorUtil.positiveMessage(" promoted ") + otherPlayer);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -38,16 +39,19 @@ public class UserPromote extends UserCommand
 		Requirements.checkPlayerIsTeamAdmin(teamPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("promote") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.admin.core.promote";
 	}
+
 	@Override
 	public String getUsage()
 	{

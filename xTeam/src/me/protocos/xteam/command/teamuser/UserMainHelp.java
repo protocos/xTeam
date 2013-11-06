@@ -32,22 +32,26 @@ public class UserMainHelp extends UserCommand
 		message += "\n" + (ChatColor.DARK_RED + "Report BUGS to " + ChatColor.GRAY + "http://dev.bukkit.org/server-mods/xteam/");
 		originalSender.sendMessage(message);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		commandID = parseCommand.getBaseCommand();
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "(h" + patternOneOrMore("elp") + "|\\?+)?" + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return null;
 	}
+
 	@Override
 	public String getUsage()
 	{

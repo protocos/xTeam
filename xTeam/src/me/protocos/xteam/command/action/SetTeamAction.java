@@ -6,7 +6,7 @@ import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class SetTeamAction
@@ -53,27 +53,27 @@ public class SetTeamAction
 		playerTeam.removePlayer(player.getName());
 		Data.chatStatus.remove(playerName);
 		player.removeReturnLocation();
-		playerTeam.sendMessage(playerName + " has been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + teamName);
+		playerTeam.sendMessage(playerName + " has been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
 		if (playerName.equals(senderName))
 		{
 			//first person
-			originalSender.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + teamName);
+			originalSender.sendMessage("You have been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
 				xTeam.getTeamManager().removeTeam(teamName);
-				originalSender.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
+				originalSender.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
 			}
 		}
 		else
 		{
 			//third person
-			originalSender.sendMessage(playerName + " has been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + teamName);
-			player.sendMessage("You have been " + ChatColor.RED + "removed" + ChatColor.RESET + " from " + teamName);
+			originalSender.sendMessage(playerName + " has been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
+			player.sendMessage("You have been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
 				xTeam.getTeamManager().removeTeam(teamName);
-				originalSender.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
-				player.sendMessage(teamName + " has been " + ChatColor.RED + "disbanded");
+				originalSender.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
+				player.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
 			}
 		}
 	}
@@ -87,13 +87,13 @@ public class SetTeamAction
 		if (playerName.equals(senderName))
 		{
 			//first person
-			originalSender.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + teamName);
+			originalSender.sendMessage("You have been " + ChatColorUtil.positiveMessage("added") + " to " + teamName);
 		}
 		else
 		{
 			//third person
-			originalSender.sendMessage(playerName + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + teamName);
-			player.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + teamName);
+			originalSender.sendMessage(playerName + " has been " + ChatColorUtil.positiveMessage("added") + " to " + teamName);
+			player.sendMessage("You have been " + ChatColorUtil.positiveMessage("added") + " to " + teamName);
 		}
 	}
 
@@ -106,16 +106,16 @@ public class SetTeamAction
 		if (playerName.equals(senderName))
 		{
 			//first person
-			originalSender.sendMessage(teamName + " has been " + ChatColor.AQUA + "created");
-			originalSender.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + teamName);
+			originalSender.sendMessage(teamName + " has been " + ChatColorUtil.positiveMessage("created"));
+			originalSender.sendMessage("You have been " + ChatColorUtil.positiveMessage("added") + " to " + teamName);
 		}
 		else
 		{
 			//third person
-			originalSender.sendMessage(teamName + " has been " + ChatColor.AQUA + "created");
-			originalSender.sendMessage(playerName + " has been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + teamName);
-			player.sendMessage(teamName + " has been " + ChatColor.AQUA + "created");
-			player.sendMessage("You have been " + ChatColor.GREEN + "added" + ChatColor.RESET + " to " + teamName);
+			originalSender.sendMessage(teamName + " has been " + ChatColorUtil.positiveMessage("created"));
+			originalSender.sendMessage(playerName + " has been " + ChatColorUtil.positiveMessage("added") + " to " + teamName);
+			player.sendMessage(teamName + " has been " + ChatColorUtil.positiveMessage("created"));
+			player.sendMessage("You have been " + ChatColorUtil.positiveMessage("added") + " to " + teamName);
 		}
 	}
 }

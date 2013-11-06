@@ -7,7 +7,7 @@ import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -72,16 +72,16 @@ public class TeamPlayerListener implements Listener
 						int index = r.nextInt(availableTeams.size());
 						Team team = availableTeams.get(index);
 						team.addPlayer(teamPlayer.getName());
-						teamPlayer.sendMessage("You joined " + ChatColor.AQUA + team.getName());
+						teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("joined") + " " + team.getName());
 						for (ITeamPlayer teammate : teamPlayer.getOnlineTeammates())
 						{
-							teammate.sendMessage(teamPlayer.getName() + ChatColor.AQUA + " joined your team");
+							teammate.sendMessage(teamPlayer.getName() + " " + ChatColorUtil.positiveMessage("joined") + " your team");
 						}
 						xTeam.log.info("Added " + teamPlayer.getName() + " to team " + team.getName());
 					}
 					else
 					{
-						xTeam.log.info(ChatColor.RED + "Player not assigned a team: No default teams have been set");
+						xTeam.log.info(ChatColorUtil.negativeMessage("Player not assigned a team: No default teams have been set"));
 					}
 				}
 			}
@@ -93,23 +93,14 @@ public class TeamPlayerListener implements Listener
 					if (team.hasHeadquarters())
 					{
 						teamPlayer.teleportTo(team.getHeadquarters());
-						teamPlayer.sendMessage(ChatColor.RED + "You've been teleported to your Headquarters");
+						teamPlayer.sendMessage(ChatColorUtil.negativeMessage("You've been teleported to your Headquarters"));
 					}
 					else
 					{
-						teamPlayer.sendMessage(ChatColor.RED + "Your team does not have an Headquarters");
+						teamPlayer.sendMessage(ChatColorUtil.negativeMessage("Your team does not have an Headquarters"));
 					}
 				}
 			}
-			//			int seconds = 5;
-			//			Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(Data.BUKKIT.getPluginManager().getPlugin("xTeam"), new Runnable()
-			//			{
-			//				@Override
-			//				public void run()
-			//				{
-			//					Functions.updatePlayers();
-			//				}
-			//			}, seconds * 20L);
 		}
 		catch (Exception e)
 		{
@@ -117,6 +108,7 @@ public class TeamPlayerListener implements Listener
 			xTeam.log.info("[ERROR] Exception in xTeam onPlayerJoin() class [check logs]");
 		}
 	}
+
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event)
 	{
@@ -131,6 +123,7 @@ public class TeamPlayerListener implements Listener
 			xTeam.log.info("[ERROR] Exception in xTeam onPlayerQuit() class [check logs]");
 		}
 	}
+
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event)
 	{
@@ -151,22 +144,10 @@ public class TeamPlayerListener implements Listener
 					}
 					else
 					{
-						player.sendMessage(ChatColor.RED + "You have not set an Headquarters yet.");
+						player.sendMessage(ChatColorUtil.negativeMessage("You have not set a headquarters yet."));
 					}
 				}
 			}
-			//			int seconds = 3;
-			//			if (Data.SPOUT_ENABLED)
-			//			{
-			//				Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(Data.BUKKIT.getPluginManager().getPlugin("xTeam"), new Runnable()
-			//				{
-			//					@Override
-			//					public void run()
-			//					{
-			//						Functions.updatePlayers();
-			//					}
-			//				}, seconds * 20L);
-			//			}
 		}
 		catch (Exception e)
 		{

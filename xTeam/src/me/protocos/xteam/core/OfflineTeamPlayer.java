@@ -5,10 +5,10 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.StringUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 
@@ -20,6 +20,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	{
 		this.player = player;
 	}
+
 	@Override
 	public Team getTeam()
 	{
@@ -101,6 +102,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	{
 		PlayerManager.setReturnLocation(this, returnLocation);
 	}
+
 	@Override
 	public Location getReturnLocation()
 	{
@@ -192,6 +194,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	{
 		return player.isOp();
 	}
+
 	//	@Override
 	//	public String quickInfo()
 	//	{
@@ -202,6 +205,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	{
 		return false;
 	}
+
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -215,14 +219,16 @@ public class OfflineTeamPlayer implements ITeamPlayer
 		ITeamPlayer rhs = (ITeamPlayer) obj;
 		return new EqualsBuilder().append(this.getName(), rhs.getName()).isEquals();
 	}
+
 	@Override
 	public String getPublicInfo()
 	{
-		return ChatColor.RED + "    " + this.getName();
+		return ChatColorUtil.negativeMessage("    " + this.getName());
 	}
+
 	@Override
 	public String getPrivateInfo()
 	{
-		return ChatColor.RED + "    " + this.getName() + " was last online on " + this.getLastPlayed();
+		return ChatColorUtil.negativeMessage("    " + this.getName()) + " was last online on " + this.getLastPlayed();
 	}
 }

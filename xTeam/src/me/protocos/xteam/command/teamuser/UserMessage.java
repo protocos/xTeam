@@ -30,22 +30,26 @@ public class UserMessage extends UserCommand
 		}
 		originalSender.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "(" + patternOneOrMore("message") + "|" + "tell" + ")" + WHITE_SPACE + "[" + WHITE_SPACE + ANY_CHARS + "]+";
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.player.core.chat";
 	}
+
 	@Override
 	public String getUsage()
 	{

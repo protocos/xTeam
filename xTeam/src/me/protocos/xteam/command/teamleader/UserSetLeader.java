@@ -7,7 +7,7 @@ import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class UserSetLeader extends UserCommand
@@ -25,10 +25,11 @@ public class UserSetLeader extends UserCommand
 		team.setLeader(otherPlayer);
 		ITeamPlayer other = PlayerManager.getPlayer(otherPlayer);
 		if (other.isOnline())
-			other.sendMessage(ChatColor.GREEN + "You" + ChatColor.RESET + " are now the team leader");
-		teamPlayer.sendMessage(ChatColor.GREEN + otherPlayer + ChatColor.RESET + " is now the team leader (you are an admin)" +
-				"\nYou can now leave the team");
+			other.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
+		teamPlayer.sendMessage(otherPlayer + " is now the " + ChatColorUtil.positiveMessage("team leader") + " (you are an admin)" +
+				"\nYou can now " + ChatColorUtil.negativeMessage("leave") + " the team");
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -39,16 +40,19 @@ public class UserSetLeader extends UserCommand
 		Requirements.checkPlayerIsTeamLeader(teamPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "set" + patternOneOrMore("leader") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.leader.core.setleader";
 	}
+
 	@Override
 	public String getUsage()
 	{

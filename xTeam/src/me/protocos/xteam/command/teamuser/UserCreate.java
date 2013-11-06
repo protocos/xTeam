@@ -8,7 +8,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class UserCreate extends UserCommand
@@ -27,8 +27,9 @@ public class UserCreate extends UserCommand
 		Team newTeam = Team.createTeamWithLeader(desiredName, leader);
 		xTeam.getTeamManager().addTeam(newTeam);
 		Data.lastCreated.put(leader, Long.valueOf(System.currentTimeMillis()));
-		originalSender.sendMessage("You created " + ChatColor.AQUA + desiredName);
+		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("created") + " " + desiredName);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -41,16 +42,19 @@ public class UserCreate extends UserCommand
 		Requirements.checkTeamNameAlphaNumeric(desiredName);
 		Requirements.checkTeamAlreadyExists(desiredName);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("create") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.player.core.create";
 	}
+
 	@Override
 	public String getUsage()
 	{

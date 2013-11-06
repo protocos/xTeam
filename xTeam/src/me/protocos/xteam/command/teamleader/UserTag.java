@@ -6,7 +6,7 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class UserTag extends UserCommand
@@ -22,12 +22,13 @@ public class UserTag extends UserCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		team.setTag(desiredTag);
-		teamPlayer.sendMessage("The team tag has been set to " + ChatColor.AQUA + desiredTag);
+		teamPlayer.sendMessage("The team tag has been " + ChatColorUtil.positiveMessage("set") + " to " + desiredTag);
 		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
-			mate.sendMessage("The team tag has been set to " + ChatColor.AQUA + desiredTag);
+			mate.sendMessage("The team tag has been " + ChatColorUtil.positiveMessage("set") + " to " + desiredTag);
 		}
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -39,16 +40,19 @@ public class UserTag extends UserCommand
 		Requirements.checkTeamNameAlphaNumeric(desiredTag);
 		Requirements.checkTeamNameAlreadyUsed(desiredTag, team);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("tag") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.leader.core.tag";
 	}
+
 	@Override
 	public String getUsage()
 	{

@@ -7,7 +7,7 @@ import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class AdminRename extends ServerAdminCommand
@@ -27,9 +27,10 @@ public class AdminRename extends ServerAdminCommand
 		changeTeam.setName(desiredName);
 		xTeam.getTeamManager().addTeam(changeTeam);
 		if (!changeTeam.containsPlayer(originalSender.getName()))
-			originalSender.sendMessage("You renamed the team to " + ChatColor.AQUA + desiredName);
-		changeTeam.sendMessage("The team has been renamed to " + ChatColor.AQUA + desiredName + ChatColor.RESET + " by an admin");
+			originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("renamed") + " the team to " + desiredName);
+		changeTeam.sendMessage("The team has been " + ChatColorUtil.positiveMessage("renamed") + " to " + desiredName + " by an admin");
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -40,16 +41,19 @@ public class AdminRename extends ServerAdminCommand
 		Requirements.checkTeamAlreadyExists(desiredName);
 		Requirements.checkTeamNameAlphaNumeric(desiredName);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("re") + patternOneOrMore("name") + WHITE_SPACE + ANY_CHARS + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.serveradmin.core.rename";
 	}
+
 	@Override
 	public String getUsage()
 	{

@@ -5,8 +5,8 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.core.Functions;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
+import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.StringUtil;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,6 +21,7 @@ public class CommandDelegate implements CommandExecutor
 	{
 		this.manager = manager;
 	}
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandID, String[] args)
 	{
@@ -62,7 +63,7 @@ public class CommandDelegate implements CommandExecutor
 			}
 			if (command == null)
 			{
-				sender.sendMessage(ChatColor.RED + (new TeamInvalidCommandException()).getMessage());
+				sender.sendMessage(ChatColorUtil.negativeMessage((new TeamInvalidCommandException()).getMessage()));
 				xTeam.getLog().info("FAIL: " + (new TeamInvalidCommandException()).getMessage());
 			}
 			else if (command.execute(sender, parseCommand) == true)

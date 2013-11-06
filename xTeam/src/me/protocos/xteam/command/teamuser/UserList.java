@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class UserList extends UserCommand
@@ -22,7 +22,7 @@ public class UserList extends UserCommand
 		List<String> teams = xTeam.getTeamManager().getAllTeamNames();
 		String message = "Teams: " + teams.toString().replaceAll("\\[|\\]", "");
 		if (teams.isEmpty())
-			originalSender.sendMessage(ChatColor.RED + "There are no teams");
+			originalSender.sendMessage("There are " + ChatColorUtil.negativeMessage("no") + " teams");
 		else
 			originalSender.sendMessage(message);
 	}

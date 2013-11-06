@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.action;
 
-import static me.protocos.xteam.util.StringUtil.*;
+import static me.protocos.xteam.util.StringUtil.ALPHA_NUMERIC;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
@@ -277,7 +277,7 @@ public class Requirements
 		{
 			String error = "Player cannot teleport within " + Data.TELE_REFRESH_DELAY + " seconds of last teleport\nPlayer must wait " + (Data.TELE_REFRESH_DELAY - timeSinceLastTeleport) + " more seconds";
 			if (teamPlayer.hasReturnLocation() && (teamPlayer.hasPermission(permissionNode) || Data.NO_PERMISSIONS))
-				error += "\n'/team return' is still available";
+				error += "\n/team return is still available";
 			throw new TeamPlayerTeleException(error);
 		}
 	}

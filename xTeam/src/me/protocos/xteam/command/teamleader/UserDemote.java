@@ -7,8 +7,8 @@ import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.PlayerManager;
-import me.protocos.xteam.core.exception.*;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -27,9 +27,10 @@ public class UserDemote extends UserCommand
 		team.demote(otherPlayer);
 		Player other = Data.BUKKIT.getPlayer(otherPlayer);
 		if (other != null)
-			other.sendMessage("You've been " + ChatColor.RED + "demoted");
-		originalSender.sendMessage("You" + ChatColor.RED + " demoted " + ChatColor.RESET + otherPlayer);
+			other.sendMessage("You've been " + ChatColorUtil.negativeMessage("demoted"));
+		originalSender.sendMessage("You" + ChatColorUtil.negativeMessage(" demoted ") + otherPlayer);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -42,16 +43,19 @@ public class UserDemote extends UserCommand
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);
 		Requirements.checkPlayerLeaderDemote(demotePlayer);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("demote") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.leader.core.demote";
 	}
+
 	@Override
 	public String getUsage()
 	{

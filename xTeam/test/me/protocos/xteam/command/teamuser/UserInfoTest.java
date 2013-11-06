@@ -7,7 +7,6 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.junit.After;
@@ -22,6 +21,7 @@ public class UserInfoTest
 		//MOCK data
 		mockData();
 	}
+
 	@Test
 	public void ShouldBeTeamUserInfoExecute()
 	{
@@ -41,6 +41,7 @@ public class UserInfoTest
 				"    protocos Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserInfoExecute2()
 	{
@@ -58,6 +59,7 @@ public class UserInfoTest
 				"    mastermind", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserInfoExecute3()
 	{
@@ -75,6 +77,7 @@ public class UserInfoTest
 				"    mastermind", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserInfoExecute4()
 	{
@@ -86,6 +89,7 @@ public class UserInfoTest
 		//ASSERT
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserInfoExecute5()
 	{
@@ -103,6 +107,7 @@ public class UserInfoTest
 				"    strandedhelix", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserInfoExecute6()
 	{
@@ -126,6 +131,7 @@ public class UserInfoTest
 				"    strandedhelix was last online on Dec 31 @ 6:00 PM", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserInfoExecute7()
 	{
@@ -147,6 +153,7 @@ public class UserInfoTest
 				"    protocos Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserInfoExecuteNoTeam()
 	{
@@ -159,6 +166,7 @@ public class UserInfoTest
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserInfoExecuteTeamNotExists()
 	{
@@ -171,6 +179,7 @@ public class UserInfoTest
 		Assert.assertEquals((new TeamOrPlayerDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

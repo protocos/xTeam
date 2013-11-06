@@ -7,7 +7,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class UserAccept extends UserCommand
@@ -23,9 +23,10 @@ public class UserAccept extends UserCommand
 		Team inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
 		inviteTeam.addPlayer(teamPlayer.getName());
 		InviteHandler.removeInvite(teamPlayer.getName());
-		teamPlayer.sendMessageToTeam(ChatColor.AQUA + teamPlayer.getName() + ChatColor.RESET + " joined your team");
-		originalSender.sendMessage("You joined " + ChatColor.AQUA + inviteTeam.getName());
+		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + ChatColorUtil.positiveMessage("joined") + " your team");
+		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("joined") + " " + inviteTeam.getName());
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -35,16 +36,19 @@ public class UserAccept extends UserCommand
 		Team inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
 		Requirements.checkTeamPlayerMax(inviteTeam.getName());
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("accept") + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.player.core.accept";
 	}
+
 	@Override
 	public String getUsage()
 	{

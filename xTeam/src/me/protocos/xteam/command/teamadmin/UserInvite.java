@@ -8,7 +8,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class UserInvite extends UserCommand
@@ -26,9 +26,10 @@ public class UserInvite extends UserCommand
 		InviteHandler.addInvite(otherPlayer, team);
 		ITeamPlayer other = PlayerManager.getPlayer(otherPlayer);
 		if (other.isOnline())
-			other.sendMessage("You've been " + ChatColor.GREEN + "invited " + ChatColor.RESET + "to join " + ChatColor.AQUA + team.getName());
-		originalSender.sendMessage("You " + ChatColor.GREEN + "invited " + ChatColor.RESET + other.getName());
+			other.sendMessage("You've been " + ChatColorUtil.positiveMessage("invited ") + "to join " + team.getName());
+		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("invited ") + other.getName());
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -41,16 +42,19 @@ public class UserInvite extends UserCommand
 		Requirements.checkPlayerHasPlayedBefore(other);
 		Requirements.checkPlayerHasInvite(other);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "in" + patternOneOrMore("vite") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.admin.core.invite";
 	}
+
 	@Override
 	public String getUsage()
 	{

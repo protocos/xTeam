@@ -9,7 +9,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class UserLeave extends UserCommand
@@ -30,10 +30,11 @@ public class UserLeave extends UserCommand
 		{
 			ITeamPlayer mate = PlayerManager.getPlayer(teammate);
 			if (mate.isOnline())
-				mate.sendMessage(teamPlayer.getName() + ChatColor.RED + " left your team");
+				mate.sendMessage(teamPlayer.getName() + " " + ChatColorUtil.negativeMessage("left") + " your team");
 		}
-		originalSender.sendMessage("You left " + ChatColor.AQUA + team.getName());
+		originalSender.sendMessage("You " + ChatColorUtil.negativeMessage("left") + " " + team.getName());
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -41,16 +42,19 @@ public class UserLeave extends UserCommand
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerLeaderLeaving(teamPlayer);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "l" + "(" + patternOneOrMore("eave") + "|" + patternOneOrMore("ve") + ")" + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.player.core.leave";
 	}
+
 	@Override
 	public String getUsage()
 	{

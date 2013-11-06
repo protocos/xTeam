@@ -9,7 +9,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class ConsoleDemote extends ConsoleCommand
@@ -26,11 +26,12 @@ public class ConsoleDemote extends ConsoleCommand
 	{
 		Team team = xTeam.getTeamManager().getTeam(teamName);
 		team.demote(playerName);
-		originalSender.sendMessage("You demoted " + playerName);
+		originalSender.sendMessage("You" + ChatColorUtil.negativeMessage(" demoted ") + playerName);
 		ITeamPlayer other = PlayerManager.getPlayer(playerName);
 		if (other.isOnline())
-			other.sendMessage("You've been " + ChatColor.RED + "demoted");
+			other.sendMessage("You've been " + ChatColorUtil.negativeMessage("demoted"));
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -46,11 +47,13 @@ public class ConsoleDemote extends ConsoleCommand
 		Requirements.checkPlayerOnTeam(player, team);
 		Requirements.checkPlayerLeaderDemote(player);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("demote") + WHITE_SPACE + ANY_CHARS + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getUsage()
 	{

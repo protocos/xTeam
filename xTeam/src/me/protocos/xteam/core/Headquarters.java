@@ -5,7 +5,6 @@ import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -36,48 +35,57 @@ public class Headquarters extends Location implements ILocatable
 	@Override
 	public String getName()
 	{
-		return "the " + ChatColor.GREEN + "team headquarters";
+		return "team headquarters";
 	}
+
 	@Override
 	public Location getLocation()
 	{
 		return this;
 	}
+
 	@Override
 	public Server getServer()
 	{
 		return Data.BUKKIT;
 	}
+
 	@Override
 	public int getRelativeX()
 	{
 		return CommonUtil.round(this.getX());
 	}
+
 	@Override
 	public int getRelativeY()
 	{
 		return CommonUtil.round(this.getY());
 	}
+
 	@Override
 	public int getRelativeZ()
 	{
 		return CommonUtil.round(this.getZ());
 	}
+
 	@Override
 	public double getDistanceTo(ILocatable entity)
 	{
 		return this.distance(entity.getLocation());
 	}
+
 	@Override
 	public boolean teleportTo(ILocatable entity)
 	{
 		return false;
 	}
+
 	@Override
 	public List<Entity> getNearbyEntities(int radius)
 	{
 		return BukkitUtil.getNearbyEntities(this, radius);
 	}
+
 	@Override
 	public boolean equals(Object obj)
 	{

@@ -26,6 +26,7 @@ public class UserTeleportTest
 		//MOCK data
 		mockData();
 	}
+
 	@Test
 	public void ShouldBeTeamUserTeleExecute()
 	{
@@ -39,6 +40,7 @@ public class UserTeleportTest
 		Assert.assertEquals(Data.BUKKIT.getPlayer("protocos").getLocation(), fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserTeleExecuteNoName()
 	{
@@ -52,6 +54,7 @@ public class UserTeleportTest
 		Assert.assertEquals(Data.BUKKIT.getPlayer("protocos").getLocation(), fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserTeleExecuteNoTeammatesOnline()
 	{
@@ -66,6 +69,7 @@ public class UserTeleportTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserTeleExecuteNotTeammate()
 	{
@@ -80,6 +84,7 @@ public class UserTeleportTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserTeleExecutePlayerDying()
 	{
@@ -95,6 +100,7 @@ public class UserTeleportTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserTeleExecutePlayerNoTeam()
 	{
@@ -109,6 +115,7 @@ public class UserTeleportTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserTeleExecuteRecentAttacked()
 	{
@@ -125,6 +132,7 @@ public class UserTeleportTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserTeleExecuteRecentRequest()
 	{
@@ -141,6 +149,7 @@ public class UserTeleportTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserTeleExecuteRecentTeleport()
 	{
@@ -153,10 +162,11 @@ public class UserTeleportTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele protocos"));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within 60 seconds of last teleport\nPlayer must wait 60 more seconds\n'/team return' is still available")).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within 60 seconds of last teleport\nPlayer must wait 60 more seconds\n/team return is still available")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserTeleExecuteSelfTele()
 	{
@@ -171,6 +181,7 @@ public class UserTeleportTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

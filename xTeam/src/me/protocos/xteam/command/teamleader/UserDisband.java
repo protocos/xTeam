@@ -7,7 +7,7 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class UserDisband extends UserCommand
@@ -22,10 +22,10 @@ public class UserDisband extends UserCommand
 	{
 		for (ITeamPlayer playerDisband : teamPlayer.getOnlineTeammates())
 		{
-			playerDisband.sendMessage("Team has been " + ChatColor.RED + "disbanded" + ChatColor.RESET + " by the leader");
+			playerDisband.sendMessage("Team has been " + ChatColorUtil.negativeMessage("disbanded") + " by the team leader");
 		}
 		xTeam.getTeamManager().removeTeam(team.getName());
-		originalSender.sendMessage("You " + ChatColor.RED + "disbanded" + ChatColor.RESET + " your team");
+		originalSender.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " your team");
 	}
 
 	@Override

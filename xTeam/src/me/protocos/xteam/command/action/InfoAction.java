@@ -17,19 +17,6 @@ public class InfoAction
 	{
 	}
 
-	//	public void actOn(ITeamPlayer teamPlayer, String other)
-	//	{
-	//		Team infoTeam = xTeam.getTeamManager().getTeam(other);
-	//		if (infoTeam == null)
-	//			infoTeam = PlayerManager.getPlayer(other).getTeam();
-	//		if (infoTeam != null)
-	//		{
-	//			if (teamPlayer.isOnSameTeam(infoTeam))
-	//				teamPlayer.sendMessage(infoTeam.getPrivateInfo());
-	//			else
-	//				teamPlayer.sendMessage(infoTeam.getPublicInfo());
-	//		}
-	//	}
 	public void actOn(CommandSender sender, String other)
 	{
 		Team infoTeam = xTeam.getTeamManager().getTeam(other);
@@ -52,6 +39,7 @@ public class InfoAction
 			}
 		}
 	}
+
 	public void checkRequirements(String other) throws TeamOrPlayerDoesNotExistException, TeamPlayerHasNoTeamException
 	{
 		if (xTeam.getTeamManager().getTeam(other) == null)

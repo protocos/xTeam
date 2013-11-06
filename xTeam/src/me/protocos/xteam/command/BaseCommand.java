@@ -4,7 +4,7 @@ import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ICommand;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public abstract class BaseCommand implements ICommand
@@ -28,7 +28,7 @@ public abstract class BaseCommand implements ICommand
 		}
 		catch (TeamException e)
 		{
-			sender.sendMessage(ChatColor.RED + e.getMessage());
+			sender.sendMessage(ChatColorUtil.negativeMessage(e.getMessage()));
 			xTeam.getLog().info("Command execute failed for reason: " + e.getMessage());
 		}
 		catch (InvalidClassException e)
