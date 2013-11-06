@@ -1,12 +1,12 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.command.CommandSender;
@@ -46,7 +46,7 @@ public class UserTeleport extends UserCommand
 		}
 		else
 		{
-			ITeamPlayer other = PlayerManager.getPlayer(teammateName);
+			ITeamPlayer other = xTeam.getPlayerManager().getPlayer(teammateName);
 			Requirements.checkPlayerIsTeammate(teamPlayer, other);
 			for (TeamPlayer teammate : teamPlayer.getOnlineTeammates())
 			{

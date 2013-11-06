@@ -6,7 +6,6 @@ import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.action.Requirements;
-import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
@@ -43,7 +42,7 @@ public class ConsoleRemove extends ConsoleCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		changePlayer = PlayerManager.getPlayer(playerName);
+		changePlayer = xTeam.getPlayerManager().getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(changePlayer);
 		Requirements.checkPlayerHasTeam(changePlayer);
 		Requirements.checkPlayerLeaderLeaving(changePlayer);

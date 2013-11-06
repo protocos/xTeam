@@ -6,7 +6,6 @@ import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.action.Requirements;
-import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
@@ -24,12 +23,12 @@ public class AdminSetLeader extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		ITeamPlayer playerSet = PlayerManager.getPlayer(playerName);
+		ITeamPlayer playerSet = xTeam.getPlayerManager().getPlayer(playerName);
 		Team playerTeam = playerSet.getTeam();
 		playerTeam.setLeader(playerName);
 		if (playerSet.isOnline() && !playerSet.getName().equals(originalSender.getName()))
 			playerSet.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
-		ITeamPlayer previousLeader = PlayerManager.getPlayer(playerTeam.getLeader());
+		ITeamPlayer previousLeader = xTeam.getPlayerManager().getPlayer(playerTeam.getLeader());
 		if (previousLeader.isOnline() && !previousLeader.getName().equals(originalSender.getName()))
 			previousLeader.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader"));
 		originalSender.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader") + " for " + playerTeam.getName());
@@ -42,7 +41,7 @@ public class AdminSetLeader extends ServerAdminCommand
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
 		Team desiredTeam = xTeam.getTeamManager().getTeam(teamName);
-		ITeamPlayer playerSet = PlayerManager.getPlayer(playerName);
+		ITeamPlayer playerSet = xTeam.getPlayerManager().getPlayer(playerName);
 		Team playerTeam = playerSet.getTeam();
 		Requirements.checkPlayerHasPlayedBefore(playerSet);
 		Requirements.checkTeamExists(teamName);

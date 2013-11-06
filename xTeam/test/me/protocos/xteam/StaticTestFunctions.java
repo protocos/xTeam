@@ -24,18 +24,10 @@ public class StaticTestFunctions
 	{
 		Data.chatStatus.clear();
 		Data.spies.clear();
-		//		Data.damagedByPlayer.clear();
-		//		Data.returnLocations.clear();
-		//		Data.taskIDs.clear();
-		//		Data.countWaitTime.clear();
-		//		Data.hasTeleported.clear();
-		//		Data.lastAttacked.clear();
 		Data.lastCreated.clear();
 		InviteHandler.clear();
-		//		Data.SPOUT_ENABLED = true;
 		Data.LOCATIONS_ENABLED = true;
 		Data.CAN_CHAT = true;
-		//		Data.HIDE_NAMES = true;
 		Data.HQ_ON_DEATH = true;
 		Data.TEAM_WOLVES = true;
 		Data.RANDOM_TEAM = false;
@@ -48,7 +40,6 @@ public class StaticTestFunctions
 		Data.ALPHA_NUM = true;
 		Data.DISPLAY_COORDINATES = true;
 		Data.MAX_PLAYERS = 0;
-		//		Data.REVEAL_TIME = 10;
 		Data.HQ_INTERVAL = 1;
 		Data.TELE_RADIUS = 500;
 		Data.ENEMY_PROX = 20;
@@ -81,9 +72,10 @@ public class StaticTestFunctions
 		when(xTeam.getSelf()).thenReturn(mockxTeam);
 
 		//MOCK main data
-		PlayerManager.clearData();
 		TeleportScheduler.getInstance().clearTasks();
-		xTeam.fakeData(new CommandManager(), new ServiceManager(mockxTeam), new TeamManager(), new FakeLog(), "CURRENT");
+		xTeam.fakeData(new CommandManager(), new ServiceManager(mockxTeam), new TeamManager(), new PlayerManager(), new FakeLog(), "CURRENT");
+		xTeam.getTeamManager().clearData();
+		xTeam.getPlayerManager().clearData();
 
 		//MOCK team
 		Team team1 = Team.generateTeamFromProperties("name:ONE tag:TeamAwesome world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois");
@@ -102,6 +94,7 @@ public class StaticTestFunctions
 		//MOCK players
 		mockPlayers();
 	}
+
 	public static void mockPlayers()
 	{
 		//MOCK protocos
@@ -158,10 +151,10 @@ public class StaticTestFunctions
 		when(Data.BUKKIT.getOfflinePlayers()).thenReturn(new OfflinePlayer[] { protocosOffline, kmlangloisOffline, mastermindOffline, LonelyOffline, strandedhelixOffline, kestraOffline, newbieOffline, threeOffline, oneOffline, twoOffline, thrOffline });
 
 		//MOCK teamPlayerManager
-		//		PlayerManager.addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(protocosOnline));
-		//		PlayerManager.addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(kmlangloisOnline));
-		//		PlayerManager.addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(mastermindOnline));
-		//		PlayerManager.addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(strandedhelixOnline));
-		//		PlayerManager.addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(LonelyOnline));
+		//		xTeam.getPlayerManager().addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(protocosOnline));
+		//		xTeam.getPlayerManager().addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(kmlangloisOnline));
+		//		xTeam.getPlayerManager().addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(mastermindOnline));
+		//		xTeam.getPlayerManager().addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(strandedhelixOnline));
+		//		xTeam.getPlayerManager().addPlayer(TeamPlayer.teamPlayerFromOnlinePlayer(LonelyOnline));
 	}
 }

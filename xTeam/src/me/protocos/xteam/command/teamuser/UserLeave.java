@@ -7,7 +7,6 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
@@ -28,7 +27,7 @@ public class UserLeave extends UserCommand
 		Data.chatStatus.remove(teamPlayer.getName());
 		for (String teammate : team.getPlayers())
 		{
-			ITeamPlayer mate = PlayerManager.getPlayer(teammate);
+			ITeamPlayer mate = xTeam.getPlayerManager().getPlayer(teammate);
 			if (mate.isOnline())
 				mate.sendMessage(teamPlayer.getName() + " " + ChatColorUtil.negativeMessage("left") + " your team");
 		}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import me.protocos.xteam.api.collections.HashList;
 
 public class CommonUtil
 {
@@ -234,6 +235,11 @@ public class CommonUtil
 	public static <K, V> HashMap<K, V> emptyHashMap()
 	{
 		return new HashMap<K, V>();
+	}
+
+	public static <K, V> HashList<K, V> emptyHashList()
+	{
+		return new HashList<K, V>();
 	}
 
 	@SuppressWarnings("unchecked")

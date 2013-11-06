@@ -3,7 +3,6 @@ package me.protocos.xteam.listener;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.ChatColor;
@@ -24,7 +23,7 @@ public class TeamChatListener implements Listener
 			World playerWorld = player.getWorld();
 			String msg = event.getMessage();
 			String format = event.getFormat();
-			ITeamPlayer teamPlayer = PlayerManager.getPlayer(player);
+			ITeamPlayer teamPlayer = xTeam.getPlayerManager().getPlayer(player);
 			if (event.isCancelled())
 			{
 				return;
@@ -45,7 +44,7 @@ public class TeamChatListener implements Listener
 					team.sendMessage("[" + ChatColorUtil.getColor(Data.NAME_COLOR) + playerName + ChatColor.RESET + "] " + msg);
 					for (String p : Data.spies)
 					{
-						ITeamPlayer spy = PlayerManager.getPlayer(p);
+						ITeamPlayer spy = xTeam.getPlayerManager().getPlayer(p);
 						if (!spy.isOnSameTeam(teamPlayer))
 							spy.sendMessage(ChatColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
 					}

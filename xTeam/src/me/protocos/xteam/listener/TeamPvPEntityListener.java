@@ -3,7 +3,6 @@ package me.protocos.xteam.listener;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.PlayerManager;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -22,7 +21,7 @@ public class TeamPvPEntityListener implements Listener
 		}
 		else
 		{
-			ITeamPlayer player = PlayerManager.getPlayer(defender.getName());
+			ITeamPlayer player = xTeam.getPlayerManager().getPlayer(defender.getName());
 			player.setLastAttacked(System.currentTimeMillis());
 			//			if (Data.SPOUT_ENABLED && Data.REVEAL_TIME > 0L)
 			//				if (Data.SPOUT_ENABLED && Data.REVEAL_TIME > 0L)
@@ -66,18 +65,18 @@ public class TeamPvPEntityListener implements Listener
 					// Player hurt Player
 					if (damager instanceof Player)
 					{
-						attacker = PlayerManager.getPlayer((Player) damager);
-						defender = PlayerManager.getPlayer((Player) entity);
+						attacker = xTeam.getPlayerManager().getPlayer((Player) damager);
+						defender = xTeam.getPlayerManager().getPlayer((Player) entity);
 						checkTeam(event, attacker, defender);
 					}
 					// Projectile hurt Player
 					else if (damager instanceof Projectile)
 					{
 						if (((Projectile) damager).getShooter() instanceof Player)
-							attacker = PlayerManager.getPlayer((Player) ((Projectile) damager).getShooter());
+							attacker = xTeam.getPlayerManager().getPlayer((Player) ((Projectile) damager).getShooter());
 						else
 							return;
-						defender = PlayerManager.getPlayer((Player) entity);
+						defender = xTeam.getPlayerManager().getPlayer((Player) entity);
 						checkTeam(event, attacker, defender);
 					}
 					else
@@ -88,7 +87,7 @@ public class TeamPvPEntityListener implements Listener
 				//					// Player hurt Wolf
 				//					if (damager instanceof Player)
 				//					{
-				//						ITeamPlayer sender = PlayerManager.getPlayer((Player) damager);
+				//						ITeamPlayer sender = xTeam.getPlayerManager().getPlayer((Player) damager);
 				//						TeamWolf wolf = new TeamWolf((Wolf) entity);
 				//						if (sender.hasTeam() && wolf.hasTeam() && sender.getTeam().equals(wolf.getTeam()))
 				//						{

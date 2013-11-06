@@ -25,6 +25,7 @@ public class UserHelpTest
 		xTeam.registerLeaderCommands(xTeam.getCommandManager());
 		xTeam.registerUserCommands(xTeam.getCommandManager());
 	}
+
 	@Test
 	public void ShouldBeTeamUserHelpPageExecute()
 	{
@@ -46,6 +47,7 @@ public class UserHelpTest
 				"/team return - Teleport to saved return location (1 use)", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserHelpPageExecute2()
 	{
@@ -59,14 +61,15 @@ public class UserHelpTest
 				"/team chat {On/Off} - Toggle chatting with teammates\n" +
 				"/team message [Message] - Send message to teammates\n" +
 				"/team sethq - Set headquarters of team (every 1 hours)\n" +
-				"/team invite [Player] - Invite sender to your team\n" +
-				"/team promote [Player] - Promote sender on your team\n" +
-				"/team demote [Player] - Demote sender on your team\n" +
+				"/team invite [Player] - Invite player to your team\n" +
+				"/team promote [Player] - Promote player on your team\n" +
+				"/team demote [Player] - Demote player on your team\n" +
 				"/team disband - Disband the team\n" +
 				"/team open - Open team to public joining\n" +
-				"/team remove [Player] - Remove sender from your team", fakePlayerSender.getLastMessage());
+				"/team remove [Player] - Remove player from your team", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserHelpPageExecute3()
 	{
@@ -88,6 +91,7 @@ public class UserHelpTest
 				" ", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserHelpPageExecuteInvalidPage()
 	{
@@ -100,6 +104,7 @@ public class UserHelpTest
 		Assert.assertEquals((new TeamInvalidPageException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

@@ -6,7 +6,6 @@ import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.action.Requirements;
-import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
@@ -27,7 +26,7 @@ public class ConsolePromote extends ConsoleCommand
 		Team team = xTeam.getTeamManager().getTeam(teamName);
 		team.promote(playerName);
 		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("promoted ") + playerName);
-		ITeamPlayer other = PlayerManager.getPlayer(playerName);
+		ITeamPlayer other = xTeam.getPlayerManager().getPlayer(playerName);
 		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColorUtil.positiveMessage("promoted"));
 	}
@@ -38,7 +37,7 @@ public class ConsolePromote extends ConsoleCommand
 		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		ITeamPlayer player = PlayerManager.getPlayer(playerName);
+		ITeamPlayer player = xTeam.getPlayerManager().getPlayer(playerName);
 		Team team = xTeam.getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkPlayerHasPlayedBefore(player);

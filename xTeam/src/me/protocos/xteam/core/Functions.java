@@ -52,7 +52,7 @@ public class Functions
 		if (type.startsWith("CraftPlayer"))
 		{
 			Player p = (Player) entity;
-			ITeamPlayer otherPlayer = PlayerManager.getPlayer(p);
+			ITeamPlayer otherPlayer = xTeam.getPlayerManager().getPlayer(p);
 			Team otherTeam = otherPlayer.getTeam();
 			if (player.getTeam().equals(otherTeam))
 				return false;
@@ -180,8 +180,8 @@ public class Functions
 	//			{
 	//				for (Player player2 : Data.BUKKIT.getOnlinePlayers())
 	//				{
-	//					ITeamPlayer p1 = PlayerManager.getPlayer(player1);
-	//					ITeamPlayer p2 = PlayerManager.getPlayer(player2);
+	//					ITeamPlayer p1 = xTeam.getPlayerManager().getPlayer(player1);
+	//					ITeamPlayer p2 = xTeam.getPlayerManager().getPlayer(player2);
 	//					if (p1.isOnSameTeam(p2))
 	//					{
 	//						try

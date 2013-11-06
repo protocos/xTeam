@@ -50,7 +50,7 @@ public class AdminHelp extends ServerAdminCommand
 		pages = new HelpPages();
 		String command;
 		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_set")))
-			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> set team of sender"));
+			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> set team of player"));
 		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_hq")))
 			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> teleport to team headquarters"));
 		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_sethq")))
@@ -62,7 +62,7 @@ public class AdminHelp extends ServerAdminCommand
 		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_demote")))
 			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> demote admin of team"));
 		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_remove")))
-			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> remove sender of team"));
+			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> remove player of team"));
 		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_teleallhq")))
 			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> teleports everyone to their HQ"));
 		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_tpall")))

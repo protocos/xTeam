@@ -22,6 +22,7 @@ public class ConsoleHelpTest
 		xTeam.registerConsoleCommands(xTeam.getCommandManager());
 		fakeConsoleSender = new FakeConsoleSender();
 	}
+
 	@Test
 	public void ShouldBeConsoleHelpExecute()
 	{
@@ -31,9 +32,9 @@ public class ConsoleHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team"));
 		//ASSERT
 		Assert.assertEquals("Console Commands: {optional} [required] pick/one\n" +
-				"/team info [Player/Team] - get info on sender/team\n" +
+				"/team info [Player/Team] - get info on player/team\n" +
 				"/team list - list all teams on the server\n" +
-				"/team set [Player] [Team] - set team of sender\n" +
+				"/team set [Player] [Team] - set team of player\n" +
 				"/team setleader [Team] [Player] - set leader of team\n" +
 				"/team promote [Team] [Player] - promote admin of team\n" +
 				"/team demote [Team] [Player] - demote admin of team\n" +
@@ -46,6 +47,7 @@ public class ConsoleHelpTest
 				"/team reload - reloads the configuration file\n", fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

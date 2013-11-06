@@ -67,13 +67,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	@Override
 	public void setLastTeleported(long lastTeleported)
 	{
-		PlayerManager.setLastTeleported(this, lastTeleported);
+		xTeam.getPlayerManager().setLastTeleported(this, lastTeleported);
 	}
 
 	@Override
 	public long getLastTeleported()
 	{
-		return PlayerManager.getLastTeleported(this.getName());
+		return xTeam.getPlayerManager().getLastTeleported(this.getName());
 	}
 
 	@Override
@@ -97,13 +97,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return PlayerManager.getOfflineTeammatesOf(this);
+		return xTeam.getPlayerManager().getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return PlayerManager.getOnlineTeammatesOf(this);
+		return xTeam.getPlayerManager().getOnlineTeammatesOf(this);
 	}
 
 	@Override
@@ -142,7 +142,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
-		return PlayerManager.getTeammatesOf(this);
+		return xTeam.getPlayerManager().getTeammatesOf(this);
 	}
 
 	@Override
@@ -488,13 +488,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	@Override
 	public void setReturnLocation(Location returnLocation)
 	{
-		PlayerManager.setReturnLocation(this, returnLocation);
+		xTeam.getPlayerManager().setReturnLocation(this, returnLocation);
 	}
 
 	@Override
 	public Location getReturnLocation()
 	{
-		return PlayerManager.getReturnLocation(this.getName());
+		return xTeam.getPlayerManager().getReturnLocation(this.getName());
 	}
 
 	@Override
@@ -506,19 +506,19 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	@Override
 	public void removeReturnLocation()
 	{
-		PlayerManager.setReturnLocation(this, null);
+		xTeam.getPlayerManager().setReturnLocation(this, null);
 	}
 
 	@Override
 	public void setLastAttacked(long lastAttacked)
 	{
-		PlayerManager.setLastAttacked(this, lastAttacked);
+		xTeam.getPlayerManager().setLastAttacked(this, lastAttacked);
 	}
 
 	@Override
 	public long getLastAttacked()
 	{
-		return PlayerManager.getLastAttacked(this.getName());
+		return xTeam.getPlayerManager().getLastAttacked(this.getName());
 	}
 
 	@Override

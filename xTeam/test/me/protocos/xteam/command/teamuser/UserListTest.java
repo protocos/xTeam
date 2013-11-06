@@ -19,6 +19,7 @@ public class UserListTest
 		//MOCK data
 		mockData();
 	}
+
 	@Test
 	public void ShouldBeTeamUserListExecuteNoTeams()
 	{
@@ -32,6 +33,7 @@ public class UserListTest
 		Assert.assertEquals("There are no teams", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserListExecuteOneTeam()
 	{
@@ -47,6 +49,7 @@ public class UserListTest
 		Assert.assertEquals("Teams: red", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserListExecute()
 	{
@@ -59,6 +62,7 @@ public class UserListTest
 		Assert.assertEquals("Teams: ONE, two, red, blue", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

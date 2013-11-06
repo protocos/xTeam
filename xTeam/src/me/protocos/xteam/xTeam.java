@@ -16,10 +16,7 @@ import me.protocos.xteam.command.teamadmin.UserPromote;
 import me.protocos.xteam.command.teamadmin.UserSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
-import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.Functions;
-import me.protocos.xteam.core.ServiceManager;
-import me.protocos.xteam.core.TeamManager;
+import me.protocos.xteam.core.*;
 import me.protocos.xteam.util.LogUtil;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.Plugin;
@@ -34,6 +31,7 @@ public class xTeam extends JavaPlugin
 	private static ICommandManager commandManager;
 	private static CommandExecutor commandExecutor;
 	private static TeamManager teamManager;
+	private static PlayerManager playerManager;
 
 	public static ILog getLog()
 	{
@@ -65,12 +63,18 @@ public class xTeam extends JavaPlugin
 		return teamManager;
 	}
 
+	public static PlayerManager getPlayerManager()
+	{
+		return playerManager;
+	}
+
 	public static void registerAdminCommands(ICommandManager manager)
 	{
 		manager.registerCommand("admin_invite", new UserInvite());
 		manager.registerCommand("admin_promote", new UserPromote());
 		manager.registerCommand("admin_sethq", new UserSetHeadquarters());
 	}
+
 	public static void registerConsoleCommands(ICommandManager manager)
 	{
 		manager.registerCommand("console_debug", new ConsoleDebug());
@@ -89,6 +93,7 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("console_setleader", new ConsoleSetLeader());
 		manager.registerCommand("console_teleallhq", new ConsoleTeleAllHQ());
 	}
+
 	public static void registerLeaderCommands(ICommandManager manager)
 	{
 		manager.registerCommand("leader_demote", new UserDemote());
@@ -99,6 +104,7 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("leader_setleader", new UserSetLeader());
 		manager.registerCommand("leader_tag", new UserTag());
 	}
+
 	public static void registerServerAdminCommands(ICommandManager manager)
 	{
 		manager.registerCommand("serveradmin_chatspy", new AdminChatSpy());
@@ -118,6 +124,7 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("serveradmin_teleallhq", new AdminTeleAllHQ());
 		manager.registerCommand("serveradmin_tpall", new AdminTpAll());
 	}
+
 	public static void registerUserCommands(ICommandManager manager)
 	{
 		manager.registerCommand("user_accept", new UserAccept());
@@ -134,6 +141,7 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("user_return", new UserReturn());
 		manager.registerCommand("user_tele", new UserTeleport());
 	}
+
 	public void initFileSystem()
 	{
 		File f = new File(getDataFolder().getAbsolutePath());
@@ -189,7 +197,7 @@ public class xTeam extends JavaPlugin
 						"### alphanumericnames - When true, players can only create teams with alphanumeric names and no symbols (i.e. TeamAwesome123) (default=false)\n" +
 						"### displaycoordinates - When true, players can see coordinates of other team mates in team info (default=true)\n" +
 						"### tagcolor - Color representing the color of the tag in game (e.g. green, dark_red, light_purple)\n" +
-						"### chatnamecolor - Color representing the color of sender names in team chat (e.g. green, dark_red, light_purple)\n" +
+						"### chatnamecolor - Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)\n" +
 						"############################################\n" +
 						"playersonteam=10\n" +
 						"sethqinterval=0\n" +
@@ -299,6 +307,7 @@ public class xTeam extends JavaPlugin
 			}
 		}
 	}
+
 	@Override
 	public void onDisable()
 	{
@@ -315,6 +324,7 @@ public class xTeam extends JavaPlugin
 			xTeam.log.info("[ERROR] Exception in xTeam onDisable() class [check logs]");
 		}
 	}
+
 	@Override
 	public void onEnable()
 	{
@@ -329,6 +339,7 @@ public class xTeam extends JavaPlugin
 			serviceManager = new ServiceManager(this);
 			commandManager = new CommandManager();
 			teamManager = new TeamManager();
+			playerManager = new PlayerManager();
 			registerConsoleCommands(commandManager);
 			registerServerAdminCommands(commandManager);
 			registerAdminCommands(commandManager);
@@ -347,15 +358,18 @@ public class xTeam extends JavaPlugin
 			xTeam.log.info("[ERROR] Exception in xTeam onEnable() class [check logs]");
 		}
 	}
+
 	public static Plugin getSelf()
 	{
 		return Data.BUKKIT.getPluginManager().getPlugin("xTeam");
 	}
-	static void fakeData(ICommandManager fakeCommandManager, ServiceManager fakeServiceManager, TeamManager fakeTeamManager, ILog fakeLogger, String fakeVersion)
+
+	static void fakeData(ICommandManager fakeCommandManager, ServiceManager fakeServiceManager, TeamManager fakeTeamManager, PlayerManager fakePlayerManager, ILog fakeLogger, String fakeVersion)
 	{
 		commandManager = fakeCommandManager;
 		serviceManager = fakeServiceManager;
 		teamManager = fakeTeamManager;
+		playerManager = fakePlayerManager;
 		logger = fakeLogger;
 		VERSION = fakeVersion;
 	}

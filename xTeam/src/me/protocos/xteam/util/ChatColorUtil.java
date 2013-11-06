@@ -24,7 +24,7 @@ public class ChatColorUtil
 		string = string.replaceAll("\\[", highlightColor + "[" + mainColor);
 		string = string.replaceAll("\\]", highlightColor + "]" + mainColor);
 		string = string.replaceAll("/", highlightColor + "/" + mainColor);
-		return string;
+		return mainColor + string;
 	}
 
 	public static String formatForUser(String string)

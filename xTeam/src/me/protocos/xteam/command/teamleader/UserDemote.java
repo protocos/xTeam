@@ -1,12 +1,12 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
@@ -36,8 +36,8 @@ public class UserDemote extends UserCommand
 	{
 		super.checkRequirements(originalSender, parseCommand);
 		otherPlayer = parseCommand.get(1);
-		ITeamPlayer other = PlayerManager.getPlayer(otherPlayer);
-		ITeamPlayer demotePlayer = PlayerManager.getPlayer(otherPlayer);
+		ITeamPlayer other = xTeam.getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer demotePlayer = xTeam.getPlayerManager().getPlayer(otherPlayer);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerIsTeamLeader(teamPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);

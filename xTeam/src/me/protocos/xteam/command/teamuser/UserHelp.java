@@ -83,20 +83,20 @@ public class UserHelp extends UserCommand
 			if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(temp = "admin_sethq")))
 				pages.addLine(ChatColorUtil.formatForAdmin(xTeam.getCommandManager().getUsage(temp) + " - Set headquarters of team" + (Data.HQ_INTERVAL > 0 ? " (every " + Data.HQ_INTERVAL + " hours)" : "")));
 			if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(temp = "admin_invite")))
-				pages.addLine(ChatColorUtil.formatForAdmin(xTeam.getCommandManager().getUsage(temp) + " - Invite sender to your team"));
+				pages.addLine(ChatColorUtil.formatForAdmin(xTeam.getCommandManager().getUsage(temp) + " - Invite player to your team"));
 			if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(temp = "admin_promote")))
-				pages.addLine(ChatColorUtil.formatForAdmin(xTeam.getCommandManager().getUsage(temp) + " - Promote sender on your team"));
+				pages.addLine(ChatColorUtil.formatForAdmin(xTeam.getCommandManager().getUsage(temp) + " - Promote player on your team"));
 		}
 		if (teamPlayer.isLeader())
 		{
 			if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(temp = "leader_demote")))
-				pages.addLine(ChatColorUtil.formatForLeader(xTeam.getCommandManager().getUsage(temp) + " - Demote sender on your team"));
+				pages.addLine(ChatColorUtil.formatForLeader(xTeam.getCommandManager().getUsage(temp) + " - Demote player on your team"));
 			if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(temp = "leader_disband")))
 				pages.addLine(ChatColorUtil.formatForLeader(xTeam.getCommandManager().getUsage(temp) + " - Disband the team"));
 			if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(temp = "leader_open")))
 				pages.addLine(ChatColorUtil.formatForLeader(xTeam.getCommandManager().getUsage(temp) + " - Open team to public joining"));
 			if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(temp = "leader_remove")))
-				pages.addLine(ChatColorUtil.formatForLeader(xTeam.getCommandManager().getUsage(temp) + " - Remove sender from your team"));
+				pages.addLine(ChatColorUtil.formatForLeader(xTeam.getCommandManager().getUsage(temp) + " - Remove player from your team"));
 			if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(temp = "leader_rename")))
 				pages.addLine(ChatColorUtil.formatForLeader(xTeam.getCommandManager().getUsage(temp) + " - Rename the team"));
 			if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(temp = "leader_tag")))

@@ -3,7 +3,6 @@ package me.protocos.xteam.command.action;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
@@ -20,7 +19,7 @@ public class SetTeamAction
 
 	public void checkRequirementsOn(String playerName, String teamName) throws TeamException
 	{
-		ITeamPlayer player = PlayerManager.getPlayer(playerName);
+		ITeamPlayer player = xTeam.getPlayerManager().getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(player);
 		Requirements.checkPlayerLeaderLeaving(player);
 		Requirements.checkPlayerAlreadyOnTeam(player, teamName);
@@ -29,7 +28,7 @@ public class SetTeamAction
 
 	public void actOn(String playerName, String teamName)
 	{
-		ITeamPlayer p = PlayerManager.getPlayer(playerName);
+		ITeamPlayer p = xTeam.getPlayerManager().getPlayer(playerName);
 		if (p.hasTeam())
 		{
 			removePlayer(p);

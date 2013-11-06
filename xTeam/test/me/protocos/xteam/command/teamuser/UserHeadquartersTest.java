@@ -10,7 +10,6 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.CommonUtil;
@@ -94,7 +93,7 @@ public class UserHeadquartersTest
 	{
 		//ASSEMBLE
 		Data.LAST_ATTACKED_DELAY = 15;
-		PlayerManager.getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
+		xTeam.getPlayerManager().getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		UserCommand fakeCommand = new UserHeadquarters();
 		//ACT
@@ -109,7 +108,7 @@ public class UserHeadquartersTest
 	public void ShouldBeTeamUserHQRecentRequest()
 	{
 		//ASSEMBLE
-		TeamPlayer teamPlayer = CommonUtil.assignFromType(PlayerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().setCurrentTask(teamPlayer, 0);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		UserCommand fakeCommand = new UserHeadquarters();
@@ -125,7 +124,7 @@ public class UserHeadquartersTest
 	public void ShouldBeTeamUserHQRecentTeleport()
 	{
 		//ASSEMBLE
-		PlayerManager.getPlayer("kmlanglois").teleportTo(xTeam.getTeamManager().getTeam("ONE"));
+		xTeam.getPlayerManager().getPlayer("kmlanglois").teleportTo(xTeam.getTeamManager().getTeam("ONE"));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		UserCommand fakeCommand = new UserHeadquarters();
 		//ACT
@@ -139,7 +138,7 @@ public class UserHeadquartersTest
 	@After
 	public void takedown()
 	{
-		ITeamPlayer kmlanglois = PlayerManager.getPlayer("kmlanglois");
+		ITeamPlayer kmlanglois = xTeam.getPlayerManager().getPlayer("kmlanglois");
 		kmlanglois.setLastAttacked(0L);
 		kmlanglois.setLastTeleported(0L);
 		kmlanglois.setReturnLocation(null);

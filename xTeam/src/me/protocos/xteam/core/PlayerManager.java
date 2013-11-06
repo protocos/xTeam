@@ -19,14 +19,14 @@ public class PlayerManager
 	{
 	}
 
-	public static void clearData()
+	public void clearData()
 	{
 		lastAttackedMap.clear();
 		lastTeleportedMap.clear();
 		returnLocationMap.clear();
 	}
 
-	public static List<TeamPlayer> getOnlinePlayers()
+	public List<TeamPlayer> getOnlinePlayers()
 	{
 		Player[] players = Data.BUKKIT.getOnlinePlayers();
 		List<TeamPlayer> onlinePlayers = CommonUtil.emptyList(players.length);
@@ -37,7 +37,7 @@ public class PlayerManager
 		return onlinePlayers;
 	}
 
-	public static List<OfflineTeamPlayer> getOfflinePlayers()
+	public List<OfflineTeamPlayer> getOfflinePlayers()
 	{
 		OfflinePlayer[] players = Data.BUKKIT.getOfflinePlayers();
 		List<OfflineTeamPlayer> offlinePlayers = CommonUtil.emptyList(players.length);
@@ -48,21 +48,21 @@ public class PlayerManager
 		return offlinePlayers;
 	}
 
-	public static TeamPlayer getPlayer(Player player)
+	public TeamPlayer getPlayer(Player player)
 	{
 		if (player != null)
 			return teamPlayerWithValues(player);
 		return null;
 	}
 
-	public static OfflineTeamPlayer getPlayer(OfflinePlayer player)
+	public OfflineTeamPlayer getPlayer(OfflinePlayer player)
 	{
 		if (player != null)
 			return offlineTeamPlayerWithValues(player);
 		return null;
 	}
 
-	public static ITeamPlayer getPlayer(String name)
+	public ITeamPlayer getPlayer(String name)
 	{
 		Player player = Data.BUKKIT.getPlayer(name);
 		if (player != null)
@@ -73,7 +73,7 @@ public class PlayerManager
 		return playerWithValues(name);
 	}
 
-	public static List<TeamPlayer> getOnlineTeammatesOf(ITeamEntity teamEntity)
+	public List<TeamPlayer> getOnlineTeammatesOf(ITeamEntity teamEntity)
 	{
 		List<ITeamPlayer> onlineMates = CommonUtil.emptyList();
 		if (teamEntity.hasTeam())
@@ -90,7 +90,7 @@ public class PlayerManager
 		return CommonUtil.subListOfType(onlineMates, TeamPlayer.class);
 	}
 
-	public static List<OfflineTeamPlayer> getOfflineTeammatesOf(ITeamEntity teamEntity)
+	public List<OfflineTeamPlayer> getOfflineTeammatesOf(ITeamEntity teamEntity)
 	{
 		List<ITeamPlayer> offlineMates = CommonUtil.emptyList();
 		if (teamEntity.hasTeam())
@@ -107,7 +107,7 @@ public class PlayerManager
 		return CommonUtil.subListOfType(offlineMates, OfflineTeamPlayer.class);
 	}
 
-	public static List<ITeamPlayer> getTeammatesOf(ITeamEntity teamEntity)
+	public List<ITeamPlayer> getTeammatesOf(ITeamEntity teamEntity)
 	{
 		List<ITeamPlayer> mates = CommonUtil.emptyList();
 		if (teamEntity.hasTeam())
@@ -124,7 +124,7 @@ public class PlayerManager
 		return mates;
 	}
 
-	private static TeamPlayer teamPlayerWithValues(Player player)
+	private TeamPlayer teamPlayerWithValues(Player player)
 	{
 		TeamPlayer returnPlayer = new TeamPlayer(player);
 		String playerName = player.getName();
@@ -138,7 +138,7 @@ public class PlayerManager
 		return returnPlayer;
 	}
 
-	private static OfflineTeamPlayer offlineTeamPlayerWithValues(OfflinePlayer player)
+	private OfflineTeamPlayer offlineTeamPlayerWithValues(OfflinePlayer player)
 	{
 		OfflineTeamPlayer returnPlayer = new OfflineTeamPlayer(player);
 		String playerName = player.getName();
@@ -148,7 +148,7 @@ public class PlayerManager
 		return returnPlayer;
 	}
 
-	private static ITeamPlayer playerWithValues(String playerName)
+	private ITeamPlayer playerWithValues(String playerName)
 	{
 		ITeamPlayer returnPlayer = null;
 		if (Data.BUKKIT.getPlayer(playerName) != null)
@@ -164,38 +164,38 @@ public class PlayerManager
 		return returnPlayer;
 	}
 
-	public static Long getLastAttacked(String playerName)
+	public Long getLastAttacked(String playerName)
 	{
 		if (!lastAttackedMap.containsKey(playerName))
 			lastAttackedMap.put(playerName, 0L);
 		return lastAttackedMap.get(playerName);
 	}
 
-	public static Long getLastTeleported(String playerName)
+	public Long getLastTeleported(String playerName)
 	{
 		if (!lastTeleportedMap.containsKey(playerName))
 			lastTeleportedMap.put(playerName, 0L);
 		return lastTeleportedMap.get(playerName);
 	}
 
-	public static Location getReturnLocation(String playerName)
+	public Location getReturnLocation(String playerName)
 	{
 		if (!returnLocationMap.containsKey(playerName))
 			returnLocationMap.put(playerName, null);
 		return returnLocationMap.get(playerName);
 	}
 
-	static void setLastAttacked(ITeamPlayer player, Long lastAttacked)
+	public void setLastAttacked(ITeamPlayer player, Long lastAttacked)
 	{
 		lastAttackedMap.put(player.getName(), lastAttacked);
 	}
 
-	static void setLastTeleported(ITeamPlayer player, Long lastTeleported)
+	public void setLastTeleported(ITeamPlayer player, Long lastTeleported)
 	{
 		lastTeleportedMap.put(player.getName(), lastTeleported);
 	}
 
-	static void setReturnLocation(ITeamPlayer player, Location returnLocation)
+	public void setReturnLocation(ITeamPlayer player, Location returnLocation)
 	{
 		returnLocationMap.put(player.getName(), returnLocation);
 	}

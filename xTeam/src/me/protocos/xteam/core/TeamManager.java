@@ -7,11 +7,15 @@ import me.protocos.xteam.util.CommonUtil;
 
 public class TeamManager implements ITeamManager
 {
-	private static HashList<String, Team> teams;
+	private static HashList<String, Team> teams = CommonUtil.emptyHashList();
 
 	public TeamManager()
 	{
-		teams = new HashList<String, Team>();
+	}
+
+	public void clearData()
+	{
+		teams.clear();
 	}
 
 	public boolean addTeam(Team team)
@@ -72,6 +76,7 @@ public class TeamManager implements ITeamManager
 		}
 		return defaultTeams;
 	}
+
 	public List<String> getRegularTeamNames()
 	{
 		List<Team> regularTeams = getRegularTeams();
@@ -80,6 +85,7 @@ public class TeamManager implements ITeamManager
 			regularTeamNames.add(team.getName());
 		return regularTeamNames;
 	}
+
 	public List<Team> getRegularTeams()
 	{
 		List<Team> regularTeams = CommonUtil.emptyList();
@@ -90,6 +96,7 @@ public class TeamManager implements ITeamManager
 		}
 		return regularTeams;
 	}
+
 	public Team getTeam(String teamName)
 	{
 		return teams.get(teamName.toLowerCase());

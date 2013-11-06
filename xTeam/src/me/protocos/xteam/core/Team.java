@@ -3,6 +3,7 @@ package me.protocos.xteam.core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeam;
@@ -165,7 +166,7 @@ public class Team implements ITeam
 	//		List<String> onlinePlayers = new ArrayList<String>();
 	//		for (String p : players)
 	//		{
-	//			ITeamPlayer player = PlayerManager.getPlayer(p);
+	//			ITeamPlayer player = xTeam.getPlayerManager().getPlayer(p);
 	//			if (player.isOnline())
 	//				onlinePlayers.add(p);
 	//		}
@@ -176,7 +177,7 @@ public class Team implements ITeam
 	//		List<String> offlinePlayers = new ArrayList<String>();
 	//		for (String p : players)
 	//		{
-	//			ITeamPlayer player = PlayerManager.getPlayer(p);
+	//			ITeamPlayer player = xTeam.getPlayerManager().getPlayer(p);
 	//			if (!player.isOnline())
 	//				offlinePlayers.add(p);
 	//		}
@@ -417,17 +418,17 @@ public class Team implements ITeam
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return PlayerManager.getOnlineTeammatesOf(this);
+		return xTeam.getPlayerManager().getOnlineTeammatesOf(this);
 	}
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return PlayerManager.getOfflineTeammatesOf(this);
+		return xTeam.getPlayerManager().getOfflineTeammatesOf(this);
 	}
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
-		return PlayerManager.getTeammatesOf(this);
+		return xTeam.getPlayerManager().getTeammatesOf(this);
 	}
 	@Override
 	public List<Entity> getNearbyEntities(int radius)

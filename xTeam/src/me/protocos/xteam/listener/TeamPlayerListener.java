@@ -5,7 +5,6 @@ import java.util.Random;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.World;
@@ -32,7 +31,7 @@ public class TeamPlayerListener implements Listener
 		{
 			Player player = event.getPlayer();
 			World playerWorld = player.getWorld();
-			ITeamPlayer teamPlayer = PlayerManager.getPlayer(player);
+			ITeamPlayer teamPlayer = xTeam.getPlayerManager().getPlayer(player);
 			if (teamPlayer.hasPlayedBefore() && Data.DISABLED_WORLDS.contains(playerWorld.getName()))
 			{
 				return;
@@ -129,7 +128,7 @@ public class TeamPlayerListener implements Listener
 	{
 		try
 		{
-			ITeamPlayer player = PlayerManager.getPlayer(event.getPlayer());
+			ITeamPlayer player = xTeam.getPlayerManager().getPlayer(event.getPlayer());
 			if (Data.DISABLED_WORLDS.contains(event.getPlayer().getWorld().getName()))
 			{
 				return;
