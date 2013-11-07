@@ -114,4 +114,12 @@ public class TeamManager implements ITeamManager
 				return team;
 		return null;
 	}
+
+	public String toString()
+	{
+		String output = "";
+		for (Team team : getAllTeams())
+			output += team.getName() + ": " + team.getPlayers().toString().replaceAll("[\\[\\]]", "") + "\n";
+		return output.trim();
+	}
 }

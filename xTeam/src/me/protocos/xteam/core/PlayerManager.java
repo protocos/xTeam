@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -43,7 +44,8 @@ public class PlayerManager
 		List<OfflineTeamPlayer> offlinePlayers = CommonUtil.emptyList(players.length);
 		for (OfflinePlayer player : players)
 		{
-			offlinePlayers.add(getPlayer(player));
+			if (!player.isOnline())
+				offlinePlayers.add(getPlayer(player));
 		}
 		return offlinePlayers;
 	}
@@ -198,5 +200,16 @@ public class PlayerManager
 	public void setReturnLocation(ITeamPlayer player, Location returnLocation)
 	{
 		returnLocationMap.put(player.getName(), returnLocation);
+	}
+
+	public String toString()
+	{
+		String output = "";
+		List<ITeamPlayer> players = CommonUtil.emptyList();
+		players.addAll(getOnlinePlayers());
+		players.addAll(getOfflinePlayers());
+		for (ITeamPlayer player : players)
+			output += player.getName() + (player.isOnline() ? ChatColorUtil.positiveMessage(" online") : ChatColorUtil.negativeMessage(" offline")) + "\n";
+		return output.trim();
 	}
 }

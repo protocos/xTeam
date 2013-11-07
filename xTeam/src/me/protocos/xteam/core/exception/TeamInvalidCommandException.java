@@ -13,6 +13,7 @@ public class TeamInvalidCommandException extends TeamException
 	{
 		super("Not a valid team command (use '" + (new UserHelp()).getUsage() + "')");
 	}
+
 	public TeamInvalidCommandException(String message)
 	{
 		super(message);

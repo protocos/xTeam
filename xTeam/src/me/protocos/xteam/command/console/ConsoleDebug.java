@@ -30,6 +30,10 @@ public class ConsoleDebug extends ConsoleCommand
 			originalSender.sendMessage("Spies: " + Data.spies.toString());
 		else if (subCommand.equalsIgnoreCase("created"))
 			originalSender.sendMessage("Last created: " + Data.lastCreated.toString());
+		else if (subCommand.equalsIgnoreCase("players"))
+			originalSender.sendMessage("Players: \n" + xTeam.getPlayerManager().toString());
+		else if (subCommand.equalsIgnoreCase("teams"))
+			originalSender.sendMessage("Teams: \n" + xTeam.getTeamManager().toString());
 		else if (subCommand.equalsIgnoreCase("resetplayers"))
 		{
 			for (Player player : Data.BUKKIT.getOnlinePlayers())
@@ -52,8 +56,9 @@ public class ConsoleDebug extends ConsoleCommand
 			}
 		}
 		else
-			originalSender.sendMessage("Options are: debug [chat, invites, spies, created, resetplayers, email]");
+			originalSender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, resetplayers, email]");
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -67,11 +72,13 @@ public class ConsoleDebug extends ConsoleCommand
 			subCommand = parseCommand.get(1);
 		}
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "d" + patternOneOrMore("ebug") + "(" + WHITE_SPACE + ANY_CHARS + ")?" + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getUsage()
 	{
