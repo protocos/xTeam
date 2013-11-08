@@ -17,6 +17,7 @@ public class HashListTest
 	{
 		list = new HashList<String, String>();
 	}
+
 	@Test
 	public void ShouldBeClear()
 	{
@@ -26,6 +27,7 @@ public class HashListTest
 		//ASSERT
 		Assert.assertEquals("{}", list.toString());
 	}
+
 	@Test
 	public void ShouldBeGet()
 	{
@@ -38,6 +40,7 @@ public class HashListTest
 		Assert.assertEquals(1, list.getOrder().size());
 		Assert.assertEquals(1, list.size());
 	}
+
 	@Test
 	public void ShouldBeGetFromIndex()
 	{
@@ -50,6 +53,7 @@ public class HashListTest
 		Assert.assertEquals(1, list.getOrder().size());
 		Assert.assertEquals(1, list.size());
 	}
+
 	@Test
 	public void ShouldBeGetKeyFromIndex()
 	{
@@ -62,6 +66,7 @@ public class HashListTest
 		Assert.assertEquals(1, list.getOrder().size());
 		Assert.assertEquals(1, list.size());
 	}
+
 	@Test
 	public void ShouldBeInOrder()
 	{
@@ -79,6 +84,7 @@ public class HashListTest
 		Assert.assertEquals(7, list.getOrder().size());
 		Assert.assertEquals(7, list.size());
 	}
+
 	@Test
 	public void ShouldBeNotSetOrder()
 	{
@@ -109,6 +115,7 @@ public class HashListTest
 		Assert.assertEquals(7, list.size());
 		Assert.assertFalse(ordered);
 	}
+
 	@Test
 	public void ShouldBePut()
 	{
@@ -121,6 +128,7 @@ public class HashListTest
 		Assert.assertEquals(1, list.getOrder().size());
 		Assert.assertEquals(1, list.size());
 	}
+
 	@Test
 	public void ShouldBePutAll()
 	{
@@ -141,6 +149,7 @@ public class HashListTest
 		Assert.assertEquals(7, list.getOrder().size());
 		Assert.assertEquals(7, list.size());
 	}
+
 	@Test
 	public void ShouldBeRemove()
 	{
@@ -153,6 +162,7 @@ public class HashListTest
 		Assert.assertEquals(0, list.getOrder().size());
 		Assert.assertEquals(0, list.size());
 	}
+
 	@Test
 	public void ShouldBeSetOrder()
 	{
@@ -174,6 +184,7 @@ public class HashListTest
 		Assert.assertEquals(7, list.size());
 		Assert.assertTrue(ordered);
 	}
+
 	@Test
 	public void ShouldBeSort()
 	{
@@ -189,6 +200,7 @@ public class HashListTest
 		Assert.assertEquals(7, list.size());
 		Assert.assertTrue(ordered);
 	}
+
 	@Test
 	public void ShouldBeSorted()
 	{
@@ -205,6 +217,7 @@ public class HashListTest
 		//ASSERT
 		Assert.assertEquals("{0=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
 	}
+
 	@Test
 	public void ShouldBeUpdateKey()
 	{
@@ -215,6 +228,7 @@ public class HashListTest
 		Assert.assertEquals("{ZERO=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
 		Assert.assertTrue(updated);
 	}
+
 	//	@Test
 	//	public void ShouldBeContainsKeyIgnoreCase()
 	//	{
@@ -242,6 +256,7 @@ public class HashListTest
 		Assert.assertEquals("{0=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
 		Assert.assertFalse(updated);
 	}
+
 	@Test
 	public void ShouldBeCannotUpdateKeyToNull()
 	{
@@ -253,6 +268,26 @@ public class HashListTest
 		Assert.assertEquals("{0=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
 		Assert.assertFalse(updated);
 	}
+
+	@Test
+	public void ShouldBeIterateThroughMapByKey()
+	{
+		list.put("6", "six");
+		list.put("4", "four");
+		list.put("1", "one");
+		list.put("0", "zero");
+		list.put("5", "five");
+		list.put("3", "three");
+		list.put("2", "two");
+		list.sort();
+		int index = 0;
+		for (String key : list)
+		{
+			Assert.assertEquals(list.get(index), list.get(key));
+			index++;
+		}
+	}
+
 	public void addKeyValuePairsInOrder()
 	{
 		list.put("0", "zero");

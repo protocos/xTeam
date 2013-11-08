@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
+import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -9,6 +10,7 @@ import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 
 public class ConsoleDebug extends ConsoleCommand
 {
@@ -34,6 +36,8 @@ public class ConsoleDebug extends ConsoleCommand
 			originalSender.sendMessage("Players: \n" + xTeam.getPlayerManager().toString());
 		else if (subCommand.equalsIgnoreCase("teams"))
 			originalSender.sendMessage("Teams: \n" + xTeam.getTeamManager().toString());
+		else if (subCommand.equalsIgnoreCase("perms"))
+			originalSender.sendMessage("Debugging permissions: \n" + printPermissions());
 		else if (subCommand.equalsIgnoreCase("resetplayers"))
 		{
 			for (Player player : Data.BUKKIT.getOnlinePlayers())
@@ -56,7 +60,18 @@ public class ConsoleDebug extends ConsoleCommand
 			}
 		}
 		else
-			originalSender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, resetplayers, email]");
+			originalSender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, resetplayers, email]");
+	}
+
+	private String printPermissions()
+	{
+		String output = "";
+		List<Permission> perms = xTeam.getSelf().getDescription().getPermissions();
+		for (Permission perm : perms)
+		{
+			output += perm.getName() + " - " + perm.getDescription() + "\n";
+		}
+		return output;
 	}
 
 	@Override

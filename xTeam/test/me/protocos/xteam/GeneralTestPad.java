@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import junit.framework.Assert;
 import me.protocos.xteam.util.CommonUtil;
+import org.bukkit.permissions.Permission;
 import org.junit.Test;
 
 public class GeneralTestPad
@@ -11,7 +12,6 @@ public class GeneralTestPad
 	@Test
 	public void test()
 	{
-
 	}
 
 	@Test

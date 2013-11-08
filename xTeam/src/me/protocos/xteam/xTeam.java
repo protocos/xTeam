@@ -17,6 +17,7 @@ import me.protocos.xteam.command.teamadmin.UserSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
 import me.protocos.xteam.core.*;
+import me.protocos.xteam.util.ConfigFileBuilder;
 import me.protocos.xteam.util.LogUtil;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.Plugin;
@@ -166,128 +167,32 @@ public class xTeam extends JavaPlugin
 		{
 			try
 			{
-				f.createNewFile();
-				BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-				bw.write("############################################\n" +
-						"# \n" +
-						"# \n" +
-						"# Bukkit preferences\n" +
-						"# \n" +
-						"# \n" +
-						"### playersonteam - Amount of players that can be on a team. (default=10)\n" +
-						"### sethqinterval - Delay in hours between use of /team sethq (default=0)\n" +
-						"### teleportradius - Maximum distance in blocks between team mates to teleport to one another (default=500)\n" +
-						"### canteamchat - Allows/Disallows the use of team chat function completely (default=true)\n" +
-						"### enemyproximity - When teleporting, if enemies are within this radius of blocks, the teleport is delayed (default=16)\n" +
-						"### teledelay - Delay in seconds for teleporting when enemies are near (default=10)\n" +
-						"### telerefreshdelay - Delay in seconds for when you can use team teleporting. Does not include /team return (default=60)\n" +
-						"### createteamdelay - Delay in minutes for creating teams (default=20)\n" +
-						"### teamwolves - Protects your wolfies from you and your teammates from damaging them (default=true)\n" +
-						"### defaultteams - Default list of teams for the server separated by commas (e.g. defaultteams=red,green,blue,yellow)\n" +
-						"### randomjointeam - Player randomly joins one of the default teams on joining (default=false)\n" +
-						"### balanceteams - Balance teams when someone randomly joins (default=false)\n" +
-						"### onlyjoindefaultteam - When true, players can only join one of the default teams listed above (default=false)\n" +
-						"### defaulthqonjoin - When true, players on default teams are teleported to their headqloaduarters on join (default=false)\n" +
-						"### anonymouserrorreporting - When true, sends anonymous error reports for faster debugging (default=true)\n" +
-						"### lastattackeddelay - How long a teamPlayer has to wait after being attacked to teleport (default=15)\n" +
-						"### teamtagenabled - When true, players have their team tag displayed when in chat (default=true)\n" +
-						"### teamtagmaxlength - Maximum length of a team tag (default=0 == no maximum tag length)\n" +
-						"### disabledworlds - World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)\n" +
-						"### nopermissions - When true, xTeam will give all regular commands to players and admin commands to OPs (default=false)\n" +
-						"### alphanumericnames - When true, players can only create teams with alphanumeric names and no symbols (i.e. TeamAwesome123) (default=false)\n" +
-						"### displaycoordinates - When true, players can see coordinates of other team mates in team info (default=true)\n" +
-						"### tagcolor - Color representing the color of the tag in game (e.g. green, dark_red, light_purple)\n" +
-						"### chatnamecolor - Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)\n" +
-						"############################################\n" +
-						"playersonteam=10\n" +
-						"sethqinterval=0\n" +
-						"hqondeath=true\n" +
-						"teleportradius=500\n" +
-						"canteamchat=true\n" +
-						"enemyproximity=16\n" +
-						"teledelay=10\n" +
-						"telerefreshdelay=60\n" +
-						"createteamdelay=20\n" +
-						"teamwolves=true\n" +
-						"defaultteams=\n" +
-						"randomjointeam=false\n" +
-						"balanceteams=false\n" +
-						"onlyjoindefaultteam=false\n" +
-						"defaulthqonjoin=false\n" +
-						"anonymouserrorreporting=true\n" +
-						"teamtagenabled=true\n" +
-						"teamtagmaxlength=0\n" +
-						"teamfriendlyfire=false\n" +
-						"lastattackeddelay=15\n" +
-						"disabledworlds=\n" +
-						"nopermissions=false\n" +
-						"alphanumericnames=false\n" +
-						"displaycoordinates=true\n" +
-						"tagcolor=green\n" +
-						"chatnamecolor=dark_green\n" +
-						//				"############################################\n" +
-						//				"# \n" +
-						//				"# \n" +
-						//				"# Locations preferences (should you choose to add xTeamLocations to your server)\n" +
-						//				"# \n" +
-						//				"# \n" +
-						//				"### maxnumlocations - Maximum number of locations that can be stored per team (default=9)\n" +
-						//				"############################################\n" +
-						//				"maxnumlocations=9\n" +
-						"############################################\n" +
-						"# \n" +
-						"# \n" +
-						"# Spout preferences (should you choose to add spout to your server)\n" +
-						"# \n" +
-						"# \n" +
-						"### teamhidename - If enabled players can only see teammates names and players with no team at all (default=true)\n" +
-						"### namerevealtime - Amount in seconds that a teamPlayer name is revealed if attacked by another teamPlayer (default=5)\n" +
-						"############################################\n" +
-						"teamhidename=true\n" +
-						"namerevealtime=5\n" +
-						"############################################\n" +
-						"# \n" +
-						"# \n" +
-						"# Permission Nodes\n" +
-						"# \n" +
-						"# \n" +
-						"### xteam.player.core.accept - (Allows players to accept an invitation)\n" +
-						"### xteam.player.core.chat - (Allows players to chat/msg their team)\n" +
-						"### xteam.player.core.create - (Allows players to create a team)\n" +
-						"### xteam.player.core.hq - (Allows players to teleport to headquarters)\n" +
-						"### xteam.player.core.join - (Allows players to join a team)\n" +
-						"### xteam.player.core.leave - (Allows players to leave a team)\n" +
-						"### xteam.player.core.list - (Allows players to list all team names)\n" +
-						"### xteam.player.core.return - (Allows players to return to teleport location)\n" +
-						"### xteam.player.core.tele - (Allows players to teleport to teammates)\n" +
-						"### xteam.admin.core.invite - (Allows players to invite other players)\n" +
-						"### xteam.admin.core.promote - (Allows players to promote teammates)\n" +
-						"### xteam.admin.core.sethq - (Allows players to set a headquarters)\n" +
-						"### xteam.leader.core.demote - (Allows players to demote teammates)\n" +
-						"### xteam.leader.core.disband - (Allows players to disband a team)\n" +
-						"### xteam.leader.core.open - (Allows players to open team to public)\n" +
-						"### xteam.leader.core.remove - (Allows players to remove players)\n" +
-						"### xteam.leader.core.rename - (Allows players to rename team)\n" +
-						"### xteam.leader.core.tag - (Allows players to set team tag)\n" +
-						"### xteam.leader.core.setleader - (Allows players to set leader of team)\n" +
-						"### xteam.serveradmin.core.chatspy - (Allows players to spy on team chat)\n" +
-						"### xteam.serveradmin.core.disband - (Allows players to disband a team)\n" +
-						"### xteam.serveradmin.core.demote - (Allows players to demote a teamPlayer on a team)\n" +
-						"### xteam.serveradmin.core.hq - (Allows players to teleport to any headquarters)\n" +
-						"### xteam.serveradmin.core.promote - (Allows players to promote a teamPlayer on a team)\n" +
-						"### xteam.serveradmin.core.reload - (Allows players to reload the configuration file)\n" +
-						"### xteam.serveradmin.core.remove - (Allows players to remove teamPlayer from a team)\n" +
-						"### xteam.serveradmin.core.rename - (Allows players to rename a team)\n" +
-						"### xteam.serveradmin.core.tag - (Allows players to set team tag)\n" +
-						"### xteam.serveradmin.core.open - (Allows players to open a team to public)\n" +
-						"### xteam.serveradmin.core.set - (Allows players to set the team of a teamPlayer)\n" +
-						"### xteam.serveradmin.core.sethq - (Allows players to set the headquarters of a team)\n" +
-						"### xteam.serveradmin.core.setleader - (Allows players to set the leader of a team)\n" +
-						"### xteam.serveradmin.core.teleallhq - (Allows players to teleport everyone to their headquarters)\n" +
-						"### xteam.serveradmin.core.tpall - (Allows players to teleport a team to current location)\n" +
-						"### xteam.serveradmin.core.update - (Allows players to update teamPlayer names for Spout features)\n" +
-						"############################################\n");
-				bw.close();
+				ConfigFileBuilder configBuilder = new ConfigFileBuilder(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
+				configBuilder.add("playersonteam", 10, "Amount of players that can be on a team");
+				configBuilder.add("sethqinterval", 0, "Delay in hours between use of /team sethq");
+				configBuilder.add("teleportradius", 500, "Maximum distance in blocks between team mates to teleport to one another");
+				configBuilder.add("canteamchat", true, "Allows/Disallows the use of team chat function completely");
+				configBuilder.add("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
+				configBuilder.add("teledelay", 10, "Delay in seconds for teleporting when enemies are near");
+				configBuilder.add("telerefreshdelay", 60, "Delay in seconds for when you can use team teleporting. Does not include /team return");
+				configBuilder.add("createteamdelay", 20, "Delay in minutes for creating teams");
+				configBuilder.add("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
+				configBuilder.add("defaultteams", "", "Default list of teams for the server separated by commas  (e.g. defaultteams=red,green,blue,yellow)");
+				configBuilder.add("randomjointeam", false, "Player randomly joins one of the default teams on joining");
+				configBuilder.add("balanceteams", false, "Balance teams when someone randomly joins");
+				configBuilder.add("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
+				configBuilder.add("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
+				configBuilder.add("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
+				configBuilder.add("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
+				configBuilder.add("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
+				configBuilder.add("teamtagmaxlength", 0, "Maximum length of a team tag (0 = unlimited)");
+				configBuilder.add("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
+				configBuilder.add("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
+				configBuilder.add("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
+				configBuilder.add("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
+				configBuilder.add("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
+				configBuilder.add("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
+				configBuilder.write();
 			}
 			catch (IOException e)
 			{

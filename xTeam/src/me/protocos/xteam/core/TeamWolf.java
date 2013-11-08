@@ -11,10 +11,7 @@ import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.bukkit.EntityEffect;
-import org.bukkit.Location;
-import org.bukkit.Server;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Wolf;
@@ -178,7 +175,7 @@ public class TeamWolf implements ITeamWolf
 	@Override
 	public boolean sendMessage(String message)
 	{
-		System.out.println("Bark!");
+		getWorld().playSound(getLocation(), Sound.WOLF_BARK, 10, 10);
 		return true;
 	}
 

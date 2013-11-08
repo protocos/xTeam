@@ -35,7 +35,7 @@ public class LogUtil implements ILog
 		}
 		try
 		{
-			LimitedQueue<String> previousEntries = new LimitedQueue<String>(50);
+			LimitedQueue<String> previousEntries = new LimitedQueue<String>(100);
 			Scanner sc = new Scanner(file);
 			String line;
 			while (sc.hasNext() && (line = sc.nextLine()) != null)
@@ -52,24 +52,29 @@ public class LogUtil implements ILog
 		}
 		errorReporter = new ErrorReportUtil(plugin);
 	}
+
 	public void close()
 	{
 		printStream.close();
 	}
+
 	public void custom(String message)
 	{
 		write(message);
 	}
+
 	public void debug(String message)
 	{
 		message = "[DEBUG] " + message;
 		write(message);
 	}
+
 	public void error(String message)
 	{
 		message = "[ERROR] " + message;
 		write(message);
 	}
+
 	public void exception(final Exception e)
 	{
 		error(e.toString());
@@ -93,16 +98,19 @@ public class LogUtil implements ILog
 			Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(xTeam.getSelf(), new EmailReport(), CommonUtil.LONG_ZERO);
 		}
 	}
+
 	public void fatal(String message)
 	{
 		message = "[FATAL] " + message;
 		write(message);
 	}
+
 	public void info(String message)
 	{
 		message = "[INFO] " + message;
 		write(message);
 	}
+
 	public void write(String message)
 	{
 		Timestamp t = new Timestamp(System.currentTimeMillis());
