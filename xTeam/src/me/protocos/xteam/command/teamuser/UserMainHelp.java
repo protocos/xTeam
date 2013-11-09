@@ -36,7 +36,6 @@ public class UserMainHelp extends UserCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		commandID = parseCommand.getBaseCommand();
 	}
 

@@ -32,7 +32,6 @@ public class AdminTag extends ServerAdminCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		desiredTag = parseCommand.get(2);
 		changeTeam = xTeam.getTeamManager().getTeam(teamName);

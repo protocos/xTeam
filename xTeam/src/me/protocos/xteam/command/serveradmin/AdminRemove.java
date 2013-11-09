@@ -39,7 +39,6 @@ public class AdminRemove extends ServerAdminCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
 		changePlayer = xTeam.getPlayerManager().getPlayer(playerName);

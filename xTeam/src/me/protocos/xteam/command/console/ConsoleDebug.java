@@ -77,7 +77,6 @@ public class ConsoleDebug extends ConsoleCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		if (parseCommand.size() == 1)
 		{
 			subCommand = "";

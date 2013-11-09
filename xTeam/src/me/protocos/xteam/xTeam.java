@@ -1,8 +1,6 @@
 package me.protocos.xteam;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Logger;
 import me.protocos.xteam.api.command.ICommandManager;
@@ -162,43 +160,43 @@ public class xTeam extends JavaPlugin
 				e.printStackTrace();
 			}
 		}
-		f = new File(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
-		if (!f.exists())
+		//		f = new File(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
+		//		if (!f.exists())
+		//		{
+		try
 		{
-			try
-			{
-				ConfigFileBuilder configBuilder = new ConfigFileBuilder(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
-				configBuilder.add("playersonteam", 10, "Amount of players that can be on a team");
-				configBuilder.add("sethqinterval", 0, "Delay in hours between use of /team sethq");
-				configBuilder.add("teleportradius", 500, "Maximum distance in blocks between team mates to teleport to one another");
-				configBuilder.add("canteamchat", true, "Allows/Disallows the use of team chat function completely");
-				configBuilder.add("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
-				configBuilder.add("teledelay", 10, "Delay in seconds for teleporting when enemies are near");
-				configBuilder.add("telerefreshdelay", 60, "Delay in seconds for when you can use team teleporting. Does not include /team return");
-				configBuilder.add("createteamdelay", 20, "Delay in minutes for creating teams");
-				configBuilder.add("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
-				configBuilder.add("defaultteams", "", "Default list of teams for the server separated by commas  (e.g. defaultteams=red,green,blue,yellow)");
-				configBuilder.add("randomjointeam", false, "Player randomly joins one of the default teams on joining");
-				configBuilder.add("balanceteams", false, "Balance teams when someone randomly joins");
-				configBuilder.add("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
-				configBuilder.add("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
-				configBuilder.add("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
-				configBuilder.add("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
-				configBuilder.add("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
-				configBuilder.add("teamtagmaxlength", 0, "Maximum length of a team tag (0 = unlimited)");
-				configBuilder.add("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
-				configBuilder.add("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
-				configBuilder.add("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
-				configBuilder.add("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
-				configBuilder.add("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
-				configBuilder.add("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
-				configBuilder.write();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			ConfigFileBuilder configBuilder = new ConfigFileBuilder(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
+			configBuilder.add("playersonteam", 10, "Amount of players that can be on a team");
+			configBuilder.add("sethqinterval", 0, "Delay in hours between use of /team sethq");
+			configBuilder.add("teleportradius", 500, "Maximum distance in blocks between team mates to teleport to one another");
+			configBuilder.add("canteamchat", true, "Allows/Disallows the use of team chat function completely");
+			configBuilder.add("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
+			configBuilder.add("teledelay", 10, "Delay in seconds for teleporting when enemies are near");
+			configBuilder.add("telerefreshdelay", 60, "Delay in seconds for when you can use team teleporting. Does not include /team return");
+			configBuilder.add("createteamdelay", 20, "Delay in minutes for creating teams");
+			configBuilder.add("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
+			configBuilder.add("defaultteams", "", "Default list of teams for the server separated by commas  (e.g. defaultteams=red,green,blue,yellow)");
+			configBuilder.add("randomjointeam", false, "Player randomly joins one of the default teams on joining");
+			configBuilder.add("balanceteams", false, "Balance teams when someone randomly joins");
+			configBuilder.add("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
+			configBuilder.add("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
+			configBuilder.add("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
+			configBuilder.add("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
+			configBuilder.add("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
+			configBuilder.add("teamtagmaxlength", 0, "Maximum length of a team tag (0 = unlimited)");
+			configBuilder.add("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
+			configBuilder.add("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
+			configBuilder.add("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
+			configBuilder.add("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
+			configBuilder.add("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
+			configBuilder.add("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
+			configBuilder.write();
 		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		//		}
 		f = new File(getDataFolder().getAbsolutePath() + "/xTeam.log");
 		if (!f.exists())
 		{

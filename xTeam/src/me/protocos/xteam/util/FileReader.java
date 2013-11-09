@@ -16,6 +16,7 @@ public class FileReader
 		this.caseSensitive = caseSensitive;
 		reload();
 	}
+
 	public boolean getBoolean(String key, boolean fallback)
 	{
 		if (this.keySet.containsKey(key))
@@ -33,6 +34,7 @@ public class FileReader
 		}
 		return fallback;
 	}
+
 	public double getDouble(String key, double fallback)
 	{
 		if (this.keySet.containsKey(key))
@@ -50,6 +52,7 @@ public class FileReader
 		}
 		return fallback;
 	}
+
 	public float getFloat(String key, float fallback)
 	{
 		if (this.keySet.containsKey(key))
@@ -67,6 +70,7 @@ public class FileReader
 		}
 		return fallback;
 	}
+
 	public int getInteger(String key, int fallback)
 	{
 		if (this.keySet.containsKey(key))
@@ -84,6 +88,7 @@ public class FileReader
 		}
 		return fallback;
 	}
+
 	public long getLong(String key, long fallback)
 	{
 		if (this.keySet.containsKey(key))
@@ -101,6 +106,7 @@ public class FileReader
 		}
 		return fallback;
 	}
+
 	public String getString(String key, String fallback)
 	{
 		if (this.keySet.containsKey(key))
@@ -109,6 +115,16 @@ public class FileReader
 		}
 		return fallback;
 	}
+
+	public Object get(String key, Object fallback)
+	{
+		if (this.keySet.containsKey(key))
+		{
+			return this.keySet.get(key);
+		}
+		return fallback;
+	}
+
 	private boolean load()
 	{
 		if (this.file.exists())
@@ -125,11 +141,11 @@ public class FileReader
 						break;
 					if (!line.startsWith("#"))
 					{
-						String[] splt = line.split("=");
-						if (splt.length == 2)
+						String[] split = line.replaceAll("\\s+", "").split("=");
+						if (split.length == 2)
 						{
-							String key = splt[0];
-							String value = splt[1];
+							String key = split[0];
+							String value = split[1];
 							if (!this.caseSensitive)
 							{
 								key = key.toLowerCase();
@@ -152,6 +168,7 @@ public class FileReader
 		}
 		return true;
 	}
+
 	public void reload()
 	{
 		this.keySet.clear();

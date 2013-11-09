@@ -102,6 +102,16 @@ public class TeamManager implements ITeamManager
 		return teams.get(teamName.toLowerCase());
 	}
 
+	public Team getTeamByTag(String tag)
+	{
+		for (Team team : getAllTeams())
+		{
+			if (team.getTag().equalsIgnoreCase(tag))
+				return team;
+		}
+		return null;
+	}
+
 	public Team removeTeam(String team)
 	{
 		return teams.remove(team.toLowerCase());

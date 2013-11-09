@@ -20,6 +20,8 @@ public class InfoAction
 	{
 		Team infoTeam = xTeam.getTeamManager().getTeam(other);
 		if (infoTeam == null)
+			infoTeam = xTeam.getTeamManager().getTeamByTag(other);
+		if (infoTeam == null)
 			infoTeam = xTeam.getPlayerManager().getPlayer(other).getTeam();
 		if (infoTeam != null)
 		{
@@ -41,7 +43,7 @@ public class InfoAction
 
 	public void checkRequirements(String other) throws TeamOrPlayerDoesNotExistException, TeamPlayerHasNoTeamException
 	{
-		if (xTeam.getTeamManager().getTeam(other) == null)
+		if (xTeam.getTeamManager().getTeam(other) == null && xTeam.getTeamManager().getTeamByTag(other) == null)
 		{
 			if (xTeam.getPlayerManager().getPlayer(other) == null)
 			{

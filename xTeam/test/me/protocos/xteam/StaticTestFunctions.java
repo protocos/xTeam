@@ -86,7 +86,7 @@ public class StaticTestFunctions
 		Data.DEFAULT_TEAM_NAMES.add("red");
 		Data.DEFAULT_TEAM_NAMES.add("blue");
 		/////////////////////////////////////////////////
-		Team team3 = Team.generateTeamFromProperties("name:red tag:RED world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:strandedhelix");
+		Team team3 = Team.generateTeamFromProperties("name:red tag:REDONE world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:strandedhelix");
 		xTeam.getTeamManager().addTeam(team3);
 		Team team4 = Team.generateTeamFromProperties("name:blue world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:");
 		xTeam.getTeamManager().addTeam(team4);

@@ -24,14 +24,13 @@ public class AdminSetHeadquarters extends ServerAdminCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		Team changeTeam = xTeam.getTeamManager().getTeam(teamName);
-		changeTeam.setHQ(new Headquarters(teamPlayer.getLocation()));
+		changeTeam.setHQ(new Headquarters(player.getLocation()));
 		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team headquarters for team " + teamName);
 	}
 
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		Requirements.checkTeamExists(teamName);
 	}

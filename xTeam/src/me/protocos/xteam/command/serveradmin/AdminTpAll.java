@@ -27,29 +27,32 @@ public class AdminTpAll extends ServerAdminCommand
 		{
 			if (teammate.isOnline())
 			{
-				teammate.teleport(teamPlayer.getLocation());
+				teammate.teleport(player.getLocation());
 				teammate.sendMessage("You have been teleported to " + originalSender.getName());
 			}
 		}
 		originalSender.sendMessage("Players teleported");
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		Requirements.checkTeamExists(teamName);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "t" + patternOneOrMore("pall") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.serveradmin.core.tpall";
 	}
+
 	@Override
 	public String getUsage()
 	{

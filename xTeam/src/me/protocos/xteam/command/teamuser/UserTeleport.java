@@ -30,7 +30,6 @@ public class UserTeleport extends UserCommand
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		String teammateName = null;
-		super.checkRequirements(originalSender, parseCommand);
 		if (parseCommand.size() == 2)
 		{
 			teammateName = parseCommand.get(1);

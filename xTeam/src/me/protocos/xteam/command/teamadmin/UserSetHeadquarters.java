@@ -27,7 +27,6 @@ public class UserSetHeadquarters extends UserCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerIsTeamAdmin(teamPlayer);
 		Requirements.checkPlayerNotDamaged(teamPlayer);

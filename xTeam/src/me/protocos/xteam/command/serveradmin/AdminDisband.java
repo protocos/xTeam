@@ -31,7 +31,6 @@ public class AdminDisband extends ServerAdminCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		changeTeam = xTeam.getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);

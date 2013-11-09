@@ -29,7 +29,6 @@ public class ConsoleDisband extends ConsoleCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		Requirements.checkTeamExists(teamName);
 		Team team = xTeam.getTeamManager().getTeam(teamName);

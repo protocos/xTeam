@@ -25,7 +25,6 @@ public class ConsoleInfo extends ConsoleCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		other = parseCommand.get(1);
 		info = new InfoAction();
 		info.checkRequirements(other);

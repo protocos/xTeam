@@ -33,7 +33,6 @@ public class UserJoin extends UserCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		desiredName = parseCommand.get(1);
 		Team desiredTeam = xTeam.getTeamManager().getTeam(desiredName);
 		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);

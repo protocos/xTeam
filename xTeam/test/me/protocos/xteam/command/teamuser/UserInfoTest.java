@@ -100,7 +100,7 @@ public class UserInfoTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info strandedhelix"));
 		//ASSERT
 		Assert.assertEquals("Team Name - red\n" +
-				"Team Tag - RED\n" +
+				"Team Tag - REDONE\n" +
 				"Team Joining - Open\n" +
 				"Team Headquarters - None set\n" +
 				"Teammates offline:\n" +
@@ -121,7 +121,7 @@ public class UserInfoTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
 		//ASSERT
 		Assert.assertEquals("Team Name - red\n" +
-				"Team Tag - RED\n" +
+				"Team Tag - REDONE\n" +
 				"Team Admins - strandedhelix, Lonely\n" +
 				"Team Joining - Open\n" +
 				"Team Headquarters - None set\n" +
@@ -141,6 +141,47 @@ public class UserInfoTest
 		UserCommand fakeCommand = new UserInfo();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
+		//ASSERT
+		Assert.assertEquals("Team Name - ONE\n" +
+				"Team Tag - TeamAwesome\n" +
+				"Team Leader - kmlanglois\n" +
+				"Team Admins - protocos\n" +
+				"Team Joining - Closed\n" +
+				"Team Headquarters - X:170 Y:65 Z:209\n" +
+				"Teammates online:\n" +
+				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"\n" +
+				"    protocos Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeTeamUserInfoExecutePlayerNotOnTeamUsingTag()
+	{
+		//ASSEMBLE
+		xTeam.getTeamManager().getTeam("one").promote("protocos");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		UserCommand fakeCommand = new UserInfo();
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info REDONE"));
+		//ASSERT
+		Assert.assertEquals("Team Name - red\n" +
+				"Team Tag - REDONE\n" +
+				"Team Joining - Open\n" +
+				"Team Headquarters - None set\n" +
+				"Teammates offline:\n" +
+				"    strandedhelix", fakePlayerSender.getLastMessage());
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeTeamUserInfoExecutePlayerOnTeamUsingTag()
+	{
+		//ASSEMBLE
+		xTeam.getTeamManager().getTeam("one").promote("protocos");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		UserCommand fakeCommand = new UserInfo();
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info TeamAwesome"));
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE\n" +
 				"Team Tag - TeamAwesome\n" +

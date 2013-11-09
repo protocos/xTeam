@@ -13,15 +13,18 @@ public abstract class BaseCommand implements ICommand
 	{
 	}
 
-	protected abstract void act(CommandSender sender, CommandParser command);
+	protected abstract void initData(CommandSender sender, CommandParser command) throws TeamException, InvalidClassException;
 
-	protected abstract void checkRequirements(CommandSender sender, CommandParser command) throws TeamException, InvalidClassException;
+	protected abstract void checkRequirements(CommandSender sender, CommandParser command) throws TeamException;
+
+	protected abstract void act(CommandSender sender, CommandParser command);
 
 	@Override
 	public boolean execute(CommandSender sender, CommandParser command)
 	{
 		try
 		{
+			initData(sender, command);
 			checkRequirements(sender, command);
 			act(sender, command);
 			return true;

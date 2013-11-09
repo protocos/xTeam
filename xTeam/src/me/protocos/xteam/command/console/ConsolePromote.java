@@ -34,7 +34,6 @@ public class ConsolePromote extends ConsoleCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
 		ITeamPlayer player = xTeam.getPlayerManager().getPlayer(playerName);

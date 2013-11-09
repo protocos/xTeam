@@ -40,7 +40,6 @@ public class UserRemove extends UserCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		otherPlayer = parseCommand.get(1);
 		ITeamPlayer other = xTeam.getPlayerManager().getPlayer(otherPlayer);
 		Requirements.checkPlayerHasTeam(teamPlayer);

@@ -30,7 +30,6 @@ public class UserAccept extends UserCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
 		Requirements.checkPlayerDoesNotHaveInvite(teamPlayer);
 		Team inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());

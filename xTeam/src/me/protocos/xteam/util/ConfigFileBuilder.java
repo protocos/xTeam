@@ -12,7 +12,7 @@ public class ConfigFileBuilder
 {
 	private HashList<String, String> descriptions;
 	private HashList<String, Object> values;
-	//	private FileReader fileReader;
+	private FileReader fileReader;
 	private FileWriter fileWriter;
 
 	public ConfigFileBuilder(String fileName) throws IOException
@@ -22,7 +22,7 @@ public class ConfigFileBuilder
 		{
 			file.createNewFile();
 		}
-		//		fileReader = new FileReader(file, false);
+		fileReader = new FileReader(file, false);
 		fileWriter = new FileWriter(file);
 		descriptions = CommonUtil.emptyHashList();
 		values = CommonUtil.emptyHashList();
@@ -31,15 +31,16 @@ public class ConfigFileBuilder
 	public void add(String name, Object defaultValue, String description)
 	{
 		descriptions.put(name, description);
-		values.put(name, defaultValue);
+		Object value = fileReader.get(name, defaultValue);
+		values.put(name, value);
 	}
 
-	public String get(String name)
+	private String get(String name)
 	{
 		return new StringBuilder().append(name).append(" = ").append(values.get(name)).toString();
 	}
 
-	public String getComment(String name)
+	private String getComment(String name)
 	{
 		return new StringBuilder().append("# ").append(name).append(" - ").append(descriptions.get(name)).append(" (default = ").append(values.get(name)).append(")").toString();
 	}
@@ -50,7 +51,7 @@ public class ConfigFileBuilder
 		values.remove(name);
 	}
 
-	public String getLineBreak()
+	private String getLineBreak()
 	{
 		String max = "";
 		for (String name : values)

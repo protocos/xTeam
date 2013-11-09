@@ -23,14 +23,13 @@ public class AdminHeadquarters extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		teamPlayer.teleport(changeTeam.getHeadquarters());
+		player.teleport(changeTeam.getHeadquarters());
 		originalSender.sendMessage("You have been " + ChatColorUtil.positiveMessage("teleported") + " to the headquarters of team " + teamName);
 	}
 
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		teamName = parseCommand.get(1);
 		changeTeam = xTeam.getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);

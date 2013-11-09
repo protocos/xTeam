@@ -25,7 +25,6 @@ public class AdminSet extends ServerAdminCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		super.checkRequirements(originalSender, parseCommand);
 		playerName = parseCommand.get(1);
 		teamName = parseCommand.get(2);
 		set = new SetTeamAction(originalSender);
