@@ -355,4 +355,12 @@ public class Requirements
 			throw new TeamPlayerTeleException(teamMate.getName() + " is too far away @ " + (int) Math.ceil(teamPlayer.getLocation().distance(teamMate.getLocation())) + " blocks away");
 		}
 	}
+
+	public static void checkTeamHasRally(Team team) throws TeamDoesNotHaveRallyException
+	{
+		if (team.hasRally())
+		{
+			throw new TeamDoesNotHaveRallyException();
+		}
+	}
 }

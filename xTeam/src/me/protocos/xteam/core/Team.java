@@ -9,6 +9,7 @@ import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.MessageUtil;
@@ -28,6 +29,7 @@ public class Team implements ITeam
 	private long timeHeadquartersSet;
 	private boolean openJoining;
 	private boolean defaultTeam;
+	private Location rally;
 
 	public static class Builder
 	{
@@ -48,46 +50,55 @@ public class Team implements ITeam
 		{
 			this.name = name;
 		}
+
 		public Builder tag(@SuppressWarnings("hiding") String tag)
 		{
 			this.tag = tag;
 			return this;
 		}
+
 		public Builder leader(@SuppressWarnings("hiding") String leader)
 		{
 			this.leader = leader;
 			return this;
 		}
+
 		public Builder players(@SuppressWarnings("hiding") List<String> players)
 		{
 			this.players = players;
 			return this;
 		}
+
 		public Builder admins(@SuppressWarnings("hiding") List<String> admins)
 		{
 			this.admins = admins;
 			return this;
 		}
+
 		public Builder hq(@SuppressWarnings("hiding") Headquarters headquarters)
 		{
 			this.headquarters = headquarters;
 			return this;
 		}
+
 		public Builder timeHeadquartersSet(@SuppressWarnings("hiding") long timeHeadquartersSet)
 		{
 			this.timeHeadquartersSet = timeHeadquartersSet;
 			return this;
 		}
+
 		public Builder openJoining(@SuppressWarnings("hiding") boolean openJoining)
 		{
 			this.openJoining = openJoining;
 			return this;
 		}
+
 		public Builder defaultTeam(@SuppressWarnings("hiding") boolean defaultTeam)
 		{
 			this.defaultTeam = defaultTeam;
 			return this;
 		}
+
 		public Team build()
 		{
 			if (tag.equals(""))
@@ -108,14 +119,17 @@ public class Team implements ITeam
 		players = builder.players;
 		admins = builder.admins;
 	}
+
 	public boolean addPlayer(String player)
 	{
 		return players.add(player);
 	}
+
 	public boolean containsPlayer(String player)
 	{
 		return players.contains(player);
 	}
+
 	public boolean removePlayer(String player)
 	{
 		if (leader.equals(player))
@@ -124,6 +138,7 @@ public class Team implements ITeam
 			admins.remove(player);
 		return players.remove(player);
 	}
+
 	public boolean demote(String player)
 	{
 		if (players.contains(player) && admins.contains(player) && !leader.equals(player))
@@ -133,10 +148,12 @@ public class Team implements ITeam
 		}
 		return false;
 	}
+
 	public int hashCode()
 	{
 		return new HashCodeBuilder(11, 71).append(name).append(tag).append(leader).toHashCode();
 	}
+
 	public boolean equals(Object obj)
 	{
 		if (obj == null)
@@ -149,18 +166,22 @@ public class Team implements ITeam
 		Team rhs = (Team) obj;
 		return new EqualsBuilder().append(name, rhs.name).append(tag, rhs.tag).append(leader, rhs.leader).isEquals();
 	}
+
 	public List<String> getAdmins()
 	{
 		return admins;
 	}
+
 	public Headquarters getHeadquarters()
 	{
 		return headquarters;
 	}
+
 	public String getLeader()
 	{
 		return leader;
 	}
+
 	//	public List<String> getOnlinePlayers()
 	//	{
 	//		List<String> onlinePlayers = new ArrayList<String>();
@@ -187,30 +208,37 @@ public class Team implements ITeam
 	{
 		return players;
 	}
+
 	public long getTimeLastSet()
 	{
 		return timeHeadquartersSet;
 	}
+
 	public boolean hasHeadquarters()
 	{
 		return getHeadquarters() != null;
 	}
+
 	public boolean hasLeader()
 	{
 		return !leader.equals("");
 	}
+
 	public boolean isDefaultTeam()
 	{
 		return defaultTeam;
 	}
+
 	public boolean isEmpty()
 	{
 		return size() == 0;
 	}
+
 	public boolean isOpenJoining()
 	{
 		return openJoining;
 	}
+
 	public boolean promote(String player)
 	{
 		if (players.contains(player) && !admins.contains(player))
@@ -220,18 +248,22 @@ public class Team implements ITeam
 		}
 		return false;
 	}
+
 	public void setAdmins(List<String> admins)
 	{
 		this.admins = admins;
 	}
+
 	public void setDefaultTeam(boolean defaultTeam)
 	{
 		this.defaultTeam = defaultTeam;
 	}
+
 	public void setHQ(Headquarters headquarters)
 	{
 		this.headquarters = headquarters;
 	}
+
 	public void setLeader(String leader)
 	{
 		this.leader = leader;
@@ -240,26 +272,32 @@ public class Team implements ITeam
 		if (!admins.contains(leader))
 			admins.add(leader);
 	}
+
 	public void setName(String name)
 	{
 		this.name = name;
 	}
+
 	public void setOpenJoining(boolean openJoining)
 	{
 		this.openJoining = openJoining;
 	}
+
 	public void setPlayers(List<String> players)
 	{
 		this.players = players;
 	}
+
 	public void setTimeLastSet(long timeHeadquartersSet)
 	{
 		this.timeHeadquartersSet = timeHeadquartersSet;
 	}
+
 	public int size()
 	{
 		return getPlayers().size();
 	}
+
 	public static Team generateTeamFromProperties(String properties)
 	{
 		String[] props = properties.split(" ");
@@ -316,6 +354,7 @@ public class Team implements ITeam
 		}
 		return null;
 	}
+
 	public String toString()
 	{
 		String teamData = "";
@@ -330,39 +369,47 @@ public class Team implements ITeam
 		teamData += " players:" + getPlayers().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
 		return teamData;
 	}
+
 	public void setTag(String tag)
 	{
 		this.tag = tag;
 	}
+
 	public String getTag()
 	{
 		return tag;
 	}
+
 	@Override
 	public String getName()
 	{
 		return name;
 	}
+
 	@Override
 	public int getRelativeX()
 	{
 		return getHeadquarters().getRelativeX();
 	}
+
 	@Override
 	public int getRelativeY()
 	{
 		return getHeadquarters().getRelativeY();
 	}
+
 	@Override
 	public int getRelativeZ()
 	{
 		return getHeadquarters().getRelativeZ();
 	}
+
 	@Override
 	public Team getTeam()
 	{
 		return this;
 	}
+
 	@Override
 	public World getWorld()
 	{
@@ -370,26 +417,31 @@ public class Team implements ITeam
 			return getHeadquarters().getWorld();
 		return null;
 	}
+
 	@Override
 	public Server getServer()
 	{
 		return Bukkit.getServer();
 	}
+
 	@Override
 	public double getDistanceTo(ILocatable entity)
 	{
 		return this.getHeadquarters().distance(entity.getLocation());
 	}
+
 	@Override
 	public boolean hasTeam()
 	{
 		return true;
 	}
+
 	@Override
 	public boolean teleportTo(ILocatable entity)
 	{
 		return false;
 	}
+
 	@Override
 	public boolean isOnSameTeam(ITeamEntity entity)
 	{
@@ -405,31 +457,37 @@ public class Team implements ITeam
 		}
 		return false;
 	}
+
 	@Override
 	public boolean isOnline()
 	{
 		return hasHeadquarters();
 	}
+
 	@Override
 	public boolean isVulnerable()
 	{
 		return false;
 	}
+
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
 		return xTeam.getPlayerManager().getOnlineTeammatesOf(this);
 	}
+
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
 		return xTeam.getPlayerManager().getOfflineTeammatesOf(this);
 	}
+
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
 		return xTeam.getPlayerManager().getTeammatesOf(this);
 	}
+
 	@Override
 	public List<Entity> getNearbyEntities(int radius)
 	{
@@ -437,11 +495,13 @@ public class Team implements ITeam
 			return this.getHeadquarters().getNearbyEntities(radius);
 		return CommonUtil.emptyList();
 	}
+
 	@Override
 	public Location getLocation()
 	{
 		return this.getHeadquarters();
 	}
+
 	@Override
 	public boolean sendMessage(String message)
 	{
@@ -453,6 +513,7 @@ public class Team implements ITeam
 		Team team = new Team.Builder(teamName).build();
 		return team;
 	}
+
 	public static Team createTeamWithLeader(String teamName, String player)
 	{
 		List<String> players = new ArrayList<String>(Arrays.asList(player));
@@ -460,16 +521,19 @@ public class Team implements ITeam
 		Team team = new Team.Builder(teamName).players(players).admins(admins).leader(player).build();
 		return team;
 	}
+
 	@Override
 	public String getPublicInfo()
 	{
 		return getInfo(true);
 	}
+
 	@Override
 	public String getPrivateInfo()
 	{
 		return getInfo(false);
 	}
+
 	private String getInfo(boolean usePublicData)
 	{
 		String message = (ChatColor.RESET + "Team Name - " + ChatColor.GREEN + this.getName());
@@ -509,5 +573,29 @@ public class Team implements ITeam
 			}
 		}
 		return message;
+	}
+
+	public void setRally(TeamPlayer teamPlayer)
+	{
+		rally = teamPlayer.getLocation();
+		class RemoveRally implements Runnable
+		{
+			@Override
+			public void run()
+			{
+				rally = null;
+			}
+		}
+		Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(xTeam.getSelf(), new RemoveRally(), Data.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);
+	}
+
+	public boolean hasRally()
+	{
+		return rally != null;
+	}
+
+	public Location getRally()
+	{
+		return rally;
 	}
 }

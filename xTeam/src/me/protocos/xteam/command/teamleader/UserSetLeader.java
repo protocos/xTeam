@@ -43,7 +43,7 @@ public class UserSetLeader extends UserCommand
 	@Override
 	public String getPattern()
 	{
-		return "set" + patternOneOrMore("leader") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
+		return patternOneOrMore("set") + patternOneOrMore("leader") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
 
 	@Override

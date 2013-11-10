@@ -19,6 +19,7 @@ public class PatternLeaderTest
 		mockData();
 		xTeam.registerLeaderCommands(xTeam.getCommandManager());
 	}
+
 	@Test
 	public void ShouldBeTeamLeaderDemote()
 	{
@@ -34,6 +35,7 @@ public class PatternLeaderTest
 		command = "dmte PLAYER dfsg ";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamLeaderDisband()
 	{
@@ -47,6 +49,7 @@ public class PatternLeaderTest
 		command = "disband  fdsa ";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamLeaderOpen()
 	{
@@ -60,6 +63,7 @@ public class PatternLeaderTest
 		command = "open  fdsa ";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamLeaderRemove()
 	{
@@ -77,6 +81,7 @@ public class PatternLeaderTest
 		command = "rem PLAYER dfsa ";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamLeaderRename()
 	{
@@ -96,6 +101,7 @@ public class PatternLeaderTest
 		command = "rnm TEAM sdfhkabkl";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamLeaderSetleader()
 	{
@@ -108,11 +114,30 @@ public class PatternLeaderTest
 		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "setlead PLAYER ";
 		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		command = "stl PLAYER ";
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "set PLAYER dfsa";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
-		command = "stl PLAYER ";
+	}
+
+	@Test
+	public void ShouldBeTeamLeaderSetrally()
+	{
+		baseCmd = "setrally";
+		command = "setrally";
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		command = "setr";
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		command = "setral ";
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		command = "str ";
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		command = "setrally fasds ";
+		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		command = "set tdfgvbnm";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamLeaderTag()
 	{
@@ -132,6 +157,7 @@ public class PatternLeaderTest
 		command = "tg TEAM sdfhkabkl";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
 	}
+
 	@After
 	public void takedown()
 	{

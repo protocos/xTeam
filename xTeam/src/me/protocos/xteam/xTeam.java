@@ -101,6 +101,7 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("leader_remove", new UserRemove());
 		manager.registerCommand("leader_rename", new UserRename());
 		manager.registerCommand("leader_setleader", new UserSetLeader());
+		manager.registerCommand("leader_setrally", new UserSetRally());
 		manager.registerCommand("leader_tag", new UserTag());
 	}
 
@@ -190,6 +191,7 @@ public class xTeam extends JavaPlugin
 			configBuilder.add("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
 			configBuilder.add("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
 			configBuilder.add("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
+			configBuilder.add("rallydelay", 10, "Delay in minutes that a team rally stays active");
 			configBuilder.write();
 		}
 		catch (IOException e)

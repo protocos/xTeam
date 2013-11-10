@@ -16,12 +16,6 @@ public class Data
 	public static TreeSet<String> chatStatus = new TreeSet<String>();
 	public static HashSet<String> spies = new HashSet<String>();
 	public static HashMap<String, Long> lastCreated = new HashMap<String, Long>();
-	//	public static HashSet<String> damagedByPlayer = new HashSet<String>();
-	//	public static HashMap<Player, Location> returnLocations = new HashMap<Player, Location>();
-	//	public static HashMap<String, Integer> taskIDs = new HashMap<String, Integer>();
-	//	public static HashMap<String, Integer> countWaitTime = new HashMap<String, Integer>();
-	//	public static HashMap<String, Long> hasTeleported = new HashMap<String, Long>();
-	//	public static HashMap<String, Long> lastAttacked = new HashMap<String, Long>();
 	public static boolean LOCATIONS_ENABLED;
 	public static boolean CAN_CHAT;
 	public static boolean HQ_ON_DEATH;
@@ -46,6 +40,7 @@ public class Data
 	public static int TEAM_TAG_LENGTH;
 	public static int MAX_NUM_LOCATIONS;
 	public static int TELE_REFRESH_DELAY;
+	public static int RALLY_DELAY;
 	public static String TAG_COLOR;
 	public static String NAME_COLOR;
 	public static List<String> DEFAULT_TEAM_NAMES = new ArrayList<String>();
@@ -71,6 +66,7 @@ public class Data
 	{
 		readConfig(settings);
 	}
+
 	public static void readConfig(File file)
 	{
 		FileReader reader = new FileReader(file, false);
@@ -98,11 +94,13 @@ public class Data
 		TEAM_TAG_LENGTH = reader.getInteger("teamtagmaxlength", 0);
 		MAX_NUM_LOCATIONS = reader.getInteger("maxnumlocations", 9);
 		TELE_REFRESH_DELAY = reader.getInteger("telerefreshdelay", 60);
+		RALLY_DELAY = reader.getInteger("rallydelay", 10);
 		TAG_COLOR = reader.getString("tagcolor", "green");
 		NAME_COLOR = reader.getString("chatnamecolor", "dark_green");
 		DEFAULT_TEAM_NAMES = CommonUtil.toList(reader.getString("defaultteams", "").replace(" ", "").split(","));
 		DISABLED_WORLDS = CommonUtil.toList(reader.getString("disabledworlds", "").replace(" ", "").split(","));
 	}
+
 	private Data()
 	{
 		//we don't want the default constructor to be called from within the class either...

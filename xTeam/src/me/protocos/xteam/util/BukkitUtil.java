@@ -8,6 +8,7 @@ import org.bukkit.entity.Entity;
 public class BukkitUtil
 {
 	public static final long ONE_SECOND_IN_TICKS = 20L;
+	public static final long ONE_MINUTE_IN_TICKS = 60 * 20L;
 
 	public static List<Entity> getNearbyEntities(Location location, int radius)
 	{

@@ -116,11 +116,14 @@ permissions:
     xteam.leader.core.rename:
         description: Allows team leaders to rename team
         default: false
-    xteam.leader.core.tag:
-        description: Allows team leaders to set team tag
-        default: false
     xteam.leader.core.setleader:
         description: Allows team leaders to set leader of team
+        default: false
+    xteam.leader.core.setrally:
+        description: Allows team leaders to set rally point for the team
+        default: false
+    xteam.leader.core.tag:
+        description: Allows team leaders to set team tag
         default: false
     xteam.leader.core.*:
         description: All team leader core commands
@@ -131,8 +134,9 @@ permissions:
             xteam.leader.core.open: true
             xteam.leader.core.remove: true
             xteam.leader.core.rename: true
-            xteam.leader.core.tag: true
             xteam.leader.core.setleader: true
+            xteam.leader.core.setrally: true
+            xteam.leader.core.tag: true
     xteam.leader.*:
         description: All team leader commands
         default: false
