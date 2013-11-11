@@ -5,6 +5,7 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class UserSetRally extends UserCommand
@@ -17,8 +18,8 @@ public class UserSetRally extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		team.setRally(teamPlayer);
-		System.out.println(team.getRally());
+		team.setRally(teamPlayer.getLocation());
+		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team rally point");
 	}
 
 	@Override
@@ -26,7 +27,7 @@ public class UserSetRally extends UserCommand
 	{
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerIsTeamLeader(teamPlayer);
-		Requirements.checkTeamHasRally(team);
+		Requirements.checkTeamNotHasRally(team);
 	}
 
 	@Override
@@ -45,5 +46,11 @@ public class UserSetRally extends UserCommand
 	public String getUsage()
 	{
 		return "/team setrally";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "set rally point for the team";
 	}
 }

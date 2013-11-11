@@ -58,4 +58,10 @@ public class ConsoleRemove extends ConsoleCommand
 	{
 		return "/team remove [Team] [Player]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "remove player from team";
+	}
 }

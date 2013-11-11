@@ -5,7 +5,7 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.core.ReturnLocation;
+import me.protocos.xteam.core.Locatable;
 import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -22,8 +22,9 @@ public class UserReturn extends UserCommand
 	{
 		TeleportScheduler teleporter = TeleportScheduler.getInstance();
 		Location returnLocation = teamPlayer.getReturnLocation();
-		teleporter.teleport(teamPlayer, new ReturnLocation(returnLocation));
+		teleporter.teleport(teamPlayer, new Locatable("your return location", returnLocation));
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -33,19 +34,28 @@ public class UserReturn extends UserCommand
 		Requirements.checkPlayerLastAttacked(teamPlayer);
 		Requirements.checkPlayerTeleportRequested(teamPlayer);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("return") + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.player.core.return";
 	}
+
 	@Override
 	public String getUsage()
 	{
 		return "/team return";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "teleport to saved return location (1 use)";
 	}
 }

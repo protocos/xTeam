@@ -9,7 +9,7 @@ import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.Data;
-import me.protocos.xteam.core.ReturnLocation;
+import me.protocos.xteam.core.Locatable;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.CommonUtil;
@@ -155,7 +155,7 @@ public class UserTeleportTest
 	{
 		//ASSEMBLE
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
-		TeleportScheduler.getInstance().teleport(teamPlayer, new ReturnLocation(new FakeLocation()));
+		TeleportScheduler.getInstance().teleport(teamPlayer, new Locatable("previous teleport", new FakeLocation()));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		UserCommand fakeCommand = new UserTeleport();
@@ -186,8 +186,6 @@ public class UserTeleportTest
 	public void takedown()
 	{
 		Data.LAST_ATTACKED_DELAY = 0;
-		//		Data.hasTeleported.clear();
-		//		Data.lastAttacked.clear();
 		TeleportScheduler.getInstance().clearTasks();
 	}
 }

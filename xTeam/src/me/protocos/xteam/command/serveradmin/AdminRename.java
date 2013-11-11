@@ -58,4 +58,10 @@ public class AdminRename extends ServerAdminCommand
 	{
 		return "/team rename [Team] [Name]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "rename a team";
+	}
 }

@@ -19,6 +19,7 @@ public class PatternUserTest
 		mockData();
 		xTeam.registerUserCommands(xTeam.getCommandManager());
 	}
+
 	@Test
 	public void ShouldBeTeamUserAccept()
 	{
@@ -36,6 +37,7 @@ public class PatternUserTest
 		command = "a dsafkln";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamUserChat()
 	{
@@ -53,6 +55,7 @@ public class PatternUserTest
 		command = "ch daj;nme rjkn";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamUserCreate()
 	{
@@ -70,6 +73,7 @@ public class PatternUserTest
 		command = "c ";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamUserHelpPage()
 	{
@@ -86,7 +90,6 @@ public class PatternUserTest
 		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 		command = "2 ";
 		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
-
 		command = "";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 		command = "1 dfas";
@@ -94,6 +97,7 @@ public class PatternUserTest
 		command = "11 ?";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamUserHQ()
 	{
@@ -109,6 +113,7 @@ public class PatternUserTest
 		command = "h dsaf";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamUserInfo()
 	{
@@ -128,6 +133,7 @@ public class PatternUserTest
 		command = "i ";
 		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamUserJoin()
 	{
@@ -143,6 +149,7 @@ public class PatternUserTest
 		command = "j TEAM sdaf";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamUserLeave()
 	{
@@ -162,6 +169,7 @@ public class PatternUserTest
 		command = "leave TEAM";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamUserList()
 	{
@@ -175,6 +183,7 @@ public class PatternUserTest
 		command = "list TEAM";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamUserMainHelp()
 	{
@@ -192,6 +201,7 @@ public class PatternUserTest
 		command = "? ";
 		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamUserMessage()
 	{
@@ -215,6 +225,7 @@ public class PatternUserTest
 		command = "msg ";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamUserReturn()
 	{
@@ -230,6 +241,23 @@ public class PatternUserTest
 		command = "return HOME ";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
+	@Test
+	public void ShouldBeTeamUserRally()
+	{
+		baseCmd = "rally";
+		command = "rally";
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
+		command = "rally ";
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
+		command = "ral";
+		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
+		command = "r ";
+		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
+		command = "rally HOME ";
+		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
+	}
+
 	@Test
 	public void ShouldBeTeamUserTele()
 	{
@@ -247,6 +275,7 @@ public class PatternUserTest
 		command = "tp PLAYER wekn;ljdkkmsnaf";
 		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("user_" + baseCmd)));
 	}
+
 	@After
 	public void takedown()
 	{

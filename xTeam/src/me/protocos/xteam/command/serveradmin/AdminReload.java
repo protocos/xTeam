@@ -20,23 +20,33 @@ public class AdminReload extends ServerAdminCommand
 		Data.load();
 		originalSender.sendMessage("Config reloaded");
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("re") + patternOneOrMore("load") + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.serveradmin.core.reload";
 	}
+
 	@Override
 	public String getUsage()
 	{
 		return "/team reload";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "reload configuration file";
 	}
 }

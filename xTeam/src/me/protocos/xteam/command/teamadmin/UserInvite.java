@@ -59,4 +59,10 @@ public class UserInvite extends UserCommand
 	{
 		return "/team invite [Player]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "invite player to your team";
+	}
 }

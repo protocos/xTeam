@@ -22,6 +22,7 @@ public class ConsoleInfo extends ConsoleCommand
 	{
 		info.actOn(originalSender, other);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -29,14 +30,22 @@ public class ConsoleInfo extends ConsoleCommand
 		info = new InfoAction();
 		info.checkRequirements(other);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("info") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getUsage()
 	{
 		return "/team info [Player/Team]";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "get info on player/team";
 	}
 }

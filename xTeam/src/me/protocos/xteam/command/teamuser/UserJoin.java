@@ -59,4 +59,10 @@ public class UserJoin extends UserCommand
 	{
 		return "/team join [Team]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "join a team";
+	}
 }

@@ -68,4 +68,10 @@ public class UserChat extends UserCommand
 	{
 		return "/team chat {On/Off}";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "toggle chatting with teammates";
+	}
 }

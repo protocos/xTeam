@@ -21,35 +21,35 @@ public class UserHelpTest
 		//MOCK data
 		mockData();
 		Data.LOCATIONS_ENABLED = false;
+		xTeam.registerUserCommands(xTeam.getCommandManager());
 		xTeam.registerAdminCommands(xTeam.getCommandManager());
 		xTeam.registerLeaderCommands(xTeam.getCommandManager());
-		xTeam.registerUserCommands(xTeam.getCommandManager());
 	}
 
 	@Test
-	public void ShouldBeTeamUserHelpPageExecute()
+	public void ShouldBeTeamUserHelpPageExecutePage1()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help"));
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help 1"));
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 1/3] {optional} [required] pick/one\n" +
-				"/team info {Team/Player} - Get team info or other team's info\n" +
-				"/team list - List all teams on the server\n" +
-				"/team create [Name] - Create a team\n" +
-				"/team join [Team] - Join a team\n" +
-				"/team leave - Leave your team\n" +
-				"/team accept - Accept the most recent team invite\n" +
-				"/team hq - Teleport to the team headquarters\n" +
-				"/team tele {Player} - Teleport to nearest or specific teammate\n" +
-				"/team return - Teleport to saved return location (1 use)", fakePlayerSender.getLastMessage());
+				"/team {help} - main help menu for xTeam\n" +
+				"/team {help} [Page] - user help menu for xTeam\n" +
+				"/team info {Team/Player} - get team info or other team's info\n" +
+				"/team list - list all teams on the server\n" +
+				"/team create [Name] - create a team\n" +
+				"/team join [Team] - join a team\n" +
+				"/team leave - leave your team\n" +
+				"/team accept - accept the most recent team invite\n" +
+				"/team hq - teleport to the team headquarters", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
 	@Test
-	public void ShouldBeTeamUserHelpPageExecute2()
+	public void ShouldBeTeamUserHelpPageExecutePage2()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
@@ -58,20 +58,20 @@ public class UserHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help 2"));
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 2/3] {optional} [required] pick/one\n" +
-				"/team chat {On/Off} - Toggle chatting with teammates\n" +
-				"/team message [Message] - Send message to teammates\n" +
-				"/team sethq - Set headquarters of team (every 1 hours)\n" +
-				"/team invite [Player] - Invite player to your team\n" +
-				"/team promote [Player] - Promote player on your team\n" +
-				"/team demote [Player] - Demote player on your team\n" +
-				"/team disband - Disband the team\n" +
-				"/team open - Open team to public joining\n" +
-				"/team remove [Player] - Remove player from your team", fakePlayerSender.getLastMessage());
+				"/team tele {Player} - teleport to nearest or specific teammate\n" +
+				"/team return - teleport to saved return location (1 use)\n" +
+				"/team rally - teleport to team rally location\n" +
+				"/team chat {On/Off} - toggle chatting with teammates\n" +
+				"/team message [Message] - send message to teammates\n" +
+				"/team sethq - set headquarters of team\n" +
+				"/team invite [Player] - invite player to your team\n" +
+				"/team promote [Player] - promote player to team admin\n" +
+				"/team demote [Player] - demote team admin", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
 	@Test
-	public void ShouldBeTeamUserHelpPageExecute3()
+	public void ShouldBeTeamUserHelpPageExecutePage3()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
@@ -80,13 +80,13 @@ public class UserHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help 3"));
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 3/3] {optional} [required] pick/one\n" +
-				"/team rename [Name] - Rename the team\n" +
-				"/team tag [Tag] - Set the team tag\n" +
-				"/team setleader [Player] - Set new leader for the team\n" +
-				" \n" +
-				" \n" +
-				" \n" +
-				" \n" +
+				"/team disband - disband the team\n" +
+				"/team open - open team to public joining\n" +
+				"/team remove [Player] - remove player from your team\n" +
+				"/team rename [Name] - rename the team\n" +
+				"/team tag [Tag] - set the team tag\n" +
+				"/team setleader [Player] - set new leader for the team\n" +
+				"/team setrally - set rally point for the team\n" +
 				" \n" +
 				" ", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);

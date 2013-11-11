@@ -17,6 +17,7 @@ public class AdminTeleAllHQ extends ServerAdminCommand
 	{
 		super();
 	}
+
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
@@ -43,23 +44,33 @@ public class AdminTeleAllHQ extends ServerAdminCommand
 		}
 		originalSender.sendMessage("Players teleported");
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "tele" + patternOneOrMore("allhq") + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.serveradmin.core.teleallhq";
 	}
+
 	@Override
 	public String getUsage()
 	{
 		return "/team teleallhq";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "teleports everyone to their headquarters";
 	}
 }

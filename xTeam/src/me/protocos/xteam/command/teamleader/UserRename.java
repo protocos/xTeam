@@ -60,4 +60,10 @@ public class UserRename extends UserCommand
 	{
 		return "/team rename [Name]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "rename the team";
+	}
 }

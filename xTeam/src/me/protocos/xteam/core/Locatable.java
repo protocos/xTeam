@@ -10,29 +10,34 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 
-public class ReturnLocation extends Location implements ILocatable
+public class Locatable implements ILocatable
 {
-	public ReturnLocation(Location location)
+	private String name;
+	private Location location;
+
+	public Locatable(String name, Location location)
 	{
-		super(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+		this.name = name;
+		this.location = location;
+		//		super(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 	}
 
 	@Override
 	public String getName()
 	{
-		return "return location";
+		return this.name;
 	}
 
 	@Override
 	public Location getLocation()
 	{
-		return this;
+		return this.location;
 	}
 
 	@Override
 	public World getWorld()
 	{
-		return super.getWorld();
+		return location.getWorld();
 	}
 
 	@Override
@@ -44,25 +49,25 @@ public class ReturnLocation extends Location implements ILocatable
 	@Override
 	public int getRelativeX()
 	{
-		return CommonUtil.round(this.getX());
+		return CommonUtil.round(location.getX());
 	}
 
 	@Override
 	public int getRelativeY()
 	{
-		return CommonUtil.round(this.getY());
+		return CommonUtil.round(location.getY());
 	}
 
 	@Override
 	public int getRelativeZ()
 	{
-		return CommonUtil.round(this.getZ());
+		return CommonUtil.round(location.getZ());
 	}
 
 	@Override
 	public double getDistanceTo(ILocatable entity)
 	{
-		return this.distance(entity.getLocation());
+		return location.distance(entity.getLocation());
 	}
 
 	@Override
@@ -74,7 +79,7 @@ public class ReturnLocation extends Location implements ILocatable
 	@Override
 	public List<Entity> getNearbyEntities(int radius)
 	{
-		return BukkitUtil.getNearbyEntities(this, radius);
+		return BukkitUtil.getNearbyEntities(location, radius);
 	}
 
 	@Override
@@ -88,6 +93,6 @@ public class ReturnLocation extends Location implements ILocatable
 			return false;
 
 		Location rhs = (Location) obj;
-		return new EqualsBuilder().append(this.getWorld(), rhs.getWorld()).append(this.getX(), rhs.getX()).append(this.getY(), rhs.getY()).append(this.getZ(), rhs.getZ()).append(this.getPitch(), rhs.getPitch()).append(this.getYaw(), rhs.getYaw()).isEquals();
+		return new EqualsBuilder().append(this.getWorld(), rhs.getWorld()).append(location.getX(), rhs.getX()).append(location.getY(), rhs.getY()).append(location.getZ(), rhs.getZ()).append(location.getPitch(), rhs.getPitch()).append(location.getYaw(), rhs.getYaw()).isEquals();
 	}
 }

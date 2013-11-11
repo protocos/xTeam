@@ -61,4 +61,10 @@ public class AdminPromote extends ServerAdminCommand
 	{
 		return "/team promote [Team] [Player]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "promote player to admin";
+	}
 }

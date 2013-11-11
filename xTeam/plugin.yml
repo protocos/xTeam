@@ -33,6 +33,9 @@ permissions:
     xteam.player.core.return:
         description: Allows team players to return to saved location
         default: false
+    xteam.player.core.rally:
+        description: Allows team players to rally to a location
+        default: false
     xteam.player.core.tele:
         description: Allows team players to teleport to teammates
         default: false
@@ -48,6 +51,7 @@ permissions:
             xteam.player.core.leave: true
             xteam.player.core.list: true
             xteam.player.core.return: true
+            xteam.player.core.rally: true
             xteam.player.core.tele: true
 #    xteam.player.locations.list:
 #        description: List team locations

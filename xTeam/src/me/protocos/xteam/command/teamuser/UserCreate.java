@@ -59,4 +59,10 @@ public class UserCreate extends UserCommand
 	{
 		return "/team create [Name]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "create a team";
+	}
 }

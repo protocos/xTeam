@@ -51,4 +51,10 @@ public class AdminChatSpy extends ServerAdminCommand
 	{
 		return "/team chatspy";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "spy on team chat";
+	}
 }

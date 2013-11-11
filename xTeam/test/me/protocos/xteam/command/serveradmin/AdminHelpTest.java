@@ -32,15 +32,15 @@ public class AdminHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team admin"));
 		//ASSERT
 		Assert.assertEquals("Admin Commands: [Page 1/2] {optional} [required] pick/one\n" +
-				"/team set [Player] [Team] - <admin> set team of player\n" +
-				"/team hq [Team] - <admin> teleport to team headquarters\n" +
-				"/team sethq [Team] - <admin> set team headquarters for team\n" +
-				"/team setleader [Team] [Player] - <admin> set leader of team\n" +
-				"/team promote [Team] [Player] - <admin> promote admin of team\n" +
-				"/team demote [Team] [Player] - <admin> demote admin of team\n" +
-				"/team remove [Team] [Player] - <admin> remove player of team\n" +
-				"/team teleallhq - <admin> teleports everyone to their HQ\n" +
-				"/team tpall [Team] - <admin> teleports team to yourself", fakePlayerSender.getLastMessage());
+				"/team chatspy - spy on team chat\n" +
+				"/team disband [Team] - disband a team\n" +
+				"/team demote [Team] [Player] - demote team admin\n" +
+				"/team admin {Page} - server admin help menu for xTeam\n" +
+				"/team hq [Team] - teleport to team headquarters for team\n" +
+				"/team promote [Team] [Player] - promote player to admin\n" +
+				"/team reload - reload configuration file\n" +
+				"/team remove [Team] [Player] - remove player from team\n" +
+				"/team rename [Team] [Name] - rename a team", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -54,13 +54,13 @@ public class AdminHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team admin 2"));
 		//ASSERT
 		Assert.assertEquals("Admin Commands: [Page 2/2] {optional} [required] pick/one\n" +
-				"/team chatspy - <admin> spy on team chat\n" +
-				"/team rename [Team] [Name] - <admin> rename a team\n" +
-				"/team tag [Team] [Tag] - <admin> set team tag\n" +
-				"/team disband [Team] - <admin> disband a team\n" +
-				"/team open [Team] - <admin> open team to public joining\n" +
-				"/team reload - <admin> reload the config files\n" +
-				" \n" +
+				"/team tag [Team] [Tag] - set team tag\n" +
+				"/team open [Team] - open team to public joining\n" +
+				"/team set [Player] [Team] - set team of player\n" +
+				"/team sethq [Team] - set team headquarters for team\n" +
+				"/team setleader [Team] [Player] - set leader of team\n" +
+				"/team teleallhq - teleports everyone to their headquarters\n" +
+				"/team tpall [Team] - teleports a team to yourself\n" +
 				" \n" +
 				" ", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);

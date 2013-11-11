@@ -22,6 +22,7 @@ public class ConsoleSet extends ConsoleCommand
 	{
 		set.actOn(playerName, teamName);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -30,14 +31,22 @@ public class ConsoleSet extends ConsoleCommand
 		set = new SetTeamAction(originalSender);
 		set.checkRequirementsOn(playerName, teamName);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("set") + WHITE_SPACE + ANY_CHARS + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getUsage()
 	{
 		return "/team set [Player] [Team]";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "set team of player";
 	}
 }

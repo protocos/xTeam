@@ -1,17 +1,18 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
+import me.protocos.xteam.command.action.TeleportScheduler;
+import me.protocos.xteam.core.Locatable;
 import me.protocos.xteam.core.exception.TeamException;
-import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 
-public class UserMessage extends UserCommand
+public class UserRally extends UserCommand
 {
-	public UserMessage()
+	public UserRally()
 	{
 		super();
 	}
@@ -19,45 +20,43 @@ public class UserMessage extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		String message = "";
-		for (int i = 1; i < parseCommand.size(); i++)
-		{
-			message += " " + parseCommand.get(i);
-		}
-		for (ITeamPlayer teammate : teamPlayer.getOnlineTeammates())
-		{
-			teammate.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
-		}
-		originalSender.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
+		TeleportScheduler teleporter = TeleportScheduler.getInstance();
+		Location rallyLocation = team.getRally();
+		teleporter.teleport(teamPlayer, new Locatable("the rally point", rallyLocation));
 	}
 
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		Requirements.checkPlayerHasTeam(teamPlayer);
+		Requirements.checkTeamHasRally(team);
+		Requirements.checkPlayerCanRally(teamPlayer);
+		Requirements.checkPlayerNotDamaged(teamPlayer);
+		Requirements.checkPlayerLastAttacked(teamPlayer);
+		Requirements.checkPlayerTeleportRequested(teamPlayer);
 	}
 
 	@Override
 	public String getPattern()
 	{
-		return "(" + patternOneOrMore("message") + "|" + "tell" + ")" + WHITE_SPACE + "[" + WHITE_SPACE + ANY_CHARS + "]+";
+		return "r" + patternOneOrMore("ally") + OPTIONAL_WHITE_SPACE;
 	}
 
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.player.core.chat";
+		return "xteam.player.core.rally";
 	}
 
 	@Override
 	public String getUsage()
 	{
-		return "/team message [Message]";
+		return "/team rally";
 	}
 
 	@Override
 	public String getDescription()
 	{
-		return "send message to teammates";
+		return "teleport to team rally location";
 	}
 }

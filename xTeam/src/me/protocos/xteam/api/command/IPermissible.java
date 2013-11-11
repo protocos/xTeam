@@ -1,6 +1,6 @@
 package me.protocos.xteam.api.command;
 
-public interface IPermissionNode
+public interface IPermissible
 {
 	public String getPermissionNode();
 }

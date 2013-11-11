@@ -51,4 +51,10 @@ public class ConsoleRename extends ConsoleCommand
 	{
 		return "/team rename [Team] [Name]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "rename a team";
+	}
 }

@@ -35,7 +35,7 @@ public class Headquarters extends Location implements ILocatable
 	@Override
 	public String getName()
 	{
-		return "team headquarters";
+		return "the team headquarters";
 	}
 
 	@Override

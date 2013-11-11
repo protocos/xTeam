@@ -26,6 +26,7 @@ public class UserTeleport extends UserCommand
 		TeleportScheduler teleporter = TeleportScheduler.getInstance();
 		teleporter.teleport(teamPlayer, teamMate);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -62,19 +63,28 @@ public class UserTeleport extends UserCommand
 		Requirements.checkPlayerTeammateIsOnline(teamMate);
 		Requirements.checkPlayerTeammateTooFar(teamPlayer, teamMate);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("teleport") + "(" + WHITE_SPACE + ANY_CHARS + ")?" + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.player.core.tele";
 	}
+
 	@Override
 	public String getUsage()
 	{
 		return "/team tele {Player}";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "teleport to nearest or specific teammate";
 	}
 }

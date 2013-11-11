@@ -57,4 +57,10 @@ public class UserSetLeader extends UserCommand
 	{
 		return "/team setleader [Player]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "set new leader for the team";
+	}
 }

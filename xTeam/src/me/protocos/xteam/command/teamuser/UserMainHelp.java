@@ -48,12 +48,18 @@ public class UserMainHelp extends UserCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return null;
+		return "help";
 	}
 
 	@Override
 	public String getUsage()
 	{
 		return "/team {help}";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "main help menu for xTeam";
 	}
 }

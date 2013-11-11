@@ -63,4 +63,10 @@ public class AdminDemote extends ServerAdminCommand
 	{
 		return "/team demote [Team] [Player]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "demote team admin";
+	}
 }

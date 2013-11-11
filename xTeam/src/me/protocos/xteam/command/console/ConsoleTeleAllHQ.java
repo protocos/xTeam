@@ -53,4 +53,10 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 	{
 		return "/team teleallhq";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "teleports everyone to their headquarters";
+	}
 }

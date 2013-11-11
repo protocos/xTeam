@@ -22,6 +22,7 @@ public class UserInfo extends UserCommand
 	{
 		info.actOn(originalSender, other);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -33,19 +34,28 @@ public class UserInfo extends UserCommand
 		info = new InfoAction();
 		info.checkRequirements(other);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("info") + "(" + WHITE_SPACE + ANY_CHARS + ")?" + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
-		return null;
+		return "info";
 	}
+
 	@Override
 	public String getUsage()
 	{
 		return "/team info {Team/Player}";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "get team info or other team's info";
 	}
 }

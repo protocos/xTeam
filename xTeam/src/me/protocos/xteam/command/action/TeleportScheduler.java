@@ -1,11 +1,13 @@
 package me.protocos.xteam.command.action;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoOnlineTeammatesException;
@@ -23,6 +25,7 @@ public class TeleportScheduler
 
 	private HashMap<TeamPlayer, Integer> currentTaskIDs = new HashMap<TeamPlayer, Integer>();
 	private HashMap<TeamPlayer, Integer> countWaitTime = new HashMap<TeamPlayer, Integer>();
+	private HashSet<String> rallyUsed = new HashSet<String>();
 
 	private TeleportScheduler()
 	{
@@ -43,9 +46,27 @@ public class TeleportScheduler
 		currentTaskIDs.put(teamPlayer, ID);
 	}
 
-	public boolean hasCurrentTask(TeamPlayer entity)
+	public boolean hasCurrentTask(TeamPlayer teamPlayer)
 	{
-		return currentTaskIDs.containsKey(entity);
+		return currentTaskIDs.containsKey(teamPlayer);
+	}
+
+	public boolean canRally(TeamPlayer teamPlayer)
+	{
+		return !rallyUsed.contains(teamPlayer.getName());
+	}
+
+	public void useRally(TeamPlayer teamPlayer)
+	{
+		rallyUsed.add(teamPlayer.getName());
+	}
+
+	public void clearTeamRally(Team team)
+	{
+		for (String player : team.getPlayers())
+		{
+			rallyUsed.remove(player);
+		}
 	}
 
 	public void removeCurrentTask(TeamPlayer teamPlayer)
@@ -100,6 +121,10 @@ public class TeleportScheduler
 		if (toLocatable.getLocation().equals(teamPlayer.getReturnLocation()))
 		{
 			teamPlayer.removeReturnLocation();
+		}
+		else if (toLocatable.getLocation().equals(teamPlayer.getTeam().getRally()))
+		{
+			useRally(teamPlayer);
 		}
 		else
 		{

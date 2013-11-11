@@ -52,4 +52,10 @@ public class AdminSetHeadquarters extends ServerAdminCommand
 	{
 		return "/team sethq [Team]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "set team headquarters for team";
+	}
 }

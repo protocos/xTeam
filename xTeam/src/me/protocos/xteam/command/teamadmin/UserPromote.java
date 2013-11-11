@@ -56,4 +56,10 @@ public class UserPromote extends UserCommand
 	{
 		return "/team promote [Player]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "promote player to team admin";
+	}
 }

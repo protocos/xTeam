@@ -55,4 +55,10 @@ public class ConsolePromote extends ConsoleCommand
 	{
 		return "/team promote [Team] [Player]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "promote player to admin";
+	}
 }

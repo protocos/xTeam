@@ -54,4 +54,10 @@ public class AdminDisband extends ServerAdminCommand
 	{
 		return "/team disband [Team]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "disband a team";
+	}
 }

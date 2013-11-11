@@ -24,25 +24,35 @@ public class UserOpen extends UserCommand
 		else
 			originalSender.sendMessage("Open joining is now " + ChatColorUtil.negativeMessage("disabled"));
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerIsTeamLeader(teamPlayer);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("open") + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.leader.core.open";
 	}
+
 	@Override
 	public String getUsage()
 	{
 		return "/team open";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "open team to public joining";
 	}
 }

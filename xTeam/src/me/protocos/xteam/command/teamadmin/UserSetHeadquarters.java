@@ -50,4 +50,10 @@ public class UserSetHeadquarters extends UserCommand
 	{
 		return "/team sethq";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "set headquarters of team";
+	}
 }

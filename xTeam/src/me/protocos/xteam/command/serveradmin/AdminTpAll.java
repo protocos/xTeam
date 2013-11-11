@@ -58,4 +58,10 @@ public class AdminTpAll extends ServerAdminCommand
 	{
 		return "/team tpall [Team]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "teleports a team to yourself";
+	}
 }

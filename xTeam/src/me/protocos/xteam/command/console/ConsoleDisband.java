@@ -26,6 +26,7 @@ public class ConsoleDisband extends ConsoleCommand
 		xTeam.getTeamManager().removeTeam(teamName);
 		originalSender.sendMessage("You disbanded " + teamName);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -34,14 +35,22 @@ public class ConsoleDisband extends ConsoleCommand
 		Team team = xTeam.getTeamManager().getTeam(teamName);
 		Requirements.checkTeamIsDefault(team);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return "disband" + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getUsage()
 	{
 		return "/team disband [Team]";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "disband a team";
 	}
 }

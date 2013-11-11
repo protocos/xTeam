@@ -20,6 +20,7 @@ public class AdminDeleteTest
 		//MOCK data
 		mockData();
 	}
+
 	@Test
 	public void ShouldBeServerAdminDeleteExecute()
 	{
@@ -33,6 +34,7 @@ public class AdminDeleteTest
 		Assert.assertFalse(xTeam.getTeamManager().contains("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeServerAdminDeleteExecuteThrowsNoTeam()
 	{
@@ -46,6 +48,7 @@ public class AdminDeleteTest
 		Assert.assertTrue(xTeam.getTeamManager().contains("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

@@ -53,4 +53,10 @@ public class AdminOpen extends ServerAdminCommand
 	{
 		return "/team open [Team]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "open team to public joining";
+	}
 }

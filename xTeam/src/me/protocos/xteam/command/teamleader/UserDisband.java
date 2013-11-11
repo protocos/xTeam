@@ -52,4 +52,10 @@ public class UserDisband extends UserCommand
 	{
 		return "/team disband";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "disband the team";
+	}
 }

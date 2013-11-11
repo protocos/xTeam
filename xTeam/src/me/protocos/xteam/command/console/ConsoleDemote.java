@@ -57,4 +57,10 @@ public class ConsoleDemote extends ConsoleCommand
 	{
 		return "/team demote [Team] [Player]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "demote team admin";
+	}
 }

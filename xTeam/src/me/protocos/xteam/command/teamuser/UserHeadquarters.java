@@ -21,6 +21,7 @@ public class UserHeadquarters extends UserCommand
 		TeleportScheduler teleporter = TeleportScheduler.getInstance();
 		teleporter.teleport(teamPlayer, teamPlayer.getTeam().getHeadquarters());
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
@@ -30,19 +31,28 @@ public class UserHeadquarters extends UserCommand
 		Requirements.checkPlayerCanTeleport(teamPlayer, getPermissionNode());
 		Requirements.checkPlayerTeleportRequested(teamPlayer);
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("head") + patternOneOrMore("quarters") + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getPermissionNode()
 	{
 		return "xteam.player.core.hq";
 	}
+
 	@Override
 	public String getUsage()
 	{
 		return "/team hq";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "teleport to the team headquarters";
 	}
 }

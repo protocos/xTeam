@@ -45,6 +45,14 @@ public class HelpPages
 		lines.add(info);
 	}
 
+	public void addLines(List<String> info)
+	{
+		for (String line : info)
+		{
+			this.addLine(line);
+		}
+	}
+
 	public String getLine(int index)
 	{
 		return lines.get(index);

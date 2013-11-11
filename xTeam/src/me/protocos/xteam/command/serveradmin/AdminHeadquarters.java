@@ -53,4 +53,10 @@ public class AdminHeadquarters extends ServerAdminCommand
 	{
 		return "/team hq [Team]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "teleport to team headquarters for team";
+	}
 }

@@ -49,4 +49,10 @@ public class UserList extends UserCommand
 	{
 		return "/team list";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "list all teams on the server";
+	}
 }

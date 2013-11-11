@@ -94,7 +94,7 @@ public class Data
 		TEAM_TAG_LENGTH = reader.getInteger("teamtagmaxlength", 0);
 		MAX_NUM_LOCATIONS = reader.getInteger("maxnumlocations", 9);
 		TELE_REFRESH_DELAY = reader.getInteger("telerefreshdelay", 60);
-		RALLY_DELAY = reader.getInteger("rallydelay", 10);
+		RALLY_DELAY = reader.getInteger("rallydelay", 2);
 		TAG_COLOR = reader.getString("tagcolor", "green");
 		NAME_COLOR = reader.getString("chatnamecolor", "dark_green");
 		DEFAULT_TEAM_NAMES = CommonUtil.toList(reader.getString("defaultteams", "").replace(" ", "").split(","));

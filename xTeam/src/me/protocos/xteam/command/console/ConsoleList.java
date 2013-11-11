@@ -25,18 +25,27 @@ public class ConsoleList extends ConsoleCommand
 		else
 			originalSender.sendMessage(message);
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("list") + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getUsage()
 	{
 		return "/team list";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "list all teams on the server";
 	}
 }

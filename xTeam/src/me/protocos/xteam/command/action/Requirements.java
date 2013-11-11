@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.action;
 
-import static me.protocos.xteam.util.StringUtil.ALPHA_NUMERIC;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
@@ -112,7 +111,7 @@ public class Requirements
 
 	public static void checkTeamNameAlphaNumeric(String desiredName) throws TeamNameNotAlphaException
 	{
-		if (Data.ALPHA_NUM && !desiredName.matches(ALPHA_NUMERIC))
+		if (Data.ALPHA_NUM && !desiredName.matches(StringUtil.ALPHA_NUMERIC))
 		{
 			throw new TeamNameNotAlphaException();
 		}
@@ -356,11 +355,27 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamHasRally(Team team) throws TeamDoesNotHaveRallyException
+	public static void checkTeamNotHasRally(Team team) throws TeamAlreadyHasRallyException
 	{
 		if (team.hasRally())
 		{
+			throw new TeamAlreadyHasRallyException();
+		}
+	}
+
+	public static void checkTeamHasRally(Team team) throws TeamDoesNotHaveRallyException
+	{
+		if (!team.hasRally())
+		{
 			throw new TeamDoesNotHaveRallyException();
+		}
+	}
+
+	public static void checkPlayerCanRally(TeamPlayer player) throws TeamPlayerAlreadyUsedRallyException
+	{
+		if (!TeleportScheduler.getInstance().canRally(player))
+		{
+			throw new TeamPlayerAlreadyUsedRallyException();
 		}
 	}
 }

@@ -57,4 +57,10 @@ public class UserTag extends UserCommand
 	{
 		return "/team tag [Tag]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "set the team tag";
+	}
 }

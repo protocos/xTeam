@@ -53,4 +53,10 @@ public class UserAccept extends UserCommand
 	{
 		return "/team accept";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "accept the most recent team invite";
+	}
 }

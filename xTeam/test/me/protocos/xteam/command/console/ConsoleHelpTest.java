@@ -32,19 +32,22 @@ public class ConsoleHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team"));
 		//ASSERT
 		Assert.assertEquals("Console Commands: {optional} [required] pick/one\n" +
+				"/team debug [Option] - Console debug menu for xTeam\n" +
+				"/team demote [Team] [Player] - demote team admin\n" +
+				"/team disband [Team] - disband a team\n" +
+				"/team {help} - console help menu for xTeam\n" +
 				"/team info [Player/Team] - get info on player/team\n" +
 				"/team list - list all teams on the server\n" +
-				"/team set [Player] [Team] - set team of player\n" +
-				"/team setleader [Team] [Player] - set leader of team\n" +
-				"/team promote [Team] [Player] - promote admin of team\n" +
-				"/team demote [Team] [Player] - demote admin of team\n" +
-				"/team remove [Team] [Player] - remove member of team\n" +
+				"/team promote [Team] [Player] - promote player to admin\n" +
+				"/team reload - reload configuration file\n" +
+				"/team remove [Team] [Player] - remove player from team\n" +
 				"/team rename [Team] [Name] - rename a team\n" +
 				"/team tag [Team] [Tag] - set team tag\n" +
-				"/team disband [Team] - disband a team\n" +
 				"/team open [Team] - open team to public joining\n" +
-				"/team teleallhq - teleports everyone to their Headquarters\n" +
-				"/team reload - reloads the configuration file\n", fakeConsoleSender.getAllMessages());
+				"/team set [Player] [Team] - set team of player\n" +
+				"/team setleader [Team] [Player] - set leader of team\n" +
+				"/team teleallhq - teleports everyone to their headquarters\n" +
+				"", fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

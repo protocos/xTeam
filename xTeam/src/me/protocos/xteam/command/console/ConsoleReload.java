@@ -20,18 +20,27 @@ public class ConsoleReload extends ConsoleCommand
 		Data.load();
 		originalSender.sendMessage("Config reloaded");
 	}
+
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 	}
+
 	@Override
 	public String getPattern()
 	{
 		return patternOneOrMore("reload") + OPTIONAL_WHITE_SPACE;
 	}
+
 	@Override
 	public String getUsage()
 	{
 		return "/team reload";
+	}
+
+	@Override
+	public String getDescription()
+	{
+		return "reload configuration file";
 	}
 }

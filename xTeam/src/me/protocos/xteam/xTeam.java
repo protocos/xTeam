@@ -69,9 +69,9 @@ public class xTeam extends JavaPlugin
 
 	public static void registerAdminCommands(ICommandManager manager)
 	{
+		manager.registerCommand("admin_sethq", new UserSetHeadquarters());
 		manager.registerCommand("admin_invite", new UserInvite());
 		manager.registerCommand("admin_promote", new UserPromote());
-		manager.registerCommand("admin_sethq", new UserSetHeadquarters());
 	}
 
 	public static void registerConsoleCommands(ICommandManager manager)
@@ -100,9 +100,9 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("leader_open", new UserOpen());
 		manager.registerCommand("leader_remove", new UserRemove());
 		manager.registerCommand("leader_rename", new UserRename());
+		manager.registerCommand("leader_tag", new UserTag());
 		manager.registerCommand("leader_setleader", new UserSetLeader());
 		manager.registerCommand("leader_setrally", new UserSetRally());
-		manager.registerCommand("leader_tag", new UserTag());
 	}
 
 	public static void registerServerAdminCommands(ICommandManager manager)
@@ -127,19 +127,20 @@ public class xTeam extends JavaPlugin
 
 	public static void registerUserCommands(ICommandManager manager)
 	{
-		manager.registerCommand("user_accept", new UserAccept());
-		manager.registerCommand("user_chat", new UserChat());
-		manager.registerCommand("user_create", new UserCreate());
+		manager.registerCommand("user_mainhelp", new UserMainHelp());
 		manager.registerCommand("user_help", new UserHelp());
-		manager.registerCommand("user_hq", new UserHeadquarters());
 		manager.registerCommand("user_info", new UserInfo());
+		manager.registerCommand("user_list", new UserList());
+		manager.registerCommand("user_create", new UserCreate());
 		manager.registerCommand("user_join", new UserJoin());
 		manager.registerCommand("user_leave", new UserLeave());
-		manager.registerCommand("user_list", new UserList());
-		manager.registerCommand("user_mainhelp", new UserMainHelp());
-		manager.registerCommand("user_message", new UserMessage());
-		manager.registerCommand("user_return", new UserReturn());
+		manager.registerCommand("user_accept", new UserAccept());
+		manager.registerCommand("user_hq", new UserHeadquarters());
 		manager.registerCommand("user_tele", new UserTeleport());
+		manager.registerCommand("user_return", new UserReturn());
+		manager.registerCommand("user_rally", new UserRally());
+		manager.registerCommand("user_chat", new UserChat());
+		manager.registerCommand("user_message", new UserMessage());
 	}
 
 	public void initFileSystem()
@@ -161,9 +162,6 @@ public class xTeam extends JavaPlugin
 				e.printStackTrace();
 			}
 		}
-		//		f = new File(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
-		//		if (!f.exists())
-		//		{
 		try
 		{
 			ConfigFileBuilder configBuilder = new ConfigFileBuilder(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
@@ -191,14 +189,13 @@ public class xTeam extends JavaPlugin
 			configBuilder.add("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
 			configBuilder.add("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
 			configBuilder.add("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
-			configBuilder.add("rallydelay", 10, "Delay in minutes that a team rally stays active");
+			configBuilder.add("rallydelay", 2, "Delay in minutes that a team rally stays active");
 			configBuilder.write();
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-		//		}
 		f = new File(getDataFolder().getAbsolutePath() + "/xTeam.log");
 		if (!f.exists())
 		{
@@ -247,9 +244,9 @@ public class xTeam extends JavaPlugin
 			playerManager = new PlayerManager();
 			registerConsoleCommands(commandManager);
 			registerServerAdminCommands(commandManager);
+			registerUserCommands(commandManager);
 			registerAdminCommands(commandManager);
 			registerLeaderCommands(commandManager);
-			registerUserCommands(commandManager);
 			commandExecutor = new CommandDelegate(commandManager);
 			getCommand("team").setExecutor(commandExecutor);
 			Functions.readTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));

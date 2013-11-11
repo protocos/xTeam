@@ -66,4 +66,10 @@ public class AdminSetLeader extends ServerAdminCommand
 	{
 		return "/team setleader [Team] [Player]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "set leader of team";
+	}
 }

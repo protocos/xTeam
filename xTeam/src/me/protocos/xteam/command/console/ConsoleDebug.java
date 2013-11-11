@@ -98,4 +98,10 @@ public class ConsoleDebug extends ConsoleCommand
 	{
 		return "/team debug [Option]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "Console debug menu for xTeam";
+	}
 }

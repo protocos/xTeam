@@ -60,4 +60,10 @@ public class UserDemote extends UserCommand
 	{
 		return "/team demote [Player]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "demote team admin";
+	}
 }

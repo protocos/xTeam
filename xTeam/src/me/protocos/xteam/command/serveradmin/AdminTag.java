@@ -57,4 +57,10 @@ public class AdminTag extends ServerAdminCommand
 	{
 		return "/team tag [Team] [Tag]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "set team tag";
+	}
 }

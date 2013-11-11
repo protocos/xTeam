@@ -58,4 +58,10 @@ public class UserLeave extends UserCommand
 	{
 		return "/team leave";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "leave your team";
+	}
 }

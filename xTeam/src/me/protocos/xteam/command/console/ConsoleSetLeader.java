@@ -62,4 +62,10 @@ public class ConsoleSetLeader extends ConsoleCommand
 	{
 		return "/team setleader [Team] [Player]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "set leader of team";
+	}
 }

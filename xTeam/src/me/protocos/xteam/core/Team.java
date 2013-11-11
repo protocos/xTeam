@@ -9,6 +9,7 @@ import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.CommonUtil;
@@ -575,15 +576,18 @@ public class Team implements ITeam
 		return message;
 	}
 
-	public void setRally(TeamPlayer teamPlayer)
+	public void setRally(final Location location)
 	{
-		rally = teamPlayer.getLocation();
+		rally = location;
+		final Team finalTeam = this;
 		class RemoveRally implements Runnable
 		{
 			@Override
 			public void run()
 			{
 				rally = null;
+				TeleportScheduler.getInstance().clearTeamRally(finalTeam);
+				sendMessage("Team rally has been " + ChatColorUtil.positiveMessage("refreshed"));
 			}
 		}
 		Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(xTeam.getSelf(), new RemoveRally(), Data.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);

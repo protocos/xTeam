@@ -65,4 +65,10 @@ public class UserRemove extends UserCommand
 	{
 		return "/team remove [Player]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "remove player from your team";
+	}
 }

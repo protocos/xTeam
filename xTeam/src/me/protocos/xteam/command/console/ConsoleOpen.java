@@ -46,4 +46,10 @@ public class ConsoleOpen extends ConsoleCommand
 	{
 		return "/team open [Team]";
 	}
+
+	@Override
+	public String getDescription()
+	{
+		return "open team to public joining";
+	}
 }
