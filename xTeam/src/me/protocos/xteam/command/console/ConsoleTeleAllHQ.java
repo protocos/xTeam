@@ -24,13 +24,13 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 			{
 				originalSender.sendMessage(player.getName() + " does not have a team and was not teleported");
 			}
-			else if (player.getTeam().hasHeadquarters())
+			else if (!player.getTeam().hasHeadquarters())
 			{
 				originalSender.sendMessage("No team headquarters set for team " + player.getTeam().getName() + " for " + player.getName());
 			}
 			else
 			{
-				player.teleport(player.getTeam().getHeadquarters());
+				player.teleport(player.getTeam().getHeadquarters().getLocation());
 				player.sendMessage("You have been teleported to the team headquarters by an admin");
 			}
 		}

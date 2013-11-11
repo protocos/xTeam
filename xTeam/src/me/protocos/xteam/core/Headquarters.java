@@ -10,8 +10,10 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 
-public class Headquarters extends Location implements ILocatable
+public class Headquarters implements ILocatable
 {
+	private Location location;
+
 	public Headquarters()
 	{
 		this(Data.BUKKIT.getWorld("world"), CommonUtil.DOUBLE_ZERO, CommonUtil.DOUBLE_ZERO, CommonUtil.DOUBLE_ZERO, CommonUtil.FLOAT_ZERO, CommonUtil.FLOAT_ZERO);
@@ -19,12 +21,12 @@ public class Headquarters extends Location implements ILocatable
 
 	public Headquarters(Location location)
 	{
-		this(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+		this.location = location;
 	}
 
 	public Headquarters(World world, double X, double Y, double Z, float yaw, float pitch)
 	{
-		super(world, X, Y, Z, yaw, pitch);
+		this.location = new Location(world, X, Y, Z, yaw, pitch);
 	}
 
 	public boolean exists()
@@ -41,7 +43,32 @@ public class Headquarters extends Location implements ILocatable
 	@Override
 	public Location getLocation()
 	{
-		return this;
+		return this.location;
+	}
+
+	public double getX()
+	{
+		return location.getX();
+	}
+
+	public double getY()
+	{
+		return location.getY();
+	}
+
+	public double getZ()
+	{
+		return location.getZ();
+	}
+
+	public float getYaw()
+	{
+		return location.getYaw();
+	}
+
+	public float getPitch()
+	{
+		return location.getPitch();
 	}
 
 	@Override
@@ -53,25 +80,25 @@ public class Headquarters extends Location implements ILocatable
 	@Override
 	public int getRelativeX()
 	{
-		return CommonUtil.round(this.getX());
+		return CommonUtil.round(location.getX());
 	}
 
 	@Override
 	public int getRelativeY()
 	{
-		return CommonUtil.round(this.getY());
+		return CommonUtil.round(location.getY());
 	}
 
 	@Override
 	public int getRelativeZ()
 	{
-		return CommonUtil.round(this.getZ());
+		return CommonUtil.round(location.getZ());
 	}
 
 	@Override
 	public double getDistanceTo(ILocatable entity)
 	{
-		return this.distance(entity.getLocation());
+		return location.distance(entity.getLocation());
 	}
 
 	@Override
@@ -83,7 +110,7 @@ public class Headquarters extends Location implements ILocatable
 	@Override
 	public List<Entity> getNearbyEntities(int radius)
 	{
-		return BukkitUtil.getNearbyEntities(this, radius);
+		return BukkitUtil.getNearbyEntities(location, radius);
 	}
 
 	@Override
@@ -93,10 +120,22 @@ public class Headquarters extends Location implements ILocatable
 			return false;
 		if (obj == this)
 			return true;
-		if (!(obj instanceof Location))
+		if (!(obj instanceof Headquarters))
 			return false;
 
-		Location rhs = (Location) obj;
-		return new EqualsBuilder().append(this.getWorld(), rhs.getWorld()).append(this.getX(), rhs.getX()).append(this.getY(), rhs.getY()).append(this.getZ(), rhs.getZ()).append(this.getPitch(), rhs.getPitch()).append(this.getYaw(), rhs.getYaw()).isEquals();
+		Headquarters rhs = (Headquarters) obj;
+		return new EqualsBuilder().append(this.getWorld(), rhs.getWorld()).append(location.getX(), rhs.getX()).append(location.getY(), rhs.getY()).append(location.getZ(), rhs.getZ()).append(location.getPitch(), rhs.getPitch()).append(location.getYaw(), rhs.getYaw()).isEquals();
+	}
+
+	@Override
+	public World getWorld()
+	{
+		return location.getWorld();
+	}
+
+	@Override
+	public String toString()
+	{
+		return location.getWorld().getName() + "," + location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getYaw() + "," + location.getPitch();
 	}
 }

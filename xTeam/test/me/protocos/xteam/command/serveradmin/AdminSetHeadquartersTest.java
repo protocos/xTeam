@@ -21,6 +21,7 @@ public class AdminSetHeadquartersTest
 		//MOCK data
 		mockData();
 	}
+
 	@Test
 	public void ShouldBeServerAdminSetHQExecute()
 	{
@@ -35,6 +36,7 @@ public class AdminSetHeadquartersTest
 		Assert.assertEquals(newHQ, xTeam.getTeamManager().getTeam("two").getHeadquarters());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeServerAdminSetHQExecuteTeamNotExist()
 	{
@@ -47,6 +49,7 @@ public class AdminSetHeadquartersTest
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

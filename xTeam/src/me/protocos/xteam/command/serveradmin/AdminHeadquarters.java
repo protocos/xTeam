@@ -23,7 +23,7 @@ public class AdminHeadquarters extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		player.teleport(changeTeam.getHeadquarters());
+		player.teleport(changeTeam.getHeadquarters().getLocation());
 		originalSender.sendMessage("You have been " + ChatColorUtil.positiveMessage("teleported") + " to the headquarters of team " + teamName);
 	}
 

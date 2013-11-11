@@ -37,7 +37,7 @@ public class AdminTeleAllHQ extends ServerAdminCommand
 				}
 				else
 				{
-					otherPlayer.teleport(playerTeam.getHeadquarters());
+					otherPlayer.teleport(playerTeam.getHeadquarters().getLocation());
 					otherPlayer.sendMessage("You have been teleported to the team headquarters by an admin");
 				}
 			}

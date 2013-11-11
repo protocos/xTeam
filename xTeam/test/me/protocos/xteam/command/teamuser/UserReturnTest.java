@@ -32,7 +32,7 @@ public class UserReturnTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getPlayerManager().getPlayer("protocos"), TeamPlayer.class);
-		Location returnLocation = xTeam.getTeamManager().getTeam("one").getHeadquarters();
+		Location returnLocation = xTeam.getTeamManager().getTeam("one").getHeadquarters().getLocation();
 		xTeam.getPlayerManager().getPlayer("protocos").setReturnLocation(returnLocation);
 		UserCommand fakeCommand = new UserReturn();
 		//ACT

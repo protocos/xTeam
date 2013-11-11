@@ -69,7 +69,7 @@ public class UserSetRallyTest
 	{
 		//ASSEMBLE
 		Team team = xTeam.getTeamManager().getTeam("one");
-		team.setRally(team.getHeadquarters());
+		team.setRally(team.getHeadquarters().getLocation());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserSetRally();
 		//ACT

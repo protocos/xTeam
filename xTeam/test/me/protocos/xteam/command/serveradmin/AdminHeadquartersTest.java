@@ -22,12 +22,13 @@ public class AdminHeadquartersTest
 		//MOCK data
 		mockData();
 	}
+
 	@Test
 	public void ShouldBeServerAdminHQExecute()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		Location hq = xTeam.getTeamManager().getTeam("one").getHeadquarters();
+		Location hq = xTeam.getTeamManager().getTeam("one").getHeadquarters().getLocation();
 		ServerAdminCommand fakeCommand = new AdminHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq one"));
@@ -36,6 +37,7 @@ public class AdminHeadquartersTest
 		Assert.assertEquals(hq, fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeServerAdminHQExecuteThrowsNoTeam()
 	{
@@ -50,6 +52,7 @@ public class AdminHeadquartersTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeServerAdminHQExecuteThrowsNoTeamHeadquarters()
 	{
@@ -64,6 +67,7 @@ public class AdminHeadquartersTest
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

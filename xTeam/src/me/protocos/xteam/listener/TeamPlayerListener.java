@@ -139,7 +139,7 @@ public class TeamPlayerListener implements Listener
 				{
 					if (player.getTeam().hasHeadquarters())
 					{
-						event.setRespawnLocation(player.getTeam().getHeadquarters());
+						event.setRespawnLocation(player.getTeam().getHeadquarters().getLocation());
 					}
 					else
 					{

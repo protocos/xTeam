@@ -183,28 +183,6 @@ public class Team implements ITeam
 		return leader;
 	}
 
-	//	public List<String> getOnlinePlayers()
-	//	{
-	//		List<String> onlinePlayers = new ArrayList<String>();
-	//		for (String p : players)
-	//		{
-	//			ITeamPlayer player = xTeam.getPlayerManager().getPlayer(p);
-	//			if (player.isOnline())
-	//				onlinePlayers.add(p);
-	//		}
-	//		return onlinePlayers;
-	//	}
-	//	public List<String> getOfflinePlayers()
-	//	{
-	//		List<String> offlinePlayers = new ArrayList<String>();
-	//		for (String p : players)
-	//		{
-	//			ITeamPlayer player = xTeam.getPlayerManager().getPlayer(p);
-	//			if (!player.isOnline())
-	//				offlinePlayers.add(p);
-	//		}
-	//		return offlinePlayers;
-	//	}
 	public List<String> getPlayers()
 	{
 		return players;
@@ -364,8 +342,8 @@ public class Team implements ITeam
 		teamData += " open:" + isOpenJoining();
 		teamData += " default:" + isDefaultTeam();
 		teamData += " timeHeadquartersSet:" + getTimeLastSet();
-		teamData += " hq:" + (getHeadquarters() == null ? "" : getHeadquarters().getWorld().getName() + "," + getHeadquarters().getX() + "," + getHeadquarters().getY() + "," + getHeadquarters().getZ() + "," + getHeadquarters().getYaw() + "," + getHeadquarters().getPitch());
-		teamData += " leader:" + (getLeader() == null ? "" : getLeader());
+		teamData += " hq:" + (getHeadquarters() == null ? "" : getHeadquarters().toString());
+		teamData += " leader:" + getLeader();
 		teamData += " admins:" + getAdmins().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
 		teamData += " players:" + getPlayers().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
 		return teamData;
@@ -428,7 +406,7 @@ public class Team implements ITeam
 	@Override
 	public double getDistanceTo(ILocatable entity)
 	{
-		return this.getHeadquarters().distance(entity.getLocation());
+		return this.getHeadquarters().getLocation().distance(entity.getLocation());
 	}
 
 	@Override
@@ -500,7 +478,7 @@ public class Team implements ITeam
 	@Override
 	public Location getLocation()
 	{
-		return this.getHeadquarters();
+		return this.getHeadquarters().getLocation();
 	}
 
 	@Override

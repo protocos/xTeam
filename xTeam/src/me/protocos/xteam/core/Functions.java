@@ -7,6 +7,7 @@ import java.util.Scanner;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.util.StringUtil;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -69,6 +70,7 @@ public class Functions
 		}
 		return false;
 	}
+
 	@Deprecated
 	public static void readOldData(File f) throws NumberFormatException, IOException
 	{
@@ -82,7 +84,7 @@ public class Functions
 			// String pass = s[1];
 			World world = Data.BUKKIT.getWorld(s[2]);
 			long timeHeadquartersSet = Long.valueOf(s[3]).longValue();
-			Headquarters HQ = new Headquarters(world, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
+			Location HQ = new Location(world, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
 			ArrayList<String> players = new ArrayList<String>();
 			ArrayList<String> admins = new ArrayList<String>();
 			String leader = "";
@@ -116,13 +118,13 @@ public class Functions
 					{
 						team.setPlayers(players);
 						if (HQ.getY() != 0.0D)
-							team.setHQ(HQ);
+							team.setHQ(new Headquarters(HQ));
 					}
 				}
 			}
 			else
 			{
-				Team team = new Team.Builder(teamName).tag(teamName).leader(leader).players(players).admins(admins).hq(HQ).timeHeadquartersSet(timeHeadquartersSet).openJoining(false).defaultTeam(false).build();
+				Team team = new Team.Builder(teamName).tag(teamName).leader(leader).players(players).admins(admins).hq(new Headquarters(HQ)).timeHeadquartersSet(timeHeadquartersSet).openJoining(false).defaultTeam(false).build();
 				for (int i = startIndex; i < s.length; i++)
 				{
 					s[i] = s[i].replaceAll("~", "");
@@ -132,6 +134,7 @@ public class Functions
 		}
 		br.close();
 	}
+
 	// /////////R/W FUNCTIONS
 	public static void readTeamData(File f)
 	{
@@ -163,6 +166,7 @@ public class Functions
 			e.printStackTrace();
 		}
 	}
+
 	//	public static void showPlayer(Player player)
 	//	{
 	//		Player[] OnlinePlayers = player.getServer().getOnlinePlayers();
@@ -214,6 +218,7 @@ public class Functions
 			e.printStackTrace();
 		}
 	}
+
 	public static void writeTeamData(File f)
 	{
 		ArrayList<String> data = new ArrayList<String>();
@@ -242,6 +247,7 @@ public class Functions
 			e.printStackTrace();
 		}
 	}
+
 	private Functions()
 	{
 		throw new AssertionError();

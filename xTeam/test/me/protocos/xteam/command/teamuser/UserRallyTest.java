@@ -35,7 +35,7 @@ public class UserRallyTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		Location rallyLocation = team.getHeadquarters();
+		Location rallyLocation = team.getHeadquarters().getLocation();
 		team.setRally(rallyLocation);
 		UserCommand fakeCommand = new UserRally();
 		//ACT
@@ -66,7 +66,7 @@ public class UserRallyTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		team.setRally(team.getHeadquarters());
+		team.setRally(team.getHeadquarters().getLocation());
 		fakePlayerSender.setNoDamageTicks(1);
 		UserCommand fakeCommand = new UserRally();
 		//ACT
@@ -82,7 +82,7 @@ public class UserRallyTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		team.setRally(team.getHeadquarters());
+		team.setRally(team.getHeadquarters().getLocation());
 		UserCommand fakeCommand = new UserRally();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rally"));
@@ -115,8 +115,8 @@ public class UserRallyTest
 		//ASSEMBLE
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().setCurrentTask(teamPlayer, 0);
-		xTeam.getTeamManager().getTeam("one").setRally(new FakeLocation());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		xTeam.getTeamManager().getTeam("one").setRally(new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		UserCommand fakeCommand = new UserRally();
 		//ACT
@@ -132,7 +132,7 @@ public class UserRallyTest
 	{
 		//ASSEMBLE
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
-		Location rallyLocation = team.getHeadquarters();
+		Location rallyLocation = team.getHeadquarters().getLocation();
 		team.setRally(rallyLocation);
 		TeleportScheduler.getInstance().useRally(teamPlayer);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());

@@ -17,6 +17,7 @@ public class TeamHeadquartersTest
 		//MOCK data
 		mockData();
 	}
+
 	@Test
 	public void ShouldBeTeamHeadquartersDefault()
 	{
@@ -25,12 +26,13 @@ public class TeamHeadquartersTest
 		//ACT
 		//ASSERT
 		Assert.assertEquals("world", hq.getWorld().getName());
-		Assert.assertEquals(0.0D, hq.getX(), 0);
-		Assert.assertEquals(0.0D, hq.getY(), 0);
-		Assert.assertEquals(0.0D, hq.getZ(), 0);
-		Assert.assertEquals(0.0F, hq.getYaw(), 0);
-		Assert.assertEquals(0.0F, hq.getPitch(), 0);
+		Assert.assertEquals(0.0D, hq.getLocation().getX(), 0);
+		Assert.assertEquals(0.0D, hq.getLocation().getY(), 0);
+		Assert.assertEquals(0.0D, hq.getLocation().getZ(), 0);
+		Assert.assertEquals(0.0F, hq.getLocation().getYaw(), 0);
+		Assert.assertEquals(0.0F, hq.getLocation().getPitch(), 0);
 	}
+
 	@Test
 	public void ShouldBeTeamHeadquartersExists()
 	{
@@ -41,6 +43,7 @@ public class TeamHeadquartersTest
 		//ASSERT
 		Assert.assertTrue(exists);
 	}
+
 	@Test
 	public void ShouldBeTeamHeadquartersFakeData()
 	{
@@ -49,12 +52,13 @@ public class TeamHeadquartersTest
 		//ACT
 		//ASSERT
 		Assert.assertEquals("world", hq.getWorld().getName());
-		Assert.assertEquals(0.0D, hq.getX(), 0);
-		Assert.assertEquals(0.0D, hq.getY(), 0);
-		Assert.assertEquals(0.0D, hq.getZ(), 0);
-		Assert.assertEquals(0.0F, hq.getYaw(), 0);
-		Assert.assertEquals(0.0F, hq.getPitch(), 0);
+		Assert.assertEquals(0.0D, hq.getLocation().getX(), 0);
+		Assert.assertEquals(0.0D, hq.getLocation().getY(), 0);
+		Assert.assertEquals(0.0D, hq.getLocation().getZ(), 0);
+		Assert.assertEquals(0.0F, hq.getLocation().getYaw(), 0);
+		Assert.assertEquals(0.0F, hq.getLocation().getPitch(), 0);
 	}
+
 	@Test
 	public void ShouldBeTeamHeadquartersNotExists()
 	{
@@ -65,6 +69,7 @@ public class TeamHeadquartersTest
 		//ASSERT
 		Assert.assertFalse(notExists);
 	}
+
 	@After
 	public void takedown()
 	{
