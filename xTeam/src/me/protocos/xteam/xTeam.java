@@ -3,7 +3,6 @@ package me.protocos.xteam;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.util.ILog;
