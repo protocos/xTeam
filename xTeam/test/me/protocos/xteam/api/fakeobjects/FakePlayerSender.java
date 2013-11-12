@@ -2,7 +2,7 @@ package me.protocos.xteam.api.fakeobjects;
 
 import java.net.InetSocketAddress;
 import java.util.*;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.StringUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -462,7 +462,7 @@ public class FakePlayerSender implements Player, CommandSender
 	@Override
 	public Player getPlayer()
 	{
-		return Data.BUKKIT.getPlayer(name);
+		return BukkitUtil.getPlayer(name);
 	}
 	@Override
 	public String getPlayerListName()

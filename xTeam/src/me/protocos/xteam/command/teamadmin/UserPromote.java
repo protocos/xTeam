@@ -23,7 +23,7 @@ public class UserPromote extends UserCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		team.promote(otherPlayer);
-		ITeamPlayer other = xTeam.getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColorUtil.positiveMessage("promoted"));
 		originalSender.sendMessage("You" + ChatColorUtil.positiveMessage(" promoted ") + otherPlayer);
@@ -33,7 +33,7 @@ public class UserPromote extends UserCommand
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = parseCommand.get(1);
-		ITeamPlayer other = xTeam.getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerIsTeamAdmin(teamPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);

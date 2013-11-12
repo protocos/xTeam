@@ -25,7 +25,7 @@ public class UserCreate extends UserCommand
 	{
 		String leader = teamPlayer.getName();
 		Team newTeam = Team.createTeamWithLeader(desiredName, leader);
-		xTeam.getTeamManager().addTeam(newTeam);
+		xTeam.getInstance().getTeamManager().addTeam(newTeam);
 		Data.lastCreated.put(leader, Long.valueOf(System.currentTimeMillis()));
 		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("created") + " " + desiredName);
 	}

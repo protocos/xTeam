@@ -24,7 +24,7 @@ public class UserInvite extends UserCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		InviteHandler.addInvite(otherPlayer, team);
-		ITeamPlayer other = xTeam.getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColorUtil.positiveMessage("invited ") + "to join " + team.getName());
 		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("invited ") + other.getName());
@@ -34,7 +34,7 @@ public class UserInvite extends UserCommand
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = parseCommand.get(1);
-		ITeamPlayer other = xTeam.getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerIsTeamAdmin(teamPlayer);
 		Requirements.checkPlayerInviteSelf(teamPlayer, otherPlayer);

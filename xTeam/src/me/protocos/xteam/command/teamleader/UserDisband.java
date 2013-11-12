@@ -24,7 +24,7 @@ public class UserDisband extends UserCommand
 		{
 			playerDisband.sendMessage("Team has been " + ChatColorUtil.negativeMessage("disbanded") + " by the team leader");
 		}
-		xTeam.getTeamManager().removeTeam(team.getName());
+		xTeam.getInstance().getTeamManager().removeTeam(team.getName());
 		originalSender.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " your team");
 	}
 

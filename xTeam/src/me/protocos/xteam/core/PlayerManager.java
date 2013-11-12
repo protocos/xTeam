@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
@@ -29,7 +30,7 @@ public class PlayerManager
 
 	public List<TeamPlayer> getOnlinePlayers()
 	{
-		Player[] players = Data.BUKKIT.getOnlinePlayers();
+		Player[] players = BukkitUtil.getOnlinePlayers();
 		List<TeamPlayer> onlinePlayers = CommonUtil.emptyList(players.length);
 		for (Player player : players)
 		{
@@ -40,7 +41,7 @@ public class PlayerManager
 
 	public List<OfflineTeamPlayer> getOfflinePlayers()
 	{
-		OfflinePlayer[] players = Data.BUKKIT.getOfflinePlayers();
+		OfflinePlayer[] players = BukkitUtil.getOfflinePlayers();
 		List<OfflineTeamPlayer> offlinePlayers = CommonUtil.emptyList(players.length);
 		for (OfflinePlayer player : players)
 		{
@@ -66,10 +67,10 @@ public class PlayerManager
 
 	public ITeamPlayer getPlayer(String name)
 	{
-		Player player = Data.BUKKIT.getPlayer(name);
+		Player player = BukkitUtil.getPlayer(name);
 		if (player != null)
 			return teamPlayerWithValues(player);
-		OfflinePlayer offlinePlayer = Data.BUKKIT.getOfflinePlayer(name);
+		OfflinePlayer offlinePlayer = BukkitUtil.getOfflinePlayer(name);
 		if (offlinePlayer != null)
 			return offlineTeamPlayerWithValues(offlinePlayer);
 		return playerWithValues(name);
@@ -153,10 +154,10 @@ public class PlayerManager
 	private ITeamPlayer playerWithValues(String playerName)
 	{
 		ITeamPlayer returnPlayer = null;
-		if (Data.BUKKIT.getPlayer(playerName) != null)
-			returnPlayer = getPlayer(Data.BUKKIT.getPlayer(playerName));
-		else if (Data.BUKKIT.getOfflinePlayer(playerName) != null)
-			returnPlayer = getPlayer(Data.BUKKIT.getOfflinePlayer(playerName));
+		if (BukkitUtil.getPlayer(playerName) != null)
+			returnPlayer = getPlayer(BukkitUtil.getPlayer(playerName));
+		else if (BukkitUtil.getOfflinePlayer(playerName) != null)
+			returnPlayer = getPlayer(BukkitUtil.getOfflinePlayer(playerName));
 		if (returnPlayer != null)
 		{
 			returnPlayer.setLastAttacked(getLastAttacked(playerName));

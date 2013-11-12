@@ -34,7 +34,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team rename one newname"));
 		//ASSERT
 		Assert.assertEquals("You renamed the team to newname", fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("newname", xTeam.getTeamManager().getTeam("newname").getName());
+		Assert.assertEquals("newname", xTeam.getInstance().getTeamManager().getTeam("newname").getName());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -46,7 +46,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team rename two one"));
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -58,7 +58,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team rename three one"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -71,7 +71,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team rename two Ã"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

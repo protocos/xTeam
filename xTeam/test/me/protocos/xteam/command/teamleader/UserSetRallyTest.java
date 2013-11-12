@@ -34,7 +34,7 @@ public class UserSetRallyTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team setrally"));
 		//ASSERT
 		Assert.assertEquals("You set the team rally point", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getTeamManager().getTeam("one").hasRally());
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").hasRally());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -68,7 +68,7 @@ public class UserSetRallyTest
 	public void ShouldBeSetRallyAlreadySet()
 	{
 		//ASSEMBLE
-		Team team = xTeam.getTeamManager().getTeam("one");
+		Team team = xTeam.getInstance().getTeamManager().getTeam("one");
 		team.setRally(team.getHeadquarters().getLocation());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserSetRally();

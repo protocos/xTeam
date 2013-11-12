@@ -23,10 +23,10 @@ public class ConsoleDemote extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.getTeamManager().getTeam(teamName);
+		Team team = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		team.demote(playerName);
 		originalSender.sendMessage("You" + ChatColorUtil.negativeMessage(" demoted ") + playerName);
-		ITeamPlayer other = xTeam.getPlayerManager().getPlayer(playerName);
+		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColorUtil.negativeMessage("demoted"));
 	}
@@ -36,8 +36,8 @@ public class ConsoleDemote extends ConsoleCommand
 	{
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		ITeamPlayer player = xTeam.getPlayerManager().getPlayer(playerName);
-		Team team = xTeam.getTeamManager().getTeam(teamName);
+		ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		Team team = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkPlayerHasPlayedBefore(player);
 		Requirements.checkPlayerHasTeam(player);

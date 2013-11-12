@@ -22,10 +22,10 @@ public class AdminRename extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team changeTeam = xTeam.getTeamManager().getTeam(teamName);
-		xTeam.getTeamManager().removeTeam(teamName);
+		Team changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		xTeam.getInstance().getTeamManager().removeTeam(teamName);
 		changeTeam.setName(desiredName);
-		xTeam.getTeamManager().addTeam(changeTeam);
+		xTeam.getInstance().getTeamManager().addTeam(changeTeam);
 		if (!changeTeam.containsPlayer(originalSender.getName()))
 			originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("renamed") + " the team to " + desiredName);
 		changeTeam.sendMessage("The team has been " + ChatColorUtil.positiveMessage("renamed") + " to " + desiredName + " by an admin");

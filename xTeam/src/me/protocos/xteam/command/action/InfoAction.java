@@ -18,11 +18,11 @@ public class InfoAction
 
 	public void actOn(CommandSender sender, String other)
 	{
-		Team infoTeam = xTeam.getTeamManager().getTeam(other);
+		Team infoTeam = xTeam.getInstance().getTeamManager().getTeam(other);
 		if (infoTeam == null)
-			infoTeam = xTeam.getTeamManager().getTeamByTag(other);
+			infoTeam = xTeam.getInstance().getTeamManager().getTeamByTag(other);
 		if (infoTeam == null)
-			infoTeam = xTeam.getPlayerManager().getPlayer(other).getTeam();
+			infoTeam = xTeam.getInstance().getPlayerManager().getPlayer(other).getTeam();
 		if (infoTeam != null)
 		{
 			if (sender instanceof ConsoleCommandSender)
@@ -32,7 +32,7 @@ public class InfoAction
 			else if (sender instanceof Player)
 			{
 				Player player = CommonUtil.assignFromType(sender, Player.class);
-				ITeamPlayer teamPlayer = xTeam.getPlayerManager().getPlayer(player);
+				ITeamPlayer teamPlayer = xTeam.getInstance().getPlayerManager().getPlayer(player);
 				if (teamPlayer.isOnSameTeam(infoTeam))
 					teamPlayer.sendMessage(infoTeam.getPrivateInfo());
 				else
@@ -43,13 +43,13 @@ public class InfoAction
 
 	public void checkRequirements(String other) throws TeamOrPlayerDoesNotExistException, TeamPlayerHasNoTeamException
 	{
-		if (xTeam.getTeamManager().getTeam(other) == null && xTeam.getTeamManager().getTeamByTag(other) == null)
+		if (xTeam.getInstance().getTeamManager().getTeam(other) == null && xTeam.getInstance().getTeamManager().getTeamByTag(other) == null)
 		{
-			if (xTeam.getPlayerManager().getPlayer(other) == null)
+			if (xTeam.getInstance().getPlayerManager().getPlayer(other) == null)
 			{
 				throw new TeamOrPlayerDoesNotExistException();
 			}
-			Requirements.checkPlayerHasTeam(xTeam.getPlayerManager().getPlayer(other));
+			Requirements.checkPlayerHasTeam(xTeam.getInstance().getPlayerManager().getPlayer(other));
 		}
 	}
 }

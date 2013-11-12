@@ -116,15 +116,6 @@ public class FileReader
 		return fallback;
 	}
 
-	public Object get(String key, Object fallback)
-	{
-		if (this.keySet.containsKey(key))
-		{
-			return this.keySet.get(key);
-		}
-		return fallback;
-	}
-
 	private boolean load()
 	{
 		if (this.file.exists())
@@ -163,7 +154,7 @@ public class FileReader
 		}
 		else
 		{
-			xTeam.getLog().error("File " + this.file.getAbsoluteFile() + " not found.");
+			xTeam.getInstance().getLog().error("File " + this.file.getAbsoluteFile() + " not found.");
 			return false;
 		}
 		return true;

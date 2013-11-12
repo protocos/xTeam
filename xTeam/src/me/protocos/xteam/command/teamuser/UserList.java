@@ -19,7 +19,7 @@ public class UserList extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		List<String> teams = xTeam.getTeamManager().getAllTeamNames();
+		List<String> teams = xTeam.getInstance().getTeamManager().getAllTeamNames();
 		String message = "Teams: " + teams.toString().replaceAll("\\[|\\]", "");
 		if (teams.isEmpty())
 			originalSender.sendMessage("There are " + ChatColorUtil.negativeMessage("no") + " teams");

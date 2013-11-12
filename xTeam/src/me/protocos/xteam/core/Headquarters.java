@@ -16,7 +16,7 @@ public class Headquarters implements ILocatable
 
 	public Headquarters()
 	{
-		this(Data.BUKKIT.getWorld("world"), CommonUtil.DOUBLE_ZERO, CommonUtil.DOUBLE_ZERO, CommonUtil.DOUBLE_ZERO, CommonUtil.FLOAT_ZERO, CommonUtil.FLOAT_ZERO);
+		this(BukkitUtil.getWorld("world"), CommonUtil.DOUBLE_ZERO, CommonUtil.DOUBLE_ZERO, CommonUtil.DOUBLE_ZERO, CommonUtil.FLOAT_ZERO, CommonUtil.FLOAT_ZERO);
 	}
 
 	public Headquarters(Location location)
@@ -74,7 +74,7 @@ public class Headquarters implements ILocatable
 	@Override
 	public Server getServer()
 	{
-		return Data.BUKKIT;
+		return BukkitUtil.getServer();
 	}
 
 	@Override

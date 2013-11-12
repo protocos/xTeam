@@ -46,38 +46,38 @@ public class AdminHelp extends ServerAdminCommand
 			pageNum = 1;
 		}
 		pages = new HelpPages();
-		pages.addLines(xTeam.getCommandManager().getAvailableAdminCommandsFor(player));
+		pages.addLines(xTeam.getInstance().getCommandManager().getAvailableAdminCommandsFor(player));
 		//		String command;
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_set")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> set team of player"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_hq")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> teleport to team headquarters"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_sethq")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> set team headquarters for team"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_setleader")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> set leader of team"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_promote")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> promote player to team admin"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_demote")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> demote team admin"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_remove")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> remove player of team"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_teleallhq")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> teleports everyone to their HQ"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_tpall")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> teleports team to yourself"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_chatspy")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> spy on team chat"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_rename")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> rename a team"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_tag")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> set team tag"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_disband")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> disband a team"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_open")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> open team to public joining"));
-		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getCommandManager().getPermissionNode(command = "serveradmin_reload")))
-		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getCommandManager().getUsage(command) + " - <admin> reload the config files"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_set")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> set team of player"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_hq")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> teleport to team headquarters"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_sethq")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> set team headquarters for team"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_setleader")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> set leader of team"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_promote")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> promote player to team admin"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_demote")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> demote team admin"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_remove")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> remove player of team"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_teleallhq")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> teleports everyone to their HQ"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_tpall")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> teleports team to yourself"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_chatspy")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> spy on team chat"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_rename")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> rename a team"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_tag")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> set team tag"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_disband")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> disband a team"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_open")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> open team to public joining"));
+		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(command = "serveradmin_reload")))
+		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(command) + " - <admin> reload the config files"));
 		Requirements.checkPlayerHasCommands(pages);
 		Requirements.checkPlayerCommandPageRange(pages, pageNum);
 	}

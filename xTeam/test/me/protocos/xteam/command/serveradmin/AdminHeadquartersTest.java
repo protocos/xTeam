@@ -28,7 +28,7 @@ public class AdminHeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		Location hq = xTeam.getTeamManager().getTeam("one").getHeadquarters().getLocation();
+		Location hq = xTeam.getInstance().getTeamManager().getTeam("one").getHeadquarters().getLocation();
 		ServerAdminCommand fakeCommand = new AdminHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq one"));

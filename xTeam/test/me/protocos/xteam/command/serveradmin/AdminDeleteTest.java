@@ -31,7 +31,7 @@ public class AdminDeleteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team disband one"));
 		//ASSERT
 		Assert.assertEquals("You disbanded one", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getTeamManager().contains("one"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -45,7 +45,7 @@ public class AdminDeleteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team disband team"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getTeamManager().contains("one"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

@@ -53,26 +53,26 @@ public class CommandDelegate implements CommandExecutor
 			{
 				parseCommand = new CommandParser(commandID + " " + originalCommand);
 				command = manager.matchConsole(parseCommand.getCommandWithoutID());
-				xTeam.getLog().info("console issued command: " + parseCommand.toString());
+				xTeam.getInstance().getLog().info("console issued command: " + parseCommand.toString());
 			}
 			else if (sender instanceof Player)
 			{
 				parseCommand = new CommandParser("/" + commandID + " " + originalCommand);
 				command = manager.matchPlayer(parseCommand.getCommandWithoutID());
-				xTeam.getLog().info(sender.getName() + " issued command: " + parseCommand.toString());
+				xTeam.getInstance().getLog().info(sender.getName() + " issued command: " + parseCommand.toString());
 			}
 			if (command == null)
 			{
 				sender.sendMessage(ChatColorUtil.negativeMessage((new TeamInvalidCommandException()).getMessage()));
-				xTeam.getLog().info("FAIL: " + (new TeamInvalidCommandException()).getMessage());
+				xTeam.getInstance().getLog().info("FAIL: " + (new TeamInvalidCommandException()).getMessage());
 			}
 			else if (command.execute(sender, parseCommand) == true)
 				Functions.writeTeamData(new File("plugins/xTeam/teams.txt"));
 		}
 		catch (Exception e)
 		{
-			xTeam.getLog().exception(e);
-			xTeam.log.info("[ERROR] Exception in xTeam onCommand() class [check logs]");
+			xTeam.getInstance().getLog().exception(e);
+			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onCommand() class [check logs]");
 		}
 		return true;
 	}

@@ -34,7 +34,7 @@ public class AdminTag extends ServerAdminCommand
 	{
 		teamName = parseCommand.get(1);
 		desiredTag = parseCommand.get(2);
-		changeTeam = xTeam.getTeamManager().getTeam(teamName);
+		changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkTeamNameAlreadyUsed(desiredTag, changeTeam);
 		Requirements.checkTeamNameAlphaNumeric(desiredTag);

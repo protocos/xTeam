@@ -43,7 +43,7 @@ public class Locatable implements ILocatable
 	@Override
 	public Server getServer()
 	{
-		return Data.BUKKIT;
+		return BukkitUtil.getServer();
 	}
 
 	@Override

@@ -21,9 +21,9 @@ public class ConsoleDisband extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.getTeamManager().getTeam(teamName);
+		Team team = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		team.sendMessage("Your team has been disbanded by an admin");
-		xTeam.getTeamManager().removeTeam(teamName);
+		xTeam.getInstance().getTeamManager().removeTeam(teamName);
 		originalSender.sendMessage("You disbanded " + teamName);
 	}
 
@@ -32,7 +32,7 @@ public class ConsoleDisband extends ConsoleCommand
 	{
 		teamName = parseCommand.get(1);
 		Requirements.checkTeamExists(teamName);
-		Team team = xTeam.getTeamManager().getTeam(teamName);
+		Team team = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkTeamIsDefault(team);
 	}
 

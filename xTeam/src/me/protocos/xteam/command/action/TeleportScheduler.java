@@ -79,7 +79,7 @@ public class TeleportScheduler
 		if (teleporter == null)
 		{
 			teleporter = new TeleportScheduler();
-			taskScheduler = Data.BUKKIT.getScheduler();
+			taskScheduler = BukkitUtil.getScheduler();
 		}
 		return teleporter;
 	}
@@ -113,7 +113,7 @@ public class TeleportScheduler
 		teamPlayer.sendMessage(ChatColorUtil.negativeMessage("You cannot teleport with enemies nearby"));
 		teamPlayer.sendMessage(ChatColorUtil.negativeMessage("You must wait " + Data.TELE_DELAY + " seconds"));
 		Runnable teleportWait = new TeleportWait(teamPlayer, toLocatable, currentLocation);
-		setCurrentTask(teamPlayer, taskScheduler.scheduleSyncRepeatingTask(xTeam.getSelf(), teleportWait, CommonUtil.LONG_ZERO, 2L));
+		setCurrentTask(teamPlayer, taskScheduler.scheduleSyncRepeatingTask(xTeam.getInstance(), teleportWait, CommonUtil.LONG_ZERO, 2L));
 	}
 
 	private void teleportTo(final TeamPlayer teamPlayer, final ILocatable toLocatable)
@@ -130,7 +130,7 @@ public class TeleportScheduler
 		{
 			teamPlayer.setReturnLocation(teamPlayer.getLocation());
 			Runnable teleRefreshMessage = new TeleportRefreshMessage(teamPlayer);
-			taskScheduler.scheduleSyncDelayedTask(xTeam.getSelf(), teleRefreshMessage, Data.TELE_REFRESH_DELAY * BukkitUtil.ONE_SECOND_IN_TICKS);
+			taskScheduler.scheduleSyncDelayedTask(xTeam.getInstance(), teleRefreshMessage, Data.TELE_REFRESH_DELAY * BukkitUtil.ONE_SECOND_IN_TICKS);
 			teamPlayer.setLastTeleported(System.currentTimeMillis());
 		}
 		teamPlayer.teleport(toLocatable.getLocation());
@@ -158,7 +158,7 @@ public class TeleportScheduler
 			else if (e instanceof Player)
 			{
 				Player unknownPlayer = (Player) e;
-				ITeamPlayer otherPlayer = xTeam.getPlayerManager().getPlayer(unknownPlayer);
+				ITeamPlayer otherPlayer = xTeam.getInstance().getPlayerManager().getPlayer(unknownPlayer);
 				if (!entity.isOnSameTeam(otherPlayer))
 					return true;
 			}

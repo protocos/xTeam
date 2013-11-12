@@ -24,7 +24,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public Team getTeam()
 	{
-		return xTeam.getTeamManager().getTeamFromPlayer(player.getName());
+		return xTeam.getInstance().getTeamManager().getTeamFromPlayer(player.getName());
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
-		return xTeam.getPlayerManager().getTeammatesOf(this);
+		return xTeam.getInstance().getPlayerManager().getTeammatesOf(this);
 	}
 
 	@Override
@@ -88,49 +88,49 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return xTeam.getPlayerManager().getOnlineTeammatesOf(this);
+		return xTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
 	}
 
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return xTeam.getPlayerManager().getOfflineTeammatesOf(this);
+		return xTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public void setReturnLocation(Location returnLocation)
 	{
-		xTeam.getPlayerManager().setReturnLocation(this, returnLocation);
+		xTeam.getInstance().getPlayerManager().setReturnLocation(this, returnLocation);
 	}
 
 	@Override
 	public Location getReturnLocation()
 	{
-		return xTeam.getPlayerManager().getReturnLocation(this.getName());
+		return xTeam.getInstance().getPlayerManager().getReturnLocation(this.getName());
 	}
 
 	@Override
 	public void removeReturnLocation()
 	{
-		xTeam.getPlayerManager().setReturnLocation(this, null);
+		xTeam.getInstance().getPlayerManager().setReturnLocation(this, null);
 	}
 
 	@Override
 	public boolean hasReturnLocation()
 	{
-		return xTeam.getPlayerManager().getReturnLocation(this.getName()) != null;
+		return xTeam.getInstance().getPlayerManager().getReturnLocation(this.getName()) != null;
 	}
 
 	@Override
 	public void setLastAttacked(long lastAttacked)
 	{
-		xTeam.getPlayerManager().setLastAttacked(this, lastAttacked);
+		xTeam.getInstance().getPlayerManager().setLastAttacked(this, lastAttacked);
 	}
 
 	@Override
 	public long getLastAttacked()
 	{
-		return xTeam.getPlayerManager().getLastAttacked(this.getName());
+		return xTeam.getInstance().getPlayerManager().getLastAttacked(this.getName());
 	}
 
 	@Override
@@ -174,13 +174,13 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public void setLastTeleported(long lastTeleported)
 	{
-		xTeam.getPlayerManager().setLastTeleported(this, lastTeleported);
+		xTeam.getInstance().getPlayerManager().setLastTeleported(this, lastTeleported);
 	}
 
 	@Override
 	public long getLastTeleported()
 	{
-		return xTeam.getPlayerManager().getLastTeleported(this.getName());
+		return xTeam.getInstance().getPlayerManager().getLastTeleported(this.getName());
 	}
 
 	@Override

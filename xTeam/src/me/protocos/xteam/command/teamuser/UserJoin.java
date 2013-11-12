@@ -23,7 +23,7 @@ public class UserJoin extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team foundTeam = xTeam.getTeamManager().getTeam(desiredName);
+		Team foundTeam = xTeam.getInstance().getTeamManager().getTeam(desiredName);
 		foundTeam.addPlayer(teamPlayer.getName());
 		InviteHandler.removeInvite(teamPlayer.getName());
 		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + ChatColorUtil.positiveMessage("joined") + " your team");
@@ -34,7 +34,7 @@ public class UserJoin extends UserCommand
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		desiredName = parseCommand.get(1);
-		Team desiredTeam = xTeam.getTeamManager().getTeam(desiredName);
+		Team desiredTeam = xTeam.getInstance().getTeamManager().getTeam(desiredName);
 		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
 		Requirements.checkTeamOnlyJoinDefault(desiredName);
 		Requirements.checkTeamExists(desiredName);

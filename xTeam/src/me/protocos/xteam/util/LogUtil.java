@@ -4,10 +4,10 @@ import java.io.*;
 import java.sql.Timestamp;
 import java.util.Scanner;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.collections.LimitedQueue;
 import me.protocos.xteam.api.util.ILog;
 import me.protocos.xteam.core.Data;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class LogUtil implements ILog
 {
@@ -17,11 +17,11 @@ public class LogUtil implements ILog
 	private PrintStream printStream;
 	private ErrorReportUtil errorReporter;
 
-	public LogUtil(JavaPlugin plugin)
+	public LogUtil(TeamPlugin plugin, String filePath)
 	{
 		String packageString = plugin.getClass().getPackage().toString();
 		this.pluginPackageID = packageString.substring(packageString.indexOf(' ') + 1, packageString.lastIndexOf('.') + 1);
-		file = new File(plugin.getDataFolder().getAbsolutePath() + "/" + plugin.getName() + ".log");
+		file = new File(filePath + "/" + plugin.getPluginName() + ".log");
 		if (!file.exists())
 		{
 			try
@@ -35,7 +35,7 @@ public class LogUtil implements ILog
 		}
 		try
 		{
-			LimitedQueue<String> previousEntries = new LimitedQueue<String>(100);
+			LimitedQueue<String> previousEntries = new LimitedQueue<String>(500);
 			Scanner sc = new Scanner(file);
 			String line;
 			while (sc.hasNext() && (line = sc.nextLine()) != null)
@@ -95,7 +95,7 @@ public class LogUtil implements ILog
 					errorReporter.sendErrorReport(e);
 				}
 			}
-			Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(xTeam.getSelf(), new EmailReport(), CommonUtil.LONG_ZERO);
+			BukkitUtil.getScheduler().scheduleSyncDelayedTask(xTeam.getInstance(), new EmailReport(), CommonUtil.LONG_ZERO);
 		}
 	}
 

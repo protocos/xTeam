@@ -23,7 +23,7 @@ public class UserSetLeader extends UserCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		team.setLeader(otherPlayer);
-		ITeamPlayer other = xTeam.getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
 		teamPlayer.sendMessage(otherPlayer + " is now the " + ChatColorUtil.positiveMessage("team leader") + " (you are an admin)" +
@@ -34,7 +34,7 @@ public class UserSetLeader extends UserCommand
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = parseCommand.get(1);
-		ITeamPlayer other = xTeam.getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerIsTeamLeader(teamPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);

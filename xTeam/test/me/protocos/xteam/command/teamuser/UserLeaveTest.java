@@ -31,8 +31,8 @@ public class UserLeaveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals("You left red", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getTeamManager().contains("red"));
-		Assert.assertFalse(xTeam.getTeamManager().getTeam("red").containsPlayer("strandedhelix"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("red"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("red").containsPlayer("strandedhelix"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -45,7 +45,7 @@ public class UserLeaveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals("You left two", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getTeamManager().contains("two"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("two"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -58,7 +58,7 @@ public class UserLeaveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getTeamManager().getTeam("one").containsPlayer("protocos"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -71,7 +71,7 @@ public class UserLeaveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test

@@ -23,14 +23,14 @@ public class ConsoleSetLeader extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		ITeamPlayer player = xTeam.getPlayerManager().getPlayer(playerName);
+		ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		Team team = player.getTeam();
 		team.setLeader(playerName);
 		if (player.isOnline())
 			player.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
 		if (!team.isDefaultTeam())
 		{
-			ITeamPlayer previousLeader = xTeam.getPlayerManager().getPlayer(team.getLeader());
+			ITeamPlayer previousLeader = xTeam.getInstance().getPlayerManager().getPlayer(team.getLeader());
 			if (previousLeader.isOnline())
 				previousLeader.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader"));
 		}
@@ -42,8 +42,8 @@ public class ConsoleSetLeader extends ConsoleCommand
 	{
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		ITeamPlayer player = xTeam.getPlayerManager().getPlayer(playerName);
-		Team team = xTeam.getTeamManager().getTeam(teamName);
+		ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		Team team = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkPlayerHasPlayedBefore(player);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkPlayerHasTeam(player);

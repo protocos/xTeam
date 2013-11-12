@@ -22,7 +22,7 @@ public class ConsoleTag extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.getTeamManager().getTeam(teamName);
+		Team team = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		team.setTag(desiredTag);
 		originalSender.sendMessage("The team tag has been " + ChatColorUtil.positiveMessage("set") + " to " + desiredTag);
 		team.sendMessage("The team tag has been " + ChatColorUtil.positiveMessage("set") + " to " + desiredTag + " by an admin");
@@ -33,7 +33,7 @@ public class ConsoleTag extends ConsoleCommand
 	{
 		teamName = parseCommand.get(1);
 		desiredTag = parseCommand.get(2);
-		Team team = xTeam.getTeamManager().getTeam(teamName);
+		Team team = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkTeamNameAlreadyUsed(desiredTag, team);
 		Requirements.checkTeamNameAlphaNumeric(desiredTag);

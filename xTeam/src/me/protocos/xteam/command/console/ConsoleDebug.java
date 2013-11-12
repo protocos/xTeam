@@ -8,6 +8,7 @@ import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.util.BukkitUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
@@ -33,14 +34,14 @@ public class ConsoleDebug extends ConsoleCommand
 		else if (subCommand.equalsIgnoreCase("created"))
 			originalSender.sendMessage("Last created: " + Data.lastCreated.toString());
 		else if (subCommand.equalsIgnoreCase("players"))
-			originalSender.sendMessage("Players: \n" + xTeam.getPlayerManager().toString());
+			originalSender.sendMessage("Players: \n" + xTeam.getInstance().getPlayerManager().toString());
 		else if (subCommand.equalsIgnoreCase("teams"))
-			originalSender.sendMessage("Teams: \n" + xTeam.getTeamManager().toString());
+			originalSender.sendMessage("Teams: \n" + xTeam.getInstance().getTeamManager().toString());
 		else if (subCommand.equalsIgnoreCase("perms"))
 			originalSender.sendMessage("Debugging permissions: \n" + printPermissions());
 		else if (subCommand.equalsIgnoreCase("resetplayers"))
 		{
-			for (Player player : Data.BUKKIT.getOnlinePlayers())
+			for (Player player : BukkitUtil.getOnlinePlayers())
 			{
 				player.setHealth(20);
 				player.setFoodLevel(20);
@@ -51,7 +52,7 @@ public class ConsoleDebug extends ConsoleCommand
 		{
 			try
 			{
-				xTeam.getLog().exception(new Exception("Test message!"));
+				xTeam.getInstance().getLog().exception(new Exception("Test message!"));
 				originalSender.sendMessage("Email sent!");
 			}
 			catch (Exception e)
@@ -66,7 +67,7 @@ public class ConsoleDebug extends ConsoleCommand
 	private String printPermissions()
 	{
 		String output = "";
-		List<Permission> perms = xTeam.getSelf().getDescription().getPermissions();
+		List<Permission> perms = xTeam.getInstance().getDescription().getPermissions();
 		for (Permission perm : perms)
 		{
 			output += perm.getName() + " - " + perm.getDescription() + "\n";

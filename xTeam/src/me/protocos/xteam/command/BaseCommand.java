@@ -32,7 +32,7 @@ public abstract class BaseCommand implements ICommand
 		catch (TeamException e)
 		{
 			sender.sendMessage(ChatColorUtil.negativeMessage(e.getMessage()));
-			xTeam.getLog().info("Command execute failed for reason: " + e.getMessage());
+			xTeam.getInstance().getLog().info("Command execute failed for reason: " + e.getMessage());
 		}
 		catch (InvalidClassException e)
 		{

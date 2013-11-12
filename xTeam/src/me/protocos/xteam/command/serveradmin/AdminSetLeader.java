@@ -23,12 +23,12 @@ public class AdminSetLeader extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		ITeamPlayer playerSet = xTeam.getPlayerManager().getPlayer(playerName);
+		ITeamPlayer playerSet = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		Team playerTeam = playerSet.getTeam();
 		playerTeam.setLeader(playerName);
 		if (playerSet.isOnline() && !playerSet.getName().equals(originalSender.getName()))
 			playerSet.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
-		ITeamPlayer previousLeader = xTeam.getPlayerManager().getPlayer(playerTeam.getLeader());
+		ITeamPlayer previousLeader = xTeam.getInstance().getPlayerManager().getPlayer(playerTeam.getLeader());
 		if (previousLeader.isOnline() && !previousLeader.getName().equals(originalSender.getName()))
 			previousLeader.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader"));
 		originalSender.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader") + " for " + playerTeam.getName());
@@ -39,8 +39,8 @@ public class AdminSetLeader extends ServerAdminCommand
 	{
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		Team desiredTeam = xTeam.getTeamManager().getTeam(teamName);
-		ITeamPlayer playerSet = xTeam.getPlayerManager().getPlayer(playerName);
+		Team desiredTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		ITeamPlayer playerSet = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		Team playerTeam = playerSet.getTeam();
 		Requirements.checkPlayerHasPlayedBefore(playerSet);
 		Requirements.checkTeamExists(teamName);

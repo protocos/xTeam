@@ -23,11 +23,11 @@ public class UserLeave extends UserCommand
 	{
 		team.removePlayer(teamPlayer.getName());
 		if (team.size() == 0 && !team.isDefaultTeam())
-			xTeam.getTeamManager().removeTeam(team.getName());
+			xTeam.getInstance().getTeamManager().removeTeam(team.getName());
 		Data.chatStatus.remove(teamPlayer.getName());
 		for (String teammate : team.getPlayers())
 		{
-			ITeamPlayer mate = xTeam.getPlayerManager().getPlayer(teammate);
+			ITeamPlayer mate = xTeam.getInstance().getPlayerManager().getPlayer(teammate);
 			if (mate.isOnline())
 				mate.sendMessage(teamPlayer.getName() + " " + ChatColorUtil.negativeMessage("left") + " your team");
 		}

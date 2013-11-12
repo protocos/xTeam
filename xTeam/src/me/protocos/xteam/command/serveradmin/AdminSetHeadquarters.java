@@ -23,7 +23,7 @@ public class AdminSetHeadquarters extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team changeTeam = xTeam.getTeamManager().getTeam(teamName);
+		Team changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		changeTeam.setHQ(new Headquarters(player.getLocation()));
 		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team headquarters for team " + teamName);
 	}

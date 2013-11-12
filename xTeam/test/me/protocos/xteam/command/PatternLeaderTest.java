@@ -17,7 +17,7 @@ public class PatternLeaderTest
 	{
 		//MOCK data
 		mockData();
-		xTeam.registerLeaderCommands(xTeam.getCommandManager());
+		xTeam.getInstance().registerLeaderCommands(xTeam.getInstance().getCommandManager());
 	}
 
 	@Test
@@ -25,15 +25,15 @@ public class PatternLeaderTest
 	{
 		baseCmd = "demote";
 		command = "demote PLAYER";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "demote PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "dmte PLAYER";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "d PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "dmte PLAYER dfsg ";
-		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 	}
 
 	@Test
@@ -41,13 +41,13 @@ public class PatternLeaderTest
 	{
 		baseCmd = "disband";
 		command = "disband";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "disband  ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "d ";
-		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "disband  fdsa ";
-		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 	}
 
 	@Test
@@ -55,13 +55,13 @@ public class PatternLeaderTest
 	{
 		baseCmd = "open";
 		command = "open";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "open  ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "o ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "open  fdsa ";
-		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 	}
 
 	@Test
@@ -69,17 +69,17 @@ public class PatternLeaderTest
 	{
 		baseCmd = "remove";
 		command = "remove PLAYER";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "remove PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "rm PLAYER";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "rem PLAYER";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "remv PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "rem PLAYER dfsa ";
-		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 	}
 
 	@Test
@@ -87,19 +87,19 @@ public class PatternLeaderTest
 	{
 		baseCmd = "rename";
 		command = "rename TEAM";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "rename TEAM ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "rn TEAM";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "ren TEAM";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "rename TEAM ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "rnm TEAM ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "rnm TEAM sdfhkabkl";
-		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 	}
 
 	@Test
@@ -107,17 +107,17 @@ public class PatternLeaderTest
 	{
 		baseCmd = "setleader";
 		command = "setleader PLAYER";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "setleader PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "setl PLAYER";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "setlead PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "stl PLAYER ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "set PLAYER dfsa";
-		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 	}
 
 	@Test
@@ -125,17 +125,17 @@ public class PatternLeaderTest
 	{
 		baseCmd = "setrally";
 		command = "setrally";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "setr";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "setral ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "str ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "setrally fasds ";
-		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "set tdfgvbnm";
-		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 	}
 
 	@Test
@@ -143,24 +143,24 @@ public class PatternLeaderTest
 	{
 		baseCmd = "tag";
 		command = "tag TEAM";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "tag TEAM ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "tag TEAM ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "t TEAM ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "ta TEAM";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "tg TEAM ";
-		Assert.assertTrue(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 		command = "tg TEAM sdfhkabkl";
-		Assert.assertFalse(command.matches(xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 	}
 
 	@After
 	public void takedown()
 	{
-		Assert.assertTrue(xTeam.getCommandManager().getUsage("leader_" + baseCmd).replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + xTeam.getCommandManager().getPattern("leader_" + baseCmd)));
+		Assert.assertTrue(xTeam.getInstance().getCommandManager().getUsage("leader_" + baseCmd).replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + xTeam.getInstance().getCommandManager().getPattern("leader_" + baseCmd)));
 	}
 }

@@ -21,9 +21,9 @@ public class UserHelpTest
 		//MOCK data
 		mockData();
 		Data.LOCATIONS_ENABLED = false;
-		xTeam.registerUserCommands(xTeam.getCommandManager());
-		xTeam.registerAdminCommands(xTeam.getCommandManager());
-		xTeam.registerLeaderCommands(xTeam.getCommandManager());
+		xTeam.getInstance().registerUserCommands(xTeam.getInstance().getCommandManager());
+		xTeam.getInstance().registerAdminCommands(xTeam.getInstance().getCommandManager());
+		xTeam.getInstance().registerLeaderCommands(xTeam.getInstance().getCommandManager());
 	}
 
 	@Test

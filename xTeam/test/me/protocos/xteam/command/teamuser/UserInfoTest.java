@@ -112,9 +112,9 @@ public class UserInfoTest
 	public void ShouldBeTeamUserInfoExecute6()
 	{
 		//ASSEMBLE
-		xTeam.getTeamManager().getTeam("red").addPlayer("Lonely");
-		xTeam.getTeamManager().getTeam("red").promote("strandedhelix");
-		xTeam.getTeamManager().getTeam("red").promote("Lonely");
+		xTeam.getInstance().getTeamManager().getTeam("red").addPlayer("Lonely");
+		xTeam.getInstance().getTeamManager().getTeam("red").promote("strandedhelix");
+		xTeam.getInstance().getTeamManager().getTeam("red").promote("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
 		UserCommand fakeCommand = new UserInfo();
 		//ACT
@@ -136,7 +136,7 @@ public class UserInfoTest
 	public void ShouldBeTeamUserInfoExecute7()
 	{
 		//ASSEMBLE
-		xTeam.getTeamManager().getTeam("one").promote("protocos");
+		xTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserInfo();
 		//ACT
@@ -158,7 +158,7 @@ public class UserInfoTest
 	public void ShouldBeTeamUserInfoExecutePlayerNotOnTeamUsingTag()
 	{
 		//ASSEMBLE
-		xTeam.getTeamManager().getTeam("one").promote("protocos");
+		xTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserInfo();
 		//ACT
@@ -177,7 +177,7 @@ public class UserInfoTest
 	public void ShouldBeTeamUserInfoExecutePlayerOnTeamUsingTag()
 	{
 		//ASSEMBLE
-		xTeam.getTeamManager().getTeam("one").promote("protocos");
+		xTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserInfo();
 		//ACT

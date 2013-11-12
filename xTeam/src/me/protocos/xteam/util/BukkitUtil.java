@@ -2,13 +2,26 @@ package me.protocos.xteam.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.bukkit.Location;
+import me.protocos.xteam.api.TeamPlugin;
+import me.protocos.xteam.api.util.ILog;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.scheduler.BukkitScheduler;
 
 public class BukkitUtil
 {
+	private static Server BUKKIT = Bukkit.getServer();
 	public static final long ONE_SECOND_IN_TICKS = 20L;
 	public static final long ONE_MINUTE_IN_TICKS = 60 * 20L;
+
+	public static void setServer(Server server)
+	{
+		BUKKIT = server;
+	}
 
 	public static List<Entity> getNearbyEntities(Location location, int radius)
 	{
@@ -24,5 +37,77 @@ public class BukkitUtil
 			}
 		}
 		return nearbyEntities;
+	}
+
+	public static String getVersion(TeamPlugin teamPlugin)
+	{
+		if (teamPlugin.getDescription() == null)
+		{
+			return "CURRENT";
+		}
+		return teamPlugin.getDescription().getVersion();
+	}
+
+	public static ILog getLogger(TeamPlugin teamPlugin)
+	{
+		if (teamPlugin.getDataFolder() == null)
+		{
+			return new LogUtil(teamPlugin, "test");
+		}
+		return new LogUtil(teamPlugin, teamPlugin.getDataFolder().getAbsolutePath());
+	}
+
+	public static List<Permission> getPermissionNodes(TeamPlugin teamPlugin)
+	{
+		if (teamPlugin.getDescription() == null)
+		{
+			return CommonUtil.emptyList();
+		}
+		return teamPlugin.getDescription().getPermissions();
+	}
+
+	public static World getWorld(String string)
+	{
+		return BUKKIT.getWorld(string);
+	}
+
+	public static Server getServer()
+	{
+		return BUKKIT;
+	}
+
+	public static Player[] getOnlinePlayers()
+	{
+		return BUKKIT.getOnlinePlayers();
+	}
+
+	public static OfflinePlayer[] getOfflinePlayers()
+	{
+		return BUKKIT.getOfflinePlayers();
+	}
+
+	public static Player getPlayer(String name)
+	{
+		return BUKKIT.getPlayer(name);
+	}
+
+	public static OfflinePlayer getOfflinePlayer(String name)
+	{
+		return BUKKIT.getOfflinePlayer(name);
+	}
+
+	public static BukkitScheduler getScheduler()
+	{
+		return BUKKIT.getScheduler();
+	}
+
+	public static PluginManager getPluginManager()
+	{
+		return BUKKIT.getPluginManager();
+	}
+
+	public static Plugin getPlugin(String string)
+	{
+		return getPluginManager().getPlugin(string);
 	}
 }

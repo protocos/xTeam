@@ -34,7 +34,7 @@ public class ConsoleSetTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set Lonely two"));
 		//ASSERT
 		Assert.assertEquals("Lonely has been added to two", fakeConsoleSender.getLastMessage());
-		Assert.assertTrue(xTeam.getTeamManager().getTeam("two").containsPlayer("Lonely"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -47,9 +47,9 @@ public class ConsoleSetTest
 		//ASSERT
 		Assert.assertEquals("three has been created\n" +
 				"Lonely has been added to three\n", fakeConsoleSender.getAllMessages());
-		Assert.assertTrue(xTeam.getTeamManager().contains("three"));
-		Assert.assertTrue(xTeam.getTeamManager().getTeam("three").containsPlayer("Lonely"));
-		Assert.assertEquals(1, xTeam.getTeamManager().getTeam("three").size());
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("three"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("three").containsPlayer("Lonely"));
+		Assert.assertEquals(1, xTeam.getInstance().getTeamManager().getTeam("three").size());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -62,15 +62,15 @@ public class ConsoleSetTest
 		//ASSERT
 		Assert.assertEquals("protocos has been removed from ONE\n" +
 				"protocos has been added to two\n", fakeConsoleSender.getAllMessages());
-		Assert.assertFalse(xTeam.getTeamManager().getTeam("one").containsPlayer("protocos"));
-		Assert.assertTrue(xTeam.getTeamManager().getTeam("two").containsPlayer("protocos"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeConsoleSetExecuteLastPerson()
 	{
 		//ASSEMBLE
-		xTeam.getTeamManager().getTeam("one").removePlayer("protocos");
+		xTeam.getInstance().getTeamManager().getTeam("one").removePlayer("protocos");
 		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set kmlanglois two"));
@@ -78,8 +78,8 @@ public class ConsoleSetTest
 		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
 				"ONE has been disbanded\n" +
 				"kmlanglois has been added to two\n", fakeConsoleSender.getAllMessages());
-		Assert.assertFalse(xTeam.getTeamManager().contains("one"));
-		Assert.assertTrue(xTeam.getTeamManager().getTeam("two").containsPlayer("kmlanglois"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("one"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test

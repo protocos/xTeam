@@ -1,18 +1,11 @@
 package me.protocos.xteam.core;
 
-import java.io.File;
 import java.util.*;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.FileReader;
-import org.bukkit.Bukkit;
-import org.bukkit.Server;
+import me.protocos.xteam.util.ConfigLoader;
 
 public class Data
 {
-	public static Server BUKKIT = Bukkit.getServer();
-	public static boolean variable = false;
-	public static File settings;
 	public static TreeSet<String> chatStatus = new TreeSet<String>();
 	public static HashSet<String> spies = new HashSet<String>();
 	public static HashMap<String, Long> lastCreated = new HashMap<String, Long>();
@@ -46,64 +39,29 @@ public class Data
 	public static List<String> DEFAULT_TEAM_NAMES = new ArrayList<String>();
 	public static List<String> DISABLED_WORLDS = new ArrayList<String>();
 
+	private Data()
+	{
+		throw new AssertionError();
+	}
+
 	public static void ensureDefaultTeams()
 	{
 		for (String name : DEFAULT_TEAM_NAMES)
 		{
 			Team team = new Team.Builder(name).defaultTeam(true).openJoining(true).build();
 			boolean contains = false;
-			for (String teamName : xTeam.getTeamManager().getDefaultTeamNames())
+			for (String teamName : xTeam.getInstance().getTeamManager().getDefaultTeamNames())
 			{
 				if (teamName.equals(name))
 					contains = true;
 			}
 			if (!contains)
-				xTeam.getTeamManager().addTeam(team);
+				xTeam.getInstance().getTeamManager().addTeam(team);
 		}
 	}
 
-	public static void load()
+	public static void load(ConfigLoader config)
 	{
-		readConfig(settings);
-	}
-
-	public static void readConfig(File file)
-	{
-		FileReader reader = new FileReader(file, false);
-		LOCATIONS_ENABLED = Data.BUKKIT.getPluginManager().getPlugin("xTeamLocations") != null;
-		CAN_CHAT = reader.getBoolean("canteamchat", true);
-		HQ_ON_DEATH = reader.getBoolean("hqondeath", true);
-		TEAM_WOLVES = reader.getBoolean("teamwolves", true);
-		RANDOM_TEAM = reader.getBoolean("randomjointeam", false);
-		BALANCE_TEAMS = reader.getBoolean("balanceteams", false);
-		DEFAULT_TEAM_ONLY = reader.getBoolean("onlyjoindefaultteam", false);
-		DEFAULT_HQ_ON_JOIN = reader.getBoolean("defaulthqonjoin", false);
-		TEAM_TAG_ENABLED = reader.getBoolean("teamtagenabled", true);
-		TEAM_FRIENDLY_FIRE = reader.getBoolean("teamfriendlyfire", false);
-		NO_PERMISSIONS = reader.getBoolean("nopermissions", false);
-		ALPHA_NUM = reader.getBoolean("alphanumericnames", false);
-		DISPLAY_COORDINATES = reader.getBoolean("displaycoordinates", true);
-		SEND_ANONYMOUS_ERROR_REPORTS = reader.getBoolean("anonymouserrorreporting", true);
-		MAX_PLAYERS = reader.getInteger("playersonteam", 10);
-		HQ_INTERVAL = reader.getInteger("sethqinterval", 0);
-		TELE_RADIUS = reader.getInteger("teleportradius", 500);
-		ENEMY_PROX = reader.getInteger("enemyproximity", 16);
-		TELE_DELAY = reader.getInteger("teledelay", 10);
-		CREATE_INTERVAL = reader.getInteger("createteamdelay", 0);
-		LAST_ATTACKED_DELAY = reader.getInteger("lastattackeddelay", 15);
-		TEAM_TAG_LENGTH = reader.getInteger("teamtagmaxlength", 0);
-		MAX_NUM_LOCATIONS = reader.getInteger("maxnumlocations", 9);
-		TELE_REFRESH_DELAY = reader.getInteger("telerefreshdelay", 60);
-		RALLY_DELAY = reader.getInteger("rallydelay", 2);
-		TAG_COLOR = reader.getString("tagcolor", "green");
-		NAME_COLOR = reader.getString("chatnamecolor", "dark_green");
-		DEFAULT_TEAM_NAMES = CommonUtil.toList(reader.getString("defaultteams", "").replace(" ", "").split(","));
-		DISABLED_WORLDS = CommonUtil.toList(reader.getString("disabledworlds", "").replace(" ", "").split(","));
-	}
-
-	private Data()
-	{
-		//we don't want the default constructor to be called from within the class either...
-		throw new AssertionError();
+		config.load();
 	}
 }

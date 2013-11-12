@@ -308,7 +308,7 @@ public class Team implements ITeam
 			if (!hq.endsWith("0.0,0.0,0.0,0.0,0.0") && !hq.equals(""))
 			{
 				String[] locationData = hq.split(",");
-				World world = Data.BUKKIT.getWorld(locationData[0]);
+				World world = BukkitUtil.getWorld(locationData[0]);
 				double X = Double.parseDouble(locationData[1]);
 				double Y = Double.parseDouble(locationData[2]);
 				double Z = Double.parseDouble(locationData[3]);
@@ -452,19 +452,19 @@ public class Team implements ITeam
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return xTeam.getPlayerManager().getOnlineTeammatesOf(this);
+		return xTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
 	}
 
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return xTeam.getPlayerManager().getOfflineTeammatesOf(this);
+		return xTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
-		return xTeam.getPlayerManager().getTeammatesOf(this);
+		return xTeam.getInstance().getPlayerManager().getTeammatesOf(this);
 	}
 
 	@Override
@@ -568,7 +568,7 @@ public class Team implements ITeam
 				sendMessage("Team rally has been " + ChatColorUtil.positiveMessage("refreshed"));
 			}
 		}
-		Data.BUKKIT.getScheduler().scheduleSyncDelayedTask(xTeam.getSelf(), new RemoveRally(), Data.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);
+		BukkitUtil.getScheduler().scheduleSyncDelayedTask(xTeam.getInstance(), new RemoveRally(), Data.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);
 	}
 
 	public boolean hasRally()

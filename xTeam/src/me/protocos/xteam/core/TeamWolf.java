@@ -65,7 +65,7 @@ public class TeamWolf implements ITeamWolf
 	public ITeamPlayer getOwner()
 	{
 		if (wolf.getOwner() != null)
-			return xTeam.getPlayerManager().getPlayer(wolf.getOwner().getName());
+			return xTeam.getInstance().getPlayerManager().getPlayer(wolf.getOwner().getName());
 		return null;
 	}
 
@@ -403,7 +403,7 @@ public class TeamWolf implements ITeamWolf
 		{
 			for (String p : getTeam().getPlayers())
 			{
-				mates.add(xTeam.getPlayerManager().getPlayer(p));
+				mates.add(xTeam.getInstance().getPlayerManager().getPlayer(p));
 			}
 		}
 		return mates;
@@ -412,13 +412,13 @@ public class TeamWolf implements ITeamWolf
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return xTeam.getPlayerManager().getOfflineTeammatesOf(this);
+		return xTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return xTeam.getPlayerManager().getOnlineTeammatesOf(this);
+		return xTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
 	}
 
 	@Override

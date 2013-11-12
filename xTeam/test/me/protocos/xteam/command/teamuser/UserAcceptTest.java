@@ -25,7 +25,7 @@ public class UserAcceptTest
 		//MOCK data
 		mockData();
 		Data.MAX_PLAYERS = 3;
-		InviteHandler.addInvite("Lonely", xTeam.getTeamManager().getTeam("one"));
+		InviteHandler.addInvite("Lonely", xTeam.getInstance().getTeamManager().getTeam("one"));
 	}
 	@Test
 	public void ShouldBeTeamUserAcceptExecute()
@@ -38,14 +38,14 @@ public class UserAcceptTest
 		//ASSERT
 		Assert.assertEquals("You joined ONE", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(InviteHandler.hasInvite("Lonely"));
-		Assert.assertTrue(xTeam.getTeamManager().getTeam("one").containsPlayer("Lonely"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeTeamUserAcceptExecuteMaxPlayers()
 	{
 		//ASSEMBLE
-		xTeam.getTeamManager().getTeam("one").addPlayer("stranger");
+		xTeam.getInstance().getTeamManager().getTeam("one").addPlayer("stranger");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		UserCommand fakeCommand = new UserAccept();
 		//ACT
@@ -53,7 +53,7 @@ public class UserAcceptTest
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(InviteHandler.hasInvite("Lonely"));
-		Assert.assertFalse(xTeam.getTeamManager().getTeam("one").containsPlayer("Lonely"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -68,7 +68,7 @@ public class UserAcceptTest
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoInviteException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(InviteHandler.hasInvite("Lonely"));
-		Assert.assertFalse(xTeam.getTeamManager().getTeam("one").containsPlayer("Lonely"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -82,7 +82,7 @@ public class UserAcceptTest
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(InviteHandler.hasInvite("Lonely"));
-		Assert.assertFalse(xTeam.getTeamManager().getTeam("one").containsPlayer("Lonely"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

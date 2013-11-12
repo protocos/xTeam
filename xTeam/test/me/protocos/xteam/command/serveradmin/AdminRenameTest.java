@@ -33,7 +33,7 @@ public class AdminRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename one newname"));
 		//ASSERT
 		Assert.assertEquals("You renamed the team to newname", fakePlayerSender.getLastMessage());
-		Assert.assertEquals("newname", xTeam.getTeamManager().getTeam("newname").getName());
+		Assert.assertEquals("newname", xTeam.getInstance().getTeamManager().getTeam("newname").getName());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -46,7 +46,7 @@ public class AdminRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename one two"));
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -60,7 +60,7 @@ public class AdminRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename one ƒçß"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -73,7 +73,7 @@ public class AdminRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename three newname"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

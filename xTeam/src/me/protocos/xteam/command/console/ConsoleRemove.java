@@ -32,7 +32,7 @@ public class ConsoleRemove extends ConsoleCommand
 		if (changeTeam.isEmpty())
 		{
 			originalSender.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
-			xTeam.getTeamManager().removeTeam(changeTeam.getName());
+			xTeam.getInstance().getTeamManager().removeTeam(changeTeam.getName());
 		}
 	}
 
@@ -41,7 +41,7 @@ public class ConsoleRemove extends ConsoleCommand
 	{
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		changePlayer = xTeam.getPlayerManager().getPlayer(playerName);
+		changePlayer = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(changePlayer);
 		Requirements.checkPlayerHasTeam(changePlayer);
 		Requirements.checkPlayerLeaderLeaving(changePlayer);

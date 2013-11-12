@@ -21,7 +21,7 @@ public abstract class UserCommand extends PlayerCommand
 	public void initData(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.initData(originalSender, parseCommand);
-		teamPlayer = xTeam.getPlayerManager().getPlayer(player);
+		teamPlayer = xTeam.getInstance().getPlayerManager().getPlayer(player);
 		team = teamPlayer.getTeam();
 		Requirements.checkPlayerHasPermission(originalSender, getPermissionNode());
 		Requirements.checkPlayerCommandIsValid(parseCommand, getPattern());

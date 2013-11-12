@@ -19,7 +19,7 @@ public class AdminHelpTest
 	{
 		//MOCK data
 		mockData();
-		xTeam.registerServerAdminCommands(xTeam.getCommandManager());
+		xTeam.getInstance().registerServerAdminCommands(xTeam.getInstance().getCommandManager());
 	}
 
 	@Test

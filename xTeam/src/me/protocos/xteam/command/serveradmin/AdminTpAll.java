@@ -22,7 +22,7 @@ public class AdminTpAll extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team changeTeam = xTeam.getTeamManager().getTeam(teamName);
+		Team changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		for (TeamPlayer teammate : changeTeam.getOnlineTeammates())
 		{
 			if (teammate.isOnline())

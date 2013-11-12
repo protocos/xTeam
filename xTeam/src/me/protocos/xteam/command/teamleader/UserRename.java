@@ -22,9 +22,9 @@ public class UserRename extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		xTeam.getTeamManager().removeTeam(team.getName());
+		xTeam.getInstance().getTeamManager().removeTeam(team.getName());
 		team.setName(desiredName);
-		xTeam.getTeamManager().addTeam(team);
+		xTeam.getInstance().getTeamManager().addTeam(team);
 		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
 			mate.sendMessage("The team has been " + ChatColorUtil.positiveMessage("renamed") + " to " + desiredName);

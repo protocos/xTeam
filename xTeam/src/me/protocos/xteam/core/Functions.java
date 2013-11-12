@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.StringUtil;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -53,7 +54,7 @@ public class Functions
 		if (type.startsWith("CraftPlayer"))
 		{
 			Player p = (Player) entity;
-			ITeamPlayer otherPlayer = xTeam.getPlayerManager().getPlayer(p);
+			ITeamPlayer otherPlayer = xTeam.getInstance().getPlayerManager().getPlayer(p);
 			Team otherTeam = otherPlayer.getTeam();
 			if (player.getTeam().equals(otherTeam))
 				return false;
@@ -82,7 +83,7 @@ public class Functions
 			String[] s = line.split(" ");
 			String teamName = s[0];
 			// String pass = s[1];
-			World world = Data.BUKKIT.getWorld(s[2]);
+			World world = BukkitUtil.getWorld(s[2]);
 			long timeHeadquartersSet = Long.valueOf(s[3]).longValue();
 			Location HQ = new Location(world, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
 			ArrayList<String> players = new ArrayList<String>();
@@ -112,7 +113,7 @@ public class Functions
 			}
 			if (StringUtil.toLowerCase(Data.DEFAULT_TEAM_NAMES).contains(teamName.toLowerCase()))
 			{
-				for (Team team : xTeam.getTeamManager().getDefaultTeams())
+				for (Team team : xTeam.getInstance().getTeamManager().getDefaultTeams())
 				{
 					if (team.getName().toLowerCase().equalsIgnoreCase(teamName))
 					{
@@ -129,7 +130,7 @@ public class Functions
 				{
 					s[i] = s[i].replaceAll("~", "");
 				}
-				xTeam.getTeamManager().addTeam(team);
+				xTeam.getInstance().getTeamManager().addTeam(team);
 			}
 		}
 		br.close();
@@ -157,7 +158,7 @@ public class Functions
 			while ((line = br.readLine()) != null)
 			{
 				Team team = Team.generateTeamFromProperties(line);
-				xTeam.getTeamManager().addTeam(team);
+				xTeam.getInstance().getTeamManager().addTeam(team);
 			}
 			br.close();
 		}
@@ -179,13 +180,13 @@ public class Functions
 	//	{
 	//		if (Data.HIDE_NAMES && Data.SPOUT_ENABLED)
 	//		{
-	//			SpoutUtil.hidePlayerNames(Data.BUKKIT.getOnlinePlayers());
-	//			for (Player player1 : Data.BUKKIT.getOnlinePlayers())
+	//			SpoutUtil.hidePlayerNames(BukkitUtil.getOnlinePlayers());
+	//			for (Player player1 : BukkitUtil.getOnlinePlayers())
 	//			{
-	//				for (Player player2 : Data.BUKKIT.getOnlinePlayers())
+	//				for (Player player2 : BukkitUtil.getOnlinePlayers())
 	//				{
-	//					ITeamPlayer p1 = xTeam.getPlayerManager().getPlayer(player1);
-	//					ITeamPlayer p2 = xTeam.getPlayerManager().getPlayer(player2);
+	//					ITeamPlayer p1 = xTeam.getInstance().getPlayerManager().getPlayer(player1);
+	//					ITeamPlayer p2 = xTeam.getInstance().getPlayerManager().getPlayer(player2);
 	//					if (p1.isOnSameTeam(p2))
 	//					{
 	//						try
@@ -208,7 +209,7 @@ public class Functions
 		{
 			//			File f = new File("plugins/xTeam/teams.txt");
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-			List<Team> teams = xTeam.getTeamManager().getAllTeams();
+			List<Team> teams = xTeam.getInstance().getTeamManager().getAllTeams();
 			for (Team t : teams)
 				bw.write(t.toString() + "\n");
 			bw.close();
@@ -224,7 +225,7 @@ public class Functions
 		ArrayList<String> data = new ArrayList<String>();
 		try
 		{
-			List<Team> teams = xTeam.getTeamManager().getAllTeams();
+			List<Team> teams = xTeam.getInstance().getTeamManager().getAllTeams();
 			for (Team team : teams)
 				data.add(team.toString());
 		}

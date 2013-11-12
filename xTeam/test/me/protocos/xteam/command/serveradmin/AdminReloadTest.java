@@ -18,6 +18,7 @@ public class AdminReloadTest
 		//MOCK data
 		mockData();
 	}
+
 	@Test
 	public void ShouldBeServerAdminReloadExecute()
 	{
@@ -30,6 +31,7 @@ public class AdminReloadTest
 		Assert.assertEquals("Config reloaded", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

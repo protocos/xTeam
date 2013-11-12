@@ -46,7 +46,7 @@ public class UserTeleport extends UserCommand
 		}
 		else
 		{
-			ITeamPlayer other = xTeam.getPlayerManager().getPlayer(teammateName);
+			ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(teammateName);
 			Requirements.checkPlayerIsTeammate(teamPlayer, other);
 			for (TeamPlayer teammate : teamPlayer.getOnlineTeammates())
 			{

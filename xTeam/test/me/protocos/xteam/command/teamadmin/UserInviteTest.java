@@ -33,14 +33,14 @@ public class UserInviteTest
 		//ASSERT
 		Assert.assertEquals("You invited Lonely", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(InviteHandler.hasInvite("Lonely"));
-		Assert.assertEquals(xTeam.getTeamManager().getTeam("one"), InviteHandler.getInviteTeam("Lonely"));
+		Assert.assertEquals(xTeam.getInstance().getTeamManager().getTeam("one"), InviteHandler.getInviteTeam("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeTeamAdminInviteExecuteAdmin()
 	{
 		//ASSEMBLE
-		xTeam.getTeamManager().getTeam("one").promote("protocos");
+		xTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		UserCommand fakeCommand = new UserInvite();
 		//ACT
@@ -48,7 +48,7 @@ public class UserInviteTest
 		//ASSERT
 		Assert.assertEquals("You invited Lonely", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(InviteHandler.hasInvite("Lonely"));
-		Assert.assertEquals(xTeam.getTeamManager().getTeam("one"), InviteHandler.getInviteTeam("Lonely"));
+		Assert.assertEquals(xTeam.getInstance().getTeamManager().getTeam("one"), InviteHandler.getInviteTeam("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -68,7 +68,7 @@ public class UserInviteTest
 	public void ShouldBeTeamAdminInviteExecutePlayerHasInvite()
 	{
 		//ASSEMBLE
-		InviteHandler.addInvite("Lonely", xTeam.getTeamManager().getTeam("two"));
+		InviteHandler.addInvite("Lonely", xTeam.getInstance().getTeamManager().getTeam("two"));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserInvite();
 		//ACT

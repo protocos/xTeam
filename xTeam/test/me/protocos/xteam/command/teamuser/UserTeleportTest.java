@@ -12,6 +12,7 @@ import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Locatable;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.junit.After;
@@ -31,13 +32,13 @@ public class UserTeleportTest
 	public void ShouldBeTeamUserTeleExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", Data.BUKKIT.getPlayer("protocos").getLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", BukkitUtil.getPlayer("protocos").getLocation());
 		UserCommand fakeCommand = new UserTeleport();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele protocos"));
 		//ASSERT
 		Assert.assertEquals("You've been teleported to protocos", fakePlayerSender.getLastMessage());
-		Assert.assertEquals(Data.BUKKIT.getPlayer("protocos").getLocation(), fakePlayerSender.getLocation());
+		Assert.assertEquals(BukkitUtil.getPlayer("protocos").getLocation(), fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -45,13 +46,13 @@ public class UserTeleportTest
 	public void ShouldBeTeamUserTeleExecuteNoName()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", Data.BUKKIT.getPlayer("protocos").getLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", BukkitUtil.getPlayer("protocos").getLocation());
 		UserCommand fakeCommand = new UserTeleport();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele"));
 		//ASSERT
 		Assert.assertEquals("You've been teleported to protocos", fakePlayerSender.getLastMessage());
-		Assert.assertEquals(Data.BUKKIT.getPlayer("protocos").getLocation(), fakePlayerSender.getLocation());
+		Assert.assertEquals(BukkitUtil.getPlayer("protocos").getLocation(), fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -89,7 +90,7 @@ public class UserTeleportTest
 	public void ShouldBeTeamUserTeleExecutePlayerDying()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", Data.BUKKIT.getPlayer("protocos").getLocation());
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", BukkitUtil.getPlayer("protocos").getLocation());
 		Location before = fakePlayerSender.getLocation();
 		fakePlayerSender.setNoDamageTicks(1);
 		UserCommand fakeCommand = new UserTeleport();
@@ -121,7 +122,7 @@ public class UserTeleportTest
 	{
 		//ASSEMBLE
 		Data.LAST_ATTACKED_DELAY = 15;
-		xTeam.getPlayerManager().getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
+		xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		UserCommand fakeCommand = new UserTeleport();
@@ -137,7 +138,7 @@ public class UserTeleportTest
 	public void ShouldBeTeamUserTeleExecuteRecentRequest()
 	{
 		//ASSEMBLE
-		TeamPlayer testPlayer = CommonUtil.assignFromType(xTeam.getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer testPlayer = CommonUtil.assignFromType(xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().getCurrentTasks().put(testPlayer, 0);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
@@ -154,7 +155,7 @@ public class UserTeleportTest
 	public void ShouldBeTeamUserTeleExecuteRecentTeleport()
 	{
 		//ASSEMBLE
-		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().teleport(teamPlayer, new Locatable("previous teleport", new FakeLocation()));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();

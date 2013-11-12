@@ -2,7 +2,9 @@ package me.protocos.xteam;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
+import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.util.ILog;
 import me.protocos.xteam.command.CommandDelegate;
@@ -15,66 +17,100 @@ import me.protocos.xteam.command.teamadmin.UserSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
 import me.protocos.xteam.core.*;
-import me.protocos.xteam.util.ConfigFileBuilder;
-import me.protocos.xteam.util.LogUtil;
+import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.ConfigLoader;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.permissions.Permission;
 
-public class xTeam extends JavaPlugin
+public class xTeam extends TeamPlugin
 {
 	public static final Logger log = Logger.getLogger("Minecraft");
-	private static ILog logger;
-	private static String VERSION;
-	private static ServiceManager serviceManager;
-	private static ICommandManager commandManager;
-	private static CommandExecutor commandExecutor;
-	private static TeamManager teamManager;
-	private static PlayerManager playerManager;
+	private String version;
+	private ILog logger;
+	private ServiceManager serviceManager;
+	private ICommandManager commandManager;
+	private CommandExecutor commandExecutor;
+	private TeamManager teamManager;
+	private PlayerManager playerManager;
+	private ConfigLoader configLoader;
+	private static xTeam xteam;
 
-	public static ILog getLog()
+	private xTeam()
+	{
+		this.version = BukkitUtil.getVersion(this);
+		this.logger = BukkitUtil.getLogger(this);
+		this.serviceManager = new ServiceManager(this);
+		this.playerManager = new PlayerManager();
+		this.teamManager = new TeamManager();
+		this.commandManager = new CommandManager();
+		this.commandExecutor = new CommandDelegate(commandManager);
+	}
+
+	public static xTeam getInstance()
+	{
+		if (xteam == null)
+		{
+			xteam = new xTeam();
+		}
+		return xteam;
+	}
+
+	@Override
+	public ILog getLog()
 	{
 		return logger;
 	}
 
-	public static String getVersion()
+	@Override
+	public String getVersion()
 	{
-		return VERSION;
+		return version;
 	}
 
-	public static ServiceManager getServiceManager()
+	@Override
+	public String getPluginName()
+	{
+		return "xTeam";
+	}
+
+	@Override
+	public ServiceManager getServiceManager()
 	{
 		return serviceManager;
 	}
 
-	public static ICommandManager getCommandManager()
+	@Override
+	public ICommandManager getCommandManager()
 	{
 		return commandManager;
 	}
 
-	public static CommandExecutor getCommandExecutor()
+	@Override
+	public CommandExecutor getCommandExecutor()
 	{
 		return commandExecutor;
 	}
 
-	public static TeamManager getTeamManager()
+	@Override
+	public TeamManager getTeamManager()
 	{
 		return teamManager;
 	}
 
-	public static PlayerManager getPlayerManager()
+	@Override
+	public PlayerManager getPlayerManager()
 	{
 		return playerManager;
 	}
 
-	public static void registerAdminCommands(ICommandManager manager)
+	@Override
+	public ConfigLoader getConfigLoader()
 	{
-		manager.registerCommand("admin_sethq", new UserSetHeadquarters());
-		manager.registerCommand("admin_invite", new UserInvite());
-		manager.registerCommand("admin_promote", new UserPromote());
+		return configLoader;
 	}
 
-	public static void registerConsoleCommands(ICommandManager manager)
+	@Override
+	public void registerConsoleCommands(ICommandManager manager)
 	{
 		manager.registerCommand("console_debug", new ConsoleDebug());
 		manager.registerCommand("console_demote", new ConsoleDemote());
@@ -93,19 +129,8 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("console_teleallhq", new ConsoleTeleAllHQ());
 	}
 
-	public static void registerLeaderCommands(ICommandManager manager)
-	{
-		manager.registerCommand("leader_demote", new UserDemote());
-		manager.registerCommand("leader_disband", new UserDisband());
-		manager.registerCommand("leader_open", new UserOpen());
-		manager.registerCommand("leader_remove", new UserRemove());
-		manager.registerCommand("leader_rename", new UserRename());
-		manager.registerCommand("leader_tag", new UserTag());
-		manager.registerCommand("leader_setleader", new UserSetLeader());
-		manager.registerCommand("leader_setrally", new UserSetRally());
-	}
-
-	public static void registerServerAdminCommands(ICommandManager manager)
+	@Override
+	public void registerServerAdminCommands(ICommandManager manager)
 	{
 		manager.registerCommand("serveradmin_chatspy", new AdminChatSpy());
 		manager.registerCommand("serveradmin_disband", new AdminDisband());
@@ -125,7 +150,29 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("serveradmin_tpall", new AdminTpAll());
 	}
 
-	public static void registerUserCommands(ICommandManager manager)
+	@Override
+	public void registerLeaderCommands(ICommandManager manager)
+	{
+		manager.registerCommand("leader_demote", new UserDemote());
+		manager.registerCommand("leader_disband", new UserDisband());
+		manager.registerCommand("leader_open", new UserOpen());
+		manager.registerCommand("leader_remove", new UserRemove());
+		manager.registerCommand("leader_rename", new UserRename());
+		manager.registerCommand("leader_tag", new UserTag());
+		manager.registerCommand("leader_setleader", new UserSetLeader());
+		manager.registerCommand("leader_setrally", new UserSetRally());
+	}
+
+	@Override
+	public void registerAdminCommands(ICommandManager manager)
+	{
+		manager.registerCommand("admin_sethq", new UserSetHeadquarters());
+		manager.registerCommand("admin_invite", new UserInvite());
+		manager.registerCommand("admin_promote", new UserPromote());
+	}
+
+	@Override
+	public void registerUserCommands(ICommandManager manager)
 	{
 		manager.registerCommand("user_mainhelp", new UserMainHelp());
 		manager.registerCommand("user_help", new UserHelp());
@@ -143,70 +190,41 @@ public class xTeam extends JavaPlugin
 		manager.registerCommand("user_message", new UserMessage());
 	}
 
-	public void initFileSystem()
+	@Override
+	public void onLoad()
 	{
-		File f = new File(getDataFolder().getAbsolutePath());
-		if (!f.exists())
-		{
-			f.mkdir();
-		}
-		f = new File(getDataFolder().getAbsolutePath() + "/teams.txt");
-		if (!f.exists())
-		{
-			try
-			{
-				f.createNewFile();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
 		try
 		{
-			ConfigFileBuilder configBuilder = new ConfigFileBuilder(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
-			configBuilder.add("playersonteam", 10, "Amount of players that can be on a team");
-			configBuilder.add("sethqinterval", 0, "Delay in hours between use of /team sethq");
-			configBuilder.add("teleportradius", 500, "Maximum distance in blocks between team mates to teleport to one another");
-			configBuilder.add("canteamchat", true, "Allows/Disallows the use of team chat function completely");
-			configBuilder.add("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
-			configBuilder.add("teledelay", 10, "Delay in seconds for teleporting when enemies are near");
-			configBuilder.add("telerefreshdelay", 60, "Delay in seconds for when you can use team teleporting. Does not include /team return");
-			configBuilder.add("createteamdelay", 20, "Delay in minutes for creating teams");
-			configBuilder.add("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
-			configBuilder.add("defaultteams", "", "Default list of teams for the server separated by commas  (e.g. defaultteams=red,green,blue,yellow)");
-			configBuilder.add("randomjointeam", false, "Player randomly joins one of the default teams on joining");
-			configBuilder.add("balanceteams", false, "Balance teams when someone randomly joins");
-			configBuilder.add("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
-			configBuilder.add("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
-			configBuilder.add("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
-			configBuilder.add("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
-			configBuilder.add("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
-			configBuilder.add("teamtagmaxlength", 0, "Maximum length of a team tag (0 = unlimited)");
-			configBuilder.add("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
-			configBuilder.add("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
-			configBuilder.add("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
-			configBuilder.add("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
-			configBuilder.add("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
-			configBuilder.add("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
-			configBuilder.add("rallydelay", 2, "Delay in minutes that a team rally stays active");
-			configBuilder.write();
+			this.initFileSystem(getDataFolder().getAbsolutePath());
+			xTeam.log.info("[xTeam] Config loaded.");
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
-			e.printStackTrace();
+			xTeam.log.severe("Exception in xTeam onLoad() class [check logs]");
+			this.logger.exception(e);
 		}
-		f = new File(getDataFolder().getAbsolutePath() + "/xTeam.log");
-		if (!f.exists())
+	}
+
+	@Override
+	public void onEnable()
+	{
+		try
 		{
-			try
-			{
-				f.createNewFile();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			this.registerConsoleCommands(commandManager);
+			this.registerServerAdminCommands(commandManager);
+			this.registerUserCommands(commandManager);
+			this.registerAdminCommands(commandManager);
+			this.registerLeaderCommands(commandManager);
+			Functions.readTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
+			//		serviceManager.loadConfig();
+			this.getCommand("team").setExecutor(commandExecutor);
+			xTeam.log.info("[xTeam] v" + version + " enabled");
+			this.logger.custom("[xTeam] v" + version + " enabled");
+		}
+		catch (Exception e)
+		{
+			xTeam.log.severe("Exception in xTeam onEnable() class [check logs]");
+			this.logger.exception(e);
 		}
 	}
 
@@ -217,62 +235,101 @@ public class xTeam extends JavaPlugin
 		{
 			Functions.writeTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
 			//		serviceManager.saveConfig();
-			logger.custom("[xTeam] v" + VERSION + " disabled");
-			logger.close();
+			xTeam.log.info("[xTeam] v" + version + " disabled");
+			this.logger.custom("[xTeam] v" + version + " disabled");
+			this.logger.close();
 		}
 		catch (Exception e)
 		{
-			logger.exception(e);
-			xTeam.log.info("[ERROR] Exception in xTeam onDisable() class [check logs]");
+			xTeam.log.severe("Exception in xTeam onDisable() class [check logs]");
+			this.logger.exception(e);
 		}
 	}
 
-	@Override
-	public void onEnable()
-	{
-		try
-		{
-			initFileSystem();
-			logger = new LogUtil(this);
-			VERSION = getDescription().getVersion();
-			Data.settings = new File(getDataFolder().getAbsolutePath() + "/xTeam.cfg");
-			Data.load();
-			log.info("[xTeam] Config loaded.");
-			serviceManager = new ServiceManager(this);
-			commandManager = new CommandManager();
-			teamManager = new TeamManager();
-			playerManager = new PlayerManager();
-			registerConsoleCommands(commandManager);
-			registerServerAdminCommands(commandManager);
-			registerUserCommands(commandManager);
-			registerAdminCommands(commandManager);
-			registerLeaderCommands(commandManager);
-			commandExecutor = new CommandDelegate(commandManager);
-			getCommand("team").setExecutor(commandExecutor);
-			Functions.readTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
-			Data.ensureDefaultTeams();
-			//		serviceManager.loadConfig();
-			logger.custom("[xTeam] v" + VERSION + " enabled");
-		}
-		catch (Exception e)
-		{
-			logger.exception(e);
-			xTeam.log.info("[ERROR] Exception in xTeam onEnable() class [check logs]");
-		}
-	}
-
-	public static Plugin getSelf()
-	{
-		return Data.BUKKIT.getPluginManager().getPlugin("xTeam");
-	}
-
-	static void fakeData(ICommandManager fakeCommandManager, ServiceManager fakeServiceManager, TeamManager fakeTeamManager, PlayerManager fakePlayerManager, ILog fakeLogger, String fakeVersion)
+	void fakeData(ICommandManager fakeCommandManager, ServiceManager fakeServiceManager, TeamManager fakeTeamManager, PlayerManager fakePlayerManager, ILog fakeLogger, String fakeVersion)
 	{
 		commandManager = fakeCommandManager;
 		serviceManager = fakeServiceManager;
 		teamManager = fakeTeamManager;
 		playerManager = fakePlayerManager;
 		logger = fakeLogger;
-		VERSION = fakeVersion;
+		version = fakeVersion;
+	}
+
+	@Override
+	public void initFileSystem(String path)
+	{
+		File f = new File(path);
+		if (!f.exists())
+		{
+			f.mkdir();
+		}
+		f = new File(path + "/teams.txt");
+		if (!f.exists())
+		{
+			try
+			{
+				f.createNewFile();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		try
+		{
+			configLoader = new ConfigLoader(path + "/xTeam.cfg");
+			configLoader.add("playersonteam", 10, "Amount of players that can be on a team");
+			configLoader.add("sethqinterval", 0, "Delay in hours between use of /team sethq");
+			configLoader.add("teleportradius", 500, "Maximum distance in blocks between team mates to teleport to one another");
+			configLoader.add("canteamchat", true, "Allows/Disallows the use of team chat function completely");
+			configLoader.add("hqondeath", true, "When a player dies, they are teleported to their headquarters when they respawn");
+			configLoader.add("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
+			configLoader.add("teledelay", 10, "Delay in seconds for teleporting when enemies are near");
+			configLoader.add("telerefreshdelay", 60, "Delay in seconds for when you can use team teleporting. Does not include /team return");
+			configLoader.add("createteamdelay", 20, "Delay in minutes for creating teams");
+			configLoader.add("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
+			configLoader.add("defaultteams", "", "Default list of teams for the server separated by commas  (e.g. defaultteams=red,green,blue,yellow)");
+			configLoader.add("randomjointeam", false, "Player randomly joins one of the default teams on joining");
+			configLoader.add("balanceteams", false, "Balance teams when someone randomly joins");
+			configLoader.add("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
+			configLoader.add("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
+			configLoader.add("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
+			configLoader.add("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
+			configLoader.add("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
+			configLoader.add("teamtagmaxlength", 0, "Maximum length of a team tag (0 = unlimited)");
+			configLoader.add("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
+			configLoader.add("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
+			configLoader.add("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
+			configLoader.add("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
+			configLoader.add("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
+			configLoader.add("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
+			configLoader.add("rallydelay", 2, "Delay in minutes that a team rally stays active");
+			configLoader.write();
+			Data.load(configLoader);
+			Data.ensureDefaultTeams();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		f = new File(path + "/xTeam.log");
+		if (!f.exists())
+		{
+			try
+			{
+				f.createNewFile();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public List<Permission> getPermissions()
+	{
+		return BukkitUtil.getPermissionNodes(this);
 	}
 }

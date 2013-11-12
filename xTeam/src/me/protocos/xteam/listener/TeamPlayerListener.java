@@ -31,7 +31,7 @@ public class TeamPlayerListener implements Listener
 		{
 			Player player = event.getPlayer();
 			World playerWorld = player.getWorld();
-			ITeamPlayer teamPlayer = xTeam.getPlayerManager().getPlayer(player);
+			ITeamPlayer teamPlayer = xTeam.getInstance().getPlayerManager().getPlayer(player);
 			if (teamPlayer.hasPlayedBefore() && Data.DISABLED_WORLDS.contains(playerWorld.getName()))
 			{
 				return;
@@ -46,8 +46,8 @@ public class TeamPlayerListener implements Listener
 						ArrayList<Team> availableTeams = new ArrayList<Team>();
 						if (Data.BALANCE_TEAMS)
 						{
-							int smallest = xTeam.getTeamManager().getDefaultTeams().get(0).size();
-							for (Team t : xTeam.getTeamManager().getDefaultTeams())
+							int smallest = xTeam.getInstance().getTeamManager().getDefaultTeams().get(0).size();
+							for (Team t : xTeam.getInstance().getTeamManager().getDefaultTeams())
 							{
 								if (t.size() < smallest)
 								{
@@ -63,7 +63,7 @@ public class TeamPlayerListener implements Listener
 						}
 						else
 						{
-							for (Team t : xTeam.getTeamManager().getDefaultTeams())
+							for (Team t : xTeam.getInstance().getTeamManager().getDefaultTeams())
 							{
 								availableTeams.add(t);
 							}
@@ -76,11 +76,11 @@ public class TeamPlayerListener implements Listener
 						{
 							teammate.sendMessage(teamPlayer.getName() + " " + ChatColorUtil.positiveMessage("joined") + " your team");
 						}
-						xTeam.log.info("Added " + teamPlayer.getName() + " to team " + team.getName());
+						xTeam.getInstance().getLog().info("Added " + teamPlayer.getName() + " to team " + team.getName());
 					}
 					else
 					{
-						xTeam.log.info(ChatColorUtil.negativeMessage("Player not assigned a team: No default teams have been set"));
+						xTeam.getInstance().getLog().info(ChatColorUtil.negativeMessage("Player not assigned a team: No default teams have been set"));
 					}
 				}
 			}
@@ -103,8 +103,8 @@ public class TeamPlayerListener implements Listener
 		}
 		catch (Exception e)
 		{
-			xTeam.getLog().exception(e);
-			xTeam.log.info("[ERROR] Exception in xTeam onPlayerJoin() class [check logs]");
+			xTeam.getInstance().getLog().exception(e);
+			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onPlayerJoin() class [check logs]");
 		}
 	}
 
@@ -118,8 +118,8 @@ public class TeamPlayerListener implements Listener
 		}
 		catch (Exception e)
 		{
-			xTeam.getLog().exception(e);
-			xTeam.log.info("[ERROR] Exception in xTeam onPlayerQuit() class [check logs]");
+			xTeam.getInstance().getLog().exception(e);
+			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onPlayerQuit() class [check logs]");
 		}
 	}
 
@@ -128,7 +128,7 @@ public class TeamPlayerListener implements Listener
 	{
 		try
 		{
-			ITeamPlayer player = xTeam.getPlayerManager().getPlayer(event.getPlayer());
+			ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(event.getPlayer());
 			if (Data.DISABLED_WORLDS.contains(event.getPlayer().getWorld().getName()))
 			{
 				return;
@@ -150,8 +150,8 @@ public class TeamPlayerListener implements Listener
 		}
 		catch (Exception e)
 		{
-			xTeam.getLog().exception(e);
-			xTeam.log.info("[ERROR] Exception in xTeam onPlayerRespawn() class [check logs]");
+			xTeam.getInstance().getLog().exception(e);
+			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onPlayerRespawn() class [check logs]");
 		}
 	}
 }

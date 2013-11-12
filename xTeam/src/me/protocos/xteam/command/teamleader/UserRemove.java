@@ -6,8 +6,8 @@ import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
-import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,14 +26,14 @@ public class UserRemove extends UserCommand
 	{
 		String teamName = teamPlayer.getTeam().getName();
 		team.removePlayer(otherPlayer);
-		Player other = Data.BUKKIT.getPlayer(otherPlayer);
+		Player other = BukkitUtil.getPlayer(otherPlayer);
 		if (other != null)
 			other.sendMessage("You've been " + ChatColorUtil.negativeMessage("removed") + " from " + team.getName());
 		originalSender.sendMessage("You" + ChatColorUtil.negativeMessage(" removed ") + otherPlayer + " from your team");
 		if (team.isEmpty())
 		{
 			originalSender.sendMessage(teamName + " has been disbanded");
-			xTeam.getTeamManager().removeTeam(team.getName());
+			xTeam.getInstance().getTeamManager().removeTeam(team.getName());
 		}
 	}
 
@@ -41,7 +41,7 @@ public class UserRemove extends UserCommand
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = parseCommand.get(1);
-		ITeamPlayer other = xTeam.getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerIsTeamLeader(teamPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);
