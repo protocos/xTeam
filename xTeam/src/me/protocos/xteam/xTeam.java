@@ -300,6 +300,7 @@ public class xTeam extends TeamPlugin
 			configLoader.add("teamtagmaxlength", 0, "Maximum length of a team tag (0 = unlimited)");
 			configLoader.add("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
 			configLoader.add("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
+			configLoader.add("teamfriendlyfire", false, "When true, friendly fire will be enabled for all teams");
 			configLoader.add("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
 			configLoader.add("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
 			configLoader.add("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");

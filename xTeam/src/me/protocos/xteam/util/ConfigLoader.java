@@ -96,7 +96,7 @@ public class ConfigLoader
 
 	public void reload()
 	{
-		Data.LOCATIONS_ENABLED = BukkitUtil.getPlugin("xTeamLocations") != null;
+		//		Data.LOCATIONS_ENABLED = BukkitUtil.getPlugin("xTeamLocations") != null;
 		Data.CAN_CHAT = CommonUtil.assignFromType(values.get("canteamchat"), Boolean.class);
 		Data.HQ_ON_DEATH = CommonUtil.assignFromType(values.get("hqondeath"), Boolean.class);
 		Data.TEAM_WOLVES = CommonUtil.assignFromType(values.get("teamwolves"), Boolean.class);
@@ -118,7 +118,7 @@ public class ConfigLoader
 		Data.CREATE_INTERVAL = CommonUtil.assignFromType(values.get("createteamdelay"), Integer.class);
 		Data.LAST_ATTACKED_DELAY = CommonUtil.assignFromType(values.get("lastattackeddelay"), Integer.class);
 		Data.TEAM_TAG_LENGTH = CommonUtil.assignFromType(values.get("teamtagmaxlength"), Integer.class);
-		Data.MAX_NUM_LOCATIONS = CommonUtil.assignFromType(values.get("maxnumlocations"), Integer.class);
+		//		Data.MAX_NUM_LOCATIONS = CommonUtil.assignFromType(values.get("maxnumlocations"), Integer.class);
 		Data.TELE_REFRESH_DELAY = CommonUtil.assignFromType(values.get("telerefreshdelay"), Integer.class);
 		Data.RALLY_DELAY = CommonUtil.assignFromType(values.get("rallydelay"), Integer.class);
 		Data.TAG_COLOR = CommonUtil.assignFromType(values.get("tagcolor"), String.class);

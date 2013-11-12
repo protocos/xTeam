@@ -11,7 +11,6 @@ public class GeneralTestPad
 	@Test
 	public void test()
 	{
-		Double.parseDouble("hello");
 	}
 
 	@Test
