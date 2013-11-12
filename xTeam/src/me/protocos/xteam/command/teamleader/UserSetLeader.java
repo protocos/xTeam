@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
@@ -23,7 +23,7 @@ public class UserSetLeader extends UserCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		team.setLeader(otherPlayer);
-		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = xTeamPlugin.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
 		teamPlayer.sendMessage(otherPlayer + " is now the " + ChatColorUtil.positiveMessage("team leader") + " (you are an admin)" +
@@ -34,7 +34,7 @@ public class UserSetLeader extends UserCommand
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = parseCommand.get(1);
-		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = xTeamPlugin.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerIsTeamLeader(teamPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);

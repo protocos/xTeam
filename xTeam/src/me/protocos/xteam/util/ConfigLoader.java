@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.core.Data;
 import org.bukkit.permissions.Permission;
@@ -80,7 +80,7 @@ public class ConfigLoader
 			if (this.getComment(name).length() > max.length())
 				max = this.getComment(name);
 		}
-		List<Permission> perms = xTeam.getInstance().getPermissions();
+		List<Permission> perms = xTeamPlugin.getInstance().getPermissions();
 		for (Permission perm : perms)
 		{
 			if (this.getPermission(perm).length() > max.length())
@@ -142,7 +142,7 @@ public class ConfigLoader
 	{
 		String output = getLineBreak() +
 				"# \n" +
-				"# xTeam Preferences\n" +
+				"# xTeamPlugin Preferences\n" +
 				"# \n" +
 				getLineBreak();
 		descriptions.sort();
@@ -161,7 +161,7 @@ public class ConfigLoader
 				"# Permissions\n" +
 				"# \n" +
 				getLineBreak();
-		List<Permission> perms = xTeam.getInstance().getPermissions();
+		List<Permission> perms = xTeamPlugin.getInstance().getPermissions();
 		for (Permission perm : perms)
 		{
 			output += this.getPermission(perm) + "\n";

@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -32,7 +32,7 @@ public class UserSetLeaderTest
 		//ASSERT
 		Assert.assertEquals("protocos is now the team leader (you are an admin)\n" +
 				"You can now leave the team", fakePlayerSender.getLastMessage());
-		Assert.assertEquals("protocos", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
+		Assert.assertEquals("protocos", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getLeader());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -57,7 +57,7 @@ public class UserSetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team setleader protocos"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -70,7 +70,7 @@ public class UserSetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team setleader newbie"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

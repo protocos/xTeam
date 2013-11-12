@@ -2,7 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Data;
@@ -34,9 +34,9 @@ public class ConsoleDebug extends ConsoleCommand
 		else if (subCommand.equalsIgnoreCase("created"))
 			originalSender.sendMessage("Last created: " + Data.lastCreated.toString());
 		else if (subCommand.equalsIgnoreCase("players"))
-			originalSender.sendMessage("Players: \n" + xTeam.getInstance().getPlayerManager().toString());
+			originalSender.sendMessage("Players: \n" + xTeamPlugin.getInstance().getPlayerManager().toString());
 		else if (subCommand.equalsIgnoreCase("teams"))
-			originalSender.sendMessage("Teams: \n" + xTeam.getInstance().getTeamManager().toString());
+			originalSender.sendMessage("Teams: \n" + xTeamPlugin.getInstance().getTeamManager().toString());
 		else if (subCommand.equalsIgnoreCase("perms"))
 			originalSender.sendMessage("Debugging permissions: \n" + printPermissions());
 		else if (subCommand.equalsIgnoreCase("resetplayers"))
@@ -52,7 +52,7 @@ public class ConsoleDebug extends ConsoleCommand
 		{
 			try
 			{
-				xTeam.getInstance().getLog().exception(new Exception("Test message!"));
+				xTeamPlugin.getInstance().getLog().exception(new Exception("Test message!"));
 				originalSender.sendMessage("Email sent!");
 			}
 			catch (Exception e)
@@ -67,7 +67,7 @@ public class ConsoleDebug extends ConsoleCommand
 	private String printPermissions()
 	{
 		String output = "";
-		List<Permission> perms = xTeam.getInstance().getDescription().getPermissions();
+		List<Permission> perms = xTeamPlugin.getInstance().getDescription().getPermissions();
 		for (Permission perm : perms)
 		{
 			output += perm.getName() + " - " + perm.getDescription() + "\n";
@@ -103,6 +103,6 @@ public class ConsoleDebug extends ConsoleCommand
 	@Override
 	public String getDescription()
 	{
-		return "Console debug menu for xTeam";
+		return "Console debug menu for xTeamPlugin";
 	}
 }

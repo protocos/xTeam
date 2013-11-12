@@ -1,6 +1,6 @@
 package me.protocos.xteam.listener;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
 import org.bukkit.entity.Entity;
@@ -21,14 +21,14 @@ public class TeamPvPEntityListener implements Listener
 		}
 		else
 		{
-			ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(defender.getName());
+			ITeamPlayer player = xTeamPlugin.getInstance().getPlayerManager().getPlayer(defender.getName());
 			player.setLastAttacked(System.currentTimeMillis());
 			//			if (Data.SPOUT_ENABLED && Data.REVEAL_TIME > 0L)
 			//				if (Data.SPOUT_ENABLED && Data.REVEAL_TIME > 0L)
 			//				{
 			//					SpoutManager.getPlayer(attacker.getOnlinePlayer()).resetTitleFor(SpoutManager.getPlayer(defender.getOnlinePlayer()));
 			//					SpoutManager.getPlayer(defender.getOnlinePlayer()).resetTitleFor(SpoutManager.getPlayer(attacker.getOnlinePlayer()));
-			//					BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getPluginManager().getPlugin("xTeam"), new Runnable()
+			//					BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getPluginManager().getPlugin("xTeamPlugin"), new Runnable()
 			//					{
 			//						@Override
 			//						public void run()
@@ -66,18 +66,18 @@ public class TeamPvPEntityListener implements Listener
 					// Player hurt Player
 					if (damager instanceof Player)
 					{
-						attacker = xTeam.getInstance().getPlayerManager().getPlayer((Player) damager);
-						defender = xTeam.getInstance().getPlayerManager().getPlayer((Player) entity);
+						attacker = xTeamPlugin.getInstance().getPlayerManager().getPlayer((Player) damager);
+						defender = xTeamPlugin.getInstance().getPlayerManager().getPlayer((Player) entity);
 						checkTeam(event, attacker, defender);
 					}
 					// Projectile hurt Player
 					else if (damager instanceof Projectile)
 					{
 						if (((Projectile) damager).getShooter() instanceof Player)
-							attacker = xTeam.getInstance().getPlayerManager().getPlayer((Player) ((Projectile) damager).getShooter());
+							attacker = xTeamPlugin.getInstance().getPlayerManager().getPlayer((Player) ((Projectile) damager).getShooter());
 						else
 							return;
-						defender = xTeam.getInstance().getPlayerManager().getPlayer((Player) entity);
+						defender = xTeamPlugin.getInstance().getPlayerManager().getPlayer((Player) entity);
 						checkTeam(event, attacker, defender);
 					}
 					else
@@ -88,7 +88,7 @@ public class TeamPvPEntityListener implements Listener
 				//					// Player hurt Wolf
 				//					if (damager instanceof Player)
 				//					{
-				//						ITeamPlayer sender = xTeam.getInstance().getPlayerManager().getPlayer((Player) damager);
+				//						ITeamPlayer sender = xTeamPlugin.getInstance().getPlayerManager().getPlayer((Player) damager);
 				//						TeamWolf wolf = new TeamWolf((Wolf) entity);
 				//						if (sender.hasTeam() && wolf.hasTeam() && sender.getTeam().equals(wolf.getTeam()))
 				//						{
@@ -127,8 +127,8 @@ public class TeamPvPEntityListener implements Listener
 		}
 		catch (Exception e)
 		{
-			xTeam.getInstance().getLog().exception(e);
-			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onEntityDamage() class [check logs]");
+			xTeamPlugin.getInstance().getLog().exception(e);
+			xTeamPlugin.getInstance().getLog().info("[ERROR] Exception in xTeamPlugin onEntityDamage() class [check logs]");
 		}
 	}
 }

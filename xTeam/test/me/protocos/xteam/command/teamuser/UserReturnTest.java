@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -31,9 +31,9 @@ public class UserReturnTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getInstance().getPlayerManager().getPlayer("protocos"), TeamPlayer.class);
-		Location returnLocation = xTeam.getInstance().getTeamManager().getTeam("one").getHeadquarters().getLocation();
-		xTeam.getInstance().getPlayerManager().getPlayer("protocos").setReturnLocation(returnLocation);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeamPlugin.getInstance().getPlayerManager().getPlayer("protocos"), TeamPlayer.class);
+		Location returnLocation = xTeamPlugin.getInstance().getTeamManager().getTeam("one").getHeadquarters().getLocation();
+		xTeamPlugin.getInstance().getPlayerManager().getPlayer("protocos").setReturnLocation(returnLocation);
 		UserCommand fakeCommand = new UserReturn();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
@@ -63,7 +63,7 @@ public class UserReturnTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		xTeam.getInstance().getPlayerManager().getPlayer("protocos").setReturnLocation(new FakeLocation());
+		xTeamPlugin.getInstance().getPlayerManager().getPlayer("protocos").setReturnLocation(new FakeLocation());
 		fakePlayerSender.setNoDamageTicks(1);
 		UserCommand fakeCommand = new UserReturn();
 		//ACT
@@ -79,7 +79,7 @@ public class UserReturnTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		xTeam.getInstance().getPlayerManager().getPlayer("protocos").setReturnLocation(new FakeLocation());
+		xTeamPlugin.getInstance().getPlayerManager().getPlayer("protocos").setReturnLocation(new FakeLocation());
 		UserCommand fakeCommand = new UserReturn();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
@@ -93,10 +93,10 @@ public class UserReturnTest
 	{
 		//ASSEMBLE
 		Data.LAST_ATTACKED_DELAY = 15;
-		xTeam.getInstance().getPlayerManager().getPlayer("protocos").setLastAttacked(System.currentTimeMillis());
+		xTeamPlugin.getInstance().getPlayerManager().getPlayer("protocos").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		xTeam.getInstance().getPlayerManager().getPlayer("protocos").setReturnLocation(new FakeLocation());
+		xTeamPlugin.getInstance().getPlayerManager().getPlayer("protocos").setReturnLocation(new FakeLocation());
 		UserCommand fakeCommand = new UserReturn();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team return"));
@@ -110,7 +110,7 @@ public class UserReturnTest
 	public void ShouldBeTeamUserReturnExecuteRecentRequest()
 	{
 		//ASSEMBLE
-		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeamPlugin.getInstance().getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().setCurrentTask(teamPlayer, 0);
 		teamPlayer.setReturnLocation(new FakeLocation());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());

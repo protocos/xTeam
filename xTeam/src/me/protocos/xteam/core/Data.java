@@ -1,7 +1,7 @@
 package me.protocos.xteam.core;
 
 import java.util.*;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.util.ConfigLoader;
 
 public class Data
@@ -50,13 +50,13 @@ public class Data
 		{
 			Team team = new Team.Builder(name).defaultTeam(true).openJoining(true).build();
 			boolean contains = false;
-			for (String teamName : xTeam.getInstance().getTeamManager().getDefaultTeamNames())
+			for (String teamName : xTeamPlugin.getInstance().getTeamManager().getDefaultTeamNames())
 			{
 				if (teamName.equals(name))
 					contains = true;
 			}
 			if (!contains)
-				xTeam.getInstance().getTeamManager().addTeam(team);
+				xTeamPlugin.getInstance().getTeamManager().addTeam(team);
 		}
 	}
 

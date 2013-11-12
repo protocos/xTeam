@@ -1,7 +1,7 @@
 package me.protocos.xteam.core;
 
 import java.util.HashMap;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 
 public class InviteHandler
 {
@@ -23,7 +23,7 @@ public class InviteHandler
 	public static Team getInviteTeam(String player)
 	{
 		if (invites.containsKey(player))
-			return xTeam.getInstance().getTeamManager().getTeam(invites.get(player).split(":")[0]);
+			return xTeamPlugin.getInstance().getTeamManager().getTeam(invites.get(player).split(":")[0]);
 		return null;
 	}
 	public static long getInviteTime(String player)

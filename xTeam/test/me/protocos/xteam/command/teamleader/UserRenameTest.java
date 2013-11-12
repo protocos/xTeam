@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -31,7 +31,7 @@ public class UserRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename name"));
 		//ASSERT
 		Assert.assertEquals("You renamed the team to name", fakePlayerSender.getLastMessage());
-		Assert.assertEquals("name", xTeam.getInstance().getTeamManager().getTeam("name").getName());
+		Assert.assertEquals("name", xTeamPlugin.getInstance().getTeamManager().getTeam("name").getName());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -45,7 +45,7 @@ public class UserRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename two"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameConflictsWithNameException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -59,7 +59,7 @@ public class UserRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename ÃºÃ"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -73,7 +73,7 @@ public class UserRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename nameiswaytoolong"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameTooLongException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -86,7 +86,7 @@ public class UserRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename name"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -99,7 +99,7 @@ public class UserRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename name"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

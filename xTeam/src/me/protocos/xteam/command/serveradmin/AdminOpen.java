@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
@@ -33,7 +33,7 @@ public class AdminOpen extends ServerAdminCommand
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		teamName = parseCommand.get(1);
-		changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		changeTeam = xTeamPlugin.getInstance().getTeamManager().getTeam(teamName);
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.action.Requirements;
@@ -34,7 +34,7 @@ public class AdminTag extends ServerAdminCommand
 	{
 		teamName = parseCommand.get(1);
 		desiredTag = parseCommand.get(2);
-		changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		changeTeam = xTeamPlugin.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkTeamNameAlreadyUsed(desiredTag, changeTeam);
 		Requirements.checkTeamNameAlphaNumeric(desiredTag);

@@ -2,7 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -25,7 +25,7 @@ public class ConsoleListTest
 	public void ShouldBeTeamUserListExecuteNoTeams()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().clear();
+		xTeamPlugin.getInstance().getTeamManager().clear();
 		ConsoleCommand fakeCommand = new ConsoleList();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team list"));
@@ -37,9 +37,9 @@ public class ConsoleListTest
 	public void ShouldBeTeamUserListExecuteOneTeam()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().removeTeam("ONE");
-		xTeam.getInstance().getTeamManager().removeTeam("TWO");
-		xTeam.getInstance().getTeamManager().removeTeam("blue");
+		xTeamPlugin.getInstance().getTeamManager().removeTeam("ONE");
+		xTeamPlugin.getInstance().getTeamManager().removeTeam("TWO");
+		xTeamPlugin.getInstance().getTeamManager().removeTeam("blue");
 		ConsoleCommand fakeCommand = new ConsoleList();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team list"));

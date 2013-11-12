@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.OPTIONAL_WHITE_SPACE;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
@@ -24,7 +24,7 @@ public class UserDisband extends UserCommand
 		{
 			playerDisband.sendMessage("Team has been " + ChatColorUtil.negativeMessage("disbanded") + " by the team leader");
 		}
-		xTeam.getInstance().getTeamManager().removeTeam(team.getName());
+		xTeamPlugin.getInstance().getTeamManager().removeTeam(team.getName());
 		originalSender.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " your team");
 	}
 

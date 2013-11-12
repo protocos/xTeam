@@ -1,6 +1,6 @@
 package me.protocos.xteam.core.exception;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 public class TeamOnlyJoinDefaultException extends TeamException
 {
 	/**
@@ -10,7 +10,7 @@ public class TeamOnlyJoinDefaultException extends TeamException
 
 	public TeamOnlyJoinDefaultException()
 	{
-		super("Only default teams are available\nTeams: " + xTeam.getInstance().getTeamManager().getDefaultTeamNames().toString().replaceAll("[\\[\\]]", ""));
+		super("Only default teams are available\nTeams: " + xTeamPlugin.getInstance().getTeamManager().getDefaultTeamNames().toString().replaceAll("[\\[\\]]", ""));
 	}
 	public TeamOnlyJoinDefaultException(String message)
 	{

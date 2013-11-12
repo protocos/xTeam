@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamadmin;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -32,7 +32,7 @@ public class UserPromoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team promote protocos"));
 		//ASSERT
 		Assert.assertEquals("You promoted protocos", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").getAdmins().contains("protocos"));
+		Assert.assertTrue(xTeamPlugin.getInstance().getTeamManager().getTeam("one").getAdmins().contains("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -45,7 +45,7 @@ public class UserPromoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team promote kmlanglois"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotAdminException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").getAdmins().contains("kmlanglois"));
+		Assert.assertTrue(xTeamPlugin.getInstance().getTeamManager().getTeam("one").getAdmins().contains("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -70,7 +70,7 @@ public class UserPromoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team promote Lonely"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotTeammateException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").getAdmins().contains("Lonely"));
+		Assert.assertFalse(xTeamPlugin.getInstance().getTeamManager().getTeam("one").getAdmins().contains("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

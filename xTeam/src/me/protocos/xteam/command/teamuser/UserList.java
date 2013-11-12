@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.exception.TeamException;
@@ -19,7 +19,7 @@ public class UserList extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		List<String> teams = xTeam.getInstance().getTeamManager().getAllTeamNames();
+		List<String> teams = xTeamPlugin.getInstance().getTeamManager().getAllTeamNames();
 		String message = "Teams: " + teams.toString().replaceAll("\\[|\\]", "");
 		if (teams.isEmpty())
 			originalSender.sendMessage("There are " + ChatColorUtil.negativeMessage("no") + " teams");

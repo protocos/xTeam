@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
@@ -22,9 +22,9 @@ public class UserRename extends UserCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		xTeam.getInstance().getTeamManager().removeTeam(team.getName());
+		xTeamPlugin.getInstance().getTeamManager().removeTeam(team.getName());
 		team.setName(desiredName);
-		xTeam.getInstance().getTeamManager().addTeam(team);
+		xTeamPlugin.getInstance().getTeamManager().addTeam(team);
 		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
 			mate.sendMessage("The team has been " + ChatColorUtil.positiveMessage("renamed") + " to " + desiredName);

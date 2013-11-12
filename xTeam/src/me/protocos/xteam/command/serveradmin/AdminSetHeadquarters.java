@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.action.Requirements;
@@ -23,7 +23,7 @@ public class AdminSetHeadquarters extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		Team changeTeam = xTeamPlugin.getInstance().getTeamManager().getTeam(teamName);
 		changeTeam.setHQ(new Headquarters(player.getLocation()));
 		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team headquarters for team " + teamName);
 	}

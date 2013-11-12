@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -33,7 +33,7 @@ public class AdminTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tag one tag"));
 		//ASSERT
 		Assert.assertEquals("The team tag has been set to tag", fakePlayerSender.getLastMessage());
-		Assert.assertEquals("tag", xTeam.getInstance().getTeamManager().getTeam("one").getTag());
+		Assert.assertEquals("tag", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getTag());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -46,7 +46,7 @@ public class AdminTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tag one two"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameConflictsWithNameException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", xTeam.getInstance().getTeamManager().getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -60,7 +60,7 @@ public class AdminTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tag one ƒçß"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", xTeam.getInstance().getTeamManager().getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -73,7 +73,7 @@ public class AdminTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tag three tag"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", xTeam.getInstance().getTeamManager().getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

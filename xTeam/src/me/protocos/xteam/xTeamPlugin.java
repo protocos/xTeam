@@ -30,9 +30,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 
-public class xTeam extends TeamPlugin
+public class xTeamPlugin extends TeamPlugin
 {
 	public static final Logger log = Logger.getLogger("Minecraft");
+	private static xTeamPlugin xteam;
 	private String version;
 	private ILog logger;
 	private ICommandManager commandManager;
@@ -40,9 +41,8 @@ public class xTeam extends TeamPlugin
 	private TeamManager teamManager;
 	private PlayerManager playerManager;
 	private ConfigLoader configLoader;
-	private static xTeam xteam;
 
-	private xTeam()
+	private xTeamPlugin()
 	{
 		this.version = BukkitUtil.getVersion(this);
 		this.logger = BukkitUtil.getLogger(this);
@@ -52,11 +52,11 @@ public class xTeam extends TeamPlugin
 		this.commandExecutor = new CommandDelegate(commandManager);
 	}
 
-	public static xTeam getInstance()
+	public static xTeamPlugin getInstance()
 	{
 		if (xteam == null)
 		{
-			xteam = new xTeam();
+			xteam = new xTeamPlugin();
 		}
 		return xteam;
 	}
@@ -76,7 +76,7 @@ public class xTeam extends TeamPlugin
 	@Override
 	public String getPluginName()
 	{
-		return "xTeam";
+		return "xTeamPlugin";
 	}
 
 	@Override
@@ -196,11 +196,11 @@ public class xTeam extends TeamPlugin
 		try
 		{
 			this.initFileSystem(getDataFolder().getAbsolutePath());
-			xTeam.log.info("[xTeam] Config loaded.");
+			xTeamPlugin.log.info("[xTeamPlugin] Config loaded.");
 		}
 		catch (Exception e)
 		{
-			xTeam.log.severe("Exception in xTeam onLoad() class [check logs]");
+			xTeamPlugin.log.severe("Exception in xTeamPlugin onLoad() class [check logs]");
 			this.logger.exception(e);
 		}
 	}
@@ -223,12 +223,12 @@ public class xTeam extends TeamPlugin
 			Functions.readTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
 			//		serviceManager.loadConfig();
 			this.getCommand("team").setExecutor(commandExecutor);
-			xTeam.log.info("[xTeam] v" + version + " enabled");
-			this.logger.custom("[xTeam] v" + version + " enabled");
+			xTeamPlugin.log.info("[xTeamPlugin] v" + version + " enabled");
+			this.logger.custom("[xTeamPlugin] v" + version + " enabled");
 		}
 		catch (Exception e)
 		{
-			xTeam.log.severe("Exception in xTeam onEnable() class [check logs]");
+			xTeamPlugin.log.severe("Exception in xTeamPlugin onEnable() class [check logs]");
 			this.logger.exception(e);
 		}
 	}
@@ -240,13 +240,13 @@ public class xTeam extends TeamPlugin
 		{
 			Functions.writeTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
 			//		serviceManager.saveConfig();
-			xTeam.log.info("[xTeam] v" + version + " disabled");
-			this.logger.custom("[xTeam] v" + version + " disabled");
+			xTeamPlugin.log.info("[xTeamPlugin] v" + version + " disabled");
+			this.logger.custom("[xTeamPlugin] v" + version + " disabled");
 			this.logger.close();
 		}
 		catch (Exception e)
 		{
-			xTeam.log.severe("Exception in xTeam onDisable() class [check logs]");
+			xTeamPlugin.log.severe("Exception in xTeamPlugin onDisable() class [check logs]");
 			this.logger.exception(e);
 		}
 	}
@@ -273,7 +273,7 @@ public class xTeam extends TeamPlugin
 		}
 		try
 		{
-			configLoader = new ConfigLoader(path + "/xTeam.cfg");
+			configLoader = new ConfigLoader(path + "/xTeamPlugin.cfg");
 			configLoader.add("playersonteam", 10, "Amount of players that can be on a team");
 			configLoader.add("sethqinterval", 0, "Delay in hours between use of /team sethq");
 			configLoader.add("teleportradius", 500, "Maximum distance in blocks between team mates to teleport to one another");
@@ -293,8 +293,8 @@ public class xTeam extends TeamPlugin
 			configLoader.add("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
 			configLoader.add("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
 			configLoader.add("teamtagmaxlength", 0, "Maximum length of a team tag (0 = unlimited)");
-			configLoader.add("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
-			configLoader.add("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
+			configLoader.add("disabledworlds", "", "World names, separated by commas, that xTeamPlugin is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
+			configLoader.add("nopermissions", false, "When true, xTeamPlugin will give all regular commands to players and admin commands to OPs");
 			configLoader.add("teamfriendlyfire", false, "When true, friendly fire will be enabled for all teams");
 			configLoader.add("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
 			configLoader.add("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
@@ -309,7 +309,7 @@ public class xTeam extends TeamPlugin
 		{
 			e.printStackTrace();
 		}
-		f = new File(path + "/xTeam.log");
+		f = new File(path + "/xTeamPlugin.log");
 		if (!f.exists())
 		{
 			try

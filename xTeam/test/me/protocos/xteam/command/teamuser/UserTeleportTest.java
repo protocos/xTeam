@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -122,7 +122,7 @@ public class UserTeleportTest
 	{
 		//ASSEMBLE
 		Data.LAST_ATTACKED_DELAY = 15;
-		xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
+		xTeamPlugin.getInstance().getPlayerManager().getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		UserCommand fakeCommand = new UserTeleport();
@@ -138,7 +138,7 @@ public class UserTeleportTest
 	public void ShouldBeTeamUserTeleExecuteRecentRequest()
 	{
 		//ASSEMBLE
-		TeamPlayer testPlayer = CommonUtil.assignFromType(xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer testPlayer = CommonUtil.assignFromType(xTeamPlugin.getInstance().getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().getCurrentTasks().put(testPlayer, 0);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
@@ -155,7 +155,7 @@ public class UserTeleportTest
 	public void ShouldBeTeamUserTeleExecuteRecentTeleport()
 	{
 		//ASSEMBLE
-		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeamPlugin.getInstance().getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().teleport(teamPlayer, new Locatable("previous teleport", new FakeLocation()));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();

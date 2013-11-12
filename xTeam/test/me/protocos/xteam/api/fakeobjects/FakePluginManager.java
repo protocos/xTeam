@@ -2,7 +2,7 @@ package me.protocos.xteam.api.fakeobjects;
 
 import java.io.File;
 import java.util.Set;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -16,7 +16,7 @@ public class FakePluginManager implements PluginManager
 
 	public FakePluginManager()
 	{
-		plugins = new Plugin[] { xTeam.getInstance() };
+		plugins = new Plugin[] { xTeamPlugin.getInstance() };
 	}
 
 	@Override
@@ -99,9 +99,9 @@ public class FakePluginManager implements PluginManager
 	@Override
 	public Plugin getPlugin(String name)
 	{
-		if ("xTeam".equals(name))
+		if ("xTeamPlugin".equals(name))
 		{
-			return xTeam.getInstance();
+			return xTeamPlugin.getInstance();
 		}
 		return null;
 	}

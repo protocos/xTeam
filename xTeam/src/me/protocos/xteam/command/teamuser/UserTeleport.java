@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
@@ -46,7 +46,7 @@ public class UserTeleport extends UserCommand
 		}
 		else
 		{
-			ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(teammateName);
+			ITeamPlayer other = xTeamPlugin.getInstance().getPlayerManager().getPlayer(teammateName);
 			Requirements.checkPlayerIsTeammate(teamPlayer, other);
 			for (TeamPlayer teammate : teamPlayer.getOnlineTeammates())
 			{

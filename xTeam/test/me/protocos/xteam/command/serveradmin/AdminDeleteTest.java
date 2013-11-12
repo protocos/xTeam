@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -31,7 +31,7 @@ public class AdminDeleteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team disband one"));
 		//ASSERT
 		Assert.assertEquals("You disbanded one", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("one"));
+		Assert.assertFalse(xTeamPlugin.getInstance().getTeamManager().contains("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -45,7 +45,7 @@ public class AdminDeleteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team disband team"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("one"));
+		Assert.assertTrue(xTeamPlugin.getInstance().getTeamManager().contains("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

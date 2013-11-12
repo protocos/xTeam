@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.action.Requirements;
@@ -21,9 +21,9 @@ public class ConsoleDisband extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		Team team = xTeamPlugin.getInstance().getTeamManager().getTeam(teamName);
 		team.sendMessage("Your team has been disbanded by an admin");
-		xTeam.getInstance().getTeamManager().removeTeam(teamName);
+		xTeamPlugin.getInstance().getTeamManager().removeTeam(teamName);
 		originalSender.sendMessage("You disbanded " + teamName);
 	}
 
@@ -32,7 +32,7 @@ public class ConsoleDisband extends ConsoleCommand
 	{
 		teamName = parseCommand.get(1);
 		Requirements.checkTeamExists(teamName);
-		Team team = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		Team team = xTeamPlugin.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkTeamIsDefault(team);
 	}
 

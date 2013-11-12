@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -112,9 +112,9 @@ public class UserInfoTest
 	public void ShouldBeTeamUserInfoExecute6()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().getTeam("red").addPlayer("Lonely");
-		xTeam.getInstance().getTeamManager().getTeam("red").promote("strandedhelix");
-		xTeam.getInstance().getTeamManager().getTeam("red").promote("Lonely");
+		xTeamPlugin.getInstance().getTeamManager().getTeam("red").addPlayer("Lonely");
+		xTeamPlugin.getInstance().getTeamManager().getTeam("red").promote("strandedhelix");
+		xTeamPlugin.getInstance().getTeamManager().getTeam("red").promote("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
 		UserCommand fakeCommand = new UserInfo();
 		//ACT
@@ -136,7 +136,7 @@ public class UserInfoTest
 	public void ShouldBeTeamUserInfoExecute7()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
+		xTeamPlugin.getInstance().getTeamManager().getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserInfo();
 		//ACT
@@ -158,7 +158,7 @@ public class UserInfoTest
 	public void ShouldBeTeamUserInfoExecutePlayerNotOnTeamUsingTag()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
+		xTeamPlugin.getInstance().getTeamManager().getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserInfo();
 		//ACT
@@ -177,7 +177,7 @@ public class UserInfoTest
 	public void ShouldBeTeamUserInfoExecutePlayerOnTeamUsingTag()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
+		xTeamPlugin.getInstance().getTeamManager().getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserInfo();
 		//ACT

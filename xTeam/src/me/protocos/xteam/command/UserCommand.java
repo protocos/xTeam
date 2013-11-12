@@ -1,6 +1,6 @@
 package me.protocos.xteam.command;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
@@ -21,7 +21,7 @@ public abstract class UserCommand extends PlayerCommand
 	public void initData(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		super.initData(originalSender, parseCommand);
-		teamPlayer = xTeam.getInstance().getPlayerManager().getPlayer(player);
+		teamPlayer = xTeamPlugin.getInstance().getPlayerManager().getPlayer(player);
 		team = teamPlayer.getTeam();
 		Requirements.checkPlayerHasPermission(originalSender, getPermissionNode());
 		Requirements.checkPlayerCommandIsValid(parseCommand, getPattern());

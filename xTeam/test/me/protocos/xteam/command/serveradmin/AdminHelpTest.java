@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -19,7 +19,7 @@ public class AdminHelpTest
 	{
 		//MOCK data
 		mockData();
-		xTeam.getInstance().registerServerAdminCommands(xTeam.getInstance().getCommandManager());
+		xTeamPlugin.getInstance().registerServerAdminCommands(xTeamPlugin.getInstance().getCommandManager());
 	}
 
 	@Test
@@ -35,7 +35,7 @@ public class AdminHelpTest
 				"/team chatspy - spy on team chat\n" +
 				"/team disband [Team] - disband a team\n" +
 				"/team demote [Team] [Player] - demote team admin\n" +
-				"/team admin {Page} - server admin help menu for xTeam\n" +
+				"/team admin {Page} - server admin help menu for xTeamPlugin\n" +
 				"/team hq [Team] - teleport to team headquarters for team\n" +
 				"/team promote [Team] [Player] - promote player to admin\n" +
 				"/team reload - reload configuration file\n" +

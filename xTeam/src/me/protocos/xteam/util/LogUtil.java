@@ -3,7 +3,7 @@ package me.protocos.xteam.util;
 import java.io.*;
 import java.sql.Timestamp;
 import java.util.Scanner;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.collections.LimitedQueue;
 import me.protocos.xteam.api.util.ILog;
@@ -95,7 +95,7 @@ public class LogUtil implements ILog
 					errorReporter.sendErrorReport(e);
 				}
 			}
-			BukkitUtil.getScheduler().scheduleSyncDelayedTask(xTeam.getInstance(), new EmailReport(), CommonUtil.LONG_ZERO);
+			BukkitUtil.getScheduler().scheduleSyncDelayedTask(xTeamPlugin.getInstance(), new EmailReport(), CommonUtil.LONG_ZERO);
 		}
 	}
 
