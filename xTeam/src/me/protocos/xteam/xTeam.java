@@ -25,6 +25,7 @@ import me.protocos.xteam.listener.TeamPvPEntityListener;
 import me.protocos.xteam.listener.TeamScoreListener;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.ConfigLoader;
+import me.protocos.xteam.util.LogUtil;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
@@ -44,7 +45,6 @@ public class xTeam extends TeamPlugin
 	{
 		super();
 		this.version = BukkitUtil.getVersion(this);
-		this.logger = BukkitUtil.getLogger(this);
 		this.playerManager = new PlayerManager();
 		this.teamManager = new TeamManager();
 		this.commandManager = new CommandManager();
@@ -63,6 +63,10 @@ public class xTeam extends TeamPlugin
 	@Override
 	public ILog getLog()
 	{
+		if (logger == null)
+		{
+			this.logger = new LogUtil(this);
+		}
 		return logger;
 	}
 
@@ -200,7 +204,7 @@ public class xTeam extends TeamPlugin
 		catch (Exception e)
 		{
 			xTeamPlugin.log.severe("Exception in xTeam onLoad() class [check logs]");
-			this.logger.exception(e);
+			this.getLog().exception(e);
 		}
 	}
 
@@ -223,12 +227,12 @@ public class xTeam extends TeamPlugin
 			//		serviceManager.loadConfig();
 			this.getCommand("team").setExecutor(commandExecutor);
 			xTeamPlugin.log.info("[xTeam] v" + version + " enabled");
-			this.logger.custom("[xTeam] v" + version + " enabled");
+			this.getLog().custom("[xTeam] v" + version + " enabled");
 		}
 		catch (Exception e)
 		{
 			xTeamPlugin.log.severe("Exception in xTeam onEnable() class [check logs]");
-			this.logger.exception(e);
+			this.getLog().exception(e);
 		}
 	}
 
@@ -240,13 +244,13 @@ public class xTeam extends TeamPlugin
 			Functions.writeTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
 			//		serviceManager.saveConfig();
 			xTeamPlugin.log.info("[xTeam] v" + version + " disabled");
-			this.logger.custom("[xTeam] v" + version + " disabled");
-			this.logger.close();
+			this.getLog().custom("[xTeam] v" + version + " disabled");
+			this.getLog().close();
 		}
 		catch (Exception e)
 		{
 			xTeamPlugin.log.severe("Exception in xTeam onDisable() class [check logs]");
-			this.logger.exception(e);
+			this.getLog().exception(e);
 		}
 	}
 

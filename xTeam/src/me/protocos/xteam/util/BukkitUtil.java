@@ -3,7 +3,6 @@ package me.protocos.xteam.util;
 import java.util.ArrayList;
 import java.util.List;
 import me.protocos.xteam.api.TeamPlugin;
-import me.protocos.xteam.api.util.ILog;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -46,15 +45,6 @@ public class BukkitUtil
 			return "CURRENT";
 		}
 		return teamPlugin.getDescription().getVersion();
-	}
-
-	public static ILog getLogger(TeamPlugin teamPlugin)
-	{
-		if (teamPlugin.getDataFolder() == null)
-		{
-			return new LogUtil(teamPlugin, "test");
-		}
-		return new LogUtil(teamPlugin, teamPlugin.getDataFolder().getAbsolutePath());
 	}
 
 	public static List<Permission> getPermissionNodes(TeamPlugin teamPlugin)

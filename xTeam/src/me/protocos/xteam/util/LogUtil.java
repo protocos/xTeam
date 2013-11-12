@@ -11,28 +11,17 @@ import me.protocos.xteam.core.Data;
 
 public class LogUtil implements ILog
 {
-	private String pluginPackageID;
-	private File file;
-	private FileOutputStream output;
-	private PrintStream printStream;
+	private final String packageString;
 	private ErrorReportUtil errorReporter;
+	private PrintStream printStream;
 
-	public LogUtil(TeamPlugin plugin, String filePath)
+	public LogUtil(TeamPlugin teamPlugin)
 	{
-		String packageString = plugin.getClass().getPackage().toString();
-		this.pluginPackageID = packageString.substring(packageString.indexOf(' ') + 1, packageString.lastIndexOf('.') + 1);
-		file = new File(filePath + "/" + plugin.getPluginName() + ".log");
-		if (!file.exists())
-		{
-			try
-			{
-				file.createNewFile();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
+		String pluginPackageID = teamPlugin.getClass().getPackage().toString();
+		this.packageString = pluginPackageID.substring(pluginPackageID.indexOf(' ') + 1, pluginPackageID.lastIndexOf('.') + 1);
+		String pluginName = teamPlugin.getPluginName();
+		SystemUtil.createFolder(pluginName);
+		File file = SystemUtil.createFile(teamPlugin.getDataFolder().getAbsolutePath() + "/" + pluginName + ".log");
 		try
 		{
 			LimitedQueue<String> previousEntries = new LimitedQueue<String>(500);
@@ -42,7 +31,7 @@ public class LogUtil implements ILog
 			{
 				previousEntries.offer(line);
 			}
-			output = new FileOutputStream(file);
+			FileOutputStream output = new FileOutputStream(file);
 			printStream = new PrintStream(output);
 			printStream.print(previousEntries.toString());
 		}
@@ -50,7 +39,7 @@ public class LogUtil implements ILog
 		{
 			e.printStackTrace();
 		}
-		errorReporter = new ErrorReportUtil(plugin);
+		errorReporter = new ErrorReportUtil(teamPlugin);
 	}
 
 	public void close()
@@ -80,9 +69,9 @@ public class LogUtil implements ILog
 		error(e.toString());
 		for (StackTraceElement elem : e.getStackTrace())
 		{
-			if (elem.toString().contains(pluginPackageID))
+			if (elem.toString().contains(packageString))
 			{
-				error("\t@ " + elem.toString().replaceAll(pluginPackageID, ""));
+				error("\t@ " + elem.toString().replaceAll(packageString, ""));
 			}
 		}
 		if (Data.SEND_ANONYMOUS_ERROR_REPORTS)
