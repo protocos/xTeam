@@ -26,6 +26,7 @@ public class TeamChatListenerTest
 		recipients = new HashSet<Player>();
 		chatListener = new TeamChatListener();
 	}
+
 	@Test
 	public void ShouldBeNormalChatEvent()
 	{
@@ -37,6 +38,7 @@ public class TeamChatListenerTest
 		Assert.assertEquals("Hello World!", playerChatEvent.getMessage());
 		Assert.assertEquals(mockPlayer, playerChatEvent.getPlayer());
 	}
+
 	@After
 	public void takedown()
 	{

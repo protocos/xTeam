@@ -1,15 +1,17 @@
 package me.protocos.xteam;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import junit.framework.Assert;
 import me.protocos.xteam.util.CommonUtil;
+import org.bukkit.plugin.InvalidDescriptionException;
 import org.junit.Test;
 
 public class GeneralTestPad
 {
 	@Test
-	public void test()
+	public void test() throws FileNotFoundException, InvalidDescriptionException
 	{
 	}
 

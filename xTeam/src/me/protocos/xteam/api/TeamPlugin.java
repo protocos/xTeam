@@ -4,7 +4,6 @@ import java.util.List;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.util.ILog;
 import me.protocos.xteam.core.PlayerManager;
-import me.protocos.xteam.core.ServiceManager;
 import me.protocos.xteam.core.TeamManager;
 import me.protocos.xteam.util.ConfigLoader;
 import org.bukkit.command.CommandExecutor;
@@ -23,8 +22,6 @@ public abstract class TeamPlugin extends JavaPlugin
 	public abstract String getVersion();
 
 	public abstract String getPluginName();
-
-	public abstract ServiceManager getServiceManager();
 
 	public abstract ICommandManager getCommandManager();
 

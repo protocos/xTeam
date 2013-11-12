@@ -16,18 +16,25 @@ import me.protocos.xteam.command.teamadmin.UserPromote;
 import me.protocos.xteam.command.teamadmin.UserSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
-import me.protocos.xteam.core.*;
+import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Functions;
+import me.protocos.xteam.core.PlayerManager;
+import me.protocos.xteam.core.TeamManager;
+import me.protocos.xteam.listener.TeamChatListener;
+import me.protocos.xteam.listener.TeamPlayerListener;
+import me.protocos.xteam.listener.TeamPvPEntityListener;
+import me.protocos.xteam.listener.TeamScoreListener;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.ConfigLoader;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permission;
+import org.bukkit.plugin.PluginManager;
 
 public class xTeam extends TeamPlugin
 {
 	public static final Logger log = Logger.getLogger("Minecraft");
 	private String version;
 	private ILog logger;
-	private ServiceManager serviceManager;
 	private ICommandManager commandManager;
 	private CommandExecutor commandExecutor;
 	private TeamManager teamManager;
@@ -39,7 +46,6 @@ public class xTeam extends TeamPlugin
 	{
 		this.version = BukkitUtil.getVersion(this);
 		this.logger = BukkitUtil.getLogger(this);
-		this.serviceManager = new ServiceManager(this);
 		this.playerManager = new PlayerManager();
 		this.teamManager = new TeamManager();
 		this.commandManager = new CommandManager();
@@ -71,12 +77,6 @@ public class xTeam extends TeamPlugin
 	public String getPluginName()
 	{
 		return "xTeam";
-	}
-
-	@Override
-	public ServiceManager getServiceManager()
-	{
-		return serviceManager;
 	}
 
 	@Override
@@ -215,6 +215,11 @@ public class xTeam extends TeamPlugin
 			this.registerUserCommands(commandManager);
 			this.registerAdminCommands(commandManager);
 			this.registerLeaderCommands(commandManager);
+			PluginManager pm = BukkitUtil.getPluginManager();
+			pm.registerEvents(new TeamPvPEntityListener(), this);
+			pm.registerEvents(new TeamPlayerListener(), this);
+			pm.registerEvents(new TeamScoreListener(), this);
+			pm.registerEvents(new TeamChatListener(), this);
 			Functions.readTeamData(new File(getDataFolder().getAbsolutePath() + "/teams.txt"));
 			//		serviceManager.loadConfig();
 			this.getCommand("team").setExecutor(commandExecutor);
@@ -244,16 +249,6 @@ public class xTeam extends TeamPlugin
 			xTeam.log.severe("Exception in xTeam onDisable() class [check logs]");
 			this.logger.exception(e);
 		}
-	}
-
-	void fakeData(ICommandManager fakeCommandManager, ServiceManager fakeServiceManager, TeamManager fakeTeamManager, PlayerManager fakePlayerManager, ILog fakeLogger, String fakeVersion)
-	{
-		commandManager = fakeCommandManager;
-		serviceManager = fakeServiceManager;
-		teamManager = fakeTeamManager;
-		playerManager = fakePlayerManager;
-		logger = fakeLogger;
-		version = fakeVersion;
 	}
 
 	@Override

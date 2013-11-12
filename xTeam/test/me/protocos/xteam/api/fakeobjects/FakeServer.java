@@ -3,6 +3,7 @@ package me.protocos.xteam.api.fakeobjects;
 import java.io.File;
 import java.util.*;
 import java.util.logging.Logger;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.*;
 import org.bukkit.Warning.WarningState;
 import org.bukkit.command.CommandException;
@@ -24,6 +25,35 @@ import com.avaje.ebean.config.ServerConfig;
 
 public class FakeServer implements Server
 {
+	private World world;
+	private Player[] onlinePlayers;
+	private OfflinePlayer[] offlinePlayers;
+	private BukkitScheduler fakeScheduler;
+	private PluginManager fakePluginManager;
+
+	public FakeServer()
+	{
+		world = new FakeWorld();
+		onlinePlayers = new Player[0];
+		offlinePlayers = new OfflinePlayer[0];
+		fakeScheduler = new FakeScheduler();
+		fakePluginManager = new FakePluginManager();
+	}
+
+	public void setWorld(World world)
+	{
+		this.world = world;
+	}
+
+	public void setOnlinePlayers(Player[] onlinePlayers)
+	{
+		this.onlinePlayers = onlinePlayers;
+	}
+
+	public void setOfflinePlayers(OfflinePlayer[] offlinePlayers)
+	{
+		this.offlinePlayers = offlinePlayers;
+	}
 
 	@Override
 	public boolean addRecipe(Recipe arg0)
@@ -278,17 +308,22 @@ public class FakeServer implements Server
 	}
 
 	@Override
-	public OfflinePlayer getOfflinePlayer(String arg0)
+	public OfflinePlayer getOfflinePlayer(String name)
 	{
-		// TODO Auto-generated method stub
+		for (OfflinePlayer p : offlinePlayers)
+		{
+			if (p.getName().equals(name))
+			{
+				return p;
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public OfflinePlayer[] getOfflinePlayers()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return offlinePlayers;
 	}
 
 	@Override
@@ -301,8 +336,7 @@ public class FakeServer implements Server
 	@Override
 	public Player[] getOnlinePlayers()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return onlinePlayers;
 	}
 
 	@Override
@@ -313,9 +347,15 @@ public class FakeServer implements Server
 	}
 
 	@Override
-	public Player getPlayer(String arg0)
+	public Player getPlayer(String name)
 	{
-		// TODO Auto-generated method stub
+		for (Player p : onlinePlayers)
+		{
+			if (p.getName().equals(name))
+			{
+				return p;
+			}
+		}
 		return null;
 	}
 
@@ -336,8 +376,7 @@ public class FakeServer implements Server
 	@Override
 	public PluginManager getPluginManager()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return fakePluginManager;
 	}
 
 	@Override
@@ -357,8 +396,7 @@ public class FakeServer implements Server
 	@Override
 	public BukkitScheduler getScheduler()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return fakeScheduler;
 	}
 
 	@Override
@@ -469,15 +507,13 @@ public class FakeServer implements Server
 	@Override
 	public World getWorld(String arg0)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return world;
 	}
 
 	@Override
 	public World getWorld(UUID arg0)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return world;
 	}
 
 	@Override
@@ -490,8 +526,9 @@ public class FakeServer implements Server
 	@Override
 	public List<World> getWorlds()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		List<World> worlds = CommonUtil.emptyList();
+		worlds.add(world);
+		return worlds;
 	}
 
 	@Override
