@@ -2,7 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.exception.TeamException;
@@ -18,7 +18,7 @@ public class ConsoleList extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		List<String> teams = xTeamPlugin.getInstance().getTeamManager().getAllTeamNames();
+		List<String> teams = xTeam.getInstance().getTeamManager().getAllTeamNames();
 		String message = "Teams: " + teams.toString().replaceAll("\\[|\\]", "");
 		if (teams.isEmpty())
 			originalSender.sendMessage("There are no teams");

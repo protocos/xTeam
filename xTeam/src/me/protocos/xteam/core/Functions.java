@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.StringUtil;
@@ -54,7 +54,7 @@ public class Functions
 		if (type.startsWith("CraftPlayer"))
 		{
 			Player p = (Player) entity;
-			ITeamPlayer otherPlayer = xTeamPlugin.getInstance().getPlayerManager().getPlayer(p);
+			ITeamPlayer otherPlayer = xTeam.getInstance().getPlayerManager().getPlayer(p);
 			Team otherTeam = otherPlayer.getTeam();
 			if (player.getTeam().equals(otherTeam))
 				return false;
@@ -113,7 +113,7 @@ public class Functions
 			}
 			if (StringUtil.toLowerCase(Data.DEFAULT_TEAM_NAMES).contains(teamName.toLowerCase()))
 			{
-				for (Team team : xTeamPlugin.getInstance().getTeamManager().getDefaultTeams())
+				for (Team team : xTeam.getInstance().getTeamManager().getDefaultTeams())
 				{
 					if (team.getName().toLowerCase().equalsIgnoreCase(teamName))
 					{
@@ -130,7 +130,7 @@ public class Functions
 				{
 					s[i] = s[i].replaceAll("~", "");
 				}
-				xTeamPlugin.getInstance().getTeamManager().addTeam(team);
+				xTeam.getInstance().getTeamManager().addTeam(team);
 			}
 		}
 		br.close();
@@ -144,7 +144,7 @@ public class Functions
 		// = 1.7.4 format = name:one open:false default:false timeHeadquartersSet:0 Headquarters: leader:protocos admins:protocos players:protocos,kmlanglois
 		try
 		{
-			//			File f = new File("plugins/xTeamPlugin/teams.txt");
+			//			File f = new File("plugins/xTeam/teams.txt");
 			Scanner input = new Scanner(f);
 			String line;
 			if (input.hasNext() && (line = input.nextLine()) != null && !line.contains("name:"))
@@ -158,7 +158,7 @@ public class Functions
 			while ((line = br.readLine()) != null)
 			{
 				Team team = Team.generateTeamFromProperties(line);
-				xTeamPlugin.getInstance().getTeamManager().addTeam(team);
+				xTeam.getInstance().getTeamManager().addTeam(team);
 			}
 			br.close();
 		}
@@ -185,8 +185,8 @@ public class Functions
 	//			{
 	//				for (Player player2 : BukkitUtil.getOnlinePlayers())
 	//				{
-	//					ITeamPlayer p1 = xTeamPlugin.getInstance().getPlayerManager().getPlayer(player1);
-	//					ITeamPlayer p2 = xTeamPlugin.getInstance().getPlayerManager().getPlayer(player2);
+	//					ITeamPlayer p1 = xTeam.getInstance().getPlayerManager().getPlayer(player1);
+	//					ITeamPlayer p2 = xTeam.getInstance().getPlayerManager().getPlayer(player2);
 	//					if (p1.isOnSameTeam(p2))
 	//					{
 	//						try
@@ -207,9 +207,9 @@ public class Functions
 	{
 		try
 		{
-			//			File f = new File("plugins/xTeamPlugin/teams.txt");
+			//			File f = new File("plugins/xTeam/teams.txt");
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-			List<Team> teams = xTeamPlugin.getInstance().getTeamManager().getAllTeams();
+			List<Team> teams = xTeam.getInstance().getTeamManager().getAllTeams();
 			for (Team t : teams)
 				bw.write(t.toString() + "\n");
 			bw.close();
@@ -225,7 +225,7 @@ public class Functions
 		ArrayList<String> data = new ArrayList<String>();
 		try
 		{
-			List<Team> teams = xTeamPlugin.getInstance().getTeamManager().getAllTeams();
+			List<Team> teams = xTeam.getInstance().getTeamManager().getAllTeams();
 			for (Team team : teams)
 				data.add(team.toString());
 		}
@@ -235,7 +235,7 @@ public class Functions
 		}
 		try
 		{
-			//			File f = new File("plugins/xTeamPlugin/teams.txt");
+			//			File f = new File("plugins/xTeam/teams.txt");
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
 			for (String line : data)
 			{

@@ -1,7 +1,7 @@
 package me.protocos.xteam.command;
 
 import java.io.InvalidClassException;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ICommand;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
@@ -32,7 +32,7 @@ public abstract class BaseCommand implements ICommand
 		catch (TeamException e)
 		{
 			sender.sendMessage(ChatColorUtil.negativeMessage(e.getMessage()));
-			xTeamPlugin.getInstance().getLog().info("Command execute failed for reason: " + e.getMessage());
+			xTeam.getInstance().getLog().info("Command execute failed for reason: " + e.getMessage());
 		}
 		catch (InvalidClassException e)
 		{

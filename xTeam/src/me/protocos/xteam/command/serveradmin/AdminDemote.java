@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
@@ -27,7 +27,7 @@ public class AdminDemote extends ServerAdminCommand
 		changeTeam.demote(playerName);
 		if (!changeTeam.containsPlayer(originalSender.getName()))
 			originalSender.sendMessage("You " + ChatColorUtil.negativeMessage("demoted") + " " + playerName);
-		ITeamPlayer other = xTeamPlugin.getInstance().getPlayerManager().getPlayer(playerName);
+		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		other.sendMessage("You have been " + ChatColorUtil.negativeMessage("demoted") + " by an admin");
 	}
 
@@ -36,8 +36,8 @@ public class AdminDemote extends ServerAdminCommand
 	{
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		changeTeam = xTeamPlugin.getInstance().getTeamManager().getTeam(teamName);
-		ITeamPlayer playerDemote = xTeamPlugin.getInstance().getPlayerManager().getPlayer(playerName);
+		changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		ITeamPlayer playerDemote = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(playerDemote);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkPlayerHasTeam(playerDemote);

@@ -1,5 +1,7 @@
 package me.protocos.xteam.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -47,5 +49,32 @@ public class SystemUtil
 	{
 		String os = System.getProperty("os.name").toLowerCase();
 		return (os.indexOf("win") >= 0);
+	}
+
+	public static File createFolder(String pluginName)
+	{
+		File file = new File(pluginName);
+		if (!file.exists())
+		{
+			file.mkdir();
+		}
+		return file;
+	}
+
+	public static File createFile(String pluginName)
+	{
+		File file = new File(pluginName);
+		if (!file.exists())
+		{
+			try
+			{
+				file.createNewFile();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return file;
 	}
 }

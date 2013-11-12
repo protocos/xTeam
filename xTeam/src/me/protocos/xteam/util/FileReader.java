@@ -2,7 +2,7 @@ package me.protocos.xteam.util;
 
 import java.io.*;
 import java.util.HashMap;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 
 public class FileReader
 {
@@ -154,7 +154,7 @@ public class FileReader
 		}
 		else
 		{
-			xTeamPlugin.getInstance().getLog().error("File " + this.file.getAbsoluteFile() + " not found.");
+			xTeam.getInstance().getLog().error("File " + this.file.getAbsoluteFile() + " not found.");
 			return false;
 		}
 		return true;

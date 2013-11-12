@@ -2,7 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -31,7 +31,7 @@ public class ConsoleDeleteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team disband one"));
 		//ASSERT
 		Assert.assertEquals("You disbanded one", fakeConsoleSender.getLastMessage());
-		Assert.assertFalse(xTeamPlugin.getInstance().getTeamManager().getAllTeamNames().contains("one"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getAllTeamNames().contains("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -43,8 +43,8 @@ public class ConsoleDeleteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team disband team"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("[ONE, two, red, blue]", xTeamPlugin.getInstance().getTeamManager().getAllTeamNames().toString());
-		Assert.assertTrue(xTeamPlugin.getInstance().getTeamManager().contains("one"));
+		Assert.assertEquals("[ONE, two, red, blue]", xTeam.getInstance().getTeamManager().getAllTeamNames().toString());
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -33,7 +33,7 @@ public class UserRemoveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team remove protocos"));
 		//ASSERT
 		Assert.assertEquals("You removed protocos from your team", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeamPlugin.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -46,7 +46,7 @@ public class UserRemoveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team remove kmlanglois"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeamPlugin.getInstance().getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -71,7 +71,7 @@ public class UserRemoveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team remove protocos"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeamPlugin.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test

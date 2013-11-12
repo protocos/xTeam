@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.core.exception.TeamException;
@@ -22,8 +22,8 @@ public class UserMainHelp extends UserCommand
 	{
 		ChatColor temp;
 
-		String message = (ChatColor.AQUA + "------------------ [xTeamPlugin v" + xTeamPlugin.getInstance().getVersion() + " Help] ------------------");
-		message += "\n" + (ChatColor.GRAY + "xTeamPlugin is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!");
+		String message = (ChatColor.AQUA + "------------------ [xTeam v" + xTeam.getInstance().getVersion() + " Help] ------------------");
+		message += "\n" + (ChatColor.GRAY + "xTeam is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!");
 		// line 6 begin
 		message += "\n" + (ChatColor.AQUA + "Type '" + commandID + " help [Page Number]' to get started");
 		message += "\n" + ((temp = ChatColor.GRAY) + commandID + " [command]" + ChatColor.RESET + " = command for " + temp + "TEAM PLAYERS");
@@ -60,6 +60,6 @@ public class UserMainHelp extends UserCommand
 	@Override
 	public String getDescription()
 	{
-		return "main help menu for xTeamPlugin";
+		return "main help menu for xTeam";
 	}
 }

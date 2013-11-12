@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
@@ -40,7 +40,7 @@ public class UserHeadquartersTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq"));
 		//ASSERT
 		Assert.assertEquals("You've been teleported to the team headquarters", fakePlayerSender.getLastMessage());
-		Assert.assertEquals(xTeamPlugin.getInstance().getTeamManager().getTeam("one").getHeadquarters().getLocation(), fakePlayerSender.getLocation());
+		Assert.assertEquals(xTeam.getInstance().getTeamManager().getTeam("one").getHeadquarters().getLocation(), fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 		//TODO assert everything! (including teleport)
 	}
@@ -93,7 +93,7 @@ public class UserHeadquartersTest
 	{
 		//ASSEMBLE
 		Data.LAST_ATTACKED_DELAY = 15;
-		xTeamPlugin.getInstance().getPlayerManager().getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
+		xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		UserCommand fakeCommand = new UserHeadquarters();
 		//ACT
@@ -108,7 +108,7 @@ public class UserHeadquartersTest
 	public void ShouldBeTeamUserHQRecentRequest()
 	{
 		//ASSEMBLE
-		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeamPlugin.getInstance().getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().setCurrentTask(teamPlayer, 0);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		UserCommand fakeCommand = new UserHeadquarters();
@@ -124,7 +124,7 @@ public class UserHeadquartersTest
 	public void ShouldBeTeamUserHQRecentTeleport()
 	{
 		//ASSEMBLE
-		xTeamPlugin.getInstance().getPlayerManager().getPlayer("kmlanglois").teleportTo(xTeamPlugin.getInstance().getTeamManager().getTeam("ONE"));
+		xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois").teleportTo(xTeam.getInstance().getTeamManager().getTeam("ONE"));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		UserCommand fakeCommand = new UserHeadquarters();
 		//ACT
@@ -138,7 +138,7 @@ public class UserHeadquartersTest
 	@After
 	public void takedown()
 	{
-		ITeamPlayer kmlanglois = xTeamPlugin.getInstance().getPlayerManager().getPlayer("kmlanglois");
+		ITeamPlayer kmlanglois = xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois");
 		kmlanglois.setLastAttacked(0L);
 		kmlanglois.setLastTeleported(0L);
 		kmlanglois.setReturnLocation(null);

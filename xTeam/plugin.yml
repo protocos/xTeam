@@ -1,5 +1,5 @@
 name: xTeam
-main: me.protocos.xteam.xTeam
+main: me.protocos.xteam.xTeamPlugin
 version: 1.7.8
 author: protocos
 softdepend: [PermissionsEx]

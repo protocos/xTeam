@@ -2,7 +2,7 @@ package me.protocos.xteam.command;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class PatternUserTest
 	{
 		//MOCK data
 		mockData();
-		xTeamPlugin.getInstance().registerUserCommands(xTeamPlugin.getInstance().getCommandManager());
+		xTeam.getInstance().registerUserCommands(xTeam.getInstance().getCommandManager());
 	}
 
 	@Test
@@ -25,17 +25,17 @@ public class PatternUserTest
 	{
 		baseCmd = "accept";
 		command = "accept";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "accept ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "acc";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "acpt ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "a";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "a dsafkln";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -43,17 +43,17 @@ public class PatternUserTest
 	{
 		baseCmd = "chat";
 		command = "chat";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "chat ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "chat ONOFF";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "ch ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "c";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "ch daj;nme rjkn";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -61,17 +61,17 @@ public class PatternUserTest
 	{
 		baseCmd = "create";
 		command = "create TEAM";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "create TEAM ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "cr TEAM";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "creat TEAM ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "c TEAM ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "c ";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -79,23 +79,23 @@ public class PatternUserTest
 	{
 		baseCmd = "help";
 		command = "help 1";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "help 1 ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "? 1";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "??? 1 ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "1";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "2 ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "1 dfas";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "11 ?";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -103,15 +103,15 @@ public class PatternUserTest
 	{
 		baseCmd = "hq";
 		command = "hq";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "hq ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "h";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "hq dsaf";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "h dsaf";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -119,19 +119,19 @@ public class PatternUserTest
 	{
 		baseCmd = "info";
 		command = "info";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "info ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "info PLAYERTEAM";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "info PLAYERTEAM ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "info 1";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "i";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "i ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -139,15 +139,15 @@ public class PatternUserTest
 	{
 		baseCmd = "join";
 		command = "join TEAM";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "join TEAM ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "j TEAM";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "jn TEAM ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "j TEAM sdaf";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -155,19 +155,19 @@ public class PatternUserTest
 	{
 		baseCmd = "leave";
 		command = "leave";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "leave ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "leav ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "lv ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "le";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "l";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "leave TEAM";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -175,13 +175,13 @@ public class PatternUserTest
 	{
 		baseCmd = "list";
 		command = "list";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "list ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "ls";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "list TEAM";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -189,17 +189,17 @@ public class PatternUserTest
 	{
 		baseCmd = "mainhelp";
 		command = "";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = " ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "help";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "help ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "???";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "? ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -207,23 +207,23 @@ public class PatternUserTest
 	{
 		baseCmd = "message";
 		command = "message example test message";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "message example test message ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "msg example test message";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "msg example test message ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "tell example test message";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "tell example test message ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "m example test message ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "message";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "msg ";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -231,15 +231,15 @@ public class PatternUserTest
 	{
 		baseCmd = "return";
 		command = "return";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "return ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "ret";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "r ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "return HOME ";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -247,15 +247,15 @@ public class PatternUserTest
 	{
 		baseCmd = "rally";
 		command = "rally";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "rally ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "ral";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "r ";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "rally HOME ";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@Test
@@ -263,22 +263,22 @@ public class PatternUserTest
 	{
 		baseCmd = "tele";
 		command = "tele";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "tele ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "tele PLAYER";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "tele PLAYER ";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "tp PLAYER";
-		Assert.assertTrue(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 		command = "tp PLAYER wekn;ljdkkmsnaf";
-		Assert.assertFalse(command.matches(xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 
 	@After
 	public void takedown()
 	{
-		Assert.assertTrue(xTeamPlugin.getInstance().getCommandManager().getUsage("user_" + baseCmd).replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + xTeamPlugin.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
+		Assert.assertTrue(xTeam.getInstance().getCommandManager().getUsage("user_" + baseCmd).replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + xTeam.getInstance().getCommandManager().getPattern("user_" + baseCmd)));
 	}
 }

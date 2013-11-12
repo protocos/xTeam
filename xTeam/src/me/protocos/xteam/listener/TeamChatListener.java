@@ -1,6 +1,6 @@
 package me.protocos.xteam.listener;
 
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.Team;
@@ -23,7 +23,7 @@ public class TeamChatListener implements Listener
 			World playerWorld = player.getWorld();
 			String msg = event.getMessage();
 			String format = event.getFormat();
-			ITeamPlayer teamPlayer = xTeamPlugin.getInstance().getPlayerManager().getPlayer(player);
+			ITeamPlayer teamPlayer = xTeam.getInstance().getPlayerManager().getPlayer(player);
 			if (event.isCancelled())
 			{
 				return;
@@ -44,18 +44,18 @@ public class TeamChatListener implements Listener
 					team.sendMessage("[" + ChatColorUtil.getColor(Data.NAME_COLOR) + playerName + ChatColor.RESET + "] " + msg);
 					for (String p : Data.spies)
 					{
-						ITeamPlayer spy = xTeamPlugin.getInstance().getPlayerManager().getPlayer(p);
+						ITeamPlayer spy = xTeam.getInstance().getPlayerManager().getPlayer(p);
 						if (!spy.isOnSameTeam(teamPlayer))
 							spy.sendMessage(ChatColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
 					}
-					xTeamPlugin.getInstance().getLog().info("[" + playerName + "] " + event.getMessage());
+					xTeam.getInstance().getLog().info("[" + playerName + "] " + event.getMessage());
 				}
 			}
 		}
 		catch (Exception e)
 		{
-			xTeamPlugin.getInstance().getLog().exception(e);
-			xTeamPlugin.getInstance().getLog().info("[ERROR] Exception in " + this.getClass().getName() + " class [check logs]");
+			xTeam.getInstance().getLog().exception(e);
+			xTeam.getInstance().getLog().info("[ERROR] Exception in " + this.getClass().getName() + " class [check logs]");
 		}
 	}
 }

@@ -1,0 +1,158 @@
+2013-11-12 15:13:16 java.lang.NullPointerException
+2013-11-12 15:13:27 java.lang.NullPointerException
+2013-11-12 15:13:59 java.lang.NullPointerException
+2013-11-12 15:14:26 java.lang.NullPointerException
+2013-11-12 15:14:53 java.lang.NullPointerException
+2013-11-12 15:15:49 java.lang.NullPointerException
+2013-11-12 15:15:57 java.lang.NullPointerException
+2013-11-12 15:19:22 java.lang.NullPointerException
+================================================
+java.lang.NullPointerException
+java.util.logging.LogManager$RootLogger
+log
+================================================
+2013-11-12 15:25:37 Oh no! Severe!
+================================================
+Oh no! Severe!
+================================================
+@Console: 2013-11-12 15:26:52 Oh no! Severe!
+================================================
+2013-11-12 15:26:52 Oh no! Severe!
+================================================
+@Console: 2013-11-12 15:28:59 Error occurred while enabling xTeam v1.7.8 (Is it up to date?)
+java.lang.NullPointerException
+	at me.protocos.xteam.xTeamPlugin.onEnable(xTeamPlugin.java:26)
+	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:217)
+	at org.bukkit.plugin.java.JavaPluginLoader.enablePlugin(JavaPluginLoader.java:457)
+	at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:381)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.loadPlugin(CraftServer.java:284)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.enablePlugins(CraftServer.java:266)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.l(MinecraftServer.java:315)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.f(MinecraftServer.java:292)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.a(MinecraftServer.java:252)
+	at net.minecraft.server.v1_6_R3.DedicatedServer.init(DedicatedServer.java:152)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.run(MinecraftServer.java:393)
+	at net.minecraft.server.v1_6_R3.ThreadServerApplication.run(SourceFile:583)
+14:25:11 [INFO] Server permissions file permissions.yml is empty, ignoring it
+================================================
+2013-11-12 15:28:59 Error occurred while enabling xTeam v1.7.8 (Is it up to date?)
+java.lang.NullPointerException
+	at me.protocos.xteam.xTeamPlugin.onEnable(xTeamPlugin.java:26)
+	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:217)
+	at org.bukkit.plugin.java.JavaPluginLoader.enablePlugin(JavaPluginLoader.java:457)
+	at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:381)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.loadPlugin(CraftServer.java:284)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.enablePlugins(CraftServer.java:266)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.l(MinecraftServer.java:315)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.f(MinecraftServer.java:292)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.a(MinecraftServer.java:252)
+	at net.minecraft.server.v1_6_R3.DedicatedServer.init(DedicatedServer.java:152)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.run(MinecraftServer.java:393)
+	at net.minecraft.server.v1_6_R3.ThreadServerApplication.run(SourceFile:583)
+14:25:11 [INFO] Server permissions file permissions.yml is empty, ignoring it
+================================================
+@Console: 2013-11-12 15:37:33 Error occurred while enabling xTeam v1.7.8 (Is it up to date?)
+java.lang.NullPointerException
+	at me.protocos.xteam.xTeamPlugin.onEnable(xTeamPlugin.java:26)
+	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:217)
+	at org.bukkit.plugin.java.JavaPluginLoader.enablePlugin(JavaPluginLoader.java:457)
+	at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:381)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.loadPlugin(CraftServer.java:284)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.enablePlugins(CraftServer.java:266)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.l(MinecraftServer.java:315)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.f(MinecraftServer.java:292)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.a(MinecraftServer.java:252)
+	at net.minecraft.server.v1_6_R3.DedicatedServer.init(DedicatedServer.java:152)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.run(MinecraftServer.java:393)
+	at net.minecraft.server.v1_6_R3.ThreadServerApplication.run(SourceFile:583)
+14:25:11 [INFO] Server permissions file permissions.yml is empty, ignoring it
+2013-11-12 15:39:17 Error occurred while enabling xTeam v1.7.8 (Is it up to date?)
+java.lang.NullPointerException
+	at me.protocos.xteam.xTeamPlugin.onEnable(xTeamPlugin.java:26)
+	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:217)
+	at org.bukkit.plugin.java.JavaPluginLoader.enablePlugin(JavaPluginLoader.java:457)
+	at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:381)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.loadPlugin(CraftServer.java:284)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.enablePlugins(CraftServer.java:266)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.l(MinecraftServer.java:315)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.f(MinecraftServer.java:292)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.a(MinecraftServer.java:252)
+	at net.minecraft.server.v1_6_R3.DedicatedServer.init(DedicatedServer.java:152)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.run(MinecraftServer.java:393)
+	at net.minecraft.server.v1_6_R3.ThreadServerApplication.run(SourceFile:583)
+14:25:11 [INFO] Server permissions file permissions.yml is empty, ignoring it
+2013-11-12 15:40:09 Error occurred while enabling xTeam v1.7.8 (Is it up to date?)
+java.lang.NullPointerException
+	at me.protocos.xteam.xTeamPlugin.onEnable(xTeamPlugin.java:26)
+	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:217)
+	at org.bukkit.plugin.java.JavaPluginLoader.enablePlugin(JavaPluginLoader.java:457)
+	at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:381)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.loadPlugin(CraftServer.java:284)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.enablePlugins(CraftServer.java:266)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.l(MinecraftServer.java:315)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.f(MinecraftServer.java:292)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.a(MinecraftServer.java:252)
+	at net.minecraft.server.v1_6_R3.DedicatedServer.init(DedicatedServer.java:152)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.run(MinecraftServer.java:393)
+	at net.minecraft.server.v1_6_R3.ThreadServerApplication.run(SourceFile:583)
+14:25:11 [INFO] Server permissions file permissions.yml is empty, ignoring it
+2013-11-12 15:40:44 Error occurred while enabling xTeam v1.7.8 (Is it up to date?)
+java.lang.NullPointerException
+	at me.protocos.xteam.xTeamPlugin.onEnable(xTeamPlugin.java:26)
+	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:217)
+	at org.bukkit.plugin.java.JavaPluginLoader.enablePlugin(JavaPluginLoader.java:457)
+	at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:381)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.loadPlugin(CraftServer.java:284)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.enablePlugins(CraftServer.java:266)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.l(MinecraftServer.java:315)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.f(MinecraftServer.java:292)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.a(MinecraftServer.java:252)
+	at net.minecraft.server.v1_6_R3.DedicatedServer.init(DedicatedServer.java:152)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.run(MinecraftServer.java:393)
+	at net.minecraft.server.v1_6_R3.ThreadServerApplication.run(SourceFile:583)
+14:25:11 [INFO] Server permissions file permissions.yml is empty, ignoring it
+2013-11-12 15:41:23 Error occurred while enabling xTeam v1.7.8 (Is it up to date?)
+java.lang.NullPointerException
+	at me.protocos.xteam.xTeamPlugin.onEnable(xTeamPlugin.java:26)
+	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:217)
+	at org.bukkit.plugin.java.JavaPluginLoader.enablePlugin(JavaPluginLoader.java:457)
+	at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:381)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.loadPlugin(CraftServer.java:284)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.enablePlugins(CraftServer.java:266)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.l(MinecraftServer.java:315)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.f(MinecraftServer.java:292)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.a(MinecraftServer.java:252)
+	at net.minecraft.server.v1_6_R3.DedicatedServer.init(DedicatedServer.java:152)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.run(MinecraftServer.java:393)
+	at net.minecraft.server.v1_6_R3.ThreadServerApplication.run(SourceFile:583)
+14:25:11 [INFO] Server permissions file permissions.yml is empty, ignoring it
+2013-11-12 15:41:33 Error occurred while enabling xTeam v1.7.8 (Is it up to date?)
+java.lang.NullPointerException
+	at me.protocos.xteam.xTeamPlugin.onEnable(xTeamPlugin.java:26)
+	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:217)
+	at org.bukkit.plugin.java.JavaPluginLoader.enablePlugin(JavaPluginLoader.java:457)
+	at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:381)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.loadPlugin(CraftServer.java:284)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.enablePlugins(CraftServer.java:266)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.l(MinecraftServer.java:315)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.f(MinecraftServer.java:292)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.a(MinecraftServer.java:252)
+	at net.minecraft.server.v1_6_R3.DedicatedServer.init(DedicatedServer.java:152)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.run(MinecraftServer.java:393)
+	at net.minecraft.server.v1_6_R3.ThreadServerApplication.run(SourceFile:583)
+14:25:11 [INFO] Server permissions file permissions.yml is empty, ignoring it
+2013-11-12 15:43:46 Error occurred while enabling xTeam v1.7.8 (Is it up to date?)
+java.lang.NullPointerException
+	at me.protocos.xteam.xTeamPlugin.onEnable(xTeamPlugin.java:26)
+	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:217)
+	at org.bukkit.plugin.java.JavaPluginLoader.enablePlugin(JavaPluginLoader.java:457)
+	at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:381)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.loadPlugin(CraftServer.java:284)
+	at org.bukkit.craftbukkit.v1_6_R3.CraftServer.enablePlugins(CraftServer.java:266)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.l(MinecraftServer.java:315)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.f(MinecraftServer.java:292)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.a(MinecraftServer.java:252)
+	at net.minecraft.server.v1_6_R3.DedicatedServer.init(DedicatedServer.java:152)
+	at net.minecraft.server.v1_6_R3.MinecraftServer.run(MinecraftServer.java:393)
+	at net.minecraft.server.v1_6_R3.ThreadServerApplication.run(SourceFile:583)
+14:25:11 [INFO] Server permissions file permissions.yml is empty, ignoring it

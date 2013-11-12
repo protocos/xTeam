@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -28,7 +28,7 @@ public class AdminHeadquartersTest
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		Location hq = xTeamPlugin.getInstance().getTeamManager().getTeam("one").getHeadquarters().getLocation();
+		Location hq = xTeam.getInstance().getTeamManager().getTeam("one").getHeadquarters().getLocation();
 		ServerAdminCommand fakeCommand = new AdminHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq one"));

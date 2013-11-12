@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
@@ -33,7 +33,7 @@ public class UserRemove extends UserCommand
 		if (team.isEmpty())
 		{
 			originalSender.sendMessage(teamName + " has been disbanded");
-			xTeamPlugin.getInstance().getTeamManager().removeTeam(team.getName());
+			xTeam.getInstance().getTeamManager().removeTeam(team.getName());
 		}
 	}
 
@@ -41,7 +41,7 @@ public class UserRemove extends UserCommand
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = parseCommand.get(1);
-		ITeamPlayer other = xTeamPlugin.getInstance().getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerIsTeamLeader(teamPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);

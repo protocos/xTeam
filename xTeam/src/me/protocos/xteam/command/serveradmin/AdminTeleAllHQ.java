@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.Team;
@@ -24,7 +24,7 @@ public class AdminTeleAllHQ extends ServerAdminCommand
 		Player[] players = BukkitUtil.getOnlinePlayers();
 		for (Player p : players)
 		{
-			TeamPlayer otherPlayer = xTeamPlugin.getInstance().getPlayerManager().getPlayer(p);
+			TeamPlayer otherPlayer = xTeam.getInstance().getPlayerManager().getPlayer(p);
 			Team playerTeam = otherPlayer.getTeam();
 			{
 				if (playerTeam == null)

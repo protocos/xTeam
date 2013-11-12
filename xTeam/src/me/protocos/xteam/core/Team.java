@@ -3,7 +3,7 @@ package me.protocos.xteam.core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeam;
@@ -452,19 +452,19 @@ public class Team implements ITeam
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return xTeamPlugin.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
+		return xTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
 	}
 
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return xTeamPlugin.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
+		return xTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
-		return xTeamPlugin.getInstance().getPlayerManager().getTeammatesOf(this);
+		return xTeam.getInstance().getPlayerManager().getTeammatesOf(this);
 	}
 
 	@Override
@@ -568,7 +568,7 @@ public class Team implements ITeam
 				sendMessage("Team rally has been " + ChatColorUtil.positiveMessage("refreshed"));
 			}
 		}
-		BukkitUtil.getScheduler().scheduleSyncDelayedTask(xTeamPlugin.getInstance(), new RemoveRally(), Data.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);
+		BukkitUtil.getScheduler().scheduleSyncDelayedTask(xTeam.getInstance(), new RemoveRally(), Data.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);
 	}
 
 	public boolean hasRally()

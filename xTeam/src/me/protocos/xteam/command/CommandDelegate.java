@@ -1,7 +1,7 @@
 package me.protocos.xteam.command;
 
 import java.io.File;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.core.Functions;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
@@ -53,26 +53,26 @@ public class CommandDelegate implements CommandExecutor
 			{
 				parseCommand = new CommandParser(commandID + " " + originalCommand);
 				command = manager.matchConsole(parseCommand.getCommandWithoutID());
-				xTeamPlugin.getInstance().getLog().info("console issued command: " + parseCommand.toString());
+				xTeam.getInstance().getLog().info("console issued command: " + parseCommand.toString());
 			}
 			else if (sender instanceof Player)
 			{
 				parseCommand = new CommandParser("/" + commandID + " " + originalCommand);
 				command = manager.matchPlayer(parseCommand.getCommandWithoutID());
-				xTeamPlugin.getInstance().getLog().info(sender.getName() + " issued command: " + parseCommand.toString());
+				xTeam.getInstance().getLog().info(sender.getName() + " issued command: " + parseCommand.toString());
 			}
 			if (command == null)
 			{
 				sender.sendMessage(ChatColorUtil.negativeMessage((new TeamInvalidCommandException()).getMessage()));
-				xTeamPlugin.getInstance().getLog().info("FAIL: " + (new TeamInvalidCommandException()).getMessage());
+				xTeam.getInstance().getLog().info("FAIL: " + (new TeamInvalidCommandException()).getMessage());
 			}
 			else if (command.execute(sender, parseCommand) == true)
-				Functions.writeTeamData(new File("plugins/xTeamPlugin/teams.txt"));
+				Functions.writeTeamData(new File("plugins/xTeam/teams.txt"));
 		}
 		catch (Exception e)
 		{
-			xTeamPlugin.getInstance().getLog().exception(e);
-			xTeamPlugin.getInstance().getLog().info("[ERROR] Exception in xTeamPlugin onCommand() class [check logs]");
+			xTeam.getInstance().getLog().exception(e);
+			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onCommand() class [check logs]");
 		}
 		return true;
 	}

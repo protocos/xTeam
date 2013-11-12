@@ -1,7 +1,7 @@
 package me.protocos.xteam.core;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.*;
 import org.bukkit.Location;
 import org.bukkit.Server;
@@ -24,7 +24,7 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		World world = new FakeWorld();
-		TeamPlayer player = xTeamPlugin.getInstance().getPlayerManager().getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		TeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
 		TeamWolf wolf = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(world, 200, 64, 0)));
 		//ACT
 		double distance = player.getDistanceTo(wolf);
@@ -86,7 +86,7 @@ public class TeamWolfTest
 		//ACT
 		Team team = wolf.getTeam();
 		//ASSERT
-		Assert.assertEquals(xTeamPlugin.getInstance().getTeamManager().getTeam("one"), team);
+		Assert.assertEquals(xTeam.getInstance().getTeamManager().getTeam("one"), team);
 	}
 	@Test
 	public void ShouldBeGetWorld()

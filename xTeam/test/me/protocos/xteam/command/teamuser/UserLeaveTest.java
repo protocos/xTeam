@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -31,8 +31,8 @@ public class UserLeaveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals("You left red", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeamPlugin.getInstance().getTeamManager().contains("red"));
-		Assert.assertFalse(xTeamPlugin.getInstance().getTeamManager().getTeam("red").containsPlayer("strandedhelix"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("red"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("red").containsPlayer("strandedhelix"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -45,7 +45,7 @@ public class UserLeaveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals("You left two", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeamPlugin.getInstance().getTeamManager().contains("two"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("two"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -58,7 +58,7 @@ public class UserLeaveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeamPlugin.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -71,7 +71,7 @@ public class UserLeaveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeamPlugin.getInstance().getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test

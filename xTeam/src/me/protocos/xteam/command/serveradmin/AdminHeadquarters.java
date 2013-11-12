@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.action.Requirements;
@@ -31,7 +31,7 @@ public class AdminHeadquarters extends ServerAdminCommand
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		teamName = parseCommand.get(1);
-		changeTeam = xTeamPlugin.getInstance().getTeamManager().getTeam(teamName);
+		changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkTeamHasHeadquarters(changeTeam);
 	}

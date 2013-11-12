@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -21,9 +21,9 @@ public class UserHelpTest
 		//MOCK data
 		mockData();
 		Data.LOCATIONS_ENABLED = false;
-		xTeamPlugin.getInstance().registerUserCommands(xTeamPlugin.getInstance().getCommandManager());
-		xTeamPlugin.getInstance().registerAdminCommands(xTeamPlugin.getInstance().getCommandManager());
-		xTeamPlugin.getInstance().registerLeaderCommands(xTeamPlugin.getInstance().getCommandManager());
+		xTeam.getInstance().registerUserCommands(xTeam.getInstance().getCommandManager());
+		xTeam.getInstance().registerAdminCommands(xTeam.getInstance().getCommandManager());
+		xTeam.getInstance().registerLeaderCommands(xTeam.getInstance().getCommandManager());
 	}
 
 	@Test
@@ -36,8 +36,8 @@ public class UserHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help 1"));
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 1/3] {optional} [required] pick/one\n" +
-				"/team {help} - main help menu for xTeamPlugin\n" +
-				"/team {help} [Page] - user help menu for xTeamPlugin\n" +
+				"/team {help} - main help menu for xTeam\n" +
+				"/team {help} [Page] - user help menu for xTeam\n" +
 				"/team info {Team/Player} - get team info or other team's info\n" +
 				"/team list - list all teams on the server\n" +
 				"/team create [Name] - create a team\n" +

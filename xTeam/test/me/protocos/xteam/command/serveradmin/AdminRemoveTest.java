@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -32,14 +32,14 @@ public class AdminRemoveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team remove one protocos"));
 		//ASSERT
 		Assert.assertEquals("You removed protocos from one", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeamPlugin.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeServerAdminRemoveExecuteLastPlayer()
 	{
 		//ASSEMBLE
-		xTeamPlugin.getInstance().getTeamManager().getTeam("one").removePlayer("protocos");
+		xTeam.getInstance().getTeamManager().getTeam("one").removePlayer("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		ServerAdminCommand fakeCommand = new AdminRemove();
 		//ACT
@@ -47,7 +47,7 @@ public class AdminRemoveTest
 		//ASSERT
 		Assert.assertEquals("You removed kmlanglois from one", fakePlayerSender.getMessage(0));
 		Assert.assertEquals("one has been disbanded", fakePlayerSender.getMessage(1));
-		Assert.assertFalse(xTeamPlugin.getInstance().getTeamManager().contains("one"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -60,7 +60,7 @@ public class AdminRemoveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team remove one Lonely"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeamPlugin.getInstance().getTeamManager().getTeam("one").containsPlayer("Lonely"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -73,7 +73,7 @@ public class AdminRemoveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team remove one newbie"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeamPlugin.getInstance().getTeamManager().getTeam("one").containsPlayer("newbie"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("newbie"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -86,7 +86,7 @@ public class AdminRemoveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team remove one kmlanglois"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeamPlugin.getInstance().getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
@@ -23,11 +23,11 @@ public class UserLeave extends UserCommand
 	{
 		team.removePlayer(teamPlayer.getName());
 		if (team.size() == 0 && !team.isDefaultTeam())
-			xTeamPlugin.getInstance().getTeamManager().removeTeam(team.getName());
+			xTeam.getInstance().getTeamManager().removeTeam(team.getName());
 		Data.chatStatus.remove(teamPlayer.getName());
 		for (String teammate : team.getPlayers())
 		{
-			ITeamPlayer mate = xTeamPlugin.getInstance().getPlayerManager().getPlayer(teammate);
+			ITeamPlayer mate = xTeam.getInstance().getPlayerManager().getPlayer(teammate);
 			if (mate.isOnline())
 				mate.sendMessage(teamPlayer.getName() + " " + ChatColorUtil.negativeMessage("left") + " your team");
 		}

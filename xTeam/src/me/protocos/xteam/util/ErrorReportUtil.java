@@ -1,6 +1,7 @@
 package me.protocos.xteam.util;
 
 import java.util.Properties;
+import java.util.logging.LogRecord;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -36,7 +37,17 @@ public class ErrorReportUtil
 
 	public void sendErrorReport(Exception e)
 	{
-		ExceptionEmail email = ExceptionEmail.parse(e, pluginPackageID);
+		sendErrorReport(e.getStackTrace()[0].toString() + "\n" + e.getMessage());
+	}
+
+	public void sendErrorReport(LogRecord record)
+	{
+		sendErrorReport(record.getMessage());
+	}
+
+	public void sendErrorReport(String errorReport)
+	{
+		ExceptionEmail email = ExceptionEmail.parse(errorReport, pluginPackageID);
 		final String strAppend1 = CommonUtil.hexString(CommonUtil.lstatic);
 		try
 		{

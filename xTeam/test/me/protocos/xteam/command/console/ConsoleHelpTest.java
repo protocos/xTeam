@@ -2,7 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -19,7 +19,7 @@ public class ConsoleHelpTest
 	{
 		//MOCK data
 		mockData();
-		xTeamPlugin.getInstance().registerConsoleCommands(xTeamPlugin.getInstance().getCommandManager());
+		xTeam.getInstance().registerConsoleCommands(xTeam.getInstance().getCommandManager());
 		fakeConsoleSender = new FakeConsoleSender();
 	}
 
@@ -32,10 +32,10 @@ public class ConsoleHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team"));
 		//ASSERT
 		Assert.assertEquals("Console Commands: {optional} [required] pick/one\n" +
-				"/team debug [Option] - Console debug menu for xTeamPlugin\n" +
+				"/team debug [Option] - Console debug menu for xTeam\n" +
 				"/team demote [Team] [Player] - demote team admin\n" +
 				"/team disband [Team] - disband a team\n" +
-				"/team {help} - console help menu for xTeamPlugin\n" +
+				"/team {help} - console help menu for xTeam\n" +
 				"/team info [Player/Team] - get info on player/team\n" +
 				"/team list - list all teams on the server\n" +
 				"/team promote [Team] [Player] - promote player to admin\n" +

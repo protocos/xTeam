@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -31,7 +31,7 @@ public class UserDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team disband"));
 		//ASSERT
 		Assert.assertEquals("You disbanded your team", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeamPlugin.getInstance().getTeamManager().contains("one"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -44,7 +44,7 @@ public class UserDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team disband"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeamPlugin.getInstance().getTeamManager().contains("one"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -57,7 +57,7 @@ public class UserDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team disband"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeamPlugin.getInstance().getTeamManager().contains("one"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

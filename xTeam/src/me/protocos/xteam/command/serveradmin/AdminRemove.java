@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.util.StringUtil.*;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
@@ -32,7 +32,7 @@ public class AdminRemove extends ServerAdminCommand
 		if (changeTeam.isEmpty())
 		{
 			originalSender.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
-			xTeamPlugin.getInstance().getTeamManager().removeTeam(changeTeam.getName());
+			xTeam.getInstance().getTeamManager().removeTeam(changeTeam.getName());
 		}
 	}
 
@@ -41,7 +41,7 @@ public class AdminRemove extends ServerAdminCommand
 	{
 		teamName = parseCommand.get(1);
 		playerName = parseCommand.get(2);
-		changePlayer = xTeamPlugin.getInstance().getPlayerManager().getPlayer(playerName);
+		changePlayer = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(changePlayer);
 		Requirements.checkPlayerHasTeam(changePlayer);
 		Requirements.checkPlayerLeaderLeaving(changePlayer);

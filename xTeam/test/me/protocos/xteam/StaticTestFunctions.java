@@ -28,8 +28,8 @@ public class StaticTestFunctions
 	{
 		InviteHandler.clear();
 		TeleportScheduler.getInstance().clearTasks();
-		xTeamPlugin.getInstance().getTeamManager().clearData();
-		xTeamPlugin.getInstance().getPlayerManager().clearData();
+		xTeam.getInstance().getTeamManager().clearData();
+		xTeam.getInstance().getPlayerManager().clearData();
 		Data.chatStatus.clear();
 		Data.spies.clear();
 		Data.lastCreated.clear();
@@ -56,20 +56,20 @@ public class StaticTestFunctions
 		//		{
 		//			e.printStackTrace();
 		//		}
-		initData(xTeamPlugin.getInstance());
+		initData(xTeam.getInstance());
 
 		Team team1 = Team.generateTeamFromProperties("name:ONE tag:TeamAwesome world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois");
-		xTeamPlugin.getInstance().getTeamManager().addTeam(team1);
+		xTeam.getInstance().getTeamManager().addTeam(team1);
 		Team team2 = Team.generateTeamFromProperties("name:two world:world open:false leader:mastermind timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 players:mastermind admins:mastermind");
-		xTeamPlugin.getInstance().getTeamManager().addTeam(team2);
+		xTeam.getInstance().getTeamManager().addTeam(team2);
 		/////////////////////////////////////////////////
 		Data.DEFAULT_TEAM_NAMES.add("red");
 		Data.DEFAULT_TEAM_NAMES.add("blue");
 		/////////////////////////////////////////////////
 		Team team3 = Team.generateTeamFromProperties("name:red tag:REDONE world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:strandedhelix");
-		xTeamPlugin.getInstance().getTeamManager().addTeam(team3);
+		xTeam.getInstance().getTeamManager().addTeam(team3);
 		Team team4 = Team.generateTeamFromProperties("name:blue world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:");
-		xTeamPlugin.getInstance().getTeamManager().addTeam(team4);
+		xTeam.getInstance().getTeamManager().addTeam(team4);
 
 		//MOCK players
 		mockPlayers(fakeServer);

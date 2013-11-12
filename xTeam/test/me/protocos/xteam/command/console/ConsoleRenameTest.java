@@ -2,7 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -34,7 +34,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team rename one newname"));
 		//ASSERT
 		Assert.assertEquals("You renamed the team to newname", fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("newname", xTeamPlugin.getInstance().getTeamManager().getTeam("newname").getName());
+		Assert.assertEquals("newname", xTeam.getInstance().getTeamManager().getTeam("newname").getName());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -46,7 +46,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team rename two one"));
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -58,7 +58,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team rename three one"));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@Test
@@ -71,7 +71,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team rename two Ã"));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeamPlugin.getInstance().getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

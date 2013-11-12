@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -34,7 +34,7 @@ public class UserSetRallyTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team setrally"));
 		//ASSERT
 		Assert.assertEquals("You set the team rally point", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeamPlugin.getInstance().getTeamManager().getTeam("one").hasRally());
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").hasRally());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -68,7 +68,7 @@ public class UserSetRallyTest
 	public void ShouldBeSetRallyAlreadySet()
 	{
 		//ASSEMBLE
-		Team team = xTeamPlugin.getInstance().getTeamManager().getTeam("one");
+		Team team = xTeam.getInstance().getTeamManager().getTeam("one");
 		team.setRally(team.getHeadquarters().getLocation());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserSetRally();
