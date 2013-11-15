@@ -8,7 +8,7 @@ import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.Locatable;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
@@ -121,7 +121,7 @@ public class UserTeleportTest
 	public void ShouldBeTeamUserTeleExecuteRecentAttacked()
 	{
 		//ASSEMBLE
-		Data.LAST_ATTACKED_DELAY = 15;
+		Configuration.LAST_ATTACKED_DELAY = 15;
 		xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
@@ -183,10 +183,40 @@ public class UserTeleportTest
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
+	@Test
+	public void ShouldBeTeamUserTeleExecutePlayerNeverPlayed()
+	{
+		//ASSEMBLE
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		Location before = fakePlayerSender.getLocation();
+		UserCommand fakeCommand = new UserTeleport();
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele neverplayed"));
+		//ASSERT
+		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals(before, fakePlayerSender.getLocation());
+		Assert.assertFalse(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeTeamUserTeleExecutePlayerOffline()
+	{
+		//ASSEMBLE
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
+		Location before = fakePlayerSender.getLocation();
+		UserCommand fakeCommand = new UserTeleport();
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele teammate"));
+		//ASSERT
+		Assert.assertEquals((new TeamPlayerOfflineException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals(before, fakePlayerSender.getLocation());
+		Assert.assertFalse(fakeExecuteResponse);
+	}
+
 	@After
 	public void takedown()
 	{
-		Data.LAST_ATTACKED_DELAY = 0;
+		Configuration.LAST_ATTACKED_DELAY = 0;
 		TeleportScheduler.getInstance().clearTasks();
 	}
 }

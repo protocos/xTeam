@@ -7,7 +7,7 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.Headquarters;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamHqSetRecentlyException;
@@ -87,7 +87,7 @@ public class UserSetHeadquartersTest
 	public void ShouldBeTeamAdminSetHQExecuteRecentlySet()
 	{
 		//ASSEMBLE
-		Data.HQ_INTERVAL = 1;
+		Configuration.HQ_INTERVAL = 1;
 		xTeam.getInstance().getTeamManager().getTeam("one").setTimeLastSet(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Headquarters oldHQ = xTeam.getInstance().getTeamManager().getTeam("one").getHeadquarters();
@@ -103,6 +103,6 @@ public class UserSetHeadquartersTest
 	public void takedown()
 	{
 		InviteHandler.clear();
-		Data.HQ_INTERVAL = 0;
+		Configuration.HQ_INTERVAL = 0;
 	}
 }

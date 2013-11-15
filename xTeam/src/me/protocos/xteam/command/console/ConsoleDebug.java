@@ -5,7 +5,7 @@ import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
@@ -26,13 +26,13 @@ public class ConsoleDebug extends ConsoleCommand
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
 		if (subCommand.equalsIgnoreCase("chat"))
-			originalSender.sendMessage("Chat statuses: " + Data.chatStatus.toString());
+			originalSender.sendMessage("Chat statuses: " + Configuration.chatStatus.toString());
 		else if (subCommand.equalsIgnoreCase("invites"))
 			originalSender.sendMessage("Invites: " + InviteHandler.data());
 		else if (subCommand.equalsIgnoreCase("spies"))
-			originalSender.sendMessage("Spies: " + Data.spies.toString());
+			originalSender.sendMessage("Spies: " + Configuration.spies.toString());
 		else if (subCommand.equalsIgnoreCase("created"))
-			originalSender.sendMessage("Last created: " + Data.lastCreated.toString());
+			originalSender.sendMessage("Last created: " + Configuration.lastCreated.toString());
 		else if (subCommand.equalsIgnoreCase("players"))
 			originalSender.sendMessage("Players: \n" + xTeam.getInstance().getPlayerManager().toString());
 		else if (subCommand.equalsIgnoreCase("teams"))
@@ -67,7 +67,7 @@ public class ConsoleDebug extends ConsoleCommand
 	private String printPermissions()
 	{
 		String output = "";
-		List<Permission> perms = xTeam.getInstance().getDescription().getPermissions();
+		List<Permission> perms = xTeam.getInstance().getPermissions();
 		for (Permission perm : perms)
 		{
 			output += perm.getName() + " - " + perm.getDescription() + "\n";

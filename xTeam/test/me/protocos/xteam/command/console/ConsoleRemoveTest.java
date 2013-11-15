@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.core.exception.TeamPlayerNeverPlayedException;
@@ -92,6 +92,6 @@ public class ConsoleRemoveTest
 	@After
 	public void takedown()
 	{
-		Data.ALPHA_NUM = false;
+		Configuration.ALPHA_NUM = false;
 	}
 }

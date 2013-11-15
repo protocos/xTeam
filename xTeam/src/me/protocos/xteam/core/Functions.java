@@ -111,7 +111,7 @@ public class Functions
 					players.add(s[i].replaceAll("~", ""));
 				}
 			}
-			if (StringUtil.toLowerCase(Data.DEFAULT_TEAM_NAMES).contains(teamName.toLowerCase()))
+			if (StringUtil.toLowerCase(Configuration.DEFAULT_TEAM_NAMES).contains(teamName.toLowerCase()))
 			{
 				for (Team team : xTeam.getInstance().getTeamManager().getDefaultTeams())
 				{
@@ -178,7 +178,7 @@ public class Functions
 	//	}
 	//	public static void updatePlayers()
 	//	{
-	//		if (Data.HIDE_NAMES && Data.SPOUT_ENABLED)
+	//		if (Configuration.HIDE_NAMES && Configuration.SPOUT_ENABLED)
 	//		{
 	//			SpoutUtil.hidePlayerNames(BukkitUtil.getOnlinePlayers());
 	//			for (Player player1 : BukkitUtil.getOnlinePlayers())

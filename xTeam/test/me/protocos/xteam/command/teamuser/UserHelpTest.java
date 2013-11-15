@@ -2,12 +2,10 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamInvalidPageException;
 import org.junit.After;
 import org.junit.Before;
@@ -20,10 +18,6 @@ public class UserHelpTest
 	{
 		//MOCK data
 		mockData();
-		Data.LOCATIONS_ENABLED = false;
-		xTeam.getInstance().registerUserCommands(xTeam.getInstance().getCommandManager());
-		xTeam.getInstance().registerAdminCommands(xTeam.getInstance().getCommandManager());
-		xTeam.getInstance().registerLeaderCommands(xTeam.getInstance().getCommandManager());
 	}
 
 	@Test

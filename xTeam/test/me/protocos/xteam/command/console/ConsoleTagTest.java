@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamNameConflictsWithNameException;
 import me.protocos.xteam.core.exception.TeamNameNotAlphaException;
@@ -65,7 +65,7 @@ public class ConsoleTagTest
 	public void ShouldBeConsoleTagExecutnNameNotAlpha()
 	{
 		//ASSEMBLE
-		Data.ALPHA_NUM = true;
+		Configuration.ALPHA_NUM = true;
 		ConsoleCommand fakeCommand = new ConsoleTag();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team tag two Ã"));
@@ -77,6 +77,6 @@ public class ConsoleTagTest
 	@After
 	public void takedown()
 	{
-		Data.ALPHA_NUM = false;
+		Configuration.ALPHA_NUM = false;
 	}
 }

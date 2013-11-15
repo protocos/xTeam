@@ -1,9 +1,10 @@
 package me.protocos.xteam;
 
+import junit.framework.Assert;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.fakeobjects.*;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.util.BukkitUtil;
@@ -22,51 +23,38 @@ public class StaticTestFunctions
 	public void ShouldBeMockData()
 	{
 		mockData();
+		Assert.assertNotNull(xTeam.getInstance().getLog());
 	}
 
 	private static void initData(TeamPlugin teamPlugin)
 	{
 		InviteHandler.clear();
 		TeleportScheduler.getInstance().clearTasks();
+		Configuration.chatStatus.clear();
+		Configuration.spies.clear();
+		Configuration.lastCreated.clear();
+		teamPlugin.onLoad();
 		xTeam.getInstance().getTeamManager().clearData();
 		xTeam.getInstance().getPlayerManager().clearData();
-		Data.chatStatus.clear();
-		Data.spies.clear();
-		Data.lastCreated.clear();
-		teamPlugin.initFileSystem("test");
 	}
 
 	public static void mockData()
 	{
-		//MOCK variables
+		//MOCK Server
 		FakeServer fakeServer = new FakeServer();
-
-		//MOCK server
 		BukkitUtil.setServer(fakeServer);
-		//		try
-		//		{
-		//			InputStream fileInput = new FileInputStream("plugin.yml");
-		//			PluginDescriptionFile pdf = new PluginDescriptionFile(fileInput);
-		//		}
-		//		catch (FileNotFoundException e)
-		//		{
-		//			e.printStackTrace();
-		//		}
-		//		catch (InvalidDescriptionException e)
-		//		{
-		//			e.printStackTrace();
-		//		}
-		initData(xTeam.getInstance());
+		TeamPlugin teamPlugin = new FakeTeamPlugin();
+		initData(teamPlugin);
 
 		Team team1 = Team.generateTeamFromProperties("name:ONE tag:TeamAwesome world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois");
 		xTeam.getInstance().getTeamManager().addTeam(team1);
 		Team team2 = Team.generateTeamFromProperties("name:two world:world open:false leader:mastermind timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 players:mastermind admins:mastermind");
 		xTeam.getInstance().getTeamManager().addTeam(team2);
 		/////////////////////////////////////////////////
-		Data.DEFAULT_TEAM_NAMES.add("red");
-		Data.DEFAULT_TEAM_NAMES.add("blue");
+		Configuration.DEFAULT_TEAM_NAMES.add("red");
+		Configuration.DEFAULT_TEAM_NAMES.add("blue");
 		/////////////////////////////////////////////////
-		Team team3 = Team.generateTeamFromProperties("name:red tag:REDONE world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:strandedhelix");
+		Team team3 = Team.generateTeamFromProperties("name:red tag:REDONE world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:strandedhelix,teammate");
 		xTeam.getInstance().getTeamManager().addTeam(team3);
 		Team team4 = Team.generateTeamFromProperties("name:blue world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:");
 		xTeam.getInstance().getTeamManager().addTeam(team4);
@@ -109,9 +97,11 @@ public class StaticTestFunctions
 		FakePlayer twoOnline = new FakePlayer("two", true, true, 20, mockLocation);
 		FakeOfflinePlayer twoOffline = new FakeOfflinePlayer("two", true, true, true);
 		FakeOfflinePlayer thrOffline = new FakeOfflinePlayer("thr", true, false, true);
+		FakeOfflinePlayer neverPlayedOffline = new FakeOfflinePlayer("neverplayed", false, false, false);
+		FakeOfflinePlayer teammateOffline = new FakeOfflinePlayer("teammate", false, false, true);
 
 		//FAKE onlinePlayers
 		server.setOnlinePlayers(new Player[] { protocosOnline, kmlangloisOnline, mastermindOnline, LonelyOnline, oneOnline, twoOnline });
-		server.setOfflinePlayers(new OfflinePlayer[] { protocosOffline, kmlangloisOffline, mastermindOffline, LonelyOffline, strandedhelixOffline, kestraOffline, newbieOffline, threeOffline, oneOffline, twoOffline, thrOffline });
+		server.setOfflinePlayers(new OfflinePlayer[] { protocosOffline, kmlangloisOffline, mastermindOffline, LonelyOffline, strandedhelixOffline, kestraOffline, newbieOffline, threeOffline, oneOffline, twoOffline, thrOffline, teammateOffline, neverPlayedOffline });
 	}
 }

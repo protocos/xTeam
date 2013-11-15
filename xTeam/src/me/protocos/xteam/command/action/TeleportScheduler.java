@@ -6,7 +6,7 @@ import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
@@ -111,9 +111,9 @@ public class TeleportScheduler
 		countWaitTime.put(teamPlayer, 0);
 		final Location currentLocation = teamPlayer.getLocation();
 		teamPlayer.sendMessage(ChatColorUtil.negativeMessage("You cannot teleport with enemies nearby"));
-		teamPlayer.sendMessage(ChatColorUtil.negativeMessage("You must wait " + Data.TELE_DELAY + " seconds"));
+		teamPlayer.sendMessage(ChatColorUtil.negativeMessage("You must wait " + Configuration.TELE_DELAY + " seconds"));
 		Runnable teleportWait = new TeleportWait(teamPlayer, toLocatable, currentLocation);
-		setCurrentTask(teamPlayer, taskScheduler.scheduleSyncRepeatingTask(xTeam.getInstance(), teleportWait, CommonUtil.LONG_ZERO, 2L));
+		setCurrentTask(teamPlayer, taskScheduler.scheduleSyncRepeatingTask(BukkitUtil.getxTeam(), teleportWait, CommonUtil.LONG_ZERO, 2L));
 	}
 
 	private void teleportTo(final TeamPlayer teamPlayer, final ILocatable toLocatable)
@@ -130,7 +130,7 @@ public class TeleportScheduler
 		{
 			teamPlayer.setReturnLocation(teamPlayer.getLocation());
 			Runnable teleRefreshMessage = new TeleportRefreshMessage(teamPlayer);
-			taskScheduler.scheduleSyncDelayedTask(xTeam.getInstance(), teleRefreshMessage, Data.TELE_REFRESH_DELAY * BukkitUtil.ONE_SECOND_IN_TICKS);
+			taskScheduler.scheduleSyncDelayedTask(BukkitUtil.getxTeam(), teleRefreshMessage, Configuration.TELE_REFRESH_DELAY * BukkitUtil.ONE_SECOND_IN_TICKS);
 			teamPlayer.setLastTeleported(System.currentTimeMillis());
 		}
 		teamPlayer.teleport(toLocatable.getLocation());
@@ -139,7 +139,7 @@ public class TeleportScheduler
 
 	private boolean hasNearbyEnemies(TeamPlayer entity)
 	{
-		List<Entity> entities = entity.getNearbyEntities(Data.ENEMY_PROX);
+		List<Entity> entities = entity.getNearbyEntities(Configuration.ENEMY_PROX);
 		for (Entity e : entities)
 		{
 			if (e instanceof Monster
@@ -205,7 +205,7 @@ public class TeleportScheduler
 		@Override
 		public void run()
 		{
-			if (Data.TELE_REFRESH_DELAY > 0)
+			if (Configuration.TELE_REFRESH_DELAY > 0)
 				fromEntity.sendMessage("Teleport " + ChatColorUtil.positiveMessage("refreshed"));
 		}
 	}
@@ -226,7 +226,7 @@ public class TeleportScheduler
 		@Override
 		public void run()
 		{
-			if ((System.currentTimeMillis() - fromEntity.getLastAttacked()) / 1000 < Data.LAST_ATTACKED_DELAY)
+			if ((System.currentTimeMillis() - fromEntity.getLastAttacked()) / 1000 < Configuration.LAST_ATTACKED_DELAY)
 			{
 				fromEntity.sendMessage("Teleport " + ChatColorUtil.negativeMessage("cancelled") + "! You were attacked!");
 				countWaitTime.remove(fromEntity);
@@ -242,7 +242,7 @@ public class TeleportScheduler
 			if (hasCurrentTask(fromEntity))
 			{
 				int temp = countWaitTime.remove(fromEntity);
-				if (temp == Data.TELE_DELAY * 10)
+				if (temp == Configuration.TELE_DELAY * 10)
 				{
 					teleportTo(fromEntity, toLocatable);
 					removeCurrentTask(fromEntity);

@@ -26,15 +26,15 @@ public class ExceptionEmail
 		return body;
 	}
 
-	public static ExceptionEmail parse(String error, String pluginPackageID)
+	public static ExceptionEmail parse(Exception error, String pluginPackageID)
 	{
 		ExceptionEmail email = new ExceptionEmail();
-		String[] errorLines = error.split("\n");
-		email.subject = errorLines[0];
-		email.body = "[ERROR] " + errorLines[1];
-		for (String elem : errorLines)
+		StackTraceElement[] errorLines = error.getStackTrace();
+		email.subject = "Exception: " + error.toString() + " from anonymous user: " + SystemUtil.getUUID();
+		email.body = "[ERROR] " + error.toString();
+		for (StackTraceElement elem : errorLines)
 		{
-			if (elem.contains(pluginPackageID))
+			if (elem.toString().contains(pluginPackageID))
 			{
 				email.body += ("\n\t@ " + elem.toString().replaceAll(pluginPackageID, ""));
 			}

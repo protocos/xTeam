@@ -19,6 +19,7 @@ public class PatternConsoleTest
 		mockData();
 		xTeam.getInstance().registerConsoleCommands(xTeam.getInstance().getCommandManager());
 	}
+
 	@Test
 	public void ShouldBeConsoleDelete()
 	{
@@ -34,6 +35,7 @@ public class PatternConsoleTest
 		command = "d TEAM";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeConsoleDemote()
 	{
@@ -53,6 +55,7 @@ public class PatternConsoleTest
 		command = "demote ";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeConsoleHelp()
 	{
@@ -76,6 +79,7 @@ public class PatternConsoleTest
 		command = "1";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeConsoleInfo()
 	{
@@ -89,6 +93,7 @@ public class PatternConsoleTest
 		command = "info ";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeConsoleList()
 	{
@@ -114,6 +119,7 @@ public class PatternConsoleTest
 		command = "ls 1";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeConsolePromote()
 	{
@@ -135,6 +141,7 @@ public class PatternConsoleTest
 		command = "promote ";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeConsoleReload()
 	{
@@ -150,6 +157,7 @@ public class PatternConsoleTest
 		command = "re 1";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeConsoleRemove()
 	{
@@ -167,6 +175,7 @@ public class PatternConsoleTest
 		command = "r TEAM PLAYER";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeConsoleRename()
 	{
@@ -190,6 +199,7 @@ public class PatternConsoleTest
 		command = "re";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeConsoleSet()
 	{
@@ -207,6 +217,7 @@ public class PatternConsoleTest
 		command = "se ";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeConsoleSetLeader()
 	{
@@ -224,6 +235,7 @@ public class PatternConsoleTest
 		command = "se ";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeConsoleTeleAllHQ()
 	{
@@ -232,11 +244,14 @@ public class PatternConsoleTest
 		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 		command = "teleallhq ";
 		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
+		command = "teleah";
+		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 		command = "t";
-		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 		command = "tele ";
-		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamConsoleOpen()
 	{
@@ -254,6 +269,7 @@ public class PatternConsoleTest
 		command = "open TEAM sdfhkabkl";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamConsoleTag()
 	{
@@ -273,6 +289,7 @@ public class PatternConsoleTest
 		command = "tg TEAM TAG sdfhkabkl";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
 	}
+
 	@After
 	public void takedown()
 	{

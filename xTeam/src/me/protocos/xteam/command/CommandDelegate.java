@@ -25,15 +25,7 @@ public class CommandDelegate implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandID, String[] args)
 	{
-		//		List<Permission> perms = pdf.getPermissions();
-		//		for (Iterator iterator = perms.iterator(); iterator.hasNext();)
-		//		{
-		//			Permission permission = (Permission) iterator.next();
-		//			//			System.out.println(permission.getName());
-		//			if (sender instanceof Player)
-		//				System.out.println(sender.getName() + ": " + PermissionUtil.hasPermission(sender, permission.getName()) + " - " + permission.getName());
-		//		}
-		//		if (Data.LOCATIONS_ENABLED)
+		//		if (Configuration.LOCATIONS_ENABLED)
 		//		{
 		//			// /////////////////////||||||||\\\\\\\\\\\\\\\\\\\\\
 		//			// //////////////////              \\\\\\\\\\\\\\\\\\
@@ -64,7 +56,7 @@ public class CommandDelegate implements CommandExecutor
 			if (command == null)
 			{
 				sender.sendMessage(ChatColorUtil.negativeMessage((new TeamInvalidCommandException()).getMessage()));
-				xTeam.getInstance().getLog().info("FAIL: " + (new TeamInvalidCommandException()).getMessage());
+				xTeam.getInstance().getLog().info("Command execute failed for reason: " + (new TeamInvalidCommandException()).getMessage());
 			}
 			else if (command.execute(sender, parseCommand) == true)
 				Functions.writeTeamData(new File("plugins/xTeam/teams.txt"));

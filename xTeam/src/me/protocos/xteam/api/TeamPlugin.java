@@ -1,49 +1,58 @@
 package me.protocos.xteam.api;
 
 import java.util.List;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.util.ILog;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.TeamManager;
-import me.protocos.xteam.util.ConfigLoader;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class TeamPlugin extends JavaPlugin
 {
+	protected xTeam xteam;
+
 	public TeamPlugin()
 	{
 		super();
+		xteam = xTeam.getInstance();
 	}
 
-	public abstract ILog getLog();
-
-	public abstract String getVersion();
+	public abstract String getFolder();
 
 	public abstract String getPluginName();
 
-	public abstract ICommandManager getCommandManager();
-
-	public abstract CommandExecutor getCommandExecutor();
-
-	public abstract TeamManager getTeamManager();
-
-	public abstract PlayerManager getPlayerManager();
-
-	public abstract ConfigLoader getConfigLoader();
-
-	public abstract void initFileSystem(String path);
+	public abstract String getVersion();
 
 	public abstract List<Permission> getPermissions();
 
-	public abstract void registerConsoleCommands(ICommandManager manager);
+	public abstract ILog getLog();
 
-	public abstract void registerServerAdminCommands(ICommandManager manager);
+	public abstract void onLoad();
 
-	public abstract void registerLeaderCommands(ICommandManager manager);
+	public abstract void onEnable();
 
-	public abstract void registerAdminCommands(ICommandManager manager);
+	public abstract void onDisable();
 
-	public abstract void registerUserCommands(ICommandManager manager);
+	public ICommandManager getCommandManager()
+	{
+		return xteam.getCommandManager();
+	}
+
+	public CommandExecutor getCommandExecutor()
+	{
+		return xteam.getCommandExecutor();
+	}
+
+	public TeamManager getTeamManager()
+	{
+		return xteam.getTeamManager();
+	}
+
+	public PlayerManager getPlayerManager()
+	{
+		return xteam.getPlayerManager();
+	}
 }

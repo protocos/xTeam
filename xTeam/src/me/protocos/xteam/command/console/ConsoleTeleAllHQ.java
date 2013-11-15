@@ -45,7 +45,7 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("teleallhq") + OPTIONAL_WHITE_SPACE;
+		return patternOneOrMore("tele") + patternOneOrMore("all") + patternOneOrMore("hq") + OPTIONAL_WHITE_SPACE;
 	}
 
 	@Override

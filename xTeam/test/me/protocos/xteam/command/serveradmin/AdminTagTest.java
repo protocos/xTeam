@@ -7,7 +7,7 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamNameConflictsWithNameException;
 import me.protocos.xteam.core.exception.TeamNameNotAlphaException;
@@ -53,7 +53,7 @@ public class AdminTagTest
 	public void ShouldBeServerAdminTagExecuteTeamNotAlpha()
 	{
 		//ASSEMBLE
-		Data.ALPHA_NUM = true;
+		Configuration.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		ServerAdminCommand fakeCommand = new AdminTag();
 		//ACT
@@ -79,6 +79,6 @@ public class AdminTagTest
 	@After
 	public void takedown()
 	{
-		Data.ALPHA_NUM = false;
+		Configuration.ALPHA_NUM = false;
 	}
 }

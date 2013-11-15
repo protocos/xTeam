@@ -8,7 +8,7 @@ import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
@@ -95,7 +95,7 @@ public class UserRallyTest
 	public void ShouldBeTeamUserRallyExecuteRecentAttacked()
 	{
 		//ASSEMBLE
-		Data.LAST_ATTACKED_DELAY = 15;
+		Configuration.LAST_ATTACKED_DELAY = 15;
 		xTeam.getInstance().getPlayerManager().getPlayer("protocos").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();

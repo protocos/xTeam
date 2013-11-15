@@ -7,7 +7,7 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.*;
 import org.junit.After;
@@ -21,7 +21,7 @@ public class UserJoinTest
 	{
 		//MOCK data
 		mockData();
-		Data.MAX_PLAYERS = 3;
+		Configuration.MAX_PLAYERS = 3;
 		InviteHandler.addInvite("Lonely", xTeam.getInstance().getTeamManager().getTeam("one"));
 	}
 	@Test
@@ -69,7 +69,7 @@ public class UserJoinTest
 	public void ShouldBeTeamUserJoinExecuteOnlyJoinDefault()
 	{
 		//ASSEMBLE
-		Data.DEFAULT_TEAM_ONLY = true;
+		Configuration.DEFAULT_TEAM_ONLY = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		UserCommand fakeCommand = new UserJoin();
 		//ACT
@@ -108,7 +108,7 @@ public class UserJoinTest
 	@After
 	public void takedown()
 	{
-		Data.DEFAULT_TEAM_ONLY = false;
-		Data.MAX_PLAYERS = 0;
+		Configuration.DEFAULT_TEAM_ONLY = false;
+		Configuration.MAX_PLAYERS = 0;
 	}
 }

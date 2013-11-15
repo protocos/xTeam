@@ -28,7 +28,7 @@ public class AdminReloadTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team reload"));
 		//ASSERT
-		Assert.assertEquals("Config reloaded", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("Configuration reloaded", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

@@ -2,7 +2,7 @@ package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
@@ -50,7 +50,7 @@ public class SetTeamAction
 		String playerName = player.getName();
 		String senderName = originalSender.getName();
 		playerTeam.removePlayer(player.getName());
-		Data.chatStatus.remove(playerName);
+		Configuration.chatStatus.remove(playerName);
 		player.removeReturnLocation();
 		playerTeam.sendMessage(playerName + " has been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
 		if (playerName.equals(senderName))

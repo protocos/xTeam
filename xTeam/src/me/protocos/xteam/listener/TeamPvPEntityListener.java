@@ -2,7 +2,7 @@ package me.protocos.xteam.listener;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -23,8 +23,8 @@ public class TeamPvPEntityListener implements Listener
 		{
 			ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(defender.getName());
 			player.setLastAttacked(System.currentTimeMillis());
-			//			if (Data.SPOUT_ENABLED && Data.REVEAL_TIME > 0L)
-			//				if (Data.SPOUT_ENABLED && Data.REVEAL_TIME > 0L)
+			//			if (Configuration.SPOUT_ENABLED && Configuration.REVEAL_TIME > 0L)
+			//				if (Configuration.SPOUT_ENABLED && Configuration.REVEAL_TIME > 0L)
 			//				{
 			//					SpoutManager.getPlayer(attacker.getOnlinePlayer()).resetTitleFor(SpoutManager.getPlayer(defender.getOnlinePlayer()));
 			//					SpoutManager.getPlayer(defender.getOnlinePlayer()).resetTitleFor(SpoutManager.getPlayer(attacker.getOnlinePlayer()));
@@ -35,7 +35,7 @@ public class TeamPvPEntityListener implements Listener
 			//						{
 			//							Functions.updatePlayers();
 			//						}
-			//					}, Data.REVEAL_TIME * 20L);
+			//					}, Configuration.REVEAL_TIME * 20L);
 			//				}
 		}
 	}
@@ -54,7 +54,7 @@ public class TeamPvPEntityListener implements Listener
 				EntityDamageByEntityEvent entEvent = (EntityDamageByEntityEvent) event;
 				Entity damager = entEvent.getDamager();
 				Entity entity = entEvent.getEntity();
-				if (Data.DISABLED_WORLDS.contains(damager.getWorld().getName()) && Data.DISABLED_WORLDS.contains(entity.getWorld().getName()))
+				if (Configuration.DISABLED_WORLDS.contains(damager.getWorld().getName()) && Configuration.DISABLED_WORLDS.contains(entity.getWorld().getName()))
 				{
 					return;
 				}
@@ -83,7 +83,7 @@ public class TeamPvPEntityListener implements Listener
 					else
 						return;
 				}
-				//				else if (entity instanceof Wolf && Data.TEAM_WOLVES)
+				//				else if (entity instanceof Wolf && Configuration.TEAM_WOLVES)
 				//				{
 				//					// Player hurt Wolf
 				//					if (damager instanceof Player)

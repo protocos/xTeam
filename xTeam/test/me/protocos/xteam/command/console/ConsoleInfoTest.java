@@ -22,6 +22,7 @@ public class ConsoleInfoTest
 		mockData();
 		fakeConsoleSender = new FakeConsoleSender();
 	}
+
 	@Test
 	public void ShouldBeConsoleInfoExecute()
 	{
@@ -41,6 +42,7 @@ public class ConsoleInfoTest
 				fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleInfoExecute2()
 	{
@@ -58,6 +60,7 @@ public class ConsoleInfoTest
 				fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleInfoExecutePlayerHasNoTeam()
 	{
@@ -69,6 +72,7 @@ public class ConsoleInfoTest
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleInfoExecuteTeamNotExists()
 	{
@@ -80,6 +84,7 @@ public class ConsoleInfoTest
 		Assert.assertEquals((new TeamOrPlayerDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

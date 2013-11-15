@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.core.exception.TeamPlayerMaxException;
 import me.protocos.xteam.core.exception.TeamPlayerNeverPlayedException;
@@ -108,7 +108,7 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetMaxPlayers()
 	{
 		//ASSEMBLE
-		Data.MAX_PLAYERS = 2;
+		Configuration.MAX_PLAYERS = 2;
 		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set Lonely one"));

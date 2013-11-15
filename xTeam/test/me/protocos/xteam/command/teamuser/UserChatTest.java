@@ -6,7 +6,7 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.junit.After;
 import org.junit.Before;
@@ -30,7 +30,7 @@ public class UserChatTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team chat"));
 		//ASSERT
 		Assert.assertEquals("You are now only chatting with your team", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(Data.chatStatus.contains("protocos"));
+		Assert.assertTrue(Configuration.chatStatus.contains("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
@@ -43,7 +43,7 @@ public class UserChatTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team chat"));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(Data.chatStatus.contains("Lonely"));
+		Assert.assertFalse(Configuration.chatStatus.contains("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 	@After

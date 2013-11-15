@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.World;
@@ -32,19 +32,19 @@ public class TeamPlayerListener implements Listener
 			Player player = event.getPlayer();
 			World playerWorld = player.getWorld();
 			ITeamPlayer teamPlayer = xTeam.getInstance().getPlayerManager().getPlayer(player);
-			if (teamPlayer.hasPlayedBefore() && Data.DISABLED_WORLDS.contains(playerWorld.getName()))
+			if (teamPlayer.hasPlayedBefore() && Configuration.DISABLED_WORLDS.contains(playerWorld.getName()))
 			{
 				return;
 			}
-			if (Data.RANDOM_TEAM)
+			if (Configuration.RANDOM_TEAM)
 			{
 				if (!teamPlayer.hasTeam() || !teamPlayer.hasPlayedBefore())
 				{
 					Random r = new Random();
-					if (Data.DEFAULT_TEAM_NAMES.size() > 0)
+					if (Configuration.DEFAULT_TEAM_NAMES.size() > 0)
 					{
 						ArrayList<Team> availableTeams = new ArrayList<Team>();
-						if (Data.BALANCE_TEAMS)
+						if (Configuration.BALANCE_TEAMS)
 						{
 							int smallest = xTeam.getInstance().getTeamManager().getDefaultTeams().get(0).size();
 							for (Team t : xTeam.getInstance().getTeamManager().getDefaultTeams())
@@ -84,7 +84,7 @@ public class TeamPlayerListener implements Listener
 					}
 				}
 			}
-			if (Data.DEFAULT_HQ_ON_JOIN)
+			if (Configuration.DEFAULT_HQ_ON_JOIN)
 			{
 				if (teamPlayer.hasTeam() && teamPlayer.getTeam().isDefaultTeam())
 				{
@@ -114,7 +114,7 @@ public class TeamPlayerListener implements Listener
 		Player player = event.getPlayer();
 		try
 		{
-			Data.chatStatus.remove(player.getName());
+			Configuration.chatStatus.remove(player.getName());
 		}
 		catch (Exception e)
 		{
@@ -129,11 +129,11 @@ public class TeamPlayerListener implements Listener
 		try
 		{
 			ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(event.getPlayer());
-			if (Data.DISABLED_WORLDS.contains(event.getPlayer().getWorld().getName()))
+			if (Configuration.DISABLED_WORLDS.contains(event.getPlayer().getWorld().getName()))
 			{
 				return;
 			}
-			if (Data.HQ_ON_DEATH)
+			if (Configuration.HQ_ON_DEATH)
 			{
 				if (player.hasTeam())
 				{

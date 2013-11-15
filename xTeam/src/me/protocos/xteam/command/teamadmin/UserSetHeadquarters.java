@@ -36,7 +36,7 @@ public class UserSetHeadquarters extends UserCommand
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("sethq") + OPTIONAL_WHITE_SPACE;
+		return patternOneOrMore("set") + "hq" + OPTIONAL_WHITE_SPACE;
 	}
 
 	@Override

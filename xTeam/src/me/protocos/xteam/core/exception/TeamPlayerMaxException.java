@@ -1,6 +1,7 @@
 package me.protocos.xteam.core.exception;
 
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
+
 
 public class TeamPlayerMaxException extends TeamException
 {
@@ -11,7 +12,7 @@ public class TeamPlayerMaxException extends TeamException
 
 	public TeamPlayerMaxException()
 	{
-		super("Team teamPlayer limit reached: " + Data.MAX_PLAYERS);
+		super("Team teamPlayer limit reached: " + Configuration.MAX_PLAYERS);
 	}
 	public TeamPlayerMaxException(String message)
 	{

@@ -8,7 +8,7 @@ import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.CommonUtil;
@@ -92,7 +92,7 @@ public class UserReturnTest
 	public void ShouldBeTeamUserReturnExecuteRecentAttacked()
 	{
 		//ASSEMBLE
-		Data.LAST_ATTACKED_DELAY = 15;
+		Configuration.LAST_ATTACKED_DELAY = 15;
 		xTeam.getInstance().getPlayerManager().getPlayer("protocos").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
@@ -127,6 +127,6 @@ public class UserReturnTest
 	@After
 	public void takedown()
 	{
-		//		Data.returnLocations.clear();
+		//		Configuration.returnLocations.clear();
 	}
 }

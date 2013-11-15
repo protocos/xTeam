@@ -7,7 +7,7 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.*;
 import org.junit.After;
 import org.junit.Before;
@@ -41,7 +41,7 @@ public class UserCreateTest
 	public void ShouldBeTeamUserCreateExecuteCapitalLetters()
 	{
 		//ASSEMBLE
-		Data.ALPHA_NUM = true;
+		Configuration.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		UserCommand fakeCommand = new UserCreate();
 		//ACT
@@ -56,7 +56,7 @@ public class UserCreateTest
 	public void ShouldBeTeamUserCreateExecuteNameTooLong()
 	{
 		//ASSEMBLE
-		Data.TEAM_TAG_LENGTH = 10;
+		Configuration.TEAM_TAG_LENGTH = 10;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		UserCommand fakeCommand = new UserCreate();
 		//ACT
@@ -70,7 +70,7 @@ public class UserCreateTest
 	public void ShouldBeTeamUserCreateExecuteOnlyDefault()
 	{
 		//ASSEMBLE
-		Data.DEFAULT_TEAM_ONLY = true;
+		Configuration.DEFAULT_TEAM_ONLY = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		UserCommand fakeCommand = new UserCreate();
 		//ACT
@@ -111,8 +111,8 @@ public class UserCreateTest
 	public void ShouldBeTeamUserCreateExecuteTeamCreatedRecently()
 	{
 		//ASSEMBLE
-		Data.CREATE_INTERVAL = 1;
-		Data.lastCreated.put("Lonely", System.currentTimeMillis());
+		Configuration.CREATE_INTERVAL = 1;
+		Configuration.lastCreated.put("Lonely", System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		UserCommand fakeCommand = new UserCreate();
 		//ACT
@@ -126,7 +126,7 @@ public class UserCreateTest
 	public void ShouldBeTeamUserCreateExecuteTeamNotAlpha()
 	{
 		//ASSEMBLE
-		Data.ALPHA_NUM = true;
+		Configuration.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		UserCommand fakeCommand = new UserCreate();
 		//ACT
@@ -139,9 +139,9 @@ public class UserCreateTest
 	@After
 	public void takedown()
 	{
-		Data.DEFAULT_TEAM_ONLY = false;
-		Data.TEAM_TAG_LENGTH = 0;
-		Data.CREATE_INTERVAL = 0;
-		Data.ALPHA_NUM = false;
+		Configuration.DEFAULT_TEAM_ONLY = false;
+		Configuration.TEAM_TAG_LENGTH = 0;
+		Configuration.CREATE_INTERVAL = 0;
+		Configuration.ALPHA_NUM = false;
 	}
 }

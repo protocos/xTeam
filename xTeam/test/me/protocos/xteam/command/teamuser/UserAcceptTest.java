@@ -7,7 +7,7 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoInviteException;
 import me.protocos.xteam.core.exception.TeamPlayerHasTeamException;
@@ -24,7 +24,7 @@ public class UserAcceptTest
 	{
 		//MOCK data
 		mockData();
-		Data.MAX_PLAYERS = 3;
+		Configuration.MAX_PLAYERS = 3;
 		InviteHandler.addInvite("Lonely", xTeam.getInstance().getTeamManager().getTeam("one"));
 	}
 	@Test
@@ -88,7 +88,7 @@ public class UserAcceptTest
 	@After
 	public void takedown()
 	{
-		Data.MAX_PLAYERS = 0;
+		Configuration.MAX_PLAYERS = 0;
 		InviteHandler.clear();
 	}
 }

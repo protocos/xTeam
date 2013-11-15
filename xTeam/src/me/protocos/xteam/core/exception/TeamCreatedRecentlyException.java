@@ -1,6 +1,7 @@
 package me.protocos.xteam.core.exception;
 
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
+
 
 public class TeamCreatedRecentlyException extends TeamException
 {
@@ -11,7 +12,7 @@ public class TeamCreatedRecentlyException extends TeamException
 
 	public TeamCreatedRecentlyException()
 	{
-		super("Team created in the last " + Data.CREATE_INTERVAL + " minutes");
+		super("Team created in the last " + Configuration.CREATE_INTERVAL + " minutes");
 	}
 	public TeamCreatedRecentlyException(String message)
 	{

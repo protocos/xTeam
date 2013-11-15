@@ -51,7 +51,7 @@ public class SystemUtil
 		return (os.indexOf("win") >= 0);
 	}
 
-	public static File createFolder(String pluginName)
+	public static File ensureFolder(String pluginName)
 	{
 		File file = new File(pluginName);
 		if (!file.exists())
@@ -61,7 +61,7 @@ public class SystemUtil
 		return file;
 	}
 
-	public static File createFile(String pluginName)
+	public static File ensureFile(String pluginName)
 	{
 		File file = new File(pluginName);
 		if (!file.exists())

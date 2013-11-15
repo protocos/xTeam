@@ -3,15 +3,12 @@ package me.protocos.xteam.command.action;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.HelpPages;
-import me.protocos.xteam.util.PermissionUtil;
-import me.protocos.xteam.util.StringUtil;
+import me.protocos.xteam.util.*;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 
@@ -111,7 +108,7 @@ public class Requirements
 
 	public static void checkTeamNameAlphaNumeric(String desiredName) throws TeamNameNotAlphaException
 	{
-		if (Data.ALPHA_NUM && !desiredName.matches(StringUtil.ALPHA_NUMERIC))
+		if (Configuration.ALPHA_NUM && !desiredName.matches(StringUtil.ALPHA_NUMERIC))
 		{
 			throw new TeamNameNotAlphaException();
 		}
@@ -127,7 +124,7 @@ public class Requirements
 
 	public static void checkTeamPlayerMax(String teamName) throws TeamPlayerMaxException
 	{
-		if (xTeam.getInstance().getTeamManager().contains(teamName) && xTeam.getInstance().getTeamManager().getTeam(teamName).size() >= Data.MAX_PLAYERS && Data.MAX_PLAYERS > 0)
+		if (xTeam.getInstance().getTeamManager().contains(teamName) && xTeam.getInstance().getTeamManager().getTeam(teamName).size() >= Configuration.MAX_PLAYERS && Configuration.MAX_PLAYERS > 0)
 		{
 			throw new TeamPlayerMaxException();
 		}
@@ -200,7 +197,7 @@ public class Requirements
 	public static void checkTeamHeadquartersRecentlySet(Team team) throws TeamHqSetRecentlyException
 	{
 		long timeElapsedSinceLastSetHeadquarters = CommonUtil.getElapsedTimeSince(team.getTimeLastSet());
-		if (timeElapsedSinceLastSetHeadquarters < Data.HQ_INTERVAL * 60 * 60 * 1000)
+		if (timeElapsedSinceLastSetHeadquarters < Configuration.HQ_INTERVAL * 60 * 60 * 1000)
 		{
 			throw new TeamHqSetRecentlyException();
 		}
@@ -216,7 +213,7 @@ public class Requirements
 
 	public static void checkTeamNameTooLong(String desiredName) throws TeamNameTooLongException
 	{
-		if (Data.TEAM_TAG_LENGTH != 0 && desiredName.length() > Data.TEAM_TAG_LENGTH)
+		if (Configuration.TEAM_TAG_LENGTH != 0 && desiredName.length() > Configuration.TEAM_TAG_LENGTH)
 		{
 			throw new TeamNameTooLongException();
 		}
@@ -249,7 +246,7 @@ public class Requirements
 
 	public static void checkTeamOnlyJoinDefault(String desiredName) throws TeamOnlyJoinDefaultException
 	{
-		if (Data.DEFAULT_TEAM_ONLY && !StringUtil.toLowerCase(Data.DEFAULT_TEAM_NAMES).contains(desiredName.toLowerCase()) && Data.DEFAULT_TEAM_NAMES.size() > 0)
+		if (Configuration.DEFAULT_TEAM_ONLY && !StringUtil.toLowerCase(Configuration.DEFAULT_TEAM_NAMES).contains(desiredName.toLowerCase()) && Configuration.DEFAULT_TEAM_NAMES.size() > 0)
 		{
 			throw new TeamOnlyJoinDefaultException();
 		}
@@ -257,7 +254,7 @@ public class Requirements
 
 	public static void checkPlayerLastCreatedTeam(TeamPlayer teamPlayer) throws TeamCreatedRecentlyException
 	{
-		if (System.currentTimeMillis() - (Data.lastCreated.get(teamPlayer.getName()) == null ? 0L : Data.lastCreated.get(teamPlayer.getName()).longValue()) < Data.CREATE_INTERVAL * 60 * 1000)
+		if (System.currentTimeMillis() - (Configuration.lastCreated.get(teamPlayer.getName()) == null ? 0L : Configuration.lastCreated.get(teamPlayer.getName()).longValue()) < Configuration.CREATE_INTERVAL * 60 * 1000)
 		{
 			throw new TeamCreatedRecentlyException();
 		}
@@ -272,10 +269,10 @@ public class Requirements
 	public static void checkPlayerLastTeleported(TeamPlayer teamPlayer, String permissionNode) throws TeamPlayerTeleException
 	{
 		long timeSinceLastTeleport = CommonUtil.getElapsedTimeSince(teamPlayer.getLastTeleported());
-		if (timeSinceLastTeleport < Data.TELE_REFRESH_DELAY)
+		if (timeSinceLastTeleport < Configuration.TELE_REFRESH_DELAY)
 		{
-			String error = "Player cannot teleport within " + Data.TELE_REFRESH_DELAY + " seconds of last teleport\nPlayer must wait " + (Data.TELE_REFRESH_DELAY - timeSinceLastTeleport) + " more seconds";
-			if (teamPlayer.hasReturnLocation() && (teamPlayer.hasPermission(permissionNode) || Data.NO_PERMISSIONS))
+			String error = "Player cannot teleport within " + Configuration.TELE_REFRESH_DELAY + " seconds of last teleport\nPlayer must wait " + (Configuration.TELE_REFRESH_DELAY - timeSinceLastTeleport) + " more seconds";
+			if (teamPlayer.hasReturnLocation() && (teamPlayer.hasPermission(permissionNode) || Configuration.NO_PERMISSIONS))
 				error += "\n/team return is still available";
 			throw new TeamPlayerTeleException(error);
 		}
@@ -284,9 +281,9 @@ public class Requirements
 	public static void checkPlayerLastAttacked(TeamPlayer teamPlayer) throws TeamPlayerTeleException
 	{
 		long timeSinceLastAttacked = CommonUtil.getElapsedTimeSince(teamPlayer.getLastAttacked());
-		if (timeSinceLastAttacked < Data.LAST_ATTACKED_DELAY)
+		if (timeSinceLastAttacked < Configuration.LAST_ATTACKED_DELAY)
 		{
-			throw new TeamPlayerTeleException("Player was attacked in the last " + Data.LAST_ATTACKED_DELAY + " seconds\nYou must wait " + (Data.LAST_ATTACKED_DELAY - timeSinceLastAttacked) + " more seconds");
+			throw new TeamPlayerTeleException("Player was attacked in the last " + Configuration.LAST_ATTACKED_DELAY + " seconds\nYou must wait " + (Configuration.LAST_ATTACKED_DELAY - timeSinceLastAttacked) + " more seconds");
 		}
 	}
 
@@ -325,7 +322,7 @@ public class Requirements
 
 	public static void checkPlayerTeammateWorld(TeamPlayer teamPlayer, TeamPlayer teamMate) throws TeamPlayerTeammateException
 	{
-		if (!teamPlayer.getLocation().getWorld().equals(teamMate.getLocation().getWorld()) && Data.TELE_RADIUS > 0)
+		if (!teamPlayer.getLocation().getWorld().equals(teamMate.getLocation().getWorld()) && Configuration.TELE_RADIUS > 0)
 		{
 			throw new TeamPlayerTeammateException("Teammate is in a different world");
 		}
@@ -333,7 +330,7 @@ public class Requirements
 
 	public static void checkPlayerTeammateNear(TeamPlayer teamPlayer, TeamPlayer teamMate) throws TeamPlayerTeammateException
 	{
-		if (teamPlayer.getLocation().distance(teamMate.getLocation()) > Data.TELE_RADIUS && Data.TELE_RADIUS > 0)
+		if (teamPlayer.getLocation().distance(teamMate.getLocation()) > Configuration.TELE_RADIUS && Configuration.TELE_RADIUS > 0)
 		{
 			throw new TeamPlayerTeammateException("There are no teammates near you\nClosest teammate: " + teamMate.getName() + " @ " + (int) Math.ceil(teamPlayer.getLocation().distance(teamMate.getLocation())) + " blocks away");
 		}
@@ -349,7 +346,7 @@ public class Requirements
 
 	public static void checkPlayerTeammateTooFar(TeamPlayer teamPlayer, TeamPlayer teamMate) throws TeamPlayerTeleException
 	{
-		if (teamPlayer.getLocation().distance(teamMate.getLocation()) > Data.TELE_RADIUS && Data.TELE_RADIUS > 0)
+		if (teamPlayer.getLocation().distance(teamMate.getLocation()) > Configuration.TELE_RADIUS && Configuration.TELE_RADIUS > 0)
 		{
 			throw new TeamPlayerTeleException(teamMate.getName() + " is too far away @ " + (int) Math.ceil(teamPlayer.getLocation().distance(teamMate.getLocation())) + " blocks away");
 		}
@@ -376,6 +373,14 @@ public class Requirements
 		if (!TeleportScheduler.getInstance().canRally(player))
 		{
 			throw new TeamPlayerAlreadyUsedRallyException();
+		}
+	}
+
+	public static void checkPlayerIsOnline(ITeamPlayer other) throws TeamPlayerOfflineException
+	{
+		if (!other.isOnline())
+		{
+			throw new TeamPlayerOfflineException();
 		}
 	}
 }

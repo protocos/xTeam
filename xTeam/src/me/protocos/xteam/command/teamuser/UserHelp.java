@@ -70,18 +70,18 @@ public class UserHelp extends UserCommand
 		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(temp) + " - Toggle chatting with teammates"));
 		//		if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(temp = "user_chat")))
 		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage("user_message") + " - Send message to teammates"));
-		//		if (Data.LOCATIONS_ENABLED && PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(temp = "user_listloc")))
+		//		if (Configuration.LOCATIONS_ENABLED && PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(temp = "user_listloc")))
 		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(temp) + " - List team locations"));
-		//		if (Data.LOCATIONS_ENABLED && PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(temp = "user_trackloc")))
+		//		if (Configuration.LOCATIONS_ENABLED && PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(temp = "user_trackloc")))
 		//			pages.addLine(ChatColorUtil.formatForUser(xTeam.getInstance().getCommandManager().getUsage(temp) + " - Track team location"));
 		//		if (teamPlayer.isAdmin())
 		//		{
-		//			if (Data.LOCATIONS_ENABLED && PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(temp = "admin_addloc")))
+		//			if (Configuration.LOCATIONS_ENABLED && PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(temp = "admin_addloc")))
 		//				pages.addLine(ChatColorUtil.formatForAdmin(xTeam.getInstance().getCommandManager().getUsage(temp) + " - Add a new location"));
-		//			if (Data.LOCATIONS_ENABLED && PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(temp = "admin_removeloc")))
+		//			if (Configuration.LOCATIONS_ENABLED && PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(temp = "admin_removeloc")))
 		//				pages.addLine(ChatColorUtil.formatForAdmin(xTeam.getInstance().getCommandManager().getUsage(temp) + " - Remove a location"));
 		//			if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(temp = "admin_sethq")))
-		//				pages.addLine(ChatColorUtil.formatForAdmin(xTeam.getInstance().getCommandManager().getUsage(temp) + " - Set headquarters of team" + (Data.HQ_INTERVAL > 0 ? " (every " + Data.HQ_INTERVAL + " hours)" : "")));
+		//				pages.addLine(ChatColorUtil.formatForAdmin(xTeam.getInstance().getCommandManager().getUsage(temp) + " - Set headquarters of team" + (Configuration.HQ_INTERVAL > 0 ? " (every " + Configuration.HQ_INTERVAL + " hours)" : "")));
 		//			if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(temp = "admin_invite")))
 		//				pages.addLine(ChatColorUtil.formatForAdmin(xTeam.getInstance().getCommandManager().getUsage(temp) + " - Invite player to your team"));
 		//			if (PermissionUtil.hasPermission(originalSender, xTeam.getInstance().getCommandManager().getPermissionNode(temp = "admin_promote")))

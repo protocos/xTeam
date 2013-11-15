@@ -7,30 +7,24 @@ import java.io.PrintStream;
 import java.sql.Timestamp;
 import java.util.Scanner;
 import java.util.logging.Handler;
-import java.util.logging.Level;
 import java.util.logging.LogRecord;
-import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.collections.LimitedQueue;
-import me.protocos.xteam.core.Data;
-import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.ErrorReportUtil;
 import me.protocos.xteam.util.SystemUtil;
 
 public class LogHandler extends Handler
 {
 	private final String packageString;
-	private ErrorReportUtil errorReporter;
+	//	private ErrorReportUtil errorReporter;
 	private PrintStream printStream;
 
 	public LogHandler(TeamPlugin teamPlugin)
 	{
 		String pluginPackageID = teamPlugin.getClass().getPackage().toString();
 		this.packageString = pluginPackageID.substring(pluginPackageID.indexOf(' ') + 1, pluginPackageID.lastIndexOf('.') + 1);
-		String pluginName = teamPlugin.getPluginName();
-		SystemUtil.createFolder(pluginName);
-		File file = SystemUtil.createFile(pluginName + "/" + pluginName + ".log");
+		String pluginName = teamPlugin.getName();
+		SystemUtil.ensureFolder(pluginName);
+		File file = SystemUtil.ensureFile(pluginName + "/" + pluginName + ".log");
 		try
 		{
 			LimitedQueue<String> previousEntries = new LimitedQueue<String>(500);
@@ -48,7 +42,7 @@ public class LogHandler extends Handler
 		{
 			e.printStackTrace();
 		}
-		errorReporter = new ErrorReportUtil(teamPlugin);
+		//		errorReporter = new ErrorReportUtil(teamPlugin);
 	}
 
 	@Override
@@ -72,26 +66,26 @@ public class LogHandler extends Handler
 			Timestamp t = new Timestamp(System.currentTimeMillis());
 			final String finalMessage = t.toString().substring(0, t.toString().indexOf('.')) + " " + message;
 			printStream.println(finalMessage);
-			if (record.getLevel().equals(Level.SEVERE))
-			{
-				handleSevere(record);
-			}
+			//			if (record.getLevel().equals(Level.SEVERE))
+			//			{
+			//				handleSevere(record);
+			//			}
 		}
 	}
 
-	private void handleSevere(final LogRecord record)
-	{
-		if (Data.SEND_ANONYMOUS_ERROR_REPORTS)
-		{
-			class EmailReport implements Runnable
-			{
-				@Override
-				public void run()
-				{
-					errorReporter.sendErrorReport(record);
-				}
-			}
-			BukkitUtil.getScheduler().scheduleSyncDelayedTask(xTeam.getInstance(), new EmailReport(), CommonUtil.LONG_ZERO);
-		}
-	}
+	//	private void handleSevere(final LogRecord record)
+	//	{
+	//		if (Configuration.SEND_ANONYMOUS_ERROR_REPORTS)
+	//		{
+	//			class EmailReport implements Runnable
+	//			{
+	//				@Override
+	//				public void run()
+	//				{
+	//					errorReporter.sendErrorReport(record);
+	//				}
+	//			}
+	//			BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getxTeam(), new EmailReport(), CommonUtil.LONG_ZERO);
+	//		}
+	//	}
 }

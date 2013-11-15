@@ -1,7 +1,8 @@
 package me.protocos.xteam.core.exception;
 
+import me.protocos.xteam.core.Configuration;
 
-import me.protocos.xteam.core.Data;
+
 public class TeamLocationMaxException extends TeamException
 {
 	/**
@@ -11,7 +12,7 @@ public class TeamLocationMaxException extends TeamException
 
 	public TeamLocationMaxException()
 	{
-		super("Location limit reached: " + Data.MAX_NUM_LOCATIONS);
+		super("Location limit reached: " + Configuration.MAX_NUM_LOCATIONS);
 	}
 	public TeamLocationMaxException(String message)
 	{

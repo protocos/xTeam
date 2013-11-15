@@ -6,7 +6,7 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.*;
 import org.junit.After;
 import org.junit.Assert;
@@ -38,7 +38,7 @@ public class UserTagTest
 	public void ShouldBeTeamTagExecuteAlreadyExists()
 	{
 		//ASSEMBLE
-		Data.ALPHA_NUM = true;
+		Configuration.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserTag();
 		//ACT
@@ -52,7 +52,7 @@ public class UserTagTest
 	public void ShouldBeTeamTagExecuteNameNotAlpha()
 	{
 		//ASSEMBLE
-		Data.ALPHA_NUM = true;
+		Configuration.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserTag();
 		//ACT
@@ -66,7 +66,7 @@ public class UserTagTest
 	public void ShouldBeTeamTagExecutenNmeTooLong()
 	{
 		//ASSEMBLE
-		Data.TEAM_TAG_LENGTH = 10;
+		Configuration.TEAM_TAG_LENGTH = 10;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		UserCommand fakeCommand = new UserTag();
 		//ACT

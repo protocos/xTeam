@@ -4,7 +4,7 @@ import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.UserCommand;
 import me.protocos.xteam.command.action.Requirements;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
@@ -23,12 +23,12 @@ public class UserChat extends UserCommand
 	{
 		if (option.equalsIgnoreCase("ON"))
 		{
-			Data.chatStatus.add(teamPlayer.getName());
+			Configuration.chatStatus.add(teamPlayer.getName());
 			originalSender.sendMessage("You are now only chatting with " + ChatColorUtil.positiveMessage("your team"));
 		}
 		if (option.equalsIgnoreCase("OFF"))
 		{
-			Data.chatStatus.remove(teamPlayer.getName());
+			Configuration.chatStatus.remove(teamPlayer.getName());
 			originalSender.sendMessage("You are now chatting with " + ChatColorUtil.negativeMessage("everyone"));
 		}
 	}
@@ -39,7 +39,7 @@ public class UserChat extends UserCommand
 		//FIX move this if statememt to the act method
 		if (parseCommand.size() == 1)
 		{
-			if (Data.chatStatus.contains(teamPlayer.getName()))
+			if (Configuration.chatStatus.contains(teamPlayer.getName()))
 				option = "OFF";
 			else
 				option = "ON";

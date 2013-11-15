@@ -191,6 +191,16 @@ public class CommonUtil
 		return new ArrayList<String>(Arrays.asList(strings));
 	}
 
+	public static boolean containsIgnoreCase(List<String> list, String string)
+	{
+		for (String s : list)
+		{
+			if (s.equalsIgnoreCase(string))
+				return true;
+		}
+		return false;
+	}
+
 	public static String stringHex(String str)
 	{
 		char[] chars = str.toCharArray();
@@ -213,7 +223,6 @@ public class CommonUtil
 			sb.append((char) decimal);
 			temp.append(decimal);
 		}
-
 		return sb.toString();
 	}
 

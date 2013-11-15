@@ -104,7 +104,8 @@ public class UserInfoTest
 				"Team Joining - Open\n" +
 				"Team Headquarters - None set\n" +
 				"Teammates offline:\n" +
-				"    strandedhelix", fakePlayerSender.getLastMessage());
+				"    strandedhelix\n" +
+				"    teammate", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -128,7 +129,8 @@ public class UserInfoTest
 				"Teammates online:\n" +
 				"    Lonely Health: 100% Location: 0 64 0 in \"world\"\n" +
 				"Teammates offline:\n" +
-				"    strandedhelix was last online on Dec 31 @ 6:00 PM", fakePlayerSender.getLastMessage());
+				"    strandedhelix was last online on Dec 31 @ 6:00 PM\n" +
+				"    teammate was last online on Dec 31 @ 6:00 PM", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -169,7 +171,8 @@ public class UserInfoTest
 				"Team Joining - Open\n" +
 				"Team Headquarters - None set\n" +
 				"Teammates offline:\n" +
-				"    strandedhelix", fakePlayerSender.getLastMessage());
+				"    strandedhelix\n" +
+				"    teammate", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

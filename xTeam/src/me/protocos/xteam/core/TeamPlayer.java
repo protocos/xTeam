@@ -538,7 +538,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	{
 		String location = "";
 		int health = (int) this.getHealth();
-		if (Data.DISPLAY_COORDINATES)
+		if (Configuration.DISPLAY_COORDINATES)
 			location += " Location: " + ChatColor.RED + this.getRelativeX() + " " + ChatColor.GREEN + this.getRelativeY() + " " + ChatColor.BLUE + this.getRelativeZ() + ChatColor.RESET + " in \"" + this.getWorld().getName() + "\"";
 		return ChatColor.GREEN + "    " + this.getName() + ChatColor.RESET + " Health: " + (health >= 15 ? ChatColor.GREEN : ChatColor.RED) + health * 5 + "%" + ChatColor.RESET + location;
 	}

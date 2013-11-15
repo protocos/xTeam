@@ -10,10 +10,7 @@ import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.ChatColorUtil;
-import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.util.*;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.*;
@@ -568,7 +565,7 @@ public class Team implements ITeam
 				sendMessage("Team rally has been " + ChatColorUtil.positiveMessage("refreshed"));
 			}
 		}
-		BukkitUtil.getScheduler().scheduleSyncDelayedTask(xTeam.getInstance(), new RemoveRally(), Data.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);
+		BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getxTeam(), new RemoveRally(), Configuration.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);
 	}
 
 	public boolean hasRally()

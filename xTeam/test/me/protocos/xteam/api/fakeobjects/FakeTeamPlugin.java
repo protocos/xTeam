@@ -1,41 +1,44 @@
-package me.protocos.xteam;
+package me.protocos.xteam.api.fakeobjects;
 
 import java.util.List;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.util.ILog;
-import me.protocos.xteam.util.LogUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.permissions.Permission;
 
-public class xTeamPlugin extends TeamPlugin
+public class FakeTeamPlugin extends TeamPlugin
 {
+	private final String name = "xTeam";
+	private final String folder = "test";
 	private ILog logger;
 
-	public xTeamPlugin()
+	public FakeTeamPlugin()
 	{
+		logger = new FakeLog();
 	}
 
 	@Override
 	public String getFolder()
 	{
-		return this.getDataFolder().getAbsolutePath();
+		return folder;
 	}
 
 	@Override
 	public String getPluginName()
 	{
-		return this.getName();
+		return name;
 	}
 
 	@Override
 	public String getVersion()
 	{
-		return this.getDescription().getVersion();
+		return "CURRENT";
 	}
 
 	@Override
 	public List<Permission> getPermissions()
 	{
-		return this.getDescription().getPermissions();
+		return CommonUtil.emptyList();
 	}
 
 	@Override
@@ -47,7 +50,6 @@ public class xTeamPlugin extends TeamPlugin
 	@Override
 	public void onLoad()
 	{
-		logger = new LogUtil(this.getFolder(), this);
 		xteam.load(this);
 	}
 

@@ -11,11 +11,6 @@ public class FakeLog implements ILog
 	}
 
 	@Override
-	public void custom(String message)
-	{
-	}
-
-	@Override
 	public void debug(String message)
 	{
 	}
@@ -29,11 +24,6 @@ public class FakeLog implements ILog
 	public void exception(Exception e)
 	{
 		e.printStackTrace();
-	}
-
-	@Override
-	public void fatal(String message)
-	{
 	}
 
 	@Override

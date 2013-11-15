@@ -2,7 +2,7 @@ package me.protocos.xteam.listener;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.ChatColor;
@@ -28,25 +28,25 @@ public class TeamChatListener implements Listener
 			{
 				return;
 			}
-			if (teamPlayer.hasPlayedBefore() && Data.DISABLED_WORLDS.contains(playerWorld.getName()))
+			if (teamPlayer.hasPlayedBefore() && Configuration.DISABLED_WORLDS.contains(playerWorld.getName()))
 			{
 				return;
 			}
-			if (teamPlayer.hasTeam() && Data.TEAM_TAG_ENABLED)
+			if (teamPlayer.hasTeam() && Configuration.TEAM_TAG_ENABLED)
 			{
 				Team team = teamPlayer.getTeam();
 				String playerName = teamPlayer.getName();
 				String teamTag = "[" + teamPlayer.getTeam().getTag() + "]";
-				event.setFormat(ChatColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.RESET + " " + format);
-				if (Data.chatStatus.contains(playerName))
+				event.setFormat(ChatColorUtil.getColor(Configuration.TAG_COLOR) + teamTag + ChatColor.RESET + " " + format);
+				if (Configuration.chatStatus.contains(playerName))
 				{
 					event.setCancelled(true);
-					team.sendMessage("[" + ChatColorUtil.getColor(Data.NAME_COLOR) + playerName + ChatColor.RESET + "] " + msg);
-					for (String p : Data.spies)
+					team.sendMessage("[" + ChatColorUtil.getColor(Configuration.NAME_COLOR) + playerName + ChatColor.RESET + "] " + msg);
+					for (String p : Configuration.spies)
 					{
 						ITeamPlayer spy = xTeam.getInstance().getPlayerManager().getPlayer(p);
 						if (!spy.isOnSameTeam(teamPlayer))
-							spy.sendMessage(ChatColorUtil.getColor(Data.TAG_COLOR) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
+							spy.sendMessage(ChatColorUtil.getColor(Configuration.TAG_COLOR) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
 					}
 					xTeam.getInstance().getLog().info("[" + playerName + "] " + event.getMessage());
 				}

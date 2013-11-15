@@ -19,6 +19,7 @@ public class PatternAdminTest
 		mockData();
 		xTeam.getInstance().registerAdminCommands(xTeam.getInstance().getCommandManager());
 	}
+
 	@Test
 	public void ShouldBeTeamAdminInvite()
 	{
@@ -37,6 +38,7 @@ public class PatternAdminTest
 		command = "inv PLAYER 2";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("admin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamAdminPromote()
 	{
@@ -52,6 +54,7 @@ public class PatternAdminTest
 		command = "promote PLAYER dfsagf";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("admin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamAdminSethq()
 	{
@@ -62,9 +65,12 @@ public class PatternAdminTest
 		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "shq";
 		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("admin_" + baseCmd)));
+		command = "set";
+		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("admin_" + baseCmd)));
 		command = "sethq dsaf ";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("admin_" + baseCmd)));
 	}
+
 	@After
 	public void takedown()
 	{

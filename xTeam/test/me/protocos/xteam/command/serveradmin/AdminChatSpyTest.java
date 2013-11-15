@@ -6,7 +6,7 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,26 +29,26 @@ public class AdminChatSpyTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team chatspy"));
 		//ASSERT
 		Assert.assertEquals("You are now spying on team chat", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(Data.spies.contains("protocos"));
+		Assert.assertTrue(Configuration.spies.contains("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@Test
 	public void ShouldBeServerAdminChatSpyExecuteDisable()
 	{
 		//ASSEMBLE
-		Data.spies.add("protocos");
+		Configuration.spies.add("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new AdminChatSpy();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team chatspy"));
 		//ASSERT
 		Assert.assertEquals("You are no longer spying on team chat", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(Data.spies.contains("protocos"));
+		Assert.assertFalse(Configuration.spies.contains("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 	@After
 	public void takedown()
 	{
-		Data.spies.clear();
+		Configuration.spies.clear();
 	}
 }

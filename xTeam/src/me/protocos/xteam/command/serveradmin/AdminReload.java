@@ -4,7 +4,6 @@ import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ServerAdminCommand;
-import me.protocos.xteam.core.Data;
 import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.command.CommandSender;
 
@@ -18,8 +17,8 @@ public class AdminReload extends ServerAdminCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Data.load(xTeam.getInstance().getConfigLoader());
-		originalSender.sendMessage("Config reloaded");
+		xTeam.getInstance().getConfigLoader().load();
+		originalSender.sendMessage("Configuration reloaded");
 	}
 
 	@Override

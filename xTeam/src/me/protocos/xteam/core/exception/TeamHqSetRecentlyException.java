@@ -1,6 +1,7 @@
 package me.protocos.xteam.core.exception;
 
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
+
 
 public class TeamHqSetRecentlyException extends TeamException
 {
@@ -11,7 +12,7 @@ public class TeamHqSetRecentlyException extends TeamException
 
 	public TeamHqSetRecentlyException()
 	{
-		super("Team headquarters set in the last " + Data.HQ_INTERVAL + " hours");
+		super("Team headquarters set in the last " + Configuration.HQ_INTERVAL + " hours");
 	}
 	public TeamHqSetRecentlyException(String message)
 	{

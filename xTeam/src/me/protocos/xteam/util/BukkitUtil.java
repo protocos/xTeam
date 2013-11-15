@@ -100,4 +100,9 @@ public class BukkitUtil
 	{
 		return getPluginManager().getPlugin(string);
 	}
+
+	public static Plugin getxTeam()
+	{
+		return getPlugin("xTeam");
+	}
 }

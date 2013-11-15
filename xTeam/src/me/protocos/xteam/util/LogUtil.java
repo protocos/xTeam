@@ -1,13 +1,15 @@
 package me.protocos.xteam.util;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.sql.Timestamp;
 import java.util.Scanner;
-import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.collections.LimitedQueue;
 import me.protocos.xteam.api.util.ILog;
-import me.protocos.xteam.core.Data;
+import me.protocos.xteam.core.Configuration;
 
 public class LogUtil implements ILog
 {
@@ -15,13 +17,13 @@ public class LogUtil implements ILog
 	private ErrorReportUtil errorReporter;
 	private PrintStream printStream;
 
-	public LogUtil(TeamPlugin teamPlugin)
+	public LogUtil(String folderPath, TeamPlugin teamPlugin)
 	{
 		String pluginPackageID = teamPlugin.getClass().getPackage().toString();
 		this.packageString = pluginPackageID.substring(pluginPackageID.indexOf(' ') + 1, pluginPackageID.lastIndexOf('.') + 1);
 		String pluginName = teamPlugin.getPluginName();
-		SystemUtil.createFolder(pluginName);
-		File file = SystemUtil.createFile(teamPlugin.getDataFolder().getAbsolutePath() + "/" + pluginName + ".log");
+		SystemUtil.ensureFolder(pluginName);
+		File file = SystemUtil.ensureFile(folderPath + "/" + pluginName + ".log");
 		try
 		{
 			LimitedQueue<String> previousEntries = new LimitedQueue<String>(500);
@@ -47,11 +49,6 @@ public class LogUtil implements ILog
 		printStream.close();
 	}
 
-	public void custom(String message)
-	{
-		write(message);
-	}
-
 	public void debug(String message)
 	{
 		message = "[DEBUG] " + message;
@@ -62,6 +59,7 @@ public class LogUtil implements ILog
 	{
 		message = "[ERROR] " + message;
 		write(message);
+		print(message);
 	}
 
 	public void exception(final Exception e)
@@ -74,7 +72,7 @@ public class LogUtil implements ILog
 				error("\t@ " + elem.toString().replaceAll(packageString, ""));
 			}
 		}
-		if (Data.SEND_ANONYMOUS_ERROR_REPORTS)
+		if (Configuration.SEND_ANONYMOUS_ERROR_REPORTS)
 		{
 			class EmailReport implements Runnable
 			{
@@ -84,14 +82,8 @@ public class LogUtil implements ILog
 					errorReporter.sendErrorReport(e);
 				}
 			}
-			BukkitUtil.getScheduler().scheduleSyncDelayedTask(xTeam.getInstance(), new EmailReport(), CommonUtil.LONG_ZERO);
+			BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getxTeam(), new EmailReport(), CommonUtil.LONG_ZERO);
 		}
-	}
-
-	public void fatal(String message)
-	{
-		message = "[FATAL] " + message;
-		write(message);
 	}
 
 	public void info(String message)
@@ -104,5 +96,10 @@ public class LogUtil implements ILog
 	{
 		Timestamp t = new Timestamp(System.currentTimeMillis());
 		printStream.println(t.toString().substring(0, t.toString().indexOf('.')) + " " + message);
+	}
+
+	public void print(String message)
+	{
+		System.out.println(message);
 	}
 }
