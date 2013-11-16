@@ -1,7 +1,6 @@
 package me.protocos.xteam.command;
 
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
@@ -23,7 +22,5 @@ public abstract class UserCommand extends PlayerCommand
 		super.initData(originalSender, parseCommand);
 		teamPlayer = xTeam.getInstance().getPlayerManager().getPlayer(player);
 		team = teamPlayer.getTeam();
-		Requirements.checkPlayerHasPermission(originalSender, getPermissionNode());
-		Requirements.checkPlayerCommandIsValid(parseCommand, getPattern());
 	}
 }

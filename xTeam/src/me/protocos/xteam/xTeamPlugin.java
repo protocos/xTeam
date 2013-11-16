@@ -3,7 +3,7 @@ package me.protocos.xteam;
 import java.util.List;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.util.ILog;
-import me.protocos.xteam.util.LogUtil;
+import me.protocos.xteam.core.Log;
 import org.bukkit.permissions.Permission;
 
 public class xTeamPlugin extends TeamPlugin
@@ -47,7 +47,7 @@ public class xTeamPlugin extends TeamPlugin
 	@Override
 	public void onLoad()
 	{
-		logger = new LogUtil(this.getFolder(), this);
+		logger = new Log(this.getFolder(), this);
 		xteam.load(this);
 	}
 

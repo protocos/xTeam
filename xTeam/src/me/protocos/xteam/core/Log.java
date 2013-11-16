@@ -1,4 +1,4 @@
-package me.protocos.xteam.util;
+package me.protocos.xteam.core;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,15 +9,18 @@ import java.util.Scanner;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.collections.LimitedQueue;
 import me.protocos.xteam.api.util.ILog;
-import me.protocos.xteam.core.Configuration;
+import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.CommonUtil;
+import me.protocos.xteam.util.ErrorReportUtil;
+import me.protocos.xteam.util.SystemUtil;
 
-public class LogUtil implements ILog
+public class Log implements ILog
 {
 	private final String packageString;
 	private ErrorReportUtil errorReporter;
 	private PrintStream printStream;
 
-	public LogUtil(String folderPath, TeamPlugin teamPlugin)
+	public Log(String folderPath, TeamPlugin teamPlugin)
 	{
 		String pluginPackageID = teamPlugin.getClass().getPackage().toString();
 		this.packageString = pluginPackageID.substring(pluginPackageID.indexOf(' ') + 1, pluginPackageID.lastIndexOf('.') + 1);

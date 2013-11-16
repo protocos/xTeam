@@ -24,7 +24,7 @@ public class UserAccept extends UserCommand
 		inviteTeam.addPlayer(teamPlayer.getName());
 		InviteHandler.removeInvite(teamPlayer.getName());
 		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + ChatColorUtil.positiveMessage("joined") + " your team");
-		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("joined") + " " + inviteTeam.getName());
+		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("joined") + " " + inviteTeam.getName());
 	}
 
 	@Override

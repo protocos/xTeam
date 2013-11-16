@@ -3,7 +3,6 @@ package me.protocos.xteam.command;
 import java.io.File;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ICommandManager;
-import me.protocos.xteam.core.Functions;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.StringUtil;
@@ -59,7 +58,7 @@ public class CommandDelegate implements CommandExecutor
 				xTeam.getInstance().getLog().info("Command execute failed for reason: " + (new TeamInvalidCommandException()).getMessage());
 			}
 			else if (command.execute(sender, parseCommand) == true)
-				Functions.writeTeamData(new File("plugins/xTeam/teams.txt"));
+				xTeam.getInstance().writeTeamData(new File("plugins/xTeam/teams.txt"));
 		}
 		catch (Exception e)
 		{

@@ -1,6 +1,7 @@
 package me.protocos.xteam.command;
 
 import me.protocos.xteam.api.command.IPermissible;
+import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.command.CommandSender;
@@ -19,5 +20,7 @@ public abstract class PlayerCommand extends BaseCommand implements IPermissible
 	public void initData(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		player = CommonUtil.assignFromType(originalSender, Player.class);
+		Requirements.checkPlayerHasPermission(originalSender, this.getPermissionNode());
+		Requirements.checkPlayerCommandIsValid(parseCommand, this.getPattern());
 	}
 }

@@ -13,25 +13,25 @@ public abstract class BaseCommand implements ICommand
 	{
 	}
 
-	protected abstract void initData(CommandSender sender, CommandParser command) throws TeamException, InvalidClassException;
+	protected abstract void initData(CommandSender originalSender, CommandParser command) throws TeamException, InvalidClassException;
 
-	protected abstract void checkRequirements(CommandSender sender, CommandParser command) throws TeamException;
+	protected abstract void checkRequirements(CommandSender originalSender, CommandParser command) throws TeamException;
 
-	protected abstract void act(CommandSender sender, CommandParser command);
+	protected abstract void act(CommandSender originalSender, CommandParser command);
 
 	@Override
-	public boolean execute(CommandSender sender, CommandParser command)
+	public boolean execute(CommandSender originalSender, CommandParser command)
 	{
 		try
 		{
-			initData(sender, command);
-			checkRequirements(sender, command);
-			act(sender, command);
+			initData(originalSender, command);
+			checkRequirements(originalSender, command);
+			act(originalSender, command);
 			return true;
 		}
 		catch (TeamException e)
 		{
-			sender.sendMessage(ChatColorUtil.negativeMessage(e.getMessage()));
+			originalSender.sendMessage(ChatColorUtil.negativeMessage(e.getMessage()));
 			xTeam.getInstance().getLog().info("Command execute failed for reason: " + e.getMessage());
 		}
 		catch (InvalidClassException e)

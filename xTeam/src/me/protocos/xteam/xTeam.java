@@ -1,7 +1,9 @@
 package me.protocos.xteam;
 
-import java.io.File;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.util.ILog;
@@ -14,24 +16,22 @@ import me.protocos.xteam.command.teamadmin.UserPromote;
 import me.protocos.xteam.command.teamadmin.UserSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
-import me.protocos.xteam.core.Configuration;
-import me.protocos.xteam.core.Functions;
-import me.protocos.xteam.core.PlayerManager;
-import me.protocos.xteam.core.TeamManager;
+import me.protocos.xteam.core.*;
 import me.protocos.xteam.listener.TeamChatListener;
 import me.protocos.xteam.listener.TeamPlayerListener;
 import me.protocos.xteam.listener.TeamPvPEntityListener;
 import me.protocos.xteam.listener.TeamScoreListener;
 import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.StringUtil;
 import me.protocos.xteam.util.SystemUtil;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 
 public class xTeam
 {
-	//	private static final Logger log = Logger.getLogger("Minecraft");
-
 	private static xTeam xteam;
 	private String pluginPath, pluginName, pluginVersion;
 	private ILog logger;
@@ -213,7 +213,7 @@ public class xTeam
 			pm.registerEvents(new TeamPlayerListener(), plugin);
 			pm.registerEvents(new TeamScoreListener(), plugin);
 			pm.registerEvents(new TeamChatListener(), plugin);
-			Functions.readTeamData(new File(plugin.getDataFolder().getAbsolutePath() + "/teams.txt"));
+			this.readTeamData(new File(plugin.getDataFolder().getAbsolutePath() + "/teams.txt"));
 			plugin.getCommand("team").setExecutor(commandExecutor);
 			this.logInfo("[" + this.pluginName + "] v" + this.pluginVersion + " enabled");
 		}
@@ -227,7 +227,7 @@ public class xTeam
 	{
 		try
 		{
-			Functions.writeTeamData(new File(plugin.getDataFolder().getAbsolutePath() + "/teams.txt"));
+			this.writeTeamData(new File(plugin.getDataFolder().getAbsolutePath() + "/teams.txt"));
 			this.logInfo("[" + this.pluginName + "] v" + this.pluginVersion + " disabled");
 			this.getLog().close();
 		}
@@ -296,5 +296,144 @@ public class xTeam
 	{
 		//		xTeamPlugin.log.severe("[ERROR] in '" + methodName + "' method, check the logs");
 		this.getLog().exception(e);
+	}
+
+	public void readTeamData(File f)
+	{
+		// < 1.6.4 format = name password world 1362778787799 hq: 158.01133435293434 66.0 204.6646064980176 -205.5249 28.20008 protocos~~
+		// < 1.7.4 format = name:one world:world open:true leader:protocos timeHeadquartersSet:1362778406367 Headquarters:161.56076240936164,64.0,221.25238913113412,-206.87492,30.750084 players:protocos admins:protocos
+		// = 1.7.4 format = name:one open:false default:false timeHeadquartersSet:0 Headquarters: leader:protocos admins:protocos players:protocos,kmlanglois
+		try
+		{
+			Scanner input = new Scanner(f);
+			String line;
+			if (input.hasNext() && (line = input.nextLine()) != null && !line.contains("name:"))
+			{
+				readOldData(f);
+				return;
+			}
+			//TODO fix the FileReader being from java.io.FileReader and local
+			BufferedReader br = new BufferedReader(new FileReader(f));
+			while ((line = br.readLine()) != null)
+			{
+				Team team = Team.generateTeamFromProperties(line);
+				xTeam.getInstance().getTeamManager().addTeam(team);
+			}
+			br.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void writeTeamData(File f)
+	{
+		ArrayList<String> data = new ArrayList<String>();
+		try
+		{
+			List<Team> teams = xTeam.getInstance().getTeamManager().getAllTeams();
+			for (Team team : teams)
+				data.add(team.toString());
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		try
+		{
+			//			File f = new File("plugins/xTeam/teams.txt");
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			for (String line : data)
+			{
+				bw.write(line + "\n");
+			}
+			bw.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	@Deprecated
+	public void readOldData(File f) throws NumberFormatException, IOException
+	{
+		// team data as it was stored before 1.6.4
+		BufferedReader br = new BufferedReader(new FileReader(f));
+		String line;
+		while ((line = br.readLine()) != null)
+		{
+			String[] s = line.split(" ");
+			String teamName = s[0];
+			// String pass = s[1];
+			World world = BukkitUtil.getWorld(s[2]);
+			long timeHeadquartersSet = Long.valueOf(s[3]).longValue();
+			Location HQ = new Location(world, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
+			ArrayList<String> players = new ArrayList<String>();
+			ArrayList<String> admins = new ArrayList<String>();
+			String leader = "";
+			int startIndex = 4;
+			if (s.length > 4)
+			{
+				if (s[4].equalsIgnoreCase("hq:"))
+				{
+					HQ.setWorld(world);
+					HQ.setX(Double.valueOf(s[5]).doubleValue());
+					HQ.setY(Double.valueOf(s[6]).doubleValue());
+					HQ.setZ(Double.valueOf(s[7]).doubleValue());
+					HQ.setYaw(Float.valueOf(s[8]).floatValue());
+					HQ.setPitch(Float.valueOf(s[9]).floatValue());
+					startIndex = 10;
+				}
+				for (int i = startIndex; i < s.length; i++)
+				{
+					if (s[i].contains("~~"))
+						leader = s[i].replaceAll("~", "");
+					if (s[i].contains("~"))
+						admins.add(s[i].replaceAll("~", ""));
+					players.add(s[i].replaceAll("~", ""));
+				}
+			}
+			if (StringUtil.toLowerCase(Configuration.DEFAULT_TEAM_NAMES).contains(teamName.toLowerCase()))
+			{
+				for (Team team : xTeam.getInstance().getTeamManager().getDefaultTeams())
+				{
+					if (team.getName().toLowerCase().equalsIgnoreCase(teamName))
+					{
+						team.setPlayers(players);
+						if (HQ.getY() != 0.0D)
+							team.setHQ(new Headquarters(HQ));
+					}
+				}
+			}
+			else
+			{
+				Team team = new Team.Builder(teamName).tag(teamName).leader(leader).players(players).admins(admins).hq(new Headquarters(HQ)).timeHeadquartersSet(timeHeadquartersSet).openJoining(false).defaultTeam(false).build();
+				for (int i = startIndex; i < s.length; i++)
+				{
+					s[i] = s[i].replaceAll("~", "");
+				}
+				xTeam.getInstance().getTeamManager().addTeam(team);
+			}
+		}
+		br.close();
+	}
+
+	@Deprecated
+	public void writeOldData(File f)
+	{
+		try
+		{
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			List<Team> teams = xTeam.getInstance().getTeamManager().getAllTeams();
+			for (Team t : teams)
+				bw.write(t.toString() + "\n");
+			bw.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

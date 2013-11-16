@@ -28,7 +28,7 @@ public class TeamChatListener implements Listener
 			{
 				return;
 			}
-			if (teamPlayer.hasPlayedBefore() && Configuration.DISABLED_WORLDS.contains(playerWorld.getName()))
+			if (Configuration.DISABLED_WORLDS.contains(playerWorld.getName()))
 			{
 				return;
 			}
@@ -37,16 +37,16 @@ public class TeamChatListener implements Listener
 				Team team = teamPlayer.getTeam();
 				String playerName = teamPlayer.getName();
 				String teamTag = "[" + teamPlayer.getTeam().getTag() + "]";
-				event.setFormat(ChatColorUtil.getColor(Configuration.TAG_COLOR) + teamTag + ChatColor.RESET + " " + format);
+				event.setFormat(ChatColorUtil.getColor(Configuration.COLOR_TAG) + teamTag + ChatColor.RESET + " " + format);
 				if (Configuration.chatStatus.contains(playerName))
 				{
 					event.setCancelled(true);
-					team.sendMessage("[" + ChatColorUtil.getColor(Configuration.NAME_COLOR) + playerName + ChatColor.RESET + "] " + msg);
+					team.sendMessage("[" + ChatColorUtil.getColor(Configuration.COLOR_NAME) + playerName + ChatColor.RESET + "] " + msg);
 					for (String p : Configuration.spies)
 					{
 						ITeamPlayer spy = xTeam.getInstance().getPlayerManager().getPlayer(p);
 						if (!spy.isOnSameTeam(teamPlayer))
-							spy.sendMessage(ChatColorUtil.getColor(Configuration.TAG_COLOR) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
+							spy.sendMessage(ChatColorUtil.getColor(Configuration.COLOR_TAG) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
 					}
 					xTeam.getInstance().getLog().info("[" + playerName + "] " + event.getMessage());
 				}
@@ -55,7 +55,6 @@ public class TeamChatListener implements Listener
 		catch (Exception e)
 		{
 			xTeam.getInstance().getLog().exception(e);
-			xTeam.getInstance().getLog().info("[ERROR] Exception in " + this.getClass().getName() + " class [check logs]");
 		}
 	}
 }

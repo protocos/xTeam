@@ -40,8 +40,8 @@ public class Configuration
 	public static int MAX_NUM_LOCATIONS;
 	public static int TELE_REFRESH_DELAY;
 	public static int RALLY_DELAY;
-	public static String TAG_COLOR;
-	public static String NAME_COLOR;
+	public static String COLOR_TAG;
+	public static String COLOR_NAME;
 	public static List<String> DEFAULT_TEAM_NAMES = new ArrayList<String>();
 	public static List<String> DISABLED_WORLDS = new ArrayList<String>();
 
@@ -154,8 +154,8 @@ public class Configuration
 		TEAM_TAG_LENGTH = CommonUtil.assignFromType(values.get("teamtagmaxlength"), Integer.class);
 		TELE_REFRESH_DELAY = CommonUtil.assignFromType(values.get("telerefreshdelay"), Integer.class);
 		RALLY_DELAY = CommonUtil.assignFromType(values.get("rallydelay"), Integer.class);
-		TAG_COLOR = CommonUtil.assignFromType(values.get("tagcolor"), String.class);
-		NAME_COLOR = CommonUtil.assignFromType(values.get("chatnamecolor"), String.class);
+		COLOR_TAG = CommonUtil.assignFromType(values.get("tagcolor"), String.class);
+		COLOR_NAME = CommonUtil.assignFromType(values.get("chatnamecolor"), String.class);
 		DEFAULT_TEAM_NAMES = CommonUtil.toList(CommonUtil.assignFromType(values.get("defaultteams"), String.class).replace(" ", "").split(","));
 		DISABLED_WORLDS = CommonUtil.toList(CommonUtil.assignFromType(values.get("disabledworlds"), String.class).replace(" ", "").split(","));
 		this.ensureDefaultTeams();
