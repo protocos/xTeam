@@ -143,22 +143,6 @@ public class PatternConsoleTest
 	}
 
 	@Test
-	public void ShouldBeConsoleReload()
-	{
-		baseCmd = "reload";
-		command = "reload";
-		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
-		command = "rel ";
-		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
-		command = "r";
-		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
-		command = "rd";
-		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
-		command = "re 1";
-		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("console_" + baseCmd)));
-	}
-
-	@Test
 	public void ShouldBeConsoleRemove()
 	{
 		baseCmd = "remove";

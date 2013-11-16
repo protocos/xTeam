@@ -19,6 +19,7 @@ public class PatternServerAdminTest
 		mockData();
 		xTeam.getInstance().registerServerAdminCommands(xTeam.getInstance().getCommandManager());
 	}
+
 	@Test
 	public void ShouldBeServerAdminChatSpy()
 	{
@@ -36,6 +37,7 @@ public class PatternServerAdminTest
 		command = "cspy dasflk;j";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeServerAdminDelete()
 	{
@@ -49,6 +51,7 @@ public class PatternServerAdminTest
 		command = "disband TEAM dfsaiphjkl";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeServerAdminDemote()
 	{
@@ -68,6 +71,7 @@ public class PatternServerAdminTest
 		command = "dem TEAM PLAYER sdfkjahl";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeServerAdminHelp()
 	{
@@ -90,6 +94,7 @@ public class PatternServerAdminTest
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 
 	}
+
 	@Test
 	public void ShouldBeServerAdminHQ()
 	{
@@ -105,6 +110,7 @@ public class PatternServerAdminTest
 		command = "hq TEAM fdsaj;k";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeServerAdminPromote()
 	{
@@ -124,23 +130,7 @@ public class PatternServerAdminTest
 		command = "pmte TEAM ";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
-	@Test
-	public void ShouldBeServerAdminReload()
-	{
-		baseCmd = "reload";
-		command = "reload";
-		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
-		command = "reload ";
-		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
-		command = "rl ";
-		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
-		command = "rel ";
-		Assert.assertTrue(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
-		command = "r";
-		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
-		command = "r alksldj;ladjksf";
-		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
-	}
+
 	@Test
 	public void ShouldBeServerAdminRemove()
 	{
@@ -158,6 +148,7 @@ public class PatternServerAdminTest
 		command = "r TEAM PLAYER";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeServerAdminRename()
 	{
@@ -175,6 +166,7 @@ public class PatternServerAdminTest
 		command = "ren TEAM NAME dmtrnsabknb ";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeServerAdminSet()
 	{
@@ -196,6 +188,7 @@ public class PatternServerAdminTest
 		command = "st PLAYER TEAM jadsldkn ";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeServerAdminSetHQ()
 	{
@@ -213,6 +206,7 @@ public class PatternServerAdminTest
 		command = "sethq TEAM dfsjkal";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeServerAdminSetLeader()
 	{
@@ -230,6 +224,7 @@ public class PatternServerAdminTest
 		command = "sl TEAM PLAYER ";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeServerAdminTeleALlHQ()
 	{
@@ -247,6 +242,7 @@ public class PatternServerAdminTest
 		command = "teleallhq awkejnr ";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeServerAdminTpAll()
 	{
@@ -266,6 +262,7 @@ public class PatternServerAdminTest
 		command = "tpall ";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamAdminOpen()
 	{
@@ -283,6 +280,7 @@ public class PatternServerAdminTest
 		command = "open TEAM sdfhkabkl";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@Test
 	public void ShouldBeTeamAdminTag()
 	{
@@ -302,6 +300,7 @@ public class PatternServerAdminTest
 		command = "tg TEAM TAG sdfhkabkl";
 		Assert.assertFalse(command.matches(xTeam.getInstance().getCommandManager().getPattern("serveradmin_" + baseCmd)));
 	}
+
 	@After
 	public void takedown()
 	{

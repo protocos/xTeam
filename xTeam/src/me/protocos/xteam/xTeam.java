@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import me.protocos.xteam.api.ICommandContainer;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.util.ILog;
@@ -30,7 +31,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 
-public class xTeam
+public class xTeam implements ICommandContainer
 {
 	private static xTeam xteam;
 	private String pluginPath, pluginName, pluginVersion;
@@ -44,16 +45,11 @@ public class xTeam
 
 	private xTeam()
 	{
-		super();
 		this.playerManager = new PlayerManager();
 		this.teamManager = new TeamManager();
 		this.commandManager = new CommandManager();
 		this.commandExecutor = new CommandDelegate(commandManager);
-		this.registerConsoleCommands(commandManager);
-		this.registerServerAdminCommands(commandManager);
-		this.registerUserCommands(commandManager);
-		this.registerAdminCommands(commandManager);
-		this.registerLeaderCommands(commandManager);
+		this.commandManager.register(this);
 	}
 
 	public static xTeam getInstance()
@@ -90,11 +86,6 @@ public class xTeam
 		return commandManager;
 	}
 
-	public CommandExecutor getCommandExecutor()
-	{
-		return commandExecutor;
-	}
-
 	public TeamManager getTeamManager()
 	{
 		return teamManager;
@@ -110,6 +101,7 @@ public class xTeam
 		return configLoader;
 	}
 
+	@Override
 	public void registerConsoleCommands(ICommandManager manager)
 	{
 		manager.registerCommand("console_debug", new ConsoleDebug());
@@ -119,7 +111,6 @@ public class xTeam
 		manager.registerCommand("console_info", new ConsoleInfo());
 		manager.registerCommand("console_list", new ConsoleList());
 		manager.registerCommand("console_promote", new ConsolePromote());
-		manager.registerCommand("console_reload", new ConsoleReload());
 		manager.registerCommand("console_remove", new ConsoleRemove());
 		manager.registerCommand("console_rename", new ConsoleRename());
 		manager.registerCommand("console_tag", new ConsoleTag());
@@ -129,6 +120,7 @@ public class xTeam
 		manager.registerCommand("console_teleallhq", new ConsoleTeleAllHQ());
 	}
 
+	@Override
 	public void registerServerAdminCommands(ICommandManager manager)
 	{
 		manager.registerCommand("serveradmin_chatspy", new AdminChatSpy());
@@ -137,7 +129,6 @@ public class xTeam
 		manager.registerCommand("serveradmin_admin", new AdminHelp());
 		manager.registerCommand("serveradmin_hq", new AdminHeadquarters());
 		manager.registerCommand("serveradmin_promote", new AdminPromote());
-		manager.registerCommand("serveradmin_reload", new AdminReload());
 		manager.registerCommand("serveradmin_remove", new AdminRemove());
 		manager.registerCommand("serveradmin_rename", new AdminRename());
 		manager.registerCommand("serveradmin_tag", new AdminTag());
@@ -149,6 +140,7 @@ public class xTeam
 		manager.registerCommand("serveradmin_tpall", new AdminTpAll());
 	}
 
+	@Override
 	public void registerLeaderCommands(ICommandManager manager)
 	{
 		manager.registerCommand("leader_demote", new UserDemote());
@@ -161,6 +153,7 @@ public class xTeam
 		manager.registerCommand("leader_setrally", new UserSetRally());
 	}
 
+	@Override
 	public void registerAdminCommands(ICommandManager manager)
 	{
 		manager.registerCommand("admin_sethq", new UserSetHeadquarters());
@@ -168,6 +161,7 @@ public class xTeam
 		manager.registerCommand("admin_promote", new UserPromote());
 	}
 
+	@Override
 	public void registerUserCommands(ICommandManager manager)
 	{
 		manager.registerCommand("user_mainhelp", new UserMainHelp());

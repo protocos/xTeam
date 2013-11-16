@@ -1,6 +1,7 @@
 package me.protocos.xteam.command;
 
 import java.util.List;
+import me.protocos.xteam.api.ICommandContainer;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.command.IPermissible;
@@ -160,5 +161,15 @@ public class CommandManager implements ICommandManager
 			}
 		}
 		return availableCommands;
+	}
+
+	@Override
+	public void register(ICommandContainer container)
+	{
+		container.registerConsoleCommands(this);
+		container.registerServerAdminCommands(this);
+		container.registerUserCommands(this);
+		container.registerAdminCommands(this);
+		container.registerLeaderCommands(this);
 	}
 }

@@ -6,7 +6,6 @@ import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.util.ILog;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.TeamManager;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -39,11 +38,6 @@ public abstract class TeamPlugin extends JavaPlugin
 	public ICommandManager getCommandManager()
 	{
 		return xteam.getCommandManager();
-	}
-
-	public CommandExecutor getCommandExecutor()
-	{
-		return xteam.getCommandExecutor();
 	}
 
 	public TeamManager getTeamManager()

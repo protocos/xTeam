@@ -1,6 +1,7 @@
 package me.protocos.xteam.api.command;
 
 import java.util.List;
+import me.protocos.xteam.api.ICommandContainer;
 import me.protocos.xteam.command.BaseCommand;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.PlayerCommand;
@@ -29,4 +30,6 @@ public interface ICommandManager
 	public abstract List<String> getAvailableAdminCommandsFor(Player player);
 
 	public abstract List<String> getAvailableCommandsFor(TeamPlayer teamPlayer);
+
+	public abstract void register(ICommandContainer container);
 }

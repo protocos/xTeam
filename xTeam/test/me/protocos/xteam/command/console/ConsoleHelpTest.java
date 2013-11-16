@@ -39,7 +39,6 @@ public class ConsoleHelpTest
 				"/team info [Player/Team] - get info on player/team\n" +
 				"/team list - list all teams on the server\n" +
 				"/team promote [Team] [Player] - promote player to admin\n" +
-				"/team reload - reload configuration file\n" +
 				"/team remove [Team] [Player] - remove player from team\n" +
 				"/team rename [Team] [Name] - rename a team\n" +
 				"/team tag [Team] [Tag] - set team tag\n" +
