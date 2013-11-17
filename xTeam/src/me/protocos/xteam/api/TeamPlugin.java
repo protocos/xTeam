@@ -2,6 +2,7 @@ package me.protocos.xteam.api;
 
 import java.util.List;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.command.ICommandContainer;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.util.ILog;
 import me.protocos.xteam.core.PlayerManager;
@@ -9,7 +10,7 @@ import me.protocos.xteam.core.TeamManager;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public abstract class TeamPlugin extends JavaPlugin
+public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 {
 	protected xTeam xteam;
 
@@ -17,6 +18,7 @@ public abstract class TeamPlugin extends JavaPlugin
 	{
 		super();
 		xteam = xTeam.getInstance();
+		xteam.getCommandManager().register(this);
 	}
 
 	public abstract String getFolder();

@@ -1,8 +1,8 @@
 package me.protocos.xteam.command;
 
 import java.util.List;
-import me.protocos.xteam.api.ICommandContainer;
 import me.protocos.xteam.api.collections.HashList;
+import me.protocos.xteam.api.command.ICommandContainer;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.command.IPermissible;
 import me.protocos.xteam.core.TeamPlayer;
@@ -154,8 +154,20 @@ public class CommandManager implements ICommandManager
 			{
 				if (key.startsWith("user"))
 					availableCommands.add(ChatColorUtil.formatForUser(getUsage(key) + " - " + getDescription(key)));
+			}
+		}
+		for (String key : commands)
+		{
+			if (teamPlayer.hasPermission(getPermissionNode(key)))
+			{
 				if (key.startsWith("admin"))
 					availableCommands.add(ChatColorUtil.formatForAdmin(getUsage(key) + " - " + getDescription(key)));
+			}
+		}
+		for (String key : commands)
+		{
+			if (teamPlayer.hasPermission(getPermissionNode(key)))
+			{
 				if (key.startsWith("leader"))
 					availableCommands.add(ChatColorUtil.formatForLeader(getUsage(key) + " - " + getDescription(key)));
 			}

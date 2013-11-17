@@ -2,7 +2,6 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandParser;
@@ -19,7 +18,6 @@ public class AdminHelpTest
 	{
 		//MOCK data
 		mockData();
-		xTeam.getInstance().registerServerAdminCommands(xTeam.getInstance().getCommandManager());
 	}
 
 	@Test

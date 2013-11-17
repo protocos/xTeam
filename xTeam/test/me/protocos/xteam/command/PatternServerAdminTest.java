@@ -17,7 +17,6 @@ public class PatternServerAdminTest
 	{
 		//MOCK data
 		mockData();
-		xTeam.getInstance().registerServerAdminCommands(xTeam.getInstance().getCommandManager());
 	}
 
 	@Test

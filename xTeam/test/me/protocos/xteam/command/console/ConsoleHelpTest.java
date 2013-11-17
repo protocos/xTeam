@@ -2,7 +2,6 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -19,7 +18,6 @@ public class ConsoleHelpTest
 	{
 		//MOCK data
 		mockData();
-		xTeam.getInstance().registerConsoleCommands(xTeam.getInstance().getCommandManager());
 		fakeConsoleSender = new FakeConsoleSender();
 	}
 

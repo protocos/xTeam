@@ -65,11 +65,20 @@ permissions:
 #        children:
 #            xteam.player.locations.list: true
 #            xteam.player.locations.track: true
+    xteam.player.levels.level:
+        description: Allows team players to check team level
+        default: false
+    xteam.player.levels.*:
+        description: All team player levels commands
+        default: false
+        children:
+            xteam.player.levels.level: true
     xteam.player.*:
         description: All team player commands
         default: false
         children:
             xteam.player.core.*: true
+            xteam.player.levels.*: true
 #            xteam.player.locations.*: true
     xteam.admin.core.invite:
         description: Allows team admins to invite other players

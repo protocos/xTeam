@@ -17,7 +17,6 @@ public class PatternUserTest
 	{
 		//MOCK data
 		mockData();
-		xTeam.getInstance().registerUserCommands(xTeam.getInstance().getCommandManager());
 	}
 
 	@Test

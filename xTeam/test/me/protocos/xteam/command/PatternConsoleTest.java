@@ -17,7 +17,6 @@ public class PatternConsoleTest
 	{
 		//MOCK data
 		mockData();
-		xTeam.getInstance().registerConsoleCommands(xTeam.getInstance().getCommandManager());
 	}
 
 	@Test

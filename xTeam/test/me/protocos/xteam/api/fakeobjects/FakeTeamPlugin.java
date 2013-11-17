@@ -1,7 +1,9 @@
 package me.protocos.xteam.api.fakeobjects;
 
 import java.util.List;
+import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.TeamPlugin;
+import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.util.ILog;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.permissions.Permission;
@@ -63,5 +65,35 @@ public class FakeTeamPlugin extends TeamPlugin
 	public void onDisable()
 	{
 		xteam.disable(this);
+	}
+
+	@Override
+	public void registerConsoleCommands(ICommandManager manager)
+	{
+		(new xTeamPlugin()).registerConsoleCommands(manager);
+	}
+
+	@Override
+	public void registerServerAdminCommands(ICommandManager manager)
+	{
+		(new xTeamPlugin()).registerServerAdminCommands(manager);
+	}
+
+	@Override
+	public void registerLeaderCommands(ICommandManager manager)
+	{
+		(new xTeamPlugin()).registerLeaderCommands(manager);
+	}
+
+	@Override
+	public void registerAdminCommands(ICommandManager manager)
+	{
+		(new xTeamPlugin()).registerAdminCommands(manager);
+	}
+
+	@Override
+	public void registerUserCommands(ICommandManager manager)
+	{
+		(new xTeamPlugin()).registerAdminCommands(manager);
 	}
 }

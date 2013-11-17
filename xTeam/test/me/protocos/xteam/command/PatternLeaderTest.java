@@ -17,7 +17,6 @@ public class PatternLeaderTest
 	{
 		//MOCK data
 		mockData();
-		xTeam.getInstance().registerLeaderCommands(xTeam.getInstance().getCommandManager());
 	}
 
 	@Test

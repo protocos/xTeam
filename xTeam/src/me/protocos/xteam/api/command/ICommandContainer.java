@@ -1,6 +1,5 @@
-package me.protocos.xteam.api;
+package me.protocos.xteam.api.command;
 
-import me.protocos.xteam.api.command.ICommandManager;
 
 public interface ICommandContainer
 {
