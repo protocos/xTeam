@@ -2,6 +2,7 @@ package me.protocos.xteam.core;
 
 import java.util.List;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.command.IPermissible;
 import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
@@ -184,7 +185,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	}
 
 	@Override
-	public boolean hasPermission(String permissionNode)
+	public boolean hasPermission(IPermissible permission)
 	{
 		return false;
 	}
@@ -195,11 +196,6 @@ public class OfflineTeamPlayer implements ITeamPlayer
 		return player.isOp();
 	}
 
-	//	@Override
-	//	public String quickInfo()
-	//	{
-	//		return this.getName() + " was last online on " + this.getLastPlayed();
-	//	}
 	@Override
 	public boolean teleportTo(ILocatable entity)
 	{

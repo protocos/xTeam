@@ -3,6 +3,7 @@ package me.protocos.xteam.core;
 import java.util.List;
 import java.util.UUID;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.command.IPermissible;
 import me.protocos.xteam.api.core.ILocatable;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
@@ -157,7 +158,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	}
 
 	@Override
-	public boolean hasPermission(String permission)
+	public boolean hasPermission(IPermissible permission)
 	{
 		return PermissionUtil.hasPermission(player, permission);
 	}

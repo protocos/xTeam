@@ -1,7 +1,6 @@
 package me.protocos.xteam.api.command;
 
 import java.util.List;
-import me.protocos.xteam.command.BaseCommand;
 import me.protocos.xteam.core.TeamPlayer;
 import org.bukkit.command.CommandSender;
 

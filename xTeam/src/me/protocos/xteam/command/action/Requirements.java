@@ -1,14 +1,19 @@
 package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.command.IPermissible;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.teamuser.TeamUserReturn;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
-import me.protocos.xteam.util.*;
+import me.protocos.xteam.util.CommonUtil;
+import me.protocos.xteam.util.HelpPages;
+import me.protocos.xteam.util.PermissionUtil;
+import me.protocos.xteam.util.StringUtil;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 
@@ -18,9 +23,9 @@ public class Requirements
 	{
 	}
 
-	public static void checkPlayerHasPermission(CommandSender originalSender, String permissionNode) throws TeamPlayerPermissionException
+	public static void checkPlayerHasPermission(CommandSender originalSender, IPermissible permission) throws TeamPlayerPermissionException
 	{
-		if (!PermissionUtil.hasPermission(originalSender, permissionNode))
+		if (!PermissionUtil.hasPermission(originalSender, permission))
 		{
 			throw new TeamPlayerPermissionException();
 		}
@@ -260,19 +265,19 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerCanTeleport(TeamPlayer teamPlayer, String permissionNode) throws TeamPlayerTeleException
+	public static void checkPlayerCanTeleport(TeamPlayer teamPlayer) throws TeamPlayerTeleException
 	{
-		checkPlayerLastTeleported(teamPlayer, permissionNode);
+		checkPlayerLastTeleported(teamPlayer);
 		checkPlayerLastAttacked(teamPlayer);
 	}
 
-	public static void checkPlayerLastTeleported(TeamPlayer teamPlayer, String permissionNode) throws TeamPlayerTeleException
+	public static void checkPlayerLastTeleported(TeamPlayer teamPlayer) throws TeamPlayerTeleException
 	{
 		long timeSinceLastTeleport = CommonUtil.getElapsedTimeSince(teamPlayer.getLastTeleported());
 		if (timeSinceLastTeleport < Configuration.TELE_REFRESH_DELAY)
 		{
 			String error = "Player cannot teleport within " + Configuration.TELE_REFRESH_DELAY + " seconds of last teleport\nPlayer must wait " + (Configuration.TELE_REFRESH_DELAY - timeSinceLastTeleport) + " more seconds";
-			if (teamPlayer.hasReturnLocation() && (teamPlayer.hasPermission(permissionNode) || Configuration.NO_PERMISSIONS))
+			if (teamPlayer.hasReturnLocation() && (teamPlayer.hasPermission(new TeamUserReturn()) || Configuration.NO_PERMISSIONS))
 				error += "\n/team return is still available";
 			throw new TeamPlayerTeleException(error);
 		}

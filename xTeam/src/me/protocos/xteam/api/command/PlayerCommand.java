@@ -1,7 +1,6 @@
 package me.protocos.xteam.api.command;
 
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.command.BaseCommand;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Team;
@@ -22,7 +21,7 @@ public abstract class PlayerCommand extends BaseCommand implements IPermissible
 		Player player = CommonUtil.assignFromType(originalSender, Player.class);
 		teamPlayer = xTeam.getInstance().getPlayerManager().getPlayer(player);
 		team = teamPlayer.getTeam();
-		Requirements.checkPlayerHasPermission(originalSender, this.getPermissionNode());
+		Requirements.checkPlayerHasPermission(originalSender, this);
 		Requirements.checkPlayerCommandIsValid(parseCommand, this.getPattern());
 	}
 }

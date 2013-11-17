@@ -2,6 +2,7 @@ package me.protocos.xteam.command;
 
 import java.io.File;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.command.BaseCommand;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.core.exception.TeamInvalidCommandException;
 import me.protocos.xteam.util.ChatColorUtil;

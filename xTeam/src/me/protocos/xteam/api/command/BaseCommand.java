@@ -1,17 +1,23 @@
-package me.protocos.xteam.command;
+package me.protocos.xteam.api.command;
 
 import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.command.ICommand;
+import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
-public abstract class BaseCommand implements ICommand
+public abstract class BaseCommand
 {
 	public BaseCommand()
 	{
 	}
+
+	public abstract String getUsage();
+
+	public abstract String getPattern();
+
+	public abstract String getDescription();
 
 	protected abstract void initData(CommandSender originalSender, CommandParser command) throws TeamException, InvalidClassException;
 
@@ -19,8 +25,7 @@ public abstract class BaseCommand implements ICommand
 
 	protected abstract void act(CommandSender originalSender, CommandParser command);
 
-	@Override
-	public boolean execute(CommandSender originalSender, CommandParser command)
+	public final boolean execute(CommandSender originalSender, CommandParser command)
 	{
 		try
 		{

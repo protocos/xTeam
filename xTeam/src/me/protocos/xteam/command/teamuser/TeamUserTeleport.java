@@ -37,7 +37,7 @@ public class TeamUserTeleport extends TeamUserCommand
 		}
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerNotDamaged(teamPlayer);
-		Requirements.checkPlayerCanTeleport(teamPlayer, getPermissionNode());
+		Requirements.checkPlayerCanTeleport(teamPlayer);
 		Requirements.checkPlayerTeleportSelf(teamPlayer, teammateName);
 		if (teammateName == null)
 		{

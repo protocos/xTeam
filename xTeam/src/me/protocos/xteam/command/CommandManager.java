@@ -99,7 +99,7 @@ public class CommandManager implements ICommandManager
 		List<String> availableCommands = CommonUtil.emptyList();
 		for (ServerAdminCommand command : CommonUtil.subListOfType(commands.asList(), ServerAdminCommand.class))
 		{
-			if (teamPlayer.hasPermission(command.getPermissionNode()))
+			if (teamPlayer.hasPermission(command))
 			{
 				availableCommands.add(ChatColorUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
 			}
@@ -113,21 +113,21 @@ public class CommandManager implements ICommandManager
 		List<String> availableCommands = CommonUtil.emptyList();
 		for (TeamUserCommand command : CommonUtil.subListOfType(commands.asList(), TeamUserCommand.class))
 		{
-			if (teamPlayer.hasPermission(command.getPermissionNode()))
+			if (teamPlayer.hasPermission(command))
 			{
 				availableCommands.add(ChatColorUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
 			}
 		}
 		for (TeamAdminCommand command : CommonUtil.subListOfType(commands.asList(), TeamAdminCommand.class))
 		{
-			if (teamPlayer.hasPermission(command.getPermissionNode()))
+			if (teamPlayer.hasPermission(command))
 			{
 				availableCommands.add(ChatColorUtil.formatForAdmin(command.getUsage() + " - " + command.getDescription()));
 			}
 		}
 		for (TeamLeaderCommand command : CommonUtil.subListOfType(commands.asList(), TeamLeaderCommand.class))
 		{
-			if (teamPlayer.hasPermission(command.getPermissionNode()))
+			if (teamPlayer.hasPermission(command))
 			{
 				availableCommands.add(ChatColorUtil.formatForLeader(command.getUsage() + " - " + command.getDescription()));
 			}

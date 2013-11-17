@@ -1,6 +1,5 @@
 package me.protocos.xteam.api.command;
 
-import me.protocos.xteam.command.BaseCommand;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;

@@ -28,7 +28,7 @@ public class TeamUserHeadquarters extends TeamUserCommand
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkTeamHasHeadquarters(team);
 		Requirements.checkPlayerNotDamaged(teamPlayer);
-		Requirements.checkPlayerCanTeleport(teamPlayer, getPermissionNode());
+		Requirements.checkPlayerCanTeleport(teamPlayer);
 		Requirements.checkPlayerTeleportRequested(teamPlayer);
 	}
 
