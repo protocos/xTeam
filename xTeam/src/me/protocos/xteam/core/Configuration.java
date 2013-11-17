@@ -105,12 +105,12 @@ public class Configuration
 	private String getLineBreak()
 	{
 		String max = "";
-		for (String name : values)
+		for (String name : values.getOrder())
 		{
 			if (this.getFormattedComment(name).length() > max.length())
 				max = this.getFormattedComment(name);
 		}
-		for (String name : descriptions)
+		for (String name : descriptions.getOrder())
 		{
 			if (this.getFormattedComment(name).length() > max.length())
 				max = this.getFormattedComment(name);
@@ -197,13 +197,13 @@ public class Configuration
 				"# \n" +
 				getLineBreak();
 		descriptions.sort();
-		for (String name : descriptions)
+		for (String name : descriptions.getOrder())
 		{
 			output += this.getFormattedComment(name) + "\n";
 		}
 		output += getLineBreak();
 		values.sort();
-		for (String name : values)
+		for (String name : values.getOrder())
 		{
 			output += this.getFormattedAttribute(name) + "\n";
 		}

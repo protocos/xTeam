@@ -25,7 +25,6 @@ public class Log implements ILog
 		String pluginPackageID = teamPlugin.getClass().getPackage().toString();
 		this.packageString = pluginPackageID.substring(pluginPackageID.indexOf(' ') + 1, pluginPackageID.lastIndexOf('.') + 1);
 		String pluginName = teamPlugin.getPluginName();
-		SystemUtil.ensureFolder(pluginName);
 		File file = SystemUtil.ensureFile(folderPath + "/" + pluginName + ".log");
 		try
 		{

@@ -3,9 +3,9 @@ package me.protocos.xteam.command.console;
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
-import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamNameConflictsWithNameException;
@@ -25,6 +25,20 @@ public class ConsoleTagTest
 		mockData();
 		fakeConsoleSender = new FakeConsoleSender();
 	}
+
+	@Test
+	public void ShouldBeTeamConsoleTag()
+	{
+		Assert.assertTrue("tag TEAM TAG".matches(new ConsoleTag().getPattern()));
+		Assert.assertTrue("tag TEAM TAG ".matches(new ConsoleTag().getPattern()));
+		Assert.assertTrue("tag TEAM TAG ".matches(new ConsoleTag().getPattern()));
+		Assert.assertTrue("t TEAM TAG ".matches(new ConsoleTag().getPattern()));
+		Assert.assertTrue("ta TEAM TAG".matches(new ConsoleTag().getPattern()));
+		Assert.assertTrue("tg TEAM TAG ".matches(new ConsoleTag().getPattern()));
+		Assert.assertFalse("tg TEAM TAG sdfhkabkl".matches(new ConsoleTag().getPattern()));
+		Assert.assertTrue(new ConsoleTag().getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ConsoleTag().getPattern()));
+	}
+
 	@Test
 	public void ShouldBeConsoleTagExecute()
 	{
@@ -37,6 +51,7 @@ public class ConsoleTagTest
 		Assert.assertEquals("three", xTeam.getInstance().getTeamManager().getTeam("one").getTag());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleTagExecuteTeamAlreadyExists()
 	{
@@ -49,6 +64,7 @@ public class ConsoleTagTest
 		Assert.assertEquals("TeamAwesome", xTeam.getInstance().getTeamManager().getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleTagExecuteTeamNotExists()
 	{
@@ -61,6 +77,7 @@ public class ConsoleTagTest
 		Assert.assertEquals("TeamAwesome", xTeam.getInstance().getTeamManager().getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleTagExecutnNameNotAlpha()
 	{
@@ -74,6 +91,7 @@ public class ConsoleTagTest
 		Assert.assertEquals("TeamAwesome", xTeam.getInstance().getTeamManager().getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

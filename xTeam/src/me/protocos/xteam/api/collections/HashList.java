@@ -3,7 +3,7 @@ package me.protocos.xteam.api.collections;
 import java.util.*;
 import me.protocos.xteam.util.CommonUtil;
 
-public class HashList<K, V> implements Iterable<K>
+public class HashList<K, V> implements Iterable<V>
 {
 	private HashMap<K, V> values;
 	private List<K> order;
@@ -107,6 +107,12 @@ public class HashList<K, V> implements Iterable<K>
 		return values.remove(key);
 	}
 
+	public V remove(int index)
+	{
+		K key = order.remove(index);
+		return values.remove(key);
+	}
+
 	public void setKeepSorted(boolean keepSorted)
 	{
 		this.keepSorted = keepSorted;
@@ -134,6 +140,16 @@ public class HashList<K, V> implements Iterable<K>
 		return values.size();
 	}
 
+	public List<V> asList()
+	{
+		List<V> list = CommonUtil.emptyList();
+		for (V value : this)
+		{
+			list.add(value);
+		}
+		return list;
+	}
+
 	public String toString()
 	{
 		String output = "{" + (values.size() > 0 ? order.get(0) + "=" + values.get(order.get(0)) : "");
@@ -156,8 +172,30 @@ public class HashList<K, V> implements Iterable<K>
 	}
 
 	@Override
-	public Iterator<K> iterator()
+	public Iterator<V> iterator()
 	{
-		return order.iterator();
+		Iterator<V> it = new Iterator<V>()
+		{
+			private int index = 0;
+
+			@Override
+			public boolean hasNext()
+			{
+				return index < HashList.this.size() && HashList.this.get(index) != null;
+			}
+
+			@Override
+			public V next()
+			{
+				return HashList.this.get(index++);
+			}
+
+			@Override
+			public void remove()
+			{
+				HashList.this.remove(index);
+			}
+		};
+		return it;
 	}
 }

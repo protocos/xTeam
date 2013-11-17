@@ -2,9 +2,9 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
-import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.junit.After;
@@ -21,6 +21,16 @@ public class ConsoleInfoTest
 		//MOCK data
 		mockData();
 		fakeConsoleSender = new FakeConsoleSender();
+	}
+
+	@Test
+	public void ShouldBeConsoleInfo()
+	{
+		Assert.assertTrue("info TEAM/PLAYER".matches(new ConsoleInfo().getPattern()));
+		Assert.assertTrue("info TEAM/PLAYER ".matches(new ConsoleInfo().getPattern()));
+		Assert.assertFalse("info".matches(new ConsoleInfo().getPattern()));
+		Assert.assertFalse("info ".matches(new ConsoleInfo().getPattern()));
+		Assert.assertTrue(new ConsoleInfo().getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ConsoleInfo().getPattern()));
 	}
 
 	@Test

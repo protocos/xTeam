@@ -2,16 +2,18 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.command.CommandParser;
-import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 
 public class ConsoleDisband extends ConsoleCommand
 {
 	private String teamName;
+	private Team changeTeam;
 
 	public ConsoleDisband()
 	{
@@ -21,19 +23,18 @@ public class ConsoleDisband extends ConsoleCommand
 	@Override
 	protected void act(CommandSender originalSender, CommandParser parseCommand)
 	{
-		Team team = xTeam.getInstance().getTeamManager().getTeam(teamName);
-		team.sendMessage("Your team has been disbanded by an admin");
+		changeTeam.sendMessage("Your team has been " + ChatColorUtil.negativeMessage("disbanded") + " by an admin");
 		xTeam.getInstance().getTeamManager().removeTeam(teamName);
-		originalSender.sendMessage("You disbanded " + teamName);
+		originalSender.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " " + teamName);
 	}
 
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		teamName = parseCommand.get(1);
+		changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);
-		Team team = xTeam.getInstance().getTeamManager().getTeam(teamName);
-		Requirements.checkTeamIsDefault(team);
+		Requirements.checkTeamIsDefault(changeTeam);
 	}
 
 	@Override

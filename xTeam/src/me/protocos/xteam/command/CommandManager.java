@@ -2,17 +2,13 @@ package me.protocos.xteam.command;
 
 import java.util.List;
 import me.protocos.xteam.api.collections.HashList;
-import me.protocos.xteam.api.command.ICommandContainer;
-import me.protocos.xteam.api.command.ICommandManager;
-import me.protocos.xteam.api.command.IPermissible;
+import me.protocos.xteam.api.command.*;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.PermissionUtil;
 import me.protocos.xteam.util.StringUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Player;
 
 public class CommandManager implements ICommandManager
 {
@@ -24,53 +20,22 @@ public class CommandManager implements ICommandManager
 	}
 
 	@Override
-	public void registerCommand(String key, BaseCommand command)
+	public void registerCommand(BaseCommand command)
 	{
-		commands.put(key, command);
-	}
-
-	@Override
-	public BaseCommand get(String key)
-	{
-		return commands.get(key);
-	}
-
-	@Override
-	public String getPattern(String key)
-	{
-		return commands.get(key).getPattern();
-	}
-
-	@Override
-	public String getPermissionNode(String key)
-	{
-		if (commands.get(key) instanceof IPermissible)
-			return ((IPermissible) commands.get(key)).getPermissionNode();
-		return null;
-	}
-
-	@Override
-	public String getUsage(String key)
-	{
-		return commands.get(key).getUsage();
-	}
-
-	private String getDescription(String key)
-	{
-		return commands.get(key).getDescription();
+		commands.put(command.getClass().getName(), command);
 	}
 
 	@Override
 	public ConsoleCommand matchConsole(String pattern)
 	{
-		for (int x = 0; x < commands.size(); x++)
-			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("console_"))
-				return (ConsoleCommand) commands.get(x);
+		for (BaseCommand command : commands)
+			if (pattern.matches(StringUtil.IGNORE_CASE + command.getPattern()) && command instanceof ConsoleCommand)
+				return (ConsoleCommand) command;
 		return null;
 	}
 
 	@Override
-	public PlayerCommand matchPlayer(String pattern)
+	public PlayerCommand matchPlayerCommand(String pattern)
 	{
 		PlayerCommand match = matchServerAdmin(pattern);
 		if (match == null)
@@ -84,61 +49,59 @@ public class CommandManager implements ICommandManager
 
 	private PlayerCommand matchServerAdmin(String pattern)
 	{
-		for (int x = 0; x < commands.size(); x++)
-			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("serveradmin_"))
-				return (PlayerCommand) commands.get(x);
+		for (BaseCommand command : commands)
+			if (pattern.matches(StringUtil.IGNORE_CASE + command.getPattern()) && command instanceof ServerAdminCommand)
+				return (PlayerCommand) command;
 		return null;
 	}
 
-	private PlayerCommand matchTeamLeader(String pattern)
+	private TeamLeaderCommand matchTeamLeader(String pattern)
 	{
-		for (int x = 0; x < commands.size(); x++)
-			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("leader_"))
-				return (PlayerCommand) commands.get(x);
+		for (BaseCommand command : commands)
+			if (pattern.matches(StringUtil.IGNORE_CASE + command.getPattern()) && command instanceof TeamLeaderCommand)
+				return (TeamLeaderCommand) command;
 		return null;
 	}
 
-	private PlayerCommand matchTeamAdmin(String pattern)
+	private TeamAdminCommand matchTeamAdmin(String pattern)
 	{
-		for (int x = 0; x < commands.size(); x++)
-			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("admin_"))
-				return (PlayerCommand) commands.get(x);
+		for (BaseCommand command : commands)
+			if (pattern.matches(StringUtil.IGNORE_CASE + command.getPattern()) && command instanceof TeamAdminCommand)
+				return (TeamAdminCommand) command;
 		return null;
 	}
 
-	private PlayerCommand matchTeamUser(String pattern)
+	private TeamUserCommand matchTeamUser(String pattern)
 	{
-		for (int x = 0; x < commands.size(); x++)
-			if (pattern.matches(StringUtil.IGNORE_CASE + commands.get(x).getPattern()) && commands.getKey(x).startsWith("user_"))
-				return (PlayerCommand) commands.get(x);
+		for (BaseCommand command : commands)
+			if (pattern.matches(StringUtil.IGNORE_CASE + command.getPattern()) && command instanceof TeamUserCommand)
+				return (TeamUserCommand) command;
 		return null;
 	}
 
 	@Override
-	public List<String> getAvailableCommands(CommandSender sender)
+	public List<String> getAvailableConsoleCommands(CommandSender sender)
 	{
 		List<String> availableCommands = CommonUtil.emptyList();
-		for (String key : commands)
+		for (ConsoleCommand command : CommonUtil.subListOfType(commands.asList(), ConsoleCommand.class))
 		{
 			if (sender instanceof ConsoleCommandSender)
 			{
-				if (key.startsWith("console"))
-					availableCommands.add(ChatColorUtil.formatForUser(getUsage(key) + " - " + getDescription(key)));
+				availableCommands.add(ChatColorUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
 			}
 		}
 		return availableCommands;
 	}
 
 	@Override
-	public List<String> getAvailableAdminCommandsFor(Player player)
+	public List<String> getAvailableAdminCommandsFor(TeamPlayer teamPlayer)
 	{
 		List<String> availableCommands = CommonUtil.emptyList();
-		for (String key : commands)
+		for (ServerAdminCommand command : CommonUtil.subListOfType(commands.asList(), ServerAdminCommand.class))
 		{
-			if (PermissionUtil.hasPermission(player, getPermissionNode(key)))
+			if (teamPlayer.hasPermission(command.getPermissionNode()))
 			{
-				if (key.startsWith("serveradmin"))
-					availableCommands.add(ChatColorUtil.formatForUser(getUsage(key) + " - " + getDescription(key)));
+				availableCommands.add(ChatColorUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
 			}
 		}
 		return availableCommands;
@@ -148,28 +111,25 @@ public class CommandManager implements ICommandManager
 	public List<String> getAvailableCommandsFor(TeamPlayer teamPlayer)
 	{
 		List<String> availableCommands = CommonUtil.emptyList();
-		for (String key : commands)
+		for (TeamUserCommand command : CommonUtil.subListOfType(commands.asList(), TeamUserCommand.class))
 		{
-			if (teamPlayer.hasPermission(getPermissionNode(key)))
+			if (teamPlayer.hasPermission(command.getPermissionNode()))
 			{
-				if (key.startsWith("user"))
-					availableCommands.add(ChatColorUtil.formatForUser(getUsage(key) + " - " + getDescription(key)));
+				availableCommands.add(ChatColorUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
 			}
 		}
-		for (String key : commands)
+		for (TeamAdminCommand command : CommonUtil.subListOfType(commands.asList(), TeamAdminCommand.class))
 		{
-			if (teamPlayer.hasPermission(getPermissionNode(key)))
+			if (teamPlayer.hasPermission(command.getPermissionNode()))
 			{
-				if (key.startsWith("admin"))
-					availableCommands.add(ChatColorUtil.formatForAdmin(getUsage(key) + " - " + getDescription(key)));
+				availableCommands.add(ChatColorUtil.formatForAdmin(command.getUsage() + " - " + command.getDescription()));
 			}
 		}
-		for (String key : commands)
+		for (TeamLeaderCommand command : CommonUtil.subListOfType(commands.asList(), TeamLeaderCommand.class))
 		{
-			if (teamPlayer.hasPermission(getPermissionNode(key)))
+			if (teamPlayer.hasPermission(command.getPermissionNode()))
 			{
-				if (key.startsWith("leader"))
-					availableCommands.add(ChatColorUtil.formatForLeader(getUsage(key) + " - " + getDescription(key)));
+				availableCommands.add(ChatColorUtil.formatForLeader(command.getUsage() + " - " + command.getDescription()));
 			}
 		}
 		return availableCommands;

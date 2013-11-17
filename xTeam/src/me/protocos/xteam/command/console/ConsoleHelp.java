@@ -2,8 +2,8 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.command.CommandParser;
-import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.HelpPages;
@@ -34,7 +34,7 @@ public class ConsoleHelp extends ConsoleCommand
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
 		pages = new HelpPages();
-		pages.addLines(xTeam.getInstance().getCommandManager().getAvailableCommands(originalSender));
+		pages.addLines(xTeam.getInstance().getCommandManager().getAvailableConsoleCommands(originalSender));
 		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_info") + " - get info on player/team"));
 		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_list") + " - list all teams on the server"));
 		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_set") + " - set team of player"));

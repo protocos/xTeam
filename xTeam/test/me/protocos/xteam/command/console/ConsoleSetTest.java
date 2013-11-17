@@ -3,9 +3,9 @@ package me.protocos.xteam.command.console;
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
-import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.core.exception.TeamPlayerMaxException;
@@ -25,6 +25,19 @@ public class ConsoleSetTest
 		mockData();
 		fakeConsoleSender = new FakeConsoleSender();
 	}
+
+	@Test
+	public void ShouldBeConsoleSet()
+	{
+		Assert.assertTrue("set PLAYER TEAM".matches(new ConsoleSet().getPattern()));
+		Assert.assertTrue("set PLAYER TEAM ".matches(new ConsoleSet().getPattern()));
+		Assert.assertTrue("s PLAYER TEAM".matches(new ConsoleSet().getPattern()));
+		Assert.assertTrue("se PLAYER TEAM ".matches(new ConsoleSet().getPattern()));
+		Assert.assertFalse("s".matches(new ConsoleSet().getPattern()));
+		Assert.assertFalse("se ".matches(new ConsoleSet().getPattern()));
+		Assert.assertTrue(new ConsoleSet().getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ConsoleSet().getPattern()));
+	}
+
 	@Test
 	public void ShouldBeConsoleSetExecute()
 	{
@@ -37,6 +50,7 @@ public class ConsoleSetTest
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleSetExecuteCreateTeam()
 	{
@@ -52,6 +66,7 @@ public class ConsoleSetTest
 		Assert.assertEquals(1, xTeam.getInstance().getTeamManager().getTeam("three").size());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleSetExecuteHasTeam()
 	{
@@ -66,6 +81,7 @@ public class ConsoleSetTest
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleSetExecuteLastPerson()
 	{
@@ -82,6 +98,7 @@ public class ConsoleSetTest
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleSetExecuteLeaderLeaving()
 	{
@@ -93,6 +110,7 @@ public class ConsoleSetTest
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleSetExecutePlayerHasNotPlayed()
 	{
@@ -104,6 +122,7 @@ public class ConsoleSetTest
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleSetMaxPlayers()
 	{
@@ -116,6 +135,7 @@ public class ConsoleSetTest
 		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

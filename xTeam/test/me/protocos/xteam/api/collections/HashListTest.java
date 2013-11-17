@@ -151,12 +151,25 @@ public class HashListTest
 	}
 
 	@Test
-	public void ShouldBeRemove()
+	public void ShouldBeRemoveByKey()
 	{
 		//ASSEMBLE
 		list.put("1", "one");
 		//ACT
 		String s = list.remove("1");
+		//ASSERT
+		Assert.assertEquals("one", s);
+		Assert.assertEquals(0, list.getOrder().size());
+		Assert.assertEquals(0, list.size());
+	}
+
+	@Test
+	public void ShouldBeRemoveByIndex()
+	{
+		//ASSEMBLE
+		list.put("1", "one");
+		//ACT
+		String s = list.remove(0);
 		//ASSERT
 		Assert.assertEquals("one", s);
 		Assert.assertEquals(0, list.getOrder().size());
@@ -229,23 +242,6 @@ public class HashListTest
 		Assert.assertTrue(updated);
 	}
 
-	//	@Test
-	//	public void ShouldBeContainsKeyIgnoreCase()
-	//	{
-	//		//ASSEMBLE
-	//		list.put("ooo", "zero");
-	//		list.put("1", "one");
-	//		list.put("2", "two");
-	//		list.put("3", "three");
-	//		list.put("4", "four");
-	//		list.put("5", "five");
-	//		list.put("6", "six");
-	//		//ACT
-	//		boolean contains = list.containsKeyIgnoreCase("OoO");
-	//		//ASSERT
-	//		Assert.assertEquals("{ooo=zero, 1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", list.toString());
-	//		Assert.assertTrue(contains);
-	//	}
 	@Test
 	public void ShouldBeUpdateKeyWithoutKey()
 	{
@@ -281,9 +277,29 @@ public class HashListTest
 		list.put("2", "two");
 		list.sort();
 		int index = 0;
-		for (String key : list)
+		for (String value : list)
 		{
-			Assert.assertEquals(list.get(index), list.get(key));
+			Assert.assertEquals(list.get(index), value);
+			index++;
+		}
+	}
+
+	@Test
+	public void ShouldBeHashListAsList()
+	{
+		list.put("6", "six");
+		list.put("4", "four");
+		list.put("1", "one");
+		list.put("0", "zero");
+		list.put("5", "five");
+		list.put("3", "three");
+		list.put("2", "two");
+		list.sort();
+		List<String> regularList = list.asList();
+		int index = 0;
+		for (String value : regularList)
+		{
+			Assert.assertEquals(list.get(index), value);
 			index++;
 		}
 	}

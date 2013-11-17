@@ -51,9 +51,9 @@ public class SystemUtil
 		return (os.indexOf("win") >= 0);
 	}
 
-	public static File ensureFolder(String pluginName)
+	public static File ensureFolder(String folderName)
 	{
-		File file = new File(pluginName);
+		File file = new File(folderName);
 		if (!file.exists())
 		{
 			file.mkdir();
@@ -61,9 +61,19 @@ public class SystemUtil
 		return file;
 	}
 
-	public static File ensureFile(String pluginName)
+	public static File ensureFile(String fileName)
 	{
-		File file = new File(pluginName);
+		String[] subFolders = fileName.split("/");
+		if (subFolders.length > 1)
+		{
+			String folderBuilder = "";
+			for (int x = 0; x < subFolders.length - 1; x++)
+			{
+				folderBuilder += subFolders[x] + "/";
+				ensureFolder(folderBuilder);
+			}
+		}
+		File file = new File(fileName);
 		if (!file.exists())
 		{
 			try

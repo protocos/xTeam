@@ -3,9 +3,9 @@ package me.protocos.xteam.command.console;
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
-import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
@@ -22,6 +22,19 @@ public class ConsoleRemoveTest
 		//MOCK data
 		mockData();
 	}
+
+	@Test
+	public void ShouldBeConsoleRemove()
+	{
+		Assert.assertTrue("remove TEAM PLAYER".matches(new ConsoleRemove().getPattern()));
+		Assert.assertTrue("remove TEAM PLAYER ".matches(new ConsoleRemove().getPattern()));
+		Assert.assertTrue("rem TEAM PLAYER".matches(new ConsoleRemove().getPattern()));
+		Assert.assertTrue("remv TEAM PLAYER ".matches(new ConsoleRemove().getPattern()));
+		Assert.assertTrue("rm TEAM PLAYER ".matches(new ConsoleRemove().getPattern()));
+		Assert.assertFalse("r TEAM PLAYER".matches(new ConsoleRemove().getPattern()));
+		Assert.assertTrue(new ConsoleRemove().getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ConsoleRemove().getPattern()));
+	}
+
 	@Test
 	public void ShouldBeConsoleRemoveExecute()
 	{
@@ -35,6 +48,7 @@ public class ConsoleRemoveTest
 		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleRemoveExecuteConsoleHasNoTeam()
 	{
@@ -48,6 +62,7 @@ public class ConsoleRemoveTest
 		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleRemoveExecuteConsoleHeverPlayed()
 	{
@@ -61,6 +76,7 @@ public class ConsoleRemoveTest
 		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("newbie"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleRemoveExecuteConsoleLeader()
 	{
@@ -74,6 +90,7 @@ public class ConsoleRemoveTest
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleRemoveExecuteLastConsole()
 	{
@@ -89,6 +106,7 @@ public class ConsoleRemoveTest
 		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

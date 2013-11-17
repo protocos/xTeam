@@ -3,9 +3,9 @@ package me.protocos.xteam.command.console;
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
-import me.protocos.xteam.command.ConsoleCommand;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +21,23 @@ public class ConsoleListTest
 		mockData();
 		fakeConsoleSender = new FakeConsoleSender();
 	}
+
+	@Test
+	public void ShouldBeConsoleList()
+	{
+		Assert.assertTrue("list".matches(new ConsoleList().getPattern()));
+		Assert.assertTrue("list ".matches(new ConsoleList().getPattern()));
+		Assert.assertTrue("l".matches(new ConsoleList().getPattern()));
+		Assert.assertTrue("l ".matches(new ConsoleList().getPattern()));
+		Assert.assertTrue("li".matches(new ConsoleList().getPattern()));
+		Assert.assertTrue("li ".matches(new ConsoleList().getPattern()));
+		Assert.assertTrue("ls".matches(new ConsoleList().getPattern()));
+		Assert.assertTrue("ls ".matches(new ConsoleList().getPattern()));
+		Assert.assertFalse("ls1".matches(new ConsoleList().getPattern()));
+		Assert.assertFalse("ls 1".matches(new ConsoleList().getPattern()));
+		Assert.assertTrue(new ConsoleList().getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ConsoleList().getPattern()));
+	}
+
 	@Test
 	public void ShouldBeTeamUserListExecuteNoTeams()
 	{
@@ -33,6 +50,7 @@ public class ConsoleListTest
 		Assert.assertEquals("There are no teams", fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeTeamUserListExecuteOneTeam()
 	{
@@ -47,6 +65,7 @@ public class ConsoleListTest
 		Assert.assertEquals("Teams: red", fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@Test
 	public void ShouldBeConsoleListExecute()
 	{
@@ -58,6 +77,7 @@ public class ConsoleListTest
 		Assert.assertEquals("Teams: ONE, two, red, blue", fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
+
 	@After
 	public void takedown()
 	{

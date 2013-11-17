@@ -3,8 +3,8 @@ package me.protocos.xteam.command.console;
 import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.command.CommandParser;
-import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.exception.TeamException;
 import org.bukkit.command.CommandSender;
 

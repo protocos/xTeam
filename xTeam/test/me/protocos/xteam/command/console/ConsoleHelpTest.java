@@ -2,9 +2,9 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandParser;
-import me.protocos.xteam.command.ConsoleCommand;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +19,20 @@ public class ConsoleHelpTest
 		//MOCK data
 		mockData();
 		fakeConsoleSender = new FakeConsoleSender();
+	}
+
+	@Test
+	public void ShouldBeConsoleHelp()
+	{
+		Assert.assertTrue("".matches(new ConsoleHelp().getPattern()));
+		Assert.assertTrue("help".matches(new ConsoleHelp().getPattern()));
+		Assert.assertTrue("help ".matches(new ConsoleHelp().getPattern()));
+		Assert.assertFalse("help 1".matches(new ConsoleHelp().getPattern()));
+		Assert.assertTrue("?".matches(new ConsoleHelp().getPattern()));
+		Assert.assertTrue("? ".matches(new ConsoleHelp().getPattern()));
+		Assert.assertFalse("? 1".matches(new ConsoleHelp().getPattern()));
+		Assert.assertFalse("1".matches(new ConsoleHelp().getPattern()));
+		Assert.assertTrue(new ConsoleHelp().getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ConsoleHelp().getPattern()));
 	}
 
 	@Test
