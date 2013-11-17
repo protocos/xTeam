@@ -11,13 +11,10 @@ import me.protocos.xteam.command.teamadmin.TeamAdminPromote;
 import me.protocos.xteam.command.teamadmin.TeamAdminSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
-import me.protocos.xteam.core.Log;
 import org.bukkit.permissions.Permission;
 
 public class xTeamPlugin extends TeamPlugin
 {
-	private ILog logger;
-
 	@Override
 	public String getFolder()
 	{
@@ -49,15 +46,9 @@ public class xTeamPlugin extends TeamPlugin
 	}
 
 	@Override
-	public void onLoad()
-	{
-		logger = new Log(this.getFolder(), this);
-		xteam.load(this);
-	}
-
-	@Override
 	public void onEnable()
 	{
+		xteam.load(this);
 		xteam.enable(this);
 	}
 

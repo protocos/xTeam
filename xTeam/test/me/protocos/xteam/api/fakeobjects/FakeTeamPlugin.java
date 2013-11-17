@@ -12,11 +12,11 @@ public class FakeTeamPlugin extends TeamPlugin
 {
 	private final String name = "xTeam";
 	private final String folder = "test";
-	private ILog logger;
+	private ILog fakeLog;
 
 	public FakeTeamPlugin()
 	{
-		logger = new FakeLog();
+		fakeLog = new FakeLog();
 	}
 
 	@Override
@@ -46,18 +46,13 @@ public class FakeTeamPlugin extends TeamPlugin
 	@Override
 	public ILog getLog()
 	{
-		return logger;
-	}
-
-	@Override
-	public void onLoad()
-	{
-		xteam.load(this);
+		return fakeLog;
 	}
 
 	@Override
 	public void onEnable()
 	{
+		xteam.load(this);
 		xteam.enable(this);
 	}
 
@@ -94,6 +89,6 @@ public class FakeTeamPlugin extends TeamPlugin
 	@Override
 	public void registerUserCommands(ICommandManager manager)
 	{
-		(new xTeamPlugin()).registerAdminCommands(manager);
+		(new xTeamPlugin()).registerUserCommands(manager);
 	}
 }

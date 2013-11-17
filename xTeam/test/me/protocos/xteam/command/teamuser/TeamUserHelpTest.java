@@ -46,7 +46,7 @@ public class TeamUserHelpTest
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 1/3] {optional} [required] pick/one\n" +
 				"/team {help} - main help menu for xTeam\n" +
-				"/team {help} [Page] - user help menu for xTeam\n" +
+				"/team {help} [Page] - user help page for xTeam\n" +
 				"/team info {Team/Player} - get team info or other team's info\n" +
 				"/team list - list all teams on the server\n" +
 				"/team create [Name] - create a team\n" +

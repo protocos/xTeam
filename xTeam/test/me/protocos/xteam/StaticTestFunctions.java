@@ -34,6 +34,7 @@ public class StaticTestFunctions
 		Configuration.spies.clear();
 		Configuration.lastCreated.clear();
 		teamPlugin.onLoad();
+		xTeam.getInstance().load(teamPlugin);
 		xTeam.getInstance().getTeamManager().clearData();
 		xTeam.getInstance().getPlayerManager().clearData();
 	}

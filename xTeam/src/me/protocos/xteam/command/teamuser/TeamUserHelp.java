@@ -73,6 +73,6 @@ public class TeamUserHelp extends TeamUserCommand
 	@Override
 	public String getDescription()
 	{
-		return "user help menu for xTeam";
+		return "user help page for xTeam";
 	}
 }
