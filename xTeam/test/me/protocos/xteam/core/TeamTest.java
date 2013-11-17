@@ -1,7 +1,7 @@
 package me.protocos.xteam.core;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
-import static org.mockito.Mockito.*;
+import me.protocos.xteam.api.fakeobjects.FakeWorld;
 import org.bukkit.World;
 import org.junit.After;
 import org.junit.Assert;
@@ -18,6 +18,7 @@ public class TeamTest
 		mockData();
 		team = new Team.Builder("test").build();
 	}
+
 	@Test
 	public void ShouldBeAddPlayer()
 	{
@@ -27,6 +28,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertTrue(team.getPlayers().contains("protocos"));
 	}
+
 	@Test
 	public void ShouldBeContains()
 	{
@@ -38,6 +40,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertTrue(contains);
 	}
+
 	@Test
 	public void ShouldBeDefaultTeam()
 	{
@@ -47,6 +50,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertTrue(team.isDefaultTeam());
 	}
+
 	@Test
 	public void ShouldBeDefaultTeamTag()
 	{
@@ -56,6 +60,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("test", tag);
 	}
+
 	@Test
 	public void ShouldBeDemote()
 	{
@@ -67,6 +72,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertTrue(demote);
 	}
+
 	@Test
 	public void ShouldBeEquals()
 	{
@@ -79,12 +85,12 @@ public class TeamTest
 		//ASSERT
 		Assert.assertTrue(equals);
 	}
+
 	@Test
 	public void ShouldBeHQ()
 	{
 		//ASSEMBLE
-		World world = mock(World.class);
-		when(world.getName()).thenReturn("world");
+		World world = new FakeWorld();
 		Headquarters hq = new Headquarters(world, 1.0D, 1.0D, 1.0D, 1.0F, 1.0F);
 		//ACT
 		team.setHQ(hq);
@@ -92,6 +98,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertTrue(hasHQ);
 	}
+
 	@Test
 	public void ShouldBeIsEmpty()
 	{
@@ -101,6 +108,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertTrue(empty);
 	}
+
 	@Test
 	public void ShouldBeLastTime()
 	{
@@ -111,6 +119,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals(currentTime, team.getTimeLastSet());
 	}
+
 	@Test
 	public void ShouldBeNotDemote()
 	{
@@ -120,6 +129,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertFalse(demote);
 	}
+
 	@Test
 	public void ShouldBeNotHQ()
 	{
@@ -129,6 +139,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertFalse(hasHQ);
 	}
+
 	@Test
 	public void ShouldBeNotPromote()
 	{
@@ -138,6 +149,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertFalse(promote);
 	}
+
 	@Test
 	public void ShouldBeOpenJoining()
 	{
@@ -147,6 +159,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertTrue(team.isOpenJoining());
 	}
+
 	@Test
 	public void ShouldBePromote()
 	{
@@ -157,6 +170,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertTrue(promote);
 	}
+
 	@Test
 	public void ShouldBeRemovePlayer()
 	{
@@ -167,6 +181,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertTrue(team.isEmpty());
 	}
+
 	@Test
 	public void ShouldBeSetLeader()
 	{
@@ -176,6 +191,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("protocos", team.getLeader());
 	}
+
 	@Test
 	public void ShouldBeSetTeamTag()
 	{
@@ -187,6 +203,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("tag", tag);
 	}
+
 	@Test
 	public void ShouldBeSize()
 	{
@@ -198,6 +215,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals(2, size);
 	}
+
 	@Test
 	public void ShouldBeTeam()
 	{
@@ -206,6 +224,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("name:test tag:test open:false default:false timeHeadquartersSet:0 hq: leader: admins: players:", team.toString());
 	}
+
 	@Test
 	public void ShouldBeTeamBlankProperties1()
 	{
@@ -216,6 +235,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersSet:0 hq: leader: admins: players:", t.toString());
 	}
+
 	@Test
 	public void ShouldBeTeamBlankProperties2()
 	{
@@ -226,6 +246,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersSet:0 hq: leader: admins: players:", t.toString());
 	}
+
 	@Test
 	public void ShouldBeTeamBlankProperties3()
 	{
@@ -236,6 +257,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("name:blank tag:tag open:false default:false timeHeadquartersSet:0 hq: leader: admins: players:", t.toString());
 	}
+
 	@Test
 	public void ShouldBeTeamCurrentPropertiesFormatDefault1()
 	{
@@ -246,6 +268,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("name:red tag:red open:false default:true timeHeadquartersSet:0 hq: leader: admins: players:protocos", t.toString());
 	}
+
 	@Test
 	public void ShouldBeTeamFromPropertiesDefault1()
 	{
@@ -256,6 +279,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:kmlanglois,protocos", t.toString());
 	}
+
 	@Test
 	public void ShouldBeTeamFromPropertiesDefault2()
 	{
@@ -266,6 +290,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:kmlanglois,protocos", t.toString());
 	}
+
 	@Test
 	public void ShouldBeTeamFromPropertiesRegular1()
 	{
@@ -276,6 +301,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos", t.toString());
 	}
+
 	@Test
 	public void ShouldBeTeamFromPropertiesRegular2()
 	{
@@ -286,6 +312,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos", t.toString());
 	}
+
 	@Test
 	public void ShouldBeTeamInputEqualsOutput()
 	{
@@ -296,6 +323,7 @@ public class TeamTest
 		//ASSERT
 		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos", t.toString());
 	}
+
 	@After
 	public void takedown()
 	{
