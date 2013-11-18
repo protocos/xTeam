@@ -32,7 +32,7 @@ public class TeamManagerTest
 		//ACT
 		xTeam.getInstance().getTeamManager().addTeam(Team.createTeam("test"));
 		//ASSERT
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("test"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("test"));
 	}
 
 	@Test
@@ -42,7 +42,7 @@ public class TeamManagerTest
 		//ACT
 		xTeam.getInstance().getTeamManager().addTeam(Team.createTeamWithLeader("test", "protocos"));
 		//ASSERT
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("test"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("test"));
 		Assert.assertEquals("protocos", xTeam.getInstance().getTeamManager().getTeam("test").getLeader());
 	}
 
@@ -77,7 +77,7 @@ public class TeamManagerTest
 		Team team2 = new Team.Builder("ONE").build();
 		//ACT
 		xTeam.getInstance().getTeamManager().addTeam(team1);
-		boolean exists = xTeam.getInstance().getTeamManager().contains(team2.getName());
+		boolean exists = xTeam.getInstance().getTeamManager().containsTeam(team2.getName());
 		//ASSERT
 		Assert.assertTrue(exists);
 	}

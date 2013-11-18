@@ -30,19 +30,14 @@ public class TeamManager implements ITeamManager
 		teams.clear();
 	}
 
-	public boolean contains(String teamName)
+	public boolean containsTeam(String teamName)
 	{
-		return teams.get(teamName.toLowerCase()) != null;
+		if (teamName != null)
+		{
+			return this.getTeam(teamName) != null;
+		}
+		return false;
 	}
-
-	//	public List<String> getAllTeamNames()
-	//	{
-	//		List<Team> allTeams = getAllTeams();
-	//		List<String> allTeamNames = CommonUtil.emptyList();
-	//		for (Team team : allTeams)
-	//			allTeamNames.add(team.getName());
-	//		return allTeamNames;
-	//	}
 
 	public HashList<String, Team> getAllTeams()
 	{
@@ -54,15 +49,6 @@ public class TeamManager implements ITeamManager
 		return allTeams;
 	}
 
-	//	public List<String> getDefaultTeamNames()
-	//	{
-	//		List<Team> defaultTeams = getDefaultTeams();
-	//		List<String> defaultTeamNames = CommonUtil.emptyList();
-	//		for (Team team : defaultTeams)
-	//			defaultTeamNames.add(team.getName());
-	//		return defaultTeamNames;
-	//	}
-
 	public HashList<String, Team> getDefaultTeams()
 	{
 		HashList<String, Team> defaultTeams = CommonUtil.emptyHashList();
@@ -73,15 +59,6 @@ public class TeamManager implements ITeamManager
 		}
 		return defaultTeams;
 	}
-
-	//	public List<String> getRegularTeamNames()
-	//	{
-	//		List<Team> regularTeams = getRegularTeams();
-	//		List<String> regularTeamNames = CommonUtil.emptyList();
-	//		for (Team team : regularTeams)
-	//			regularTeamNames.add(team.getName());
-	//		return regularTeamNames;
-	//	}
 
 	public HashList<String, Team> getRegularTeams()
 	{
@@ -96,28 +73,32 @@ public class TeamManager implements ITeamManager
 
 	public Team getTeam(String teamName)
 	{
-		return teams.get(teamName.toLowerCase());
-	}
-
-	public Team getTeamByTag(String tag)
-	{
-		for (Team team : getAllTeams())
+		Team team = teams.get(teamName.toLowerCase());
+		if (team != null)
 		{
-			if (team.getTag().equalsIgnoreCase(tag))
-				return team;
+			return teams.get(teamName.toLowerCase());
+		}
+		for (Team teamByTag : getAllTeams())
+		{
+			if (teamByTag.getTag().equalsIgnoreCase(teamName))
+				return teamByTag;
 		}
 		return null;
 	}
 
-	public Team removeTeam(String team)
+	public Team removeTeam(String teamName)
 	{
-		return teams.remove(team.toLowerCase());
+		if (this.containsTeam(teamName))
+		{
+			return teams.remove(this.getTeam(teamName).getName().toLowerCase());
+		}
+		return null;
 	}
 
-	public Team getTeamByPlayer(String name)
+	public Team getTeamByPlayer(String playerName)
 	{
 		for (Team team : this.getAllTeams())
-			if (team.containsPlayer(name))
+			if (team.containsPlayer(playerName))
 				return team;
 		return null;
 	}

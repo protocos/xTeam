@@ -43,7 +43,7 @@ public class TeamUserLeaveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals("You left red", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("red"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("red"));
 		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("red").containsPlayer("strandedhelix"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -58,7 +58,7 @@ public class TeamUserLeaveTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team leave"));
 		//ASSERT
 		Assert.assertEquals("You left two", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("two"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("two"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

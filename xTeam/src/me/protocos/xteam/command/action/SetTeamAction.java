@@ -33,7 +33,7 @@ public class SetTeamAction
 		{
 			removePlayer(p);
 		}
-		if (!xTeam.getInstance().getTeamManager().contains(teamName))
+		if (!xTeam.getInstance().getTeamManager().containsTeam(teamName))
 		{
 			createTeamWithLeader(teamName, p);
 		}

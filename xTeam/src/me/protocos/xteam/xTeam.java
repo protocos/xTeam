@@ -85,10 +85,6 @@ public final class xTeam
 			this.permissions = plugin.getPermissions();
 			this.initFileSystem(plugin);
 		}
-		else
-		{
-			throw new AssertionError(plugin.getPluginName() + " not an instance of the real xTeam");
-		}
 	}
 
 	private void initFileSystem(TeamPlugin plugin)

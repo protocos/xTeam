@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.command.ICommandManager;
-import me.protocos.xteam.api.util.ILog;
 import me.protocos.xteam.command.CommandDelegate;
 import me.protocos.xteam.command.console.*;
 import me.protocos.xteam.command.serveradmin.*;
@@ -45,12 +44,6 @@ public class xTeamPlugin extends TeamPlugin
 	}
 
 	@Override
-	public ILog getLog()
-	{
-		return logger;
-	}
-
-	@Override
 	public void onEnable()
 	{
 		this.enable();
@@ -66,9 +59,6 @@ public class xTeamPlugin extends TeamPlugin
 	{
 		try
 		{
-			this.logger = this.getLog();
-			this.logInfo("[" + this.getPluginName() + "] v" + this.getVersion() + " loaded");
-			xteam.load(this);
 			PluginManager pm = BukkitUtil.getPluginManager();
 			pm.registerEvents(new TeamPvPEntityListener(), this);
 			pm.registerEvents(new TeamPlayerListener(), this);
@@ -77,11 +67,11 @@ public class xTeamPlugin extends TeamPlugin
 			this.commandExecutor = new CommandDelegate(this.getCommandManager());
 			xteam.readTeamData(new File(this.getDataFolder().getAbsolutePath() + "/teams.txt"));
 			this.getCommand("team").setExecutor(commandExecutor);
-			this.logInfo("[" + this.getPluginName() + "] v" + this.getVersion() + " enabled");
+			this.getLog().info("[" + this.getPluginName() + "] v" + this.getVersion() + " enabled");
 		}
 		catch (Exception e)
 		{
-			this.logError(e);
+			this.getLog().exception(e);
 		}
 	}
 
@@ -90,23 +80,13 @@ public class xTeamPlugin extends TeamPlugin
 		try
 		{
 			xteam.writeTeamData(new File(this.getDataFolder().getAbsolutePath() + "/teams.txt"));
-			this.logInfo("[" + this.getPluginName() + "] v" + this.getVersion() + " disabled");
+			this.getLog().info("[" + this.getPluginName() + "] v" + this.getVersion() + " disabled");
 			this.getLog().close();
 		}
 		catch (Exception e)
 		{
-			this.logError(e);
+			this.getLog().exception(e);
 		}
-	}
-
-	private void logInfo(String info)
-	{
-		this.getLog().info(info);
-	}
-
-	private void logError(Exception e)
-	{
-		this.getLog().exception(e);
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class ServerAdminDisbandTest
 	}
 
 	@Test
-	public void ShouldBeServerAdminDisbandExecute()
+	public void ShouldBeServerAdminDisbandByName()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
@@ -42,8 +42,22 @@ public class ServerAdminDisbandTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team disband one"));
 		//ASSERT
-		Assert.assertEquals("You disbanded one", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("one"));
+		Assert.assertEquals("You disbanded ONE [TeamAwesome]", fakePlayerSender.getLastMessage());
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("one"));
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeServerAdminDisbandByTag()
+	{
+		//ASSEMBLE
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
+		ServerAdminCommand fakeCommand = new ServerAdminDisband();
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team disband TeamAwesome"));
+		//ASSERT
+		Assert.assertEquals("You disbanded ONE [TeamAwesome]", fakePlayerSender.getLastMessage());
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -70,7 +84,7 @@ public class ServerAdminDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team disband RED"));
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("RED"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("RED"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

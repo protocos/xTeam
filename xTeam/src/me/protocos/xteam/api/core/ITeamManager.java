@@ -9,11 +9,9 @@ public interface ITeamManager
 
 	public abstract void addTeam(Team team);
 
-	public abstract Team getTeam(String string);
+	public abstract Team getTeam(String teamName);
 
-	public abstract Team getTeamByTag(String tag);
-
-	public abstract boolean contains(String teamName);
+	public abstract boolean containsTeam(String teamName);
 
 	public abstract Team removeTeam(String teamName);
 

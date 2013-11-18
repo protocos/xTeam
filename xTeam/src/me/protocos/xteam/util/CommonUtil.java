@@ -110,85 +110,85 @@ public class CommonUtil
 		return (int) Math.round(d);
 	}
 
-	public static ArrayList<String> split(String string, String delimiter)
+	public static List<String> split(String string, String delimiter)
 	{
 		return toList(string.split(delimiter));
 	}
 
-	public static ArrayList<Boolean> toList(boolean... booleans)
+	public static List<Boolean> toList(boolean... booleans)
 	{
-		ArrayList<Boolean> list = new ArrayList<Boolean>(booleans.length);
+		List<Boolean> list = new ArrayList<Boolean>(booleans.length);
 		for (boolean b : booleans)
 			list.add(b);
 		return list;
 	}
 
-	public static ArrayList<Byte> toList(byte... bytes)
+	public static List<Byte> toList(byte... bytes)
 	{
-		ArrayList<Byte> list = new ArrayList<Byte>(bytes.length);
+		List<Byte> list = new ArrayList<Byte>(bytes.length);
 		for (byte b : bytes)
 			list.add(b);
 		return list;
 	}
 
-	public static ArrayList<Character> toList(char... characters)
+	public static List<Character> toList(char... characters)
 	{
-		ArrayList<Character> list = new ArrayList<Character>(characters.length);
+		List<Character> list = new ArrayList<Character>(characters.length);
 		for (char c : characters)
 			list.add(c);
 		return list;
 	}
 
-	public static ArrayList<Double> toList(double... doubles)
+	public static List<Double> toList(double... doubles)
 	{
-		ArrayList<Double> list = new ArrayList<Double>(doubles.length);
+		List<Double> list = new ArrayList<Double>(doubles.length);
 		for (double d : doubles)
 			list.add(d);
 		return list;
 	}
 
-	public static ArrayList<Float> toList(float... floats)
+	public static List<Float> toList(float... floats)
 	{
-		ArrayList<Float> list = new ArrayList<Float>(floats.length);
+		List<Float> list = new ArrayList<Float>(floats.length);
 		for (float f : floats)
 			list.add(f);
 		return list;
 	}
 
-	public static ArrayList<Integer> toList(int... integers)
+	public static List<Integer> toList(int... integers)
 	{
-		ArrayList<Integer> list = new ArrayList<Integer>(integers.length);
+		List<Integer> list = new ArrayList<Integer>(integers.length);
 		for (int i : integers)
 			list.add(i);
 		return list;
 	}
 
-	public static ArrayList<Long> toList(long... longs)
+	public static List<Short> toList(short... shorts)
 	{
-		ArrayList<Long> list = new ArrayList<Long>(longs.length);
-		for (long l : longs)
-			list.add(l);
-		return list;
-	}
-
-	public static ArrayList<Object> toList(Object... objects)
-	{
-		return new ArrayList<Object>(Arrays.asList(objects));
-	}
-
-	public static ArrayList<Short> toList(short... shorts)
-	{
-		ArrayList<Short> list = new ArrayList<Short>(shorts.length);
+		List<Short> list = new ArrayList<Short>(shorts.length);
 		for (short s : shorts)
 			list.add(s);
 		return list;
 	}
 
-	public static ArrayList<String> toList(String... strings)
+	public static List<Long> toList(long... longs)
+	{
+		List<Long> list = new ArrayList<Long>(longs.length);
+		for (long l : longs)
+			list.add(l);
+		return list;
+	}
+
+	public static List<String> toList(String... strings)
 	{
 		if (strings.length == 1 && strings[0].equals(""))
 			return new ArrayList<String>();
 		return new ArrayList<String>(Arrays.asList(strings));
+	}
+
+	public static List<Object> toList(Object... objects)
+	{
+		return new ArrayList<Object>(Arrays.asList(objects));
 	}
 
 	public static boolean containsIgnoreCase(List<String> list, String string)

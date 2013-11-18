@@ -41,7 +41,7 @@ public class Requirements
 
 	public static void checkTeamExists(String teamName) throws TeamDoesNotExistException
 	{
-		if (!xTeam.getInstance().getTeamManager().contains(teamName))
+		if (!xTeam.getInstance().getTeamManager().containsTeam(teamName))
 		{
 			throw new TeamDoesNotExistException();
 		}
@@ -105,7 +105,7 @@ public class Requirements
 
 	public static void checkTeamAlreadyExists(String desiredName) throws TeamAlreadyExistsException
 	{
-		if (xTeam.getInstance().getTeamManager().contains(desiredName))
+		if (xTeam.getInstance().getTeamManager().containsTeam(desiredName))
 		{
 			throw new TeamAlreadyExistsException();
 		}
@@ -129,7 +129,7 @@ public class Requirements
 
 	public static void checkTeamPlayerMax(String teamName) throws TeamPlayerMaxException
 	{
-		if (xTeam.getInstance().getTeamManager().contains(teamName) && xTeam.getInstance().getTeamManager().getTeam(teamName).size() >= Configuration.MAX_PLAYERS && Configuration.MAX_PLAYERS > 0)
+		if (xTeam.getInstance().getTeamManager().containsTeam(teamName) && xTeam.getInstance().getTeamManager().getTeam(teamName).size() >= Configuration.MAX_PLAYERS && Configuration.MAX_PLAYERS > 0)
 		{
 			throw new TeamPlayerMaxException();
 		}
@@ -137,7 +137,7 @@ public class Requirements
 
 	public static void checkTeamNameAlreadyUsed(String desiredName, Team team) throws TeamNameConflictsWithNameException
 	{
-		if (!desiredName.equalsIgnoreCase(team.getName()) && xTeam.getInstance().getTeamManager().contains(desiredName))
+		if (!desiredName.equalsIgnoreCase(team.getName()) && xTeam.getInstance().getTeamManager().containsTeam(desiredName))
 		{
 			throw new TeamNameConflictsWithNameException();
 		}

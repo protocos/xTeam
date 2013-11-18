@@ -61,7 +61,7 @@ public class ServerAdminRemoveTest
 		//ASSERT
 		Assert.assertEquals("You removed kmlanglois from one", fakePlayerSender.getMessage(0));
 		Assert.assertEquals("one has been disbanded", fakePlayerSender.getMessage(1));
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("one"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

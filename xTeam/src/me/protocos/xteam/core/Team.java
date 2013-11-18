@@ -200,6 +200,11 @@ public class Team implements ITeam
 		return !leader.equals("");
 	}
 
+	public boolean hasTag()
+	{
+		return !this.tag.equals(this.name);
+	}
+
 	public boolean isDefaultTeam()
 	{
 		return defaultTeam;

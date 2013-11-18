@@ -42,8 +42,8 @@ public class ConsoleDisbandTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team disband one"));
 		//ASSERT
-		Assert.assertEquals("You disbanded one", fakeConsoleSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("one"));
+		Assert.assertEquals("You disbanded ONE [TeamAwesome]", fakeConsoleSender.getLastMessage());
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -68,7 +68,7 @@ public class ConsoleDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team disband RED"));
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("RED"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("RED"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

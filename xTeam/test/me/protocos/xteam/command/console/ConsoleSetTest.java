@@ -61,7 +61,7 @@ public class ConsoleSetTest
 		//ASSERT
 		Assert.assertEquals("three has been created\n" +
 				"Lonely has been added to three\n", fakeConsoleSender.getAllMessages());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("three"));
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("three"));
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("three").containsPlayer("Lonely"));
 		Assert.assertEquals(1, xTeam.getInstance().getTeamManager().getTeam("three").size());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -94,7 +94,7 @@ public class ConsoleSetTest
 		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
 				"ONE has been disbanded\n" +
 				"kmlanglois has been added to two\n", fakeConsoleSender.getAllMessages());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("one"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("one"));
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}

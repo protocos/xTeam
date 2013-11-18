@@ -103,7 +103,7 @@ public class ConsoleRemoveTest
 		//ASSERT
 		Assert.assertEquals("You removed kmlanglois from one", fakeConsoleSender.getMessage(0));
 		Assert.assertEquals("one has been disbanded", fakeConsoleSender.getMessage(1));
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().contains("one"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
