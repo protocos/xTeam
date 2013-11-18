@@ -36,7 +36,7 @@ public class PatternBuilderTest
 	}
 
 	@Test
-	public void ShouldBeComplexPattern()
+	public void ShouldBeComplexPattern1()
 	{
 		//ASSEMBLE
 		String pattern = new PatternBuilder()
@@ -51,6 +51,23 @@ public class PatternBuilderTest
 		//ACT
 		//ASSERT
 		Assert.assertTrue("HELLOYOLO111!    HOHOHO".matches(pattern));
+	}
+
+	@Test
+	public void ShouldBeComplexPattern2()
+	{
+		//ASSEMBLE
+		String pattern = new PatternBuilder()
+				.oneOrMore("protocos")
+				.numbers(false)
+				.anyOne("ab")
+				.anyUnlimited("ab")
+				.lowerCase("bbbb")
+				.noneOrMore("help")
+				.toString();
+		//ACT
+		//ASSERT
+		Assert.assertTrue("proto123aaaabbbb".matches(pattern));
 	}
 
 	@After

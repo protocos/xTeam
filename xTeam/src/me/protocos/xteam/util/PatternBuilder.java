@@ -19,7 +19,23 @@ public class PatternBuilder
 
 	public PatternBuilder()
 	{
-		pattern = new StringBuilder();
+		this("");
+	}
+
+	public PatternBuilder(Pattern pattern)
+	{
+		this(pattern.pattern());
+	}
+
+	public PatternBuilder(String pattern)
+	{
+		this.pattern = new StringBuilder(pattern);
+	}
+
+	public PatternBuilder append(Pattern append)
+	{
+		this.append(append.pattern());
+		return this;
 	}
 
 	public PatternBuilder append(String append)
@@ -41,6 +57,12 @@ public class PatternBuilder
 		return this;
 	}
 
+	public PatternBuilder noneOrMore(String append)
+	{
+		this.pattern.append(this.patternNoneOrMore(append));
+		return this;
+	}
+
 	public PatternBuilder oneOrMore(String append)
 	{
 		this.pattern.append(this.patternOneOrMore(append));
@@ -55,49 +77,49 @@ public class PatternBuilder
 
 	public PatternBuilder whiteSpace(boolean optional)
 	{
-		if (optional)
-			this.pattern.append(OPTIONAL_WHITE_SPACE);
-		else
-			this.pattern.append(WHITE_SPACE);
+		this.pattern.append(optional ? OPTIONAL_WHITE_SPACE : WHITE_SPACE);
 		return this;
 	}
 
 	public PatternBuilder numbers(boolean optional)
 	{
-		if (optional)
-			this.pattern.append(OPTIONAL_NUMBERS);
-		else
-			this.pattern.append(NUMBERS);
+		this.pattern.append(optional ? OPTIONAL_NUMBERS : NUMBERS);
 		return this;
 	}
 
 	public PatternBuilder alphaNumeric(boolean optional)
 	{
-		if (optional)
-			this.pattern.append(OPTIONAL_ALPHA_NUMERIC);
-		else
-			this.pattern.append(ALPHA_NUMERIC);
+		this.pattern.append(optional ? OPTIONAL_ALPHA_NUMERIC : ALPHA_NUMERIC);
 		return this;
 	}
 
 	public PatternBuilder anyCharacters(boolean optional)
 	{
-		if (optional)
-			this.pattern.append(OPTIONAL_ANY_CHARS);
-		else
-			this.pattern.append(ANY_CHARS);
+		this.pattern.append(optional ? OPTIONAL_ANY_CHARS : ANY_CHARS);
 		return this;
 	}
 
-	public PatternBuilder anyCharacters(String append)
+	public PatternBuilder anyOne(String append)
 	{
 		this.pattern.append("[" + append + "]");
 		return this;
 	}
 
-	public PatternBuilder excludeCharacters(String append)
+	public PatternBuilder anyUnlimited(String append)
+	{
+		this.pattern.append("[" + append + "]+");
+		return this;
+	}
+
+	public PatternBuilder excludeOne(String append)
 	{
 		this.pattern.append("[^" + append + "]");
+		return this;
+	}
+
+	public PatternBuilder excludeUnlimited(String append)
+	{
+		this.pattern.append("[^" + append + "]+");
 		return this;
 	}
 
@@ -135,24 +157,25 @@ public class PatternBuilder
 		return pattern.toString();
 	}
 
-	private String patternOneOrMore(String str)
+	private Object patternNoneOrMore(String append)
 	{
-		String oneOrMore = "" + str.charAt(0);
-		String closeParen = "";
-		for (int x = 1; x < str.length(); x++)
+		String noneOrMore = "";
+		for (char character : append.toCharArray())
 		{
-			if (x != 0)
-			{
-				oneOrMore += "(";
-				closeParen += ")";
-			}
-			oneOrMore += str.charAt(x);
-			if (x != 0)
-			{
-				oneOrMore += "?";
-			}
+			noneOrMore += "(" + character + ")?";
 		}
-		oneOrMore += closeParen;
-		return oneOrMore;
+		return noneOrMore;
+	}
+
+	private String patternOneOrMore(String append)
+	{
+		String noneOrMore = "";
+		boolean first = true;
+		for (char character : append.toCharArray())
+		{
+			noneOrMore += "(" + character + ")" + (first ? "" : "?");
+			first = false;
+		}
+		return noneOrMore;
 	}
 }
