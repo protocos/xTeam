@@ -166,7 +166,7 @@ public class Configuration
 		for (String name : Configuration.DEFAULT_TEAM_NAMES)
 		{
 			Team team = new Team.Builder(name).defaultTeam(true).openJoining(true).build();
-			if (!CommonUtil.containsIgnoreCase(xTeam.getInstance().getTeamManager().getDefaultTeamNames(), name))
+			if (!CommonUtil.containsIgnoreCase(xTeam.getInstance().getTeamManager().getDefaultTeams().getOrder(), name))
 				xTeam.getInstance().getTeamManager().addTeam(team);
 		}
 	}

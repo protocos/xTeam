@@ -35,8 +35,8 @@ public class StaticTestFunctions
 		Configuration.lastCreated.clear();
 		teamPlugin.onLoad();
 		xTeam.getInstance().load(teamPlugin);
-		xTeam.getInstance().getTeamManager().clearData();
-		xTeam.getInstance().getPlayerManager().clearData();
+		xTeam.getInstance().getTeamManager().clear();
+		xTeam.getInstance().getPlayerManager().clear();
 	}
 
 	public static void mockData()

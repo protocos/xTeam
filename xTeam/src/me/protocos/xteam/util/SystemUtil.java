@@ -63,7 +63,7 @@ public class SystemUtil
 
 	public static File ensureFile(String fileName)
 	{
-		String[] subFolders = fileName.split("/");
+		String[] subFolders = fileName.split("/+");
 		if (subFolders.length > 1)
 		{
 			String folderBuilder = "";

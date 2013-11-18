@@ -52,7 +52,7 @@ public class ChatColorUtil
 		return ChatColor.RED + string + ChatColor.RESET;
 	}
 
-	public static String eraseColor(String string)
+	public static String resetFormatting(String string)
 	{
 		return string.replaceAll("¤.", "");
 	}

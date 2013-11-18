@@ -1,9 +1,11 @@
 package me.protocos.xteam;
 
+import java.io.File;
 import java.util.List;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.util.ILog;
+import me.protocos.xteam.command.CommandDelegate;
 import me.protocos.xteam.command.console.*;
 import me.protocos.xteam.command.serveradmin.*;
 import me.protocos.xteam.command.teamadmin.TeamAdminInvite;
@@ -11,20 +13,23 @@ import me.protocos.xteam.command.teamadmin.TeamAdminPromote;
 import me.protocos.xteam.command.teamadmin.TeamAdminSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
+import me.protocos.xteam.listener.TeamChatListener;
+import me.protocos.xteam.listener.TeamPlayerListener;
+import me.protocos.xteam.listener.TeamPvPEntityListener;
+import me.protocos.xteam.listener.TeamScoreListener;
+import me.protocos.xteam.util.BukkitUtil;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permission;
+import org.bukkit.plugin.PluginManager;
 
 public class xTeamPlugin extends TeamPlugin
 {
+	private CommandExecutor commandExecutor;
+
 	@Override
 	public String getFolder()
 	{
 		return this.getDataFolder().getAbsolutePath();
-	}
-
-	@Override
-	public String getPluginName()
-	{
-		return this.getName();
 	}
 
 	@Override
@@ -48,14 +53,60 @@ public class xTeamPlugin extends TeamPlugin
 	@Override
 	public void onEnable()
 	{
-		xteam.load(this);
-		xteam.enable(this);
+		this.enable();
 	}
 
 	@Override
 	public void onDisable()
 	{
-		xteam.disable(this);
+		this.disable();
+	}
+
+	private void enable()
+	{
+		try
+		{
+			this.logger = this.getLog();
+			this.logInfo("[" + this.getPluginName() + "] v" + this.getVersion() + " loaded");
+			xteam.load(this);
+			PluginManager pm = BukkitUtil.getPluginManager();
+			pm.registerEvents(new TeamPvPEntityListener(), this);
+			pm.registerEvents(new TeamPlayerListener(), this);
+			pm.registerEvents(new TeamScoreListener(), this);
+			pm.registerEvents(new TeamChatListener(), this);
+			this.commandExecutor = new CommandDelegate(this.getCommandManager());
+			xteam.readTeamData(new File(this.getDataFolder().getAbsolutePath() + "/teams.txt"));
+			this.getCommand("team").setExecutor(commandExecutor);
+			this.logInfo("[" + this.getPluginName() + "] v" + this.getVersion() + " enabled");
+		}
+		catch (Exception e)
+		{
+			this.logError(e);
+		}
+	}
+
+	private void disable()
+	{
+		try
+		{
+			xteam.writeTeamData(new File(this.getDataFolder().getAbsolutePath() + "/teams.txt"));
+			this.logInfo("[" + this.getPluginName() + "] v" + this.getVersion() + " disabled");
+			this.getLog().close();
+		}
+		catch (Exception e)
+		{
+			this.logError(e);
+		}
+	}
+
+	private void logInfo(String info)
+	{
+		this.getLog().info(info);
+	}
+
+	private void logError(Exception e)
+	{
+		this.getLog().exception(e);
 	}
 
 	@Override

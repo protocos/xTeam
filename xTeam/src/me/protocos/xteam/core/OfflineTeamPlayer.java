@@ -25,7 +25,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public Team getTeam()
 	{
-		return xTeam.getInstance().getTeamManager().getTeamFromPlayer(player.getName());
+		return xTeam.getInstance().getTeamManager().getTeamByPlayer(player.getName());
 	}
 
 	@Override

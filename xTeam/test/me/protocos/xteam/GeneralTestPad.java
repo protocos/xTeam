@@ -9,11 +9,6 @@ import org.junit.Test;
 public class GeneralTestPad
 {
 	@Test
-	public void test()
-	{
-	}
-
-	@Test
 	public void assignFromType() throws IncompatibleClassChangeError
 	{
 		Number number = new Double(10);

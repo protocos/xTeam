@@ -2,6 +2,7 @@ package me.protocos.xteam.core;
 
 import java.util.HashMap;
 import java.util.List;
+import me.protocos.xteam.api.core.IPlayerManager;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.util.BukkitUtil;
@@ -11,7 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-public class PlayerManager
+public class PlayerManager implements IPlayerManager
 {
 	private static HashMap<String, Long> lastAttackedMap = CommonUtil.emptyHashMap();
 	private static HashMap<String, Long> lastTeleportedMap = CommonUtil.emptyHashMap();
@@ -21,7 +22,7 @@ public class PlayerManager
 	{
 	}
 
-	public void clearData()
+	public void clear()
 	{
 		lastAttackedMap.clear();
 		lastTeleportedMap.clear();

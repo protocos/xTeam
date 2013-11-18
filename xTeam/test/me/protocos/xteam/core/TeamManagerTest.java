@@ -12,6 +12,7 @@ public class TeamManagerTest
 	public void setup()
 	{
 	}
+
 	@Test
 	public void ShouldBeClear()
 	{
@@ -23,6 +24,7 @@ public class TeamManagerTest
 		//ASSERT
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().getAllTeams().size() == 0);
 	}
+
 	@Test
 	public void ShouldBeCreateTeam()
 	{
@@ -32,6 +34,7 @@ public class TeamManagerTest
 		//ASSERT
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("test"));
 	}
+
 	@Test
 	public void ShouldBeCreateTeamWithLeader()
 	{
@@ -42,6 +45,7 @@ public class TeamManagerTest
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().contains("test"));
 		Assert.assertEquals("protocos", xTeam.getInstance().getTeamManager().getTeam("test").getLeader());
 	}
+
 	@Test
 	public void ShouldBeGetAllTeams()
 	{
@@ -50,9 +54,10 @@ public class TeamManagerTest
 		xTeam.getInstance().getTeamManager().addTeam(Team.createTeamWithLeader("test2", "kmlanglois"));
 		//ACT
 		//ASSERT
-		Assert.assertEquals("[name:test1 tag:test1 open:false default:false timeHeadquartersSet:0 hq: leader:protocos admins:protocos players:protocos, " +
-				"name:test2 tag:test2 open:false default:false timeHeadquartersSet:0 hq: leader:kmlanglois admins:kmlanglois players:kmlanglois]", xTeam.getInstance().getTeamManager().getAllTeams().toString());
+		Assert.assertEquals("{test1=name:test1 tag:test1 open:false default:false timeHeadquartersSet:0 hq: leader:protocos admins:protocos players:protocos, " +
+				"test2=name:test2 tag:test2 open:false default:false timeHeadquartersSet:0 hq: leader:kmlanglois admins:kmlanglois players:kmlanglois}", xTeam.getInstance().getTeamManager().getAllTeams().toString());
 	}
+
 	@Test
 	public void ShouldBeGetTeam()
 	{
@@ -63,6 +68,7 @@ public class TeamManagerTest
 		//ASSERT
 		Assert.assertEquals("one", test.getName());
 	}
+
 	@Test
 	public void ShouldBeSameNameConflict()
 	{
@@ -75,6 +81,7 @@ public class TeamManagerTest
 		//ASSERT
 		Assert.assertTrue(exists);
 	}
+
 	@After
 	public void takedown()
 	{

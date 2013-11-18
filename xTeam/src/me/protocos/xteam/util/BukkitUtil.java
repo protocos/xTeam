@@ -2,11 +2,9 @@ package me.protocos.xteam.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import me.protocos.xteam.api.TeamPlugin;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -36,24 +34,6 @@ public class BukkitUtil
 			}
 		}
 		return nearbyEntities;
-	}
-
-	public static String getVersion(TeamPlugin teamPlugin)
-	{
-		if (teamPlugin.getDescription() == null)
-		{
-			return "CURRENT";
-		}
-		return teamPlugin.getDescription().getVersion();
-	}
-
-	public static List<Permission> getPermissionNodes(TeamPlugin teamPlugin)
-	{
-		if (teamPlugin.getDescription() == null)
-		{
-			return CommonUtil.emptyList();
-		}
-		return teamPlugin.getDescription().getPermissions();
 	}
 
 	public static World getWorld(String string)

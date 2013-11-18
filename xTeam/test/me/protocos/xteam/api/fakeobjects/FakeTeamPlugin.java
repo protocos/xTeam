@@ -10,7 +10,6 @@ import org.bukkit.permissions.Permission;
 
 public class FakeTeamPlugin extends TeamPlugin
 {
-	private final String name = "xTeam";
 	private final String folder = "test";
 	private ILog fakeLog;
 
@@ -23,12 +22,6 @@ public class FakeTeamPlugin extends TeamPlugin
 	public String getFolder()
 	{
 		return folder;
-	}
-
-	@Override
-	public String getPluginName()
-	{
-		return name;
 	}
 
 	@Override
@@ -53,13 +46,11 @@ public class FakeTeamPlugin extends TeamPlugin
 	public void onEnable()
 	{
 		xteam.load(this);
-		xteam.enable(this);
 	}
 
 	@Override
 	public void onDisable()
 	{
-		xteam.disable(this);
 	}
 
 	@Override
