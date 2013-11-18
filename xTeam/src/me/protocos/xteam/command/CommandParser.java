@@ -11,7 +11,7 @@ public class CommandParser
 
 	public CommandParser(String command)
 	{
-		List<String> parsed = CommonUtil.toList(command.split(StringUtil.WHITE_SPACE));
+		List<String> parsed = CommonUtil.split(command, StringUtil.WHITE_SPACE);
 		baseCommand = parsed.get(0);
 		parameters = parsed.subList(1, parsed.size());
 	}

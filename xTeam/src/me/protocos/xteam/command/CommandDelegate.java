@@ -25,17 +25,6 @@ public class CommandDelegate implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandID, String[] args)
 	{
-		//		if (Configuration.LOCATIONS_ENABLED)
-		//		{
-		//			// /////////////////////||||||||\\\\\\\\\\\\\\\\\\\\\
-		//			// //////////////////              \\\\\\\\\\\\\\\\\\
-		//			// ================     LOCATION     ================
-		//			// \\\\\\\\\\\\\\\\\\              //////////////////
-		//			// \\\\\\\\\\\\\\\\\\\\\||||||||/////////////////////
-		//			boolean locationCmd = pm.getPlugin("xTeamLocations").onCommand(sender, cmd, commandID, args);
-		//			if (locationCmd)
-		//				return true;
-		//		}
 		try
 		{
 			String originalCommand = StringUtil.concatenate(args);
@@ -63,6 +52,7 @@ public class CommandDelegate implements CommandExecutor
 		}
 		catch (Exception e)
 		{
+			sender.sendMessage(ChatColorUtil.negativeMessage("There was a server error executing command: /" + commandID + " " + StringUtil.concatenate(args)));
 			xTeam.getInstance().getLog().exception(e);
 			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onCommand() class [check logs]");
 		}
