@@ -9,6 +9,12 @@ import org.junit.Test;
 public class GeneralTestPad
 {
 	@Test
+	public void test()
+	{
+		Assert.assertTrue("catt".matches("cat{2}"));
+	}
+
+	@Test
 	public void assignFromType() throws IncompatibleClassChangeError
 	{
 		Number number = new Double(10);
