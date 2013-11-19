@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.teamuser;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.api.command.TeamUserCommand;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.action.Requirements;
@@ -8,6 +7,7 @@ import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
 
 public class TeamUserAccept extends TeamUserCommand
@@ -39,7 +39,10 @@ public class TeamUserAccept extends TeamUserCommand
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("accept") + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.oneOrMore("accept")
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

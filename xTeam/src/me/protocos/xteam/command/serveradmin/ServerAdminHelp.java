@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.serveradmin;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.command.CommandParser;
@@ -8,7 +7,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.HelpPages;
-import me.protocos.xteam.util.StringUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -33,11 +32,11 @@ public class ServerAdminHelp extends ServerAdminCommand
 	@Override
 	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
 	{
-		if (parseCommand.size() == 1 && parseCommand.get(0).matches(StringUtil.NUMBERS))
+		if (parseCommand.size() == 1 && parseCommand.get(0).matches(new PatternBuilder().numbers().toString()))
 		{
 			pageNum = Integer.parseInt(parseCommand.get(0));
 		}
-		else if (parseCommand.size() == 2 && parseCommand.get(1).matches(StringUtil.NUMBERS))
+		else if (parseCommand.size() == 2 && parseCommand.get(1).matches(new PatternBuilder().numbers().toString()))
 		{
 			pageNum = Integer.parseInt(parseCommand.get(1));
 		}
@@ -85,7 +84,14 @@ public class ServerAdminHelp extends ServerAdminCommand
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("admin") + "(" + WHITE_SPACE + patternOneOrMore("help") + ")?" + "(" + WHITE_SPACE + NUMBERS + ")?" + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.oneOrMore("admin")
+				.optional(new PatternBuilder().whiteSpace().oneOrMore("help"))
+				.optional(new PatternBuilder()
+						.whiteSpace()
+						.numbers())
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

@@ -1,11 +1,11 @@
 package me.protocos.xteam.command.teamuser;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.api.command.TeamUserCommand;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -40,7 +40,16 @@ public class TeamUserMessage extends TeamUserCommand
 	@Override
 	public String getPattern()
 	{
-		return "(" + patternOneOrMore("message") + "|" + "tell" + ")" + WHITE_SPACE + "[" + WHITE_SPACE + ANY_CHARS + "]+";
+		return new PatternBuilder()
+				.or(new PatternBuilder()
+						.oneOrMore("message"), new PatternBuilder()
+						.append("tell"))
+				.whiteSpace()
+				.anyUnlimited(new PatternBuilder()
+						.whiteSpace()
+						.anyString())
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

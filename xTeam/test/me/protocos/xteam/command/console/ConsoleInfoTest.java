@@ -4,7 +4,7 @@ import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.junit.After;
@@ -39,7 +39,7 @@ public class ConsoleInfoTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE" +
 				"\nTeam Tag - TeamAwesome" +
@@ -59,7 +59,7 @@ public class ConsoleInfoTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info two"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Name - two" +
 				"\nTeam Leader - mastermind" +
@@ -77,7 +77,7 @@ public class ConsoleInfoTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info Lonely"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -89,7 +89,7 @@ public class ConsoleInfoTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team info truck"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info truck".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamOrPlayerDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

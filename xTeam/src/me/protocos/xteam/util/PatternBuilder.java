@@ -22,6 +22,11 @@ public class PatternBuilder
 		this("");
 	}
 
+	public PatternBuilder(PatternBuilder pattern)
+	{
+		this(pattern.toString());
+	}
+
 	public PatternBuilder(Pattern pattern)
 	{
 		this(pattern.pattern());
@@ -32,27 +37,20 @@ public class PatternBuilder
 		this.pattern = new StringBuilder(pattern);
 	}
 
+	public PatternBuilder append(PatternBuilder append)
+	{
+		this.pattern.append(append.toString());
+		return this;
+	}
+
 	public PatternBuilder append(Pattern append)
 	{
-		this.append(append.pattern());
+		this.pattern.append(append.pattern());
 		return this;
 	}
 
 	public PatternBuilder append(String append)
 	{
-		//		append = append
-		//				.replaceAll("\\\\", "\\\\\\\\")
-		//				.replaceAll("\\*", "\\\\*")
-		//				.replaceAll("\\+", "\\\\+")
-		//				.replaceAll("\\^", "\\\\^")
-		//				.replaceAll("\\.", "\\\\.")
-		//				.replaceAll("\\?", "\\\\?")
-		//				.replaceAll("\\(", "\\\\(")
-		//				.replaceAll("\\)", "\\\\)")
-		//				.replaceAll("\\[", "\\\\[")
-		//				.replaceAll("\\]", "\\\\]")
-		//				.replaceAll("\\{", "\\\\{")
-		//				.replaceAll("\\}", "\\\\}");
 		this.pattern.append(append);
 		return this;
 	}
@@ -75,57 +73,88 @@ public class PatternBuilder
 		return this;
 	}
 
-	public PatternBuilder whiteSpace(boolean optional)
+	public PatternBuilder whiteSpace()
 	{
-		this.pattern.append(optional ? OPTIONAL_WHITE_SPACE : WHITE_SPACE);
+		this.pattern.append(WHITE_SPACE);
 		return this;
 	}
 
-	public PatternBuilder numbers(boolean optional)
+	public PatternBuilder whiteSpaceOptional()
 	{
-		this.pattern.append(optional ? OPTIONAL_NUMBERS : NUMBERS);
+		this.pattern.append(OPTIONAL_WHITE_SPACE);
 		return this;
 	}
 
-	public PatternBuilder alphaNumeric(boolean optional)
+	public PatternBuilder numbers()
 	{
-		this.pattern.append(optional ? OPTIONAL_ALPHA_NUMERIC : ALPHA_NUMERIC);
+		this.pattern.append(NUMBERS);
 		return this;
 	}
 
-	public PatternBuilder anyCharacters(boolean optional)
+	public PatternBuilder numbersOptional()
 	{
-		this.pattern.append(optional ? OPTIONAL_ANY_CHARS : ANY_CHARS);
+		this.pattern.append(OPTIONAL_NUMBERS);
 		return this;
 	}
 
-	public PatternBuilder anyOne(String append)
+	public PatternBuilder alphaNumeric()
 	{
-		this.pattern.append("[" + append + "]");
+		this.pattern.append(ALPHA_NUMERIC);
 		return this;
 	}
 
-	public PatternBuilder anyUnlimited(String append)
+	public PatternBuilder alphaNumericOptional()
 	{
-		this.pattern.append("[" + append + "]+");
+		this.pattern.append(OPTIONAL_ALPHA_NUMERIC);
 		return this;
 	}
 
-	public PatternBuilder excludeOne(String append)
+	public PatternBuilder anyString()
 	{
-		this.pattern.append("[^" + append + "]");
+		this.pattern.append(ANY_CHARS);
 		return this;
 	}
 
-	public PatternBuilder excludeUnlimited(String append)
+	public PatternBuilder anyStringOptional()
 	{
-		this.pattern.append("[^" + append + "]+");
+		this.pattern.append(OPTIONAL_ANY_CHARS);
+		return this;
+	}
+
+	public PatternBuilder anyOne(PatternBuilder append)
+	{
+		this.pattern.append("[" + append.toString() + "]");
+		return this;
+	}
+
+	public PatternBuilder anyUnlimited(PatternBuilder append)
+	{
+		this.pattern.append("[" + append.toString() + "]+");
+		return this;
+	}
+
+	public PatternBuilder excludeOne(PatternBuilder append)
+	{
+		this.pattern.append("[^" + append.toString() + "]");
+		return this;
+	}
+
+	public PatternBuilder excludeUnlimited(PatternBuilder append)
+	{
+		this.pattern.append("[^" + append.toString() + "]+");
 		return this;
 	}
 
 	public PatternBuilder repeat(String append, int times)
 	{
 		this.pattern.append("(" + append + "){" + times + "}");
+		return this;
+	}
+
+	public PatternBuilder ignoreCase()
+	{
+		this.pattern.insert(0, IGNORE_CASE);
+		this.pattern.append(CASE_SENSITIVE);
 		return this;
 	}
 
@@ -145,6 +174,53 @@ public class PatternBuilder
 	{
 		this.pattern.append(append.toUpperCase());
 		return this;
+	}
+
+	public PatternBuilder capture(PatternBuilder anyCharacters)
+	{
+		this.pattern.append("(" + anyCharacters + ")");
+		return this;
+	}
+
+	public PatternBuilder optional(PatternBuilder anyCharacters)
+	{
+		this.pattern.append("(" + anyCharacters + ")?");
+		return this;
+	}
+
+	public PatternBuilder or(String... strings)
+	{
+		PatternBuilder[] patterns = new PatternBuilder[strings.length];
+		for (int x = 0; x < strings.length; x++)
+		{
+			patterns[x] = new PatternBuilder(strings[x]);
+		}
+		return this.or(patterns);
+	}
+
+	public PatternBuilder or(PatternBuilder... patterns)
+	{
+		if (patterns.length <= 1)
+		{
+			throw new AssertionError("or() must contain at least 2 patterns");
+		}
+		PatternBuilder orBuilder = new PatternBuilder().append("(");
+		boolean first = true;
+		for (PatternBuilder patternBuilder : patterns)
+		{
+			if (!first)
+				orBuilder.append("|");
+			orBuilder.append(patternBuilder);
+			first = false;
+		}
+		orBuilder.append(")");
+		this.pattern.append(orBuilder);
+		return this;
+	}
+
+	public boolean matches(String compare)
+	{
+		return compare.matches(this.toString());
 	}
 
 	public Pattern build()

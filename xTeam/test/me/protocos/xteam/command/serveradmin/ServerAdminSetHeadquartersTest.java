@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.Headquarters;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import org.junit.After;
@@ -27,7 +27,7 @@ public class ServerAdminSetHeadquartersTest
 	{
 		Assert.assertTrue("sethq TEAM".matches(new ServerAdminSetHeadquarters().getPattern()));
 		Assert.assertTrue("sethq TEAM ".matches(new ServerAdminSetHeadquarters().getPattern()));
-		Assert.assertTrue("seth TEAM".matches(new ServerAdminSetHeadquarters().getPattern()));
+		Assert.assertTrue("setheadquarters TEAM".matches(new ServerAdminSetHeadquarters().getPattern()));
 		Assert.assertFalse("set TEAM".matches(new ServerAdminSetHeadquarters().getPattern()));
 		Assert.assertFalse("set TEAM ".matches(new ServerAdminSetHeadquarters().getPattern()));
 		Assert.assertFalse("sethq TEAM dfsjkal".matches(new ServerAdminSetHeadquarters().getPattern()));
@@ -42,7 +42,7 @@ public class ServerAdminSetHeadquartersTest
 		Headquarters newHQ = new Headquarters(fakePlayerSender.getLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminSetHeadquarters();
 		//ACT 
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq two"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You set the team headquarters for team two", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(newHQ, xTeam.getInstance().getTeamManager().getTeam("two").getHeadquarters());
@@ -56,7 +56,7 @@ public class ServerAdminSetHeadquartersTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminSetHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team sethq three"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq three".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

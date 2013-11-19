@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +45,7 @@ public class ConsoleListTest
 		xTeam.getInstance().getTeamManager().clear();
 		ConsoleCommand fakeCommand = new ConsoleList();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team list"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "list".split(" ")));
 		//ASSERT
 		Assert.assertEquals("There are no teams", fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -60,7 +60,7 @@ public class ConsoleListTest
 		xTeam.getInstance().getTeamManager().removeTeam("blue");
 		ConsoleCommand fakeCommand = new ConsoleList();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team list"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "list".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Teams: red", fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -72,7 +72,7 @@ public class ConsoleListTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleList();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team list"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "list".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Teams: ONE, two, red, blue", fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);

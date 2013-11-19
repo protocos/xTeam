@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.core.exception.TeamPlayerMaxException;
@@ -44,7 +44,7 @@ public class ConsoleSetTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set Lonely two"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set Lonely two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Lonely has been added to two", fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("Lonely"));
@@ -57,7 +57,7 @@ public class ConsoleSetTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set Lonely three"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set Lonely three".split(" ")));
 		//ASSERT
 		Assert.assertEquals("three has been created\n" +
 				"Lonely has been added to three\n", fakeConsoleSender.getAllMessages());
@@ -73,7 +73,7 @@ public class ConsoleSetTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set protocos two"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set protocos two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("protocos has been removed from ONE\n" +
 				"protocos has been added to two\n", fakeConsoleSender.getAllMessages());
@@ -89,7 +89,7 @@ public class ConsoleSetTest
 		xTeam.getInstance().getTeamManager().getTeam("one").removePlayer("protocos");
 		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set kmlanglois two"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set kmlanglois two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
 				"ONE has been disbanded\n" +
@@ -105,7 +105,7 @@ public class ConsoleSetTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set kmlanglois two"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set kmlanglois two".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -117,7 +117,7 @@ public class ConsoleSetTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set newbie one"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set newbie one".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -130,7 +130,7 @@ public class ConsoleSetTest
 		Configuration.MAX_PLAYERS = 2;
 		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team set Lonely one"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set Lonely one".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

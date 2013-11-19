@@ -11,7 +11,6 @@ public class GeneralTestPad
 	@Test
 	public void test()
 	{
-		Assert.assertTrue("catt".matches("cat{2}"));
 	}
 
 	@Test

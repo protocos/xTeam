@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamNoHeadquartersException;
 import org.bukkit.Location;
@@ -42,7 +42,7 @@ public class ServerAdminHeadquartersTest
 		Location hq = xTeam.getInstance().getTeamManager().getTeam("one").getHeadquarters().getLocation();
 		ServerAdminCommand fakeCommand = new ServerAdminHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq one"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq one".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You have been teleported to the headquarters of team one", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(hq, fakePlayerSender.getLocation());
@@ -57,7 +57,7 @@ public class ServerAdminHeadquartersTest
 		Location before = fakePlayerSender.getLocation();
 		ServerAdminCommand fakeCommand = new ServerAdminHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq team"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq team".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -72,7 +72,7 @@ public class ServerAdminHeadquartersTest
 		Location before = fakePlayerSender.getLocation();
 		ServerAdminCommand fakeCommand = new ServerAdminHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team hq two"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq two".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNoHeadquartersException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());

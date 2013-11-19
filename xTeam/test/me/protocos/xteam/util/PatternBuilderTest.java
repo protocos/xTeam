@@ -41,11 +41,11 @@ public class PatternBuilderTest
 		//ASSEMBLE
 		String pattern = new PatternBuilder()
 				.oneOrMoreIgnoreCase("hello")
-				.whiteSpace(true)
+				.whiteSpaceOptional()
 				.append("YOLO")
-				.numbers(false)
+				.numbers()
 				.append("!")
-				.whiteSpace(false)
+				.whiteSpace()
 				.repeat("HO", 3)
 				.toString();
 		//ACT
@@ -58,16 +58,16 @@ public class PatternBuilderTest
 	{
 		//ASSEMBLE
 		String pattern = new PatternBuilder()
-				.oneOrMore("protocos")
-				.numbers(false)
-				.anyOne("ab")
-				.anyUnlimited("ab")
+				.noneOrMore("protocos")
+				.numbers()
+				.anyOne(new PatternBuilder("ab"))
+				.anyUnlimited(new PatternBuilder("ab"))
 				.lowerCase("bbbb")
-				.noneOrMore("help")
+				.or(new PatternBuilder("\\?+"), new PatternBuilder("help"), new PatternBuilder("poop"))
 				.toString();
 		//ACT
 		//ASSERT
-		Assert.assertTrue("proto123aaaabbbb".matches(pattern));
+		Assert.assertTrue("proto123aaaabbbbhelp".matches(pattern));
 	}
 
 	@After

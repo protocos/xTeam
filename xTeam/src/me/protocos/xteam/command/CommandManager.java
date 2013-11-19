@@ -6,7 +6,7 @@ import me.protocos.xteam.api.command.*;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.StringUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 
@@ -26,58 +26,69 @@ public class CommandManager implements ICommandManager
 	}
 
 	@Override
-	public ConsoleCommand matchConsole(String pattern)
+	public BaseCommand match(CommandContainer commandContainer)
 	{
 		for (BaseCommand command : commands)
-			if (pattern.matches(StringUtil.IGNORE_CASE + command.getPattern()) && command instanceof ConsoleCommand)
-				return (ConsoleCommand) command;
+			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(commandContainer.getCommandWithoutID()) && commandContainer.sentFromConsole() && command instanceof ConsoleCommand)
+				return command;
+			else if (new PatternBuilder(command.getPattern()).ignoreCase().matches(commandContainer.getCommandWithoutID()) && commandContainer.sentFromPlayer() && command instanceof PlayerCommand)
+				return command;
 		return null;
 	}
 
-	@Override
-	public PlayerCommand matchPlayerCommand(String pattern)
-	{
-		PlayerCommand match = matchServerAdmin(pattern);
-		if (match == null)
-			match = matchTeamLeader(pattern);
-		if (match == null)
-			match = matchTeamAdmin(pattern);
-		if (match == null)
-			match = matchTeamUser(pattern);
-		return match;
-	}
-
-	private PlayerCommand matchServerAdmin(String pattern)
-	{
-		for (BaseCommand command : commands)
-			if (pattern.matches(StringUtil.IGNORE_CASE + command.getPattern()) && command instanceof ServerAdminCommand)
-				return (PlayerCommand) command;
-		return null;
-	}
-
-	private TeamLeaderCommand matchTeamLeader(String pattern)
-	{
-		for (BaseCommand command : commands)
-			if (pattern.matches(StringUtil.IGNORE_CASE + command.getPattern()) && command instanceof TeamLeaderCommand)
-				return (TeamLeaderCommand) command;
-		return null;
-	}
-
-	private TeamAdminCommand matchTeamAdmin(String pattern)
-	{
-		for (BaseCommand command : commands)
-			if (pattern.matches(StringUtil.IGNORE_CASE + command.getPattern()) && command instanceof TeamAdminCommand)
-				return (TeamAdminCommand) command;
-		return null;
-	}
-
-	private TeamUserCommand matchTeamUser(String pattern)
-	{
-		for (BaseCommand command : commands)
-			if (pattern.matches(StringUtil.IGNORE_CASE + command.getPattern()) && command instanceof TeamUserCommand)
-				return (TeamUserCommand) command;
-		return null;
-	}
+	//	@Override
+	//	public ConsoleCommand matchConsole(String pattern)
+	//	{
+	//		for (BaseCommand command : commands)
+	//			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(pattern) && command instanceof ConsoleCommand)
+	//				return (ConsoleCommand) command;
+	//		return null;
+	//	}
+	//
+	//	@Override
+	//	public PlayerCommand matchPlayerCommand(String pattern)
+	//	{
+	//		PlayerCommand match = matchServerAdmin(pattern);
+	//		if (match == null)
+	//			match = matchTeamLeader(pattern);
+	//		if (match == null)
+	//			match = matchTeamAdmin(pattern);
+	//		if (match == null)
+	//			match = matchTeamUser(pattern);
+	//		return match;
+	//	}
+	//
+	//	private PlayerCommand matchServerAdmin(String pattern)
+	//	{
+	//		for (BaseCommand command : commands)
+	//			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(pattern) && command instanceof ServerAdminCommand)
+	//				return (PlayerCommand) command;
+	//		return null;
+	//	}
+	//
+	//	private TeamLeaderCommand matchTeamLeader(String pattern)
+	//	{
+	//		for (BaseCommand command : commands)
+	//			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(pattern) && command instanceof TeamLeaderCommand)
+	//				return (TeamLeaderCommand) command;
+	//		return null;
+	//	}
+	//
+	//	private TeamAdminCommand matchTeamAdmin(String pattern)
+	//	{
+	//		for (BaseCommand command : commands)
+	//			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(pattern) && command instanceof TeamAdminCommand)
+	//				return (TeamAdminCommand) command;
+	//		return null;
+	//	}
+	//
+	//	private TeamUserCommand matchTeamUser(String pattern)
+	//	{
+	//		for (BaseCommand command : commands)
+	//			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(pattern) && command instanceof TeamUserCommand)
+	//				return (TeamUserCommand) command;
+	//		return null;
+	//	}
 
 	@Override
 	public List<String> getAvailableConsoleCommands(CommandSender sender)

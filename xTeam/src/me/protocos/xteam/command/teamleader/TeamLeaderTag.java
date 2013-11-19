@@ -1,12 +1,12 @@
 package me.protocos.xteam.command.teamleader;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.api.command.TeamLeaderCommand;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
 
 public class TeamLeaderTag extends TeamLeaderCommand
@@ -41,7 +41,12 @@ public class TeamLeaderTag extends TeamLeaderCommand
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("tag") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.oneOrMore("tag")
+				.whiteSpace()
+				.anyString()
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

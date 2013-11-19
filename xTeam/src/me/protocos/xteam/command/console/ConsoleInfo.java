@@ -1,10 +1,10 @@
 package me.protocos.xteam.command.console;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.action.InfoAction;
 import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
 
 public class ConsoleInfo extends ConsoleCommand
@@ -34,7 +34,12 @@ public class ConsoleInfo extends ConsoleCommand
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("info") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.oneOrMore("info")
+				.whiteSpace()
+				.anyString()
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

@@ -10,8 +10,6 @@ import me.protocos.xteam.util.StringUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Player;
 
 public class CommandDelegate implements CommandExecutor
 {
@@ -25,29 +23,18 @@ public class CommandDelegate implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandID, String[] args)
 	{
+		System.out.println(commandID);
 		try
 		{
-			String originalCommand = StringUtil.concatenate(args);
-			BaseCommand command = null;
-			CommandParser parseCommand = null;
-			if (sender instanceof ConsoleCommandSender)
-			{
-				parseCommand = new CommandParser(commandID + " " + originalCommand);
-				command = manager.matchConsole(parseCommand.getCommandWithoutID());
-				xTeam.getInstance().getLog().info("console issued command: " + parseCommand.toString());
-			}
-			else if (sender instanceof Player)
-			{
-				parseCommand = new CommandParser("/" + commandID + " " + originalCommand);
-				command = manager.matchPlayerCommand(parseCommand.getCommandWithoutID());
-				xTeam.getInstance().getLog().info(sender.getName() + " issued command: " + parseCommand.toString());
-			}
+			CommandContainer commandContainer = new CommandContainer(sender, commandID, args);
+			BaseCommand command = manager.match(commandContainer);
+			logCommand(commandContainer);
 			if (command == null)
 			{
 				sender.sendMessage(ChatColorUtil.negativeMessage((new TeamInvalidCommandException()).getMessage()));
 				xTeam.getInstance().getLog().info("Command execute failed for reason: " + (new TeamInvalidCommandException()).getMessage());
 			}
-			else if (command.execute(sender, parseCommand) == true)
+			else if (command.execute(commandContainer) == true)
 				xTeam.getInstance().writeTeamData(new File("plugins/xTeam/teams.txt"));
 		}
 		catch (Exception e)
@@ -57,5 +44,42 @@ public class CommandDelegate implements CommandExecutor
 			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onCommand() class [check logs]");
 		}
 		return true;
+		//		try
+		//		{
+		//			String originalCommand = StringUtil.concatenate(args);
+		//			BaseCommand command = null;
+		//			CommandParser parseCommand = null;
+		//			if (sender instanceof ConsoleCommandSender)
+		//			{
+		//				parseCommand = new CommandParser(commandID + " " + originalCommand);
+		//				command = manager.matchConsole(parseCommand.getCommandWithoutID());
+		//				xTeam.getInstance().getLog().info("console issued command: " + parseCommand.toString());
+		//			}
+		//			else if (sender instanceof Player)
+		//			{
+		//				parseCommand = new CommandParser("/" + commandID + " " + originalCommand);
+		//				command = manager.matchPlayerCommand(parseCommand.getCommandWithoutID());
+		//				xTeam.getInstance().getLog().info(sender.getName() + " issued command: " + parseCommand.toString());
+		//			}
+		//			if (command == null)
+		//			{
+		//				sender.sendMessage(ChatColorUtil.negativeMessage((new TeamInvalidCommandException()).getMessage()));
+		//				xTeam.getInstance().getLog().info("Command execute failed for reason: " + (new TeamInvalidCommandException()).getMessage());
+		//			}
+		//			else if (command.execute(sender, parseCommand) == true)
+		//				xTeam.getInstance().writeTeamData(new File("plugins/xTeam/teams.txt"));
+		//		}
+		//		catch (Exception e)
+		//		{
+		//			sender.sendMessage(ChatColorUtil.negativeMessage("There was a server error executing command: /" + commandID + " " + StringUtil.concatenate(args)));
+		//			xTeam.getInstance().getLog().exception(e);
+		//			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onCommand() class [check logs]");
+		//		}
+		//		return true;
+	}
+
+	private void logCommand(CommandContainer commandContainer)
+	{
+		xTeam.getInstance().getLog().info(commandContainer.getSenderName() + " issued command: " + commandContainer.getCommand());
 	}
 }

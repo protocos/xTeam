@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.*;
 import org.junit.After;
 import org.junit.Before;
@@ -28,8 +28,8 @@ public class ServerAdminSetLeaderTest
 		Assert.assertTrue("setleader TEAM PLAYER ".matches(new ServerAdminSetLeader().getPattern()));
 		Assert.assertTrue("setl TEAM PLAYER".matches(new ServerAdminSetLeader().getPattern()));
 		Assert.assertTrue("setlead TEAM PLAYER ".matches(new ServerAdminSetLeader().getPattern()));
+		Assert.assertTrue("sl TEAM PLAYER ".matches(new ServerAdminSetLeader().getPattern()));
 		Assert.assertFalse("s TEAM PLAYER".matches(new ServerAdminSetLeader().getPattern()));
-		Assert.assertFalse("sl TEAM PLAYER ".matches(new ServerAdminSetLeader().getPattern()));
 		Assert.assertTrue(new ServerAdminSetLeader().getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ServerAdminSetLeader().getPattern()));
 	}
 
@@ -40,7 +40,7 @@ public class ServerAdminSetLeaderTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team setleader one protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals("protocos is now the team leader for ONE", fakePlayerSender.getLastMessage());
 		Assert.assertEquals("protocos", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
@@ -54,7 +54,7 @@ public class ServerAdminSetLeaderTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team setleader one newbie"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one newbie".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
@@ -68,7 +68,7 @@ public class ServerAdminSetLeaderTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team setleader one Lonely"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
@@ -82,7 +82,7 @@ public class ServerAdminSetLeaderTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team setleader one mastermind"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one mastermind".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
@@ -96,7 +96,7 @@ public class ServerAdminSetLeaderTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team setleader red strandedhelix"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader red strandedhelix".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
@@ -110,7 +110,7 @@ public class ServerAdminSetLeaderTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team setleader three protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader three protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());

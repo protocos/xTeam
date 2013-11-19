@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.teamuser;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
 import me.protocos.xteam.api.core.ITeamPlayer;
@@ -9,6 +8,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
 
 public class TeamUserLeave extends TeamUserCommand
@@ -44,7 +44,11 @@ public class TeamUserLeave extends TeamUserCommand
 	@Override
 	public String getPattern()
 	{
-		return "l" + "(" + patternOneOrMore("eave") + "|" + patternOneOrMore("ve") + ")" + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.oneOrMore("lea")
+				.oneOrMore("ve")
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

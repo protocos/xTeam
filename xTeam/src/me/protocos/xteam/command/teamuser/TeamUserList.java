@@ -1,12 +1,12 @@
 package me.protocos.xteam.command.teamuser;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
 
 public class TeamUserList extends TeamUserCommand
@@ -35,7 +35,10 @@ public class TeamUserList extends TeamUserCommand
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("list") + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.oneOrMore("list")
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class ConsoleTeleAllHQTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleTeleAllHQ();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team teleallhq"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "teleallhq".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Players teleported", fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);

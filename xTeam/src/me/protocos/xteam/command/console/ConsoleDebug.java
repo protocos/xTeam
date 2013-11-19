@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.console;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ConsoleCommand;
@@ -9,6 +8,7 @@ import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
@@ -91,7 +91,14 @@ public class ConsoleDebug extends ConsoleCommand
 	@Override
 	public String getPattern()
 	{
-		return "d" + patternOneOrMore("ebug") + "(" + WHITE_SPACE + ANY_CHARS + ")?" + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.append("d")
+				.oneOrMore("ebug")
+				.optional(new PatternBuilder()
+						.whiteSpace()
+						.anyString())
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

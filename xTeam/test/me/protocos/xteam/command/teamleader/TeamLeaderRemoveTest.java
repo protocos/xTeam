@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamLeaderCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.core.exception.TeamPlayerNotLeaderException;
@@ -43,7 +43,7 @@ public class TeamLeaderRemoveTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamLeaderCommand fakeCommand = new TeamLeaderRemove();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team remove protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You removed protocos from your team", fakePlayerSender.getLastMessage());
 		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
@@ -57,7 +57,7 @@ public class TeamLeaderRemoveTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamLeaderCommand fakeCommand = new TeamLeaderRemove();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team remove kmlanglois"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove kmlanglois".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
@@ -71,7 +71,7 @@ public class TeamLeaderRemoveTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		TeamLeaderCommand fakeCommand = new TeamLeaderRemove();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team remove protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -84,7 +84,7 @@ public class TeamLeaderRemoveTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		TeamLeaderCommand fakeCommand = new TeamLeaderRemove();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team remove protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
@@ -98,7 +98,7 @@ public class TeamLeaderRemoveTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamLeaderCommand fakeCommand = new TeamLeaderRemove();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team remove mastermind"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove mastermind".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotTeammateException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

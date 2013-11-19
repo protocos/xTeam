@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.teamuser;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
@@ -9,6 +8,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.HelpPages;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -55,7 +55,16 @@ public class TeamUserHelp extends TeamUserCommand
 	@Override
 	public String getPattern()
 	{
-		return "(((" + patternOneOrMore("help") + "|\\?+)" + WHITE_SPACE + NUMBERS + ")" + "|" + NUMBERS + ")" + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.or(new PatternBuilder()
+						.or(new PatternBuilder()
+								.oneOrMore("help"), new PatternBuilder()
+								.append("\\?+"))
+						.whiteSpace()
+						.numbers(), new PatternBuilder()
+						.numbers())
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

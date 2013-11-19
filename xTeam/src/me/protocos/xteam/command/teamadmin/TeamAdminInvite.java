@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.teamadmin;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamAdminCommand;
 import me.protocos.xteam.api.core.ITeamPlayer;
@@ -9,6 +8,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
 
 public class TeamAdminInvite extends TeamAdminCommand
@@ -44,7 +44,13 @@ public class TeamAdminInvite extends TeamAdminCommand
 	@Override
 	public String getPattern()
 	{
-		return "in" + patternOneOrMore("vite") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.append("in")
+				.oneOrMore("vite")
+				.whiteSpace()
+				.anyString()
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

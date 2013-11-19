@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.serveradmin;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.command.CommandParser;
@@ -8,6 +7,7 @@ import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -53,7 +53,13 @@ public class ServerAdminTeleAllHQ extends ServerAdminCommand
 	@Override
 	public String getPattern()
 	{
-		return "tele" + patternOneOrMore("allhq") + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.oneOrMore("teleport")
+				.oneOrMore("all")
+				.oneOrMore("head")
+				.oneOrMore("quarters")
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

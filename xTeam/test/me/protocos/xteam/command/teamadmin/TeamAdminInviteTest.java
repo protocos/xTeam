@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamAdminCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.*;
 import org.junit.After;
@@ -42,7 +42,7 @@ public class TeamAdminInviteTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamAdminCommand fakeCommand = new TeamAdminInvite();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team invite Lonely"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You invited Lonely", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(InviteHandler.hasInvite("Lonely"));
@@ -58,7 +58,7 @@ public class TeamAdminInviteTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		TeamAdminCommand fakeCommand = new TeamAdminInvite();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team invite Lonely"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You invited Lonely", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(InviteHandler.hasInvite("Lonely"));
@@ -73,7 +73,7 @@ public class TeamAdminInviteTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		TeamAdminCommand fakeCommand = new TeamAdminInvite();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team invite Lonely"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotAdminException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(InviteHandler.hasInvite("Lonely"));
@@ -88,7 +88,7 @@ public class TeamAdminInviteTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamAdminCommand fakeCommand = new TeamAdminInvite();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team invite Lonely"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasInviteException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(InviteHandler.hasInvite("Lonely"));
@@ -102,7 +102,7 @@ public class TeamAdminInviteTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamAdminCommand fakeCommand = new TeamAdminInvite();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team invite newbie"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite newbie".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(InviteHandler.hasInvite("newbie"));
@@ -116,7 +116,7 @@ public class TeamAdminInviteTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		TeamAdminCommand fakeCommand = new TeamAdminInvite();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team invite mastermind"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite mastermind".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(InviteHandler.hasInvite("mastermind"));
@@ -130,7 +130,7 @@ public class TeamAdminInviteTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamAdminCommand fakeCommand = new TeamAdminInvite();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team invite kmlanglois"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite kmlanglois".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerInviteException("Player cannot invite self")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(InviteHandler.hasInvite("kmlanglois"));

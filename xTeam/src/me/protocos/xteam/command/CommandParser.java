@@ -2,6 +2,7 @@ package me.protocos.xteam.command;
 
 import java.util.List;
 import me.protocos.xteam.util.CommonUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import me.protocos.xteam.util.StringUtil;
 
 public class CommandParser
@@ -11,7 +12,7 @@ public class CommandParser
 
 	public CommandParser(String command)
 	{
-		List<String> parsed = CommonUtil.split(command, StringUtil.WHITE_SPACE);
+		List<String> parsed = CommonUtil.split(command, new PatternBuilder().whiteSpace().toString());
 		baseCommand = parsed.get(0);
 		parameters = parsed.subList(1, parsed.size());
 	}

@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import org.junit.After;
@@ -42,7 +42,7 @@ public class TeamUserInfoTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE\n" +
 				"Team Tag - TeamAwesome\n" +
@@ -62,7 +62,7 @@ public class TeamUserInfoTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info two"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Name - two\n" +
 				"Team Leader - mastermind\n" +
@@ -80,7 +80,7 @@ public class TeamUserInfoTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info mastermind"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info mastermind".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Name - two\n" +
 				"Team Leader - mastermind\n" +
@@ -98,7 +98,7 @@ public class TeamUserInfoTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info red"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info red".split(" ")));
 		//ASSERT
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -110,7 +110,7 @@ public class TeamUserInfoTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info strandedhelix"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info strandedhelix".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Name - red\n" +
 				"Team Tag - REDONE\n" +
@@ -132,7 +132,7 @@ public class TeamUserInfoTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Name - red\n" +
 				"Team Tag - REDONE\n" +
@@ -155,7 +155,7 @@ public class TeamUserInfoTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE\n" +
 				"Team Tag - TeamAwesome\n" +
@@ -177,7 +177,7 @@ public class TeamUserInfoTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info REDONE"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info REDONE".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Name - red\n" +
 				"Team Tag - REDONE\n" +
@@ -197,7 +197,7 @@ public class TeamUserInfoTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info TeamAwesome"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info TeamAwesome".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Name - ONE\n" +
 				"Team Tag - TeamAwesome\n" +
@@ -218,7 +218,7 @@ public class TeamUserInfoTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -231,7 +231,7 @@ public class TeamUserInfoTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserInfo();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team info truck"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info truck".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamOrPlayerDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

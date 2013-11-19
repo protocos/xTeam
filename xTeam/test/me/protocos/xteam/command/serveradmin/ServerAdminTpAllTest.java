@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
 import org.junit.After;
 import org.junit.Before;
@@ -25,8 +25,8 @@ public class ServerAdminTpAllTest
 	{
 		Assert.assertTrue("tpall TEAM".matches(new ServerAdminTpAll().getPattern()));
 		Assert.assertTrue("tpall TEAM ".matches(new ServerAdminTpAll().getPattern()));
-		Assert.assertTrue("tp TEAM".matches(new ServerAdminTpAll().getPattern()));
-		Assert.assertTrue("tp TEAM ".matches(new ServerAdminTpAll().getPattern()));
+		Assert.assertTrue("tpa TEAM".matches(new ServerAdminTpAll().getPattern()));
+		Assert.assertTrue("tpa TEAM ".matches(new ServerAdminTpAll().getPattern()));
 		Assert.assertFalse("t TEAM".matches(new ServerAdminTpAll().getPattern()));
 		Assert.assertFalse("tpall".matches(new ServerAdminTpAll().getPattern()));
 		Assert.assertFalse("tpall ".matches(new ServerAdminTpAll().getPattern()));
@@ -40,7 +40,7 @@ public class ServerAdminTpAllTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminTpAll();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tpall one"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tpall one".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Players teleported", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -53,7 +53,7 @@ public class ServerAdminTpAllTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminTpAll();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tpall three"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tpall three".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

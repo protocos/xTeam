@@ -1,12 +1,12 @@
 package me.protocos.xteam.command.serveradmin;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
 
 public class ServerAdminOpen extends ServerAdminCommand
@@ -39,7 +39,12 @@ public class ServerAdminOpen extends ServerAdminCommand
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("open") + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.oneOrMore("open")
+				.whiteSpace()
+				.anyString()
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

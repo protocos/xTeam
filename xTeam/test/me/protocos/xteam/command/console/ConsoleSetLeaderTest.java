@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.*;
 import org.junit.After;
 import org.junit.Before;
@@ -41,7 +41,7 @@ public class ConsoleSetLeaderTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team setleader one protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader one protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals("protocos is now the team leader for ONE", fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("protocos", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
@@ -54,7 +54,7 @@ public class ConsoleSetLeaderTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team setleader one newbie"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader one newbie".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
@@ -67,7 +67,7 @@ public class ConsoleSetLeaderTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team setleader one Lonely"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader one Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
@@ -80,7 +80,7 @@ public class ConsoleSetLeaderTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team setleader one mastermind"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader one mastermind".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
@@ -93,7 +93,7 @@ public class ConsoleSetLeaderTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team setleader red strandedhelix"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader red strandedhelix".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());
@@ -106,7 +106,7 @@ public class ConsoleSetLeaderTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team setleader three Lonely"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader three Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("kmlanglois", xTeam.getInstance().getTeamManager().getTeam("one").getLeader());

@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import me.protocos.xteam.api.command.TeamUserCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.TeamInvalidPageException;
 import org.junit.After;
 import org.junit.Before;
@@ -42,7 +42,7 @@ public class TeamUserHelpTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help 1"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 1".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 1/3] {optional} [required] pick/one\n" +
 				"/team {help} - main help menu for xTeam\n" +
@@ -64,7 +64,7 @@ public class TeamUserHelpTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help 2"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 2".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 2/3] {optional} [required] pick/one\n" +
 				"/team tele {Player} - teleport to nearest or specific teammate\n" +
@@ -86,7 +86,7 @@ public class TeamUserHelpTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help 3"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 3".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 3/3] {optional} [required] pick/one\n" +
 				"/team disband - disband the team\n" +
@@ -108,7 +108,7 @@ public class TeamUserHelpTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team help 4"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 4".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamInvalidPageException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

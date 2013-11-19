@@ -5,8 +5,9 @@ import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
-import me.protocos.xteam.command.CommandParser;
-import me.protocos.xteam.core.exception.*;
+import me.protocos.xteam.command.CommandContainer;
+import me.protocos.xteam.core.exception.TeamDoesNotExistException;
+import me.protocos.xteam.core.exception.TeamIsDefaultException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class ConsoleDisbandTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleDisband();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team disband one"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "disband one".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You disbanded ONE [TeamAwesome]", fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("one"));
@@ -53,7 +54,7 @@ public class ConsoleDisbandTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleDisband();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team disband ooga"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "disband ooga".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -65,7 +66,7 @@ public class ConsoleDisbandTest
 		//ASSEMBLE
 		ConsoleCommand fakeCommand = new ConsoleDisband();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakeConsoleSender, new CommandParser("/team disband RED"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "disband RED".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("RED"));

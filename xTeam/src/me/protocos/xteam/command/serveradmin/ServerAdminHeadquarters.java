@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.serveradmin;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.command.CommandParser;
@@ -8,6 +7,7 @@ import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
 
 public class ServerAdminHeadquarters extends ServerAdminCommand
@@ -39,7 +39,13 @@ public class ServerAdminHeadquarters extends ServerAdminCommand
 	@Override
 	public String getPattern()
 	{
-		return "hq" + WHITE_SPACE + ANY_CHARS + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.oneOrMore("head")
+				.oneOrMore("quarters")
+				.whiteSpace()
+				.anyString()
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

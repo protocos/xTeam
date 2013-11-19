@@ -1,6 +1,7 @@
 package me.protocos.xteam.api.command;
 
 import java.util.List;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.TeamPlayer;
 import org.bukkit.command.CommandSender;
 
@@ -8,9 +9,11 @@ public interface ICommandManager
 {
 	public abstract void registerCommand(BaseCommand command);
 
-	public abstract ConsoleCommand matchConsole(String pattern);
+	public abstract BaseCommand match(CommandContainer commandContainer);
 
-	public abstract PlayerCommand matchPlayerCommand(String pattern);
+	//	public abstract ConsoleCommand matchConsole(String pattern);
+
+	//	public abstract PlayerCommand matchPlayerCommand(String pattern);
 
 	public abstract List<String> getAvailableConsoleCommands(CommandSender sender);
 

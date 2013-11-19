@@ -30,7 +30,7 @@ public class Requirements
 
 	public static void checkPlayerCommandIsValid(CommandParser parseCommand, String pattern) throws TeamInvalidCommandException
 	{
-		if (!parseCommand.getCommandWithoutID().matches(StringUtil.IGNORE_CASE + pattern))
+		if (!parseCommand.getCommandWithoutID().matches(new PatternBuilder(pattern).ignoreCase().toString()))
 		{
 			throw new TeamInvalidCommandException();
 		}
@@ -110,7 +110,7 @@ public class Requirements
 
 	public static void checkTeamNameAlphaNumeric(String desiredName) throws TeamNameNotAlphaException
 	{
-		if (Configuration.ALPHA_NUM && !desiredName.matches(StringUtil.ALPHA_NUMERIC))
+		if (Configuration.ALPHA_NUM && !desiredName.matches(new PatternBuilder().alphaNumeric().toString()))
 		{
 			throw new TeamNameNotAlphaException();
 		}

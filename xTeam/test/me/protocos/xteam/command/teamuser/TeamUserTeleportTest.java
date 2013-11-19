@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.Locatable;
@@ -31,10 +31,10 @@ public class TeamUserTeleportTest
 	@Test
 	public void ShouldBeTeamUserTeleport()
 	{
-		Assert.assertTrue("tele".matches(new TeamUserTeleport().getPattern()));
-		Assert.assertTrue("tele ".matches(new TeamUserTeleport().getPattern()));
-		Assert.assertTrue("tele PLAYER".matches(new TeamUserTeleport().getPattern()));
-		Assert.assertTrue("tele PLAYER ".matches(new TeamUserTeleport().getPattern()));
+		Assert.assertTrue("tp".matches(new TeamUserTeleport().getPattern()));
+		Assert.assertTrue("teleport ".matches(new TeamUserTeleport().getPattern()));
+		Assert.assertTrue("tp PLAYER".matches(new TeamUserTeleport().getPattern()));
+		Assert.assertTrue("tp PLAYER ".matches(new TeamUserTeleport().getPattern()));
 		Assert.assertTrue("tp PLAYER".matches(new TeamUserTeleport().getPattern()));
 		Assert.assertFalse("tp PLAYER wekn;ljdkkmsnaf".matches(new TeamUserTeleport().getPattern()));
 		Assert.assertTrue(new TeamUserTeleport().getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new TeamUserTeleport().getPattern()));
@@ -47,7 +47,7 @@ public class TeamUserTeleportTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", BukkitUtil.getPlayer("protocos").getLocation());
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You've been teleported to protocos", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(BukkitUtil.getPlayer("protocos").getLocation(), fakePlayerSender.getLocation());
@@ -61,7 +61,7 @@ public class TeamUserTeleportTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", BukkitUtil.getPlayer("protocos").getLocation());
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You've been teleported to protocos", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(BukkitUtil.getPlayer("protocos").getLocation(), fakePlayerSender.getLocation());
@@ -76,7 +76,7 @@ public class TeamUserTeleportTest
 		Location before = fakePlayerSender.getLocation();
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerTeleException("Player has no teammates online")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -91,7 +91,7 @@ public class TeamUserTeleportTest
 		Location before = fakePlayerSender.getLocation();
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele mastermind"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele mastermind".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotTeammateException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -107,7 +107,7 @@ public class TeamUserTeleportTest
 		fakePlayerSender.setNoDamageTicks(1);
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerDyingException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -122,7 +122,7 @@ public class TeamUserTeleportTest
 		Location before = fakePlayerSender.getLocation();
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -139,7 +139,7 @@ public class TeamUserTeleportTest
 		Location before = fakePlayerSender.getLocation();
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerTeleException("Player was attacked in the last 15 seconds\nYou must wait 15 more seconds")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -156,7 +156,7 @@ public class TeamUserTeleportTest
 		Location before = fakePlayerSender.getLocation();
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerTeleRequestException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -173,7 +173,7 @@ public class TeamUserTeleportTest
 		Location before = fakePlayerSender.getLocation();
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele protocos"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within 60 seconds of last teleport\nPlayer must wait 60 more seconds\n/team return is still available")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -188,7 +188,7 @@ public class TeamUserTeleportTest
 		Location before = fakePlayerSender.getLocation();
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele kmlanglois"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele kmlanglois".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport to themselves")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -203,7 +203,7 @@ public class TeamUserTeleportTest
 		Location before = fakePlayerSender.getLocation();
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele neverplayed"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele neverplayed".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
@@ -218,7 +218,7 @@ public class TeamUserTeleportTest
 		Location before = fakePlayerSender.getLocation();
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team tele teammate"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele teammate".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerOfflineException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());

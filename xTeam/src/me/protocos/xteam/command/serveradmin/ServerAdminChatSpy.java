@@ -1,11 +1,11 @@
 package me.protocos.xteam.command.serveradmin;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
 
 public class ServerAdminChatSpy extends ServerAdminCommand
@@ -37,7 +37,11 @@ public class ServerAdminChatSpy extends ServerAdminCommand
 	@Override
 	public String getPattern()
 	{
-		return patternOneOrMore("chat") + patternOneOrMore("spy") + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.oneOrMore("chat")
+				.oneOrMore("spy")
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

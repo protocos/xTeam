@@ -1,10 +1,10 @@
 package me.protocos.xteam.command.teamuser;
 
-import static me.protocos.xteam.util.StringUtil.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
 import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -42,7 +42,13 @@ public class TeamUserMainHelp extends TeamUserCommand
 	@Override
 	public String getPattern()
 	{
-		return "(h" + patternOneOrMore("elp") + "|\\?+)?" + OPTIONAL_WHITE_SPACE;
+		return new PatternBuilder()
+				.optional(new PatternBuilder()
+						.or(new PatternBuilder()
+								.oneOrMore("help"), new PatternBuilder()
+								.append("\\?+")))
+				.whiteSpaceOptional()
+				.toString();
 	}
 
 	@Override

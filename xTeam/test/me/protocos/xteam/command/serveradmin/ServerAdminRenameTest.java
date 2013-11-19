@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamAlreadyExistsException;
 import me.protocos.xteam.core.exception.TeamDoesNotExistException;
@@ -43,7 +43,7 @@ public class ServerAdminRenameTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename one newname"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one newname".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You renamed the team to newname", fakePlayerSender.getLastMessage());
 		Assert.assertEquals("newname", xTeam.getInstance().getTeamManager().getTeam("newname").getName());
@@ -57,7 +57,7 @@ public class ServerAdminRenameTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename one two"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one two".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
@@ -72,7 +72,7 @@ public class ServerAdminRenameTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename one ƒçß"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one ƒçß".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
@@ -86,7 +86,7 @@ public class ServerAdminRenameTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team rename three newname"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename three newname".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());

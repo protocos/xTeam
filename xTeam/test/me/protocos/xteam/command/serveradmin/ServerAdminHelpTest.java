@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.TeamInvalidPageException;
 import org.junit.After;
 import org.junit.Before;
@@ -41,7 +41,7 @@ public class ServerAdminHelpTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team admin"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "admin".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Admin Commands: [Page 1/2] {optional} [required] pick/one\n" +
 				"/team chatspy - spy on team chat\n" +
@@ -63,7 +63,7 @@ public class ServerAdminHelpTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team admin 2"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "admin 2".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Admin Commands: [Page 2/2] {optional} [required] pick/one\n" +
 				"/team open [Team] - open team to public joining\n" +
@@ -85,7 +85,7 @@ public class ServerAdminHelpTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(fakePlayerSender, new CommandParser("/team admin 3"));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "admin 3".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamInvalidPageException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
