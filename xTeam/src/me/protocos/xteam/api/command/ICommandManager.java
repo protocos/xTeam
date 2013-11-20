@@ -11,10 +11,6 @@ public interface ICommandManager
 
 	public abstract BaseCommand match(CommandContainer commandContainer);
 
-	//	public abstract ConsoleCommand matchConsole(String pattern);
-
-	//	public abstract PlayerCommand matchPlayerCommand(String pattern);
-
 	public abstract List<String> getAvailableConsoleCommands(CommandSender sender);
 
 	public abstract List<String> getAvailableAdminCommandsFor(TeamPlayer player);

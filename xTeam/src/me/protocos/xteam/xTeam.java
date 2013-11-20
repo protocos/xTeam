@@ -85,42 +85,43 @@ public final class xTeam
 			this.permissions = plugin.getPermissions();
 			this.initFileSystem(plugin);
 		}
+		this.commandManager.register(plugin);
 	}
 
 	private void initFileSystem(TeamPlugin plugin)
 	{
 		SystemUtil.ensureFolder(plugin.getFolder());
 		SystemUtil.ensureFile(plugin.getFolder() + "/teams.txt");
-		configLoader = new Configuration(SystemUtil.ensureFile(plugin.getFolder() + "/xTeam.cfg"));
-		configLoader.addAttribute("playersonteam", 10, "Amount of players that can be on a team");
-		configLoader.addAttribute("sethqinterval", 0, "Delay in hours between use of /team sethq");
-		configLoader.addAttribute("teleportradius", 500, "Maximum distance in blocks between team mates to teleport to one another");
-		configLoader.addAttribute("canteamchat", true, "Allows/Disallows the use of team chat function completely");
-		configLoader.addAttribute("hqondeath", true, "When a player dies, they are teleported to their headquarters when they respawn");
-		configLoader.addAttribute("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
-		configLoader.addAttribute("teledelay", 10, "Delay in seconds for teleporting when enemies are near");
-		configLoader.addAttribute("telerefreshdelay", 60, "Delay in seconds for when you can use team teleporting. Does not include /team return");
-		configLoader.addAttribute("createteamdelay", 20, "Delay in minutes for creating teams");
-		configLoader.addAttribute("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
-		configLoader.addAttribute("defaultteams", "", "Default list of teams for the server separated by commas  (e.g. defaultteams=red,green,blue,yellow)");
-		configLoader.addAttribute("randomjointeam", false, "Player randomly joins one of the default teams on joining");
-		configLoader.addAttribute("balanceteams", false, "Balance teams when someone randomly joins");
-		configLoader.addAttribute("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
-		configLoader.addAttribute("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
-		configLoader.addAttribute("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
-		configLoader.addAttribute("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
-		configLoader.addAttribute("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
-		configLoader.addAttribute("teamtagmaxlength", 0, "Maximum length of a team tag (0 = unlimited)");
-		configLoader.addAttribute("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
-		configLoader.addAttribute("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
-		configLoader.addAttribute("teamfriendlyfire", false, "When true, friendly fire will be enabled for all teams");
-		configLoader.addAttribute("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
-		configLoader.addAttribute("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
-		configLoader.addAttribute("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
-		configLoader.addAttribute("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
-		configLoader.addAttribute("rallydelay", 2, "Delay in minutes that a team rally stays active");
-		configLoader.write();
-		configLoader.load();
+		this.configLoader = new Configuration(SystemUtil.ensureFile(plugin.getFolder() + "/xTeam.cfg"));
+		this.configLoader.addAttribute("playersonteam", 10, "Amount of players that can be on a team");
+		this.configLoader.addAttribute("sethqinterval", 0, "Delay in hours between use of /team sethq");
+		this.configLoader.addAttribute("teleportradius", 500, "Maximum distance in blocks between team mates to teleport to one another");
+		this.configLoader.addAttribute("canteamchat", true, "Allows/Disallows the use of team chat function completely");
+		this.configLoader.addAttribute("hqondeath", true, "When a player dies, they are teleported to their headquarters when they respawn");
+		this.configLoader.addAttribute("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
+		this.configLoader.addAttribute("teledelay", 10, "Delay in seconds for teleporting when enemies are near");
+		this.configLoader.addAttribute("telerefreshdelay", 60, "Delay in seconds for when you can use team teleporting. Does not include /team return");
+		this.configLoader.addAttribute("createteamdelay", 20, "Delay in minutes for creating teams");
+		this.configLoader.addAttribute("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
+		this.configLoader.addAttribute("defaultteams", "", "Default list of teams for the server separated by commas  (e.g. defaultteams=red,green,blue,yellow)");
+		this.configLoader.addAttribute("randomjointeam", false, "Player randomly joins one of the default teams on joining");
+		this.configLoader.addAttribute("balanceteams", false, "Balance teams when someone randomly joins");
+		this.configLoader.addAttribute("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
+		this.configLoader.addAttribute("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
+		this.configLoader.addAttribute("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
+		this.configLoader.addAttribute("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
+		this.configLoader.addAttribute("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
+		this.configLoader.addAttribute("teamtagmaxlength", 0, "Maximum length of a team tag (0 = unlimited)");
+		this.configLoader.addAttribute("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
+		this.configLoader.addAttribute("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
+		this.configLoader.addAttribute("teamfriendlyfire", false, "When true, friendly fire will be enabled for all teams");
+		this.configLoader.addAttribute("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
+		this.configLoader.addAttribute("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
+		this.configLoader.addAttribute("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
+		this.configLoader.addAttribute("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
+		this.configLoader.addAttribute("rallydelay", 2, "Delay in minutes that a team rally stays active");
+		this.configLoader.write();
+		this.configLoader.load();
 		SystemUtil.ensureFile(plugin.getFolder() + "/xTeam.log");
 	}
 
