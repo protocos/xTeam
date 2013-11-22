@@ -1,6 +1,7 @@
 package me.protocos.xteam.core;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.IPermissible;
@@ -12,16 +13,20 @@ import me.protocos.xteam.util.*;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.*;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.metadata.MetadataValue;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
-public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
+public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSender
 {
 	private Player player;
 
@@ -220,13 +225,6 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 	public boolean isOp()
 	{
 		return player.isOp();
-	}
-
-	@Override
-	public boolean sendMessage(String message)
-	{
-		player.sendMessage(message);
-		return true;
 	}
 
 	@Override
@@ -542,5 +540,89 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity
 		if (Configuration.DISPLAY_COORDINATES)
 			location += " Location: " + ChatColor.RED + this.getRelativeX() + " " + ChatColor.GREEN + this.getRelativeY() + " " + ChatColor.BLUE + this.getRelativeZ() + ChatColor.RESET + " in \"" + this.getWorld().getName() + "\"";
 		return ChatColor.GREEN + "    " + this.getName() + ChatColor.RESET + " Health: " + (health >= 15 ? ChatColor.GREEN : ChatColor.RED) + health * 5 + "%" + ChatColor.RESET + location;
+	}
+
+	@Override
+	public PermissionAttachment addAttachment(Plugin arg0)
+	{
+		return player.addAttachment(arg0);
+	}
+
+	@Override
+	public PermissionAttachment addAttachment(Plugin arg0, int arg1)
+	{
+		return player.addAttachment(arg0, arg1);
+	}
+
+	@Override
+	public PermissionAttachment addAttachment(Plugin arg0, String arg1, boolean arg2)
+	{
+		return player.addAttachment(arg0, arg1, arg2);
+	}
+
+	@Override
+	public PermissionAttachment addAttachment(Plugin arg0, String arg1, boolean arg2, int arg3)
+	{
+		return player.addAttachment(arg0, arg1, arg2, arg3);
+	}
+
+	@Override
+	public Set<PermissionAttachmentInfo> getEffectivePermissions()
+	{
+		return player.getEffectivePermissions();
+	}
+
+	@Override
+	public boolean hasPermission(String arg0)
+	{
+		return player.hasPermission(arg0);
+	}
+
+	@Override
+	public boolean hasPermission(Permission arg0)
+	{
+		return player.hasPermission(arg0);
+	}
+
+	@Override
+	public boolean isPermissionSet(String arg0)
+	{
+		return player.isPermissionSet(arg0);
+	}
+
+	@Override
+	public boolean isPermissionSet(Permission arg0)
+	{
+		return player.isPermissionSet(arg0);
+	}
+
+	@Override
+	public void recalculatePermissions()
+	{
+		player.recalculatePermissions();
+	}
+
+	@Override
+	public void removeAttachment(PermissionAttachment arg0)
+	{
+		player.removeAttachment(arg0);
+	}
+
+	@Override
+	public void setOp(boolean arg0)
+	{
+		player.setOp(arg0);
+	}
+
+	@Override
+	public void sendMessage(String message)
+	{
+		player.sendMessage(message);
+	}
+
+	@Override
+	public void sendMessage(String[] arg0)
+	{
+		player.sendMessage(arg0);
 	}
 }

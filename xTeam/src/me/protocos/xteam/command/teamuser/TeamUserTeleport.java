@@ -3,13 +3,12 @@ package me.protocos.xteam.command.teamuser;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class TeamUserTeleport extends TeamUserCommand
 {
@@ -21,19 +20,19 @@ public class TeamUserTeleport extends TeamUserCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		TeleportScheduler teleporter = TeleportScheduler.getInstance();
 		teleporter.teleport(teamPlayer, teamMate);
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		String teammateName = null;
-		if (parseCommand.size() == 2)
+		if (commandContainer.size() == 2)
 		{
-			teammateName = parseCommand.get(1);
+			teammateName = commandContainer.getArgument(1);
 		}
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerNotDamaged(teamPlayer);

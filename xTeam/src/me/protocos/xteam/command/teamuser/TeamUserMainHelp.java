@@ -2,11 +2,10 @@ package me.protocos.xteam.command.teamuser;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 
 public class TeamUserMainHelp extends TeamUserCommand
 {
@@ -18,7 +17,7 @@ public class TeamUserMainHelp extends TeamUserCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		ChatColor temp;
 
@@ -30,13 +29,13 @@ public class TeamUserMainHelp extends TeamUserCommand
 		message += "\n" + ((temp = ChatColor.YELLOW) + commandID + " [command]" + ChatColor.RESET + " = command for " + temp + "TEAM ADMINS");
 		message += "\n" + ((temp = ChatColor.LIGHT_PURPLE) + commandID + " [command]" + ChatColor.RESET + " = command for " + temp + "TEAM LEADERS");
 		message += "\n" + (ChatColor.DARK_RED + "Report BUGS to " + ChatColor.GRAY + "http://dev.bukkit.org/server-mods/xteam/");
-		originalSender.sendMessage(message);
+		teamPlayer.sendMessage(message);
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		commandID = parseCommand.getBaseCommand();
+		commandID = commandContainer.getCommandID();
 	}
 
 	@Override

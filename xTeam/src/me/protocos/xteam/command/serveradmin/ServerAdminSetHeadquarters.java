@@ -2,14 +2,13 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Headquarters;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class ServerAdminSetHeadquarters extends ServerAdminCommand
 {
@@ -21,17 +20,17 @@ public class ServerAdminSetHeadquarters extends ServerAdminCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		Team changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		changeTeam.setHQ(new Headquarters(teamPlayer.getLocation()));
-		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team headquarters for team " + teamName);
+		player.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team headquarters for team " + teamName);
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		teamName = parseCommand.get(1);
+		teamName = commandContainer.getArgument(1);
 		Requirements.checkTeamExists(teamName);
 	}
 

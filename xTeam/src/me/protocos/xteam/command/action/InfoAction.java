@@ -8,7 +8,6 @@ import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Player;
 
 public class InfoAction
 {
@@ -27,10 +26,9 @@ public class InfoAction
 			{
 				sender.sendMessage(infoTeam.getPrivateInfo());
 			}
-			else if (sender instanceof Player)
+			else if (sender instanceof ITeamPlayer)
 			{
-				Player player = CommonUtil.assignFromType(sender, Player.class);
-				ITeamPlayer teamPlayer = xTeam.getInstance().getPlayerManager().getPlayer(player);
+				ITeamPlayer teamPlayer = CommonUtil.assignFromType(sender, ITeamPlayer.class);
 				if (teamPlayer.isOnSameTeam(infoTeam))
 					teamPlayer.sendMessage(infoTeam.getPrivateInfo());
 				else

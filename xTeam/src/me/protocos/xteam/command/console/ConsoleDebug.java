@@ -3,13 +3,12 @@ package me.protocos.xteam.command.console;
 import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ConsoleCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 
@@ -23,22 +22,22 @@ public class ConsoleDebug extends ConsoleCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		if (subCommand.equalsIgnoreCase("chat"))
-			originalSender.sendMessage("Chat statuses: " + Configuration.chatStatus.toString());
+			sender.sendMessage("Chat statuses: " + Configuration.chatStatus.toString());
 		else if (subCommand.equalsIgnoreCase("invites"))
-			originalSender.sendMessage("Invites: " + InviteHandler.data());
+			sender.sendMessage("Invites: " + InviteHandler.data());
 		else if (subCommand.equalsIgnoreCase("spies"))
-			originalSender.sendMessage("Spies: " + Configuration.spies.toString());
+			sender.sendMessage("Spies: " + Configuration.spies.toString());
 		else if (subCommand.equalsIgnoreCase("created"))
-			originalSender.sendMessage("Last created: " + Configuration.lastCreated.toString());
+			sender.sendMessage("Last created: " + Configuration.lastCreated.toString());
 		else if (subCommand.equalsIgnoreCase("players"))
-			originalSender.sendMessage("Players: \n" + xTeam.getInstance().getPlayerManager().toString());
+			sender.sendMessage("Players: \n" + xTeam.getInstance().getPlayerManager().toString());
 		else if (subCommand.equalsIgnoreCase("teams"))
-			originalSender.sendMessage("Teams: \n" + xTeam.getInstance().getTeamManager().toString());
+			sender.sendMessage("Teams: \n" + xTeam.getInstance().getTeamManager().toString());
 		else if (subCommand.equalsIgnoreCase("perms"))
-			originalSender.sendMessage("Debugging permissions: \n" + printPermissions());
+			sender.sendMessage("Debugging permissions: \n" + printPermissions());
 		else if (subCommand.equalsIgnoreCase("resetplayers"))
 		{
 			for (Player player : BukkitUtil.getOnlinePlayers())
@@ -46,14 +45,14 @@ public class ConsoleDebug extends ConsoleCommand
 				player.setHealth(20);
 				player.setFoodLevel(20);
 			}
-			originalSender.sendMessage("All players health reset");
+			sender.sendMessage("All players health reset");
 		}
 		else if (subCommand.equalsIgnoreCase("email"))
 		{
 			try
 			{
 				xTeam.getInstance().getLog().exception(new Exception("Test message!"));
-				originalSender.sendMessage("Email sent!");
+				sender.sendMessage("Email sent!");
 			}
 			catch (Exception e)
 			{
@@ -61,7 +60,7 @@ public class ConsoleDebug extends ConsoleCommand
 			}
 		}
 		else
-			originalSender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, resetplayers, email]");
+			sender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, resetplayers, email]");
 	}
 
 	private String printPermissions()
@@ -76,16 +75,9 @@ public class ConsoleDebug extends ConsoleCommand
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		if (parseCommand.size() == 1)
-		{
-			subCommand = "";
-		}
-		else if (parseCommand.size() == 2)
-		{
-			subCommand = parseCommand.get(1);
-		}
+		subCommand = commandContainer.getArgument(1);
 	}
 
 	@Override

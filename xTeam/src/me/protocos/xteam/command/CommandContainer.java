@@ -22,7 +22,9 @@ public class CommandContainer
 
 	public String getArgument(int index)
 	{
-		return arguments.get(index);
+		if (index < this.size())
+			return arguments.get(index);
+		return "";
 	}
 
 	public CommandSender getSender()
@@ -42,7 +44,7 @@ public class CommandContainer
 
 	public String getCommandID()
 	{
-		return commandID;
+		return (this.sentFromPlayer() ? "/" : "") + commandID;
 	}
 
 	public String getCommandWithoutID()
@@ -52,7 +54,7 @@ public class CommandContainer
 
 	public String getCommand()
 	{
-		return (this.sentFromPlayer() ? "/" : "") + this.getCommandID() + (arguments.isEmpty() ? "" : " " + this.getCommandWithoutID());
+		return this.getCommandID() + (arguments.isEmpty() ? "" : " " + this.getCommandWithoutID());
 	}
 
 	public int size()

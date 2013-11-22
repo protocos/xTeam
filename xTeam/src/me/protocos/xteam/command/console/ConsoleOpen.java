@@ -2,12 +2,11 @@ package me.protocos.xteam.command.console;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ConsoleCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class ConsoleOpen extends ConsoleCommand
 {
@@ -19,20 +18,20 @@ public class ConsoleOpen extends ConsoleCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		Team team = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		team.setOpenJoining(!team.isOpenJoining());
 		if (team.isOpenJoining())
-			originalSender.sendMessage("Open joining is now " + ChatColorUtil.positiveMessage("enabled") + " for team " + teamName);
+			sender.sendMessage("Open joining is now " + ChatColorUtil.positiveMessage("enabled") + " for team " + teamName);
 		else
-			originalSender.sendMessage("Open joining is now " + ChatColorUtil.negativeMessage("disabled") + " for team " + teamName);
+			sender.sendMessage("Open joining is now " + ChatColorUtil.negativeMessage("disabled") + " for team " + teamName);
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		teamName = parseCommand.get(1);
+		teamName = commandContainer.getArgument(1);
 	}
 
 	@Override

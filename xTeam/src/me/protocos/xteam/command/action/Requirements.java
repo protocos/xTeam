@@ -3,7 +3,6 @@ package me.protocos.xteam.command.action;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.IPermissible;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.command.CommandParser;
 import me.protocos.xteam.command.teamuser.TeamUserReturn;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.InviteHandler;
@@ -20,17 +19,17 @@ public class Requirements
 	{
 	}
 
-	public static void checkPlayerHasPermission(CommandSender originalSender, IPermissible permission) throws TeamPlayerPermissionException
+	public static void checkPlayerHasPermission(CommandSender sender, IPermissible permission) throws TeamPlayerPermissionException
 	{
-		if (!PermissionUtil.hasPermission(originalSender, permission))
+		if (!PermissionUtil.hasPermission(sender, permission))
 		{
 			throw new TeamPlayerPermissionException();
 		}
 	}
 
-	public static void checkPlayerCommandIsValid(CommandParser parseCommand, String pattern) throws TeamInvalidCommandException
+	public static void checkPlayerCommandIsValid(String command, String pattern) throws TeamInvalidCommandException
 	{
-		if (!parseCommand.getCommandWithoutID().matches(new PatternBuilder(pattern).ignoreCase().toString()))
+		if (!new PatternBuilder(pattern).ignoreCase().matches(command))
 		{
 			throw new TeamInvalidCommandException();
 		}

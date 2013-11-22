@@ -1,12 +1,11 @@
 package me.protocos.xteam.command.teamleader;
 
 import me.protocos.xteam.api.command.TeamLeaderCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class TeamLeaderSetRally extends TeamLeaderCommand
 {
@@ -16,14 +15,14 @@ public class TeamLeaderSetRally extends TeamLeaderCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.setRally(teamPlayer.getLocation());
-		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team rally point");
+		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team rally point");
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		Requirements.checkTeamNotHasRally(team);
 	}

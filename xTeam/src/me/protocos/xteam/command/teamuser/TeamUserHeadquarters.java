@@ -1,12 +1,11 @@
 package me.protocos.xteam.command.teamuser;
 
 import me.protocos.xteam.api.command.TeamUserCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class TeamUserHeadquarters extends TeamUserCommand
 {
@@ -16,14 +15,14 @@ public class TeamUserHeadquarters extends TeamUserCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		TeleportScheduler teleporter = TeleportScheduler.getInstance();
 		teleporter.teleport(teamPlayer, teamPlayer.getTeam().getHeadquarters());
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkTeamHasHeadquarters(team);

@@ -6,14 +6,12 @@ import me.protocos.xteam.core.TeamPlayer;
 
 public class MessageUtil
 {
-	public static boolean sendMessageToTeam(ITeamEntity entity, String message)
+	public static void sendMessageToTeam(ITeamEntity entity, String message)
 	{
-		boolean sentToAll = true;
 		List<TeamPlayer> onlinePlayers = entity.getOnlineTeammates();
 		for (TeamPlayer teammate : onlinePlayers)
 		{
-			sentToAll = teammate.sendMessage(message);
+			teammate.sendMessage(message);
 		}
-		return sentToAll;
 	}
 }

@@ -3,11 +3,10 @@ package me.protocos.xteam.command.teamleader;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamLeaderCommand;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class TeamLeaderDisband extends TeamLeaderCommand
 {
@@ -17,18 +16,18 @@ public class TeamLeaderDisband extends TeamLeaderCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		for (ITeamPlayer playerDisband : teamPlayer.getOnlineTeammates())
 		{
 			playerDisband.sendMessage("Team has been " + ChatColorUtil.negativeMessage("disbanded") + " by the team leader");
 		}
 		xTeam.getInstance().getTeamManager().removeTeam(team.getName());
-		originalSender.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " your team");
+		teamPlayer.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " your team");
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 	}
 

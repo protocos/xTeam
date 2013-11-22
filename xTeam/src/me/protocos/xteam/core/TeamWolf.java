@@ -173,10 +173,9 @@ public class TeamWolf implements ITeamWolf
 	}
 
 	@Override
-	public boolean sendMessage(String message)
+	public void sendMessage(String message)
 	{
 		getWorld().playSound(getLocation(), Sound.WOLF_BARK, 10, 10);
-		return true;
 	}
 
 	@Override

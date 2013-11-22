@@ -3,14 +3,13 @@ package me.protocos.xteam.command.teamuser;
 import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.HelpPages;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 
 public class TeamUserHelp extends TeamUserCommand
 {
@@ -23,25 +22,25 @@ public class TeamUserHelp extends TeamUserCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		pages.setTitle(ChatColor.AQUA + "Team Commands: [Page " + pageNum + "/" + pages.getTotalPages() + "] " + ChatColorUtil.highlightString(ChatColor.GRAY, "{optional} [required] pick/one"));
 		pageNum--;
-		originalSender.sendMessage(pages.getPage(pageNum));
+		teamPlayer.sendMessage(pages.getPage(pageNum));
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		if (parseCommand.size() == 1 && parseCommand.get(0).matches("[0-9]+"))
+		if (commandContainer.size() == 1 && commandContainer.getArgument(0).matches("[0-9]+"))
 		{
-			pageNum = Integer.parseInt(parseCommand.get(0));
+			pageNum = Integer.parseInt(commandContainer.getArgument(0));
 		}
-		else if (parseCommand.size() == 2 && parseCommand.get(1).matches("[0-9]+"))
+		else if (commandContainer.size() == 2 && commandContainer.getArgument(1).matches("[0-9]+"))
 		{
-			pageNum = Integer.parseInt(parseCommand.get(1));
+			pageNum = Integer.parseInt(commandContainer.getArgument(1));
 		}
-		else if (parseCommand.size() == 1)
+		else if (commandContainer.size() == 1)
 		{
 			pageNum = 1;
 		}

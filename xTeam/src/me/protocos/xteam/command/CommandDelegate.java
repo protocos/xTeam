@@ -52,13 +52,13 @@ public class CommandDelegate implements CommandExecutor
 		//			if (sender instanceof ConsoleCommandSender)
 		//			{
 		//				parseCommand = new CommandParser(commandID + " " + originalCommand);
-		//				command = manager.matchConsole(parseCommand.getCommandWithoutID());
+		//				command = manager.matchConsole(commandContainer.getArgumentCommandWithoutID());
 		//				xTeam.getInstance().getLog().info("console issued command: " + parseCommand.toString());
 		//			}
 		//			else if (sender instanceof Player)
 		//			{
 		//				parseCommand = new CommandParser("/" + commandID + " " + originalCommand);
-		//				command = manager.matchPlayerCommand(parseCommand.getCommandWithoutID());
+		//				command = manager.matchPlayerCommand(commandContainer.getArgumentCommandWithoutID());
 		//				xTeam.getInstance().getLog().info(sender.getName() + " issued command: " + parseCommand.toString());
 		//			}
 		//			if (command == null)

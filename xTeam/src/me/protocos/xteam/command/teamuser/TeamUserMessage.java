@@ -2,12 +2,11 @@ package me.protocos.xteam.command.teamuser;
 
 import me.protocos.xteam.api.command.TeamUserCommand;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 
 public class TeamUserMessage extends TeamUserCommand
 {
@@ -17,22 +16,22 @@ public class TeamUserMessage extends TeamUserCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		String message = "";
-		for (int i = 1; i < parseCommand.size(); i++)
+		for (int i = 1; i < commandContainer.size(); i++)
 		{
-			message += " " + parseCommand.get(i);
+			message += " " + commandContainer.getArgument(i);
 		}
 		for (ITeamPlayer teammate : teamPlayer.getOnlineTeammates())
 		{
 			teammate.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
 		}
-		originalSender.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
+		teamPlayer.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		Requirements.checkPlayerHasTeam(teamPlayer);
 	}

@@ -1,11 +1,10 @@
 package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.api.command.ServerAdminCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.SetTeamAction;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class ServerAdminSet extends ServerAdminCommand
 {
@@ -18,17 +17,17 @@ public class ServerAdminSet extends ServerAdminCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		set.actOn(playerName, teamName);
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		playerName = parseCommand.get(1);
-		teamName = parseCommand.get(2);
-		set = new SetTeamAction(originalSender);
+		playerName = commandContainer.getArgument(1);
+		teamName = commandContainer.getArgument(2);
+		set = new SetTeamAction(player);
 		set.checkRequirementsOn(playerName, teamName);
 	}
 

@@ -2,13 +2,12 @@ package me.protocos.xteam.command.console;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ConsoleCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.HelpPages;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 
 public class ConsoleHelp extends ConsoleCommand
 {
@@ -20,34 +19,21 @@ public class ConsoleHelp extends ConsoleCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		pages.setTitle(ChatColor.AQUA + "Console Commands: " + ChatColorUtil.highlightString(ChatColor.GRAY, "{optional} [required] pick/one"));
-		originalSender.sendMessage(pages.getTitle());
+		sender.sendMessage(pages.getTitle());
 		for (int index = 0; index < pages.getNumLines(); index++)
 		{
-			originalSender.sendMessage(pages.getLine(index));
+			sender.sendMessage(pages.getLine(index));
 		}
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		pages = new HelpPages();
-		pages.addLines(xTeam.getInstance().getCommandManager().getAvailableConsoleCommands(originalSender));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_info") + " - get info on player/team"));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_list") + " - list all teams on the server"));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_set") + " - set team of player"));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_setleader") + " - set leader of team"));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_promote") + " - promote player to team admin"));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_demote") + " - demote team admin"));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_remove") + " - remove player from team"));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_rename") + " - rename a team"));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_tag") + " - set team tag"));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_disband") + " - disband a team"));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_open") + " - open team to public joining"));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_teleallhq") + " - teleports everyone to their headquarters"));
-		//		pages.addLine(format(xTeam.getInstance().getCommandManager().getUsage("console_reload") + " - reload configuration file"));
+		pages.addLines(xTeam.getInstance().getCommandManager().getAvailableConsoleCommands(sender));
 	}
 
 	@Override

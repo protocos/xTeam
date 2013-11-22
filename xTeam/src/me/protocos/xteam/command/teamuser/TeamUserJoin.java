@@ -2,14 +2,13 @@ package me.protocos.xteam.command.teamuser;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class TeamUserJoin extends TeamUserCommand
 {
@@ -21,19 +20,19 @@ public class TeamUserJoin extends TeamUserCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		Team foundTeam = xTeam.getInstance().getTeamManager().getTeam(desiredName);
 		foundTeam.addPlayer(teamPlayer.getName());
 		InviteHandler.removeInvite(teamPlayer.getName());
 		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + ChatColorUtil.positiveMessage("joined") + " your team");
-		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("joined") + " " + foundTeam.getName());
+		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("joined") + " " + foundTeam.getName());
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		desiredName = parseCommand.get(1);
+		desiredName = commandContainer.getArgument(1);
 		Team desiredTeam = xTeam.getInstance().getTeamManager().getTeam(desiredName);
 		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
 		Requirements.checkTeamOnlyJoinDefault(desiredName);

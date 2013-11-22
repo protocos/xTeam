@@ -3,13 +3,12 @@ package me.protocos.xteam.command.teamleader;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamLeaderCommand;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class TeamLeaderDemote extends TeamLeaderCommand
@@ -22,19 +21,19 @@ public class TeamLeaderDemote extends TeamLeaderCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.demote(otherPlayer);
 		Player other = BukkitUtil.getPlayer(otherPlayer);
 		if (other != null)
 			other.sendMessage("You've been " + ChatColorUtil.negativeMessage("demoted"));
-		originalSender.sendMessage("You" + ChatColorUtil.negativeMessage(" demoted ") + otherPlayer);
+		teamPlayer.sendMessage("You" + ChatColorUtil.negativeMessage(" demoted ") + otherPlayer);
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		otherPlayer = parseCommand.get(1);
+		otherPlayer = commandContainer.getArgument(1);
 		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		ITeamPlayer demotePlayer = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);

@@ -63,9 +63,8 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	}
 
 	@Override
-	public boolean sendMessage(String message)
+	public void sendMessage(String message)
 	{
-		return false;
 	}
 
 	@Override

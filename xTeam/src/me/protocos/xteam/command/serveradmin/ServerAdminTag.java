@@ -2,13 +2,12 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class ServerAdminTag extends ServerAdminCommand
 {
@@ -21,19 +20,19 @@ public class ServerAdminTag extends ServerAdminCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		changeTeam.setTag(desiredTag);
-		if (!changeTeam.containsPlayer(originalSender.getName()))
-			originalSender.sendMessage("The team tag has been " + ChatColorUtil.positiveMessage("set") + " to " + desiredTag);
+		if (!changeTeam.containsPlayer(player.getName()))
+			player.sendMessage("The team tag has been " + ChatColorUtil.positiveMessage("set") + " to " + desiredTag);
 		changeTeam.sendMessage("The team tag has been " + ChatColorUtil.positiveMessage("set") + " to " + desiredTag + " by an admin");
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		teamName = parseCommand.get(1);
-		desiredTag = parseCommand.get(2);
+		teamName = commandContainer.getArgument(1);
+		desiredTag = commandContainer.getArgument(2);
 		changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkTeamNameAlreadyUsed(desiredTag, changeTeam);

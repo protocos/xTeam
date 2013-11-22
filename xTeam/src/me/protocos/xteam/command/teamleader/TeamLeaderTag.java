@@ -2,12 +2,11 @@ package me.protocos.xteam.command.teamleader;
 
 import me.protocos.xteam.api.command.TeamLeaderCommand;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class TeamLeaderTag extends TeamLeaderCommand
 {
@@ -19,7 +18,7 @@ public class TeamLeaderTag extends TeamLeaderCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.setTag(desiredTag);
 		teamPlayer.sendMessage("The team tag has been " + ChatColorUtil.positiveMessage("set") + " to " + desiredTag);
@@ -30,9 +29,9 @@ public class TeamLeaderTag extends TeamLeaderCommand
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		desiredTag = parseCommand.get(1);
+		desiredTag = commandContainer.getArgument(1);
 		Requirements.checkTeamNameTooLong(desiredTag);
 		Requirements.checkTeamNameAlphaNumeric(desiredTag);
 		Requirements.checkTeamNameAlreadyUsed(desiredTag, team);

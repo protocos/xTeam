@@ -1,11 +1,10 @@
 package me.protocos.xteam.command.teamleader;
 
 import me.protocos.xteam.api.command.TeamLeaderCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class TeamLeaderOpen extends TeamLeaderCommand
 {
@@ -15,17 +14,17 @@ public class TeamLeaderOpen extends TeamLeaderCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.setOpenJoining(!team.isOpenJoining());
 		if (team.isOpenJoining())
-			originalSender.sendMessage("Open joining is now " + ChatColorUtil.positiveMessage("enabled"));
+			teamPlayer.sendMessage("Open joining is now " + ChatColorUtil.positiveMessage("enabled"));
 		else
-			originalSender.sendMessage("Open joining is now " + ChatColorUtil.negativeMessage("disabled"));
+			teamPlayer.sendMessage("Open joining is now " + ChatColorUtil.negativeMessage("disabled"));
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 	}
 

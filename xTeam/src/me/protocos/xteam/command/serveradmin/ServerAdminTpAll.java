@@ -2,13 +2,12 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class ServerAdminTpAll extends ServerAdminCommand
 {
@@ -20,7 +19,7 @@ public class ServerAdminTpAll extends ServerAdminCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		Team changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
 		for (TeamPlayer teammate : changeTeam.getOnlineTeammates())
@@ -28,16 +27,16 @@ public class ServerAdminTpAll extends ServerAdminCommand
 			if (teammate.isOnline())
 			{
 				teammate.teleport(teamPlayer.getLocation());
-				teammate.sendMessage("You have been teleported to " + originalSender.getName());
+				teammate.sendMessage("You have been teleported to " + player.getName());
 			}
 		}
-		originalSender.sendMessage("Players teleported");
+		player.sendMessage("Players teleported");
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		teamName = parseCommand.get(1);
+		teamName = commandContainer.getArgument(1);
 		Requirements.checkTeamExists(teamName);
 	}
 

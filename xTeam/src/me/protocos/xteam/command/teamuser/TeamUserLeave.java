@@ -3,13 +3,12 @@ package me.protocos.xteam.command.teamuser;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class TeamUserLeave extends TeamUserCommand
 {
@@ -19,7 +18,7 @@ public class TeamUserLeave extends TeamUserCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.removePlayer(teamPlayer.getName());
 		if (team.size() == 0 && !team.isDefaultTeam())
@@ -31,11 +30,11 @@ public class TeamUserLeave extends TeamUserCommand
 			if (mate.isOnline())
 				mate.sendMessage(teamPlayer.getName() + " " + ChatColorUtil.negativeMessage("left") + " your team");
 		}
-		originalSender.sendMessage("You " + ChatColorUtil.negativeMessage("left") + " " + team.getName());
+		teamPlayer.sendMessage("You " + ChatColorUtil.negativeMessage("left") + " " + team.getName());
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerLeaderLeaving(teamPlayer);

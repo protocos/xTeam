@@ -3,13 +3,12 @@ package me.protocos.xteam.command.serveradmin;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class ServerAdminRemove extends ServerAdminCommand
 {
@@ -22,25 +21,25 @@ public class ServerAdminRemove extends ServerAdminCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		Team changeTeam = changePlayer.getTeam();
 		changeTeam.removePlayer(playerName);
-		if (!playerName.equals(originalSender.getName()))
-			originalSender.sendMessage("You " + ChatColorUtil.negativeMessage("removed") + " " + playerName + " from " + teamName);
+		if (!playerName.equals(player.getName()))
+			player.sendMessage("You " + ChatColorUtil.negativeMessage("removed") + " " + playerName + " from " + teamName);
 		changePlayer.sendMessage("You have been " + ChatColorUtil.negativeMessage("removed") + " from " + changeTeam.getName() + " by an admin");
 		if (changeTeam.isEmpty())
 		{
-			originalSender.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
+			player.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
 			xTeam.getInstance().getTeamManager().removeTeam(changeTeam.getName());
 		}
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		teamName = parseCommand.get(1);
-		playerName = parseCommand.get(2);
+		teamName = commandContainer.getArgument(1);
+		playerName = commandContainer.getArgument(2);
 		changePlayer = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(changePlayer);
 		Requirements.checkPlayerHasTeam(changePlayer);

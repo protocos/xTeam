@@ -3,13 +3,12 @@ package me.protocos.xteam.command.teamadmin;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamAdminCommand;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.command.CommandParser;
+import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.command.CommandSender;
 
 public class TeamAdminInvite extends TeamAdminCommand
 {
@@ -21,19 +20,19 @@ public class TeamAdminInvite extends TeamAdminCommand
 	}
 
 	@Override
-	protected void act(CommandSender originalSender, CommandParser parseCommand)
+	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		InviteHandler.addInvite(otherPlayer, team);
 		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColorUtil.positiveMessage("invited ") + "to join " + team.getName());
-		originalSender.sendMessage("You " + ChatColorUtil.positiveMessage("invited ") + other.getName());
+		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("invited ") + other.getName());
 	}
 
 	@Override
-	public void checkRequirements(CommandSender originalSender, CommandParser parseCommand) throws TeamException, IncompatibleClassChangeError
+	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		otherPlayer = parseCommand.get(1);
+		otherPlayer = commandContainer.getArgument(1);
 		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerInviteSelf(teamPlayer, otherPlayer);
