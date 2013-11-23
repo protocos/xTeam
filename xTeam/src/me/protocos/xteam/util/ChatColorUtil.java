@@ -42,6 +42,11 @@ public class ChatColorUtil
 		return highlightString(ChatColor.LIGHT_PURPLE, string);
 	}
 
+	public static String formatForServerAdmin(String string)
+	{
+		return highlightString(ChatColor.DARK_AQUA, string);
+	}
+
 	public static String positiveMessage(String string)
 	{
 		return ChatColor.GREEN + string + ChatColor.RESET;

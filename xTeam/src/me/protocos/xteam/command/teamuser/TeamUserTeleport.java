@@ -80,7 +80,7 @@ public class TeamUserTeleport extends TeamUserCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.core.player.tele";
+		return "xteam.core.user.tele";
 	}
 
 	@Override

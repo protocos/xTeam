@@ -55,7 +55,7 @@ public class TeamUserCreate extends TeamUserCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.core.player.create";
+		return "xteam.core.user.create";
 	}
 
 	@Override

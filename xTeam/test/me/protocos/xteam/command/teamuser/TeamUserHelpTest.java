@@ -44,7 +44,7 @@ public class TeamUserHelpTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 1".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Commands: [Page 1/3] {optional} [required] pick/one\n" +
+		Assert.assertEquals("Team Commands: [Page 1/5] {optional} [required] pick/one\n" +
 				"/team {help} - main help menu for xTeam\n" +
 				"/team {help} [Page] - user help page for xTeam\n" +
 				"/team info {Team/Player} - get team info or other team's info\n" +
@@ -66,7 +66,7 @@ public class TeamUserHelpTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 2".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Commands: [Page 2/3] {optional} [required] pick/one\n" +
+		Assert.assertEquals("Team Commands: [Page 2/5] {optional} [required] pick/one\n" +
 				"/team tele {Player} - teleport to nearest or specific teammate\n" +
 				"/team return - teleport to saved return location (1 use)\n" +
 				"/team rally - teleport to team rally location\n" +
@@ -88,7 +88,7 @@ public class TeamUserHelpTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 3".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Commands: [Page 3/3] {optional} [required] pick/one\n" +
+		Assert.assertEquals("Team Commands: [Page 3/5] {optional} [required] pick/one\n" +
 				"/team disband - disband the team\n" +
 				"/team open - open team to public joining\n" +
 				"/team remove [Player] - remove player from your team\n" +
@@ -96,6 +96,50 @@ public class TeamUserHelpTest
 				"/team tag [Tag] - set the team tag\n" +
 				"/team setleader [Player] - set new leader for the team\n" +
 				"/team setrally - set rally point for the team\n" +
+				"/team chatspy - spy on team chat\n" +
+				"/team disband [Team] - disband a team", fakePlayerSender.getLastMessage());
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeTeamUserHelpPageExecutePage4()
+	{
+		//ASSEMBLE
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		TeamUserCommand fakeCommand = new TeamUserHelp();
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 4".split(" ")));
+		//ASSERT
+		Assert.assertEquals("Team Commands: [Page 4/5] {optional} [required] pick/one\n" +
+				"/team demote [Team] [Player] - demote team admin\n" +
+				"/team hq [Team] - teleport to team headquarters for team\n" +
+				"/team promote [Team] [Player] - promote player to admin\n" +
+				"/team remove [Team] [Player] - remove player from team\n" +
+				"/team rename [Team] [Name] - rename a team\n" +
+				"/team tag [Team] [Tag] - set team tag\n" +
+				"/team open [Team] - open team to public joining\n" +
+				"/team set [Player] [Team] - set team of player\n" +
+				"/team sethq [Team] - set team headquarters for team", fakePlayerSender.getLastMessage());
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeTeamUserHelpPageExecutePage5()
+	{
+		//ASSEMBLE
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
+		TeamUserCommand fakeCommand = new TeamUserHelp();
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 5".split(" ")));
+		//ASSERT
+		Assert.assertEquals("Team Commands: [Page 5/5] {optional} [required] pick/one\n" +
+				"/team setleader [Team] [Player] - set leader of team\n" +
+				"/team teleallhq - teleports everyone to their headquarters\n" +
+				"/team tpall [Team] - teleports a team to yourself\n" +
+				" \n" +
+				" \n" +
+				" \n" +
+				" \n" +
 				" \n" +
 				" ", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -108,7 +152,7 @@ public class TeamUserHelpTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserHelp();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 4".split(" ")));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 10".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamInvalidPageException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);

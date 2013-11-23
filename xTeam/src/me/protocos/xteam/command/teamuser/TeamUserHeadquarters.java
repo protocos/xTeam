@@ -44,7 +44,7 @@ public class TeamUserHeadquarters extends TeamUserCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.core.player.hq";
+		return "xteam.core.user.hq";
 	}
 
 	@Override

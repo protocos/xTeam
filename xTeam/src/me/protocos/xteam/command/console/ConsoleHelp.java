@@ -33,7 +33,7 @@ public class ConsoleHelp extends ConsoleCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		pages = new HelpPages();
-		pages.addLines(xTeam.getInstance().getCommandManager().getAvailableConsoleCommands(sender));
+		pages.addLines(xTeam.getInstance().getCommandManager().getAvailableCommandsFor(sender));
 	}
 
 	@Override

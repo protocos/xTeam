@@ -122,7 +122,6 @@ public class xTeamPlugin extends TeamPlugin
 		manager.registerCommand(new ServerAdminChatSpy());
 		manager.registerCommand(new ServerAdminDisband());
 		manager.registerCommand(new ServerAdminDemote());
-		manager.registerCommand(new ServerAdminHelp());
 		manager.registerCommand(new ServerAdminHeadquarters());
 		manager.registerCommand(new ServerAdminPromote());
 		manager.registerCommand(new ServerAdminRemove());
