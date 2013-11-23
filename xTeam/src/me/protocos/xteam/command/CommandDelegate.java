@@ -23,7 +23,6 @@ public class CommandDelegate implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandID, String[] args)
 	{
-		System.out.println(commandID);
 		try
 		{
 			CommandContainer commandContainer = new CommandContainer(sender, commandID, args);

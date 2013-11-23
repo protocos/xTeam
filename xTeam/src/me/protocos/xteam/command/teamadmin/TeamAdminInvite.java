@@ -55,7 +55,7 @@ public class TeamAdminInvite extends TeamAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.admin.core.invite";
+		return "xteam.core.admin.invite";
 	}
 
 	@Override

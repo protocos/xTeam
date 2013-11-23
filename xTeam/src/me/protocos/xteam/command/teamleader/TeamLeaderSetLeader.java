@@ -52,7 +52,7 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.leader.core.setleader";
+		return "xteam.core.leader.setleader";
 	}
 
 	@Override

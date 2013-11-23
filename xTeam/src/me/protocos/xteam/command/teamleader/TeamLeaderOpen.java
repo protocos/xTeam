@@ -40,7 +40,7 @@ public class TeamLeaderOpen extends TeamLeaderCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.leader.core.open";
+		return "xteam.core.leader.open";
 	}
 
 	@Override

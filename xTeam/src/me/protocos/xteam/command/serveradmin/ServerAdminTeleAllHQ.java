@@ -64,7 +64,7 @@ public class ServerAdminTeleAllHQ extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.serveradmin.core.teleallhq";
+		return "xteam.core.serveradmin.teleallhq";
 	}
 
 	@Override

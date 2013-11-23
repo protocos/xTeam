@@ -55,7 +55,7 @@ public class TeamUserJoin extends TeamUserCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.player.core.join";
+		return "xteam.core.player.join";
 	}
 
 	@Override

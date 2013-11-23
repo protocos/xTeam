@@ -51,7 +51,7 @@ public class ServerAdminDisband extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.serveradmin.core.disband";
+		return "xteam.core.serveradmin.disband";
 	}
 
 	@Override

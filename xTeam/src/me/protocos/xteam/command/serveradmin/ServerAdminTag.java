@@ -55,7 +55,7 @@ public class ServerAdminTag extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.serveradmin.core.tag";
+		return "xteam.core.serveradmin.tag";
 	}
 
 	@Override

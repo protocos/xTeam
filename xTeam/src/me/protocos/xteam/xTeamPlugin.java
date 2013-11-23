@@ -90,6 +90,15 @@ public class xTeamPlugin extends TeamPlugin
 	}
 
 	@Override
+	public void registerCommands(ICommandManager manager)
+	{
+		this.registerConsoleCommands(manager);
+		this.registerServerAdminCommands(manager);
+		this.registerUserCommands(manager);
+		this.registerAdminCommands(manager);
+		this.registerLeaderCommands(manager);
+	}
+
 	public void registerConsoleCommands(ICommandManager manager)
 	{
 		manager.registerCommand(new ConsoleDebug());
@@ -108,7 +117,6 @@ public class xTeamPlugin extends TeamPlugin
 		manager.registerCommand(new ConsoleTeleAllHQ());
 	}
 
-	@Override
 	public void registerServerAdminCommands(ICommandManager manager)
 	{
 		manager.registerCommand(new ServerAdminChatSpy());
@@ -128,7 +136,6 @@ public class xTeamPlugin extends TeamPlugin
 		manager.registerCommand(new ServerAdminTpAll());
 	}
 
-	@Override
 	public void registerLeaderCommands(ICommandManager manager)
 	{
 		manager.registerCommand(new TeamLeaderDemote());
@@ -141,7 +148,6 @@ public class xTeamPlugin extends TeamPlugin
 		manager.registerCommand(new TeamLeaderSetRally());
 	}
 
-	@Override
 	public void registerAdminCommands(ICommandManager manager)
 	{
 		manager.registerCommand(new TeamAdminSetHeadquarters());
@@ -149,7 +155,6 @@ public class xTeamPlugin extends TeamPlugin
 		manager.registerCommand(new TeamAdminPromote());
 	}
 
-	@Override
 	public void registerUserCommands(ICommandManager manager)
 	{
 		manager.registerCommand(new TeamUserMainHelp());

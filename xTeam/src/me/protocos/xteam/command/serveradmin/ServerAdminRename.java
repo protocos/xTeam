@@ -57,7 +57,7 @@ public class ServerAdminRename extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.serveradmin.core.rename";
+		return "xteam.core.serveradmin.rename";
 	}
 
 	@Override

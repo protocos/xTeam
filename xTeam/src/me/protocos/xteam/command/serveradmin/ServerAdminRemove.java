@@ -63,7 +63,7 @@ public class ServerAdminRemove extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.serveradmin.core.remove";
+		return "xteam.core.serveradmin.remove";
 	}
 
 	@Override

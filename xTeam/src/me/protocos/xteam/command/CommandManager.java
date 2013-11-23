@@ -36,60 +36,6 @@ public class CommandManager implements ICommandManager
 		return null;
 	}
 
-	//	@Override
-	//	public ConsoleCommand matchConsole(String pattern)
-	//	{
-	//		for (BaseCommand command : commands)
-	//			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(pattern) && command instanceof ConsoleCommand)
-	//				return (ConsoleCommand) command;
-	//		return null;
-	//	}
-	//
-	//	@Override
-	//	public PlayerCommand matchPlayerCommand(String pattern)
-	//	{
-	//		PlayerCommand match = matchServerAdmin(pattern);
-	//		if (match == null)
-	//			match = matchTeamLeader(pattern);
-	//		if (match == null)
-	//			match = matchTeamAdmin(pattern);
-	//		if (match == null)
-	//			match = matchTeamUser(pattern);
-	//		return match;
-	//	}
-	//
-	//	private PlayerCommand matchServerAdmin(String pattern)
-	//	{
-	//		for (BaseCommand command : commands)
-	//			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(pattern) && command instanceof ServerAdminCommand)
-	//				return (PlayerCommand) command;
-	//		return null;
-	//	}
-	//
-	//	private TeamLeaderCommand matchTeamLeader(String pattern)
-	//	{
-	//		for (BaseCommand command : commands)
-	//			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(pattern) && command instanceof TeamLeaderCommand)
-	//				return (TeamLeaderCommand) command;
-	//		return null;
-	//	}
-	//
-	//	private TeamAdminCommand matchTeamAdmin(String pattern)
-	//	{
-	//		for (BaseCommand command : commands)
-	//			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(pattern) && command instanceof TeamAdminCommand)
-	//				return (TeamAdminCommand) command;
-	//		return null;
-	//	}
-	//
-	//	private TeamUserCommand matchTeamUser(String pattern)
-	//	{
-	//		for (BaseCommand command : commands)
-	//			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(pattern) && command instanceof TeamUserCommand)
-	//				return (TeamUserCommand) command;
-	//		return null;
-	//	}
-
 	@Override
 	public List<String> getAvailableConsoleCommands(CommandSender sender)
 	{
@@ -149,10 +95,6 @@ public class CommandManager implements ICommandManager
 	@Override
 	public void register(ICommandContainer container)
 	{
-		container.registerConsoleCommands(this);
-		container.registerServerAdminCommands(this);
-		container.registerUserCommands(this);
-		container.registerAdminCommands(this);
-		container.registerLeaderCommands(this);
+		container.registerCommands(this);
 	}
 }

@@ -59,7 +59,7 @@ public class ServerAdminPromote extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.serveradmin.core.promote";
+		return "xteam.core.serveradmin.promote";
 	}
 
 	@Override

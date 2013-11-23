@@ -51,7 +51,7 @@ public class TeamLeaderTag extends TeamLeaderCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.leader.core.tag";
+		return "xteam.core.leader.tag";
 	}
 
 	@Override

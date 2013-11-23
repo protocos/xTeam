@@ -54,32 +54,8 @@ public class FakeTeamPlugin extends TeamPlugin
 	}
 
 	@Override
-	public void registerConsoleCommands(ICommandManager manager)
+	public void registerCommands(ICommandManager manager)
 	{
-		(new xTeamPlugin()).registerConsoleCommands(manager);
-	}
-
-	@Override
-	public void registerServerAdminCommands(ICommandManager manager)
-	{
-		(new xTeamPlugin()).registerServerAdminCommands(manager);
-	}
-
-	@Override
-	public void registerLeaderCommands(ICommandManager manager)
-	{
-		(new xTeamPlugin()).registerLeaderCommands(manager);
-	}
-
-	@Override
-	public void registerAdminCommands(ICommandManager manager)
-	{
-		(new xTeamPlugin()).registerAdminCommands(manager);
-	}
-
-	@Override
-	public void registerUserCommands(ICommandManager manager)
-	{
-		(new xTeamPlugin()).registerUserCommands(manager);
+		(new xTeamPlugin()).registerCommands(manager);
 	}
 }

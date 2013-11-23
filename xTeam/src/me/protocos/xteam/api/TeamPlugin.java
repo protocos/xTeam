@@ -58,8 +58,4 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 		xteam.load(this);
 		this.getLog().info("[" + this.getPluginName() + "] v" + this.getVersion() + " loaded");
 	}
-
-	public abstract void onEnable();
-
-	public abstract void onDisable();
 }

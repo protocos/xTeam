@@ -53,7 +53,7 @@ public class TeamUserLeave extends TeamUserCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.player.core.leave";
+		return "xteam.core.player.leave";
 	}
 
 	@Override

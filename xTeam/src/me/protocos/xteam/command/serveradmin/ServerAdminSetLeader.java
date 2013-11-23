@@ -65,7 +65,7 @@ public class ServerAdminSetLeader extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.serveradmin.core.setleader";
+		return "xteam.core.serveradmin.setleader";
 	}
 
 	@Override

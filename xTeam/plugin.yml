@@ -9,223 +9,175 @@ commands:
         usage: /<command>
         aliases: [xt, xteam]
 permissions:
-    xteam.player.core.accept:
-        description: Allows team players to accept an invitation
+    xteam.core.user.accept:
+        description: Allows team users to accept an invitation
         default: false
-    xteam.player.core.chat:
-        description: Allows team players to chat/msg their team
+    xteam.core.user.chat:
+        description: Allows team users to chat/msg their team
         default: false
-    xteam.player.core.create:
-        description: Allows team players to create a team
+    xteam.core.user.create:
+        description: Allows team users to create a team
         default: false
-    xteam.player.core.hq:
-        description: Allows team players to teleport to headquarters
+    xteam.core.user.headquarters:
+        description: Allows team users to teleport to headquarters
         default: false
-    xteam.player.core.join:
-        description: Allows team players to join a team
+    xteam.core.user.info:
+        description: Allows team users view team info
         default: false
-    xteam.player.core.leave:
-        description: Allows team players to leave a team
+    xteam.core.user.join:
+        description: Allows team users to join a team
         default: false
-    xteam.player.core.list:
-        description: Allows team players to list all team names
+    xteam.core.user.leave:
+        description: Allows team users to leave a team
         default: false
-    xteam.player.core.return:
-        description: Allows team players to return to saved location
+    xteam.core.user.list:
+        description: Allows team users to list all team names
         default: false
-    xteam.player.core.rally:
-        description: Allows team players to rally to a location
+    xteam.core.user.return:
+        description: Allows team users to return to saved location
         default: false
-    xteam.player.core.tele:
-        description: Allows team players to teleport to teammates
+    xteam.core.user.rally:
+        description: Allows team users to rally to a location
         default: false
-    xteam.player.core.*:
-        description: All team player core commands
+    xteam.core.user.tele:
+        description: Allows team users to teleport to teammates
         default: false
-        children:
-            xteam.player.core.accept: true
-            xteam.player.core.chat: true
-            xteam.player.core.create: true
-            xteam.player.core.hq: true
-            xteam.player.core.join: true
-            xteam.player.core.leave: true
-            xteam.player.core.list: true
-            xteam.player.core.return: true
-            xteam.player.core.rally: true
-            xteam.player.core.tele: true
-#    xteam.player.locations.list:
-#        description: List team locations
-#        default: false
-#    xteam.player.locations.track:
-#        description: Track team location
-#        default: false
-#    xteam.player.locations.*:
-#        description: All team player location commands
-#        default: false
-#        children:
-#            xteam.player.locations.list: true
-#            xteam.player.locations.track: true
-    xteam.player.levels.level:
-        description: Allows team players to check team level
-        default: false
-    xteam.player.levels.*:
-        description: All team player levels commands
+    xteam.core.user.*:
+        description: All team user core commands
         default: false
         children:
-            xteam.player.levels.level: true
-    xteam.player.*:
-        description: All team player commands
-        default: false
-        children:
-            xteam.player.core.*: true
-            xteam.player.levels.*: true
-#            xteam.player.locations.*: true
-    xteam.admin.core.invite:
+            xteam.core.user.accept: true
+            xteam.core.user.chat: true
+            xteam.core.user.create: true
+            xteam.core.user.hq: true
+            xteam.core.user.join: true
+            xteam.core.user.leave: true
+            xteam.core.user.list: true
+            xteam.core.user.return: true
+            xteam.core.user.rally: true
+            xteam.core.user.tele: true
+    xteam.core.admin.invite:
         description: Allows team admins to invite other players
         default: false
-    xteam.admin.core.promote:
+    xteam.core.admin.promote:
         description: Allows team admins to promote teammates
         default: false
-    xteam.admin.core.sethq:
+    xteam.core.admin.sethq:
         description: Allows team admins to set a headquarters
         default: false
-    xteam.admin.core.*:
+    xteam.core.admin.*:
         description: All team admin core commands
         default: false
         children:
-            xteam.admin.core.invite: true
-            xteam.admin.core.promote: true
-            xteam.admin.core.sethq: true
-#    xteam.admin.locations.add:
-#        description: Add team location
-#        default: false
-#    xteam.admin.locations.remove:
-#        description: Remove team location
-#        default: false
-#    xteam.admin.locations.*:
-#        description: All admin locations commands
-#        default: false
-#        children:
-#            xteam.admin.locations.add: true
-#            xteam.admin.locations.remove: true
-    xteam.admin.*:
-        description: All team admin commands
-        default: false
-        children:
-            xteam.admin.core.*: true
-#            xteam.admin.locations.*: true
-    xteam.leader.core.demote:
+            xteam.core.admin.invite: true
+            xteam.core.admin.promote: true
+            xteam.core.admin.sethq: true
+    xteam.core.leader.demote:
         description: Allows team leaders to demote teammates
         default: false
-    xteam.leader.core.disband:
+    xteam.core.leader.disband:
         description: Allows team leaders to disband a team
         default: false
-    xteam.leader.core.open:
+    xteam.core.leader.open:
         description: Allows team leaders to open team to public
         default: false
-    xteam.leader.core.remove:
+    xteam.core.leader.remove:
         description: Allows team leaders to remove players
         default: false
-    xteam.leader.core.rename:
+    xteam.core.leader.rename:
         description: Allows team leaders to rename team
         default: false
-    xteam.leader.core.setleader:
+    xteam.core.leader.setleader:
         description: Allows team leaders to set leader of team
         default: false
-    xteam.leader.core.setrally:
+    xteam.core.leader.setrally:
         description: Allows team leaders to set rally point for the team
         default: false
-    xteam.leader.core.tag:
+    xteam.core.leader.tag:
         description: Allows team leaders to set team tag
         default: false
-    xteam.leader.core.*:
+    xteam.core.leader.*:
         description: All team leader core commands
         default: false
         children:
-            xteam.leader.core.demote: true
-            xteam.leader.core.disband: true
-            xteam.leader.core.open: true
-            xteam.leader.core.remove: true
-            xteam.leader.core.rename: true
-            xteam.leader.core.setleader: true
-            xteam.leader.core.setrally: true
-            xteam.leader.core.tag: true
-    xteam.leader.*:
-        description: All team leader commands
-        default: false
-        children:
-            xteam.leader.core.*: true
-    xteam.serveradmin.core.chatspy:
+            xteam.core.leader.demote: true
+            xteam.core.leader.disband: true
+            xteam.core.leader.open: true
+            xteam.core.leader.remove: true
+            xteam.core.leader.rename: true
+            xteam.core.leader.setleader: true
+            xteam.core.leader.setrally: true
+            xteam.core.leader.tag: true
+    xteam.core.serveradmin.chatspy:
         description: Allows server admins to spy on team chat
         default: op
-    xteam.serveradmin.core.disband:
+    xteam.core.serveradmin.disband:
         description: Allows server admins to disband a team
         default: op
-    xteam.serveradmin.core.demote:
+    xteam.core.serveradmin.demote:
         description: Allows server admins to demote a player on a team
         default: op
-    xteam.serveradmin.core.hq:
+    xteam.core.serveradmin.hq:
         description: Allows server admins to teleport to any headquarters
         default: op
-    xteam.serveradmin.core.promote:
+    xteam.core.serveradmin.promote:
         description: Allows server admins to promote a player on a team
         default: op
-    xteam.serveradmin.core.reload:
+    xteam.core.serveradmin.reload:
         description: Allows server admins to reload the configuration file
         default: op
-    xteam.serveradmin.core.remove:
+    xteam.core.serveradmin.remove:
         description: Allows server admins to remove player from a team
         default: op
-    xteam.serveradmin.core.rename:
+    xteam.core.serveradmin.rename:
         description: Allows server admins to rename a team
         default: op
-    xteam.serveradmin.core.tag:
+    xteam.core.serveradmin.tag:
         description: Allows server admins to set team tag
         default: op
-    xteam.serveradmin.core.open:
+    xteam.core.serveradmin.open:
         description: Allows server admins to open a team to the public
         default: op
-    xteam.serveradmin.core.set:
+    xteam.core.serveradmin.set:
         description: Allows server admins to set the team of a player
         default: op
-    xteam.serveradmin.core.sethq:
+    xteam.core.serveradmin.sethq:
         description: Allows server admins to set the headquarters of a team
         default: op
-    xteam.serveradmin.core.setleader:
+    xteam.core.serveradmin.setleader:
         description: Allows server admins to set the leader of a team
         default: op
-    xteam.serveradmin.core.teleallhq:
+    xteam.core.serveradmin.teleallhq:
         description: Allows server admins to teleport everyone to their headquarters
         default: op
-    xteam.serveradmin.core.tpall:
+    xteam.core.serveradmin.tpall:
         description: Allows server admins to teleport a team to current location
         default: op
-#    xteam.serveradmin.core.update:
-#        description: Update players
-#        default: op
-    xteam.serveradmin.core.*:
+    xteam.core.serveradmin.*:
         description: All server admin commands
         default: false
         children:
-            xteam.serveradmin.core.chatspy: true
-            xteam.serveradmin.core.disband: true
-            xteam.serveradmin.core.demote: true
-            xteam.serveradmin.core.hq: true
-            xteam.serveradmin.core.promote: true
-            xteam.serveradmin.core.reload: true
-            xteam.serveradmin.core.remove: true
-            xteam.serveradmin.core.rename: true
-            xteam.serveradmin.core.tag: true
-            xteam.serveradmin.core.open: true
-            xteam.serveradmin.core.set: true
-            xteam.serveradmin.core.sethq: true
-            xteam.serveradmin.core.setleader: true
-            xteam.serveradmin.core.teleallhq: true
-            xteam.serveradmin.core.tpall: true
-#            xteam.serveradmin.core.update: true
-    xteam.serveradmin.*:
-        description: All admin commands
+            xteam.core.serveradmin.chatspy: true
+            xteam.core.serveradmin.disband: true
+            xteam.core.serveradmin.demote: true
+            xteam.core.serveradmin.hq: true
+            xteam.core.serveradmin.promote: true
+            xteam.core.serveradmin.reload: true
+            xteam.core.serveradmin.remove: true
+            xteam.core.serveradmin.rename: true
+            xteam.core.serveradmin.tag: true
+            xteam.core.serveradmin.open: true
+            xteam.core.serveradmin.set: true
+            xteam.core.serveradmin.sethq: true
+            xteam.core.serveradmin.setleader: true
+            xteam.core.serveradmin.teleallhq: true
+            xteam.core.serveradmin.tpall: true
+    xteam.core.*:
+        description: All core commands
         default: false
         children:
-            xteam.serveradmin.core.*: true
+            xteam.core.user.*: true
+            xteam.core.admin.*: true
+            xteam.core.leader.*: true
+            xteam.core.serveradmin.*: true
     

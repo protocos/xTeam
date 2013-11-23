@@ -56,7 +56,7 @@ public class ServerAdminTpAll extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.serveradmin.core.tpall";
+		return "xteam.core.serveradmin.tpall";
 	}
 
 	@Override

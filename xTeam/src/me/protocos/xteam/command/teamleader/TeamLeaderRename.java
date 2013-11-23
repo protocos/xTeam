@@ -55,7 +55,7 @@ public class TeamLeaderRename extends TeamLeaderCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.leader.core.rename";
+		return "xteam.core.leader.rename";
 	}
 
 	@Override

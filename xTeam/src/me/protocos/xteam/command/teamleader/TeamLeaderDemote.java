@@ -54,7 +54,7 @@ public class TeamLeaderDemote extends TeamLeaderCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.leader.core.demote";
+		return "xteam.core.leader.demote";
 	}
 
 	@Override

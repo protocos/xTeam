@@ -49,7 +49,7 @@ public class TeamUserInfo extends TeamUserCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "info";
+		return "xteam.core.user.info";
 	}
 
 	@Override

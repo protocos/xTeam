@@ -50,7 +50,7 @@ public class TeamAdminPromote extends TeamAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.admin.core.promote";
+		return "xteam.core.admin.promote";
 	}
 
 	@Override

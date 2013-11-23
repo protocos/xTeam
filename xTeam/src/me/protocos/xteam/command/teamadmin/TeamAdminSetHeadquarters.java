@@ -44,7 +44,7 @@ public class TeamAdminSetHeadquarters extends TeamAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.admin.core.sethq";
+		return "xteam.core.admin.sethq";
 	}
 
 	@Override

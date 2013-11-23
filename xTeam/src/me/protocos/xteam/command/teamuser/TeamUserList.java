@@ -43,7 +43,7 @@ public class TeamUserList extends TeamUserCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.player.core.list";
+		return "xteam.core.player.list";
 	}
 
 	@Override

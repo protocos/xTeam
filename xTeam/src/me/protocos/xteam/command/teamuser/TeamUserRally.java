@@ -48,7 +48,7 @@ public class TeamUserRally extends TeamUserCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.player.core.rally";
+		return "xteam.core.player.rally";
 	}
 
 	@Override

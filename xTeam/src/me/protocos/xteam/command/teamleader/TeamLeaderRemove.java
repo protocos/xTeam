@@ -60,7 +60,7 @@ public class TeamLeaderRemove extends TeamLeaderCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.leader.core.remove";
+		return "xteam.core.leader.remove";
 	}
 
 	@Override

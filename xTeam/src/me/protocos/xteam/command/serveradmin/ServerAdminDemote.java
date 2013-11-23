@@ -61,7 +61,7 @@ public class ServerAdminDemote extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.serveradmin.core.demote";
+		return "xteam.core.serveradmin.demote";
 	}
 
 	@Override

@@ -66,7 +66,7 @@ public class TeamUserChat extends TeamUserCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.player.core.chat";
+		return "xteam.core.player.chat";
 	}
 
 	@Override

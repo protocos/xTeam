@@ -44,7 +44,7 @@ public class TeamLeaderDisband extends TeamLeaderCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.leader.core.disband";
+		return "xteam.core.leader.disband";
 	}
 
 	@Override

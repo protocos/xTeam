@@ -49,7 +49,7 @@ public class ServerAdminOpen extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.serveradmin.core.open";
+		return "xteam.core.serveradmin.open";
 	}
 
 	@Override

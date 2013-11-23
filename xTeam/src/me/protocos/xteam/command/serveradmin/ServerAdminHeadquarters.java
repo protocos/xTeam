@@ -50,7 +50,7 @@ public class ServerAdminHeadquarters extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.serveradmin.core.hq";
+		return "xteam.core.serveradmin.hq";
 	}
 
 	@Override

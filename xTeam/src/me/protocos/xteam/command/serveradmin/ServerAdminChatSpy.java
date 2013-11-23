@@ -46,7 +46,7 @@ public class ServerAdminChatSpy extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.serveradmin.core.chatspy";
+		return "xteam.core.serveradmin.chatspy";
 	}
 
 	@Override

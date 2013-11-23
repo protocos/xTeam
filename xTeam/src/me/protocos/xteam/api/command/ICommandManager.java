@@ -7,8 +7,6 @@ import org.bukkit.command.CommandSender;
 
 public interface ICommandManager
 {
-	public abstract void registerCommand(BaseCommand command);
-
 	public abstract BaseCommand match(CommandContainer commandContainer);
 
 	public abstract List<String> getAvailableConsoleCommands(CommandSender sender);
@@ -16,6 +14,8 @@ public interface ICommandManager
 	public abstract List<String> getAvailableAdminCommandsFor(TeamPlayer player);
 
 	public abstract List<String> getAvailableCommandsFor(TeamPlayer teamPlayer);
+
+	public abstract void registerCommand(BaseCommand command);
 
 	public abstract void register(ICommandContainer container);
 }
