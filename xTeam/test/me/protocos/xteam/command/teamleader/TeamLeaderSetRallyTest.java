@@ -3,10 +3,10 @@ package me.protocos.xteam.command.teamleader;
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamLeaderCommand;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamAlreadyHasRallyException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.core.exception.TeamPlayerNotLeaderException;
@@ -80,7 +80,7 @@ public class TeamLeaderSetRallyTest
 	public void ShouldBeSetRallyAlreadySet()
 	{
 		//ASSEMBLE
-		Team team = xTeam.getInstance().getTeamManager().getTeam("one");
+		ITeam team = xTeam.getInstance().getTeamManager().getTeam("one");
 		team.setRally(team.getHeadquarters().getLocation());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamLeaderCommand fakeCommand = new TeamLeaderSetRally();

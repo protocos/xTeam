@@ -1,23 +1,22 @@
 package me.protocos.xteam.api.core;
 
 import me.protocos.xteam.api.collections.HashList;
-import me.protocos.xteam.core.Team;
 
 public interface ITeamManager
 {
 	public abstract void clear();
 
-	public abstract void addTeam(Team team);
+	public abstract void addTeam(ITeam team);
 
-	public abstract Team getTeam(String teamName);
+	public abstract ITeam getTeam(String teamName);
 
 	public abstract boolean containsTeam(String teamName);
 
-	public abstract Team removeTeam(String teamName);
+	public abstract ITeam removeTeam(String teamName);
 
-	public abstract HashList<String, Team> getDefaultTeams();
+	public abstract HashList<String, ITeam> getTeams();
 
-	public abstract HashList<String, Team> getAllTeams();
+	public abstract HashList<String, ITeam> getDefaultTeams();
 
-	public abstract Team getTeamByPlayer(String name);
+	public abstract ITeam getTeamByPlayer(String name);
 }

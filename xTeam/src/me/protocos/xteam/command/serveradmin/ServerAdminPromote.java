@@ -2,10 +2,10 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
-import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
@@ -13,7 +13,7 @@ import me.protocos.xteam.util.PatternBuilder;
 public class ServerAdminPromote extends ServerAdminCommand
 {
 	private String teamName, playerName;
-	private Team changeTeam;
+	private ITeam changeTeam;
 
 	public ServerAdminPromote()
 	{

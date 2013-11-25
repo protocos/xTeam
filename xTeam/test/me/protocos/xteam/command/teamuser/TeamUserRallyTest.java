@@ -4,12 +4,12 @@ import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.Configuration;
-import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.CommonUtil;
@@ -20,7 +20,7 @@ import org.junit.Test;
 
 public class TeamUserRallyTest
 {
-	Team team;
+	ITeam team;
 
 	@Before
 	public void setup()

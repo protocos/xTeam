@@ -140,14 +140,12 @@ public class Team implements ITeam
 		return players.remove(player);
 	}
 
-	public boolean demote(String player)
+	public void demote(String player)
 	{
 		if (players.contains(player) && admins.contains(player) && !leader.equals(player))
 		{
 			admins.remove(player);
-			return true;
 		}
-		return false;
 	}
 
 	public int hashCode()
@@ -223,14 +221,12 @@ public class Team implements ITeam
 		return openJoining;
 	}
 
-	public boolean promote(String player)
+	public void promote(String player)
 	{
 		if (players.contains(player) && !admins.contains(player))
 		{
 			admins.add(player);
-			return true;
 		}
-		return false;
 	}
 
 	public void setAdmins(List<String> admins)
@@ -243,7 +239,7 @@ public class Team implements ITeam
 		this.defaultTeam = defaultTeam;
 	}
 
-	public void setHQ(Headquarters headquarters)
+	public void setHeadquarters(Headquarters headquarters)
 	{
 		this.headquarters = headquarters;
 	}
@@ -319,7 +315,7 @@ public class Team implements ITeam
 				double Z = Double.parseDouble(locationData[3]);
 				float yaw = Float.parseFloat(locationData[4]);
 				float pitch = Float.parseFloat(locationData[5]);
-				team.setHQ(new Headquarters(world, X, Y, Z, yaw, pitch));
+				team.setHeadquarters(new Headquarters(world, X, Y, Z, yaw, pitch));
 			}
 			team.setPlayers(players == null ? new ArrayList<String>() : CommonUtil.split(players, ","));
 			team.setAdmins(admins == null ? new ArrayList<String>() : CommonUtil.split(admins, ","));

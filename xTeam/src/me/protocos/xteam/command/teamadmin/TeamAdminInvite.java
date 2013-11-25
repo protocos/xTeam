@@ -6,13 +6,14 @@ import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
 import me.protocos.xteam.core.InviteHandler;
+import me.protocos.xteam.core.InviteRequest;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamAdminInvite extends TeamAdminCommand
 {
-	private String otherPlayer;
+	private String other;
 
 	public TeamAdminInvite()
 	{
@@ -22,22 +23,23 @@ public class TeamAdminInvite extends TeamAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		InviteHandler.addInvite(otherPlayer, team);
-		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
-		if (other.isOnline())
-			other.sendMessage("You've been " + ChatColorUtil.positiveMessage("invited ") + "to join " + team.getName());
-		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("invited ") + other.getName());
+		ITeamPlayer otherPlayer = xTeam.getInstance().getPlayerManager().getPlayer(other);
+		InviteRequest request = new InviteRequest(teamPlayer, otherPlayer, System.currentTimeMillis());
+		InviteHandler.addInvite(request);
+		if (otherPlayer.isOnline())
+			otherPlayer.sendMessage("You've been " + ChatColorUtil.positiveMessage("invited ") + "to join " + team.getName() + " (/team accept)");
+		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("invited ") + otherPlayer.getName());
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		otherPlayer = commandContainer.getArgument(1);
-		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
+		other = commandContainer.getArgument(1);
+		ITeamPlayer otherPlayer = xTeam.getInstance().getPlayerManager().getPlayer(other);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerInviteSelf(teamPlayer, otherPlayer);
-		Requirements.checkPlayerHasPlayedBefore(other);
-		Requirements.checkPlayerHasInvite(other);
+		Requirements.checkPlayerHasPlayedBefore(otherPlayer);
+		Requirements.checkPlayerHasInvite(otherPlayer);
 	}
 
 	@Override

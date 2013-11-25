@@ -3,10 +3,7 @@ package me.protocos.xteam.core;
 import java.util.List;
 import java.util.UUID;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.core.ILocatable;
-import me.protocos.xteam.api.core.ITeamEntity;
-import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.api.core.ITeamWolf;
+import me.protocos.xteam.api.core.*;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -97,7 +94,7 @@ public class TeamWolf implements ITeamWolf
 	}
 
 	@Override
-	public Team getTeam()
+	public ITeam getTeam()
 	{
 		if (hasTeam())
 			return getOwner().getTeam();

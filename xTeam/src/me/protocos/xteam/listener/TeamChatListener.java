@@ -1,9 +1,9 @@
 package me.protocos.xteam.listener;
 
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Configuration;
-import me.protocos.xteam.core.Team;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -34,7 +34,7 @@ public class TeamChatListener implements Listener
 			}
 			if (teamPlayer.hasTeam() && Configuration.TEAM_TAG_ENABLED)
 			{
-				Team team = teamPlayer.getTeam();
+				ITeam team = teamPlayer.getTeam();
 				String playerName = teamPlayer.getName();
 				String teamTag = "[" + teamPlayer.getTeam().getTag() + "]";
 				event.setFormat(ChatColorUtil.getColor(Configuration.COLOR_TAG) + teamTag + ChatColor.RESET + " " + format);

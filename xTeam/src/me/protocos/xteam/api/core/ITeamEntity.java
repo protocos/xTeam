@@ -2,12 +2,11 @@ package me.protocos.xteam.api.core;
 
 import java.util.List;
 import me.protocos.xteam.core.OfflineTeamPlayer;
-import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 
 public interface ITeamEntity
 {
-	public abstract Team getTeam();
+	public abstract ITeam getTeam();
 
 	public abstract String getName();
 

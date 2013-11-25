@@ -2,6 +2,7 @@ package me.protocos.xteam.core;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.fakeobjects.*;
 import org.bukkit.Location;
 import org.bukkit.Server;
@@ -19,6 +20,7 @@ public class TeamWolfTest
 		//MOCK data
 		mockData();
 	}
+
 	@Test
 	public void ShouldBeDistanceTo()
 	{
@@ -31,6 +33,7 @@ public class TeamWolfTest
 		//ASSERT
 		Assert.assertEquals(200.0D, distance, 0);
 	}
+
 	@Test
 	public void ShouldBeEquals()
 	{
@@ -43,6 +46,7 @@ public class TeamWolfTest
 		//ASSERT
 		Assert.assertTrue(equals);
 	}
+
 	@Test
 	public void ShouldBeGetHealth()
 	{
@@ -54,6 +58,7 @@ public class TeamWolfTest
 		//ASSERT
 		Assert.assertEquals(20.0, health, 0);
 	}
+
 	@Test
 	public void ShouldBeGetLocation()
 	{
@@ -68,6 +73,7 @@ public class TeamWolfTest
 		Assert.assertEquals(64.0D, location.getY(), 0);
 		Assert.assertEquals(0.0D, location.getZ(), 0);
 	}
+
 	@Test
 	public void ShouldBeGetServer()
 	{
@@ -78,16 +84,18 @@ public class TeamWolfTest
 		//ASSERT
 		Assert.assertEquals(server, wolf.getServer());
 	}
+
 	@Test
 	public void ShouldBeGetTeam()
 	{
 		//ASSEMBLE
 		TeamWolf wolf = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		//ACT
-		Team team = wolf.getTeam();
+		ITeam team = wolf.getTeam();
 		//ASSERT
 		Assert.assertEquals(xTeam.getInstance().getTeamManager().getTeam("one"), team);
 	}
+
 	@Test
 	public void ShouldBeGetWorld()
 	{
@@ -98,6 +106,7 @@ public class TeamWolfTest
 		//ASSERT
 		Assert.assertEquals(world, wolf.getWorld());
 	}
+
 	@Test
 	public void ShouldBeHasTeam()
 	{
@@ -108,6 +117,7 @@ public class TeamWolfTest
 		//ASSERT
 		Assert.assertTrue(hasTeam);
 	}
+
 	@Test
 	public void ShouldBeIsOnSameTeam()
 	{
@@ -119,6 +129,7 @@ public class TeamWolfTest
 		//ASSERT
 		Assert.assertTrue(equals);
 	}
+
 	@Test
 	public void ShouldBeNotEquals()
 	{
@@ -131,6 +142,7 @@ public class TeamWolfTest
 		//ASSERT
 		Assert.assertFalse(equals);
 	}
+
 	@Test
 	public void ShouldBeRelativeXYZ()
 	{
@@ -144,6 +156,7 @@ public class TeamWolfTest
 		Assert.assertEquals(Math.round(location.getY()), relativeY, 0);
 		Assert.assertEquals(Math.round(location.getZ()), relativeZ, 0);
 	}
+
 	@Test
 	public void ShouldBeTeleportEntity()
 	{
@@ -155,6 +168,7 @@ public class TeamWolfTest
 		//ASSERT
 		Assert.assertTrue(teleport);
 	}
+
 	@Test
 	public void ShouldBeTeleportLocaiton()
 	{
@@ -166,6 +180,7 @@ public class TeamWolfTest
 		//ASSERT
 		Assert.assertTrue(teleport);
 	}
+
 	@After
 	public void takedown()
 	{

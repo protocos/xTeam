@@ -18,7 +18,7 @@ public class TeamAdminSetHeadquarters extends TeamAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		team.setHQ(new Headquarters(teamPlayer.getLocation()));
+		team.setHeadquarters(new Headquarters(teamPlayer.getLocation()));
 		team.setTimeLastSet(System.currentTimeMillis());
 		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team headquarters");
 	}

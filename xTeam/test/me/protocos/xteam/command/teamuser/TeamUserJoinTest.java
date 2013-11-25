@@ -4,11 +4,13 @@ import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamUserCommand;
+import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.InviteHandler;
+import me.protocos.xteam.core.InviteRequest;
 import me.protocos.xteam.core.exception.*;
 import org.junit.After;
 import org.junit.Before;
@@ -22,7 +24,11 @@ public class TeamUserJoinTest
 		//MOCK data
 		mockData();
 		Configuration.MAX_PLAYERS = 3;
-		InviteHandler.addInvite("Lonely", xTeam.getInstance().getTeamManager().getTeam("one"));
+		ITeamPlayer playerSender = xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois");
+		ITeamPlayer playerReceiver = xTeam.getInstance().getPlayerManager().getPlayer("Lonely");
+		Long timeSent = System.currentTimeMillis();
+		InviteRequest request = new InviteRequest(playerSender, playerReceiver, timeSent);
+		InviteHandler.addInvite(request);
 	}
 
 	@Test

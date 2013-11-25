@@ -6,6 +6,7 @@ import java.util.UUID;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.IPermissible;
 import me.protocos.xteam.api.core.ILocatable;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.action.TeleportScheduler;
@@ -33,15 +34,6 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	public TeamPlayer(Player player)
 	{
 		this.player = player;
-	}
-
-	public static TeamPlayer teamPlayerFromUnknown(ITeamPlayer player)
-	{
-		if (!player.isOnline())
-		{
-			throw new AssertionError(player.getName() + " is not online");
-		}
-		return (TeamPlayer) player;
 	}
 
 	@Override
@@ -140,7 +132,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	}
 
 	@Override
-	public Team getTeam()
+	public ITeam getTeam()
 	{
 		return xTeam.getInstance().getTeamManager().getTeamByPlayer(player.getName());
 	}

@@ -1,6 +1,7 @@
 package me.protocos.xteam.core;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.fakeobjects.FakeWorld;
 import org.bukkit.World;
 import org.junit.After;
@@ -10,7 +11,7 @@ import org.junit.Test;
 
 public class TeamTest
 {
-	Team team;
+	ITeam team;
 
 	@Before
 	public void setup()
@@ -68,9 +69,9 @@ public class TeamTest
 		team.addPlayer("protocos");
 		team.promote("protocos");
 		//ACT
-		boolean demote = team.demote("protocos");
+		team.demote("protocos");
 		//ASSERT
-		Assert.assertTrue(demote);
+		Assert.assertFalse(team.getAdmins().contains("protocos"));
 	}
 
 	@Test
@@ -93,7 +94,7 @@ public class TeamTest
 		World world = new FakeWorld();
 		Headquarters hq = new Headquarters(world, 1.0D, 1.0D, 1.0D, 1.0F, 1.0F);
 		//ACT
-		team.setHQ(hq);
+		team.setHeadquarters(hq);
 		boolean hasHQ = team.hasHeadquarters();
 		//ASSERT
 		Assert.assertTrue(hasHQ);
@@ -125,9 +126,9 @@ public class TeamTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean demote = team.demote("protocos");
+		team.demote("protocos");
 		//ASSERT
-		Assert.assertFalse(demote);
+		Assert.assertFalse(team.getAdmins().contains("protocos"));
 	}
 
 	@Test
@@ -145,9 +146,9 @@ public class TeamTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean promote = team.promote("protocos");
+		team.promote("protocos");
 		//ASSERT
-		Assert.assertFalse(promote);
+		Assert.assertFalse(team.getAdmins().contains("protocos"));
 	}
 
 	@Test
@@ -166,9 +167,9 @@ public class TeamTest
 		//ASSEMBLE
 		team.addPlayer("protocos");
 		//ACT
-		boolean promote = team.promote("protocos");
+		team.promote("protocos");
 		//ASSERT
-		Assert.assertTrue(promote);
+		Assert.assertTrue(team.getAdmins().contains("protocos"));
 	}
 
 	@Test

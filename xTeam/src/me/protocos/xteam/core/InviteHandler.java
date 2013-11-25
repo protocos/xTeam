@@ -1,37 +1,56 @@
 package me.protocos.xteam.core;
 
 import java.util.HashMap;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeam;
+import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.ChatColorUtil;
 
 public class InviteHandler
 {
-	public static HashMap<String, String> invites = new HashMap<String, String>();
+	private static HashMap<String, InviteRequest> invites = new HashMap<String, InviteRequest>();
 
-	public static void addInvite(String player, Team team)
+	public static void addInvite(final InviteRequest request)
 	{
-		String invite = team.getName() + ":" + System.currentTimeMillis();
-		invites.put(player, invite);
+		final ITeamPlayer inviter = request.getInviteSender();
+		final ITeamPlayer invitee = request.getInviteReceiver();
+		invites.put(invitee.getName(), request);
+		class InviteExpire implements Runnable
+		{
+			@Override
+			public void run()
+			{
+				invitee.sendMessage("Invite from " + inviter.getName() + " has " + ChatColorUtil.negativeMessage("expired"));
+				invites.remove(invitee.getName());
+			}
+		}
+		BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getxTeam(), new InviteExpire(), BukkitUtil.ONE_MINUTE_IN_TICKS);
 	}
+
 	public static void clear()
 	{
 		invites.clear();
 	}
+
 	public static String data()
 	{
 		return invites.toString();
 	}
-	public static Team getInviteTeam(String player)
+
+	public static ITeam getInviteTeam(String player)
 	{
 		if (invites.containsKey(player))
-			return xTeam.getInstance().getTeamManager().getTeam(invites.get(player).split(":")[0]);
+			return invites.get(player).getSenderTeam();
 		return null;
 	}
+
 	public static long getInviteTime(String player)
 	{
 		if (invites.containsKey(player))
-			return Long.parseLong(invites.get(player).split(":")[1]);
+			return invites.get(player).getTimeSent();
 		return 0;
 	}
+
 	public static boolean hasInvite(String player)
 	{
 		long currentTime = System.currentTimeMillis();
@@ -40,10 +59,12 @@ public class InviteHandler
 			invites.remove(player);
 		return invites.containsKey(player);
 	}
+
 	public static void removeInvite(String player)
 	{
 		invites.remove(player);
 	}
+
 	private InviteHandler()
 	{
 

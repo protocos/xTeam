@@ -1,6 +1,7 @@
 package me.protocos.xteam.core;
 
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeam;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,7 +23,7 @@ public class TeamManagerTest
 		//ACT
 		xTeam.getInstance().getTeamManager().clear();
 		//ASSERT
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().getAllTeams().size() == 0);
+		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeams().size() == 0);
 	}
 
 	@Test
@@ -55,7 +56,7 @@ public class TeamManagerTest
 		//ACT
 		//ASSERT
 		Assert.assertEquals("{test1=name:test1 tag:test1 open:false default:false timeHeadquartersSet:0 hq: leader:protocos admins:protocos players:protocos, " +
-				"test2=name:test2 tag:test2 open:false default:false timeHeadquartersSet:0 hq: leader:kmlanglois admins:kmlanglois players:kmlanglois}", xTeam.getInstance().getTeamManager().getAllTeams().toString());
+				"test2=name:test2 tag:test2 open:false default:false timeHeadquartersSet:0 hq: leader:kmlanglois admins:kmlanglois players:kmlanglois}", xTeam.getInstance().getTeamManager().getTeams().toString());
 	}
 
 	@Test
@@ -64,7 +65,7 @@ public class TeamManagerTest
 		//ASSEMBLE
 		xTeam.getInstance().getTeamManager().addTeam(Team.createTeamWithLeader("one", "protocos"));
 		//ACT
-		Team test = xTeam.getInstance().getTeamManager().getTeam("one");
+		ITeam test = xTeam.getInstance().getTeamManager().getTeam("one");
 		//ASSERT
 		Assert.assertEquals("one", test.getName());
 	}

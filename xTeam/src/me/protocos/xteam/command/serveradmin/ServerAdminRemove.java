@@ -2,10 +2,10 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
-import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
@@ -23,7 +23,7 @@ public class ServerAdminRemove extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		Team changeTeam = changePlayer.getTeam();
+		ITeam changeTeam = changePlayer.getTeam();
 		changeTeam.removePlayer(playerName);
 		if (!playerName.equals(player.getName()))
 			player.sendMessage("You " + ChatColorUtil.negativeMessage("removed") + " " + playerName + " from " + teamName);

@@ -2,12 +2,10 @@ package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.IPermissible;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.command.teamuser.TeamUserReturn;
-import me.protocos.xteam.core.Configuration;
-import me.protocos.xteam.core.InviteHandler;
-import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.TeamPlayer;
+import me.protocos.xteam.core.*;
 import me.protocos.xteam.core.exception.*;
 import me.protocos.xteam.util.*;
 import org.bukkit.Location;
@@ -67,7 +65,7 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerOnTeam(ITeamPlayer player, Team team) throws TeamPlayerNotOnTeamException
+	public static void checkPlayerOnTeam(ITeamPlayer player, ITeam team) throws TeamPlayerNotOnTeamException
 	{
 		if (!team.containsPlayer(player.getName()))
 		{
@@ -83,7 +81,7 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamIsDefault(Team team) throws TeamIsDefaultException
+	public static void checkTeamIsDefault(ITeam team) throws TeamIsDefaultException
 	{
 		if (team.isDefaultTeam())
 		{
@@ -131,7 +129,7 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamNameAlreadyUsed(String desiredName, Team team) throws TeamNameConflictsWithNameException
+	public static void checkTeamNameAlreadyUsed(String desiredName, ITeam team) throws TeamNameConflictsWithNameException
 	{
 		if (!desiredName.equalsIgnoreCase(team.getName()) && xTeam.getInstance().getTeamManager().containsTeam(desiredName))
 		{
@@ -139,9 +137,9 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamHasHeadquarters(Team team) throws TeamNoHeadquartersException
+	public static void checkTeamHasHeadquarters(ITeam changeTeam) throws TeamNoHeadquartersException
 	{
-		if (!team.hasHeadquarters())
+		if (!changeTeam.hasHeadquarters())
 		{
 			throw new TeamNoHeadquartersException();
 		}
@@ -163,9 +161,9 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerInviteSelf(TeamPlayer teamPlayer, String otherPlayer) throws TeamPlayerInviteException
+	public static void checkPlayerInviteSelf(TeamPlayer teamPlayer, ITeamPlayer otherPlayer) throws TeamPlayerInviteException
 	{
-		if (teamPlayer.getName().equalsIgnoreCase(otherPlayer))
+		if (teamPlayer.getName().equalsIgnoreCase(otherPlayer.getName()))
 		{
 			throw new TeamPlayerInviteException("Player cannot invite self");
 		}
@@ -195,7 +193,7 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamHeadquartersRecentlySet(Team team) throws TeamHqSetRecentlyException
+	public static void checkTeamHeadquartersRecentlySet(ITeam team) throws TeamHqSetRecentlyException
 	{
 		long timeElapsedSinceLastSetHeadquarters = CommonUtil.getElapsedTimeSince(team.getTimeLastSet());
 		if (timeElapsedSinceLastSetHeadquarters < Configuration.HQ_INTERVAL * 60 * 60 * 1000)
@@ -236,7 +234,7 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerDoesNotHaveInviteFromTeam(TeamPlayer teamPlayer, Team desiredTeam) throws TeamPlayerHasNoInviteException
+	public static void checkPlayerDoesNotHaveInviteFromTeam(TeamPlayer teamPlayer, ITeam desiredTeam) throws TeamPlayerHasNoInviteException
 	{
 		if (!InviteHandler.hasInvite(teamPlayer.getName()) || !InviteHandler.getInviteTeam(teamPlayer.getName()).equals(desiredTeam))
 		{
@@ -353,7 +351,7 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamNotHasRally(Team team) throws TeamAlreadyHasRallyException
+	public static void checkTeamNotHasRally(ITeam team) throws TeamAlreadyHasRallyException
 	{
 		if (team.hasRally())
 		{
@@ -361,7 +359,7 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamHasRally(Team team) throws TeamDoesNotHaveRallyException
+	public static void checkTeamHasRally(ITeam team) throws TeamDoesNotHaveRallyException
 	{
 		if (!team.hasRally())
 		{

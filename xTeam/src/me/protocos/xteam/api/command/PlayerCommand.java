@@ -1,9 +1,9 @@
 package me.protocos.xteam.api.command;
 
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.Requirements;
-import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.CommonUtil;
@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 public abstract class PlayerCommand extends BaseCommand implements IPermissible
 {
 	protected TeamPlayer teamPlayer;
-	protected Team team;
+	protected ITeam team;
 
 	@Override
 	public void preInitialize(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError

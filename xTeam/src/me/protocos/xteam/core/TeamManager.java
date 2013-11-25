@@ -1,12 +1,13 @@
 package me.protocos.xteam.core;
 
 import me.protocos.xteam.api.collections.HashList;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamManager;
 import me.protocos.xteam.util.CommonUtil;
 
 public class TeamManager implements ITeamManager
 {
-	private static HashList<String, Team> teams = CommonUtil.emptyHashList();
+	private static HashList<String, ITeam> teams = CommonUtil.emptyHashList();
 
 	public TeamManager()
 	{
@@ -17,7 +18,7 @@ public class TeamManager implements ITeamManager
 		teams.clear();
 	}
 
-	public void addTeam(Team team)
+	public void addTeam(ITeam team)
 	{
 		if (team != null)
 		{
@@ -39,20 +40,20 @@ public class TeamManager implements ITeamManager
 		return false;
 	}
 
-	public HashList<String, Team> getAllTeams()
+	public HashList<String, ITeam> getTeams()
 	{
-		HashList<String, Team> allTeams = CommonUtil.emptyHashList();
-		for (Team team : teams)
+		HashList<String, ITeam> allTeams = CommonUtil.emptyHashList();
+		for (ITeam team : teams)
 		{
 			allTeams.put(team.getName(), team);
 		}
 		return allTeams;
 	}
 
-	public HashList<String, Team> getDefaultTeams()
+	public HashList<String, ITeam> getDefaultTeams()
 	{
-		HashList<String, Team> defaultTeams = CommonUtil.emptyHashList();
-		for (Team team : teams)
+		HashList<String, ITeam> defaultTeams = CommonUtil.emptyHashList();
+		for (ITeam team : teams)
 		{
 			if (team.isDefaultTeam())
 				defaultTeams.put(team.getName(), team);
@@ -60,10 +61,10 @@ public class TeamManager implements ITeamManager
 		return defaultTeams;
 	}
 
-	public HashList<String, Team> getRegularTeams()
+	public HashList<String, ITeam> getRegularTeams()
 	{
-		HashList<String, Team> regularTeams = CommonUtil.emptyHashList();
-		for (Team team : teams)
+		HashList<String, ITeam> regularTeams = CommonUtil.emptyHashList();
+		for (ITeam team : teams)
 		{
 			if (!team.isDefaultTeam())
 				regularTeams.put(team.getName(), team);
@@ -71,14 +72,14 @@ public class TeamManager implements ITeamManager
 		return regularTeams;
 	}
 
-	public Team getTeam(String teamName)
+	public ITeam getTeam(String teamName)
 	{
-		Team team = teams.get(teamName.toLowerCase());
+		ITeam team = teams.get(teamName.toLowerCase());
 		if (team != null)
 		{
 			return teams.get(teamName.toLowerCase());
 		}
-		for (Team teamByTag : getAllTeams())
+		for (ITeam teamByTag : getTeams())
 		{
 			if (teamByTag.getTag().equalsIgnoreCase(teamName))
 				return teamByTag;
@@ -86,7 +87,7 @@ public class TeamManager implements ITeamManager
 		return null;
 	}
 
-	public Team removeTeam(String teamName)
+	public ITeam removeTeam(String teamName)
 	{
 		if (this.containsTeam(teamName))
 		{
@@ -95,9 +96,9 @@ public class TeamManager implements ITeamManager
 		return null;
 	}
 
-	public Team getTeamByPlayer(String playerName)
+	public ITeam getTeamByPlayer(String playerName)
 	{
-		for (Team team : this.getAllTeams())
+		for (ITeam team : this.getTeams())
 			if (team.containsPlayer(playerName))
 				return team;
 		return null;
@@ -106,7 +107,7 @@ public class TeamManager implements ITeamManager
 	public String toString()
 	{
 		String output = "";
-		for (Team team : getAllTeams())
+		for (ITeam team : getTeams())
 			output += team.getName() + ": " + team.getPlayers().toString().replaceAll("[\\[\\]]", "") + "\n";
 		return output.trim();
 	}

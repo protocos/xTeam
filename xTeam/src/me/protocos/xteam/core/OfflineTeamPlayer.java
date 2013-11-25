@@ -4,6 +4,7 @@ import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.IPermissible;
 import me.protocos.xteam.api.core.ILocatable;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamEntity;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.util.ChatColorUtil;
@@ -23,7 +24,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	}
 
 	@Override
-	public Team getTeam()
+	public ITeam getTeam()
 	{
 		return xTeam.getInstance().getTeamManager().getTeamByPlayer(player.getName());
 	}

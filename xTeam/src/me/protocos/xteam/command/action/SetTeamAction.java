@@ -1,6 +1,7 @@
 package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.Team;
@@ -45,7 +46,7 @@ public class SetTeamAction
 
 	public void removePlayer(ITeamPlayer player)
 	{
-		Team playerTeam = player.getTeam();
+		ITeam playerTeam = player.getTeam();
 		String teamName = playerTeam.getName();
 		String playerName = player.getName();
 		String senderName = sender.getName();
@@ -77,12 +78,12 @@ public class SetTeamAction
 		}
 	}
 
-	public void addPlayerToTeam(ITeamPlayer player, Team changeTeam)
+	public void addPlayerToTeam(ITeamPlayer player, ITeam team)
 	{
 		String senderName = sender.getName();
 		String playerName = player.getName();
-		String teamName = changeTeam.getName();
-		changeTeam.addPlayer(playerName);
+		String teamName = team.getName();
+		team.addPlayer(playerName);
 		if (playerName.equals(senderName))
 		{
 			//first person

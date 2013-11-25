@@ -1,8 +1,8 @@
 package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.util.CommonUtil;
@@ -17,7 +17,7 @@ public class InfoAction
 
 	public void actOn(CommandSender sender, String other)
 	{
-		Team infoTeam = xTeam.getInstance().getTeamManager().getTeam(other);
+		ITeam infoTeam = xTeam.getInstance().getTeamManager().getTeam(other);
 		if (infoTeam == null)
 			infoTeam = xTeam.getInstance().getPlayerManager().getPlayer(other).getTeam();
 		if (infoTeam != null)

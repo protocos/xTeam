@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.core.ILocatable;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Configuration;
-import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.core.exception.TeamPlayerHasNoOnlineTeammatesException;
@@ -61,7 +61,7 @@ public class TeleportScheduler
 		rallyUsed.add(teamPlayer.getName());
 	}
 
-	public void clearTeamRally(Team team)
+	public void clearTeamRally(ITeam team)
 	{
 		for (String player : team.getPlayers())
 		{

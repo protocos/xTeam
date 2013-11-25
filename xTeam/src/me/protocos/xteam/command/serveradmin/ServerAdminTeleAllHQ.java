@@ -2,8 +2,8 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.core.Team;
 import me.protocos.xteam.core.TeamPlayer;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
@@ -24,7 +24,7 @@ public class ServerAdminTeleAllHQ extends ServerAdminCommand
 		for (Player p : players)
 		{
 			TeamPlayer otherPlayer = xTeam.getInstance().getPlayerManager().getPlayer(p);
-			Team playerTeam = otherPlayer.getTeam();
+			ITeam playerTeam = otherPlayer.getTeam();
 			{
 				if (playerTeam == null)
 				{

@@ -3,6 +3,7 @@ package me.protocos.xteam.core;
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.IPermissible;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.api.fakeobjects.*;
 import org.bukkit.Location;
@@ -92,7 +93,7 @@ public class TeamPlayerTest
 		//ASSEMBLE
 		teamPlayer = xTeam.getInstance().getPlayerManager().getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		//ACT
-		Team team = teamPlayer.getTeam();
+		ITeam team = teamPlayer.getTeam();
 		//ASSERT
 		Assert.assertEquals(xTeam.getInstance().getTeamManager().getTeam("one"), team);
 	}

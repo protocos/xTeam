@@ -1,12 +1,13 @@
 package me.protocos.xteam.listener;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamPlayer;
 import me.protocos.xteam.core.Configuration;
-import me.protocos.xteam.core.Team;
 import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -43,11 +44,11 @@ public class TeamPlayerListener implements Listener
 					Random r = new Random();
 					if (Configuration.DEFAULT_TEAM_NAMES.size() > 0)
 					{
-						ArrayList<Team> availableTeams = new ArrayList<Team>();
+						List<ITeam> availableTeams = CommonUtil.emptyList();
 						if (Configuration.BALANCE_TEAMS)
 						{
 							int smallest = xTeam.getInstance().getTeamManager().getDefaultTeams().get(0).size();
-							for (Team t : xTeam.getInstance().getTeamManager().getDefaultTeams())
+							for (ITeam t : xTeam.getInstance().getTeamManager().getDefaultTeams())
 							{
 								if (t.size() < smallest)
 								{
@@ -63,13 +64,13 @@ public class TeamPlayerListener implements Listener
 						}
 						else
 						{
-							for (Team t : xTeam.getInstance().getTeamManager().getDefaultTeams())
+							for (ITeam t : xTeam.getInstance().getTeamManager().getDefaultTeams())
 							{
 								availableTeams.add(t);
 							}
 						}
 						int index = r.nextInt(availableTeams.size());
-						Team team = availableTeams.get(index);
+						ITeam team = availableTeams.get(index);
 						team.addPlayer(teamPlayer.getName());
 						teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("joined") + " " + team.getName());
 						for (ITeamPlayer teammate : teamPlayer.getOnlineTeammates())
@@ -88,7 +89,7 @@ public class TeamPlayerListener implements Listener
 			{
 				if (teamPlayer.hasTeam() && teamPlayer.getTeam().isDefaultTeam())
 				{
-					Team team = teamPlayer.getTeam();
+					ITeam team = teamPlayer.getTeam();
 					if (team.hasHeadquarters())
 					{
 						teamPlayer.teleportTo(team.getHeadquarters());

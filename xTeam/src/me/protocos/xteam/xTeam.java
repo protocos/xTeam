@@ -8,11 +8,13 @@ import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.core.IPlayerManager;
+import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamManager;
 import me.protocos.xteam.api.util.ILog;
 import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.core.*;
 import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.StringUtil;
 import me.protocos.xteam.util.SystemUtil;
 import org.bukkit.Location;
@@ -159,8 +161,8 @@ public final class xTeam
 		ArrayList<String> data = new ArrayList<String>();
 		try
 		{
-			HashList<String, Team> teams = this.getTeamManager().getAllTeams();
-			for (Team team : teams)
+			HashList<String, ITeam> teams = this.getTeamManager().getTeams();
+			for (ITeam team : teams)
 				data.add(team.toString());
 		}
 		catch (Exception e)
@@ -196,8 +198,8 @@ public final class xTeam
 			World world = BukkitUtil.getWorld(s[2]);
 			long timeHeadquartersSet = Long.valueOf(s[3]).longValue();
 			Location HQ = new Location(world, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
-			ArrayList<String> players = new ArrayList<String>();
-			ArrayList<String> admins = new ArrayList<String>();
+			List<String> players = CommonUtil.emptyList();
+			List<String> admins = CommonUtil.emptyList();
 			String leader = "";
 			int startIndex = 4;
 			if (s.length > 4)
@@ -223,19 +225,19 @@ public final class xTeam
 			}
 			if (StringUtil.toLowerCase(Configuration.DEFAULT_TEAM_NAMES).contains(teamName.toLowerCase()))
 			{
-				for (Team team : this.getTeamManager().getDefaultTeams())
+				for (ITeam team : this.getTeamManager().getDefaultTeams())
 				{
 					if (team.getName().toLowerCase().equalsIgnoreCase(teamName))
 					{
 						team.setPlayers(players);
 						if (HQ.getY() != 0.0D)
-							team.setHQ(new Headquarters(HQ));
+							team.setHeadquarters(new Headquarters(HQ));
 					}
 				}
 			}
 			else
 			{
-				Team team = new Team.Builder(teamName).tag(teamName).leader(leader).players(players).admins(admins).hq(new Headquarters(HQ)).timeHeadquartersSet(timeHeadquartersSet).openJoining(false).defaultTeam(false).build();
+				ITeam team = new Team.Builder(teamName).tag(teamName).leader(leader).players(players).admins(admins).hq(new Headquarters(HQ)).timeHeadquartersSet(timeHeadquartersSet).openJoining(false).defaultTeam(false).build();
 				for (int i = startIndex; i < s.length; i++)
 				{
 					s[i] = s[i].replaceAll("~", "");
@@ -252,8 +254,8 @@ public final class xTeam
 		try
 		{
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-			HashList<String, Team> teams = this.getTeamManager().getAllTeams();
-			for (Team team : teams)
+			HashList<String, ITeam> teams = this.getTeamManager().getTeams();
+			for (ITeam team : teams)
 				bw.write(team.toString() + "\n");
 			bw.close();
 		}
