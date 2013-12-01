@@ -56,5 +56,14 @@ public class TeamChatListener implements Listener
 		{
 			xTeam.getInstance().getLog().exception(e);
 		}
+		System.out.println("===========================Event Information===========================");
+		System.out.println("Event Name:\t" + event.getEventName());
+		System.out.println("Event Format:\t" + event.getFormat());
+		System.out.println("Event Message:\t" + event.getMessage());
+		System.out.println("Event Handlers:\t" + event.getHandlers());
+		System.out.println("Event Player:\t" + event.getPlayer());
+		System.out.println("Event Recipients:\t" + event.getRecipients());
+		System.out.println("Event:\t" + event);
+		System.out.println("=======================================================================");
 	}
 }
