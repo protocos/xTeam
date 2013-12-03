@@ -9,6 +9,8 @@ import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.PatternBuilder;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 
@@ -38,14 +40,24 @@ public class ConsoleDebug extends ConsoleCommand
 			sender.sendMessage("Teams: \n" + xTeam.getInstance().getTeamManager().toString());
 		else if (subCommand.equalsIgnoreCase("perms"))
 			sender.sendMessage("Debugging permissions: \n" + printPermissions());
-		else if (subCommand.equalsIgnoreCase("resetplayers"))
+		else if (subCommand.equalsIgnoreCase("reset"))
 		{
 			for (Player player : BukkitUtil.getOnlinePlayers())
 			{
 				player.setHealth(20);
 				player.setFoodLevel(20);
+				player.setNoDamageTicks(0);
 			}
+			sender.sendMessage("All players hunger reset");
 			sender.sendMessage("All players health reset");
+			sender.sendMessage("All players damage reset");
+			for (World world : Bukkit.getWorlds())
+			{
+				world.setStorm(false);
+				world.setThundering(false);
+				world.setTime(0);
+				sender.sendMessage("environment reset for \"" + world.getName() + "\"");
+			}
 		}
 		else if (subCommand.equalsIgnoreCase("email"))
 		{
@@ -60,7 +72,7 @@ public class ConsoleDebug extends ConsoleCommand
 			}
 		}
 		else
-			sender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, resetplayers, email]");
+			sender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, email]");
 	}
 
 	private String printPermissions()
