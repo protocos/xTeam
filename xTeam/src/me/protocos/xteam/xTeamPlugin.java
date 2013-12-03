@@ -1,7 +1,6 @@
 package me.protocos.xteam;
 
 import java.io.File;
-import java.util.List;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.command.CommandDelegate;
@@ -18,30 +17,11 @@ import me.protocos.xteam.listener.TeamPvPEntityListener;
 import me.protocos.xteam.listener.TeamScoreListener;
 import me.protocos.xteam.util.BukkitUtil;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 
 public class xTeamPlugin extends TeamPlugin
 {
 	private CommandExecutor commandExecutor;
-
-	@Override
-	public String getFolder()
-	{
-		return this.getDataFolder().getAbsolutePath();
-	}
-
-	@Override
-	public String getVersion()
-	{
-		return this.getDescription().getVersion();
-	}
-
-	@Override
-	public List<Permission> getPermissions()
-	{
-		return this.getDescription().getPermissions();
-	}
 
 	@Override
 	public void onEnable()

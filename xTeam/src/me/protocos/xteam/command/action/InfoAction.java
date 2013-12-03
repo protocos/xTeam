@@ -1,10 +1,11 @@
 package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.core.ITeam;
-import me.protocos.xteam.api.core.ITeamPlayer;
-import me.protocos.xteam.core.exception.TeamOrPlayerDoesNotExistException;
-import me.protocos.xteam.core.exception.TeamPlayerHasNoTeamException;
+import me.protocos.xteam.api.entity.ITeamPlayer;
+import me.protocos.xteam.api.model.ITeam;
+import me.protocos.xteam.command.Requirements;
+import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
+import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;

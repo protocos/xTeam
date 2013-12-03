@@ -1,8 +1,8 @@
 package me.protocos.xteam.util;
 
 import java.util.List;
-import me.protocos.xteam.api.core.ITeamEntity;
-import me.protocos.xteam.core.TeamPlayer;
+import me.protocos.xteam.api.entity.ITeamEntity;
+import me.protocos.xteam.entity.TeamPlayer;
 
 public class MessageUtil
 {

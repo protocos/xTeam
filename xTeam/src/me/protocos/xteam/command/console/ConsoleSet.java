@@ -3,7 +3,7 @@ package me.protocos.xteam.command.console;
 import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.SetTeamAction;
-import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleSet extends ConsoleCommand

@@ -1,6 +1,7 @@
 package me.protocos.xteam.api.core;
 
 import me.protocos.xteam.api.collections.HashList;
+import me.protocos.xteam.api.model.ITeam;
 
 public interface ITeamManager
 {

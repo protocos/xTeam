@@ -1,11 +1,12 @@
 package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.core.ITeam;
-import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.api.entity.ITeamPlayer;
+import me.protocos.xteam.api.model.ITeam;
+import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.core.Configuration;
-import me.protocos.xteam.core.Team;
-import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.model.Team;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 

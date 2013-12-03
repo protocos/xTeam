@@ -1,7 +1,7 @@
 package me.protocos.xteam.api.command;
 
 import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.exception.TeamException;
 
 public abstract class TeamUserCommand extends PlayerCommand
 {

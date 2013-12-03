@@ -2,12 +2,12 @@ package me.protocos.xteam.command.teamadmin;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.TeamAdminCommand;
-import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.api.entity.ITeamPlayer;
 import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.command.action.Requirements;
-import me.protocos.xteam.core.InviteHandler;
-import me.protocos.xteam.core.InviteRequest;
-import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.command.Requirements;
+import me.protocos.xteam.command.action.InviteHandler;
+import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
 

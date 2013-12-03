@@ -1,8 +1,8 @@
 package me.protocos.xteam.core;
 
 import me.protocos.xteam.api.collections.HashList;
-import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamManager;
+import me.protocos.xteam.api.model.ITeam;
 import me.protocos.xteam.util.CommonUtil;
 
 public class TeamManager implements ITeamManager

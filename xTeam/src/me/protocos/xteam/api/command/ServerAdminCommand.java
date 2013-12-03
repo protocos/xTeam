@@ -2,7 +2,7 @@ package me.protocos.xteam.api.command;
 
 import org.bukkit.entity.Player;
 import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.CommonUtil;
 
 public abstract class ServerAdminCommand extends PlayerCommand

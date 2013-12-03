@@ -1,8 +1,10 @@
 package me.protocos.xteam.api.core;
 
 import java.util.List;
-import me.protocos.xteam.core.OfflineTeamPlayer;
-import me.protocos.xteam.core.TeamPlayer;
+import me.protocos.xteam.api.entity.ITeamEntity;
+import me.protocos.xteam.api.entity.ITeamPlayer;
+import me.protocos.xteam.entity.OfflineTeamPlayer;
+import me.protocos.xteam.entity.TeamPlayer;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;

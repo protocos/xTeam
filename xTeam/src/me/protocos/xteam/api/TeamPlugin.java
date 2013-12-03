@@ -21,20 +21,29 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 		xteam = xTeam.getInstance();
 	}
 
-	public abstract String getFolder();
-
-	public abstract String getVersion();
-
-	public abstract List<Permission> getPermissions();
-
-	public final String getPluginName()
+	public String getFolder()
 	{
-		return this.getClass().getSimpleName();
+		return this.getDataFolder().getAbsolutePath();
+	}
+
+	public String getVersion()
+	{
+		return this.getDescription().getVersion();
+	}
+
+	public List<Permission> getPermissions()
+	{
+		return this.getDescription().getPermissions();
 	}
 
 	public ILog getLog()
 	{
 		return xteam.getLog();
+	}
+
+	public final String getPluginName()
+	{
+		return this.getClass().getSimpleName();
 	}
 
 	public final ICommandManager getCommandManager()

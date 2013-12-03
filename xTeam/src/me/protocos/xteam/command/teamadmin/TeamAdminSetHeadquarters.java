@@ -2,9 +2,9 @@ package me.protocos.xteam.command.teamadmin;
 
 import me.protocos.xteam.api.command.TeamAdminCommand;
 import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.command.action.Requirements;
-import me.protocos.xteam.core.Headquarters;
-import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.command.Requirements;
+import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
 

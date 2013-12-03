@@ -3,7 +3,7 @@ package me.protocos.xteam.api.command;
 import java.io.InvalidClassException;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.command.CommandSender;
 

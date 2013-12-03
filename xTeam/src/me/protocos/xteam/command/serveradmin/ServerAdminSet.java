@@ -3,7 +3,7 @@ package me.protocos.xteam.command.serveradmin;
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.SetTeamAction;
-import me.protocos.xteam.core.exception.TeamException;
+import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminSet extends ServerAdminCommand

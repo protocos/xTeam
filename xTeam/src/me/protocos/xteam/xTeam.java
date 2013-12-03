@@ -8,11 +8,14 @@ import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.core.IPlayerManager;
-import me.protocos.xteam.api.core.ITeam;
 import me.protocos.xteam.api.core.ITeamManager;
+import me.protocos.xteam.api.model.ITeam;
 import me.protocos.xteam.api.util.ILog;
 import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.core.*;
+import me.protocos.xteam.model.Headquarters;
+import me.protocos.xteam.model.Log;
+import me.protocos.xteam.model.Team;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.StringUtil;
@@ -83,10 +86,11 @@ public final class xTeam
 		if ("xTeamPlugin".equals(plugin.getPluginName()) || "FakeTeamPlugin".equals(plugin.getPluginName()))
 		{
 			this.version = plugin.getVersion();
-			this.logger = new Log(plugin.getFolder(), plugin);
-			this.permissions = plugin.getPermissions();
+			this.logger = new Log(plugin.getFolder() + "/xTeam.log", plugin);
+			this.permissions = CommonUtil.emptyList();
 			this.initFileSystem(plugin);
 		}
+		this.permissions.addAll(plugin.getPermissions());
 		this.commandManager.register(plugin);
 	}
 
@@ -124,7 +128,6 @@ public final class xTeam
 		this.configLoader.addAttribute("rallydelay", 2, "Delay in minutes that a team rally stays active");
 		this.configLoader.write();
 		this.configLoader.load();
-		SystemUtil.ensureFile(plugin.getFolder() + "/xTeam.log");
 	}
 
 	public void readTeamData(File f)

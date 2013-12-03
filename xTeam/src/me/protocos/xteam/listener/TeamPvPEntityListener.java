@@ -1,7 +1,7 @@
 package me.protocos.xteam.listener;
 
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.api.entity.ITeamPlayer;
 import me.protocos.xteam.core.Configuration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

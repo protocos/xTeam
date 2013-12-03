@@ -1,8 +1,8 @@
 package me.protocos.xteam.listener;
 
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.core.ITeam;
-import me.protocos.xteam.api.core.ITeamPlayer;
+import me.protocos.xteam.api.entity.ITeamPlayer;
+import me.protocos.xteam.api.model.ITeam;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.ChatColor;
@@ -56,6 +56,11 @@ public class TeamChatListener implements Listener
 		{
 			xTeam.getInstance().getLog().exception(e);
 		}
+		//		printEvent(event);
+	}
+
+	public void printEvent(AsyncPlayerChatEvent event)
+	{
 		System.out.println("===========================Event Information===========================");
 		System.out.println("Event Name:\t" + event.getEventName());
 		System.out.println("Event Format:\t" + event.getFormat());
