@@ -22,9 +22,7 @@ public class ConsoleRename extends ConsoleCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		ITeam team = xTeam.getInstance().getTeamManager().getTeam(teamName);
-		xTeam.getInstance().getTeamManager().removeTeam(teamName);
-		team.setName(desiredName);
-		xTeam.getInstance().getTeamManager().addTeam(team);
+		xTeam.getInstance().getTeamManager().renameTeam(team, desiredName);
 		sender.sendMessage("You " + ChatColorUtil.positiveMessage("renamed") + " the team to " + desiredName);
 		team.sendMessage("The team has been " + ChatColorUtil.positiveMessage("renamed") + " to " + desiredName);
 	}

@@ -32,7 +32,7 @@ public class TeamLeaderRemove extends TeamLeaderCommand
 		if (team.isEmpty())
 		{
 			teamPlayer.sendMessage(teamName + " has been disbanded");
-			xTeam.getInstance().getTeamManager().removeTeam(team.getName());
+			xTeam.getInstance().getTeamManager().disbandTeam(team.getName());
 		}
 	}
 

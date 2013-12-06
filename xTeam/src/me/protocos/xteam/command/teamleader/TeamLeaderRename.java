@@ -21,9 +21,7 @@ public class TeamLeaderRename extends TeamLeaderCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		xTeam.getInstance().getTeamManager().removeTeam(team.getName());
-		team.setName(desiredName);
-		xTeam.getInstance().getTeamManager().addTeam(team);
+		xTeam.getInstance().getTeamManager().renameTeam(team, desiredName);
 		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
 			mate.sendMessage("The team has been " + ChatColorUtil.positiveMessage("renamed") + " to " + desiredName);

@@ -40,10 +40,13 @@ public class TeamUserMessage extends TeamUserCommand
 	public String getPattern()
 	{
 		return new PatternBuilder()
-				.or(new PatternBuilder().oneOrMore("message"),
-						new PatternBuilder().append("tell"))
+				.or(new PatternBuilder()
+						.oneOrMore("message"), new PatternBuilder()
+						.append("tell"))
 				.whiteSpace()
-				.whatEvs()
+				.anyUnlimited(new PatternBuilder()
+						.whiteSpace()
+						.anyString())
 				.toString();
 	}
 

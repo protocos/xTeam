@@ -1,5 +1,6 @@
 package me.protocos.xteam.core;
 
+import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.model.ITeam;
 import me.protocos.xteam.model.Team;
@@ -13,14 +14,16 @@ public class TeamManagerTest
 	@Before
 	public void setup()
 	{
+		//MOCK data
+		mockData();
 	}
 
 	@Test
 	public void ShouldBeClear()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().addTeam(Team.createTeamWithLeader("test1", "protocos"));
-		xTeam.getInstance().getTeamManager().addTeam(Team.createTeamWithLeader("test2", "kmlanglois"));
+		xTeam.getInstance().getTeamManager().createTeam(Team.createTeamWithLeader("test1", "protocos"));
+		xTeam.getInstance().getTeamManager().createTeam(Team.createTeamWithLeader("test2", "kmlanglois"));
 		//ACT
 		xTeam.getInstance().getTeamManager().clear();
 		//ASSERT
@@ -32,7 +35,7 @@ public class TeamManagerTest
 	{
 		//ASSEMBLE
 		//ACT
-		xTeam.getInstance().getTeamManager().addTeam(Team.createTeam("test"));
+		xTeam.getInstance().getTeamManager().createTeam(Team.createTeam("test"));
 		//ASSERT
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("test"));
 	}
@@ -42,7 +45,7 @@ public class TeamManagerTest
 	{
 		//ASSEMBLE
 		//ACT
-		xTeam.getInstance().getTeamManager().addTeam(Team.createTeamWithLeader("test", "protocos"));
+		xTeam.getInstance().getTeamManager().createTeam(Team.createTeamWithLeader("test", "protocos"));
 		//ASSERT
 		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("test"));
 		Assert.assertEquals("protocos", xTeam.getInstance().getTeamManager().getTeam("test").getLeader());
@@ -52,34 +55,32 @@ public class TeamManagerTest
 	public void ShouldBeGetAllTeams()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().addTeam(Team.createTeamWithLeader("test1", "protocos"));
-		xTeam.getInstance().getTeamManager().addTeam(Team.createTeamWithLeader("test2", "kmlanglois"));
 		//ACT
 		//ASSERT
-		Assert.assertEquals("{test1=name:test1 tag:test1 open:false default:false timeHeadquartersSet:0 hq: leader:protocos admins:protocos players:protocos, " +
-				"test2=name:test2 tag:test2 open:false default:false timeHeadquartersSet:0 hq: leader:kmlanglois admins:kmlanglois players:kmlanglois}", xTeam.getInstance().getTeamManager().getTeams().toString());
+		Assert.assertEquals("{ONE=name:ONE tag:TeamAwesome open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos, " +
+				"two=name:two tag:two open:false default:false timeHeadquartersSet:0 hq: leader:mastermind admins:mastermind players:mastermind, " +
+				"red=name:red tag:REDONE open:true default:true timeHeadquartersSet:0 hq: leader: admins: players:strandedhelix,teammate, " +
+				"blue=name:blue tag:blue open:true default:true timeHeadquartersSet:0 hq: leader: admins: players:}", xTeam.getInstance().getTeamManager().getTeams().toString());
 	}
 
 	@Test
 	public void ShouldBeGetTeam()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().addTeam(Team.createTeamWithLeader("one", "protocos"));
 		//ACT
 		ITeam test = xTeam.getInstance().getTeamManager().getTeam("one");
 		//ASSERT
-		Assert.assertEquals("one", test.getName());
+		Assert.assertEquals("ONE", test.getName());
 	}
 
 	@Test
 	public void ShouldBeSameNameConflict()
 	{
 		//ASSEMBLE
-		Team team1 = new Team.Builder("one").build();
-		Team team2 = new Team.Builder("ONE").build();
+		Team team1 = new Team.Builder("ONE").build();
 		//ACT
-		xTeam.getInstance().getTeamManager().addTeam(team1);
-		boolean exists = xTeam.getInstance().getTeamManager().containsTeam(team2.getName());
+		xTeam.getInstance().getTeamManager().createTeam(team1);
+		boolean exists = xTeam.getInstance().getTeamManager().containsTeam("one");
 		//ASSERT
 		Assert.assertTrue(exists);
 	}

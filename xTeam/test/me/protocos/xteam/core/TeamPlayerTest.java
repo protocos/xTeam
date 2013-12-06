@@ -110,7 +110,7 @@ public class TeamPlayerTest
 		team.addPlayer("one");
 		team.addPlayer("two");
 		team.addPlayer("thr");
-		xTeam.getInstance().getTeamManager().addTeam(team);
+		xTeam.getInstance().getTeamManager().createTeam(team);
 		//ACT
 		//ASSERT
 		Assert.assertEquals(2, player1.getTeammates().size());
@@ -270,7 +270,7 @@ public class TeamPlayerTest
 		team.addPlayer(player1.getName());
 		team.addPlayer(player2.getName());
 		team.addPlayer(player3.getName());
-		xTeam.getInstance().getTeamManager().addTeam(team);
+		xTeam.getInstance().getTeamManager().createTeam(team);
 		//ACT
 		//ASSERT
 		Assert.assertEquals(true, player1.getOfflineTeammates().contains(player3));
@@ -288,7 +288,7 @@ public class TeamPlayerTest
 		team.addPlayer(player1.getName());
 		team.addPlayer(player2.getName());
 		team.addPlayer(player3.getName());
-		xTeam.getInstance().getTeamManager().addTeam(team);
+		xTeam.getInstance().getTeamManager().createTeam(team);
 		//ACT
 		//ASSERT
 		Assert.assertEquals(true, player1.getOnlineTeammates().contains(player2));

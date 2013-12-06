@@ -55,9 +55,9 @@ public class ConsoleListTest
 	public void ShouldBeTeamUserListExecuteOneTeam()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().removeTeam("ONE");
-		xTeam.getInstance().getTeamManager().removeTeam("TWO");
-		xTeam.getInstance().getTeamManager().removeTeam("blue");
+		xTeam.getInstance().getTeamManager().disbandTeam("ONE");
+		xTeam.getInstance().getTeamManager().disbandTeam("TWO");
+		xTeam.getInstance().getTeamManager().disbandTeam("blue");
 		ConsoleCommand fakeCommand = new ConsoleList();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "list".split(" ")));

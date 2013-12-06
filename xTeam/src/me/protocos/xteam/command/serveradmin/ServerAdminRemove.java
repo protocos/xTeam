@@ -31,7 +31,7 @@ public class ServerAdminRemove extends ServerAdminCommand
 		if (changeTeam.isEmpty())
 		{
 			player.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
-			xTeam.getInstance().getTeamManager().removeTeam(changeTeam.getName());
+			xTeam.getInstance().getTeamManager().disbandTeam(changeTeam.getName());
 		}
 	}
 

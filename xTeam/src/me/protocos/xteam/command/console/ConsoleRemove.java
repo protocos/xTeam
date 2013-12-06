@@ -31,7 +31,7 @@ public class ConsoleRemove extends ConsoleCommand
 		if (changeTeam.isEmpty())
 		{
 			sender.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
-			xTeam.getInstance().getTeamManager().removeTeam(changeTeam.getName());
+			xTeam.getInstance().getTeamManager().disbandTeam(changeTeam.getName());
 		}
 	}
 

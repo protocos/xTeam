@@ -22,7 +22,7 @@ public class TeamLeaderDisband extends TeamLeaderCommand
 		{
 			playerDisband.sendMessage("Team has been " + ChatColorUtil.negativeMessage("disbanded") + " by the team leader");
 		}
-		xTeam.getInstance().getTeamManager().removeTeam(team.getName());
+		xTeam.getInstance().getTeamManager().disbandTeam(team.getName());
 		teamPlayer.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " your team");
 	}
 

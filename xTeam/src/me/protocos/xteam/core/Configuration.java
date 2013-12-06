@@ -168,7 +168,7 @@ public class Configuration
 		{
 			Team team = new Team.Builder(name).defaultTeam(true).openJoining(true).build();
 			if (!CommonUtil.containsIgnoreCase(xTeam.getInstance().getTeamManager().getDefaultTeams().getOrder(), name))
-				xTeam.getInstance().getTeamManager().addTeam(team);
+				xTeam.getInstance().getTeamManager().createTeam(team);
 		}
 	}
 

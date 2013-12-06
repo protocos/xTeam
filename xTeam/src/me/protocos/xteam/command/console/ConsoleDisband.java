@@ -23,7 +23,7 @@ public class ConsoleDisband extends ConsoleCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		changeTeam.sendMessage("Your team has been " + ChatColorUtil.negativeMessage("disbanded") + " by an admin");
-		xTeam.getInstance().getTeamManager().removeTeam(teamName);
+		xTeam.getInstance().getTeamManager().disbandTeam(teamName);
 		sender.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " " + changeTeam.getName() + (changeTeam.hasTag() ? " [" + changeTeam.getTag() + "]" : ""));
 	}
 

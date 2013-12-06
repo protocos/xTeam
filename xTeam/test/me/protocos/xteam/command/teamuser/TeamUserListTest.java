@@ -48,9 +48,9 @@ public class TeamUserListTest
 	public void ShouldBeTeamUserListExecuteOneTeam()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().removeTeam("ONE");
-		xTeam.getInstance().getTeamManager().removeTeam("TWO");
-		xTeam.getInstance().getTeamManager().removeTeam("blue");
+		xTeam.getInstance().getTeamManager().disbandTeam("ONE");
+		xTeam.getInstance().getTeamManager().disbandTeam("TWO");
+		xTeam.getInstance().getTeamManager().disbandTeam("blue");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserList();
 		//ACT

@@ -22,7 +22,7 @@ public class TeamUserLeave extends TeamUserCommand
 	{
 		team.removePlayer(teamPlayer.getName());
 		if (team.size() == 0 && !team.isDefaultTeam())
-			xTeam.getInstance().getTeamManager().removeTeam(team.getName());
+			xTeam.getInstance().getTeamManager().disbandTeam(team.getName());
 		Configuration.chatStatus.remove(teamPlayer.getName());
 		for (String teammate : team.getPlayers())
 		{

@@ -149,7 +149,7 @@ public final class xTeam
 			while ((line = br.readLine()) != null)
 			{
 				Team team = Team.generateTeamFromProperties(line);
-				xTeam.getInstance().getTeamManager().addTeam(team);
+				xTeam.getInstance().getTeamManager().createTeam(team);
 			}
 			br.close();
 		}
@@ -245,7 +245,7 @@ public final class xTeam
 				{
 					s[i] = s[i].replaceAll("~", "");
 				}
-				this.getTeamManager().addTeam(team);
+				this.getTeamManager().createTeam(team);
 			}
 		}
 		br.close();
