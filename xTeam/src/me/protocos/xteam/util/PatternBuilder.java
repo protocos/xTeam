@@ -188,6 +188,14 @@ public class PatternBuilder
 		return this;
 	}
 
+	public PatternBuilder whatEvs()
+	{
+		this.pattern.append(new PatternBuilder()
+				.whiteSpace()
+				.anyString());
+		return this;
+	}
+
 	public PatternBuilder or(String... strings)
 	{
 		PatternBuilder[] patterns = new PatternBuilder[strings.length];
