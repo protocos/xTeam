@@ -3,6 +3,7 @@ package me.protocos.xteam.core;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.core.ITeamManager;
 import me.protocos.xteam.api.model.ITeam;
+import me.protocos.xteam.api.model.ITeamListener;
 import me.protocos.xteam.util.CommonUtil;
 
 public class TeamManager implements ITeamManager
@@ -110,5 +111,12 @@ public class TeamManager implements ITeamManager
 		for (ITeam team : getTeams())
 			output += team.getName() + ": " + team.getPlayers().toString().replaceAll("[\\[\\]]", "") + "\n";
 		return output.trim();
+	}
+
+	@Override
+	public void addTeamListener(ITeamListener listener)
+	{
+		// TODO Auto-generated method stub
+
 	}
 }

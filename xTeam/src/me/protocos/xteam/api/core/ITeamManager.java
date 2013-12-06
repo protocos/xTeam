@@ -2,6 +2,7 @@ package me.protocos.xteam.api.core;
 
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.model.ITeam;
+import me.protocos.xteam.api.model.ITeamListener;
 
 public interface ITeamManager
 {
@@ -20,4 +21,6 @@ public interface ITeamManager
 	public abstract HashList<String, ITeam> getDefaultTeams();
 
 	public abstract ITeam getTeamByPlayer(String name);
+
+	public abstract void addTeamListener(ITeamListener listener);
 }

@@ -22,7 +22,7 @@ public class TeamPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(@SuppressWarnings("unused") PlayerTeleportEvent event)
 	{
-		//TODO maybe use this for updateing in the PLayerManager?
+		//TODO maybe use this for updateing in the PlayerManager?
 	}
 
 	@EventHandler

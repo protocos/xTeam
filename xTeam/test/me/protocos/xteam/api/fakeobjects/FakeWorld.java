@@ -24,10 +24,12 @@ public class FakeWorld implements World
 	{
 		this.name = "world";
 	}
+
 	public FakeWorld(String name)
 	{
 		this.name = name;
 	}
+
 	@Override
 	public boolean canGenerateStructures()
 	{

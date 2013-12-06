@@ -19,7 +19,6 @@ public class Locatable implements ILocatable
 	{
 		this.name = name;
 		this.location = location;
-		//		super(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 	}
 
 	@Override
