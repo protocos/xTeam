@@ -1,4 +1,7 @@
-package me.protocos.xteam.api.model;
+package me.protocos.xteam.model;
+
+import me.protocos.xteam.api.model.ITeam;
+import me.protocos.xteam.api.model.ITeamEvent;
 
 public class TeamDisbandEvent implements ITeamEvent
 {
@@ -7,6 +10,12 @@ public class TeamDisbandEvent implements ITeamEvent
 	public TeamDisbandEvent(ITeam team)
 	{
 		this.team = team;
+	}
+
+	@Override
+	public String getTeamName()
+	{
+		return team.getName();
 	}
 
 	@Override

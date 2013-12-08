@@ -21,8 +21,11 @@ public class InviteHandler
 			@Override
 			public void run()
 			{
-				invitee.sendMessage("Invite from " + inviter.getName() + " has " + ChatColorUtil.negativeMessage("expired"));
-				invites.remove(invitee.getName());
+				if (invites.containsKey(invitee.getName()))
+				{
+					invitee.sendMessage("Invite from " + inviter.getName() + " has " + ChatColorUtil.negativeMessage("expired"));
+					invites.remove(invitee.getName());
+				}
 			}
 		}
 		BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getxTeam(), new InviteExpire(), BukkitUtil.ONE_MINUTE_IN_TICKS);

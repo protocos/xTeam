@@ -94,4 +94,10 @@ public class Locatable implements ILocatable
 		Location rhs = (Location) obj;
 		return new EqualsBuilder().append(this.getWorld(), rhs.getWorld()).append(location.getX(), rhs.getX()).append(location.getY(), rhs.getY()).append(location.getZ(), rhs.getZ()).append(location.getPitch(), rhs.getPitch()).append(location.getYaw(), rhs.getYaw()).isEquals();
 	}
+
+	@Override
+	public String toString()
+	{
+		return this.name + ": X(" + this.getRelativeX() + ") Y(" + this.getRelativeY() + ") Z(" + this.getRelativeZ() + ")";
+	}
 }

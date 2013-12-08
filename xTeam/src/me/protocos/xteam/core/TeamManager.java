@@ -5,6 +5,9 @@ import java.util.List;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.core.ITeamManager;
 import me.protocos.xteam.api.model.*;
+import me.protocos.xteam.model.TeamCreateEvent;
+import me.protocos.xteam.model.TeamDisbandEvent;
+import me.protocos.xteam.model.TeamRenameEvent;
 import me.protocos.xteam.util.CommonUtil;
 
 public class TeamManager implements ITeamManager
@@ -156,7 +159,7 @@ public class TeamManager implements ITeamManager
 		List<Method> finalMethods = CommonUtil.emptyList();
 		for (Method method : methods)
 		{
-			if (method.getAnnotation(TeamEventHandler.class) != null)
+			if (method.getAnnotation(TeamEvent.class) != null)
 			{
 				finalMethods.add(method);
 			}
@@ -180,10 +183,11 @@ public class TeamManager implements ITeamManager
 	{
 		if (this.containsTeam(team.getName()))
 		{
+			String oldName = team.getName();
 			ITeam renameTeam = this.removeTeam(team.getName());
 			renameTeam.setName(teamName);
 			this.addTeam(renameTeam);
-			this.dispatchEvent(new TeamRenameEvent(team));
+			this.dispatchEvent(new TeamRenameEvent(team, oldName));
 		}
 	}
 

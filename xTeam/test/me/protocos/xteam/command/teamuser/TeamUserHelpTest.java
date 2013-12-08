@@ -24,6 +24,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelp()
 	{
 		Assert.assertTrue("help 1".matches(new TeamUserHelp().getPattern()));
+		Assert.assertTrue("help 1".matches(new TeamUserHelp().getPattern()));
 		Assert.assertTrue("help 1 ".matches(new TeamUserHelp().getPattern()));
 		Assert.assertTrue("? 1".matches(new TeamUserHelp().getPattern()));
 		Assert.assertTrue("??? 1 ".matches(new TeamUserHelp().getPattern()));
