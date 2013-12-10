@@ -1,9 +1,6 @@
 package me.protocos.xteam.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import me.protocos.xteam.api.collections.HashList;
 
 public class CommonUtil
@@ -239,6 +236,11 @@ public class CommonUtil
 	public static <T> List<T> emptyList(int size)
 	{
 		return new ArrayList<T>(size);
+	}
+
+	public static <T> Set<T> emptySet()
+	{
+		return new HashSet<T>();
 	}
 
 	public static <K, V> HashMap<K, V> emptyHashMap()

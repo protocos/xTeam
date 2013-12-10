@@ -19,20 +19,20 @@ public class TeamHeadquartersTest
 		mockData();
 	}
 
-	@Test
-	public void ShouldBeTeamHeadquartersDefault()
-	{
-		//ASSEMBLE
-		hq = new Headquarters();
-		//ACT
-		//ASSERT
-		Assert.assertEquals("world", hq.getWorld().getName());
-		Assert.assertEquals(0.0D, hq.getLocation().getX(), 0);
-		Assert.assertEquals(0.0D, hq.getLocation().getY(), 0);
-		Assert.assertEquals(0.0D, hq.getLocation().getZ(), 0);
-		Assert.assertEquals(0.0F, hq.getLocation().getYaw(), 0);
-		Assert.assertEquals(0.0F, hq.getLocation().getPitch(), 0);
-	}
+	//	@Test
+	//	public void ShouldBeTeamHeadquartersDefault()
+	//	{
+	//		//ASSEMBLE
+	//		hq = new Headquarters();
+	//		//ACT
+	//		//ASSERT
+	//		Assert.assertEquals("world", hq.getWorld().getName());
+	//		Assert.assertEquals(0.0D, hq.getLocation().getX(), 0);
+	//		Assert.assertEquals(0.0D, hq.getLocation().getY(), 0);
+	//		Assert.assertEquals(0.0D, hq.getLocation().getZ(), 0);
+	//		Assert.assertEquals(0.0F, hq.getLocation().getYaw(), 0);
+	//		Assert.assertEquals(0.0F, hq.getLocation().getPitch(), 0);
+	//	}
 
 	@Test
 	public void ShouldBeTeamHeadquartersExists()

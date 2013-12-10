@@ -1,8 +1,6 @@
 package me.protocos.xteam.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.entity.ITeamEntity;
@@ -27,8 +25,8 @@ public class Team implements ITeam
 	private String name;
 	private String tag;
 	private String leader;
-	private List<String> players;
-	private List<String> admins;
+	private Set<String> players;
+	private Set<String> admins;
 	private Headquarters headquarters;
 	private long timeHeadquartersSet;
 	private boolean openJoining;
@@ -43,8 +41,8 @@ public class Team implements ITeam
 		//optional
 		private String tag = "";
 		private String leader = "";
-		private List<String> players = new ArrayList<String>();
-		private List<String> admins = new ArrayList<String>();;
+		private Set<String> players = new HashSet<String>();
+		private Set<String> admins = new HashSet<String>();;
 		private Headquarters headquarters = null;
 		private long timeHeadquartersSet = 0L;
 		private boolean openJoining = false;
@@ -64,18 +62,31 @@ public class Team implements ITeam
 		public Builder leader(@SuppressWarnings("hiding") String leader)
 		{
 			this.leader = leader;
+			this.admins.add(leader);
+			this.players.add(leader);
 			return this;
 		}
 
-		public Builder players(@SuppressWarnings("hiding") List<String> players)
+		public Builder admins(@SuppressWarnings("hiding") String... admins)
 		{
-			this.players = players;
+			return this.admins(Arrays.asList(admins));
+		}
+
+		public Builder admins(@SuppressWarnings("hiding") Collection<String> admins)
+		{
+			this.admins.addAll(admins);
+			this.players.addAll(admins);
 			return this;
 		}
 
-		public Builder admins(@SuppressWarnings("hiding") List<String> admins)
+		public Builder players(@SuppressWarnings("hiding") String... players)
 		{
-			this.admins = admins;
+			return this.players(Arrays.asList(players));
+		}
+
+		public Builder players(@SuppressWarnings("hiding") Collection<String> players)
+		{
+			this.players.addAll(players);
 			return this;
 		}
 
@@ -169,7 +180,7 @@ public class Team implements ITeam
 		return new EqualsBuilder().append(name, rhs.name).append(tag, rhs.tag).append(leader, rhs.leader).isEquals();
 	}
 
-	public List<String> getAdmins()
+	public Set<String> getAdmins()
 	{
 		return admins;
 	}
@@ -184,7 +195,7 @@ public class Team implements ITeam
 		return leader;
 	}
 
-	public List<String> getPlayers()
+	public Set<String> getPlayers()
 	{
 		return players;
 	}
@@ -232,7 +243,7 @@ public class Team implements ITeam
 		}
 	}
 
-	public void setAdmins(List<String> admins)
+	public void setAdmins(Set<String> admins)
 	{
 		this.admins = admins;
 	}
@@ -266,7 +277,7 @@ public class Team implements ITeam
 		this.openJoining = openJoining;
 	}
 
-	public void setPlayers(List<String> players)
+	public void setPlayers(Set<String> players)
 	{
 		this.players = players;
 	}
@@ -278,7 +289,7 @@ public class Team implements ITeam
 
 	public int size()
 	{
-		return getPlayers().size();
+		return this.getPlayers().size();
 	}
 
 	public static Team generateTeamFromProperties(String properties)
@@ -320,8 +331,8 @@ public class Team implements ITeam
 				float pitch = Float.parseFloat(locationData[5]);
 				team.setHeadquarters(new Headquarters(world, X, Y, Z, yaw, pitch));
 			}
-			team.setPlayers(players == null ? new ArrayList<String>() : CommonUtil.split(players, ","));
-			team.setAdmins(admins == null ? new ArrayList<String>() : CommonUtil.split(admins, ","));
+			team.setPlayers(players == null ? new HashSet<String>() : new HashSet<String>(CommonUtil.split(players, ",")));
+			team.setAdmins(admins == null ? new HashSet<String>() : new HashSet<String>(CommonUtil.split(admins, ",")));
 			if (leader != null)
 			{
 				if (leader.equalsIgnoreCase("default"))
@@ -499,9 +510,7 @@ public class Team implements ITeam
 
 	public static Team createTeamWithLeader(String teamName, String player)
 	{
-		List<String> players = new ArrayList<String>(Arrays.asList(player));
-		List<String> admins = new ArrayList<String>(Arrays.asList(player));
-		Team team = new Team.Builder(teamName).players(players).admins(admins).leader(player).build();
+		Team team = new Team.Builder(teamName).players(player).admins(player).leader(player).build();
 		return team;
 	}
 

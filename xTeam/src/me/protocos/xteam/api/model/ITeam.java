@@ -1,6 +1,6 @@
 package me.protocos.xteam.api.model;
 
-import java.util.List;
+import java.util.Set;
 import me.protocos.xteam.api.entity.ITeamEntity;
 import me.protocos.xteam.model.Headquarters;
 import org.bukkit.Location;
@@ -41,11 +41,11 @@ public interface ITeam extends ITeamEntity, ILocatable
 
 	public abstract int size();
 
-	public abstract void setPlayers(List<String> players);
+	public abstract void setPlayers(Set<String> players);
 
-	public abstract List<String> getPlayers();
+	public abstract Set<String> getPlayers();
 
-	public abstract List<String> getAdmins();
+	public abstract Set<String> getAdmins();
 
 	public abstract void setLeader(String playerName);
 

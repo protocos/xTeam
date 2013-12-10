@@ -2,7 +2,6 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
@@ -14,6 +13,7 @@ import org.junit.Test;
 public class ConsoleInfoTest
 {
 	FakeConsoleSender fakeConsoleSender;
+	ConsoleInfo fakeCommand;
 
 	@Before
 	public void setup()
@@ -21,23 +21,23 @@ public class ConsoleInfoTest
 		//MOCK data
 		mockData();
 		fakeConsoleSender = new FakeConsoleSender();
+		fakeCommand = new ConsoleInfo();
 	}
 
 	@Test
 	public void ShouldBeConsoleInfo()
 	{
-		Assert.assertTrue("info TEAM/PLAYER".matches(new ConsoleInfo().getPattern()));
-		Assert.assertTrue("info TEAM/PLAYER ".matches(new ConsoleInfo().getPattern()));
-		Assert.assertFalse("info".matches(new ConsoleInfo().getPattern()));
-		Assert.assertFalse("info ".matches(new ConsoleInfo().getPattern()));
-		Assert.assertTrue(new ConsoleInfo().getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ConsoleInfo().getPattern()));
+		Assert.assertTrue("info TEAM/PLAYER".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("info TEAM/PLAYER ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("info".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("info ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeConsoleInfoExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info protocos".split(" ")));
 		//ASSERT
@@ -47,8 +47,8 @@ public class ConsoleInfoTest
 				"\nTeam Joining - Closed" +
 				"\nTeam Headquarters - X:170 Y:65 Z:209" +
 				"\nTeammates online:" +
-				"\n    kmlanglois Health: 100% Location: 0 64 0 in \"world\"" +
-				"\n    protocos Health: 100% Location: 0 64 0 in \"world\"",
+				"\n    protocos Health: 100% Location: 0 64 0 in \"world\"" +
+				"\n    kmlanglois Health: 100% Location: 0 64 0 in \"world\"",
 				fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -57,7 +57,6 @@ public class ConsoleInfoTest
 	public void ShouldBeConsoleInfoExecute2()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info two".split(" ")));
 		//ASSERT
@@ -75,7 +74,6 @@ public class ConsoleInfoTest
 	public void ShouldBeConsoleInfoExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info Lonely".split(" ")));
 		//ASSERT
@@ -87,7 +85,6 @@ public class ConsoleInfoTest
 	public void ShouldBeConsoleInfoExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleInfo();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info truck".split(" ")));
 		//ASSERT
