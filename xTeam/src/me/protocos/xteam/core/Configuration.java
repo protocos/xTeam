@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.util.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.collections.HashList;
-import me.protocos.xteam.model.Team;
+import me.protocos.xteam.entity.Team;
+import me.protocos.xteam.model.ConfigurationOption;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.FileReader;
 import org.bukkit.permissions.Permission;
@@ -46,8 +47,7 @@ public class Configuration
 	public static List<String> DEFAULT_TEAM_NAMES = new ArrayList<String>();
 	public static List<String> DISABLED_WORLDS = new ArrayList<String>();
 
-	private HashList<String, String> descriptions;
-	private HashList<String, Object> values;
+	private HashList<String, ConfigurationOption<?>> options;
 	private FileReader fileReader;
 	private FileWriter fileWriter;
 
@@ -62,59 +62,33 @@ public class Configuration
 		{
 			e.printStackTrace();
 		}
-		descriptions = CommonUtil.emptyHashList();
-		values = CommonUtil.emptyHashList();
+		options = CommonUtil.emptyHashList();
 	}
 
-	public void addAttribute(String name, Object defaultValue, String description)
+	public <T> void addAttribute(String name, T defaultValue, String description)
 	{
-		descriptions.put(name, description);
-		Object value = parse(name, defaultValue);
-		values.put(name, value);
+		T value = parse(name, defaultValue);
+		ConfigurationOption<T> option = new ConfigurationOption<T>(name, defaultValue, description, value);
+		options.put(option.getKey(), option);
 	}
 
-	private Object parse(String name, Object defaultValue)
+	private <T> T parse(String name, T defaultValue)
 	{
-		Object object = null;
-		if (defaultValue instanceof Double)
-			object = fileReader.getDouble(name, CommonUtil.assignFromType(defaultValue, Double.class));
-		if (defaultValue instanceof Boolean)
-			object = fileReader.getBoolean(name, CommonUtil.assignFromType(defaultValue, Boolean.class));
-		if (defaultValue instanceof Integer)
-			object = fileReader.getInteger(name, CommonUtil.assignFromType(defaultValue, Integer.class));
-		if (defaultValue instanceof String)
-			object = fileReader.getString(name, CommonUtil.assignFromType(defaultValue, String.class));
-		return object;
-	}
-
-	private String getFormattedAttribute(String name)
-	{
-		return new StringBuilder().append(name).append(" = ").append(values.get(name)).toString();
-	}
-
-	private String getFormattedComment(String name)
-	{
-		return new StringBuilder().append("# ").append(name).append(" - ").append(descriptions.get(name)).append(" (default = ").append(values.get(name)).append(")").toString();
+		return fileReader.get(name, defaultValue);
 	}
 
 	public void removeAttribute(String name)
 	{
-		descriptions.remove(name);
-		values.remove(name);
+		options.remove(name);
 	}
 
 	private String getLineBreak()
 	{
 		String max = "";
-		for (String name : values.getOrder())
+		for (ConfigurationOption<?> option : options)
 		{
-			if (this.getFormattedComment(name).length() > max.length())
-				max = this.getFormattedComment(name);
-		}
-		for (String name : descriptions.getOrder())
-		{
-			if (this.getFormattedComment(name).length() > max.length())
-				max = this.getFormattedComment(name);
+			if (option.length() > max.length())
+				max = option.getComment();
 		}
 		List<Permission> perms = xTeam.getInstance().getPermissions();
 		for (Permission perm : perms)
@@ -132,33 +106,33 @@ public class Configuration
 
 	public void reload()
 	{
-		CAN_CHAT = CommonUtil.assignFromType(values.get("canteamchat"), Boolean.class);
-		HQ_ON_DEATH = CommonUtil.assignFromType(values.get("hqondeath"), Boolean.class);
-		TEAM_WOLVES = CommonUtil.assignFromType(values.get("teamwolves"), Boolean.class);
-		RANDOM_TEAM = CommonUtil.assignFromType(values.get("randomjointeam"), Boolean.class);
-		BALANCE_TEAMS = CommonUtil.assignFromType(values.get("balanceteams"), Boolean.class);
-		DEFAULT_TEAM_ONLY = CommonUtil.assignFromType(values.get("onlyjoindefaultteam"), Boolean.class);
-		DEFAULT_HQ_ON_JOIN = CommonUtil.assignFromType(values.get("defaulthqonjoin"), Boolean.class);
-		TEAM_TAG_ENABLED = CommonUtil.assignFromType(values.get("teamtagenabled"), Boolean.class);
-		TEAM_FRIENDLY_FIRE = CommonUtil.assignFromType(values.get("teamfriendlyfire"), Boolean.class);
-		NO_PERMISSIONS = CommonUtil.assignFromType(values.get("nopermissions"), Boolean.class);
-		ALPHA_NUM = CommonUtil.assignFromType(values.get("alphanumericnames"), Boolean.class);
-		DISPLAY_COORDINATES = CommonUtil.assignFromType(values.get("displaycoordinates"), Boolean.class);
-		SEND_ANONYMOUS_ERROR_REPORTS = CommonUtil.assignFromType(values.get("anonymouserrorreporting"), Boolean.class);
-		MAX_PLAYERS = CommonUtil.assignFromType(values.get("playersonteam"), Integer.class);
-		HQ_INTERVAL = CommonUtil.assignFromType(values.get("sethqinterval"), Integer.class);
-		TELE_RADIUS = CommonUtil.assignFromType(values.get("teleportradius"), Integer.class);
-		ENEMY_PROX = CommonUtil.assignFromType(values.get("enemyproximity"), Integer.class);
-		TELE_DELAY = CommonUtil.assignFromType(values.get("teledelay"), Integer.class);
-		CREATE_INTERVAL = CommonUtil.assignFromType(values.get("createteamdelay"), Integer.class);
-		LAST_ATTACKED_DELAY = CommonUtil.assignFromType(values.get("lastattackeddelay"), Integer.class);
-		TEAM_TAG_LENGTH = CommonUtil.assignFromType(values.get("teamtagmaxlength"), Integer.class);
-		TELE_REFRESH_DELAY = CommonUtil.assignFromType(values.get("telerefreshdelay"), Integer.class);
-		RALLY_DELAY = CommonUtil.assignFromType(values.get("rallydelay"), Integer.class);
-		COLOR_TAG = CommonUtil.assignFromType(values.get("tagcolor"), String.class);
-		COLOR_NAME = CommonUtil.assignFromType(values.get("chatnamecolor"), String.class);
-		DEFAULT_TEAM_NAMES = CommonUtil.toList(CommonUtil.assignFromType(values.get("defaultteams"), String.class).replace(" ", "").split(","));
-		DISABLED_WORLDS = CommonUtil.toList(CommonUtil.assignFromType(values.get("disabledworlds"), String.class).replace(" ", "").split(","));
+		CAN_CHAT = CommonUtil.assignFromType(options.get("canteamchat").getValue(), Boolean.class);
+		HQ_ON_DEATH = CommonUtil.assignFromType(options.get("hqondeath").getValue(), Boolean.class);
+		TEAM_WOLVES = CommonUtil.assignFromType(options.get("teamwolves").getValue(), Boolean.class);
+		RANDOM_TEAM = CommonUtil.assignFromType(options.get("randomjointeam").getValue(), Boolean.class);
+		BALANCE_TEAMS = CommonUtil.assignFromType(options.get("balanceteams").getValue(), Boolean.class);
+		DEFAULT_TEAM_ONLY = CommonUtil.assignFromType(options.get("onlyjoindefaultteam").getValue(), Boolean.class);
+		DEFAULT_HQ_ON_JOIN = CommonUtil.assignFromType(options.get("defaulthqonjoin").getValue(), Boolean.class);
+		TEAM_TAG_ENABLED = CommonUtil.assignFromType(options.get("teamtagenabled").getValue(), Boolean.class);
+		TEAM_FRIENDLY_FIRE = CommonUtil.assignFromType(options.get("teamfriendlyfire").getValue(), Boolean.class);
+		NO_PERMISSIONS = CommonUtil.assignFromType(options.get("nopermissions").getValue(), Boolean.class);
+		ALPHA_NUM = CommonUtil.assignFromType(options.get("alphanumericnames").getValue(), Boolean.class);
+		DISPLAY_COORDINATES = CommonUtil.assignFromType(options.get("displaycoordinates").getValue(), Boolean.class);
+		SEND_ANONYMOUS_ERROR_REPORTS = CommonUtil.assignFromType(options.get("anonymouserrorreporting").getValue(), Boolean.class);
+		MAX_PLAYERS = CommonUtil.assignFromType(options.get("playersonteam").getValue(), Integer.class);
+		HQ_INTERVAL = CommonUtil.assignFromType(options.get("sethqinterval").getValue(), Integer.class);
+		TELE_RADIUS = CommonUtil.assignFromType(options.get("teleportradius").getValue(), Integer.class);
+		ENEMY_PROX = CommonUtil.assignFromType(options.get("enemyproximity").getValue(), Integer.class);
+		TELE_DELAY = CommonUtil.assignFromType(options.get("teledelay").getValue(), Integer.class);
+		CREATE_INTERVAL = CommonUtil.assignFromType(options.get("createteamdelay").getValue(), Integer.class);
+		LAST_ATTACKED_DELAY = CommonUtil.assignFromType(options.get("lastattackeddelay").getValue(), Integer.class);
+		TEAM_TAG_LENGTH = CommonUtil.assignFromType(options.get("teamtagmaxlength").getValue(), Integer.class);
+		TELE_REFRESH_DELAY = CommonUtil.assignFromType(options.get("telerefreshdelay").getValue(), Integer.class);
+		RALLY_DELAY = CommonUtil.assignFromType(options.get("rallydelay").getValue(), Integer.class);
+		COLOR_TAG = CommonUtil.assignFromType(options.get("tagcolor").getValue(), String.class);
+		COLOR_NAME = CommonUtil.assignFromType(options.get("chatnamecolor").getValue(), String.class);
+		DEFAULT_TEAM_NAMES = CommonUtil.toList(CommonUtil.assignFromType(options.get("defaultteams").getValue(), String.class).replace(" ", "").split(","));
+		DISABLED_WORLDS = CommonUtil.toList(CommonUtil.assignFromType(options.get("disabledworlds").getValue(), String.class).replace(" ", "").split(","));
 		this.ensureDefaultTeams();
 	}
 
@@ -197,16 +171,15 @@ public class Configuration
 				"# xTeam Preferences\n" +
 				"# \n" +
 				getLineBreak();
-		descriptions.sort();
-		for (String name : descriptions.getOrder())
+		options.sort();
+		for (ConfigurationOption<?> option : options)
 		{
-			output += this.getFormattedComment(name) + "\n";
+			output += option.getComment() + "\n";
 		}
 		output += getLineBreak();
-		values.sort();
-		for (String name : values.getOrder())
+		for (ConfigurationOption<?> option : options)
 		{
-			output += this.getFormattedAttribute(name) + "\n";
+			output += option.toString() + "\n";
 		}
 		output += getLineBreak() +
 				"# \n" +

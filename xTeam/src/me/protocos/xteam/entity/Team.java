@@ -1,4 +1,4 @@
-package me.protocos.xteam.model;
+package me.protocos.xteam.entity;
 
 import java.util.*;
 import me.protocos.xteam.xTeam;
@@ -9,8 +9,7 @@ import me.protocos.xteam.api.model.ILocatable;
 import me.protocos.xteam.api.model.ITeam;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.Configuration;
-import me.protocos.xteam.entity.OfflineTeamPlayer;
-import me.protocos.xteam.entity.TeamPlayer;
+import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.CommonUtil;

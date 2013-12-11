@@ -1,6 +1,7 @@
 package me.protocos.xteam.util;
 
 import java.io.*;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import me.protocos.xteam.xTeam;
 
@@ -17,103 +18,26 @@ public class FileReader
 		reload();
 	}
 
-	public boolean getBoolean(String key, boolean fallback)
+	@SuppressWarnings("unchecked")
+	public <T> T get(String key, T fallbackValue)
 	{
+		String configValue = this.keySet.get(key);
+		T returnValue = fallbackValue;
 		if (this.keySet.containsKey(key))
 		{
-			boolean ret;
+			if (fallbackValue instanceof String)
+				return (T) configValue;
 			try
 			{
-				ret = Boolean.parseBoolean(this.keySet.get(key));
+				Method method = fallbackValue.getClass().getMethod("valueOf", String.class);
+				returnValue = (T) method.invoke(fallbackValue, configValue);
 			}
 			catch (Exception e)
 			{
-				ret = fallback;
+				e.printStackTrace();
 			}
-			return ret;
 		}
-		return fallback;
-	}
-
-	public double getDouble(String key, double fallback)
-	{
-		if (this.keySet.containsKey(key))
-		{
-			double ret;
-			try
-			{
-				ret = Double.parseDouble(this.keySet.get(key));
-			}
-			catch (Exception e)
-			{
-				ret = fallback;
-			}
-			return ret;
-		}
-		return fallback;
-	}
-
-	public float getFloat(String key, float fallback)
-	{
-		if (this.keySet.containsKey(key))
-		{
-			float ret;
-			try
-			{
-				ret = Float.parseFloat(this.keySet.get(key));
-			}
-			catch (Exception e)
-			{
-				ret = fallback;
-			}
-			return ret;
-		}
-		return fallback;
-	}
-
-	public int getInteger(String key, int fallback)
-	{
-		if (this.keySet.containsKey(key))
-		{
-			int ret;
-			try
-			{
-				ret = Integer.parseInt(this.keySet.get(key));
-			}
-			catch (Exception e)
-			{
-				ret = fallback;
-			}
-			return ret;
-		}
-		return fallback;
-	}
-
-	public long getLong(String key, long fallback)
-	{
-		if (this.keySet.containsKey(key))
-		{
-			long ret;
-			try
-			{
-				ret = Long.parseLong(this.keySet.get(key));
-			}
-			catch (Exception e)
-			{
-				ret = fallback;
-			}
-			return ret;
-		}
-		return fallback;
-	}
-
-	public String getString(String key, String fallback)
-	{
-		if (this.keySet.containsKey(key))
-		{
-			return this.keySet.get(key);
-		}
-		return fallback;
+		return returnValue;
 	}
 
 	private boolean load()

@@ -1,4 +1,4 @@
-package me.protocos.xteam.core;
+package me.protocos.xteam.model;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.api.fakeobjects.FakeWorld;
@@ -18,21 +18,6 @@ public class TeamHeadquartersTest
 		//MOCK data
 		mockData();
 	}
-
-	//	@Test
-	//	public void ShouldBeTeamHeadquartersDefault()
-	//	{
-	//		//ASSEMBLE
-	//		hq = new Headquarters();
-	//		//ACT
-	//		//ASSERT
-	//		Assert.assertEquals("world", hq.getWorld().getName());
-	//		Assert.assertEquals(0.0D, hq.getLocation().getX(), 0);
-	//		Assert.assertEquals(0.0D, hq.getLocation().getY(), 0);
-	//		Assert.assertEquals(0.0D, hq.getLocation().getZ(), 0);
-	//		Assert.assertEquals(0.0F, hq.getLocation().getYaw(), 0);
-	//		Assert.assertEquals(0.0F, hq.getLocation().getPitch(), 0);
-	//	}
 
 	@Test
 	public void ShouldBeTeamHeadquartersExists()

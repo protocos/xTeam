@@ -30,68 +30,13 @@ public class CommandManager implements ICommandManager
 	public BaseCommand match(CommandContainer commandContainer)
 	{
 		for (BaseCommand command : commands)
-			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(commandContainer.getCommandWithoutID()) && commandContainer.sentFromConsole() && command instanceof ConsoleCommand)
+			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(commandContainer.getCommandWithoutID()) && commandContainer.sentFromConsole())
 				return command;
-			else if (new PatternBuilder(command.getPattern()).ignoreCase().matches(commandContainer.getCommandWithoutID()) && commandContainer.sentFromPlayer() && command instanceof PlayerCommand)
+			else if (new PatternBuilder(command.getPattern()).ignoreCase().matches(commandContainer.getCommandWithoutID()) && commandContainer.sentFromPlayer())
 				return command;
 		return null;
 	}
 
-	//	@Override
-	//	public List<String> getAvailableConsoleCommands(CommandSender sender)
-	//	{
-	//		List<String> availableCommands = CommonUtil.emptyList();
-	//		for (ConsoleCommand command : CommonUtil.subListOfType(commands.asList(), ConsoleCommand.class))
-	//		{
-	//			if (sender instanceof ConsoleCommandSender)
-	//			{
-	//				availableCommands.add(ChatColorUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
-	//			}
-	//		}
-	//		return availableCommands;
-	//	}
-	//
-	//	@Override
-	//	public List<String> getAvailableAdminCommandsFor(TeamPlayer teamPlayer)
-	//	{
-	//		List<String> availableCommands = CommonUtil.emptyList();
-	//		for (ServerAdminCommand command : CommonUtil.subListOfType(commands.asList(), ServerAdminCommand.class))
-	//		{
-	//			if (teamPlayer.hasPermission(command))
-	//			{
-	//				availableCommands.add(ChatColorUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
-	//			}
-	//		}
-	//		return availableCommands;
-	//	}
-	//
-	//	@Override
-	//	public List<String> getAvailableCommandsFor(TeamPlayer teamPlayer)
-	//	{
-	//		List<String> availableCommands = CommonUtil.emptyList();
-	//		for (TeamUserCommand command : CommonUtil.subListOfType(commands.asList(), TeamUserCommand.class))
-	//		{
-	//			if (teamPlayer.hasPermission(command))
-	//			{
-	//				availableCommands.add(ChatColorUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
-	//			}
-	//		}
-	//		for (TeamAdminCommand command : CommonUtil.subListOfType(commands.asList(), TeamAdminCommand.class))
-	//		{
-	//			if (teamPlayer.hasPermission(command))
-	//			{
-	//				availableCommands.add(ChatColorUtil.formatForAdmin(command.getUsage() + " - " + command.getDescription()));
-	//			}
-	//		}
-	//		for (TeamLeaderCommand command : CommonUtil.subListOfType(commands.asList(), TeamLeaderCommand.class))
-	//		{
-	//			if (teamPlayer.hasPermission(command))
-	//			{
-	//				availableCommands.add(ChatColorUtil.formatForLeader(command.getUsage() + " - " + command.getDescription()));
-	//			}
-	//		}
-	//		return availableCommands;
-	//	}
 	@Override
 	public List<String> getAvailableCommandsFor(CommandSender sender)
 	{
@@ -118,14 +63,14 @@ public class CommandManager implements ICommandManager
 			}
 			for (TeamAdminCommand command : CommonUtil.subListOfType(commands.asList(), TeamAdminCommand.class))
 			{
-				if (teamPlayer.hasPermission(command))
+				if (teamPlayer.hasPermission(command) && teamPlayer.isAdmin())
 				{
 					availableCommands.add(ChatColorUtil.formatForAdmin(command.getUsage() + " - " + command.getDescription()));
 				}
 			}
 			for (TeamLeaderCommand command : CommonUtil.subListOfType(commands.asList(), TeamLeaderCommand.class))
 			{
-				if (teamPlayer.hasPermission(command))
+				if (teamPlayer.hasPermission(command) && teamPlayer.isLeader())
 				{
 					availableCommands.add(ChatColorUtil.formatForLeader(command.getUsage() + " - " + command.getDescription()));
 				}

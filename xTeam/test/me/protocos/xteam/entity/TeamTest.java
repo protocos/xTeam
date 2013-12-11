@@ -1,10 +1,10 @@
-package me.protocos.xteam.core;
+package me.protocos.xteam.entity;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.api.fakeobjects.FakeWorld;
 import me.protocos.xteam.api.model.ITeam;
+import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.model.Headquarters;
-import me.protocos.xteam.model.Team;
 import org.bukkit.World;
 import org.junit.After;
 import org.junit.Assert;

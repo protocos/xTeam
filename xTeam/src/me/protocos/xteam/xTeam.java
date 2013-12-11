@@ -16,9 +16,9 @@ import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.TeamManager;
+import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.Log;
-import me.protocos.xteam.model.Team;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.StringUtil;
@@ -132,6 +132,7 @@ public final class xTeam
 		this.configLoader.addAttribute("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
 		this.configLoader.addAttribute("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
 		this.configLoader.addAttribute("rallydelay", 2, "Delay in minutes that a team rally stays active");
+		this.configLoader.addAttribute("newparam", 1, "Delay in minutes that a team rally stays active");
 		this.configLoader.write();
 		this.configLoader.load();
 	}
