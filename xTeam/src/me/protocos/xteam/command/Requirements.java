@@ -7,7 +7,7 @@ import me.protocos.xteam.api.model.ITeam;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.command.teamuser.TeamUserReturn;
-import me.protocos.xteam.core.*;
+import me.protocos.xteam.core.Configuration;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.*;
 import me.protocos.xteam.util.*;
@@ -383,6 +383,14 @@ public class Requirements
 		if (!other.isOnline())
 		{
 			throw new TeamPlayerOfflineException();
+		}
+	}
+
+	public static void checkPlayerWorldDisabled(TeamPlayer teamPlayer) throws TeamPlayerDisabledWorldException
+	{
+		if (Configuration.DISABLED_WORLDS.contains(teamPlayer.getWorld().getName()))
+		{
+			throw new TeamPlayerDisabledWorldException();
 		}
 	}
 }

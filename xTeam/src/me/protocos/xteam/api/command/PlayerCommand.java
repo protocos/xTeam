@@ -20,6 +20,7 @@ public abstract class PlayerCommand extends BaseCommand implements IPermissible
 		Player player = CommonUtil.assignFromType(commandContainer.getSender(), Player.class);
 		teamPlayer = xTeam.getInstance().getPlayerManager().getPlayer(player);
 		team = teamPlayer.getTeam();
+		Requirements.checkPlayerWorldDisabled(teamPlayer);
 		Requirements.checkPlayerHasPermission(commandContainer.getSender(), this);
 		Requirements.checkPlayerCommandIsValid(commandContainer.getCommandWithoutID(), this.getPattern());
 	}

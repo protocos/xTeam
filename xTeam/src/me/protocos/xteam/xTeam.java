@@ -90,10 +90,13 @@ public final class xTeam
 		{
 			this.version = plugin.getVersion();
 			this.logger = new Log(plugin.getFolder() + "/xTeam.log", plugin);
-			this.permissions = CommonUtil.emptyList();
+			this.permissions = new ArrayList<Permission>(plugin.getPermissions());
 			this.initFileSystem(plugin);
 		}
-		this.permissions.addAll(plugin.getPermissions());
+		else
+		{
+			this.permissions.addAll(plugin.getPermissions());
+		}
 		this.commandManager.register(plugin);
 	}
 

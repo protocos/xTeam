@@ -14,7 +14,6 @@ import me.protocos.xteam.command.teamuser.*;
 import me.protocos.xteam.listener.TeamChatListener;
 import me.protocos.xteam.listener.TeamPlayerListener;
 import me.protocos.xteam.listener.TeamPvPEntityListener;
-import me.protocos.xteam.listener.TeamScoreListener;
 import me.protocos.xteam.util.BukkitUtil;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.PluginManager;
@@ -42,7 +41,6 @@ public class xTeamPlugin extends TeamPlugin
 			PluginManager pm = BukkitUtil.getPluginManager();
 			pm.registerEvents(new TeamPvPEntityListener(), this);
 			pm.registerEvents(new TeamPlayerListener(), this);
-			pm.registerEvents(new TeamScoreListener(), this);
 			pm.registerEvents(new TeamChatListener(), this);
 			this.commandExecutor = new CommandDelegate(this.getCommandManager());
 			xteam.readTeamData(new File(this.getDataFolder().getAbsolutePath() + "/teams.txt"));

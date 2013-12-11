@@ -23,20 +23,6 @@ public class TeamPvPEntityListener implements Listener
 		{
 			ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(defender.getName());
 			player.setLastAttacked(System.currentTimeMillis());
-			//			if (Configuration.SPOUT_ENABLED && Configuration.REVEAL_TIME > 0L)
-			//				if (Configuration.SPOUT_ENABLED && Configuration.REVEAL_TIME > 0L)
-			//				{
-			//					SpoutManager.getPlayer(attacker.getOnlinePlayer()).resetTitleFor(SpoutManager.getPlayer(defender.getOnlinePlayer()));
-			//					SpoutManager.getPlayer(defender.getOnlinePlayer()).resetTitleFor(SpoutManager.getPlayer(attacker.getOnlinePlayer()));
-			//					BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getPluginManager().getPlugin("xTeam"), new Runnable()
-			//					{
-			//						@Override
-			//						public void run()
-			//						{
-			//							Functions.updatePlayers();
-			//						}
-			//					}, Configuration.REVEAL_TIME * 20L);
-			//				}
 		}
 	}
 
