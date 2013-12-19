@@ -2,15 +2,19 @@ package me.protocos.xteam.command;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.IPermissible;
+import me.protocos.xteam.api.entity.ITeam;
 import me.protocos.xteam.api.entity.ITeamPlayer;
-import me.protocos.xteam.api.model.ITeam;
+import me.protocos.xteam.api.model.HelpPages;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.command.teamuser.TeamUserReturn;
-import me.protocos.xteam.core.Configuration;
+import me.protocos.xteam.configuration.Configuration;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.*;
-import me.protocos.xteam.util.*;
+import me.protocos.xteam.util.CommonUtil;
+import me.protocos.xteam.util.PatternBuilder;
+import me.protocos.xteam.util.PermissionUtil;
+import me.protocos.xteam.util.StringUtil;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 

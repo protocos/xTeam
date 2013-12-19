@@ -1,8 +1,8 @@
 package me.protocos.xteam.api.core;
 
 import me.protocos.xteam.api.collections.HashList;
-import me.protocos.xteam.api.model.ITeam;
-import me.protocos.xteam.api.model.ITeamEvent;
+import me.protocos.xteam.api.entity.ITeam;
+import me.protocos.xteam.api.event.ITeamEvent;
 import me.protocos.xteam.api.model.ITeamListener;
 
 public interface ITeamManager

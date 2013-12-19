@@ -1,7 +1,6 @@
 package me.protocos.xteam.api.entity;
 
 import java.util.List;
-import me.protocos.xteam.api.model.ITeam;
 import me.protocos.xteam.entity.OfflineTeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
 

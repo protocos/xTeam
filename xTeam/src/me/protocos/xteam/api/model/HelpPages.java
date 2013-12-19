@@ -1,6 +1,7 @@
-package me.protocos.xteam.util;
+package me.protocos.xteam.api.model;
 
 import java.util.List;
+import me.protocos.xteam.util.CommonUtil;
 
 public class HelpPages
 {

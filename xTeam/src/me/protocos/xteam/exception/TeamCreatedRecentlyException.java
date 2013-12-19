@@ -1,6 +1,6 @@
 package me.protocos.xteam.exception;
 
-import me.protocos.xteam.core.Configuration;
+import me.protocos.xteam.configuration.Configuration;
 
 
 public class TeamCreatedRecentlyException extends TeamException

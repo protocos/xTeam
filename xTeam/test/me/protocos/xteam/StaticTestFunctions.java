@@ -5,7 +5,7 @@ import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.fakeobjects.*;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.core.Configuration;
+import me.protocos.xteam.configuration.Configuration;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.util.BukkitUtil;
 import org.bukkit.Location;

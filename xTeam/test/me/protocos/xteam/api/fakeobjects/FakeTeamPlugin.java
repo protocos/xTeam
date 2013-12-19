@@ -4,7 +4,7 @@ import java.util.List;
 import me.protocos.xteam.xTeamPlugin;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.command.ICommandManager;
-import me.protocos.xteam.api.util.ILog;
+import me.protocos.xteam.api.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.permissions.Permission;
 

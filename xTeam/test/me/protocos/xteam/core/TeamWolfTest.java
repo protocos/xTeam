@@ -2,8 +2,8 @@ package me.protocos.xteam.core;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.entity.ITeam;
 import me.protocos.xteam.api.fakeobjects.*;
-import me.protocos.xteam.api.model.ITeam;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.entity.TeamWolf;
 import org.bukkit.Location;

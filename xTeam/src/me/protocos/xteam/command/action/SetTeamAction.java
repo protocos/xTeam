@@ -1,10 +1,10 @@
 package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.entity.ITeam;
 import me.protocos.xteam.api.entity.ITeamPlayer;
-import me.protocos.xteam.api.model.ITeam;
 import me.protocos.xteam.command.Requirements;
-import me.protocos.xteam.core.Configuration;
+import me.protocos.xteam.configuration.Configuration;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;

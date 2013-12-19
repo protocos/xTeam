@@ -14,11 +14,6 @@ public class Headquarters implements ILocatable
 {
 	private Location location;
 
-	//	public Headquarters()
-	//	{
-	//		this(BukkitUtil.getWorld("world"), CommonUtil.DOUBLE_ZERO, CommonUtil.DOUBLE_ZERO, CommonUtil.DOUBLE_ZERO, CommonUtil.FLOAT_ZERO, CommonUtil.FLOAT_ZERO);
-	//	}
-
 	public Headquarters(Location location)
 	{
 		this.location = location;

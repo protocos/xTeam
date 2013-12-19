@@ -1,7 +1,7 @@
 package me.protocos.xteam.util;
 
 import me.protocos.xteam.api.command.IPermissible;
-import me.protocos.xteam.core.Configuration;
+import me.protocos.xteam.configuration.Configuration;
 import org.bukkit.command.CommandSender;
 
 public class PermissionUtil

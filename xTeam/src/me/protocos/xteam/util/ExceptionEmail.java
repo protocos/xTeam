@@ -8,7 +8,6 @@ public class ExceptionEmail
 
 	private ExceptionEmail()
 	{
-
 	}
 
 	public Exception getException()

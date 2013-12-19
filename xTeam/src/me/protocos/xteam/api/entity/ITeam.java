@@ -1,7 +1,7 @@
-package me.protocos.xteam.api.model;
+package me.protocos.xteam.api.entity;
 
 import java.util.Set;
-import me.protocos.xteam.api.entity.ITeamEntity;
+import me.protocos.xteam.api.model.ILocatable;
 import me.protocos.xteam.model.Headquarters;
 import org.bukkit.Location;
 

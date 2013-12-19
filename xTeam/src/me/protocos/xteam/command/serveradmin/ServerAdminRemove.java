@@ -2,8 +2,8 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ServerAdminCommand;
+import me.protocos.xteam.api.entity.ITeam;
 import me.protocos.xteam.api.entity.ITeamPlayer;
-import me.protocos.xteam.api.model.ITeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.exception.TeamException;

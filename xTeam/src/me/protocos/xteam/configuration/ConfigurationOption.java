@@ -1,4 +1,4 @@
-package me.protocos.xteam.model;
+package me.protocos.xteam.configuration;
 
 public class ConfigurationOption<T>
 {

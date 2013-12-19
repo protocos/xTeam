@@ -1,4 +1,4 @@
-package me.protocos.xteam.core;
+package me.protocos.xteam.configuration;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,9 +7,7 @@ import java.util.*;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.entity.Team;
-import me.protocos.xteam.model.ConfigurationOption;
 import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.FileReader;
 import org.bukkit.permissions.Permission;
 
 public class Configuration

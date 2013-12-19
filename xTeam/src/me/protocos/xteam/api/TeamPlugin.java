@@ -6,7 +6,7 @@ import me.protocos.xteam.api.command.ICommandContainer;
 import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.api.core.IPlayerManager;
 import me.protocos.xteam.api.core.ITeamManager;
-import me.protocos.xteam.api.util.ILog;
+import me.protocos.xteam.api.model.ILog;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 

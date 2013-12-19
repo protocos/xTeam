@@ -8,7 +8,7 @@ import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.action.InviteHandler;
-import me.protocos.xteam.core.Configuration;
+import me.protocos.xteam.configuration.Configuration;
 import me.protocos.xteam.exception.TeamHqSetRecentlyException;
 import me.protocos.xteam.exception.TeamPlayerDyingException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;

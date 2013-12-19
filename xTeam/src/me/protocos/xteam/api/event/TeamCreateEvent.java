@@ -1,7 +1,6 @@
-package me.protocos.xteam.model;
+package me.protocos.xteam.api.event;
 
-import me.protocos.xteam.api.model.ITeam;
-import me.protocos.xteam.api.model.ITeamEvent;
+import me.protocos.xteam.api.entity.ITeam;
 
 public class TeamCreateEvent implements ITeamEvent
 {

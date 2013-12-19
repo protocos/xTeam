@@ -1,4 +1,4 @@
-package me.protocos.xteam.api.util;
+package me.protocos.xteam.api.model;
 
 public interface ILog
 {

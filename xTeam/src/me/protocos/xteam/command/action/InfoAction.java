@@ -1,8 +1,8 @@
 package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.entity.ITeam;
 import me.protocos.xteam.api.entity.ITeamPlayer;
-import me.protocos.xteam.api.model.ITeam;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;

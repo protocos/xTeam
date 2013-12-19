@@ -1,5 +1,6 @@
 package me.protocos.xteam.api.util;
 
+import me.protocos.xteam.api.model.Label;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

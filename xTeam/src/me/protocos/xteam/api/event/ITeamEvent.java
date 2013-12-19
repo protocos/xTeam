@@ -1,4 +1,6 @@
-package me.protocos.xteam.api.model;
+package me.protocos.xteam.api.event;
+
+import me.protocos.xteam.api.entity.ITeam;
 
 public interface ITeamEvent
 {

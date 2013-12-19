@@ -1,4 +1,4 @@
-package me.protocos.xteam.api.model;
+package me.protocos.xteam.api.event;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,8 +1,8 @@
 package me.protocos.xteam.entity;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
+import me.protocos.xteam.api.entity.ITeam;
 import me.protocos.xteam.api.fakeobjects.FakeWorld;
-import me.protocos.xteam.api.model.ITeam;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.model.Headquarters;
 import org.bukkit.World;

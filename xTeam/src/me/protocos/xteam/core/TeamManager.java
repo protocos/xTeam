@@ -4,10 +4,9 @@ import java.lang.reflect.Method;
 import java.util.List;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.core.ITeamManager;
-import me.protocos.xteam.api.model.*;
-import me.protocos.xteam.model.TeamCreateEvent;
-import me.protocos.xteam.model.TeamDisbandEvent;
-import me.protocos.xteam.model.TeamRenameEvent;
+import me.protocos.xteam.api.entity.ITeam;
+import me.protocos.xteam.api.event.*;
+import me.protocos.xteam.api.model.ITeamListener;
 import me.protocos.xteam.util.CommonUtil;
 
 public class TeamManager implements ITeamManager
