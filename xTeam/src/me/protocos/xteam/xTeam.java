@@ -112,7 +112,7 @@ public final class xTeam
 		this.configLoader.addAttribute("hqondeath", true, "When a player dies, they are teleported to their headquarters when they respawn");
 		this.configLoader.addAttribute("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
 		this.configLoader.addAttribute("teledelay", 10, "Delay in seconds for teleporting when enemies are near");
-		this.configLoader.addAttribute("telerefreshdelay", 60, "Delay in seconds for when you can use team teleporting. Does not include /team return");
+		this.configLoader.addAttribute("telerefreshdelay", 0, "Delay in seconds for when you can use team teleporting. Does not include /team return");
 		this.configLoader.addAttribute("createteamdelay", 20, "Delay in minutes for creating teams");
 		this.configLoader.addAttribute("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
 		this.configLoader.addAttribute("defaultteams", "", "Default list of teams for the server separated by commas  (e.g. defaultteams=red,green,blue,yellow)");

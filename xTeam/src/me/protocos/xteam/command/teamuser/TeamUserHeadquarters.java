@@ -24,10 +24,8 @@ public class TeamUserHeadquarters extends TeamUserCommand
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		Requirements.checkPlayerHasTeam(teamPlayer);
-		Requirements.checkTeamHasHeadquarters(team);
-		Requirements.checkPlayerNotDamaged(teamPlayer);
 		Requirements.checkPlayerCanTeleport(teamPlayer);
+		Requirements.checkTeamHasHeadquarters(team);
 		Requirements.checkPlayerTeleportRequested(teamPlayer);
 	}
 

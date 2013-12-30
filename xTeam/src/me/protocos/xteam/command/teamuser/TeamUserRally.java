@@ -28,9 +28,9 @@ public class TeamUserRally extends TeamUserCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		Requirements.checkPlayerHasTeam(teamPlayer);
+		Requirements.checkPlayerNotDamaged(teamPlayer);
 		Requirements.checkTeamHasRally(team);
 		Requirements.checkPlayerCanRally(teamPlayer);
-		Requirements.checkPlayerNotDamaged(teamPlayer);
 		Requirements.checkPlayerLastAttacked(teamPlayer);
 		Requirements.checkPlayerTeleportRequested(teamPlayer);
 	}

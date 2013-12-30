@@ -7,7 +7,6 @@ import me.protocos.xteam.api.entity.ITeamPlayer;
 import me.protocos.xteam.api.model.HelpPages;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.command.teamuser.TeamUserReturn;
 import me.protocos.xteam.configuration.Configuration;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.*;
@@ -266,8 +265,10 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerCanTeleport(TeamPlayer teamPlayer) throws TeamPlayerTeleException
+	public static void checkPlayerCanTeleport(TeamPlayer teamPlayer) throws TeamPlayerTeleException, TeamPlayerHasNoTeamException, TeamPlayerDyingException
 	{
+		checkPlayerHasTeam(teamPlayer);
+		checkPlayerNotDamaged(teamPlayer);
 		checkPlayerLastTeleported(teamPlayer);
 		checkPlayerLastAttacked(teamPlayer);
 	}
@@ -278,8 +279,8 @@ public class Requirements
 		if (timeSinceLastTeleport < Configuration.TELE_REFRESH_DELAY)
 		{
 			String error = "Player cannot teleport within " + Configuration.TELE_REFRESH_DELAY + " seconds of last teleport\nPlayer must wait " + (Configuration.TELE_REFRESH_DELAY - timeSinceLastTeleport) + " more seconds";
-			if (teamPlayer.hasReturnLocation() && (teamPlayer.hasPermission(new TeamUserReturn()) || Configuration.NO_PERMISSIONS))
-				error += "\n/team return is still available";
+			//			if (teamPlayer.hasReturnLocation() && (teamPlayer.hasPermission(new TeamUserReturn()) || Configuration.NO_PERMISSIONS))
+			//				error += "\n/team return is still available";
 			throw new TeamPlayerTeleException(error);
 		}
 	}

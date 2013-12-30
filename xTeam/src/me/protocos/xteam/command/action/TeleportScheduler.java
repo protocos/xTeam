@@ -84,26 +84,12 @@ public class TeleportScheduler
 		return teleporter;
 	}
 
-	public void teleport(TeamPlayer fromPlayer, TeamPlayer toPlayer)
-	{
-		if (fromPlayer.isVulnerable() && toPlayer.isOnline())
-		{
-			if (hasNearbyEnemies(fromPlayer))
-				delayTeleportTo(fromPlayer, toPlayer);
-			else
-				teleportTo(fromPlayer, toPlayer);
-		}
-	}
-
 	public void teleport(TeamPlayer teamPlayer, ILocatable toLocation)
 	{
-		if (teamPlayer.isVulnerable())
-		{
-			if (hasNearbyEnemies(teamPlayer))
-				delayTeleportTo(teamPlayer, toLocation);
-			else
-				teleportTo(teamPlayer, toLocation);
-		}
+		if (hasNearbyEnemies(teamPlayer))
+			delayTeleportTo(teamPlayer, toLocation);
+		else
+			teleportTo(teamPlayer, toLocation);
 	}
 
 	private void delayTeleportTo(final TeamPlayer teamPlayer, final ILocatable toLocatable)
@@ -126,7 +112,6 @@ public class TeleportScheduler
 		}
 		else
 		{
-			//reset the counter for teleport refresh
 			Runnable teleRefreshMessage = new TeleportRefreshMessage(teamPlayer);
 			taskScheduler.scheduleSyncDelayedTask(BukkitUtil.getxTeam(), teleRefreshMessage, Configuration.TELE_REFRESH_DELAY * BukkitUtil.ONE_SECOND_IN_TICKS);
 			teamPlayer.setLastTeleported(System.currentTimeMillis());

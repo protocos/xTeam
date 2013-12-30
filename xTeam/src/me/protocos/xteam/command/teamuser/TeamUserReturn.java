@@ -27,9 +27,8 @@ public class TeamUserReturn extends TeamUserCommand
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		Requirements.checkPlayerHasTeam(teamPlayer);
+		Requirements.checkPlayerCanTeleport(teamPlayer);
 		Requirements.checkPlayerHasReturnLocation(teamPlayer);
-		Requirements.checkPlayerNotDamaged(teamPlayer);
 		Requirements.checkPlayerLastAttacked(teamPlayer);
 		Requirements.checkPlayerTeleportRequested(teamPlayer);
 	}

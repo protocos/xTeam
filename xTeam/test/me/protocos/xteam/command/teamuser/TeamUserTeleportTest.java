@@ -175,7 +175,7 @@ public class TeamUserTeleportTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within 60 seconds of last teleport\nPlayer must wait 60 more seconds\n/team return is still available")).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within 60 seconds of last teleport\nPlayer must wait 60 more seconds")).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}

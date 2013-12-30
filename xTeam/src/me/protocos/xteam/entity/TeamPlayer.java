@@ -257,19 +257,6 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 			}
 		}
 		return player.teleport(location);
-		//		final int teleportTaskID = BukkitUtil.getScheduler().scheduleSyncRepeatingTask(BukkitUtil.getxTeam(), new Runnable()
-		//		{
-		//			@Override
-		//			public void run()
-		//			{
-		//				if (player.getWorld().getChunkAt(location).isLoaded())
-		//				{
-		//					player.teleport(location);
-		//					BukkitUtil.getScheduler().cancelTask(teleportTaskID);
-		//				}
-		//			}
-		//		}, CommonUtil.LONG_ZERO, 1L);
-		//		return true;
 	}
 
 	@Override
