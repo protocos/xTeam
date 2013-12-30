@@ -30,9 +30,9 @@ public class CommandManager implements ICommandManager
 	public BaseCommand match(CommandContainer commandContainer)
 	{
 		for (BaseCommand command : commands)
-			if (new PatternBuilder(command.getPattern()).ignoreCase().matches(commandContainer.getCommandWithoutID()) && commandContainer.sentFromConsole())
+			if (commandContainer.sentFromConsole() && command instanceof ConsoleCommand && new PatternBuilder(command.getPattern()).ignoreCase().matches(commandContainer.getCommandWithoutID()))
 				return command;
-			else if (new PatternBuilder(command.getPattern()).ignoreCase().matches(commandContainer.getCommandWithoutID()) && commandContainer.sentFromPlayer())
+			else if (commandContainer.sentFromPlayer() && command instanceof PlayerCommand && new PatternBuilder(command.getPattern()).ignoreCase().matches(commandContainer.getCommandWithoutID()))
 				return command;
 		return null;
 	}

@@ -3,6 +3,7 @@ package me.protocos.xteam.command.teamleader;
 import me.protocos.xteam.api.command.TeamLeaderCommand;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
+import me.protocos.xteam.configuration.Configuration;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
@@ -19,6 +20,7 @@ public class TeamLeaderSetRally extends TeamLeaderCommand
 	{
 		team.setRally(teamPlayer.getLocation());
 		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team rally point");
+		teamPlayer.sendMessageToTeam("Team rally point has been " + ChatColorUtil.positiveMessage("set") + " (expires in " + Configuration.RALLY_DELAY + " minutes)");
 	}
 
 	@Override

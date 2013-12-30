@@ -1434,6 +1434,7 @@ public class FakePlayer implements Player
 		setLocation(entity.getLocation());
 		return true;
 	}
+
 	@Override
 	public boolean teleport(Entity entity, TeleportCause arg1)
 	{
@@ -1630,6 +1631,13 @@ public class FakePlayer implements Player
 
 	@Override
 	public void setHealthScaled(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setResourcePack(String arg0)
 	{
 		// TODO Auto-generated method stub
 

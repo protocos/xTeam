@@ -1,5 +1,6 @@
 package me.protocos.xteam.api.fakeobjects;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
 import java.util.logging.Logger;
@@ -21,6 +22,7 @@ import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.messaging.Messenger;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.util.CachedServerIcon;
 import com.avaje.ebean.config.ServerConfig;
 
 public class FakeServer implements Server
@@ -662,6 +664,27 @@ public class FakeServer implements Server
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public CachedServerIcon getServerIcon()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CachedServerIcon loadServerIcon(File arg0) throws IllegalArgumentException, Exception
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CachedServerIcon loadServerIcon(BufferedImage arg0) throws IllegalArgumentException, Exception
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

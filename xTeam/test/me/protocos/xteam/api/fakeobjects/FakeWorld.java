@@ -180,8 +180,7 @@ public class FakeWorld implements World
 	@Override
 	public Chunk getChunkAt(Location arg0)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new FakeChunk();
 	}
 
 	@Override

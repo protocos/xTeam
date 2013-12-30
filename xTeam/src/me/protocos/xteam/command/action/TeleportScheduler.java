@@ -56,7 +56,7 @@ public class TeleportScheduler
 		return !rallyUsed.contains(teamPlayer.getName());
 	}
 
-	public void useRally(TeamPlayer teamPlayer)
+	public void setRallyUsedFor(TeamPlayer teamPlayer)
 	{
 		rallyUsed.add(teamPlayer.getName());
 	}
@@ -118,23 +118,26 @@ public class TeleportScheduler
 
 	private void teleportTo(final TeamPlayer teamPlayer, final ILocatable toLocatable)
 	{
-		if (toLocatable.getLocation().equals(teamPlayer.getReturnLocation()))
+		final Location toLocation = toLocatable.getLocation();
+		final Location rallyLocation = teamPlayer.getTeam().getRally();
+		if (toLocation.equals(rallyLocation))
 		{
-			teamPlayer.removeReturnLocation();
-		}
-		else if (toLocatable.getLocation().equals(teamPlayer.getTeam().getRally()))
-		{
-			useRally(teamPlayer);
+			setRallyUsedFor(teamPlayer);
 		}
 		else
 		{
-			teamPlayer.setReturnLocation(teamPlayer.getLocation());
+			//reset the counter for teleport refresh
 			Runnable teleRefreshMessage = new TeleportRefreshMessage(teamPlayer);
 			taskScheduler.scheduleSyncDelayedTask(BukkitUtil.getxTeam(), teleRefreshMessage, Configuration.TELE_REFRESH_DELAY * BukkitUtil.ONE_SECOND_IN_TICKS);
 			teamPlayer.setLastTeleported(System.currentTimeMillis());
 		}
-		teamPlayer.teleport(toLocatable.getLocation());
+		teamPlayer.teleport(toLocation);
 		teamPlayer.sendMessage("You've been " + ChatColorUtil.positiveMessage("teleported") + " to " + toLocatable.getName());
+		if (toLocatable instanceof TeamPlayer)
+		{
+			TeamPlayer toPlayer = CommonUtil.assignFromType(toLocatable, TeamPlayer.class);
+			toPlayer.sendMessage(teamPlayer.getName() + " has " + ChatColorUtil.positiveMessage("teleported") + " to you");
+		}
 	}
 
 	private boolean hasNearbyEnemies(TeamPlayer entity)

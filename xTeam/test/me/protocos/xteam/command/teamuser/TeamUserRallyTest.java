@@ -45,7 +45,8 @@ public class TeamUserRallyTest
 	public void ShouldBeTeamUserRallyExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
+		Location beforeLocation = new FakeLocation();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", beforeLocation);
 		Location rallyLocation = team.getHeadquarters().getLocation();
 		team.setRally(rallyLocation);
 		TeamUserCommand fakeCommand = new TeamUserRally();
@@ -54,6 +55,7 @@ public class TeamUserRallyTest
 		//ASSERT
 		Assert.assertEquals("You've been teleported to the rally point", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(rallyLocation, fakePlayerSender.getLocation());
+		Assert.assertEquals(xTeam.getInstance().getPlayerManager().getPlayer("protocos").getReturnLocation(), beforeLocation);
 		Assert.assertTrue(team.hasRally());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -145,7 +147,7 @@ public class TeamUserRallyTest
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
 		Location rallyLocation = team.getHeadquarters().getLocation();
 		team.setRally(rallyLocation);
-		TeleportScheduler.getInstance().useRally(teamPlayer);
+		TeleportScheduler.getInstance().setRallyUsedFor(teamPlayer);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		TeamUserCommand fakeCommand = new TeamUserRally();

@@ -12,10 +12,6 @@ import org.bukkit.command.ConsoleCommandSender;
 
 public class InfoAction
 {
-	public InfoAction()
-	{
-	}
-
 	public void actOn(CommandSender sender, String other)
 	{
 		ITeam infoTeam = xTeam.getInstance().getTeamManager().getTeam(other);

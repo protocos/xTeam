@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 public class BukkitUtil
 {
 	private static Server BUKKIT = Bukkit.getServer();
+	public static final double EYE_LEVEL_HEIGHT = 1.62;
 	public static final long ONE_SECOND_IN_TICKS = 20L;
 	public static final long ONE_MINUTE_IN_TICKS = 60 * 20L;
 

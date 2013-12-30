@@ -134,13 +134,9 @@ public class PlayerManager implements IPlayerManager
 	{
 		TeamPlayer returnPlayer = new TeamPlayer(player);
 		String playerName = player.getName();
-		Long lastAttacked = getLastAttacked(playerName);
-		returnPlayer.setLastAttacked(lastAttacked);
-		//TODO when you setLastAttacked(), it saves last attacked, last teleported, and last return location, which are null until they are set = catch 22
-		Long lastTeleported = getLastTeleported(playerName);
-		returnPlayer.setLastTeleported(lastTeleported);
-		Location returnLocation = getReturnLocation(playerName);
-		returnPlayer.setReturnLocation(returnLocation);
+		returnPlayer.setLastAttacked(this.getLastAttacked(playerName));
+		returnPlayer.setLastTeleported(this.getLastTeleported(playerName));
+		returnPlayer.setReturnLocation(this.getReturnLocation(playerName));
 		return returnPlayer;
 	}
 
@@ -148,9 +144,9 @@ public class PlayerManager implements IPlayerManager
 	{
 		OfflineTeamPlayer returnPlayer = new OfflineTeamPlayer(player);
 		String playerName = player.getName();
-		returnPlayer.setLastAttacked(getLastAttacked(playerName));
-		returnPlayer.setLastTeleported(getLastTeleported(playerName));
-		returnPlayer.setReturnLocation(getReturnLocation(playerName));
+		returnPlayer.setLastAttacked(this.getLastAttacked(playerName));
+		returnPlayer.setLastTeleported(this.getLastTeleported(playerName));
+		returnPlayer.setReturnLocation(this.getReturnLocation(playerName));
 		return returnPlayer;
 	}
 
@@ -163,9 +159,9 @@ public class PlayerManager implements IPlayerManager
 			returnPlayer = getPlayer(BukkitUtil.getOfflinePlayer(playerName));
 		if (returnPlayer != null)
 		{
-			returnPlayer.setLastAttacked(getLastAttacked(playerName));
-			returnPlayer.setLastTeleported(getLastTeleported(playerName));
-			returnPlayer.setReturnLocation(getReturnLocation(playerName));
+			returnPlayer.setLastAttacked(this.getLastAttacked(playerName));
+			returnPlayer.setLastTeleported(this.getLastTeleported(playerName));
+			returnPlayer.setReturnLocation(this.getReturnLocation(playerName));
 		}
 		return returnPlayer;
 	}

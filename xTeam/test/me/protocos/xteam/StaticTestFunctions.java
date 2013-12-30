@@ -16,9 +16,6 @@ import org.junit.Test;
 
 public class StaticTestFunctions
 {
-	private static World mockWorld = new FakeWorld();
-	private static Location mockLocation = new FakeLocation(mockWorld, 0.0D, 64.0D, 0.0D);
-
 	@Test
 	public void ShouldBeMockData()
 	{
@@ -66,6 +63,8 @@ public class StaticTestFunctions
 
 	public static void mockPlayers(FakeServer server)
 	{
+		World mockWorld = new FakeWorld();
+		Location mockLocation = new FakeLocation(mockWorld, 0.0D, 64.0D, 0.0D);
 		//FAKE protocos
 		FakeOfflinePlayer protocosOffline = new FakeOfflinePlayer("protocos", true, true, true);
 		FakePlayer protocosOnline = new FakePlayer("protocos", true, true, 20, mockLocation);

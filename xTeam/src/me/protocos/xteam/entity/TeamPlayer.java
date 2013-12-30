@@ -234,9 +234,42 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	}
 
 	@Override
-	public boolean teleport(Location location)
+	public boolean teleport(final Location location)
 	{
+		if (location.equals(this.getReturnLocation()))
+		{
+			this.removeReturnLocation();
+		}
+		else
+		{
+			this.setReturnLocation(this.getLocation());
+		}
+		player.getWorld().getChunkAt(location).load();
+		while (!player.getWorld().getChunkAt(location).isLoaded())
+		{
+			try
+			{
+				Thread.sleep(1);
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+		}
 		return player.teleport(location);
+		//		final int teleportTaskID = BukkitUtil.getScheduler().scheduleSyncRepeatingTask(BukkitUtil.getxTeam(), new Runnable()
+		//		{
+		//			@Override
+		//			public void run()
+		//			{
+		//				if (player.getWorld().getChunkAt(location).isLoaded())
+		//				{
+		//					player.teleport(location);
+		//					BukkitUtil.getScheduler().cancelTask(teleportTaskID);
+		//				}
+		//			}
+		//		}, CommonUtil.LONG_ZERO, 1L);
+		//		return true;
 	}
 
 	@Override
