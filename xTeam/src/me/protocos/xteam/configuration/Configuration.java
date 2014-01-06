@@ -28,7 +28,7 @@ public class Configuration
 	public static boolean NO_PERMISSIONS;
 	public static boolean ALPHA_NUM;
 	public static boolean DISPLAY_COORDINATES;
-	public static boolean SEND_ANONYMOUS_ERROR_REPORTS;
+	//	public static boolean SEND_ANONYMOUS_ERROR_REPORTS;
 	public static int MAX_PLAYERS;
 	public static int HQ_INTERVAL;
 	public static int TELE_RADIUS;
@@ -116,7 +116,7 @@ public class Configuration
 		NO_PERMISSIONS = CommonUtil.assignFromType(options.get("nopermissions").getValue(), Boolean.class);
 		ALPHA_NUM = CommonUtil.assignFromType(options.get("alphanumericnames").getValue(), Boolean.class);
 		DISPLAY_COORDINATES = CommonUtil.assignFromType(options.get("displaycoordinates").getValue(), Boolean.class);
-		SEND_ANONYMOUS_ERROR_REPORTS = CommonUtil.assignFromType(options.get("anonymouserrorreporting").getValue(), Boolean.class);
+		//		SEND_ANONYMOUS_ERROR_REPORTS = CommonUtil.assignFromType(options.get("anonymouserrorreporting").getValue(), Boolean.class);
 		MAX_PLAYERS = CommonUtil.assignFromType(options.get("playersonteam").getValue(), Integer.class);
 		HQ_INTERVAL = CommonUtil.assignFromType(options.get("sethqinterval").getValue(), Integer.class);
 		TELE_RADIUS = CommonUtil.assignFromType(options.get("teleportradius").getValue(), Integer.class);

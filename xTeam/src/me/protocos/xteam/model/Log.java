@@ -9,16 +9,13 @@ import java.util.Scanner;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.collections.LimitedQueue;
 import me.protocos.xteam.api.model.ILog;
-import me.protocos.xteam.configuration.Configuration;
-import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.ErrorReportUtil;
+//import me.protocos.xteam.util.ErrorReportUtil;
 import me.protocos.xteam.util.SystemUtil;
 
 public class Log implements ILog
 {
 	private final String packageString;
-	private ErrorReportUtil errorReporter;
+	//	private ErrorReportUtil errorReporter;
 	private PrintStream printStream;
 
 	public Log(String filePath, TeamPlugin teamPlugin)
@@ -43,7 +40,7 @@ public class Log implements ILog
 		{
 			e.printStackTrace();
 		}
-		errorReporter = new ErrorReportUtil(teamPlugin);
+		//		errorReporter = new ErrorReportUtil(teamPlugin);
 	}
 
 	public void close()
@@ -74,18 +71,18 @@ public class Log implements ILog
 				error("\t@ " + elem.toString().replaceAll(packageString, ""));
 			}
 		}
-		if (Configuration.SEND_ANONYMOUS_ERROR_REPORTS)
-		{
-			class EmailReport implements Runnable
-			{
-				@Override
-				public void run()
-				{
-					errorReporter.sendErrorReport(e);
-				}
-			}
-			BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getxTeam(), new EmailReport(), CommonUtil.LONG_ZERO);
-		}
+		//		if (Configuration.SEND_ANONYMOUS_ERROR_REPORTS)
+		//		{
+		//			class EmailReport implements Runnable
+		//			{
+		//				@Override
+		//				public void run()
+		//				{
+		//					errorReporter.sendErrorReport(e);
+		//				}
+		//			}
+		//			BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getxTeam(), new EmailReport(), CommonUtil.LONG_ZERO);
+		//		}
 	}
 
 	public void info(String message)

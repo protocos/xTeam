@@ -1,4 +1,4 @@
-package me.protocos.xteam.core;
+package me.protocos.xteam.entity;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;

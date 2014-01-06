@@ -59,20 +59,20 @@ public class ConsoleDebug extends ConsoleCommand
 				sender.sendMessage("environment reset for \"" + world.getName() + "\"");
 			}
 		}
-		else if (subCommand.equalsIgnoreCase("email"))
-		{
-			try
-			{
-				xTeam.getInstance().getLog().exception(new Exception("Test message!"));
-				sender.sendMessage("Email sent!");
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
+		//		else if (subCommand.equalsIgnoreCase("email"))
+		//		{
+		//			try
+		//			{
+		//				xTeam.getInstance().getLog().exception(new Exception("Test message!"));
+		//				sender.sendMessage("Email sent!");
+		//			}
+		//			catch (Exception e)
+		//			{
+		//				e.printStackTrace();
+		//			}
+		//		}
 		else
-			sender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, email]");
+			sender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, reset]");
 	}
 
 	private String printPermissions()
