@@ -87,4 +87,14 @@ public class SystemUtil
 		}
 		return file;
 	}
+
+	public static boolean deleteFile(String fileName)
+	{
+		File file = new File(fileName);
+		if (file.exists())
+		{
+			return file.delete();
+		}
+		return false;
+	}
 }

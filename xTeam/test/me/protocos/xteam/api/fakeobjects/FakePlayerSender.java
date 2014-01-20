@@ -182,7 +182,7 @@ public class FakePlayerSender implements Player, CommandSender
 	{
 		String messages = "";
 		for (String s : messageLog)
-			messages += s.replaceAll("ค.", "") + "\n";
+			messages += s.replaceAll("ยง.", "") + "\n";
 		return messages;
 	}
 
@@ -391,7 +391,7 @@ public class FakePlayerSender implements Player, CommandSender
 
 	public String getLastMessage()
 	{
-		return messageLog.getLast().replaceAll("ค.", "");
+		return messageLog.getLast().replaceAll("ยง.", "");
 	}
 
 	@Override
@@ -474,7 +474,7 @@ public class FakePlayerSender implements Player, CommandSender
 	{
 		if (index < 0 || index >= STORED_MESSAGES)
 			throw new IndexOutOfBoundsException();
-		return messageLog.get(index).replaceAll("ค.", "");
+		return messageLog.get(index).replaceAll("ยง.", "");
 	}
 
 	@Override

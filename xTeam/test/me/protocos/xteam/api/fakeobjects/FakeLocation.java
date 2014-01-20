@@ -26,4 +26,15 @@ public class FakeLocation extends Location
 		super(world, x, y, z, yaw, pitch);
 	}
 
+	public FakeLocation(Location location)
+	{
+		super(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Fake" + super.toString();
+	}
+
 }

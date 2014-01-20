@@ -82,7 +82,7 @@ public class FakeConsoleSender implements ConsoleCommandSender
 	{
 		String messages = "";
 		for (String s : messageLog)
-			messages += s.replaceAll("ค.", "") + "\n";
+			messages += s.replaceAll("ยง.", "") + "\n";
 		return messages;
 	}
 
@@ -95,14 +95,14 @@ public class FakeConsoleSender implements ConsoleCommandSender
 
 	public String getLastMessage()
 	{
-		return messageLog.getLast().replaceAll("ค.", "");
+		return messageLog.getLast().replaceAll("ยง.", "");
 	}
 
 	public String getMessage(int index)
 	{
 		if (index < 0 || index >= STORED_MESSAGES)
 			throw new IndexOutOfBoundsException();
-		return messageLog.get(index).replaceAll("ค.", "");
+		return messageLog.get(index).replaceAll("ยง.", "");
 	}
 
 	@Override
@@ -137,18 +137,21 @@ public class FakeConsoleSender implements ConsoleCommandSender
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	@Override
 	public boolean isOp()
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	@Override
 	public boolean isPermissionSet(Permission arg0)
 	{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	@Override
 	public boolean isPermissionSet(String arg0)
 	{

@@ -206,7 +206,7 @@ public class FakeWorld implements World
 
 	@Override
 	@Deprecated
-	public <T extends Entity> Collection<T> getEntitiesByClass(Class<T>... arg0)
+	public <T extends Entity> Collection<T> getEntitiesByClass(@SuppressWarnings("unchecked") Class<T>... arg0)
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -389,8 +389,7 @@ public class FakeWorld implements World
 	@Override
 	public Location getSpawnLocation()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new FakeLocation(this);
 	}
 
 	@Override

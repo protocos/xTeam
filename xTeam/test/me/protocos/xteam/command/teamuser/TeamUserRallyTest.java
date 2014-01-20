@@ -12,6 +12,7 @@ import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.configuration.Configuration;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.*;
+import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.junit.After;
@@ -45,7 +46,7 @@ public class TeamUserRallyTest
 	public void ShouldBeTeamUserRallyExecute()
 	{
 		//ASSEMBLE
-		Location beforeLocation = new FakeLocation();
+		Location beforeLocation = new FakeLocation(BukkitUtil.getWorld("world"));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", beforeLocation);
 		Location rallyLocation = team.getHeadquarters().getLocation();
 		team.setRally(rallyLocation);
@@ -55,7 +56,7 @@ public class TeamUserRallyTest
 		//ASSERT
 		Assert.assertEquals("You've been teleported to the rally point", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(rallyLocation, fakePlayerSender.getLocation());
-		Assert.assertEquals(xTeam.getInstance().getPlayerManager().getPlayer("protocos").getReturnLocation(), beforeLocation);
+		Assert.assertEquals(beforeLocation, xTeam.getInstance().getPlayerManager().getPlayer("protocos").getReturnLocation());
 		Assert.assertTrue(team.hasRally());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -164,4 +165,13 @@ public class TeamUserRallyTest
 	{
 		TeleportScheduler.getInstance().clearTeamRally(team);
 	}
+
+	//	private boolean locationsEqual(Location location1, Location location2)
+	//	{
+	//		return (location1.getWorld().equals(location2.getWorld()) &&
+	//				location1.getX() == location2.getX() &&
+	//				location1.getY() == location2.getY() &&
+	//				location1.getZ() == location2.getZ() &&
+	//				location1.getPitch() == location2.getPitch() && location1.getYaw() == location2.getYaw());
+	//	}
 }

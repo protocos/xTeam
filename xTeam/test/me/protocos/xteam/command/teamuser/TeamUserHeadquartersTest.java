@@ -135,6 +135,7 @@ public class TeamUserHeadquartersTest
 	public void ShouldBeTeamUserHQRecentTeleport()
 	{
 		//ASSEMBLE
+		Configuration.TELE_REFRESH_DELAY = 60;
 		xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois").teleportTo(xTeam.getInstance().getTeamManager().getTeam("ONE"));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", before);
 		TeamUserCommand fakeCommand = new TeamUserHeadquarters();
@@ -149,6 +150,7 @@ public class TeamUserHeadquartersTest
 	@After
 	public void takedown()
 	{
+		Configuration.TELE_REFRESH_DELAY = 0;
 		ITeamPlayer kmlanglois = xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois");
 		kmlanglois.setLastAttacked(0L);
 		kmlanglois.setLastTeleported(0L);

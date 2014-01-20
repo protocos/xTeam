@@ -114,6 +114,6 @@ public class ConsoleDebug extends ConsoleCommand
 	@Override
 	public String getDescription()
 	{
-		return "Console debug menu for xTeam";
+		return "console debug menu for xTeam";
 	}
 }

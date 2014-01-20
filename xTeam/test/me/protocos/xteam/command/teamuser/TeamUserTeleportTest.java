@@ -167,16 +167,17 @@ public class TeamUserTeleportTest
 	public void ShouldBeTeamUserTeleExecuteRecentTeleport()
 	{
 		//ASSEMBLE
+		Configuration.TELE_REFRESH_DELAY = 60;
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois"), TeamPlayer.class);
 		TeleportScheduler.getInstance().teleport(teamPlayer, new Locatable("previous teleport", new FakeLocation()));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		Location before = fakePlayerSender.getLocation();
+		Location beforeLocation = fakePlayerSender.getLocation();
 		TeamUserCommand fakeCommand = new TeamUserTeleport();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within 60 seconds of last teleport\nPlayer must wait 60 more seconds")).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals(before, fakePlayerSender.getLocation());
+		Assert.assertEquals((new TeamPlayerTeleException("Player cannot teleport within " + Configuration.TELE_REFRESH_DELAY + " seconds of last teleport\nPlayer must wait " + Configuration.TELE_REFRESH_DELAY + " more seconds")).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals(beforeLocation, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -228,6 +229,7 @@ public class TeamUserTeleportTest
 	@After
 	public void takedown()
 	{
+		Configuration.TELE_REFRESH_DELAY = 0;
 		Configuration.LAST_ATTACKED_DELAY = 0;
 		TeleportScheduler.getInstance().clearTasks();
 	}

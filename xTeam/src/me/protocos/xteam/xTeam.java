@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.logging.Logger;
+import lib.PatPeter.SQLibrary.Database;
+import lib.PatPeter.SQLibrary.SQLite;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.command.ICommandManager;
@@ -37,10 +40,10 @@ public final class xTeam
 	private ICommandManager commandManager;
 	private List<Permission> permissions;
 	private Configuration configLoader;
+	private Database db;
 
 	private xTeam()
 	{
-		this.playerManager = new PlayerManager();
 		this.teamManager = new TeamManager();
 		this.commandManager = new CommandManager();
 	}
@@ -84,12 +87,30 @@ public final class xTeam
 		return version;
 	}
 
+	public Database getDatabase()
+	{
+		return db;
+	}
+
 	public void load(TeamPlugin plugin)
 	{
 		if ("xTeamPlugin".equals(plugin.getPluginName()) || "FakeTeamPlugin".equals(plugin.getPluginName()))
 		{
+			if (db == null)
+			{
+				db = new SQLite(Logger.getLogger("Minecraft"),
+						"[xTeam] ",
+						plugin.getFolder(),
+						"xTeam",
+						".db");
+				if (!db.isOpen())
+				{
+					db.open();
+				}
+				this.playerManager = new PlayerManager(db);
+			}
 			this.version = plugin.getVersion();
-			this.logger = new Log(plugin.getFolder() + "/xTeam.log", plugin);
+			this.logger = new Log(plugin.getFolder() + "xTeam.log", plugin);
 			this.permissions = new ArrayList<Permission>(plugin.getPermissions());
 			this.initFileSystem(plugin);
 		}
@@ -103,8 +124,8 @@ public final class xTeam
 	private void initFileSystem(TeamPlugin plugin)
 	{
 		SystemUtil.ensureFolder(plugin.getFolder());
-		SystemUtil.ensureFile(plugin.getFolder() + "/teams.txt");
-		this.configLoader = new Configuration(SystemUtil.ensureFile(plugin.getFolder() + "/xTeam.cfg"));
+		SystemUtil.ensureFile(plugin.getFolder() + "teams.txt");
+		this.configLoader = new Configuration(SystemUtil.ensureFile(plugin.getFolder() + "xTeam.cfg"));
 		this.configLoader.addAttribute("playersonteam", 10, "Amount of players that can be on a team");
 		this.configLoader.addAttribute("sethqinterval", 0, "Delay in hours between use of /team sethq");
 		this.configLoader.addAttribute("teleportradius", 500, "Maximum distance in blocks between team mates to teleport to one another");
@@ -144,6 +165,7 @@ public final class xTeam
 		// = 1.7.4 format = name:one open:false default:false timeHeadquartersSet:0 Headquarters: leader:protocos admins:protocos players:protocos,kmlanglois
 		try
 		{
+			@SuppressWarnings("resource")
 			Scanner input = new Scanner(f);
 			String line;
 			if (input.hasNext() && (line = input.nextLine()) != null && !line.contains("name:"))

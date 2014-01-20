@@ -1,5 +1,6 @@
 package me.protocos.xteam.api;
 
+import java.io.File;
 import java.util.List;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ICommandContainer;
@@ -23,7 +24,7 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 
 	public String getFolder()
 	{
-		return this.getDataFolder().getAbsolutePath();
+		return this.getDataFolder().getAbsolutePath() + File.separator;
 	}
 
 	public String getVersion()

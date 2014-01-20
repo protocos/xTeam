@@ -26,6 +26,7 @@ public class Log implements ILog
 		try
 		{
 			LimitedQueue<String> previousEntries = new LimitedQueue<String>(500);
+			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(file);
 			String line;
 			while (sc.hasNext() && (line = sc.nextLine()) != null)
