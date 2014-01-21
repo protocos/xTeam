@@ -218,7 +218,7 @@ public class Requirements
 
 	public static void checkTeamNameTooLong(String desiredName) throws TeamNameTooLongException
 	{
-		if (Configuration.TEAM_TAG_LENGTH != 0 && desiredName.length() > Configuration.TEAM_TAG_LENGTH)
+		if (Configuration.TEAM_NAME_LENGTH != 0 && desiredName.length() > Configuration.TEAM_NAME_LENGTH)
 		{
 			throw new TeamNameTooLongException();
 		}

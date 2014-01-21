@@ -36,7 +36,7 @@ public class Configuration
 	public static int TELE_DELAY;
 	public static int CREATE_INTERVAL;
 	public static int LAST_ATTACKED_DELAY;
-	public static int TEAM_TAG_LENGTH;
+	public static int TEAM_NAME_LENGTH;
 	public static int MAX_NUM_LOCATIONS;
 	public static int TELE_REFRESH_DELAY;
 	public static int RALLY_DELAY;
@@ -124,7 +124,7 @@ public class Configuration
 		TELE_DELAY = CommonUtil.assignFromType(options.get("teledelay").getValue(), Integer.class);
 		CREATE_INTERVAL = CommonUtil.assignFromType(options.get("createteamdelay").getValue(), Integer.class);
 		LAST_ATTACKED_DELAY = CommonUtil.assignFromType(options.get("lastattackeddelay").getValue(), Integer.class);
-		TEAM_TAG_LENGTH = CommonUtil.assignFromType(options.get("teamtagmaxlength").getValue(), Integer.class);
+		TEAM_NAME_LENGTH = CommonUtil.assignFromType(options.get("teamnamemaxlength").getValue(), Integer.class);
 		TELE_REFRESH_DELAY = CommonUtil.assignFromType(options.get("telerefreshdelay").getValue(), Integer.class);
 		RALLY_DELAY = CommonUtil.assignFromType(options.get("rallydelay").getValue(), Integer.class);
 		COLOR_TAG = CommonUtil.assignFromType(options.get("tagcolor").getValue(), String.class);

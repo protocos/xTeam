@@ -144,7 +144,7 @@ public final class xTeam
 		//		this.configLoader.addAttribute("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
 		this.configLoader.addAttribute("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
 		this.configLoader.addAttribute("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
-		this.configLoader.addAttribute("teamtagmaxlength", 0, "Maximum length of a team tag (0 = unlimited)");
+		this.configLoader.addAttribute("teamnamemaxlength", 0, "Maximum length of a team name (0 = unlimited)");
 		this.configLoader.addAttribute("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
 		this.configLoader.addAttribute("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
 		this.configLoader.addAttribute("teamfriendlyfire", false, "When true, friendly fire will be enabled for all teams");

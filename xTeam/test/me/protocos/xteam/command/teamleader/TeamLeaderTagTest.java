@@ -72,7 +72,7 @@ public class TeamLeaderTagTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamLeaderCommand fakeCommand = new TeamLeaderTag();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag ÃºÃ".split(" ")));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag ï¿½ï¿½ï¿½".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("TeamAwesome", xTeam.getInstance().getTeamManager().getTeam("one").getTag());
@@ -83,7 +83,7 @@ public class TeamLeaderTagTest
 	public void ShouldBeTeamTagExecutenNmeTooLong()
 	{
 		//ASSEMBLE
-		Configuration.TEAM_TAG_LENGTH = 10;
+		Configuration.TEAM_NAME_LENGTH = 10;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamLeaderCommand fakeCommand = new TeamLeaderTag();
 		//ACT

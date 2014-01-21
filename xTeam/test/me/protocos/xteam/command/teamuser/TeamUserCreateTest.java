@@ -71,7 +71,7 @@ public class TeamUserCreateTest
 	public void ShouldBeTeamUserCreateExecuteNameTooLong()
 	{
 		//ASSEMBLE
-		Configuration.TEAM_TAG_LENGTH = 10;
+		Configuration.TEAM_NAME_LENGTH = 10;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserCreate();
 		//ACT
@@ -150,10 +150,10 @@ public class TeamUserCreateTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserCreate();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create ©§·".split(" ")));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create ï¿½ï¿½ï¿½".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("©§·"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("ï¿½ï¿½ï¿½"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -161,7 +161,7 @@ public class TeamUserCreateTest
 	public void takedown()
 	{
 		Configuration.DEFAULT_TEAM_ONLY = false;
-		Configuration.TEAM_TAG_LENGTH = 0;
+		Configuration.TEAM_NAME_LENGTH = 0;
 		Configuration.CREATE_INTERVAL = 0;
 		Configuration.ALPHA_NUM = false;
 	}

@@ -72,7 +72,7 @@ public class TeamLeaderRenameTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamLeaderCommand fakeCommand = new TeamLeaderRename();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename ÃºÃ".split(" ")));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename ï¿½ï¿½ï¿½".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
@@ -83,7 +83,7 @@ public class TeamLeaderRenameTest
 	public void ShouldBeTeamAdminRenameExecutenNmeTooLong()
 	{
 		//ASSEMBLE
-		Configuration.TEAM_TAG_LENGTH = 10;
+		Configuration.TEAM_NAME_LENGTH = 10;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamLeaderCommand fakeCommand = new TeamLeaderRename();
 		//ACT
@@ -126,6 +126,6 @@ public class TeamLeaderRenameTest
 	public void takedown()
 	{
 		Configuration.ALPHA_NUM = false;
-		Configuration.TEAM_TAG_LENGTH = 0;
+		Configuration.TEAM_NAME_LENGTH = 0;
 	}
 }

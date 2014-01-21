@@ -2,7 +2,6 @@ package me.protocos.xteam.exception;
 
 import me.protocos.xteam.configuration.Configuration;
 
-
 public class TeamNameTooLongException extends TeamException
 {
 	/**
@@ -12,8 +11,9 @@ public class TeamNameTooLongException extends TeamException
 
 	public TeamNameTooLongException()
 	{
-		super("Team name too long, must be <= " + Configuration.TEAM_TAG_LENGTH + " characters");
+		super("Team name too long, must be <= " + Configuration.TEAM_NAME_LENGTH + " characters");
 	}
+
 	public TeamNameTooLongException(String message)
 	{
 		super(message);
