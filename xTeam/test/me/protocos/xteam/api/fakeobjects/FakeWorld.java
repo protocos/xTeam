@@ -389,7 +389,7 @@ public class FakeWorld implements World
 	@Override
 	public Location getSpawnLocation()
 	{
-		return new FakeLocation(this);
+		return new FakeLocation();
 	}
 
 	@Override

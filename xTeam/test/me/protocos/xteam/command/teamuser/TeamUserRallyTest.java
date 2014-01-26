@@ -46,7 +46,7 @@ public class TeamUserRallyTest
 	public void ShouldBeTeamUserRallyExecute()
 	{
 		//ASSEMBLE
-		Location beforeLocation = new FakeLocation(BukkitUtil.getWorld("world"));
+		Location beforeLocation = new FakeLocation(BukkitUtil.getWorld("world")).toLocation();
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", beforeLocation);
 		Location rallyLocation = team.getHeadquarters().getLocation();
 		team.setRally(rallyLocation);

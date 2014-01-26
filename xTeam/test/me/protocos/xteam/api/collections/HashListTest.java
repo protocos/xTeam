@@ -304,6 +304,38 @@ public class HashListTest
 		}
 	}
 
+	@Test
+	public void ShouldBeNoDuplicatesInOrder()
+	{
+		//ASSEMBLE
+		list.put("1", "one");
+		list.put("1", "one");
+		list.put("1", "one");
+		//ACT
+		//ASSERT
+		Assert.assertEquals(1, list.size());
+		Assert.assertEquals(1, list.getOrder().size());
+
+	}
+
+	@Test
+	public void ShouldBeEquals()
+	{
+		//ASSEMBLE
+		HashList<String, String> list1 = new HashList<String, String>();
+		HashList<String, String> list2 = new HashList<String, String>();
+		list1.put("1", "one");
+		list2.put("1", "one");
+		list1.put("2", "two");
+		list2.put("2", "two");
+		list1.put("3", "three");
+		list2.put("3", "three");
+		//ACT
+		boolean equals = list1.equals(list2);
+		//ASSERT
+		Assert.assertTrue(equals);
+	}
+
 	public void addKeyValuePairsInOrder()
 	{
 		list.put("0", "zero");

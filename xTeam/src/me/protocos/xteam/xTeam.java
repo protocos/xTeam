@@ -19,6 +19,7 @@ import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.configuration.Configuration;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.TeamManager;
+import me.protocos.xteam.data.PlayerDataDB;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.Log;
@@ -96,7 +97,7 @@ public final class xTeam
 	{
 		if ("xTeamPlugin".equals(plugin.getPluginName()) || "FakeTeamPlugin".equals(plugin.getPluginName()))
 		{
-			if (db == null)
+			if (playerManager == null)
 			{
 				db = new SQLite(Logger.getLogger("Minecraft"),
 						"[xTeam] ",
@@ -107,10 +108,11 @@ public final class xTeam
 				{
 					db.open();
 				}
-				this.playerManager = new PlayerManager(db);
+				this.playerManager = new PlayerManager(new PlayerDataDB(db));
+				//				this.playerManager = new PlayerManager(new PlayerDataFile(SystemUtil.ensureFile("xTeamPlayerData.txt")));
 			}
 			this.version = plugin.getVersion();
-			this.logger = new Log(plugin.getFolder() + "xTeam.log", plugin);
+			this.logger = new Log(plugin.getFolder() + "xTeam.log");
 			this.permissions = new ArrayList<Permission>(plugin.getPermissions());
 			this.initFileSystem(plugin);
 		}

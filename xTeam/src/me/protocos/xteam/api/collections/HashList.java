@@ -1,6 +1,7 @@
 package me.protocos.xteam.api.collections;
 
 import java.util.*;
+import org.apache.commons.lang.builder.EqualsBuilder;
 import me.protocos.xteam.util.CommonUtil;
 
 public class HashList<K, V> implements Iterable<V>
@@ -150,15 +151,6 @@ public class HashList<K, V> implements Iterable<V>
 		return list;
 	}
 
-	public String toString()
-	{
-		String output = "{" + (values.size() > 0 ? order.get(0) + "=" + values.get(order.get(0)) : "");
-		for (int x = 1; x < order.size(); x++)
-			output += ", " + order.get(x) + "=" + values.get(order.get(x));
-		output += "}";
-		return output;
-	}
-
 	public boolean updateKey(K oldKey, K newKey)
 	{
 		if (oldKey == null || newKey == null)
@@ -169,6 +161,32 @@ public class HashList<K, V> implements Iterable<V>
 		V value = remove(oldKey);
 		put(newKey, value, position);
 		return true;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+			return false;
+		if (this == obj)
+			return true;
+		if (obj.getClass() != this.getClass())
+			return false;
+
+		@SuppressWarnings("unchecked")
+		HashList<K, V> other = (HashList<K, V>) obj;
+		return new EqualsBuilder().append(this.values, other.values).append(this.order, other.order).isEquals();
+
+	}
+
+	@Override
+	public String toString()
+	{
+		String output = "{" + (values.size() > 0 ? order.get(0) + "=" + values.get(order.get(0)) : "");
+		for (int x = 1; x < order.size(); x++)
+			output += ", " + order.get(x) + "=" + values.get(order.get(x));
+		output += "}";
+		return output;
 	}
 
 	@Override

@@ -8,21 +8,37 @@ import java.util.List;
 
 public class StringUtil
 {
-	public static String concatenate(Object[] o)
+	public static String concatenate(Object[] objects)
 	{
-		return concatenate(o, " ");
+		return concatenate(objects, " ");
 	}
 
-	public static String concatenate(Object[] o, String glue)
+	public static String concatenate(Object[] objects, String glue)
 	{
-		String returnString = "";
-		for (int x = 0; x < o.length; x++)
+		StringBuilder returnString = new StringBuilder();
+		for (Object obj : objects)
 		{
-			if (x != 0)
-				returnString += glue;
-			returnString += o[x].toString();
+			if (returnString.length() == 0)
+				returnString.append(obj.toString());
+			else
+				returnString.append(glue).append(obj.toString());
 		}
-		return returnString;
+		return returnString.toString();
+	}
+
+	public static String concatenate(@SuppressWarnings("rawtypes") List objects)
+	{
+		return concatenate(objects, " ");
+	}
+
+	public static String concatenate(@SuppressWarnings("rawtypes") List objects, String glue)
+	{
+		StringBuilder returnString = new StringBuilder();
+		for (Object obj : objects)
+		{
+			returnString.append(obj.toString()).append(glue);
+		}
+		return returnString.toString().trim();
 	}
 
 	public static boolean matchesLowerCase(String str, String pattern)

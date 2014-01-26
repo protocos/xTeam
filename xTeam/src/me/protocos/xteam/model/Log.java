@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.sql.Timestamp;
 import java.util.Scanner;
-import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.collections.LimitedQueue;
 import me.protocos.xteam.api.model.ILog;
 //import me.protocos.xteam.util.ErrorReportUtil;
@@ -14,14 +13,11 @@ import me.protocos.xteam.util.SystemUtil;
 
 public class Log implements ILog
 {
-	private final String packageString;
 	//	private ErrorReportUtil errorReporter;
 	private PrintStream printStream;
 
-	public Log(String filePath, TeamPlugin teamPlugin)
+	public Log(String filePath)
 	{
-		String pluginPackageID = teamPlugin.getClass().getPackage().toString();
-		this.packageString = pluginPackageID.substring(pluginPackageID.indexOf(' ') + 1, pluginPackageID.lastIndexOf('.') + 1);
 		File file = SystemUtil.ensureFile(filePath);
 		try
 		{
@@ -67,9 +63,9 @@ public class Log implements ILog
 		error(e.toString());
 		for (StackTraceElement elem : e.getStackTrace())
 		{
-			if (elem.toString().contains(packageString))
+			if (elem.toString().contains("protocos"))
 			{
-				error("\t@ " + elem.toString().replaceAll(packageString, ""));
+				error("\t@ " + elem.toString());
 			}
 		}
 		//		if (Configuration.SEND_ANONYMOUS_ERROR_REPORTS)

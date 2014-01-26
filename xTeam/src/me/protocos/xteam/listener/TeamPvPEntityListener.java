@@ -27,88 +27,49 @@ public class TeamPvPEntityListener implements Listener
 	}
 
 	@EventHandler
-	public void onEntityDamage(EntityDamageEvent event)
+	public void onEntityDamage(EntityDamageByEntityEvent event)
 	{
+		if (event.isCancelled())
+		{
+			return;
+		}
 		try
 		{
-			if (event.isCancelled())
+			Entity damager = event.getDamager();
+			Entity entity = event.getEntity();
+			if (Configuration.DISABLED_WORLDS.contains(damager.getWorld().getName()) && Configuration.DISABLED_WORLDS.contains(entity.getWorld().getName()))
 			{
 				return;
 			}
-			if (event instanceof EntityDamageByEntityEvent)
-			{
-				EntityDamageByEntityEvent entEvent = (EntityDamageByEntityEvent) event;
-				Entity damager = entEvent.getDamager();
-				Entity entity = entEvent.getEntity();
-				if (Configuration.DISABLED_WORLDS.contains(damager.getWorld().getName()) && Configuration.DISABLED_WORLDS.contains(entity.getWorld().getName()))
-				{
-					return;
-				}
 
-				if (entity instanceof Player)
+			if (Configuration.TEAM_FRIENDLY_FIRE)
+			{
+				return;
+			}
+
+			if (entity instanceof Player)
+			{
+				ITeamPlayer attacker = null;
+				ITeamPlayer defender = null;
+				// Player hurt Player
+				if (damager instanceof Player)
 				{
-					ITeamPlayer attacker = null;
-					ITeamPlayer defender = null;
-					// Player hurt Player
-					if (damager instanceof Player)
-					{
-						attacker = xTeam.getInstance().getPlayerManager().getPlayer((Player) damager);
-						defender = xTeam.getInstance().getPlayerManager().getPlayer((Player) entity);
-						checkTeam(event, attacker, defender);
-					}
-					// Projectile hurt Player
-					else if (damager instanceof Projectile)
-					{
-						if (((Projectile) damager).getShooter() instanceof Player)
-							attacker = xTeam.getInstance().getPlayerManager().getPlayer((Player) ((Projectile) damager).getShooter());
-						else
-							return;
-						defender = xTeam.getInstance().getPlayerManager().getPlayer((Player) entity);
-						checkTeam(event, attacker, defender);
-					}
+					attacker = xTeam.getInstance().getPlayerManager().getPlayer((Player) damager);
+					defender = xTeam.getInstance().getPlayerManager().getPlayer((Player) entity);
+					checkTeam(event, attacker, defender);
+				}
+				// Projectile hurt Player
+				else if (damager instanceof Projectile)
+				{
+					if (((Projectile) damager).getShooter() instanceof Player)
+						attacker = xTeam.getInstance().getPlayerManager().getPlayer((Player) ((Projectile) damager).getShooter());
 					else
 						return;
+					defender = xTeam.getInstance().getPlayerManager().getPlayer((Player) entity);
+					checkTeam(event, attacker, defender);
 				}
-				//				else if (entity instanceof Wolf && Configuration.TEAM_WOLVES)
-				//				{
-				//					// Player hurt Wolf
-				//					if (damager instanceof Player)
-				//					{
-				//						ITeamPlayer sender = xTeam.getInstance().getPlayerManager().getPlayer((Player) damager);
-				//						TeamWolf wolf = new TeamWolf((Wolf) entity);
-				//						if (sender.hasTeam() && wolf.hasTeam() && sender.getTeam().equals(wolf.getTeam()))
-				//						{
-				//							mockEvent.setCancelled(true);
-				//							if (wolf.getOwner().equals(sender))
-				//							{
-				//								sender.sendMessage(ChatColorUtil.formatPositive("You") + ChatColor.RESET + " pet your wolfie!");
-				//							}
-				//							else
-				//							{
-				//								ITeamPlayer owner = wolf.getOwner();
-				//								if (owner.isOnline())
-				//									owner.sendMessage(ChatColor.GREEN + sender.getName() + ChatColor.RESET + " pet your wolfie!");
-				//								sender.sendMessage(ChatColorUtil.formatPositive("You") + ChatColor.RESET + " pet " + ChatColor.GREEN + owner.getName() + "'s" + ChatColor.RESET + " wolfie!");
-				//							}
-				//						}
-				//					}
-				//					// Projectile hurt Wolf
-				//					else if (damager instanceof Projectile)
-				//					{
-				//						TeamPlayer sender;
-				//						if (((Projectile) damager).getShooter() instanceof Player)
-				//							sender = new TeamPlayer((Player) ((Projectile) damager).getShooter());
-				//						else
-				//							return;
-				//						TeamWolf wolf = new TeamWolf((Wolf) entity);
-				//						if (sender.hasTeam() && wolf.hasTeam() && sender.getTeam().equals(wolf.getTeam()))
-				//						{
-				//							mockEvent.setCancelled(true);
-				//						}
-				//					}
-				//					else
-				//						return;
-				//				}
+				else
+					return;
 			}
 		}
 		catch (Exception e)
