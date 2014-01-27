@@ -26,9 +26,19 @@ public class PlayerDataDB implements IDataManager
 	}
 
 	@Override
+	public void read()
+	{
+	}
+
+	@Override
 	public boolean isOpen()
 	{
 		return db.isOpen();
+	}
+
+	@Override
+	public void write()
+	{
 	}
 
 	@Override

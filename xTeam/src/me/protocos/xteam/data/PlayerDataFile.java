@@ -7,8 +7,6 @@ import me.protocos.xteam.data.translators.IDataTranslator;
 
 public class PlayerDataFile implements IDataManager
 {
-	private BufferedReader reader;
-	private BufferedWriter writer;
 	private File file;
 	private HashList<String, PropertyList> properties;
 
@@ -20,10 +18,15 @@ public class PlayerDataFile implements IDataManager
 	@Override
 	public void open()
 	{
+	}
+
+	@Override
+	public void read()
+	{
 		try
 		{
 			PropertyList propList;
-			reader = new BufferedReader(new FileReader(file));
+			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = reader.readLine()) != null)
 			{
@@ -47,12 +50,12 @@ public class PlayerDataFile implements IDataManager
 	}
 
 	@Override
-	public void close()
+	public void write()
 	{
 		try
 		{
 			PropertyList propList;
-			writer = new BufferedWriter(new FileWriter(file));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			for (String player : properties.getOrder())
 			{
 				propList = properties.get(player);
@@ -64,6 +67,11 @@ public class PlayerDataFile implements IDataManager
 		{
 			xTeam.getInstance().getLog().exception(e);
 		}
+	}
+
+	@Override
+	public void close()
+	{
 	}
 
 	@Override

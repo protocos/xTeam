@@ -23,6 +23,7 @@ public class PlayerManager implements IPlayerManager
 	public PlayerManager(IDataManager dataManager)
 	{
 		this.dataManager = dataManager;
+		this.dataManager.open();
 		this.dataManager.initializeData();
 	}
 
@@ -30,11 +31,13 @@ public class PlayerManager implements IPlayerManager
 	public void open()
 	{
 		this.dataManager.open();
+		this.dataManager.read();
 	}
 
 	@Override
 	public void close()
 	{
+		this.dataManager.write();
 		this.dataManager.close();
 	}
 

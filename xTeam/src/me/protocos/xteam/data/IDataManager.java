@@ -6,11 +6,15 @@ public interface IDataManager
 {
 	public abstract void open();
 
+	public abstract void read();
+
 	public abstract boolean isOpen();
 
 	public abstract void initializeData();
 
 	public abstract void clearData();
+
+	public abstract void write();
 
 	public abstract void close();
 
