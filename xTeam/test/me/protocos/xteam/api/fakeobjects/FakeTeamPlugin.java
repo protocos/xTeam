@@ -10,7 +10,7 @@ import org.bukkit.permissions.Permission;
 
 public class FakeTeamPlugin extends TeamPlugin
 {
-	private final String folder = "test";
+	private final String folder = "test/";
 	private ILog fakeLog;
 
 	public FakeTeamPlugin()
