@@ -2,17 +2,23 @@ package me.protocos.xteam.data;
 
 import java.io.*;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.data.translators.IDataTranslator;
+import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.SystemUtil;
 
 public class PlayerDataFile implements IDataManager
 {
+	private TeamPlugin plugin;
 	private File file;
 	private HashList<String, PropertyList> properties;
+	private PeriodicWriter periodicWriter;
 
-	public PlayerDataFile(File file)
+	public PlayerDataFile(TeamPlugin plugin)
 	{
-		this.file = file;
+		this.plugin = plugin;
+		this.file = SystemUtil.ensureFile(plugin.getFolder() + "xTeamPlayerData.txt");
 	}
 
 	@Override
@@ -40,6 +46,12 @@ public class PlayerDataFile implements IDataManager
 		catch (Exception e)
 		{
 			xTeam.getInstance().getLog().exception(e);
+		}
+		if (periodicWriter == null)
+		{
+			periodicWriter = new PeriodicWriter(this);
+			long interval = 10 * BukkitUtil.ONE_MINUTE_IN_TICKS;
+			BukkitUtil.getScheduler().scheduleSyncRepeatingTask(plugin, periodicWriter, interval, interval);
 		}
 	}
 
@@ -121,4 +133,23 @@ public class PlayerDataFile implements IDataManager
 		props.put("returnLocation", "");
 		return props;
 	}
+}
+
+class PeriodicWriter implements Runnable
+{
+	private IDataManager writer;
+
+	public PeriodicWriter(IDataManager writer)
+	{
+		this.writer = writer;
+	}
+
+	@Override
+	public void run()
+	{
+		xTeam.getInstance().getLog().info("Saving player data...");
+		writer.write();
+		xTeam.getInstance().getLog().info("Done.");
+	}
+
 }

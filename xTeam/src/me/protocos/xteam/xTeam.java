@@ -89,7 +89,10 @@ public final class xTeam
 		if ("xTeamPlugin".equals(plugin.getPluginName()) || "FakeTeamPlugin".equals(plugin.getPluginName()))
 		{
 			this.version = plugin.getVersion();
-			this.logger = new Log(plugin.getFolder() + "xTeam.log");
+			if (this.logger == null)
+				this.logger = new Log(plugin.getFolder() + "xTeam.log");
+			else
+				this.logger = plugin.getLog();
 			this.permissions = new ArrayList<Permission>(plugin.getPermissions());
 			this.initFileSystem(plugin);
 			this.initDataStorage(plugin);
@@ -115,7 +118,7 @@ public final class xTeam
 			}
 			else if ("file".equals(Configuration.STORAGE_TYPE))
 			{
-				this.playerManager = new PlayerManager(new PlayerDataFile(SystemUtil.ensureFile(plugin.getFolder() + "xTeamPlayerData.txt")));
+				this.playerManager = new PlayerManager(new PlayerDataFile(plugin));
 			}
 			else
 			{
@@ -124,7 +127,7 @@ public final class xTeam
 			if (this.playerManager == null)
 			{
 				this.getLog().info("Resorting to \"file\" storage type");
-				this.playerManager = new PlayerManager(new PlayerDataFile(SystemUtil.ensureFile(plugin.getFolder() + "xTeamPlayerData.txt")));
+				this.playerManager = new PlayerManager(new PlayerDataFile(plugin));
 			}
 		}
 		if (this.teamManager == null)
