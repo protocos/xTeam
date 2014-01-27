@@ -110,7 +110,8 @@ public final class xTeam
 				if (BukkitUtil.getPluginManager().getPlugin("SQLibrary") != null)
 					this.playerManager = new PlayerManager(new PlayerDataDB(plugin));
 				else
-					this.getLog().error("Cannot use \"" + Configuration.STORAGE_TYPE + "\" for storage because plugin \"SQLibrary\" cannot be found!");
+					this.getLog().error("Cannot use \"" + Configuration.STORAGE_TYPE + "\" for storage because plugin \"SQLibrary\" cannot be found!" +
+							"\nSQLibrary can be found here: http://dev.bukkit.org/bukkit-plugins/sqlibrary/");
 			}
 			else if ("file".equals(Configuration.STORAGE_TYPE))
 			{
@@ -122,7 +123,7 @@ public final class xTeam
 			}
 			if (this.playerManager == null)
 			{
-				this.getLog().error("Resorting to \"file\" storage type");
+				this.getLog().info("Resorting to \"file\" storage type");
 				this.playerManager = new PlayerManager(new PlayerDataFile(SystemUtil.ensureFile(plugin.getFolder() + "xTeamPlayerData.txt")));
 			}
 		}

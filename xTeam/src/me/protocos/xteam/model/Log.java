@@ -47,13 +47,20 @@ public class Log implements ILog
 
 	public void debug(String message)
 	{
-		message = "[xTeam] DEBUG: " + message;
+		message = "DEBUG: " + message;
 		write(message);
+	}
+
+	public void info(String message)
+	{
+		message = "INFO: " + message;
+		write(message);
+		print(message);
 	}
 
 	public void error(String message)
 	{
-		message = "[xTeam] ERROR: " + message;
+		message = "ERROR: " + message;
 		write(message);
 		print(message);
 	}
@@ -82,20 +89,20 @@ public class Log implements ILog
 		//		}
 	}
 
-	public void info(String message)
-	{
-		message = "[xTeam] INFO: " + message;
-		write(message);
-	}
-
 	public void write(String message)
 	{
 		Timestamp t = new Timestamp(System.currentTimeMillis());
-		printStream.println(t.toString().substring(0, t.toString().indexOf('.')) + " " + message);
+		printStream.println(t.toString().substring(0, t.toString().indexOf('.')) + " [xTeam] " + message);
 	}
 
 	public void print(String message)
 	{
-		System.out.println(message);
+		String[] lines = message.split("\n");
+		String header = "[xTeam] ";
+		for (String line : lines)
+		{
+			System.out.println(header + line);
+			header = "[xTeam]\t";
+		}
 	}
 }
