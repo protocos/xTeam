@@ -1,10 +1,10 @@
 package me.protocos.xteam.command.console;
 
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.command.ConsoleCommand;
-import me.protocos.xteam.api.model.HelpPages;
 import me.protocos.xteam.command.CommandContainer;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.model.HelpPages;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;

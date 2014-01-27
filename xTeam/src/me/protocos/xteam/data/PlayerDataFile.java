@@ -1,10 +1,10 @@
 package me.protocos.xteam.data;
 
 import java.io.*;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.TeamPlugin;
-import me.protocos.xteam.api.collections.HashList;
-import me.protocos.xteam.data.translators.IDataTranslator;
+import me.protocos.xteam.collections.HashList;
+import me.protocos.xteam.data.translator.IDataTranslator;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.SystemUtil;
 

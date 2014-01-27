@@ -2,10 +2,8 @@ package me.protocos.xteam.entity;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.command.IPermissible;
-import me.protocos.xteam.api.entity.ITeam;
-import me.protocos.xteam.api.entity.ITeamPlayer;
 import me.protocos.xteam.api.fakeobjects.*;
+import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.entity.OfflineTeamPlayer;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.entity.TeamPlayer;

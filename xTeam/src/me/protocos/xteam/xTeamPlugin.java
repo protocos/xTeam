@@ -1,9 +1,8 @@
 package me.protocos.xteam;
 
 import java.io.File;
-import me.protocos.xteam.api.TeamPlugin;
-import me.protocos.xteam.api.command.ICommandManager;
 import me.protocos.xteam.command.CommandDelegate;
+import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.command.console.*;
 import me.protocos.xteam.command.serveradmin.*;
 import me.protocos.xteam.command.teamadmin.TeamAdminInvite;

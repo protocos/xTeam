@@ -1,6 +1,6 @@
 package me.protocos.xteam.util;
 
-import me.protocos.xteam.api.model.HelpPages;
+import me.protocos.xteam.model.HelpPages;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

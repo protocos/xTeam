@@ -1,6 +1,6 @@
 package me.protocos.xteam.data;
 
-import me.protocos.xteam.data.translators.IDataTranslator;
+import me.protocos.xteam.data.translator.IDataTranslator;
 import me.protocos.xteam.exception.InvalidFormatException;
 import org.apache.commons.lang.builder.EqualsBuilder;
 

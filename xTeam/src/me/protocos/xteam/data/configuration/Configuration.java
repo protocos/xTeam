@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.collections.HashList;
+import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.permissions.Permission;

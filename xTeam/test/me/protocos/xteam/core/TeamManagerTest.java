@@ -2,7 +2,7 @@ package me.protocos.xteam.core;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.entity.ITeam;
+import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.Team;
 import org.junit.After;
 import org.junit.Assert;

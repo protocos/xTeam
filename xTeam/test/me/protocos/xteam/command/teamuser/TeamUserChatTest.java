@@ -2,10 +2,10 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.api.command.TeamUserCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
+import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import org.junit.After;

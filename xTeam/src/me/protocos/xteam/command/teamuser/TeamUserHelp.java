@@ -2,11 +2,11 @@ package me.protocos.xteam.command.teamuser;
 
 import java.util.List;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.command.TeamUserCommand;
-import me.protocos.xteam.api.model.HelpPages;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
+import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.model.HelpPages;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;

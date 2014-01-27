@@ -1,10 +1,10 @@
 package me.protocos.xteam.api.fakeobjects;
 
 import java.util.List;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.xTeamPlugin;
-import me.protocos.xteam.api.TeamPlugin;
-import me.protocos.xteam.api.command.ICommandManager;
-import me.protocos.xteam.api.model.ILog;
+import me.protocos.xteam.command.ICommandManager;
+import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.permissions.Permission;
 

@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 import lib.PatPeter.SQLibrary.Database;
 import lib.PatPeter.SQLibrary.SQLite;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.TeamPlugin;
-import me.protocos.xteam.data.translators.IDataTranslator;
+import me.protocos.xteam.data.translator.IDataTranslator;
 
 public class PlayerDataDB implements IDataManager
 {

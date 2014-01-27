@@ -6,10 +6,9 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.sql.Timestamp;
 import java.util.Scanner;
-import me.protocos.xteam.api.collections.LimitedQueue;
-import me.protocos.xteam.api.model.ILog;
-//import me.protocos.xteam.util.ErrorReportUtil;
+import me.protocos.xteam.collections.LimitedQueue;
 import me.protocos.xteam.util.SystemUtil;
+//import me.protocos.xteam.util.ErrorReportUtil;
 
 public class Log implements ILog
 {

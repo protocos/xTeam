@@ -1,6 +1,6 @@
 package me.protocos.xteam.api.fakeobjects;
 
-import me.protocos.xteam.api.command.*;
+import me.protocos.xteam.command.*;
 import me.protocos.xteam.entity.TeamPlayer;
 
 public class FakeTeamPlayer extends TeamPlayer

@@ -2,7 +2,6 @@ package me.protocos.xteam.entity;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.entity.ITeam;
 import me.protocos.xteam.api.fakeobjects.*;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.entity.TeamWolf;

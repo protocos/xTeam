@@ -1,8 +1,8 @@
 package me.protocos.xteam.command.action;
 
 import java.util.HashMap;
-import me.protocos.xteam.api.entity.ITeam;
-import me.protocos.xteam.api.entity.ITeamPlayer;
+import me.protocos.xteam.entity.ITeam;
+import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.ChatColorUtil;

@@ -1,12 +1,11 @@
 package me.protocos.xteam.core;
 
 import java.util.List;
-import me.protocos.xteam.api.core.IPlayerManager;
-import me.protocos.xteam.api.entity.ITeamEntity;
-import me.protocos.xteam.api.entity.ITeamPlayer;
 import me.protocos.xteam.data.IDataManager;
-import me.protocos.xteam.data.translators.LocationDataTranslator;
-import me.protocos.xteam.data.translators.LongDataTranslator;
+import me.protocos.xteam.data.translator.LocationDataTranslator;
+import me.protocos.xteam.data.translator.LongDataTranslator;
+import me.protocos.xteam.entity.ITeamEntity;
+import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.OfflineTeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.util.BukkitUtil;

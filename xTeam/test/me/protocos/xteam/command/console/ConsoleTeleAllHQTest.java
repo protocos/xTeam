@@ -2,9 +2,9 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandContainer;
+import me.protocos.xteam.command.ConsoleCommand;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

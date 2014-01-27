@@ -2,10 +2,10 @@ package me.protocos.xteam.command.teamleader;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.command.TeamLeaderCommand;
 import me.protocos.xteam.api.fakeobjects.FakeLocation;
 import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
+import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.*;
 import org.junit.After;

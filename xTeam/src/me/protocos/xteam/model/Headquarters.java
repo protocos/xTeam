@@ -1,7 +1,6 @@
 package me.protocos.xteam.model;
 
 import java.util.List;
-import me.protocos.xteam.api.model.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;

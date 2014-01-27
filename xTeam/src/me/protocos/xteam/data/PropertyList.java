@@ -1,8 +1,8 @@
 package me.protocos.xteam.data;
 
+import me.protocos.xteam.collections.HashList;
+import me.protocos.xteam.data.translator.IDataTranslator;
 import org.apache.commons.lang.builder.EqualsBuilder;
-import me.protocos.xteam.api.collections.HashList;
-import me.protocos.xteam.data.translators.IDataTranslator;
 
 public class PropertyList
 {

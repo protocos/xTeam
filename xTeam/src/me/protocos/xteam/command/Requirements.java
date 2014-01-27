@@ -1,15 +1,14 @@
 package me.protocos.xteam.command;
 
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.command.IPermissible;
-import me.protocos.xteam.api.entity.ITeam;
-import me.protocos.xteam.api.entity.ITeamPlayer;
-import me.protocos.xteam.api.model.HelpPages;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.data.configuration.Configuration;
+import me.protocos.xteam.entity.ITeam;
+import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.*;
+import me.protocos.xteam.model.HelpPages;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import me.protocos.xteam.util.PermissionUtil;

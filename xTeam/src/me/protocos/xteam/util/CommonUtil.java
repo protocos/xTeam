@@ -1,7 +1,7 @@
 package me.protocos.xteam.util;
 
 import java.util.*;
-import me.protocos.xteam.api.collections.HashList;
+import me.protocos.xteam.collections.HashList;
 
 public class CommonUtil
 {

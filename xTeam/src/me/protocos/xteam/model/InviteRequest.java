@@ -1,7 +1,7 @@
 package me.protocos.xteam.model;
 
-import me.protocos.xteam.api.entity.ITeam;
-import me.protocos.xteam.api.entity.ITeamPlayer;
+import me.protocos.xteam.entity.ITeam;
+import me.protocos.xteam.entity.ITeamPlayer;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public class InviteRequest

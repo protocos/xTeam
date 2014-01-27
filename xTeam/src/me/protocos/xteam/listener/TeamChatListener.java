@@ -1,9 +1,9 @@
 package me.protocos.xteam.listener;
 
 import me.protocos.xteam.xTeam;
-import me.protocos.xteam.api.entity.ITeam;
-import me.protocos.xteam.api.entity.ITeamPlayer;
 import me.protocos.xteam.data.configuration.Configuration;
+import me.protocos.xteam.entity.ITeam;
+import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.util.ChatColorUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.World;

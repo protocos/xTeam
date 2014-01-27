@@ -1,9 +1,8 @@
 package me.protocos.xteam.command;
 
 import java.util.List;
-import me.protocos.xteam.api.collections.HashList;
-import me.protocos.xteam.api.command.*;
-import me.protocos.xteam.api.entity.ITeamPlayer;
+import me.protocos.xteam.collections.HashList;
+import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.CommonUtil;
