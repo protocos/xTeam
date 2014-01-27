@@ -2,8 +2,8 @@ package me.protocos.xteam.util;
 
 import java.io.*;
 import me.protocos.xteam.xTeamPlugin;
-import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
-import me.protocos.xteam.api.fakeobjects.FakeTeamPlayer;
+import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.fakeobjects.FakeTeamPlayer;
 import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.command.ICommandManager;
 import org.junit.Test;

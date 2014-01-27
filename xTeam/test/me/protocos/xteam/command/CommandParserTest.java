@@ -1,7 +1,7 @@
 package me.protocos.xteam.command;
 
 import junit.framework.Assert;
-import me.protocos.xteam.api.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import org.junit.Before;
 import org.junit.Test;
 

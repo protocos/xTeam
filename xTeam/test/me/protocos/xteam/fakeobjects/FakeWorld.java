@@ -1,4 +1,4 @@
-package me.protocos.xteam.api.fakeobjects;
+package me.protocos.xteam.fakeobjects;
 
 import java.io.File;
 import java.util.Collection;

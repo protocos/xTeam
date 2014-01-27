@@ -1,4 +1,4 @@
-package me.protocos.xteam.api.collections;
+package me.protocos.xteam.collections;
 
 import java.util.ArrayList;
 import java.util.Collections;

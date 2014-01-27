@@ -1,4 +1,4 @@
-package me.protocos.xteam.api.util;
+package me.protocos.xteam.util;
 
 import me.protocos.xteam.model.Label;
 import org.junit.After;

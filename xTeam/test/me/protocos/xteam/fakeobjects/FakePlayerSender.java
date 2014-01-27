@@ -1,9 +1,12 @@
-package me.protocos.xteam.api.fakeobjects;
+package me.protocos.xteam.fakeobjects;
 
 import java.net.InetSocketAddress;
 import java.util.*;
+import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.StringUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.command.CommandSender;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationAbandonedEvent;
 import org.bukkit.entity.*;
@@ -22,39 +25,31 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.util.Vector;
 
-public class FakePlayer implements Player
+public class FakePlayerSender implements Player, CommandSender
 {
+	private static final int STORED_MESSAGES = 10;
 	private String name;
-	private boolean isOp;
-	private boolean isOnline;
-	private int health;
 	private Location location;
+	private boolean isOp;
+	private LinkedList<String> messageLog;
 	private int noDamageTicks;
-	private Server server;
 
-	public FakePlayer()
+	public FakePlayerSender()
 	{
-		this("online");
+		this("sender", new FakeLocation());
 	}
 
-	public FakePlayer(String name)
+	public FakePlayerSender(String name, Location location)
 	{
-		this(name, false, false, -1, new FakeLocation());
+		this(name, location, false);
 	}
 
-	public FakePlayer(String name, boolean isOp, boolean isOnline, int health, Location location)
-	{
-		this(name, isOp, isOnline, health, location, null);
-	}
-
-	public FakePlayer(String name, boolean isOp, boolean isOnline, int health, Location location, Server server)
+	public FakePlayerSender(String name, Location location, boolean isOp)
 	{
 		this.name = name;
-		this.isOp = isOp;
-		this.isOnline = isOnline;
-		this.health = health;
 		this.location = location;
-		this.server = server;
+		this.isOp = isOp;
+		messageLog = new LinkedList<String>();
 	}
 
 	@Override
@@ -181,6 +176,14 @@ public class FakePlayer implements Player
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public String getAllMessages()
+	{
+		String messages = "";
+		for (String s : messageLog)
+			messages += s.replaceAll("§.", "") + "\n";
+		return messages;
 	}
 
 	@Override
@@ -340,7 +343,8 @@ public class FakePlayer implements Player
 	@Override
 	public double getHealth()
 	{
-		return health;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
@@ -383,6 +387,11 @@ public class FakePlayer implements Player
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public String getLastMessage()
+	{
+		return messageLog.getLast().replaceAll("§.", "");
 	}
 
 	@Override
@@ -461,6 +470,13 @@ public class FakePlayer implements Player
 		return 0;
 	}
 
+	public String getMessage(int index)
+	{
+		if (index < 0 || index >= STORED_MESSAGES)
+			throw new IndexOutOfBoundsException();
+		return messageLog.get(index).replaceAll("§.", "");
+	}
+
 	@Override
 	public List<MetadataValue> getMetadata(String arg0)
 	{
@@ -477,7 +493,7 @@ public class FakePlayer implements Player
 	@Override
 	public List<Entity> getNearbyEntities(double arg0, double arg1, double arg2)
 	{
-		return new ArrayList<Entity>();
+		return new LinkedList<Entity>();
 	}
 
 	@Override
@@ -503,8 +519,7 @@ public class FakePlayer implements Player
 	@Override
 	public Player getPlayer()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return BukkitUtil.getPlayer(name);
 	}
 
 	@Override
@@ -566,7 +581,8 @@ public class FakePlayer implements Player
 	@Override
 	public Server getServer()
 	{
-		return server;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -667,14 +683,13 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public boolean hasPermission(Permission arg0)
+	public boolean hasPermission(Permission anyPermission)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
-	public boolean hasPermission(String arg0)
+	public boolean hasPermission(String anyPermission)
 	{
 		return true;
 	}
@@ -795,7 +810,8 @@ public class FakePlayer implements Player
 	@Override
 	public boolean isOnline()
 	{
-		return isOnline;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -1064,16 +1080,20 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public void sendMessage(String arg0)
+	public void sendMessage(String message)
 	{
-		// TODO Auto-generated method stub
+		if (messageLog.size() == STORED_MESSAGES)
+		{
+			messageLog.removeFirst();
+		}
+		messageLog.addLast(message);
 	}
 
 	@Override
 	public void sendMessage(String[] arg0)
 	{
-		// TODO Auto-generated method stub
-
+		String message = StringUtil.concatenate(arg0);
+		sendMessage(message);
 	}
 
 	@Override
@@ -1271,14 +1291,9 @@ public class FakePlayer implements Player
 	}
 
 	@Override
-	public void setNoDamageTicks(int noDamageTicks)
+	public void setNoDamageTicks(int ticks)
 	{
-		this.noDamageTicks = noDamageTicks;
-	}
-
-	public void setOnline(boolean isOnline)
-	{
-		this.isOnline = isOnline;
+		noDamageTicks = ticks;
 	}
 
 	@Override
@@ -1642,5 +1657,4 @@ public class FakePlayer implements Player
 		// TODO Auto-generated method stub
 
 	}
-
 }

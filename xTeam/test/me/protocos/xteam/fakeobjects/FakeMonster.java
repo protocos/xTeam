@@ -1,10 +1,13 @@
-package me.protocos.xteam.api.fakeobjects;
+package me.protocos.xteam.fakeobjects;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
-import org.bukkit.*;
+import org.bukkit.EntityEffect;
+import org.bukkit.Location;
+import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -16,23 +19,37 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-public class FakeWolf implements Wolf
+public class FakeMonster implements Monster
 {
-	private String owner;
-	private int health;
-	private Location location;
-	private Server server;
 
-	public FakeWolf(String owner, int health, Location location)
+	@Override
+	public LivingEntity getTarget()
 	{
-		this(owner, health, location, new FakeServer());
+		// TODO Auto-generated method stub
+		return null;
 	}
-	public FakeWolf(String owner, int health, Location location, Server server)
+
+	@Override
+	public void setTarget(LivingEntity arg0)
 	{
-		this.owner = owner;
-		this.health = health;
-		this.location = location;
-		this.server = server;
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	@Deprecated
+	public int _INVALID_getLastDamage()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	@Deprecated
+	public void _INVALID_setLastDamage(int arg0)
+	{
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -57,38 +74,10 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public boolean canBreed()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean eject()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public Collection<PotionEffect> getActivePotionEffects()
 	{
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public int getAge()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean getAgeLock()
-	{
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -99,24 +88,10 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public DyeColor getCollarColor()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getCustomName()
 	{
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public int getEntityId()
-	{
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -148,26 +123,6 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public float getFallDistance()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getFireTicks()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getHealth()
-	{
-		return health;
-	}
-
-	@Override
 	public Player getKiller()
 	{
 		// TODO Auto-generated method stub
@@ -182,13 +137,7 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public EntityDamageEvent getLastDamageCause()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
+	@Deprecated
 	public List<Block> getLastTwoTargetBlocks(HashSet<Byte> arg0, int arg1)
 	{
 		// TODO Auto-generated method stub
@@ -196,37 +145,18 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
+	public Entity getLeashHolder() throws IllegalStateException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Deprecated
 	public List<Block> getLineOfSight(HashSet<Byte> arg0, int arg1)
 	{
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public Location getLocation()
-	{
-		return location;
-	}
-
-	@Override
-	public Location getLocation(Location arg0)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getMaxFireTicks()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getMaxHealth()
-	{
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -244,37 +174,10 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public List<MetadataValue> getMetadata(String arg0)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Entity> getNearbyEntities(double arg0, double arg1, double arg2)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int getNoDamageTicks()
 	{
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public AnimalTamer getOwner()
-	{
-		return new FakeAnimalTamer(owner);
-	}
-
-	@Override
-	public Entity getPassenger()
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -292,20 +195,221 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public Server getServer()
-	{
-		return server;
-	}
-
-	@Override
-	public LivingEntity getTarget()
+	@Deprecated
+	public Block getTargetBlock(HashSet<Byte> arg0, int arg1)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Block getTargetBlock(HashSet<Byte> arg0, int arg1)
+	public boolean hasLineOfSight(Entity arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasPotionEffect(PotionEffectType arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCustomNameVisible()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isLeashed()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public <T extends Projectile> T launchProjectile(Class<? extends T> arg0)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removePotionEffect(PotionEffectType arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setCanPickupItems(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setCustomName(String arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setCustomNameVisible(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setLastDamage(double arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean setLeashHolder(Entity arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setMaximumAir(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setMaximumNoDamageTicks(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setNoDamageTicks(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setRemainingAir(int arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setRemoveWhenFarAway(boolean arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	@Deprecated
+	public Arrow shootArrow()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Deprecated
+	public Egg throwEgg()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Deprecated
+	public Snowball throwSnowball()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean eject()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getEntityId()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float getFallDistance()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getFireTicks()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public EntityDamageEvent getLastDamageCause()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Location getLocation()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Location getLocation(Location arg0)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getMaxFireTicks()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Entity> getNearbyEntities(double arg0, double arg1, double arg2)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Entity getPassenger()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Server getServer()
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -349,49 +453,8 @@ public class FakeWolf implements Wolf
 	@Override
 	public World getWorld()
 	{
-		return location.getWorld();
-	}
-
-	@Override
-	public boolean hasLineOfSight(Entity arg0)
-	{
 		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean hasMetadata(String arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean hasPotionEffect(PotionEffectType arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isAdult()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isAngry()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isCustomNameVisible()
-	{
-		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -423,31 +486,10 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public boolean isSitting()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isTamed()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean isValid()
 	{
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public <T extends Projectile> T launchProjectile(Class<? extends T> arg0)
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -466,97 +508,6 @@ public class FakeWolf implements Wolf
 
 	@Override
 	public void remove()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeMetadata(String arg0, Plugin arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removePotionEffect(PotionEffectType arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resetMaxHealth()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setAdult()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setAge(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setAgeLock(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setAngry(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setBaby()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setBreed(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setCanPickupItems(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setCollarColor(DyeColor arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setCustomName(String arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setCustomNameVisible(boolean arg0)
 	{
 		// TODO Auto-generated method stub
 
@@ -584,14 +535,70 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public void setMaximumAir(int arg0)
+	public boolean setPassenger(Entity arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setTicksLived(int arg0)
 	{
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setMaximumNoDamageTicks(int arg0)
+	public void setVelocity(Vector arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean teleport(Location arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean teleport(Entity arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean teleport(Location arg0, TeleportCause arg1)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean teleport(Entity arg0, TeleportCause arg1)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<MetadataValue> getMetadata(String arg0)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean hasMetadata(String arg0)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void removeMetadata(String arg0, Plugin arg1)
 	{
 		// TODO Auto-generated method stub
 
@@ -605,154 +612,13 @@ public class FakeWolf implements Wolf
 	}
 
 	@Override
-	public void setNoDamageTicks(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setOwner(AnimalTamer arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public boolean setPassenger(Entity arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public void setRemainingAir(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setRemoveWhenFarAway(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setSitting(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setTamed(boolean arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setTarget(LivingEntity arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setTicksLived(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setVelocity(Vector arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	@Deprecated
-	public Arrow shootArrow()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public boolean teleport(Entity arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean teleport(Entity arg0, TeleportCause arg1)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean teleport(Location arg0)
-	{
-		return true;
-	}
-	@Override
-	public boolean teleport(Location arg0, TeleportCause arg1)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	@Deprecated
-	public Egg throwEgg()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	@Deprecated
-	public Snowball throwSnowball()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	@Deprecated
-	public int _INVALID_getLastDamage()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	@Deprecated
-	public void _INVALID_setLastDamage(int arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public Entity getLeashHolder() throws IllegalStateException
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public boolean isLeashed()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public void setLastDamage(double arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public boolean setLeashHolder(Entity arg0)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
 	@Deprecated
 	public void _INVALID_damage(int arg0)
 	{
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
 	@Deprecated
 	public void _INVALID_damage(int arg0, Entity arg1)
@@ -760,6 +626,7 @@ public class FakeWolf implements Wolf
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
 	@Deprecated
 	public int _INVALID_getHealth()
@@ -767,6 +634,7 @@ public class FakeWolf implements Wolf
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 	@Override
 	@Deprecated
 	public int _INVALID_getMaxHealth()
@@ -774,6 +642,7 @@ public class FakeWolf implements Wolf
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 	@Override
 	@Deprecated
 	public void _INVALID_setHealth(int arg0)
@@ -781,6 +650,7 @@ public class FakeWolf implements Wolf
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
 	@Deprecated
 	public void _INVALID_setMaxHealth(int arg0)
@@ -788,24 +658,49 @@ public class FakeWolf implements Wolf
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
 	public void damage(double arg0)
 	{
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
 	public void damage(double arg0, Entity arg1)
 	{
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public double getHealth()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getMaxHealth()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void resetMaxHealth()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
 	@Override
 	public void setHealth(double arg0)
 	{
 		// TODO Auto-generated method stub
 
 	}
+
 	@Override
 	public void setMaxHealth(double arg0)
 	{

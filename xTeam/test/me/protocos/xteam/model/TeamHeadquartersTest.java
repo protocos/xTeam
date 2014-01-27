@@ -1,7 +1,7 @@
 package me.protocos.xteam.model;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
-import me.protocos.xteam.api.fakeobjects.FakeWorld;
+import me.protocos.xteam.fakeobjects.FakeWorld;
 import me.protocos.xteam.model.Headquarters;
 import org.junit.After;
 import org.junit.Assert;

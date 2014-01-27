@@ -1,7 +1,7 @@
 package me.protocos.xteam.data.translator;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
-import me.protocos.xteam.api.fakeobjects.FakeLocation;
+import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.util.BukkitUtil;
 import org.bukkit.Location;
 import org.junit.After;

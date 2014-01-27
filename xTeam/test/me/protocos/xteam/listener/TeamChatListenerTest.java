@@ -4,7 +4,7 @@ import static me.protocos.xteam.StaticTestFunctions.mockData;
 import java.util.HashSet;
 import java.util.Set;
 import junit.framework.Assert;
-import me.protocos.xteam.api.fakeobjects.FakePlayer;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.junit.After;

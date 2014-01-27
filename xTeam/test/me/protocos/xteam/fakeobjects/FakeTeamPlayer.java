@@ -1,4 +1,4 @@
-package me.protocos.xteam.api.fakeobjects;
+package me.protocos.xteam.fakeobjects;
 
 import me.protocos.xteam.command.*;
 import me.protocos.xteam.entity.TeamPlayer;

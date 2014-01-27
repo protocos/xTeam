@@ -1,7 +1,7 @@
 package me.protocos.xteam;
 
 import junit.framework.Assert;
-import me.protocos.xteam.api.fakeobjects.*;
+import me.protocos.xteam.fakeobjects.*;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.data.configuration.Configuration;

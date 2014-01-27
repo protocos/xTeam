@@ -1,7 +1,7 @@
 package me.protocos.xteam.data;
 
-import me.protocos.xteam.api.fakeobjects.FakeLocation;
-import me.protocos.xteam.api.fakeobjects.FakeServer;
+import me.protocos.xteam.fakeobjects.FakeLocation;
+import me.protocos.xteam.fakeobjects.FakeServer;
 import me.protocos.xteam.data.translator.IDataTranslator;
 import me.protocos.xteam.data.translator.LocationDataTranslator;
 import me.protocos.xteam.util.BukkitUtil;

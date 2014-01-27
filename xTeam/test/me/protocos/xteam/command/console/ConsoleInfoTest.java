@@ -2,7 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
