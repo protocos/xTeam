@@ -150,10 +150,10 @@ public class TeamUserCreateTest
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserCreate();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create ���".split(" ")));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create ¡™£¢".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("���"));
+		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("¡™£¢"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
