@@ -7,7 +7,7 @@ import me.protocos.xteam.api.entity.ITeamPlayer;
 import me.protocos.xteam.api.model.HelpPages;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.configuration.Configuration;
+import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.*;
 import me.protocos.xteam.util.CommonUtil;

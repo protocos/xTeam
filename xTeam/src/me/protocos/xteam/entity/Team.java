@@ -8,7 +8,7 @@ import me.protocos.xteam.api.entity.ITeamEntity;
 import me.protocos.xteam.api.entity.ITeamPlayer;
 import me.protocos.xteam.api.model.ILocatable;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.configuration.Configuration;
+import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.ChatColorUtil;

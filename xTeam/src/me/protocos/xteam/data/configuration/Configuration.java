@@ -1,4 +1,4 @@
-package me.protocos.xteam.configuration;
+package me.protocos.xteam.data.configuration;
 
 import java.io.File;
 import java.io.FileWriter;

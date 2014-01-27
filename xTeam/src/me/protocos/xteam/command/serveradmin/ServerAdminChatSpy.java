@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.api.command.ServerAdminCommand;
 import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.configuration.Configuration;
+import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.PatternBuilder;

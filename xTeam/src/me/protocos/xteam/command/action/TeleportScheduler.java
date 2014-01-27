@@ -7,7 +7,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.entity.ITeam;
 import me.protocos.xteam.api.entity.ITeamPlayer;
 import me.protocos.xteam.api.model.ILocatable;
-import me.protocos.xteam.configuration.Configuration;
+import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.exception.TeamPlayerHasNoOnlineTeammatesException;

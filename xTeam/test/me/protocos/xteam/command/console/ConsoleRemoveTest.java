@@ -6,7 +6,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.command.ConsoleCommand;
 import me.protocos.xteam.api.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.configuration.Configuration;
+import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.exception.TeamPlayerNeverPlayedException;

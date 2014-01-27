@@ -10,7 +10,7 @@ import me.protocos.xteam.api.entity.ITeamEntity;
 import me.protocos.xteam.api.entity.ITeamPlayer;
 import me.protocos.xteam.api.model.ILocatable;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.configuration.Configuration;
+import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.util.*;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;

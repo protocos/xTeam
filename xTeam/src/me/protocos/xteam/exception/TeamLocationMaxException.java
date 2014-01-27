@@ -1,6 +1,6 @@
 package me.protocos.xteam.exception;
 
-import me.protocos.xteam.configuration.Configuration;
+import me.protocos.xteam.data.configuration.Configuration;
 
 
 public class TeamLocationMaxException extends TeamException

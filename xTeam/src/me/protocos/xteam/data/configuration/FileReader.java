@@ -1,4 +1,4 @@
-package me.protocos.xteam.configuration;
+package me.protocos.xteam.data.configuration;
 
 import java.io.*;
 import java.lang.reflect.Method;
