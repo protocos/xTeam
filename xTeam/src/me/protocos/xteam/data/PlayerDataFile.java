@@ -18,7 +18,7 @@ public class PlayerDataFile implements IDataManager
 	public PlayerDataFile(TeamPlugin plugin)
 	{
 		this.plugin = plugin;
-		this.file = SystemUtil.ensureFile(plugin.getFolder() + "xTeamPlayerData.txt");
+		this.file = SystemUtil.ensureFile(plugin.getFolder() + "players.txt");
 	}
 
 	@Override

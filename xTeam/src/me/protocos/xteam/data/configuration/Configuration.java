@@ -40,6 +40,7 @@ public class Configuration
 	public static int MAX_NUM_LOCATIONS;
 	public static int TELE_REFRESH_DELAY;
 	public static int RALLY_DELAY;
+	public static int SAVE_DATA_INTERVAL;
 	public static String COLOR_TAG;
 	public static String COLOR_NAME;
 	public static String STORAGE_TYPE;
@@ -128,6 +129,7 @@ public class Configuration
 		TEAM_NAME_LENGTH = CommonUtil.assignFromType(options.get("teamnamemaxlength").getValue(), Integer.class);
 		TELE_REFRESH_DELAY = CommonUtil.assignFromType(options.get("telerefreshdelay").getValue(), Integer.class);
 		RALLY_DELAY = CommonUtil.assignFromType(options.get("rallydelay").getValue(), Integer.class);
+		SAVE_DATA_INTERVAL = CommonUtil.assignFromType(options.get("savedatainterval").getValue(), Integer.class);
 		COLOR_TAG = CommonUtil.assignFromType(options.get("tagcolor").getValue(), String.class);
 		COLOR_NAME = CommonUtil.assignFromType(options.get("chatnamecolor").getValue(), String.class);
 		STORAGE_TYPE = CommonUtil.assignFromType(options.get("storagetype").getValue(), String.class);

@@ -170,6 +170,7 @@ public final class xTeam
 		this.configLoader.addAttribute("rallydelay", 2, "Delay in minutes that a team rally stays active");
 		this.configLoader.addAttribute("newparam", 1, "Delay in minutes that a team rally stays active");
 		this.configLoader.addAttribute("storagetype", "file", "Method for storing data for the plugin (Options: file, SQLite, MySQL)");
+		this.configLoader.addAttribute("savedatainterval", 10, "Time, in minutes, that the plugin will write data to disk if storagetype = file");
 		this.configLoader.write();
 		this.configLoader.load();
 	}
