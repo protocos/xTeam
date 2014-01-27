@@ -42,7 +42,7 @@ public abstract class BaseCommand
 		catch (TeamException e)
 		{
 			sender.sendMessage(ChatColorUtil.negativeMessage(e.getMessage()));
-			xTeam.getInstance().getLog().info("Command execute failed for reason: " + e.getMessage());
+			xTeam.getInstance().getLog().debug("Command execute failed for reason: " + e.getMessage());
 		}
 		catch (InvalidClassException e)
 		{

@@ -31,7 +31,7 @@ public class CommandDelegate implements CommandExecutor
 			if (command == null)
 			{
 				sender.sendMessage(ChatColorUtil.negativeMessage((new TeamInvalidCommandException()).getMessage()));
-				xTeam.getInstance().getLog().info("Command execute failed for reason: " + (new TeamInvalidCommandException()).getMessage());
+				xTeam.getInstance().getLog().debug("Command execute failed for reason: " + (new TeamInvalidCommandException()).getMessage());
 			}
 			else if (command.execute(commandContainer) == true)
 				xTeam.getInstance().writeTeamData(new File("plugins/xTeam/teams.txt"));
@@ -40,13 +40,12 @@ public class CommandDelegate implements CommandExecutor
 		{
 			sender.sendMessage(ChatColorUtil.negativeMessage("There was a server error executing command: /" + commandID + " " + StringUtil.concatenate(args)));
 			xTeam.getInstance().getLog().exception(e);
-			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onCommand() class [check logs]");
 		}
 		return true;
 	}
 
 	private void logCommand(CommandContainer commandContainer)
 	{
-		xTeam.getInstance().getLog().info(commandContainer.getSenderName() + " issued command: " + commandContainer.getCommand());
+		xTeam.getInstance().getLog().debug(commandContainer.getSenderName() + " issued command: " + commandContainer.getCommand());
 	}
 }

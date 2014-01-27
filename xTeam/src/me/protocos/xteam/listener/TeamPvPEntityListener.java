@@ -73,7 +73,6 @@ public class TeamPvPEntityListener implements Listener
 		catch (Exception e)
 		{
 			xTeam.getInstance().getLog().exception(e);
-			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onEntityDamage() class [check logs]");
 		}
 	}
 }

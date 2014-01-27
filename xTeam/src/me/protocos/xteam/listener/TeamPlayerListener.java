@@ -105,7 +105,6 @@ public class TeamPlayerListener implements Listener
 		catch (Exception e)
 		{
 			xTeam.getInstance().getLog().exception(e);
-			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onPlayerJoin() class [check logs]");
 		}
 	}
 
@@ -120,7 +119,6 @@ public class TeamPlayerListener implements Listener
 		catch (Exception e)
 		{
 			xTeam.getInstance().getLog().exception(e);
-			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onPlayerQuit() class [check logs]");
 		}
 	}
 
@@ -152,7 +150,6 @@ public class TeamPlayerListener implements Listener
 		catch (Exception e)
 		{
 			xTeam.getInstance().getLog().exception(e);
-			xTeam.getInstance().getLog().info("[ERROR] Exception in xTeam onPlayerRespawn() class [check logs]");
 		}
 	}
 }
