@@ -2,8 +2,7 @@ name: xTeam
 main: me.protocos.xteam.xTeamPlugin
 version: 1.8.0
 author: protocos
-softdepend: [PermissionsEx]
-depend: [SQLibrary]
+softdepend: [PermissionsEx, SQLibrary]
 commands:
     team:
         description: Team commands

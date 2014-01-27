@@ -4,7 +4,7 @@ import java.util.List;
 import me.protocos.xteam.api.core.IPlayerManager;
 import me.protocos.xteam.api.entity.ITeamEntity;
 import me.protocos.xteam.api.entity.ITeamPlayer;
-import me.protocos.xteam.data.IPlayerData;
+import me.protocos.xteam.data.IDataManager;
 import me.protocos.xteam.data.translators.LocationDataTranslator;
 import me.protocos.xteam.data.translators.LongDataTranslator;
 import me.protocos.xteam.entity.OfflineTeamPlayer;
@@ -18,17 +18,29 @@ import org.bukkit.entity.Player;
 
 public class PlayerManager implements IPlayerManager
 {
-	private IPlayerData dataManager;
+	private IDataManager dataManager;
 
-	public PlayerManager(IPlayerData dataManager)
+	public PlayerManager(IDataManager dataManager)
 	{
 		this.dataManager = dataManager;
-		this.dataManager.initializePlayerData();
+		this.dataManager.initializeData();
+	}
+
+	@Override
+	public void open()
+	{
+		this.dataManager.open();
+	}
+
+	@Override
+	public void close()
+	{
+		this.dataManager.close();
 	}
 
 	public void clear()
 	{
-		this.dataManager.clearPlayerData();
+		this.dataManager.clearData();
 	}
 
 	public List<TeamPlayer> getOnlinePlayers()

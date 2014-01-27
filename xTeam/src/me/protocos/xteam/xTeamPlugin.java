@@ -45,6 +45,7 @@ public class xTeamPlugin extends TeamPlugin
 			this.commandExecutor = new CommandDelegate(this.getCommandManager());
 			xteam.readTeamData(new File(this.getDataFolder().getAbsolutePath() + "/teams.txt"));
 			this.getCommand("team").setExecutor(commandExecutor);
+			this.getPlayerManager().open();
 			this.getLog().info("[" + this.getPluginName() + "] v" + this.getVersion() + " enabled");
 		}
 		catch (Exception e)
@@ -58,6 +59,7 @@ public class xTeamPlugin extends TeamPlugin
 		try
 		{
 			xteam.writeTeamData(new File(this.getDataFolder().getAbsolutePath() + "/teams.txt"));
+			this.getPlayerManager().close();
 			this.getLog().info("[" + this.getPluginName() + "] v" + this.getVersion() + " disabled");
 			this.getLog().close();
 		}

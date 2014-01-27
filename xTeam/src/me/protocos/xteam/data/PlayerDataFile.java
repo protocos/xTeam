@@ -5,7 +5,7 @@ import me.protocos.xteam.xTeam;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.data.translators.IDataTranslator;
 
-public class PlayerDataFile implements IPlayerData
+public class PlayerDataFile implements IDataManager
 {
 	private BufferedReader reader;
 	private BufferedWriter writer;
@@ -19,17 +19,6 @@ public class PlayerDataFile implements IPlayerData
 
 	@Override
 	public void open()
-	{
-	}
-
-	@Override
-	public boolean isOpen()
-	{
-		return true;
-	}
-
-	@Override
-	public void read()
 	{
 		try
 		{
@@ -52,7 +41,13 @@ public class PlayerDataFile implements IPlayerData
 	}
 
 	@Override
-	public void write()
+	public boolean isOpen()
+	{
+		return true;
+	}
+
+	@Override
+	public void close()
 	{
 		try
 		{
@@ -61,7 +56,7 @@ public class PlayerDataFile implements IPlayerData
 			for (String player : properties.getOrder())
 			{
 				propList = properties.get(player);
-				writer.write(new StringBuilder().append("name:").append(player).append(" ").append(propList).toString());
+				writer.write(new StringBuilder().append("name:").append(player).append(" ").append(propList).append("\n").toString());
 			}
 			writer.close();
 		}
@@ -72,12 +67,7 @@ public class PlayerDataFile implements IPlayerData
 	}
 
 	@Override
-	public void close()
-	{
-	}
-
-	@Override
-	public void initializePlayerData()
+	public void initializeData()
 	{
 		if (properties == null)
 		{
@@ -86,7 +76,7 @@ public class PlayerDataFile implements IPlayerData
 	}
 
 	@Override
-	public void clearPlayerData()
+	public void clearData()
 	{
 		for (String player : properties.getOrder())
 		{

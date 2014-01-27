@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.logging.Logger;
-import lib.PatPeter.SQLibrary.Database;
-import lib.PatPeter.SQLibrary.SQLite;
 import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.api.collections.HashList;
 import me.protocos.xteam.api.command.ICommandManager;
@@ -20,6 +17,7 @@ import me.protocos.xteam.configuration.Configuration;
 import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.TeamManager;
 import me.protocos.xteam.data.PlayerDataDB;
+import me.protocos.xteam.data.PlayerDataFile;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.Log;
@@ -41,11 +39,9 @@ public final class xTeam
 	private ICommandManager commandManager;
 	private List<Permission> permissions;
 	private Configuration configLoader;
-	private Database db;
 
 	private xTeam()
 	{
-		this.teamManager = new TeamManager();
 		this.commandManager = new CommandManager();
 	}
 
@@ -88,39 +84,52 @@ public final class xTeam
 		return version;
 	}
 
-	public Database getDatabase()
-	{
-		return db;
-	}
-
 	public void load(TeamPlugin plugin)
 	{
 		if ("xTeamPlugin".equals(plugin.getPluginName()) || "FakeTeamPlugin".equals(plugin.getPluginName()))
 		{
-			if (playerManager == null)
-			{
-				db = new SQLite(Logger.getLogger("Minecraft"),
-						"[xTeam] ",
-						plugin.getFolder(),
-						"xTeam",
-						".db");
-				if (!db.isOpen())
-				{
-					db.open();
-				}
-				this.playerManager = new PlayerManager(new PlayerDataDB(db));
-				//				this.playerManager = new PlayerManager(new PlayerDataFile(SystemUtil.ensureFile("xTeamPlayerData.txt")));
-			}
 			this.version = plugin.getVersion();
 			this.logger = new Log(plugin.getFolder() + "xTeam.log");
 			this.permissions = new ArrayList<Permission>(plugin.getPermissions());
 			this.initFileSystem(plugin);
+			this.initDataStorage(plugin);
 		}
 		else
 		{
 			this.permissions.addAll(plugin.getPermissions());
 		}
 		this.commandManager.register(plugin);
+	}
+
+	private void initDataStorage(TeamPlugin plugin)
+	{
+		if (this.playerManager == null)
+		{
+			if ("SQLite".equals(Configuration.STORAGE_TYPE))
+			{
+				if (BukkitUtil.getPluginManager().getPlugin("SQLibrary") != null)
+					this.playerManager = new PlayerManager(new PlayerDataDB(plugin));
+				else
+					this.getLog().error("Cannot use \"" + Configuration.STORAGE_TYPE + "\" for storage because plugin \"SQLibrary\" cannot be found!");
+			}
+			else if ("file".equals(Configuration.STORAGE_TYPE))
+			{
+				this.playerManager = new PlayerManager(new PlayerDataFile(SystemUtil.ensureFile(plugin.getFolder() + "xTeamPlayerData.txt")));
+			}
+			else
+			{
+				this.getLog().error("\"" + Configuration.STORAGE_TYPE + "\" is not a valid storage type");
+			}
+			if (this.playerManager == null)
+			{
+				this.getLog().error("Resorting to \"file\" storage type");
+				this.playerManager = new PlayerManager(new PlayerDataFile(SystemUtil.ensureFile(plugin.getFolder() + "xTeamPlayerData.txt")));
+			}
+		}
+		if (this.teamManager == null)
+		{
+			this.teamManager = new TeamManager();
+		}
 	}
 
 	private void initFileSystem(TeamPlugin plugin)
@@ -156,6 +165,7 @@ public final class xTeam
 		this.configLoader.addAttribute("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
 		this.configLoader.addAttribute("rallydelay", 2, "Delay in minutes that a team rally stays active");
 		this.configLoader.addAttribute("newparam", 1, "Delay in minutes that a team rally stays active");
+		this.configLoader.addAttribute("storagetype", "file", "Method for storing data for the plugin (Options: file, SQLite, MySQL)");
 		this.configLoader.write();
 		this.configLoader.load();
 	}

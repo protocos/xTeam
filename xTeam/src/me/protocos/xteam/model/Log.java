@@ -47,13 +47,13 @@ public class Log implements ILog
 
 	public void debug(String message)
 	{
-		message = "[DEBUG] " + message;
+		message = "[xTeam] DEBUG: " + message;
 		write(message);
 	}
 
 	public void error(String message)
 	{
-		message = "[ERROR] " + message;
+		message = "[xTeam] ERROR: " + message;
 		write(message);
 		print(message);
 	}
@@ -84,7 +84,7 @@ public class Log implements ILog
 
 	public void info(String message)
 	{
-		message = "[INFO] " + message;
+		message = "[xTeam] INFO: " + message;
 		write(message);
 	}
 

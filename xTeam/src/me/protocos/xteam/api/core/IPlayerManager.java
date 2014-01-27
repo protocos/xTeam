@@ -11,6 +11,10 @@ import org.bukkit.entity.Player;
 
 public interface IPlayerManager
 {
+	public abstract void open();
+
+	public abstract void close();
+
 	public abstract void clear();
 
 	public abstract ITeamPlayer getPlayer(String name);

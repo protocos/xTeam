@@ -2,17 +2,21 @@ package me.protocos.xteam.data;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 import lib.PatPeter.SQLibrary.Database;
+import lib.PatPeter.SQLibrary.SQLite;
 import me.protocos.xteam.xTeam;
+import me.protocos.xteam.api.TeamPlugin;
 import me.protocos.xteam.data.translators.IDataTranslator;
 
-public class PlayerDataDB implements IPlayerData
+public class PlayerDataDB implements IDataManager
 {
 	private Database db;
 
-	public PlayerDataDB(Database db)
+	public PlayerDataDB(TeamPlugin plugin)
 	{
-		this.db = db;
+		this.db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", plugin.getFolder(), "xTeam", ".db");
+		this.open();
 	}
 
 	@Override
@@ -28,23 +32,13 @@ public class PlayerDataDB implements IPlayerData
 	}
 
 	@Override
-	public void read()
-	{
-	}
-
-	@Override
-	public void write()
-	{
-	}
-
-	@Override
 	public void close()
 	{
 		db.close();
 	}
 
 	@Override
-	public void initializePlayerData()
+	public void initializeData()
 	{
 		try
 		{
@@ -57,7 +51,7 @@ public class PlayerDataDB implements IPlayerData
 	}
 
 	@Override
-	public void clearPlayerData()
+	public void clearData()
 	{
 		try
 		{

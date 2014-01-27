@@ -68,7 +68,8 @@ public class SetTeamAction
 		else
 		{
 			//third person
-			sender.sendMessage(playerName + " has been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
+			if (!playerTeam.containsPlayer(senderName))
+				sender.sendMessage(playerName + " has been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
 			player.sendMessage("You have been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{

@@ -15,14 +15,17 @@ public class TeamPvPEntityListener implements Listener
 {
 	private static void checkTeam(EntityDamageEvent event, ITeamPlayer attacker, ITeamPlayer defender)
 	{
-		if (attacker.isOnSameTeam(defender))
+		if (Configuration.TEAM_FRIENDLY_FIRE)
+		{
+			defender.setLastAttacked(System.currentTimeMillis());
+		}
+		else if (attacker.isOnSameTeam(defender))
 		{
 			event.setCancelled(true);
 		}
 		else
 		{
-			ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(defender.getName());
-			player.setLastAttacked(System.currentTimeMillis());
+			defender.setLastAttacked(System.currentTimeMillis());
 		}
 	}
 
@@ -38,11 +41,6 @@ public class TeamPvPEntityListener implements Listener
 			Entity damager = event.getDamager();
 			Entity entity = event.getEntity();
 			if (Configuration.DISABLED_WORLDS.contains(damager.getWorld().getName()) && Configuration.DISABLED_WORLDS.contains(entity.getWorld().getName()))
-			{
-				return;
-			}
-
-			if (Configuration.TEAM_FRIENDLY_FIRE)
 			{
 				return;
 			}

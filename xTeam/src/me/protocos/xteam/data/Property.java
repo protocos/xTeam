@@ -53,9 +53,11 @@ public class Property
 	public static Property fromString(String property)
 	{
 		String[] components = property.split(":");
-		if (components.length != 2)
-			throw new InvalidFormatException(property, "key:value");
-		return new Property(components[0], components[1]);
+		if (components.length == 1)
+			return new Property(components[0], "");
+		else if (components.length == 2)
+			return new Property(components[0], components[1]);
+		throw new InvalidFormatException(property, "key:value");
 	}
 
 	public static Property fromObject(String key, Object value)

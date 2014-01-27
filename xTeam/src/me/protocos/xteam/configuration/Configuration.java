@@ -42,6 +42,7 @@ public class Configuration
 	public static int RALLY_DELAY;
 	public static String COLOR_TAG;
 	public static String COLOR_NAME;
+	public static String STORAGE_TYPE;
 	public static List<String> DEFAULT_TEAM_NAMES = new ArrayList<String>();
 	public static List<String> DISABLED_WORLDS = new ArrayList<String>();
 
@@ -129,6 +130,7 @@ public class Configuration
 		RALLY_DELAY = CommonUtil.assignFromType(options.get("rallydelay").getValue(), Integer.class);
 		COLOR_TAG = CommonUtil.assignFromType(options.get("tagcolor").getValue(), String.class);
 		COLOR_NAME = CommonUtil.assignFromType(options.get("chatnamecolor").getValue(), String.class);
+		STORAGE_TYPE = CommonUtil.assignFromType(options.get("storagetype").getValue(), String.class);
 		DEFAULT_TEAM_NAMES = CommonUtil.toList(CommonUtil.assignFromType(options.get("defaultteams").getValue(), String.class).replace(" ", "").split(","));
 		DISABLED_WORLDS = CommonUtil.toList(CommonUtil.assignFromType(options.get("disabledworlds").getValue(), String.class).replace(" ", "").split(","));
 		this.ensureDefaultTeams();
