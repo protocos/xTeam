@@ -8,102 +8,136 @@ import lib.PatPeter.SQLibrary.SQLite;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.xTeam;
 import me.protocos.xteam.data.translator.IDataTranslator;
+import me.protocos.xteam.exception.DataManagerNotOpenException;
 
 public class PlayerDataDB implements IDataManager
 {
+	private boolean open = false;
 	private Database db;
 
 	public PlayerDataDB(TeamPlugin plugin)
 	{
 		this.db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", plugin.getFolder(), "xTeam", ".db");
-		this.open();
 	}
 
 	@Override
 	public void open()
 	{
 		db.open();
+		open = true;
+		this.initializeData();
+		this.clearData();
 	}
 
 	@Override
 	public void read()
 	{
+		if (!open)
+			throw new DataManagerNotOpenException();
 	}
 
 	@Override
 	public boolean isOpen()
 	{
-		return db.isOpen();
+		return open;
 	}
 
 	@Override
 	public void write()
 	{
+		if (!open)
+			throw new DataManagerNotOpenException();
 	}
 
 	@Override
 	public void close()
 	{
 		db.close();
+		open = false;
 	}
 
 	@Override
 	public void initializeData()
 	{
-		try
+		if (open)
 		{
-			db.insert("CREATE TABLE IF NOT EXISTS player_data(name VARCHAR(17) PRIMARY KEY, lastAttacked BIGINT, lastTeleported BIGINT, returnLocation TEXT);");
+			try
+			{
+				db.insert("CREATE TABLE IF NOT EXISTS player_data(name VARCHAR(17) PRIMARY KEY, lastAttacked BIGINT, lastTeleported BIGINT, returnLocation TEXT);");
+			}
+			catch (SQLException e)
+			{
+				xTeam.getInstance().getLog().exception(e);
+			}
 		}
-		catch (SQLException e)
+		else
 		{
-			xTeam.getInstance().getLog().exception(e);
+			throw new DataManagerNotOpenException();
 		}
 	}
 
 	@Override
 	public void clearData()
 	{
-		try
+		if (open)
 		{
-			db.insert("UPDATE player_data SET lastAttacked=0,lastTeleported=0,returnLocation=null;");
+			try
+			{
+				db.insert("UPDATE player_data SET lastAttacked=0,lastTeleported=0,returnLocation=null;");
+			}
+			catch (SQLException e)
+			{
+				xTeam.getInstance().getLog().exception(e);
+			}
 		}
-		catch (SQLException e)
+		else
 		{
-			xTeam.getInstance().getLog().exception(e);
+			throw new DataManagerNotOpenException();
 		}
 	}
 
 	@Override
 	public <T> void setVariable(String playerName, String variableName, T variable, IDataTranslator<T> strategy)
 	{
-		try
+		if (open)
 		{
-			db.insert("UPDATE player_data SET " + variableName + "='" + strategy.decompile(variable) + "' WHERE name='" + playerName + "';");
+			try
+			{
+				db.insert("UPDATE player_data SET " + variableName + "='" + strategy.decompile(variable) + "' WHERE name='" + playerName + "';");
+			}
+			catch (SQLException e)
+			{
+				xTeam.getInstance().getLog().exception(e);
+			}
 		}
-		catch (SQLException e)
+		else
 		{
-			xTeam.getInstance().getLog().exception(e);
+			throw new DataManagerNotOpenException();
 		}
 	}
 
 	@Override
 	public <T> T getVariable(String playerName, String variableName, IDataTranslator<T> strategy)
 	{
-		ResultSet set = null;
-		try
+		if (open)
 		{
-			db.insert("INSERT INTO player_data(name, lastAttacked, lastTeleported) " +
-					"SELECT '" + playerName + "',0,0 " +
-					"WHERE NOT EXISTS (SELECT * FROM player_data WHERE name='" + playerName + "');");
-			set = db.query("SELECT " + variableName + " FROM player_data WHERE name='" + playerName + "';");
-			if (set == null || set.getString(1) == null)
-				return null;
-			return strategy.compile(set.getString(1));
+			ResultSet set = null;
+			try
+			{
+				db.insert("INSERT INTO player_data(name, lastAttacked, lastTeleported) " +
+						"SELECT '" + playerName + "',0,0 " +
+						"WHERE NOT EXISTS (SELECT * FROM player_data WHERE name='" + playerName + "');");
+				set = db.query("SELECT " + variableName + " FROM player_data WHERE name='" + playerName + "';");
+				if (set == null || set.getString(1) == null)
+					return null;
+				return strategy.compile(set.getString(1));
+			}
+			catch (SQLException e)
+			{
+				xTeam.getInstance().getLog().exception(e);
+			}
+			return null;
 		}
-		catch (SQLException e)
-		{
-			xTeam.getInstance().getLog().exception(e);
-		}
-		return null;
+		throw new DataManagerNotOpenException();
 	}
 }

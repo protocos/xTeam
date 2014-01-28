@@ -88,7 +88,7 @@ public final class xTeam
 		if ("xTeamPlugin".equals(plugin.getPluginName()) || "FakeTeamPlugin".equals(plugin.getPluginName()))
 		{
 			this.version = plugin.getVersion();
-			if (this.logger == null)
+			if (plugin.getLog() == null)
 				this.logger = new Log(plugin.getFolder() + "xTeam.log");
 			else
 				this.logger = plugin.getLog();

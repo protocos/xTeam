@@ -23,7 +23,6 @@ public class FakeLog implements ILog
 	@Override
 	public void exception(Exception e)
 	{
-		e.printStackTrace();
 	}
 
 	@Override

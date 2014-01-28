@@ -1,6 +1,7 @@
 package me.protocos.xteam.data.translator;
 
 import java.util.List;
+import me.protocos.xteam.xTeam;
 import me.protocos.xteam.exception.InvalidFormatException;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
@@ -25,12 +26,20 @@ public class LocationDataTranslator implements IDataTranslator<Location>
 		List<String> components = CommonUtil.split(formattedString, ",");
 		if (components.size() != 6)
 			throw new InvalidFormatException(formattedString, "world,x,y,z,yaw,pitch");
-		World world = BukkitUtil.getWorld(components.get(0));
-		Double x = Double.valueOf(components.get(1));
-		Double y = Double.valueOf(components.get(2));
-		Double z = Double.valueOf(components.get(3));
-		Float yaw = Float.valueOf(components.get(4));
-		Float pitch = Float.valueOf(components.get(5));
-		return new Location(world, x, y, z, yaw, pitch);
+		try
+		{
+			World world = BukkitUtil.getWorld(components.get(0));
+			Double x = Double.valueOf(components.get(1));
+			Double y = Double.valueOf(components.get(2));
+			Double z = Double.valueOf(components.get(3));
+			Float yaw = Float.valueOf(components.get(4));
+			Float pitch = Float.valueOf(components.get(5));
+			return new Location(world, x, y, z, yaw, pitch);
+		}
+		catch (Exception e)
+		{
+			xTeam.getInstance().getLog().exception(e);
+		}
+		return null;
 	}
 }
