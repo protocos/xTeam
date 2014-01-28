@@ -22,6 +22,10 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.setLeader(otherPlayer);
+		//THIS IS A CRAPPY SOLUTION
+		team.getAdmins().remove(otherPlayer);
+		team.getAdmins().add(teamPlayer.getName());
+		//Team.java NEEDS TO BE REFACTORED
 		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
