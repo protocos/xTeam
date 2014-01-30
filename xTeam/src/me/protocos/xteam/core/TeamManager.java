@@ -1,20 +1,18 @@
 package me.protocos.xteam.core;
 
-import java.lang.reflect.Method;
-import java.util.List;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.event.*;
-import me.protocos.xteam.model.ITeamListener;
 import me.protocos.xteam.util.CommonUtil;
 
 public class TeamManager implements ITeamManager
 {
-	private static List<ITeamListener> listeners = CommonUtil.emptyList();
-	private static HashList<String, ITeam> teams = CommonUtil.emptyHashList();
+	private IEventDispatcher dispatcher;
+	private HashList<String, ITeam> teams = CommonUtil.emptyHashList();
 
-	public TeamManager()
+	public TeamManager(IEventDispatcher dispatcher)
 	{
+		this.dispatcher = dispatcher;
 	}
 
 	private void addTeam(ITeam team)
@@ -108,64 +106,6 @@ public class TeamManager implements ITeamManager
 	}
 
 	@Override
-	public void addTeamListener(ITeamListener listener)
-	{
-		listeners.add(listener);
-	}
-
-	@Override
-	public void removeTeamListener(ITeamListener listener)
-	{
-		listeners.remove(listener);
-	}
-
-	@Override
-	public void dispatchEvent(ITeamEvent event)
-	{
-		for (ITeamListener listener : listeners)
-		{
-			dispatchEventTo(event, listener);
-		}
-	}
-
-	private void dispatchEventTo(ITeamEvent event, ITeamListener listener)
-	{
-		List<Method> methods = getAllMethodsWithEventAnnotation(listener);
-		for (Method method : methods)
-		{
-			try
-			{
-				method.setAccessible(true);
-				Class<?>[] parameters = method.getParameterTypes();
-
-				if (parameters.length == 1 && parameters[0].equals(event.getClass()))
-				{
-					method.invoke(listener, event);
-				}
-			}
-			catch (Exception e)
-			{
-				System.err.println("Could not invoke event handler!");
-				e.printStackTrace(System.err);
-			}
-		}
-	}
-
-	private List<Method> getAllMethodsWithEventAnnotation(ITeamListener listener)
-	{
-		Method[] methods = listener.getClass().getDeclaredMethods();
-		List<Method> finalMethods = CommonUtil.emptyList();
-		for (Method method : methods)
-		{
-			if (method.getAnnotation(TeamEvent.class) != null)
-			{
-				finalMethods.add(method);
-			}
-		}
-		return finalMethods;
-	}
-
-	@Override
 	public void createTeam(ITeam team)
 	{
 		if (!teams.containsKey(team.getName()))
@@ -173,7 +113,6 @@ public class TeamManager implements ITeamManager
 			this.addTeam(team);
 			this.dispatchEvent(new TeamCreateEvent(team));
 		}
-
 	}
 
 	@Override
@@ -197,5 +136,10 @@ public class TeamManager implements ITeamManager
 			ITeam removeTeam = this.removeTeam(teamName);
 			this.dispatchEvent(new TeamDisbandEvent(removeTeam));
 		}
+	}
+
+	private void dispatchEvent(ITeamEvent event)
+	{
+		dispatcher.dispatchEvent(event);
 	}
 }

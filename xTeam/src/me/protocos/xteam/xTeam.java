@@ -17,6 +17,8 @@ import me.protocos.xteam.data.PlayerDataFile;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.Team;
+import me.protocos.xteam.event.EventDispatcher;
+import me.protocos.xteam.event.IEventDispatcher;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.model.Log;
@@ -33,6 +35,7 @@ public final class xTeam
 	private static xTeam xteam;
 	private String version;
 	private ILog logger;
+	private IEventDispatcher eventDispatcher;
 	private IPlayerManager playerManager;
 	private ITeamManager teamManager;
 	private ICommandManager commandManager;
@@ -41,6 +44,7 @@ public final class xTeam
 
 	private xTeam()
 	{
+		this.eventDispatcher = new EventDispatcher();
 		this.commandManager = new CommandManager();
 	}
 
@@ -61,6 +65,11 @@ public final class xTeam
 	public ICommandManager getCommandManager()
 	{
 		return commandManager;
+	}
+
+	public IEventDispatcher getEventDispatcher()
+	{
+		return eventDispatcher;
 	}
 
 	public ITeamManager getTeamManager()
@@ -93,6 +102,7 @@ public final class xTeam
 			else
 				this.logger = plugin.getLog();
 			this.permissions = new ArrayList<Permission>(plugin.getPermissions());
+			this.eventDispatcher = new EventDispatcher();
 			this.initFileSystem(plugin);
 			this.initDataStorage(plugin);
 		}
@@ -131,7 +141,7 @@ public final class xTeam
 		}
 		if (this.teamManager == null)
 		{
-			this.teamManager = new TeamManager();
+			this.teamManager = new TeamManager(eventDispatcher);
 		}
 	}
 

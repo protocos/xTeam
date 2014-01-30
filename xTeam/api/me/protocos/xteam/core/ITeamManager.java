@@ -2,8 +2,6 @@ package me.protocos.xteam.core;
 
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.ITeam;
-import me.protocos.xteam.event.ITeamEvent;
-import me.protocos.xteam.model.ITeamListener;
 
 public interface ITeamManager
 {
@@ -24,10 +22,4 @@ public interface ITeamManager
 	public abstract HashList<String, ITeam> getTeams();
 
 	public abstract HashList<String, ITeam> getDefaultTeams();
-
-	public abstract void addTeamListener(ITeamListener listener);
-
-	public abstract void removeTeamListener(ITeamListener listener);
-
-	public abstract void dispatchEvent(ITeamEvent event);
 }
