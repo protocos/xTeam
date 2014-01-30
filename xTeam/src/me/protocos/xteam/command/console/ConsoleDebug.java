@@ -59,6 +59,8 @@ public class ConsoleDebug extends ConsoleCommand
 				sender.sendMessage("environment reset for \"" + world.getName() + "\"");
 			}
 		}
+		else if (subCommand.equalsIgnoreCase("live"))
+			sender.sendMessage("Bukkit server is " + (BukkitUtil.isLive() ? "live!" : "offline."));
 		//		else if (subCommand.equalsIgnoreCase("email"))
 		//		{
 		//			try
@@ -72,7 +74,7 @@ public class ConsoleDebug extends ConsoleCommand
 		//			}
 		//		}
 		else
-			sender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, reset]");
+			sender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, live]");
 	}
 
 	private String printPermissions()

@@ -86,4 +86,12 @@ public class BukkitUtil
 	{
 		return getPlugin("xTeam");
 	}
+
+	public static boolean isLive()
+	{
+		Server liveServer = Bukkit.getServer();
+		if (liveServer == null)
+			return false;
+		return true;
+	}
 }
