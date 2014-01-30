@@ -44,6 +44,7 @@ public class BukkitDevPageGeneratorUtil
 			"NOTE: As this project is still in Beta stage, I will be adding/changing features until I'm satisfied with the basic functionality of the plugin. For updating to a newer version of the plugin, check to see whether there are any configuration file changes. If so, you will want to reload the configuration file or add the new options yourself.\n\n";
 	private static final String FAQ = "===[[http://dev.bukkit.org/bukkit-plugins/xteam/pages/faq/|FAQ]]===\n\n" +
 			"Many of the frequently asked questions about the plugin.\n\n";
+	private static final String LINKS = "===Links===\n\n[[http://www.youtube.com/watch?v=7Z4svhff9W0|Video explaining the commands]]\n\n";
 	private static final String DONATIONS = "===Donations===\n\nI work on this project in my spare time and I will always have a love for Minecraft no matter what, but it certainly does make me smile when people feel like contributing. Donating to the project helps encourage me to continue providing support and feedback to all of you awesome peoples! If you feel like helping out, there's a link at the top right of the page. ;)\n\n";
 	private static final String BUG_REPORTS = "===Bug Reports===\n\n" +
 			"Please leave any questions, comments, concerns, and potential bugs in the comments. I will try to squash them when I can. Having said that. I am a real human being and am currently in college. So if the bug is not fixed right away, please be patient.";
@@ -106,6 +107,7 @@ public class BukkitDevPageGeneratorUtil
 		writer.write("\n");
 		writer.write(CONFIG_FILE);
 		writer.write(FAQ);
+		writer.write(LINKS);
 		writer.write(DONATIONS);
 		writer.write(BUG_REPORTS);
 		writer.close();
