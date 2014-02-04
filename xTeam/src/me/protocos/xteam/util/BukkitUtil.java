@@ -37,44 +37,44 @@ public class BukkitUtil
 		return nearbyEntities;
 	}
 
-	public static World getWorld(String string)
-	{
-		return BUKKIT.getWorld(string);
-	}
-
 	public static Server getServer()
 	{
 		return BUKKIT;
 	}
 
+	public static World getWorld(String string)
+	{
+		return getServer().getWorld(string);
+	}
+
 	public static Player[] getOnlinePlayers()
 	{
-		return BUKKIT.getOnlinePlayers();
+		return getServer().getOnlinePlayers();
 	}
 
 	public static OfflinePlayer[] getOfflinePlayers()
 	{
-		return BUKKIT.getOfflinePlayers();
+		return getServer().getOfflinePlayers();
 	}
 
 	public static Player getPlayer(String name)
 	{
-		return BUKKIT.getPlayer(name);
+		return getServer().getPlayer(name);
 	}
 
 	public static OfflinePlayer getOfflinePlayer(String name)
 	{
-		return BUKKIT.getOfflinePlayer(name);
+		return getServer().getOfflinePlayer(name);
 	}
 
 	public static BukkitScheduler getScheduler()
 	{
-		return BUKKIT.getScheduler();
+		return getServer().getScheduler();
 	}
 
 	public static PluginManager getPluginManager()
 	{
-		return BUKKIT.getPluginManager();
+		return getServer().getPluginManager();
 	}
 
 	public static Plugin getPlugin(String string)
