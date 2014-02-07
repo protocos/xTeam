@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.console;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.Requirements;
@@ -22,14 +22,14 @@ public class ConsoleSetLeader extends ConsoleCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		ITeamPlayer player = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		ITeam team = player.getTeam();
 		team.setLeader(playerName);
 		if (player.isOnline())
 			player.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
 		if (!team.isDefaultTeam())
 		{
-			ITeamPlayer previousLeader = xTeam.getInstance().getPlayerManager().getPlayer(team.getLeader());
+			ITeamPlayer previousLeader = XTeam.getInstance().getPlayerManager().getPlayer(team.getLeader());
 			if (previousLeader.isOnline())
 				previousLeader.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader"));
 		}
@@ -41,8 +41,8 @@ public class ConsoleSetLeader extends ConsoleCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
-		ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
-		ITeam team = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		ITeamPlayer player = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		ITeam team = XTeam.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkPlayerHasPlayedBefore(player);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkPlayerHasTeam(player);

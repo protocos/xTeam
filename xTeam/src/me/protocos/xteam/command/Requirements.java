@@ -1,6 +1,6 @@
 package me.protocos.xteam.command;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.data.configuration.Configuration;
@@ -40,7 +40,7 @@ public class Requirements
 
 	public static void checkTeamExists(String teamName) throws TeamDoesNotExistException
 	{
-		if (!xTeam.getInstance().getTeamManager().containsTeam(teamName))
+		if (!XTeam.getInstance().getTeamManager().containsTeam(teamName))
 		{
 			throw new TeamDoesNotExistException();
 		}
@@ -104,7 +104,7 @@ public class Requirements
 
 	public static void checkTeamAlreadyExists(String desiredName) throws TeamAlreadyExistsException
 	{
-		if (xTeam.getInstance().getTeamManager().containsTeam(desiredName))
+		if (XTeam.getInstance().getTeamManager().containsTeam(desiredName))
 		{
 			throw new TeamAlreadyExistsException();
 		}
@@ -128,7 +128,7 @@ public class Requirements
 
 	public static void checkTeamPlayerMax(String teamName) throws TeamPlayerMaxException
 	{
-		if (xTeam.getInstance().getTeamManager().containsTeam(teamName) && xTeam.getInstance().getTeamManager().getTeam(teamName).size() >= Configuration.MAX_PLAYERS && Configuration.MAX_PLAYERS > 0)
+		if (XTeam.getInstance().getTeamManager().containsTeam(teamName) && XTeam.getInstance().getTeamManager().getTeam(teamName).size() >= Configuration.MAX_PLAYERS && Configuration.MAX_PLAYERS > 0)
 		{
 			throw new TeamPlayerMaxException();
 		}
@@ -136,7 +136,7 @@ public class Requirements
 
 	public static void checkTeamNameAlreadyUsed(String desiredName, ITeam team) throws TeamNameConflictsWithNameException
 	{
-		if (!desiredName.equalsIgnoreCase(team.getName()) && xTeam.getInstance().getTeamManager().containsTeam(desiredName))
+		if (!desiredName.equalsIgnoreCase(team.getName()) && XTeam.getInstance().getTeamManager().containsTeam(desiredName))
 		{
 			throw new TeamNameConflictsWithNameException();
 		}

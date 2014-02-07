@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.teamuser;
 
 import java.util.List;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
@@ -45,7 +45,7 @@ public class TeamUserHelp extends TeamUserCommand
 			pageNum = 1;
 		}
 		pages = new HelpPages();
-		List<String> availableCommands = xTeam.getInstance().getCommandManager().getAvailableCommandsFor(teamPlayer);
+		List<String> availableCommands = XTeam.getInstance().getCommandManager().getAvailableCommandsFor(teamPlayer);
 		pages.addLines(availableCommands);
 		Requirements.checkPlayerHasCommands(pages);
 		Requirements.checkPlayerCommandPageRange(pages, pageNum);

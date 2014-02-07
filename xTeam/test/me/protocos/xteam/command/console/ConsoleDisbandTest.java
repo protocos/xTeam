@@ -2,7 +2,7 @@ package me.protocos.xteam.command.console;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -44,7 +44,7 @@ public class ConsoleDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "disband one".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You disbanded ONE [TeamAwesome]", fakeConsoleSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("one"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -69,7 +69,7 @@ public class ConsoleDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "disband RED".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("RED"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().containsTeam("RED"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

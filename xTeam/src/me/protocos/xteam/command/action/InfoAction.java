@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.action;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -14,9 +14,9 @@ public class InfoAction
 {
 	public void actOn(CommandSender sender, String other)
 	{
-		ITeam infoTeam = xTeam.getInstance().getTeamManager().getTeam(other);
+		ITeam infoTeam = XTeam.getInstance().getTeamManager().getTeam(other);
 		if (infoTeam == null)
-			infoTeam = xTeam.getInstance().getPlayerManager().getPlayer(other).getTeam();
+			infoTeam = XTeam.getInstance().getPlayerManager().getPlayer(other).getTeam();
 		if (infoTeam != null)
 		{
 			if (sender instanceof ConsoleCommandSender)
@@ -36,13 +36,13 @@ public class InfoAction
 
 	public void checkRequirements(String other) throws TeamOrPlayerDoesNotExistException, TeamPlayerHasNoTeamException
 	{
-		if (xTeam.getInstance().getTeamManager().getTeam(other) == null)
+		if (XTeam.getInstance().getTeamManager().getTeam(other) == null)
 		{
-			if (xTeam.getInstance().getPlayerManager().getPlayer(other) == null)
+			if (XTeam.getInstance().getPlayerManager().getPlayer(other) == null)
 			{
 				throw new TeamOrPlayerDoesNotExistException();
 			}
-			Requirements.checkPlayerHasTeam(xTeam.getInstance().getPlayerManager().getPlayer(other));
+			Requirements.checkPlayerHasTeam(XTeam.getInstance().getPlayerManager().getPlayer(other));
 		}
 	}
 }

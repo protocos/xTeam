@@ -1,7 +1,7 @@
 package me.protocos.xteam.entity;
 
 import java.util.*;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.data.configuration.Configuration;
@@ -463,19 +463,19 @@ public class Team implements ITeam
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return xTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
+		return XTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
 	}
 
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return xTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
+		return XTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
-		return xTeam.getInstance().getPlayerManager().getTeammatesOf(this);
+		return XTeam.getInstance().getPlayerManager().getTeammatesOf(this);
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamleader;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
@@ -21,7 +21,7 @@ public class TeamLeaderRename extends TeamLeaderCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		xTeam.getInstance().getTeamManager().renameTeam(team, desiredName);
+		XTeam.getInstance().getTeamManager().renameTeam(team, desiredName);
 		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
 			mate.sendMessage("The team has been " + ChatColorUtil.positiveMessage("renamed") + " to " + desiredName);

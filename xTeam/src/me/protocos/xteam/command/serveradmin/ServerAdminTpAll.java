@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.serveradmin;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
@@ -21,7 +21,7 @@ public class ServerAdminTpAll extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		ITeam changeTeam = XTeam.getInstance().getTeamManager().getTeam(teamName);
 		for (TeamPlayer teammate : changeTeam.getOnlineTeammates())
 		{
 			if (teammate.isOnline())

@@ -2,7 +2,7 @@ package me.protocos.xteam.data;
 
 import java.io.*;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.data.translator.IDataTranslator;
 import me.protocos.xteam.exception.DataManagerNotOpenException;
@@ -53,14 +53,14 @@ public class PlayerDataFile implements IDataManager
 					catch (Exception e)
 					{
 						//this way if one line fails to write, the entire file isn't lost
-						xTeam.getInstance().getLog().exception(e);
+						XTeam.getInstance().getLog().exception(e);
 					}
 				}
 				reader.close();
 			}
 			catch (Exception e)
 			{
-				xTeam.getInstance().getLog().exception(e);
+				XTeam.getInstance().getLog().exception(e);
 			}
 			if (periodicWriter == null)
 			{
@@ -101,14 +101,14 @@ public class PlayerDataFile implements IDataManager
 					catch (Exception e)
 					{
 						//this way if one line fails to write, the entire file isn't lost
-						xTeam.getInstance().getLog().exception(e);
+						XTeam.getInstance().getLog().exception(e);
 					}
 				}
 				writer.close();
 			}
 			catch (IOException e)
 			{
-				xTeam.getInstance().getLog().exception(e);
+				XTeam.getInstance().getLog().exception(e);
 			}
 		}
 		else
@@ -213,9 +213,9 @@ class PeriodicWriter implements Runnable
 	@Override
 	public void run()
 	{
-		xTeam.getInstance().getLog().info("Saving player data...");
+		XTeam.getInstance().getLog().info("Saving player data...");
 		writer.write();
-		xTeam.getInstance().getLog().info("Done.");
+		XTeam.getInstance().getLog().info("Done.");
 	}
 
 }

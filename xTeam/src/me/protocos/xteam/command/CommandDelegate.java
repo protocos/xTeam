@@ -1,7 +1,7 @@
 package me.protocos.xteam.command;
 
 import java.io.File;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.exception.TeamInvalidCommandException;
 import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.StringUtil;
@@ -29,21 +29,21 @@ public class CommandDelegate implements CommandExecutor
 			if (command == null)
 			{
 				sender.sendMessage(ChatColorUtil.negativeMessage((new TeamInvalidCommandException()).getMessage()));
-				xTeam.getInstance().getLog().debug("Command execute failed for reason: " + (new TeamInvalidCommandException()).getMessage());
+				XTeam.getInstance().getLog().debug("Command execute failed for reason: " + (new TeamInvalidCommandException()).getMessage());
 			}
 			else if (command.execute(commandContainer) == true)
-				xTeam.getInstance().writeTeamData(new File("plugins/xTeam/teams.txt"));
+				XTeam.getInstance().writeTeamData(new File("plugins/xTeam/teams.txt"));
 		}
 		catch (Exception e)
 		{
 			sender.sendMessage(ChatColorUtil.negativeMessage("There was a server error executing command: /" + commandID + " " + StringUtil.concatenate(args)));
-			xTeam.getInstance().getLog().exception(e);
+			XTeam.getInstance().getLog().exception(e);
 		}
 		return true;
 	}
 
 	private void logCommand(CommandContainer commandContainer)
 	{
-		xTeam.getInstance().getLog().debug(commandContainer.getSenderName() + " issued command: " + commandContainer.getCommand());
+		XTeam.getInstance().getLog().debug(commandContainer.getSenderName() + " issued command: " + commandContainer.getCommand());
 	}
 }

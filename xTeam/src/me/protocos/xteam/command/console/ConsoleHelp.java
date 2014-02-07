@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.console;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.exception.TeamException;
@@ -33,7 +33,7 @@ public class ConsoleHelp extends ConsoleCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		pages = new HelpPages();
-		pages.addLines(xTeam.getInstance().getCommandManager().getAvailableCommandsFor(sender));
+		pages.addLines(XTeam.getInstance().getCommandManager().getAvailableCommandsFor(sender));
 	}
 
 	@Override

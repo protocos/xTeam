@@ -30,9 +30,9 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.permissions.Permission;
 
-public final class xTeam
+public final class XTeam
 {
-	private static xTeam xteam;
+	private static XTeam xteam;
 	private String version;
 	private ILog logger;
 	private IEventDispatcher eventDispatcher;
@@ -42,17 +42,17 @@ public final class xTeam
 	private List<Permission> permissions;
 	private Configuration configLoader;
 
-	private xTeam()
+	private XTeam()
 	{
 		this.eventDispatcher = new EventDispatcher();
 		this.commandManager = new CommandManager();
 	}
 
-	public static xTeam getInstance()
+	public static XTeam getInstance()
 	{
 		if (xteam == null)
 		{
-			xteam = new xTeam();
+			xteam = new XTeam();
 		}
 		return xteam;
 	}
@@ -204,7 +204,7 @@ public final class xTeam
 			while ((line = br.readLine()) != null)
 			{
 				Team team = Team.generateTeamFromProperties(line);
-				xTeam.getInstance().getTeamManager().createTeam(team);
+				XTeam.getInstance().getTeamManager().createTeam(team);
 			}
 			br.close();
 		}

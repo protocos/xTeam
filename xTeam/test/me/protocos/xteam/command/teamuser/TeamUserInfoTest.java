@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
@@ -124,9 +124,9 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute6()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().getTeam("red").addPlayer("Lonely");
-		xTeam.getInstance().getTeamManager().getTeam("red").promote("strandedhelix");
-		xTeam.getInstance().getTeamManager().getTeam("red").promote("Lonely");
+		XTeam.getInstance().getTeamManager().getTeam("red").addPlayer("Lonely");
+		XTeam.getInstance().getTeamManager().getTeam("red").promote("strandedhelix");
+		XTeam.getInstance().getTeamManager().getTeam("red").promote("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
@@ -148,7 +148,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute7()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
+		XTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
@@ -169,7 +169,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecutePlayerNotOnTeamUsingTag()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
+		XTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info REDONE".split(" ")));
@@ -188,7 +188,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecutePlayerOnTeamUsingTag()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
+		XTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info TeamAwesome".split(" ")));

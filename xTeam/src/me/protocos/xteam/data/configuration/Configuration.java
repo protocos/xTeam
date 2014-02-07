@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.util.CommonUtil;
@@ -90,7 +90,7 @@ public class Configuration
 			if (option.length() > max.length())
 				max = option.getComment();
 		}
-		List<Permission> perms = xTeam.getInstance().getPermissions();
+		List<Permission> perms = XTeam.getInstance().getPermissions();
 		for (Permission perm : perms)
 		{
 			if (this.formatPermission(perm).length() > max.length())
@@ -143,8 +143,8 @@ public class Configuration
 		for (String name : Configuration.DEFAULT_TEAM_NAMES)
 		{
 			Team team = new Team.Builder(name).defaultTeam(true).openJoining(true).build();
-			if (!CommonUtil.containsIgnoreCase(xTeam.getInstance().getTeamManager().getDefaultTeams().getOrder(), name))
-				xTeam.getInstance().getTeamManager().createTeam(team);
+			if (!CommonUtil.containsIgnoreCase(XTeam.getInstance().getTeamManager().getDefaultTeams().getOrder(), name))
+				XTeam.getInstance().getTeamManager().createTeam(team);
 		}
 	}
 
@@ -188,7 +188,7 @@ public class Configuration
 				"# Permissions\n" +
 				"# \n" +
 				getLineBreak();
-		List<Permission> perms = xTeam.getInstance().getPermissions();
+		List<Permission> perms = XTeam.getInstance().getPermissions();
 		for (Permission perm : perms)
 		{
 			output += this.formatPermission(perm) + "\n";

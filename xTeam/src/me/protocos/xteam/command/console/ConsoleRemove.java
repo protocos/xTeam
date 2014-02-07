@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.console;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.Requirements;
@@ -31,7 +31,7 @@ public class ConsoleRemove extends ConsoleCommand
 		if (changeTeam.isEmpty())
 		{
 			sender.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
-			xTeam.getInstance().getTeamManager().disbandTeam(changeTeam.getName());
+			XTeam.getInstance().getTeamManager().disbandTeam(changeTeam.getName());
 		}
 	}
 
@@ -40,7 +40,7 @@ public class ConsoleRemove extends ConsoleCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
-		changePlayer = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		changePlayer = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(changePlayer);
 		Requirements.checkPlayerHasTeam(changePlayer);
 		Requirements.checkPlayerLeaderLeaving(changePlayer);

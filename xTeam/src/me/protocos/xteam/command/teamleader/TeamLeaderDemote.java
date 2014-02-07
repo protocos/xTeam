@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamleader;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
@@ -34,8 +34,8 @@ public class TeamLeaderDemote extends TeamLeaderCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = commandContainer.getArgument(1);
-		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
-		ITeamPlayer demotePlayer = xTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer demotePlayer = XTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);
 		Requirements.checkPlayerLeaderDemote(demotePlayer);
 	}

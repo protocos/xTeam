@@ -3,7 +3,7 @@ package me.protocos.xteam.entity;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.data.configuration.Configuration;
@@ -63,13 +63,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public void setLastTeleported(long lastTeleported)
 	{
-		xTeam.getInstance().getPlayerManager().setLastTeleported(this, lastTeleported);
+		XTeam.getInstance().getPlayerManager().setLastTeleported(this, lastTeleported);
 	}
 
 	@Override
 	public long getLastTeleported()
 	{
-		return xTeam.getInstance().getPlayerManager().getLastTeleported(this.getName());
+		return XTeam.getInstance().getPlayerManager().getLastTeleported(this.getName());
 	}
 
 	@Override
@@ -93,13 +93,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return xTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
+		return XTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return xTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
+		return XTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
 	}
 
 	@Override
@@ -132,13 +132,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public ITeam getTeam()
 	{
-		return xTeam.getInstance().getTeamManager().getTeamByPlayer(player.getName());
+		return XTeam.getInstance().getTeamManager().getTeamByPlayer(player.getName());
 	}
 
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
-		return xTeam.getInstance().getPlayerManager().getTeammatesOf(this);
+		return XTeam.getInstance().getPlayerManager().getTeammatesOf(this);
 	}
 
 	@Override
@@ -497,13 +497,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public void setReturnLocation(Location returnLocation)
 	{
-		xTeam.getInstance().getPlayerManager().setReturnLocation(this, returnLocation);
+		XTeam.getInstance().getPlayerManager().setReturnLocation(this, returnLocation);
 	}
 
 	@Override
 	public Location getReturnLocation()
 	{
-		return xTeam.getInstance().getPlayerManager().getReturnLocation(this.getName());
+		return XTeam.getInstance().getPlayerManager().getReturnLocation(this.getName());
 	}
 
 	@Override
@@ -515,19 +515,19 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public void removeReturnLocation()
 	{
-		xTeam.getInstance().getPlayerManager().setReturnLocation(this, null);
+		XTeam.getInstance().getPlayerManager().setReturnLocation(this, null);
 	}
 
 	@Override
 	public void setLastAttacked(long lastAttacked)
 	{
-		xTeam.getInstance().getPlayerManager().setLastAttacked(this, lastAttacked);
+		XTeam.getInstance().getPlayerManager().setLastAttacked(this, lastAttacked);
 	}
 
 	@Override
 	public long getLastAttacked()
 	{
-		return xTeam.getInstance().getPlayerManager().getLastAttacked(this.getName());
+		return XTeam.getInstance().getPlayerManager().getLastAttacked(this.getName());
 	}
 
 	@Override

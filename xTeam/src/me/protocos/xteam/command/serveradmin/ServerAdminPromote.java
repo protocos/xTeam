@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.serveradmin;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
@@ -26,7 +26,7 @@ public class ServerAdminPromote extends ServerAdminCommand
 		changeTeam.promote(playerName);
 		if (!changeTeam.containsPlayer(player.getName()))
 			player.sendMessage("You " + ChatColorUtil.positiveMessage("promoted") + " " + playerName);
-		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		other.sendMessage("You've been " + ChatColorUtil.positiveMessage("promoted") + " by an admin");
 	}
 
@@ -35,8 +35,8 @@ public class ServerAdminPromote extends ServerAdminCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
-		changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
-		ITeamPlayer playerPromote = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		changeTeam = XTeam.getInstance().getTeamManager().getTeam(teamName);
+		ITeamPlayer playerPromote = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(playerPromote);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkPlayerHasTeam(playerPromote);

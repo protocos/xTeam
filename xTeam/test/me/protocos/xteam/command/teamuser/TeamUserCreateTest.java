@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
@@ -44,10 +44,10 @@ public class TeamUserCreateTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You created newteam", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("newteam"));
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("newteam").getPlayers().contains("Lonely"));
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("newteam").getAdmins().contains("Lonely"));
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("newteam").getLeader().equals("Lonely"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().containsTeam("newteam"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("newteam").getPlayers().contains("Lonely"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("newteam").getAdmins().contains("Lonely"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("newteam").getLeader().equals("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -62,8 +62,8 @@ public class TeamUserCreateTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create NEW".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You created NEW", fakePlayerSender.getLastMessage());
-		Assert.assertEquals("NEW", xTeam.getInstance().getTeamManager().getTeam("NEW").getName());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("NEW"));
+		Assert.assertEquals("NEW", XTeam.getInstance().getTeamManager().getTeam("NEW").getName());
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().containsTeam("NEW"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -78,7 +78,7 @@ public class TeamUserCreateTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteamiswaytoolong".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameTooLongException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("newteamiswaytoolong"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().containsTeam("newteamiswaytoolong"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -93,7 +93,7 @@ public class TeamUserCreateTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamOnlyJoinDefaultException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("newteam"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().containsTeam("newteam"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -107,7 +107,7 @@ public class TeamUserCreateTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("newteam"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().containsTeam("newteam"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -121,8 +121,8 @@ public class TeamUserCreateTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create one".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("one"));
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("Lonely"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().containsTeam("one"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -138,7 +138,7 @@ public class TeamUserCreateTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamCreatedRecentlyException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("newteam"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().containsTeam("newteam"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -153,7 +153,7 @@ public class TeamUserCreateTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create ¡™£¢".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("¡™£¢"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().containsTeam("¡™£¢"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

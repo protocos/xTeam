@@ -2,7 +2,7 @@ package me.protocos.xteam.listener;
 
 import java.util.List;
 import java.util.Random;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -32,7 +32,7 @@ public class TeamPlayerListener implements Listener
 		{
 			Player player = event.getPlayer();
 			World playerWorld = player.getWorld();
-			ITeamPlayer teamPlayer = xTeam.getInstance().getPlayerManager().getPlayer(player);
+			ITeamPlayer teamPlayer = XTeam.getInstance().getPlayerManager().getPlayer(player);
 			if (teamPlayer.hasPlayedBefore() && Configuration.DISABLED_WORLDS.contains(playerWorld.getName()))
 			{
 				return;
@@ -47,8 +47,8 @@ public class TeamPlayerListener implements Listener
 						List<ITeam> availableTeams = CommonUtil.emptyList();
 						if (Configuration.BALANCE_TEAMS)
 						{
-							int smallest = xTeam.getInstance().getTeamManager().getDefaultTeams().get(0).size();
-							for (ITeam t : xTeam.getInstance().getTeamManager().getDefaultTeams())
+							int smallest = XTeam.getInstance().getTeamManager().getDefaultTeams().get(0).size();
+							for (ITeam t : XTeam.getInstance().getTeamManager().getDefaultTeams())
 							{
 								if (t.size() < smallest)
 								{
@@ -64,7 +64,7 @@ public class TeamPlayerListener implements Listener
 						}
 						else
 						{
-							for (ITeam t : xTeam.getInstance().getTeamManager().getDefaultTeams())
+							for (ITeam t : XTeam.getInstance().getTeamManager().getDefaultTeams())
 							{
 								availableTeams.add(t);
 							}
@@ -77,11 +77,11 @@ public class TeamPlayerListener implements Listener
 						{
 							teammate.sendMessage(teamPlayer.getName() + " " + ChatColorUtil.positiveMessage("joined") + " your team");
 						}
-						xTeam.getInstance().getLog().info("Added " + teamPlayer.getName() + " to team " + team.getName());
+						XTeam.getInstance().getLog().info("Added " + teamPlayer.getName() + " to team " + team.getName());
 					}
 					else
 					{
-						xTeam.getInstance().getLog().info(ChatColorUtil.negativeMessage("Player not assigned a team: No default teams have been set"));
+						XTeam.getInstance().getLog().info(ChatColorUtil.negativeMessage("Player not assigned a team: No default teams have been set"));
 					}
 				}
 			}
@@ -104,7 +104,7 @@ public class TeamPlayerListener implements Listener
 		}
 		catch (Exception e)
 		{
-			xTeam.getInstance().getLog().exception(e);
+			XTeam.getInstance().getLog().exception(e);
 		}
 	}
 
@@ -118,7 +118,7 @@ public class TeamPlayerListener implements Listener
 		}
 		catch (Exception e)
 		{
-			xTeam.getInstance().getLog().exception(e);
+			XTeam.getInstance().getLog().exception(e);
 		}
 	}
 
@@ -127,7 +127,7 @@ public class TeamPlayerListener implements Listener
 	{
 		try
 		{
-			ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(event.getPlayer());
+			ITeamPlayer player = XTeam.getInstance().getPlayerManager().getPlayer(event.getPlayer());
 			if (Configuration.DISABLED_WORLDS.contains(event.getPlayer().getWorld().getName()))
 			{
 				return;
@@ -149,7 +149,7 @@ public class TeamPlayerListener implements Listener
 		}
 		catch (Exception e)
 		{
-			xTeam.getInstance().getLog().exception(e);
+			XTeam.getInstance().getLog().exception(e);
 		}
 	}
 }

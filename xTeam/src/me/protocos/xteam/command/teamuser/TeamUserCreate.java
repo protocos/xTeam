@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
@@ -24,7 +24,7 @@ public class TeamUserCreate extends TeamUserCommand
 	{
 		String leader = teamPlayer.getName();
 		Team newTeam = Team.createTeamWithLeader(desiredName, leader);
-		xTeam.getInstance().getTeamManager().createTeam(newTeam);
+		XTeam.getInstance().getTeamManager().createTeam(newTeam);
 		Configuration.lastCreated.put(leader, Long.valueOf(System.currentTimeMillis()));
 		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("created") + " " + desiredName);
 	}

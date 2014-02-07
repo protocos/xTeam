@@ -17,7 +17,7 @@ import me.protocos.xteam.util.BukkitUtil;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.PluginManager;
 
-public class xTeamPlugin extends TeamPlugin
+public class XTeamPlugin extends TeamPlugin
 {
 	private CommandExecutor commandExecutor;
 

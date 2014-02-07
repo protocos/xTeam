@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.serveradmin;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
@@ -23,7 +23,7 @@ public class ServerAdminDisband extends ServerAdminCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		changeTeam.sendMessage("Your team has been " + ChatColorUtil.negativeMessage("disbanded") + " by an admin");
-		xTeam.getInstance().getTeamManager().disbandTeam(teamName);
+		XTeam.getInstance().getTeamManager().disbandTeam(teamName);
 		player.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " " + changeTeam.getName() + (changeTeam.hasTag() ? " [" + changeTeam.getTag() + "]" : ""));
 	}
 
@@ -31,7 +31,7 @@ public class ServerAdminDisband extends ServerAdminCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		teamName = commandContainer.getArgument(1);
-		changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		changeTeam = XTeam.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkTeamIsDefault(changeTeam);
 	}

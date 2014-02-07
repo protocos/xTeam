@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
@@ -46,7 +46,7 @@ public class ServerAdminRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one newname".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You renamed the team to newname", fakePlayerSender.getLastMessage());
-		Assert.assertEquals("newname", xTeam.getInstance().getTeamManager().getTeam("newname").getName());
+		Assert.assertEquals("newname", XTeam.getInstance().getTeamManager().getTeam("newname").getName());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -60,7 +60,7 @@ public class ServerAdminRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one two".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", XTeam.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -75,7 +75,7 @@ public class ServerAdminRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one ¡™£¢".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", XTeam.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -89,7 +89,7 @@ public class ServerAdminRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename three newname".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("ONE", xTeam.getInstance().getTeamManager().getTeam("one").getName());
+		Assert.assertEquals("ONE", XTeam.getInstance().getTeamManager().getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
@@ -62,7 +62,7 @@ public class ServerAdminSetTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set Lonely two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Lonely has been added to two", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("Lonely"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -77,9 +77,9 @@ public class ServerAdminSetTest
 		//ASSERT
 		Assert.assertEquals("three has been created\n" +
 				"Lonely has been added to three\n", fakePlayerSender.getAllMessages());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("three"));
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("three").containsPlayer("Lonely"));
-		Assert.assertEquals(1, xTeam.getInstance().getTeamManager().getTeam("three").size());
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().containsTeam("three"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("three").containsPlayer("Lonely"));
+		Assert.assertEquals(1, XTeam.getInstance().getTeamManager().getTeam("three").size());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -87,7 +87,7 @@ public class ServerAdminSetTest
 	public void ShouldBeServerAdminSetExecuteLastPerson()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().getTeam("one").removePlayer("protocos");
+		XTeam.getInstance().getTeamManager().getTeam("one").removePlayer("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		ServerAdminCommand fakeCommand = new ServerAdminSet();
 		//ACT
@@ -96,8 +96,8 @@ public class ServerAdminSetTest
 		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
 				"ONE has been disbanded\n" +
 				"kmlanglois has been added to two\n", fakePlayerSender.getAllMessages());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().containsTeam("one"));
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("kmlanglois"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().containsTeam("one"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -111,7 +111,7 @@ public class ServerAdminSetTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set kmlanglois two".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -140,9 +140,9 @@ public class ServerAdminSetTest
 		Assert.assertEquals("protocos has been removed from ONE\n" +
 				"three has been created\n" +
 				"protocos has been added to three\n", fakePlayerSender.getAllMessages());
-		Assert.assertFalse(xTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().containsTeam("three"));
-		Assert.assertTrue(xTeam.getInstance().getTeamManager().getTeam("three").containsPlayer("protocos"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().containsTeam("three"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("three").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

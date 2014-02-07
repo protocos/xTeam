@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.serveradmin;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
@@ -22,12 +22,12 @@ public class ServerAdminSetLeader extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeamPlayer playerSet = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		ITeamPlayer playerSet = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		ITeam playerTeam = playerSet.getTeam();
 		playerTeam.setLeader(playerName);
 		if (playerSet.isOnline() && !playerSet.getName().equals(player.getName()))
 			playerSet.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
-		ITeamPlayer previousLeader = xTeam.getInstance().getPlayerManager().getPlayer(playerTeam.getLeader());
+		ITeamPlayer previousLeader = XTeam.getInstance().getPlayerManager().getPlayer(playerTeam.getLeader());
 		if (previousLeader.isOnline() && !previousLeader.getName().equals(player.getName()))
 			previousLeader.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader"));
 		player.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader") + " for " + playerTeam.getName());
@@ -38,8 +38,8 @@ public class ServerAdminSetLeader extends ServerAdminCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
-		ITeam desiredTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
-		ITeamPlayer playerSet = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		ITeam desiredTeam = XTeam.getInstance().getTeamManager().getTeam(teamName);
+		ITeamPlayer playerSet = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		ITeam playerTeam = playerSet.getTeam();
 		Requirements.checkPlayerHasPlayedBefore(playerSet);
 		Requirements.checkTeamExists(teamName);

@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.serveradmin;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
@@ -21,8 +21,8 @@ public class ServerAdminRename extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam changeTeam = xTeam.getInstance().getTeamManager().getTeam(teamName);
-		xTeam.getInstance().getTeamManager().renameTeam(changeTeam, desiredName);
+		ITeam changeTeam = XTeam.getInstance().getTeamManager().getTeam(teamName);
+		XTeam.getInstance().getTeamManager().renameTeam(changeTeam, desiredName);
 		if (!changeTeam.containsPlayer(player.getName()))
 			player.sendMessage("You " + ChatColorUtil.positiveMessage("renamed") + " the team to " + desiredName);
 		changeTeam.sendMessage("The team has been " + ChatColorUtil.positiveMessage("renamed") + " to " + desiredName + " by an admin");

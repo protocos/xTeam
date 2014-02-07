@@ -3,7 +3,7 @@ package me.protocos.xteam.command.action;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -146,7 +146,7 @@ public class TeleportScheduler
 			else if (e instanceof Player)
 			{
 				Player unknownPlayer = (Player) e;
-				ITeamPlayer otherPlayer = xTeam.getInstance().getPlayerManager().getPlayer(unknownPlayer);
+				ITeamPlayer otherPlayer = XTeam.getInstance().getPlayerManager().getPlayer(unknownPlayer);
 				if (!entity.isOnSameTeam(otherPlayer))
 					return true;
 			}

@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.console;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.Requirements;
@@ -22,10 +22,10 @@ public class ConsoleDemote extends ConsoleCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam team = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		ITeam team = XTeam.getInstance().getTeamManager().getTeam(teamName);
 		team.demote(playerName);
 		sender.sendMessage("You" + ChatColorUtil.negativeMessage(" demoted ") + playerName);
-		ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		if (other.isOnline())
 			other.sendMessage("You've been " + ChatColorUtil.negativeMessage("demoted"));
 	}
@@ -35,8 +35,8 @@ public class ConsoleDemote extends ConsoleCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
-		ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
-		ITeam team = xTeam.getInstance().getTeamManager().getTeam(teamName);
+		ITeamPlayer player = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		ITeam team = XTeam.getInstance().getTeamManager().getTeam(teamName);
 		Requirements.checkTeamExists(teamName);
 		Requirements.checkPlayerHasPlayedBefore(player);
 		Requirements.checkPlayerHasTeam(player);

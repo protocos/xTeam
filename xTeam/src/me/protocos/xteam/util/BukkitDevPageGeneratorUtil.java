@@ -1,7 +1,7 @@
 package me.protocos.xteam.util;
 
 import java.io.*;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.XTeamPlugin;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.fakeobjects.FakeTeamPlayer;
 import me.protocos.xteam.command.CommandManager;
@@ -61,7 +61,7 @@ public class BukkitDevPageGeneratorUtil
 		writer.write(PARAMETERS);
 		writer.write(FEATURES);
 		ICommandManager manager = new CommandManager();
-		(new xTeamPlugin()).registerCommands(manager);
+		(new XTeamPlugin()).registerCommands(manager);
 		writer.write(TEAM_USER_COMMANDS);
 		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(FakeTeamPlayer.PermissionType.USER)))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");

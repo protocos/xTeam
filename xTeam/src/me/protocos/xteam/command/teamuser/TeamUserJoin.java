@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
@@ -22,7 +22,7 @@ public class TeamUserJoin extends TeamUserCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam foundTeam = xTeam.getInstance().getTeamManager().getTeam(desiredName);
+		ITeam foundTeam = XTeam.getInstance().getTeamManager().getTeam(desiredName);
 		foundTeam.addPlayer(teamPlayer.getName());
 		InviteHandler.removeInvite(teamPlayer.getName());
 		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + ChatColorUtil.positiveMessage("joined") + " your team");
@@ -33,7 +33,7 @@ public class TeamUserJoin extends TeamUserCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		desiredName = commandContainer.getArgument(1);
-		ITeam desiredTeam = xTeam.getInstance().getTeamManager().getTeam(desiredName);
+		ITeam desiredTeam = XTeam.getInstance().getTeamManager().getTeam(desiredName);
 		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
 		Requirements.checkTeamOnlyJoinDefault(desiredName);
 		Requirements.checkTeamExists(desiredName);

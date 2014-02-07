@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
@@ -43,7 +43,7 @@ public class TeamUserTeleport extends TeamUserCommand
 		}
 		else
 		{
-			ITeamPlayer other = xTeam.getInstance().getPlayerManager().getPlayer(teammateName);
+			ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(teammateName);
 			Requirements.checkPlayerHasPlayedBefore(other);
 			Requirements.checkPlayerIsTeammate(teamPlayer, other);
 			Requirements.checkPlayerIsOnline(other);

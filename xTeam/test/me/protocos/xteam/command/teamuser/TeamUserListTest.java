@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
@@ -34,7 +34,7 @@ public class TeamUserListTest
 	public void ShouldBeTeamUserListExecuteNoTeams()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().clear();
+		XTeam.getInstance().getTeamManager().clear();
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserList();
 		//ACT
@@ -48,9 +48,9 @@ public class TeamUserListTest
 	public void ShouldBeTeamUserListExecuteOneTeam()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().disbandTeam("ONE");
-		xTeam.getInstance().getTeamManager().disbandTeam("TWO");
-		xTeam.getInstance().getTeamManager().disbandTeam("blue");
+		XTeam.getInstance().getTeamManager().disbandTeam("ONE");
+		XTeam.getInstance().getTeamManager().disbandTeam("TWO");
+		XTeam.getInstance().getTeamManager().disbandTeam("blue");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserList();
 		//ACT

@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamleader;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -22,7 +22,7 @@ public class TeamLeaderDisband extends TeamLeaderCommand
 		{
 			playerDisband.sendMessage("Team has been " + ChatColorUtil.negativeMessage("disbanded") + " by the team leader");
 		}
-		xTeam.getInstance().getTeamManager().disbandTeam(team.getName());
+		XTeam.getInstance().getTeamManager().disbandTeam(team.getName());
 		teamPlayer.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " your team");
 	}
 

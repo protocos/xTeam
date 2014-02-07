@@ -1,7 +1,7 @@
 package me.protocos.xteam.data.translator;
 
 import java.util.List;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.exception.InvalidFormatException;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
@@ -38,7 +38,7 @@ public class LocationDataTranslator implements IDataTranslator<Location>
 		}
 		catch (Exception e)
 		{
-			xTeam.getInstance().getLog().exception(e);
+			XTeam.getInstance().getLog().exception(e);
 		}
 		return null;
 	}

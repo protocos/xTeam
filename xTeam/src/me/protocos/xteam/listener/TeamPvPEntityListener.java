@@ -1,6 +1,6 @@
 package me.protocos.xteam.listener;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeamPlayer;
 import org.bukkit.entity.Entity;
@@ -52,18 +52,18 @@ public class TeamPvPEntityListener implements Listener
 				// Player hurt Player
 				if (damager instanceof Player)
 				{
-					attacker = xTeam.getInstance().getPlayerManager().getPlayer((Player) damager);
-					defender = xTeam.getInstance().getPlayerManager().getPlayer((Player) entity);
+					attacker = XTeam.getInstance().getPlayerManager().getPlayer((Player) damager);
+					defender = XTeam.getInstance().getPlayerManager().getPlayer((Player) entity);
 					checkTeam(event, attacker, defender);
 				}
 				// Projectile hurt Player
 				else if (damager instanceof Projectile)
 				{
 					if (((Projectile) damager).getShooter() instanceof Player)
-						attacker = xTeam.getInstance().getPlayerManager().getPlayer((Player) ((Projectile) damager).getShooter());
+						attacker = XTeam.getInstance().getPlayerManager().getPlayer((Player) ((Projectile) damager).getShooter());
 					else
 						return;
-					defender = xTeam.getInstance().getPlayerManager().getPlayer((Player) entity);
+					defender = XTeam.getInstance().getPlayerManager().getPlayer((Player) entity);
 					checkTeam(event, attacker, defender);
 				}
 				else
@@ -72,7 +72,7 @@ public class TeamPvPEntityListener implements Listener
 		}
 		catch (Exception e)
 		{
-			xTeam.getInstance().getLog().exception(e);
+			XTeam.getInstance().getLog().exception(e);
 		}
 	}
 }

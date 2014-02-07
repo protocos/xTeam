@@ -2,7 +2,7 @@ package me.protocos.xteam.fakeobjects;
 
 import java.util.List;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.xTeamPlugin;
+import me.protocos.xteam.XTeamPlugin;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
@@ -56,6 +56,6 @@ public class FakeTeamPlugin extends TeamPlugin
 	@Override
 	public void registerCommands(ICommandManager manager)
 	{
-		(new xTeamPlugin()).registerCommands(manager);
+		(new XTeamPlugin()).registerCommands(manager);
 	}
 }

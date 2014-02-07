@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.console;
 
 import java.util.List;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.action.InviteHandler;
@@ -35,9 +35,9 @@ public class ConsoleDebug extends ConsoleCommand
 		else if (subCommand.equalsIgnoreCase("created"))
 			sender.sendMessage("Last created: " + Configuration.lastCreated.toString());
 		else if (subCommand.equalsIgnoreCase("players"))
-			sender.sendMessage("Players: \n" + xTeam.getInstance().getPlayerManager().toString());
+			sender.sendMessage("Players: \n" + XTeam.getInstance().getPlayerManager().toString());
 		else if (subCommand.equalsIgnoreCase("teams"))
-			sender.sendMessage("Teams: \n" + xTeam.getInstance().getTeamManager().toString());
+			sender.sendMessage("Teams: \n" + XTeam.getInstance().getTeamManager().toString());
 		else if (subCommand.equalsIgnoreCase("perms"))
 			sender.sendMessage("Debugging permissions: \n" + printPermissions());
 		else if (subCommand.equalsIgnoreCase("reset"))
@@ -80,7 +80,7 @@ public class ConsoleDebug extends ConsoleCommand
 	private String printPermissions()
 	{
 		String output = "";
-		List<Permission> perms = xTeam.getInstance().getPermissions();
+		List<Permission> perms = XTeam.getInstance().getPermissions();
 		for (Permission perm : perms)
 		{
 			output += perm.getName() + " - " + perm.getDescription() + "\n";

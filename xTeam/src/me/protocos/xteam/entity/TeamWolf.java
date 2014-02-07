@@ -2,7 +2,7 @@ package me.protocos.xteam.entity;
 
 import java.util.List;
 import java.util.UUID;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
@@ -62,7 +62,7 @@ public class TeamWolf implements ITeamWolf
 	public ITeamPlayer getOwner()
 	{
 		if (wolf.getOwner() != null)
-			return xTeam.getInstance().getPlayerManager().getPlayer(wolf.getOwner().getName());
+			return XTeam.getInstance().getPlayerManager().getPlayer(wolf.getOwner().getName());
 		return null;
 	}
 
@@ -399,7 +399,7 @@ public class TeamWolf implements ITeamWolf
 		{
 			for (String p : getTeam().getPlayers())
 			{
-				mates.add(xTeam.getInstance().getPlayerManager().getPlayer(p));
+				mates.add(XTeam.getInstance().getPlayerManager().getPlayer(p));
 			}
 		}
 		return mates;
@@ -408,13 +408,13 @@ public class TeamWolf implements ITeamWolf
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return xTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
+		return XTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return xTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
+		return XTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
 	}
 
 	@Override

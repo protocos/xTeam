@@ -2,7 +2,7 @@ package me.protocos.xteam.command.serveradmin;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
@@ -45,7 +45,7 @@ public class ServerAdminSetHeadquartersTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You set the team headquarters for team two", fakePlayerSender.getLastMessage());
-		Assert.assertEquals(newHQ, xTeam.getInstance().getTeamManager().getTeam("two").getHeadquarters());
+		Assert.assertEquals(newHQ, XTeam.getInstance().getTeamManager().getTeam("two").getHeadquarters());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

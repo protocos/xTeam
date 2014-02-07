@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import lib.PatPeter.SQLibrary.Database;
 import lib.PatPeter.SQLibrary.SQLite;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.data.translator.IDataTranslator;
 import me.protocos.xteam.exception.DataManagerNotOpenException;
 
@@ -67,7 +67,7 @@ public class PlayerDataDB implements IDataManager
 			}
 			catch (SQLException e)
 			{
-				xTeam.getInstance().getLog().exception(e);
+				XTeam.getInstance().getLog().exception(e);
 			}
 		}
 		else
@@ -87,7 +87,7 @@ public class PlayerDataDB implements IDataManager
 			}
 			catch (SQLException e)
 			{
-				xTeam.getInstance().getLog().exception(e);
+				XTeam.getInstance().getLog().exception(e);
 			}
 		}
 		else
@@ -107,7 +107,7 @@ public class PlayerDataDB implements IDataManager
 			}
 			catch (SQLException e)
 			{
-				xTeam.getInstance().getLog().exception(e);
+				XTeam.getInstance().getLog().exception(e);
 			}
 		}
 		else
@@ -134,7 +134,7 @@ public class PlayerDataDB implements IDataManager
 			}
 			catch (SQLException e)
 			{
-				xTeam.getInstance().getLog().exception(e);
+				XTeam.getInstance().getLog().exception(e);
 			}
 			return null;
 		}

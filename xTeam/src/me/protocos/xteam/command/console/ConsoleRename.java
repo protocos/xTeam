@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.console;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.Requirements;
@@ -21,8 +21,8 @@ public class ConsoleRename extends ConsoleCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam team = xTeam.getInstance().getTeamManager().getTeam(teamName);
-		xTeam.getInstance().getTeamManager().renameTeam(team, desiredName);
+		ITeam team = XTeam.getInstance().getTeamManager().getTeam(teamName);
+		XTeam.getInstance().getTeamManager().renameTeam(team, desiredName);
 		sender.sendMessage("You " + ChatColorUtil.positiveMessage("renamed") + " the team to " + desiredName);
 		team.sendMessage("The team has been " + ChatColorUtil.positiveMessage("renamed") + " to " + desiredName);
 	}

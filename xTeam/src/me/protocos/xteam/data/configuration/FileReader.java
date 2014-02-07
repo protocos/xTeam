@@ -3,7 +3,7 @@ package me.protocos.xteam.data.configuration;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 
 public class FileReader
 {
@@ -78,7 +78,7 @@ public class FileReader
 		}
 		else
 		{
-			xTeam.getInstance().getLog().error("File " + this.file.getAbsoluteFile() + " not found.");
+			XTeam.getInstance().getLog().error("File " + this.file.getAbsoluteFile() + " not found.");
 			return false;
 		}
 		return true;

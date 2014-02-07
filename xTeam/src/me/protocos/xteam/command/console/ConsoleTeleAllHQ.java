@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.console;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.entity.TeamPlayer;
@@ -17,7 +17,7 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		for (TeamPlayer player : xTeam.getInstance().getPlayerManager().getOnlinePlayers())
+		for (TeamPlayer player : XTeam.getInstance().getPlayerManager().getOnlinePlayers())
 		{
 			if (!player.hasTeam())
 			{

@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.action;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
@@ -21,7 +21,7 @@ public class SetTeamAction
 
 	public void checkRequirementsOn(String playerName, String teamName) throws TeamException
 	{
-		ITeamPlayer player = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		ITeamPlayer player = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(player);
 		Requirements.checkPlayerLeaderLeaving(player);
 		Requirements.checkPlayerAlreadyOnTeam(player, teamName);
@@ -30,18 +30,18 @@ public class SetTeamAction
 
 	public void actOn(String playerName, String teamName)
 	{
-		ITeamPlayer p = xTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		ITeamPlayer p = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		if (p.hasTeam())
 		{
 			removePlayer(p);
 		}
-		if (!xTeam.getInstance().getTeamManager().containsTeam(teamName))
+		if (!XTeam.getInstance().getTeamManager().containsTeam(teamName))
 		{
 			createTeamWithLeader(teamName, p);
 		}
 		else
 		{
-			addPlayerToTeam(p, xTeam.getInstance().getTeamManager().getTeam(teamName));
+			addPlayerToTeam(p, XTeam.getInstance().getTeamManager().getTeam(teamName));
 		}
 	}
 
@@ -61,7 +61,7 @@ public class SetTeamAction
 			sender.sendMessage("You have been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
-				xTeam.getInstance().getTeamManager().disbandTeam(teamName);
+				XTeam.getInstance().getTeamManager().disbandTeam(teamName);
 				sender.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
 			}
 		}
@@ -73,7 +73,7 @@ public class SetTeamAction
 			player.sendMessage("You have been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
-				xTeam.getInstance().getTeamManager().disbandTeam(teamName);
+				XTeam.getInstance().getTeamManager().disbandTeam(teamName);
 				sender.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
 				player.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
 			}
@@ -104,7 +104,7 @@ public class SetTeamAction
 		String senderName = sender.getName();
 		String playerName = player.getName();
 		Team newTeam = Team.createTeamWithLeader(teamName, playerName);
-		xTeam.getInstance().getTeamManager().createTeam(newTeam);
+		XTeam.getInstance().getTeamManager().createTeam(newTeam);
 		if (playerName.equals(senderName))
 		{
 			//first person

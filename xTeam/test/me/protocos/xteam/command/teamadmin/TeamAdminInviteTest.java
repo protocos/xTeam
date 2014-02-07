@@ -2,7 +2,7 @@ package me.protocos.xteam.command.teamadmin;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;
@@ -48,7 +48,7 @@ public class TeamAdminInviteTest
 		//ASSERT
 		Assert.assertEquals("You invited Lonely", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(InviteHandler.hasInvite("Lonely"));
-		Assert.assertEquals(xTeam.getInstance().getTeamManager().getTeam("one"), InviteHandler.getInviteTeam("Lonely"));
+		Assert.assertEquals(XTeam.getInstance().getTeamManager().getTeam("one"), InviteHandler.getInviteTeam("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -56,7 +56,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecuteAdmin()
 	{
 		//ASSEMBLE
-		xTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
+		XTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
 		TeamAdminCommand fakeCommand = new TeamAdminInvite();
 		//ACT
@@ -64,7 +64,7 @@ public class TeamAdminInviteTest
 		//ASSERT
 		Assert.assertEquals("You invited Lonely", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(InviteHandler.hasInvite("Lonely"));
-		Assert.assertEquals(xTeam.getInstance().getTeamManager().getTeam("one"), InviteHandler.getInviteTeam("Lonely"));
+		Assert.assertEquals(XTeam.getInstance().getTeamManager().getTeam("one"), InviteHandler.getInviteTeam("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -86,8 +86,8 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecutePlayerHasInvite()
 	{
 		//ASSEMBLE
-		ITeamPlayer playerSender = xTeam.getInstance().getPlayerManager().getPlayer("kmlanglois");
-		ITeamPlayer playerReceiver = xTeam.getInstance().getPlayerManager().getPlayer("Lonely");
+		ITeamPlayer playerSender = XTeam.getInstance().getPlayerManager().getPlayer("kmlanglois");
+		ITeamPlayer playerReceiver = XTeam.getInstance().getPlayerManager().getPlayer("Lonely");
 		Long timeSent = System.currentTimeMillis();
 		InviteRequest request = new InviteRequest(playerSender, playerReceiver, timeSent);
 		InviteHandler.addInvite(request);

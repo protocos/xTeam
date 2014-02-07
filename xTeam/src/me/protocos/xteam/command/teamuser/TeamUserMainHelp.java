@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.exception.TeamException;
@@ -20,7 +20,7 @@ public class TeamUserMainHelp extends TeamUserCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		ChatColor temp;
-		String message = (ChatColor.AQUA + "------------------ [xTeam v" + xTeam.getInstance().getVersion() + " Help] ------------------");
+		String message = (ChatColor.AQUA + "------------------ [xTeam v" + XTeam.getInstance().getVersion() + " Help] ------------------");
 		message += "\n" + (ChatColor.GRAY + "xTeam is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!");
 		// line 6 begin
 		message += "\n" + (ChatColor.AQUA + "Type '" + commandID + " help [Page Number]' to get started");

@@ -2,7 +2,7 @@ package me.protocos.xteam;
 
 import java.io.File;
 import java.util.List;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.ICommandContainer;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.core.IPlayerManager;
@@ -13,13 +13,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 {
-	protected xTeam xteam;
+	protected XTeam xteam;
 	protected ILog logger;
 
 	public TeamPlugin()
 	{
 		super();
-		xteam = xTeam.getInstance();
+		xteam = XTeam.getInstance();
 	}
 
 	public String getFolder()

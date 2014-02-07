@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamadmin;
 
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamAdminCommand;
@@ -23,7 +23,7 @@ public class TeamAdminInvite extends TeamAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeamPlayer otherPlayer = xTeam.getInstance().getPlayerManager().getPlayer(other);
+		ITeamPlayer otherPlayer = XTeam.getInstance().getPlayerManager().getPlayer(other);
 		InviteRequest request = new InviteRequest(teamPlayer, otherPlayer, System.currentTimeMillis());
 		InviteHandler.addInvite(request);
 		if (otherPlayer.isOnline())
@@ -35,7 +35,7 @@ public class TeamAdminInvite extends TeamAdminCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		other = commandContainer.getArgument(1);
-		ITeamPlayer otherPlayer = xTeam.getInstance().getPlayerManager().getPlayer(other);
+		ITeamPlayer otherPlayer = XTeam.getInstance().getPlayerManager().getPlayer(other);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerInviteSelf(teamPlayer, otherPlayer);
 		Requirements.checkPlayerHasPlayedBefore(otherPlayer);
