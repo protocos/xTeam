@@ -1,12 +1,11 @@
 package me.protocos.xteam.entity;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import me.protocos.xteam.XTeam;
 import me.protocos.xteam.model.Headquarters;
+import me.protocos.xteam.model.IHeadquarters;
 import me.protocos.xteam.model.ILocatable;
+import me.protocos.xteam.model.NullHeadquarters;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.MessageUtil;
 import org.bukkit.Location;
@@ -17,20 +16,36 @@ import org.bukkit.entity.Entity;
 public class SimpleTeam implements ITeam
 {
 	private String name;
+	private String tag;
 	private String leader;
 	private Set<String> admins;
 	private Set<String> players;
+	private IHeadquarters headquarters;
+	private Location rally;
+	private boolean openJoining;
+	private long timeHeadquartersLastSet;
 
 	public static class Builder
 	{
 		private String name;
+		private String tag;
 		private String leader = "";
 		private Set<String> admins = new HashSet<String>();
 		private Set<String> players = new HashSet<String>();
+		private IHeadquarters headquarters = new NullHeadquarters();
+		private boolean openJoining = false;
+		private long timeHeadquartersLastSet = 0L;
 
 		public Builder(String name)
 		{
 			this.name = name;
+			this.tag = name;
+		}
+
+		public Builder tag(@SuppressWarnings("hiding") String tag)
+		{
+			this.tag = tag;
+			return this;
 		}
 
 		public Builder leader(@SuppressWarnings("hiding") String leader)
@@ -53,6 +68,24 @@ public class SimpleTeam implements ITeam
 			return this;
 		}
 
+		public Builder headquarters(@SuppressWarnings("hiding") IHeadquarters headquarters)
+		{
+			this.headquarters = headquarters;
+			return this;
+		}
+
+		public Builder openJoining(@SuppressWarnings("hiding") boolean openJoining)
+		{
+			this.openJoining = openJoining;
+			return this;
+		}
+
+		public Builder timeHeadquartersLastSet(@SuppressWarnings("hiding") long timeHeadquartersLastSet)
+		{
+			this.timeHeadquartersLastSet = timeHeadquartersLastSet;
+			return this;
+		}
+
 		public SimpleTeam build()
 		{
 			return new SimpleTeam(this);
@@ -62,9 +95,13 @@ public class SimpleTeam implements ITeam
 	private SimpleTeam(Builder builder)
 	{
 		this.name = builder.name;
+		this.tag = builder.tag;
 		this.leader = builder.leader;
-		this.players = builder.players;
 		this.admins = builder.admins;
+		this.players = builder.players;
+		this.headquarters = builder.headquarters;
+		this.openJoining = builder.openJoining;
+		this.timeHeadquartersLastSet = builder.timeHeadquartersLastSet;
 	}
 
 	@Override
@@ -100,40 +137,42 @@ public class SimpleTeam implements ITeam
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		//TODO not covered in test case
+		//EXTERNAL call
 		return XTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
 	}
 
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		//TODO not covered in test case
+		//EXTERNAL call
 		return XTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
-		//TODO not covered in test case
+		//EXTERNAL call
 		return XTeam.getInstance().getPlayerManager().getTeammatesOf(this);
 	}
 
 	@Override
 	public void sendMessage(String message)
 	{
-		//TODO not covered in test case
+		//EXTERNAL call
 		MessageUtil.sendMessageToTeam(this, message);
 	}
 
 	@Override
 	public String getPublicInfo()
 	{
-		StringBuilder publicInfo = new StringBuilder();
-		publicInfo.append("Team Name: ").append(this.getName()).append("\n");
-		if (this.hasTag())
-			publicInfo.append("Team Tag: ").append(this.getTag()).append("\n");
-
-		return publicInfo.toString();
+		// TODO Auto-generated method stub
+		//		StringBuilder publicInfo = new StringBuilder();
+		//		publicInfo.append("Team Name: ").append(this.getName()).append("\n");
+		//		if (this.hasTag())
+		//			publicInfo.append("Team Tag: ").append(this.getTag()).append("\n");
+		//
+		//		return publicInfo.toString();
+		return null;
 	}
 
 	@Override
@@ -146,71 +185,61 @@ public class SimpleTeam implements ITeam
 	@Override
 	public Location getLocation()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return headquarters.getLocation();
 	}
 
 	@Override
 	public World getWorld()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return headquarters.getWorld();
 	}
 
 	@Override
 	public Server getServer()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return headquarters.getServer();
 	}
 
 	@Override
 	public int getRelativeX()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return headquarters.getRelativeX();
 	}
 
 	@Override
 	public int getRelativeY()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return headquarters.getRelativeY();
 	}
 
 	@Override
 	public int getRelativeZ()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return headquarters.getRelativeZ();
 	}
 
 	@Override
 	public double getDistanceTo(ILocatable entity)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return headquarters.getDistanceTo(entity);
 	}
 
 	@Override
 	public boolean teleportTo(ILocatable entity)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return headquarters.teleportTo(entity);
 	}
 
 	@Override
 	public List<Entity> getNearbyEntities(int radius)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return headquarters.getNearbyEntities(radius);
 	}
 
 	@Override
 	public void setName(String name)
 	{
-		// TODO Auto-generated method stub
-
+		this.name = name;
 	}
 
 	@Override
@@ -222,116 +251,109 @@ public class SimpleTeam implements ITeam
 	@Override
 	public void setTag(String tag)
 	{
-		// TODO Auto-generated method stub
-
+		this.tag = tag;
 	}
 
 	@Override
 	public String getTag()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.tag;
 	}
 
 	@Override
 	public boolean hasTag()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return !this.tag.equals(this.name);
 	}
 
 	@Override
-	public void setHeadquarters(Headquarters headquarters)
+	public void setHeadquarters(IHeadquarters headquarters)
 	{
-		// TODO Auto-generated method stub
-
+		this.headquarters = headquarters;
 	}
 
 	@Override
-	public Headquarters getHeadquarters()
+	public IHeadquarters getHeadquarters()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return headquarters;
 	}
 
 	@Override
 	public boolean hasHeadquarters()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return (headquarters instanceof Headquarters);
 	}
 
 	@Override
 	public boolean addPlayer(String player)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return players.add(player);
 	}
 
 	@Override
 	public boolean containsPlayer(String player)
 	{
-		List<String> allPlayers = CommonUtil.emptyList();
-		allPlayers.add(leader);
-		allPlayers.addAll(admins);
-		allPlayers.addAll(players);
+		List<String> allPlayers = new ArrayList<String>(players);
 		return CommonUtil.containsIgnoreCase(allPlayers, player);
+	}
+
+	@Override
+	public boolean containsAdmin(String admin)
+	{
+		List<String> allAdmins = new ArrayList<String>(admins);
+		return CommonUtil.containsIgnoreCase(allAdmins, admin);
 	}
 
 	@Override
 	public boolean removePlayer(String player)
 	{
-		// TODO Auto-generated method stub
+		if (!this.leader.equals(player))
+		{
+			admins.remove(player);
+			players.remove(player);
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean isEmpty()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return players.isEmpty();
 	}
 
 	@Override
 	public void promote(String player)
 	{
-		// TODO Auto-generated method stub
-
+		if (this.players.contains(player) &&
+				!this.leader.equals(player))
+		{
+			this.admins.add(player);
+		}
 	}
 
 	@Override
 	public void demote(String player)
 	{
-		// TODO Auto-generated method stub
-
+		this.admins.remove(player);
 	}
 
 	@Override
-	public void setOpenJoining(boolean open)
+	public void setOpenJoining(boolean openJoining)
 	{
-		// TODO Auto-generated method stub
-
+		this.openJoining = openJoining;
 	}
 
 	@Override
 	public boolean isOpenJoining()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return this.openJoining;
 	}
 
 	@Override
 	public int size()
 	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setPlayers(Set<String> players)
-	{
-		// TODO Auto-generated method stub
-
+		return players.size();
 	}
 
 	@Override
@@ -347,10 +369,13 @@ public class SimpleTeam implements ITeam
 	}
 
 	@Override
-	public void setLeader(String playerName)
+	public void setLeader(String leader)
 	{
-		// TODO Auto-generated method stub
-
+		if (this.players.contains(leader))
+		{
+			this.leader = leader;
+			this.admins.remove(leader);
+		}
 	}
 
 	@Override
@@ -374,38 +399,39 @@ public class SimpleTeam implements ITeam
 	}
 
 	@Override
-	public void setRally(Location location)
+	public void setRally(Location rally)
 	{
-		// TODO Auto-generated method stub
-
+		this.rally = rally;
 	}
 
 	@Override
 	public Location getRally()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return rally;
 	}
 
 	@Override
 	public boolean hasRally()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return rally != null;
 	}
 
 	@Override
-	public void setTimeLastSet(long currentTimeMillis)
+	public void setTimeHeadquartersLastSet(long timeHeadquartersLastSet)
 	{
-		// TODO Auto-generated method stub
-
+		this.timeHeadquartersLastSet = timeHeadquartersLastSet;
 	}
 
 	@Override
-	public long getTimeLastSet()
+	public long getTimeHeadquartersLastSet()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return this.timeHeadquartersLastSet;
+	}
+
+	@Override
+	public void setPlayers(Set<String> players)
+	{
+		this.players = players;
 	}
 
 }

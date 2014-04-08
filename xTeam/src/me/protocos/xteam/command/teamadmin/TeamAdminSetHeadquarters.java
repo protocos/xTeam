@@ -19,7 +19,7 @@ public class TeamAdminSetHeadquarters extends TeamAdminCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.setHeadquarters(new Headquarters(teamPlayer.getLocation()));
-		team.setTimeLastSet(System.currentTimeMillis());
+		team.setTimeHeadquartersLastSet(System.currentTimeMillis());
 		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team headquarters");
 	}
 

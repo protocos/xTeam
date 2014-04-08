@@ -117,9 +117,9 @@ public class TeamTest
 		//ASSEMBLE
 		long currentTime = System.currentTimeMillis();
 		//ACT
-		team.setTimeLastSet(currentTime);
+		team.setTimeHeadquartersLastSet(currentTime);
 		//ASSERT
-		Assert.assertEquals(currentTime, team.getTimeLastSet());
+		Assert.assertEquals(currentTime, team.getTimeHeadquartersLastSet());
 	}
 
 	@Test

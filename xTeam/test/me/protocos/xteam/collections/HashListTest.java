@@ -296,7 +296,7 @@ public class HashListTest
 		list.put("3", "three");
 		list.put("2", "two");
 		list.sort();
-		List<String> regularList = list.asList();
+		List<String> regularList = list.toList();
 		int index = 0;
 		for (String value : regularList)
 		{
@@ -337,7 +337,24 @@ public class HashListTest
 		Assert.assertTrue(equals);
 	}
 
-	public void addKeyValuePairsInOrder()
+	@Test
+	public void ShouldBeMapBuilderExportHashList()
+	{
+		//ASSEMBLE
+		HashList<String, String> hashList = new MapBuilder<String, String>()
+				.addEntry("1", "one")
+				.addEntry("2", "two")
+				.addEntry("3", "three")
+				.addEntry("4", "four")
+				.addEntry("5", "five")
+				.addEntry("6", "six")
+				.build();
+		//ACT
+		//ASSERT
+		Assert.assertEquals("{1=one, 2=two, 3=three, 4=four, 5=five, 6=six}", hashList.toString());
+	}
+
+	private void addKeyValuePairsInOrder()
 	{
 		list.put("0", "zero");
 		list.put("1", "one");

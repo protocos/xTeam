@@ -61,20 +61,20 @@ public class ConsoleDebug extends ConsoleCommand
 		}
 		else if (subCommand.equalsIgnoreCase("live"))
 			sender.sendMessage("Bukkit server is " + (BukkitUtil.isLive() ? "live!" : "offline."));
-		//		else if (subCommand.equalsIgnoreCase("email"))
-		//		{
-		//			try
-		//			{
-		//				xTeam.getInstance().getLog().exception(new Exception("Test message!"));
-		//				sender.sendMessage("Email sent!");
-		//			}
-		//			catch (Exception e)
-		//			{
-		//				e.printStackTrace();
-		//			}
-		//		}
+		else if (subCommand.equalsIgnoreCase("error"))
+		{
+			try
+			{
+				XTeam.getInstance().getLog().exception(new Exception("Test message!"));
+				sender.sendMessage("Error sent!");
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 		else
-			sender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, live]");
+			sender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, live, error]");
 	}
 
 	private String printPermissions()

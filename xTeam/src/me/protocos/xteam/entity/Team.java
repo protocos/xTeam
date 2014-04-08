@@ -6,6 +6,7 @@ import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.model.Headquarters;
+import me.protocos.xteam.model.IHeadquarters;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.ChatColorUtil;
@@ -23,7 +24,7 @@ public class Team implements ITeam
 	private String leader;
 	private Set<String> players;
 	private Set<String> admins;
-	private Headquarters headquarters;
+	private IHeadquarters headquarters;
 	private long timeHeadquartersSet;
 	private boolean openJoining;
 	private boolean defaultTeam;
@@ -131,16 +132,13 @@ public class Team implements ITeam
 		admins = builder.admins;
 	}
 
+	@Override
 	public boolean addPlayer(String player)
 	{
 		return players.add(player);
 	}
 
-	public boolean containsPlayer(String player)
-	{
-		return players.contains(player);
-	}
-
+	@Override
 	public boolean removePlayer(String player)
 	{
 		if (leader.equals(player))
@@ -150,12 +148,34 @@ public class Team implements ITeam
 		return players.remove(player);
 	}
 
+	@Override
+	public boolean containsPlayer(String player)
+	{
+		return players.contains(player);
+	}
+
+	@Override
+	public void promote(String player)
+	{
+		if (players.contains(player) && !admins.contains(player))
+		{
+			admins.add(player);
+		}
+	}
+
+	@Override
 	public void demote(String player)
 	{
 		if (players.contains(player) && admins.contains(player) && !leader.equals(player))
 		{
 			admins.remove(player);
 		}
+	}
+
+	@Override
+	public boolean containsAdmin(String admin)
+	{
+		return admins.contains(admin);
 	}
 
 	public int hashCode()
@@ -181,7 +201,7 @@ public class Team implements ITeam
 		return admins;
 	}
 
-	public Headquarters getHeadquarters()
+	public IHeadquarters getHeadquarters()
 	{
 		return headquarters;
 	}
@@ -196,7 +216,7 @@ public class Team implements ITeam
 		return players;
 	}
 
-	public long getTimeLastSet()
+	public long getTimeHeadquartersLastSet()
 	{
 		return timeHeadquartersSet;
 	}
@@ -231,14 +251,6 @@ public class Team implements ITeam
 		return openJoining;
 	}
 
-	public void promote(String player)
-	{
-		if (players.contains(player) && !admins.contains(player))
-		{
-			admins.add(player);
-		}
-	}
-
 	public void setAdmins(Set<String> admins)
 	{
 		this.admins = admins;
@@ -249,7 +261,7 @@ public class Team implements ITeam
 		this.defaultTeam = defaultTeam;
 	}
 
-	public void setHeadquarters(Headquarters headquarters)
+	public void setHeadquarters(IHeadquarters headquarters)
 	{
 		this.headquarters = headquarters;
 	}
@@ -278,7 +290,7 @@ public class Team implements ITeam
 		this.players = players;
 	}
 
-	public void setTimeLastSet(long timeHeadquartersSet)
+	public void setTimeHeadquartersLastSet(long timeHeadquartersSet)
 	{
 		this.timeHeadquartersSet = timeHeadquartersSet;
 	}
@@ -352,7 +364,7 @@ public class Team implements ITeam
 		teamData += " tag:" + getTag();
 		teamData += " open:" + isOpenJoining();
 		teamData += " default:" + isDefaultTeam();
-		teamData += " timeHeadquartersSet:" + getTimeLastSet();
+		teamData += " timeHeadquartersSet:" + getTimeHeadquartersLastSet();
 		teamData += " hq:" + (getHeadquarters() == null ? "" : getHeadquarters().toString());
 		teamData += " leader:" + getLeader();
 		teamData += " admins:" + getAdmins().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");

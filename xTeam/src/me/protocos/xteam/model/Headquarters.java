@@ -9,7 +9,7 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 
-public class Headquarters implements ILocatable
+public class Headquarters implements IHeadquarters
 {
 	private Location location;
 

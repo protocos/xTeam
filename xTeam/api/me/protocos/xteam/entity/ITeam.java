@@ -1,7 +1,7 @@
 package me.protocos.xteam.entity;
 
 import java.util.Set;
-import me.protocos.xteam.model.Headquarters;
+import me.protocos.xteam.model.IHeadquarters;
 import me.protocos.xteam.model.ILocatable;
 import org.bukkit.Location;
 
@@ -17,15 +17,17 @@ public interface ITeam extends ITeamEntity, ILocatable
 
 	public abstract boolean hasTag();
 
-	public abstract void setHeadquarters(Headquarters headquarters);
+	public abstract void setHeadquarters(IHeadquarters headquarters);
 
-	public abstract Headquarters getHeadquarters();
+	public abstract IHeadquarters getHeadquarters();
 
 	public abstract boolean hasHeadquarters();
 
 	public abstract boolean addPlayer(String player);
 
 	public abstract boolean containsPlayer(String player);
+
+	public abstract boolean containsAdmin(String admin);
 
 	public abstract boolean removePlayer(String player);
 
@@ -47,7 +49,7 @@ public interface ITeam extends ITeamEntity, ILocatable
 
 	public abstract Set<String> getAdmins();
 
-	public abstract void setLeader(String playerName);
+	public abstract void setLeader(String leader);
 
 	public abstract String getLeader();
 
@@ -55,13 +57,13 @@ public interface ITeam extends ITeamEntity, ILocatable
 
 	public abstract boolean isDefaultTeam();
 
-	public abstract void setRally(Location location);
+	public abstract void setRally(Location rally);
 
 	public abstract Location getRally();
 
 	public abstract boolean hasRally();
 
-	public abstract void setTimeLastSet(long currentTimeMillis);
+	public abstract void setTimeHeadquartersLastSet(long timeHeadquartersLastSet);
 
-	public abstract long getTimeLastSet();
+	public abstract long getTimeHeadquartersLastSet();
 }

@@ -12,31 +12,28 @@ public class SystemUtil
 {
 	public static final String getUUID()
 	{
-		return UUID.nameUUIDFromBytes(getMACAddress()).toString();
-	}
-
-	public static final byte[] getMACAddress()
-	{
+		String uuid;
 		try
 		{
-			NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-			byte[] mac = network.getHardwareAddress();
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < mac.length; i++)
-			{
-				sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
-			}
-			return mac;
+			uuid = UUID.nameUUIDFromBytes(getMACAddress()).toString();
 		}
-		catch (UnknownHostException e)
+		catch (SocketException | UnknownHostException e)
 		{
-			e.printStackTrace();
+			uuid = "ANONYMOUS";
 		}
-		catch (SocketException e)
+		return uuid;
+	}
+
+	private static final byte[] getMACAddress() throws SocketException, UnknownHostException
+	{
+		NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+		byte[] mac = network.getHardwareAddress();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < mac.length; i++)
 		{
-			e.printStackTrace();
+			sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
 		}
-		return null;
+		return mac;
 	}
 
 	public static boolean isMac()

@@ -200,7 +200,7 @@ public class Requirements
 
 	public static void checkTeamHeadquartersRecentlySet(ITeam team) throws TeamHqSetRecentlyException
 	{
-		long timeElapsedSinceLastSetHeadquarters = CommonUtil.getElapsedTimeSince(team.getTimeLastSet());
+		long timeElapsedSinceLastSetHeadquarters = CommonUtil.getElapsedTimeSince(team.getTimeHeadquartersLastSet());
 		if (timeElapsedSinceLastSetHeadquarters < Configuration.HQ_INTERVAL * 60 * 60 * 1000)
 		{
 			throw new TeamHqSetRecentlyException();

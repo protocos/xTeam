@@ -42,7 +42,7 @@ public class CommandManager implements ICommandManager
 		List<String> availableCommands = CommonUtil.emptyList();
 		if (sender instanceof ConsoleCommandSender)
 		{
-			for (ConsoleCommand command : CommonUtil.subListOfType(commands.asList(), ConsoleCommand.class))
+			for (ConsoleCommand command : CommonUtil.subListOfType(commands.toList(), ConsoleCommand.class))
 			{
 				if (sender instanceof ConsoleCommandSender)
 				{
@@ -53,28 +53,28 @@ public class CommandManager implements ICommandManager
 		else if (sender instanceof ITeamPlayer)
 		{
 			TeamPlayer teamPlayer = CommonUtil.assignFromType(sender, TeamPlayer.class);
-			for (TeamUserCommand command : CommonUtil.subListOfType(commands.asList(), TeamUserCommand.class))
+			for (TeamUserCommand command : CommonUtil.subListOfType(commands.toList(), TeamUserCommand.class))
 			{
 				if (teamPlayer.hasPermission(command))
 				{
 					availableCommands.add(ChatColorUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
 				}
 			}
-			for (TeamAdminCommand command : CommonUtil.subListOfType(commands.asList(), TeamAdminCommand.class))
+			for (TeamAdminCommand command : CommonUtil.subListOfType(commands.toList(), TeamAdminCommand.class))
 			{
 				if (teamPlayer.hasPermission(command) && teamPlayer.isAdmin())
 				{
 					availableCommands.add(ChatColorUtil.formatForAdmin(command.getUsage() + " - " + command.getDescription()));
 				}
 			}
-			for (TeamLeaderCommand command : CommonUtil.subListOfType(commands.asList(), TeamLeaderCommand.class))
+			for (TeamLeaderCommand command : CommonUtil.subListOfType(commands.toList(), TeamLeaderCommand.class))
 			{
 				if (teamPlayer.hasPermission(command) && teamPlayer.isLeader())
 				{
 					availableCommands.add(ChatColorUtil.formatForLeader(command.getUsage() + " - " + command.getDescription()));
 				}
 			}
-			for (ServerAdminCommand command : CommonUtil.subListOfType(commands.asList(), ServerAdminCommand.class))
+			for (ServerAdminCommand command : CommonUtil.subListOfType(commands.toList(), ServerAdminCommand.class))
 			{
 				if (teamPlayer.hasPermission(command))
 				{

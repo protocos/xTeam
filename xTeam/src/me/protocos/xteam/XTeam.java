@@ -94,7 +94,7 @@ public final class XTeam
 
 	public void load(TeamPlugin plugin)
 	{
-		if ("xTeamPlugin".equals(plugin.getPluginName()) || "FakeTeamPlugin".equals(plugin.getPluginName()))
+		if ("XTeamPlugin".equals(plugin.getPluginName()) || "FakeTeamPlugin".equals(plugin.getPluginName()))
 		{
 			this.version = plugin.getVersion();
 			if (plugin.getLog() == null)
@@ -165,7 +165,7 @@ public final class XTeam
 		this.configLoader.addAttribute("balanceteams", false, "Balance teams when someone randomly joins");
 		this.configLoader.addAttribute("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
 		this.configLoader.addAttribute("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
-		//		this.configLoader.addAttribute("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
+		this.configLoader.addAttribute("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
 		this.configLoader.addAttribute("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
 		this.configLoader.addAttribute("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
 		this.configLoader.addAttribute("teamnamemaxlength", 0, "Maximum length of a team name (0 = unlimited)");

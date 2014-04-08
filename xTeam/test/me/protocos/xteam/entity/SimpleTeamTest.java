@@ -1,5 +1,7 @@
 package me.protocos.xteam.entity;
 
+import me.protocos.xteam.model.Headquarters;
+import me.protocos.xteam.model.NullHeadquarters;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -70,6 +72,16 @@ public class SimpleTeamTest
 	}
 
 	@Test
+	public void ShouldBeIsEmpty()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").build();
+		//ACT
+		//ASSERT
+		Assert.assertTrue(team.isEmpty());
+	}
+
+	@Test
 	public void ShouldBeContainsTeammates()
 	{
 		//ASSEMBLE
@@ -114,19 +126,189 @@ public class SimpleTeamTest
 	}
 
 	@Test
-	public void ShouldBe()
+	public void ShouldBeNullHeadquarters()
 	{
 		//ASSEMBLE
-		team = new SimpleTeam.Builder("name")
-				.leader("protocos")
-				.admins("kmlanglois")
-				.players("mastermind")
-				.build();
+		team = new SimpleTeam.Builder("name").build();
 		//ACT
 		//ASSERT
-		Assert.assertTrue(team.containsPlayer("PROTOcos"));
-		Assert.assertTrue(team.containsPlayer("kmLANGLOIS"));
-		Assert.assertTrue(team.containsPlayer("MASTERmind"));
+		Assert.assertEquals(new NullHeadquarters(), team.getHeadquarters());
+		Assert.assertFalse(team.hasHeadquarters());
+	}
+
+	@Test
+	public void ShouldBeHasHeadquarters()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").headquarters(new Headquarters(null)).build();
+		//ACT
+		//ASSERT
+		Assert.assertTrue(team.hasHeadquarters());
+	}
+
+	@Test
+	public void ShouldBeHasTag()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").tag("tag").build();
+		//ACT
+		//ASSERT
+		Assert.assertTrue(team.hasTag());
+	}
+
+	@Test
+	public void ShouldBeRemovePlayer()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").players("protocos").build();
+		//ACT
+		team.removePlayer("protocos");
+		//ASSERT
+		Assert.assertFalse(team.containsPlayer("protocos"));
+	}
+
+	@Test
+	public void ShouldBeRemoveLeader()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").leader("protocos").players("protocos").build();
+		//ACT
+		team.removePlayer("protocos");
+		//ASSERT
+		Assert.assertTrue(team.containsPlayer("protocos"));
+	}
+
+	@Test
+	public void ShouldBeRemoveAdmin()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").admins("protocos").players("protocos").build();
+		//ACT
+		team.removePlayer("protocos");
+		//ASSERT
+		Assert.assertFalse(team.containsAdmin("protocos"));
+		Assert.assertFalse(team.containsPlayer("protocos"));
+	}
+
+	@Test
+	public void ShouldBeSetLeaderNotOnTeam()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").build();
+		//ACT
+		team.setLeader("protocos");
+		//ASSERT
+		Assert.assertFalse(team.containsPlayer("protocos"));
+	}
+
+	@Test
+	public void ShouldBeSetLeaderNotAdmin()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").admins("protocos").players("protocos").build();
+		//ACT
+		team.setLeader("protocos");
+		//ASSERT
+		Assert.assertEquals("protocos", team.getLeader());
+		Assert.assertFalse(team.containsAdmin("protocos"));
+	}
+
+	@Test
+	public void ShouldBePromoteNonPlayer()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").build();
+		//ACT
+		team.promote("protocos");
+		//ASSERT
+		Assert.assertFalse(team.containsAdmin("protocos"));
+		Assert.assertFalse(team.containsPlayer("protocos"));
+	}
+
+	@Test
+	public void ShouldBePromotePlayer()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").players("protocos").build();
+		//ACT
+		team.promote("protocos");
+		//ASSERT
+		Assert.assertTrue(team.containsAdmin("protocos"));
+		Assert.assertTrue(team.containsPlayer("protocos"));
+	}
+
+	@Test
+	public void ShouldBePromoteAdmin()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").admins("protocos").players("protocos").build();
+		//ACT
+		team.promote("protocos");
+		//ASSERT
+		Assert.assertTrue(team.containsAdmin("protocos"));
+		Assert.assertTrue(team.containsPlayer("protocos"));
+	}
+
+	@Test
+	public void ShouldBePromoteLeader()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").leader("protocos").players("protocos").build();
+		//ACT
+		team.promote("protocos");
+		//ASSERT
+		Assert.assertEquals("protocos", team.getLeader());
+		Assert.assertFalse(team.containsAdmin("protocos"));
+		Assert.assertTrue(team.containsPlayer("protocos"));
+	}
+
+	@Test
+	public void ShouldBeDemoteNonPlayer()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").build();
+		//ACT
+		team.demote("protocos");
+		//ASSERT
+		Assert.assertFalse(team.containsAdmin("protocos"));
+		Assert.assertFalse(team.containsPlayer("protocos"));
+	}
+
+	@Test
+	public void ShouldBeDemotePlayer()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").players("protocos").build();
+		//ACT
+		team.demote("protocos");
+		//ASSERT
+		Assert.assertFalse(team.containsAdmin("protocos"));
+		Assert.assertTrue(team.containsPlayer("protocos"));
+	}
+
+	@Test
+	public void ShouldBeDemoteAdmin()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").admins("protocos").players("protocos").build();
+		//ACT
+		team.demote("protocos");
+		//ASSERT
+		Assert.assertFalse(team.containsAdmin("protocos"));
+		Assert.assertTrue(team.containsPlayer("protocos"));
+	}
+
+	@Test
+	public void ShouldBeDemoteLeader()
+	{
+		//ASSEMBLE
+		team = new SimpleTeam.Builder("name").leader("protocos").players("protocos").build();
+		//ACT
+		team.demote("protocos");
+		//ASSERT
+		Assert.assertEquals("protocos", team.getLeader());
+		Assert.assertFalse(team.containsAdmin("protocos"));
+		Assert.assertTrue(team.containsPlayer("protocos"));
 	}
 
 	@After

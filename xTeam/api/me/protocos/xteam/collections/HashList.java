@@ -141,16 +141,6 @@ public class HashList<K, V> implements Iterable<V>
 		return values.size();
 	}
 
-	public List<V> asList()
-	{
-		List<V> list = CommonUtil.emptyList();
-		for (V value : this)
-		{
-			list.add(value);
-		}
-		return list;
-	}
-
 	public boolean updateKey(K oldKey, K newKey)
 	{
 		if (oldKey == null || newKey == null)
@@ -215,5 +205,20 @@ public class HashList<K, V> implements Iterable<V>
 			}
 		};
 		return it;
+	}
+
+	public final List<V> toList()
+	{
+		List<V> list = CommonUtil.emptyList();
+		for (V value : this)
+		{
+			list.add(value);
+		}
+		return list;
+	}
+
+	public final HashMap<K, V> toHashMap()
+	{
+		return this.values;
 	}
 }
