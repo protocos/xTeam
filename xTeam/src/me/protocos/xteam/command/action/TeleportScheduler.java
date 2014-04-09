@@ -12,7 +12,7 @@ import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.exception.TeamPlayerHasNoOnlineTeammatesException;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.*;
@@ -96,8 +96,8 @@ public class TeleportScheduler
 	{
 		countWaitTime.put(teamPlayer, 0);
 		final Location currentLocation = teamPlayer.getLocation();
-		teamPlayer.sendMessage(ChatColorUtil.negativeMessage("You cannot teleport with enemies nearby"));
-		teamPlayer.sendMessage(ChatColorUtil.negativeMessage("You must wait " + Configuration.TELE_DELAY + " seconds"));
+		teamPlayer.sendMessage(MessageUtil.negativeMessage("You cannot teleport with enemies nearby"));
+		teamPlayer.sendMessage(MessageUtil.negativeMessage("You must wait " + Configuration.TELE_DELAY + " seconds"));
 		Runnable teleportWait = new TeleportWait(teamPlayer, toLocatable, currentLocation);
 		setCurrentTask(teamPlayer, taskScheduler.scheduleSyncRepeatingTask(BukkitUtil.getxTeam(), teleportWait, CommonUtil.LONG_ZERO, 2L));
 	}
@@ -117,11 +117,11 @@ public class TeleportScheduler
 			teamPlayer.setLastTeleported(System.currentTimeMillis());
 		}
 		teamPlayer.teleport(toLocation);
-		teamPlayer.sendMessage("You've been " + ChatColorUtil.positiveMessage("teleported") + " to " + toLocatable.getName());
+		teamPlayer.sendMessage("You've been " + MessageUtil.positiveMessage("teleported") + " to " + toLocatable.getName());
 		if (toLocatable instanceof TeamPlayer)
 		{
 			TeamPlayer toPlayer = CommonUtil.assignFromType(toLocatable, TeamPlayer.class);
-			toPlayer.sendMessage(teamPlayer.getName() + " has " + ChatColorUtil.positiveMessage("teleported") + " to you");
+			toPlayer.sendMessage(teamPlayer.getName() + " has " + MessageUtil.positiveMessage("teleported") + " to you");
 		}
 	}
 
@@ -194,7 +194,7 @@ public class TeleportScheduler
 		public void run()
 		{
 			if (Configuration.TELE_REFRESH_DELAY > 0)
-				fromEntity.sendMessage("Teleport " + ChatColorUtil.positiveMessage("refreshed"));
+				fromEntity.sendMessage("Teleport " + MessageUtil.positiveMessage("refreshed"));
 		}
 	}
 
@@ -216,14 +216,14 @@ public class TeleportScheduler
 		{
 			if ((System.currentTimeMillis() - fromEntity.getLastAttacked()) / 1000 < Configuration.LAST_ATTACKED_DELAY)
 			{
-				fromEntity.sendMessage("Teleport " + ChatColorUtil.negativeMessage("cancelled") + "! You were attacked!");
+				fromEntity.sendMessage("Teleport " + MessageUtil.negativeMessage("cancelled") + "! You were attacked!");
 				countWaitTime.remove(fromEntity);
 				removeCurrentTask(fromEntity);
 			}
 			Location loc = fromEntity.getLocation();
 			if (loc.getBlockX() != previousLocation.getBlockX() || loc.getBlockY() != previousLocation.getBlockY() || loc.getBlockZ() != previousLocation.getBlockZ())
 			{
-				fromEntity.sendMessage(ChatColorUtil.negativeMessage("Teleport cancelled! You moved!"));
+				fromEntity.sendMessage(MessageUtil.negativeMessage("Teleport cancelled! You moved!"));
 				countWaitTime.remove(fromEntity);
 				removeCurrentTask(fromEntity);
 			}

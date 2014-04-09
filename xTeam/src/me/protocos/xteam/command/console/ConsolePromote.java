@@ -7,7 +7,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsolePromote extends ConsoleCommand
@@ -24,10 +24,10 @@ public class ConsolePromote extends ConsoleCommand
 	{
 		ITeam team = XTeam.getInstance().getTeamManager().getTeam(teamName);
 		team.promote(playerName);
-		sender.sendMessage("You " + ChatColorUtil.positiveMessage("promoted ") + playerName);
+		sender.sendMessage("You " + MessageUtil.positiveMessage("promoted ") + playerName);
 		ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
 		if (other.isOnline())
-			other.sendMessage("You've been " + ChatColorUtil.positiveMessage("promoted"));
+			other.sendMessage("You've been " + MessageUtil.positiveMessage("promoted"));
 	}
 
 	@Override

@@ -3,7 +3,7 @@ package me.protocos.xteam.fakeobjects;
 import java.net.InetSocketAddress;
 import java.util.*;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.StringUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
@@ -1092,7 +1092,7 @@ public class FakePlayerSender implements Player, CommandSender
 	@Override
 	public void sendMessage(String[] arg0)
 	{
-		String message = StringUtil.concatenate(arg0);
+		String message = CommonUtil.concatenate(arg0);
 		sendMessage(message);
 	}
 

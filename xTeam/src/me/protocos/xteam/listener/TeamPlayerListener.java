@@ -6,7 +6,7 @@ import me.protocos.xteam.XTeam;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -72,16 +72,16 @@ public class TeamPlayerListener implements Listener
 						int index = r.nextInt(availableTeams.size());
 						ITeam team = availableTeams.get(index);
 						team.addPlayer(teamPlayer.getName());
-						teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("joined") + " " + team.getName());
+						teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("joined") + " " + team.getName());
 						for (ITeamPlayer teammate : teamPlayer.getOnlineTeammates())
 						{
-							teammate.sendMessage(teamPlayer.getName() + " " + ChatColorUtil.positiveMessage("joined") + " your team");
+							teammate.sendMessage(teamPlayer.getName() + " " + MessageUtil.positiveMessage("joined") + " your team");
 						}
 						XTeam.getInstance().getLog().info("Added " + teamPlayer.getName() + " to team " + team.getName());
 					}
 					else
 					{
-						XTeam.getInstance().getLog().info(ChatColorUtil.negativeMessage("Player not assigned a team: No default teams have been set"));
+						XTeam.getInstance().getLog().info(MessageUtil.negativeMessage("Player not assigned a team: No default teams have been set"));
 					}
 				}
 			}
@@ -93,11 +93,11 @@ public class TeamPlayerListener implements Listener
 					if (team.hasHeadquarters())
 					{
 						teamPlayer.teleportTo(team.getHeadquarters());
-						teamPlayer.sendMessage(ChatColorUtil.negativeMessage("You've been teleported to your Headquarters"));
+						teamPlayer.sendMessage(MessageUtil.negativeMessage("You've been teleported to your Headquarters"));
 					}
 					else
 					{
-						teamPlayer.sendMessage(ChatColorUtil.negativeMessage("Your team does not have an Headquarters"));
+						teamPlayer.sendMessage(MessageUtil.negativeMessage("Your team does not have an Headquarters"));
 					}
 				}
 			}
@@ -142,7 +142,7 @@ public class TeamPlayerListener implements Listener
 					}
 					else
 					{
-						player.sendMessage(ChatColorUtil.negativeMessage("You have not set a headquarters yet."));
+						player.sendMessage(MessageUtil.negativeMessage("You have not set a headquarters yet."));
 					}
 				}
 			}

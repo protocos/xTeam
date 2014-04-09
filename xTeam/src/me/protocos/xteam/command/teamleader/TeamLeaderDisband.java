@@ -5,7 +5,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamLeaderDisband extends TeamLeaderCommand
@@ -20,10 +20,10 @@ public class TeamLeaderDisband extends TeamLeaderCommand
 	{
 		for (ITeamPlayer playerDisband : teamPlayer.getOnlineTeammates())
 		{
-			playerDisband.sendMessage("Team has been " + ChatColorUtil.negativeMessage("disbanded") + " by the team leader");
+			playerDisband.sendMessage("Team has been " + MessageUtil.negativeMessage("disbanded") + " by the team leader");
 		}
 		XTeam.getInstance().getTeamManager().disbandTeam(team.getName());
-		teamPlayer.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " your team");
+		teamPlayer.sendMessage("You " + MessageUtil.negativeMessage("disbanded") + " your team");
 	}
 
 	@Override

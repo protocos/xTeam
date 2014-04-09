@@ -7,7 +7,7 @@ import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.entity.Player;
 
@@ -27,8 +27,8 @@ public class TeamLeaderRemove extends TeamLeaderCommand
 		team.removePlayer(otherPlayer);
 		Player other = BukkitUtil.getPlayer(otherPlayer);
 		if (other != null)
-			other.sendMessage("You've been " + ChatColorUtil.negativeMessage("removed") + " from " + team.getName());
-		teamPlayer.sendMessage("You" + ChatColorUtil.negativeMessage(" removed ") + otherPlayer + " from your team");
+			other.sendMessage("You've been " + MessageUtil.negativeMessage("removed") + " from " + team.getName());
+		teamPlayer.sendMessage("You" + MessageUtil.negativeMessage(" removed ") + otherPlayer + " from your team");
 		if (team.isEmpty())
 		{
 			teamPlayer.sendMessage(teamName + " has been disbanded");

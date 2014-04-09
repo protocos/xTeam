@@ -75,7 +75,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public String getLastPlayed()
 	{
-		return StringUtil.formatDateToMonthDay(player.getLastPlayed());
+		return CommonUtil.formatDateToMonthDay(player.getLastPlayed());
 	}
 
 	@Override

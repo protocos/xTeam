@@ -2,7 +2,7 @@ package me.protocos.xteam.fakeobjects;
 
 import java.util.LinkedList;
 import java.util.Set;
-import me.protocos.xteam.util.StringUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.conversations.Conversation;
@@ -186,7 +186,7 @@ public class FakeConsoleSender implements ConsoleCommandSender
 	@Override
 	public void sendMessage(String[] arg0)
 	{
-		String message = StringUtil.concatenate(arg0);
+		String message = CommonUtil.concatenate(arg0);
 		sendMessage(message);
 	}
 

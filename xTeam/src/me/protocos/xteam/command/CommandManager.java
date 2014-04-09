@@ -4,7 +4,7 @@ import java.util.List;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.CommandSender;
@@ -46,7 +46,7 @@ public class CommandManager implements ICommandManager
 			{
 				if (sender instanceof ConsoleCommandSender)
 				{
-					availableCommands.add(ChatColorUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
+					availableCommands.add(MessageUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
 				}
 			}
 		}
@@ -57,28 +57,28 @@ public class CommandManager implements ICommandManager
 			{
 				if (teamPlayer.hasPermission(command))
 				{
-					availableCommands.add(ChatColorUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
+					availableCommands.add(MessageUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
 				}
 			}
 			for (TeamAdminCommand command : CommonUtil.subListOfType(commands.toList(), TeamAdminCommand.class))
 			{
 				if (teamPlayer.hasPermission(command) && teamPlayer.isAdmin())
 				{
-					availableCommands.add(ChatColorUtil.formatForAdmin(command.getUsage() + " - " + command.getDescription()));
+					availableCommands.add(MessageUtil.formatForAdmin(command.getUsage() + " - " + command.getDescription()));
 				}
 			}
 			for (TeamLeaderCommand command : CommonUtil.subListOfType(commands.toList(), TeamLeaderCommand.class))
 			{
 				if (teamPlayer.hasPermission(command) && teamPlayer.isLeader())
 				{
-					availableCommands.add(ChatColorUtil.formatForLeader(command.getUsage() + " - " + command.getDescription()));
+					availableCommands.add(MessageUtil.formatForLeader(command.getUsage() + " - " + command.getDescription()));
 				}
 			}
 			for (ServerAdminCommand command : CommonUtil.subListOfType(commands.toList(), ServerAdminCommand.class))
 			{
 				if (teamPlayer.hasPermission(command))
 				{
-					availableCommands.add(ChatColorUtil.formatForServerAdmin(command.getUsage() + " - " + command.getDescription()));
+					availableCommands.add(MessageUtil.formatForServerAdmin(command.getUsage() + " - " + command.getDescription()));
 				}
 			}
 		}

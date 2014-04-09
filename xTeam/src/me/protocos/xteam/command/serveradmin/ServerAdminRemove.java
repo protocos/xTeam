@@ -7,7 +7,7 @@ import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminRemove extends ServerAdminCommand
@@ -26,11 +26,11 @@ public class ServerAdminRemove extends ServerAdminCommand
 		ITeam changeTeam = changePlayer.getTeam();
 		changeTeam.removePlayer(playerName);
 		if (!playerName.equals(player.getName()))
-			player.sendMessage("You " + ChatColorUtil.negativeMessage("removed") + " " + playerName + " from " + teamName);
-		changePlayer.sendMessage("You have been " + ChatColorUtil.negativeMessage("removed") + " from " + changeTeam.getName() + " by an admin");
+			player.sendMessage("You " + MessageUtil.negativeMessage("removed") + " " + playerName + " from " + teamName);
+		changePlayer.sendMessage("You have been " + MessageUtil.negativeMessage("removed") + " from " + changeTeam.getName() + " by an admin");
 		if (changeTeam.isEmpty())
 		{
-			player.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
+			player.sendMessage(teamName + " has been " + MessageUtil.negativeMessage("disbanded"));
 			XTeam.getInstance().getTeamManager().disbandTeam(changeTeam.getName());
 		}
 	}

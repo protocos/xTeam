@@ -5,7 +5,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.model.HelpPages;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;
 
@@ -21,7 +21,7 @@ public class ConsoleHelp extends ConsoleCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		pages.setTitle(ChatColor.AQUA + "Console Commands: " + ChatColorUtil.highlightString(ChatColor.GRAY, "{optional} [required] pick/one"));
+		pages.setTitle(ChatColor.AQUA + "Console Commands: " + MessageUtil.highlightString(ChatColor.GRAY, "{optional} [required] pick/one"));
 		sender.sendMessage(pages.getTitle());
 		for (int index = 0; index < pages.getNumLines(); index++)
 		{

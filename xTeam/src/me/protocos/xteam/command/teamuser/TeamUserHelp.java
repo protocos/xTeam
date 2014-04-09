@@ -7,7 +7,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.model.HelpPages;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;
 
@@ -24,7 +24,7 @@ public class TeamUserHelp extends TeamUserCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		pages.setTitle(ChatColor.AQUA + "Team Commands: [Page " + pageNum + "/" + pages.getTotalPages() + "] " + ChatColorUtil.highlightString(ChatColor.GRAY, "{optional} [required] pick/one"));
+		pages.setTitle(ChatColor.AQUA + "Team Commands: [Page " + pageNum + "/" + pages.getTotalPages() + "] " + MessageUtil.highlightString(ChatColor.GRAY, "{optional} [required] pick/one"));
 		pageNum--;
 		teamPlayer.sendMessage(pages.getPage(pageNum));
 	}

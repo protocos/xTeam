@@ -7,7 +7,7 @@ import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.entity.Player;
 
@@ -26,8 +26,8 @@ public class TeamLeaderDemote extends TeamLeaderCommand
 		team.demote(otherPlayer);
 		Player other = BukkitUtil.getPlayer(otherPlayer);
 		if (other != null)
-			other.sendMessage("You've been " + ChatColorUtil.negativeMessage("demoted"));
-		teamPlayer.sendMessage("You" + ChatColorUtil.negativeMessage(" demoted ") + otherPlayer);
+			other.sendMessage("You've been " + MessageUtil.negativeMessage("demoted"));
+		teamPlayer.sendMessage("You" + MessageUtil.negativeMessage(" demoted ") + otherPlayer);
 	}
 
 	@Override

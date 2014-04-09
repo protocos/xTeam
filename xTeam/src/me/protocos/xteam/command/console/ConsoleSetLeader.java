@@ -7,7 +7,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleSetLeader extends ConsoleCommand
@@ -26,14 +26,14 @@ public class ConsoleSetLeader extends ConsoleCommand
 		ITeam team = player.getTeam();
 		team.setLeader(playerName);
 		if (player.isOnline())
-			player.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
+			player.sendMessage("You are now the " + MessageUtil.positiveMessage("team leader"));
 		if (!team.isDefaultTeam())
 		{
 			ITeamPlayer previousLeader = XTeam.getInstance().getPlayerManager().getPlayer(team.getLeader());
 			if (previousLeader.isOnline())
-				previousLeader.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader"));
+				previousLeader.sendMessage(playerName + " is now the " + MessageUtil.positiveMessage("team leader"));
 		}
-		sender.sendMessage(playerName + " is now the " + ChatColorUtil.positiveMessage("team leader") + " for " + team.getName());
+		sender.sendMessage(playerName + " is now the " + MessageUtil.positiveMessage("team leader") + " for " + team.getName());
 	}
 
 	@Override

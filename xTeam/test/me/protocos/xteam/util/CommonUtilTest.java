@@ -1,5 +1,6 @@
 package me.protocos.xteam.util;
 
+import static me.protocos.xteam.util.CommonUtil.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -32,6 +33,61 @@ public class CommonUtilTest
 		List<Integer> newList = CommonUtil.subListOfType(list, Integer.class);
 		Assert.assertTrue(newList.contains(12));
 		Assert.assertEquals(1, newList.size());
+	}
+
+	@Test
+	public void ShouldBeConcatenate()
+	{
+		//ASSEMBLE
+		String[] string = { "hello", "world" };
+		//ACT
+		String concat = concatenate(string);
+		//ASSERT
+		Assert.assertEquals("hello world", concat);
+	}
+
+	@Test
+	public void ShouldBeConcatenateGlue()
+	{
+		//ASSEMBLE
+		String[] string = { "hello", "world" };
+		//ACT
+		String concat = concatenate(string, ",");
+		//ASSERT
+		Assert.assertEquals("hello,world", concat);
+	}
+
+	@Test
+	public void ShouldBeMatchesLowerCase()
+	{
+		//ASSEMBLE
+		String string = "HeLlO WoRlD";
+		//ACT
+		boolean matches = matchesLowerCase(string, "hello world");
+		//ASSERT
+		Assert.assertEquals(true, matches);
+	}
+
+	@Test
+	public void ShouldBeMatchesUpperCase()
+	{
+		//ASSEMBLE
+		String string = "HeLlO WoRlD";
+		//ACT
+		boolean matches = matchesUpperCase(string, "HELLO WORLD");
+		//ASSERT
+		Assert.assertEquals(true, matches);
+	}
+
+	@Test
+	public void ShouldBeReverse()
+	{
+		//ASSEMBLE
+		String string = "hello world";
+		//ACT
+		String reverse = reverse(string);
+		//ASSERT
+		Assert.assertEquals("dlrow olleh", reverse);
 	}
 
 	@After

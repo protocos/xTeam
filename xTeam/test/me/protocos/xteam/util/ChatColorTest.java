@@ -19,7 +19,7 @@ public class ChatColorTest
 		//ASSEMBLE
 		//ACT
 		//ASSERT
-		Assert.assertEquals(ChatColor.RESET, ChatColorUtil.getColor("notacolor"));
+		Assert.assertEquals(ChatColor.RESET, MessageUtil.getColor("notacolor"));
 	}
 
 	@Test
@@ -28,7 +28,7 @@ public class ChatColorTest
 		//ASSEMBLE
 		//ACT
 		//ASSERT
-		Assert.assertEquals(ChatColor.GREEN, ChatColorUtil.getColor("green"));
+		Assert.assertEquals(ChatColor.GREEN, MessageUtil.getColor("green"));
 	}
 
 	@After

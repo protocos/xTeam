@@ -6,7 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamLeaderRename extends TeamLeaderCommand
@@ -24,9 +24,9 @@ public class TeamLeaderRename extends TeamLeaderCommand
 		XTeam.getInstance().getTeamManager().renameTeam(team, desiredName);
 		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
-			mate.sendMessage("The team has been " + ChatColorUtil.positiveMessage("renamed") + " to " + desiredName);
+			mate.sendMessage("The team has been " + MessageUtil.positiveMessage("renamed") + " to " + desiredName);
 		}
-		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("renamed") + " the team to " + desiredName);
+		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("renamed") + " the team to " + desiredName);
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminPromote extends ServerAdminCommand
@@ -25,9 +25,9 @@ public class ServerAdminPromote extends ServerAdminCommand
 	{
 		changeTeam.promote(playerName);
 		if (!changeTeam.containsPlayer(player.getName()))
-			player.sendMessage("You " + ChatColorUtil.positiveMessage("promoted") + " " + playerName);
+			player.sendMessage("You " + MessageUtil.positiveMessage("promoted") + " " + playerName);
 		ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
-		other.sendMessage("You've been " + ChatColorUtil.positiveMessage("promoted") + " by an admin");
+		other.sendMessage("You've been " + MessageUtil.positiveMessage("promoted") + " by an admin");
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserLeave extends TeamUserCommand
@@ -28,9 +28,9 @@ public class TeamUserLeave extends TeamUserCommand
 		{
 			ITeamPlayer mate = XTeam.getInstance().getPlayerManager().getPlayer(teammate);
 			if (mate.isOnline())
-				mate.sendMessage(teamPlayer.getName() + " " + ChatColorUtil.negativeMessage("left") + " your team");
+				mate.sendMessage(teamPlayer.getName() + " " + MessageUtil.negativeMessage("left") + " your team");
 		}
-		teamPlayer.sendMessage("You " + ChatColorUtil.negativeMessage("left") + " " + team.getName());
+		teamPlayer.sendMessage("You " + MessageUtil.negativeMessage("left") + " " + team.getName());
 	}
 
 	@Override

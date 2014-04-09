@@ -4,9 +4,9 @@ import java.util.List;
 import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.model.ILocatable;
-import me.protocos.xteam.util.ChatColorUtil;
 import me.protocos.xteam.util.MessageUtil;
-import me.protocos.xteam.util.StringUtil;
+import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -160,7 +160,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public String getLastPlayed()
 	{
-		return StringUtil.formatDateToMonthDay(player.getLastPlayed());
+		return CommonUtil.formatDateToMonthDay(player.getLastPlayed());
 	}
 
 	@Override
@@ -216,12 +216,12 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public String getPublicInfo()
 	{
-		return ChatColorUtil.negativeMessage("    " + this.getName());
+		return MessageUtil.negativeMessage("    " + this.getName());
 	}
 
 	@Override
 	public String getPrivateInfo()
 	{
-		return ChatColorUtil.negativeMessage("    " + this.getName()) + " was last online on " + this.getLastPlayed();
+		return MessageUtil.negativeMessage("    " + this.getName()) + " was last online on " + this.getLastPlayed();
 	}
 }

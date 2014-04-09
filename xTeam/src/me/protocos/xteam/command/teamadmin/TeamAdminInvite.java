@@ -8,7 +8,7 @@ import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.model.InviteRequest;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamAdminInvite extends TeamAdminCommand
@@ -27,8 +27,8 @@ public class TeamAdminInvite extends TeamAdminCommand
 		InviteRequest request = new InviteRequest(teamPlayer, otherPlayer, System.currentTimeMillis());
 		InviteHandler.addInvite(request);
 		if (otherPlayer.isOnline())
-			otherPlayer.sendMessage("You've been " + ChatColorUtil.positiveMessage("invited ") + "to join " + team.getName() + " (/team accept)");
-		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("invited ") + otherPlayer.getName());
+			otherPlayer.sendMessage("You've been " + MessageUtil.positiveMessage("invited ") + "to join " + team.getName() + " (/team accept)");
+		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("invited ") + otherPlayer.getName());
 	}
 
 	@Override

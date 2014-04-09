@@ -2,7 +2,7 @@ package me.protocos.xteam.command;
 
 import java.util.List;
 import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.StringUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -49,7 +49,7 @@ public class CommandContainer
 
 	public String getCommandWithoutID()
 	{
-		return StringUtil.concatenate(arguments.toArray());
+		return CommonUtil.concatenate(arguments.toArray());
 	}
 
 	public String getCommand()

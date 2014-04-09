@@ -12,7 +12,7 @@ import me.protocos.xteam.model.HelpPages;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import me.protocos.xteam.util.PermissionUtil;
-import me.protocos.xteam.util.StringUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 
@@ -250,7 +250,7 @@ public class Requirements
 
 	public static void checkTeamOnlyJoinDefault(String desiredName) throws TeamOnlyJoinDefaultException
 	{
-		if (Configuration.DEFAULT_TEAM_ONLY && !StringUtil.toLowerCase(Configuration.DEFAULT_TEAM_NAMES).contains(desiredName.toLowerCase()) && Configuration.DEFAULT_TEAM_NAMES.size() > 0)
+		if (Configuration.DEFAULT_TEAM_ONLY && !CommonUtil.toLowerCase(Configuration.DEFAULT_TEAM_NAMES).contains(desiredName.toLowerCase()) && Configuration.DEFAULT_TEAM_NAMES.size() > 0)
 		{
 			throw new TeamOnlyJoinDefaultException();
 		}

@@ -6,7 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminRename extends ServerAdminCommand
@@ -24,8 +24,8 @@ public class ServerAdminRename extends ServerAdminCommand
 		ITeam changeTeam = XTeam.getInstance().getTeamManager().getTeam(teamName);
 		XTeam.getInstance().getTeamManager().renameTeam(changeTeam, desiredName);
 		if (!changeTeam.containsPlayer(player.getName()))
-			player.sendMessage("You " + ChatColorUtil.positiveMessage("renamed") + " the team to " + desiredName);
-		changeTeam.sendMessage("The team has been " + ChatColorUtil.positiveMessage("renamed") + " to " + desiredName + " by an admin");
+			player.sendMessage("You " + MessageUtil.positiveMessage("renamed") + " the team to " + desiredName);
+		changeTeam.sendMessage("The team has been " + MessageUtil.positiveMessage("renamed") + " to " + desiredName + " by an admin");
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.OfflineTeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -217,7 +217,7 @@ public class PlayerManager implements IPlayerManager
 		players.addAll(getOnlinePlayers());
 		players.addAll(getOfflinePlayers());
 		for (ITeamPlayer player : players)
-			output += player.getName() + (player.isOnline() ? ChatColorUtil.positiveMessage(" online") : ChatColorUtil.negativeMessage(" offline")) + "\n";
+			output += player.getName() + (player.isOnline() ? MessageUtil.positiveMessage(" online") : MessageUtil.negativeMessage(" offline")) + "\n";
 		return output.trim();
 	}
 }

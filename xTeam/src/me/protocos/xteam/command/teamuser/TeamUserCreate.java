@@ -7,7 +7,7 @@ import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserCreate extends TeamUserCommand
@@ -26,7 +26,7 @@ public class TeamUserCreate extends TeamUserCommand
 		Team newTeam = Team.createTeamWithLeader(desiredName, leader);
 		XTeam.getInstance().getTeamManager().createTeam(newTeam);
 		Configuration.lastCreated.put(leader, Long.valueOf(System.currentTimeMillis()));
-		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("created") + " " + desiredName);
+		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("created") + " " + desiredName);
 	}
 
 	@Override

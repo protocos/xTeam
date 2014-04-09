@@ -6,7 +6,7 @@ import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleRename extends ConsoleCommand
@@ -23,8 +23,8 @@ public class ConsoleRename extends ConsoleCommand
 	{
 		ITeam team = XTeam.getInstance().getTeamManager().getTeam(teamName);
 		XTeam.getInstance().getTeamManager().renameTeam(team, desiredName);
-		sender.sendMessage("You " + ChatColorUtil.positiveMessage("renamed") + " the team to " + desiredName);
-		team.sendMessage("The team has been " + ChatColorUtil.positiveMessage("renamed") + " to " + desiredName);
+		sender.sendMessage("You " + MessageUtil.positiveMessage("renamed") + " the team to " + desiredName);
+		team.sendMessage("The team has been " + MessageUtil.positiveMessage("renamed") + " to " + desiredName);
 	}
 
 	@Override

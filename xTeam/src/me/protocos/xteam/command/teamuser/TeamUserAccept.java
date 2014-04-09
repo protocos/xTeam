@@ -6,7 +6,7 @@ import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserAccept extends TeamUserCommand
@@ -22,8 +22,8 @@ public class TeamUserAccept extends TeamUserCommand
 		ITeam inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
 		inviteTeam.addPlayer(teamPlayer.getName());
 		InviteHandler.removeInvite(teamPlayer.getName());
-		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + ChatColorUtil.positiveMessage("joined") + " your team");
-		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("joined") + " " + inviteTeam.getName());
+		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + MessageUtil.positiveMessage("joined") + " your team");
+		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("joined") + " " + inviteTeam.getName());
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 
 public class InviteHandler
 {
@@ -23,7 +23,7 @@ public class InviteHandler
 			{
 				if (invites.containsKey(invitee.getName()))
 				{
-					invitee.sendMessage("Invite from " + inviter.getName() + " has " + ChatColorUtil.negativeMessage("expired"));
+					invitee.sendMessage("Invite from " + inviter.getName() + " has " + MessageUtil.negativeMessage("expired"));
 					invites.remove(invitee.getName());
 				}
 			}

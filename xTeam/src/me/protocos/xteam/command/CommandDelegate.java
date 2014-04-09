@@ -3,8 +3,8 @@ package me.protocos.xteam.command;
 import java.io.File;
 import me.protocos.xteam.XTeam;
 import me.protocos.xteam.exception.TeamInvalidCommandException;
-import me.protocos.xteam.util.ChatColorUtil;
-import me.protocos.xteam.util.StringUtil;
+import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +28,7 @@ public class CommandDelegate implements CommandExecutor
 			logCommand(commandContainer);
 			if (command == null)
 			{
-				sender.sendMessage(ChatColorUtil.negativeMessage((new TeamInvalidCommandException()).getMessage()));
+				sender.sendMessage(MessageUtil.negativeMessage((new TeamInvalidCommandException()).getMessage()));
 				XTeam.getInstance().getLog().debug("Command execute failed for reason: " + (new TeamInvalidCommandException()).getMessage());
 			}
 			else if (command.execute(commandContainer) == true)
@@ -36,7 +36,7 @@ public class CommandDelegate implements CommandExecutor
 		}
 		catch (Exception e)
 		{
-			sender.sendMessage(ChatColorUtil.negativeMessage("There was a server error executing command: /" + commandID + " " + StringUtil.concatenate(args)));
+			sender.sendMessage(MessageUtil.negativeMessage("There was a server error executing command: /" + commandID + " " + CommonUtil.concatenate(args)));
 			XTeam.getInstance().getLog().exception(e);
 		}
 		return true;

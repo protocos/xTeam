@@ -5,7 +5,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamAdminCommand;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.model.Headquarters;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamAdminSetHeadquarters extends TeamAdminCommand
@@ -20,7 +20,7 @@ public class TeamAdminSetHeadquarters extends TeamAdminCommand
 	{
 		team.setHeadquarters(new Headquarters(teamPlayer.getLocation()));
 		team.setTimeHeadquartersLastSet(System.currentTimeMillis());
-		teamPlayer.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team headquarters");
+		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("set") + " the team headquarters");
 	}
 
 	@Override

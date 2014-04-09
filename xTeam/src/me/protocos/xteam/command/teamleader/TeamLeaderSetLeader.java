@@ -6,7 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamLeaderSetLeader extends TeamLeaderCommand
@@ -28,9 +28,9 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 		//Team.java NEEDS TO BE REFACTORED
 		ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
 		if (other.isOnline())
-			other.sendMessage("You are now the " + ChatColorUtil.positiveMessage("team leader"));
-		teamPlayer.sendMessage(otherPlayer + " is now the " + ChatColorUtil.positiveMessage("team leader") + " (you are an admin)" +
-				"\nYou can now " + ChatColorUtil.negativeMessage("leave") + " the team");
+			other.sendMessage("You are now the " + MessageUtil.positiveMessage("team leader"));
+		teamPlayer.sendMessage(otherPlayer + " is now the " + MessageUtil.positiveMessage("team leader") + " (you are an admin)" +
+				"\nYou can now " + MessageUtil.negativeMessage("leave") + " the team");
 	}
 
 	@Override

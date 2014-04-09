@@ -6,7 +6,7 @@ import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleDisband extends ConsoleCommand
@@ -22,9 +22,9 @@ public class ConsoleDisband extends ConsoleCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		changeTeam.sendMessage("Your team has been " + ChatColorUtil.negativeMessage("disbanded") + " by an admin");
+		changeTeam.sendMessage("Your team has been " + MessageUtil.negativeMessage("disbanded") + " by an admin");
 		XTeam.getInstance().getTeamManager().disbandTeam(teamName);
-		sender.sendMessage("You " + ChatColorUtil.negativeMessage("disbanded") + " " + changeTeam.getName() + (changeTeam.hasTag() ? " [" + changeTeam.getTag() + "]" : ""));
+		sender.sendMessage("You " + MessageUtil.negativeMessage("disbanded") + " " + changeTeam.getName() + (changeTeam.hasTag() ? " [" + changeTeam.getTag() + "]" : ""));
 	}
 
 	@Override

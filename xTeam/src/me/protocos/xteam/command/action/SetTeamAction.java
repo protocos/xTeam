@@ -7,7 +7,7 @@ import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import org.bukkit.command.CommandSender;
 
 public class SetTeamAction
@@ -54,28 +54,28 @@ public class SetTeamAction
 		playerTeam.removePlayer(player.getName());
 		Configuration.chatStatus.remove(playerName);
 		player.removeReturnLocation();
-		playerTeam.sendMessage(playerName + " has been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
+		playerTeam.sendMessage(playerName + " has been " + MessageUtil.negativeMessage("removed") + " from " + teamName);
 		if (playerName.equals(senderName))
 		{
 			//first person
-			sender.sendMessage("You have been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
+			sender.sendMessage("You have been " + MessageUtil.negativeMessage("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
 				XTeam.getInstance().getTeamManager().disbandTeam(teamName);
-				sender.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
+				sender.sendMessage(teamName + " has been " + MessageUtil.negativeMessage("disbanded"));
 			}
 		}
 		else
 		{
 			//third person
 			if (!playerTeam.containsPlayer(senderName))
-				sender.sendMessage(playerName + " has been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
-			player.sendMessage("You have been " + ChatColorUtil.negativeMessage("removed") + " from " + teamName);
+				sender.sendMessage(playerName + " has been " + MessageUtil.negativeMessage("removed") + " from " + teamName);
+			player.sendMessage("You have been " + MessageUtil.negativeMessage("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
 				XTeam.getInstance().getTeamManager().disbandTeam(teamName);
-				sender.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
-				player.sendMessage(teamName + " has been " + ChatColorUtil.negativeMessage("disbanded"));
+				sender.sendMessage(teamName + " has been " + MessageUtil.negativeMessage("disbanded"));
+				player.sendMessage(teamName + " has been " + MessageUtil.negativeMessage("disbanded"));
 			}
 		}
 	}
@@ -89,13 +89,13 @@ public class SetTeamAction
 		if (playerName.equals(senderName))
 		{
 			//first person
-			sender.sendMessage("You have been " + ChatColorUtil.positiveMessage("added") + " to " + teamName);
+			sender.sendMessage("You have been " + MessageUtil.positiveMessage("added") + " to " + teamName);
 		}
 		else
 		{
 			//third person
-			sender.sendMessage(playerName + " has been " + ChatColorUtil.positiveMessage("added") + " to " + teamName);
-			player.sendMessage("You have been " + ChatColorUtil.positiveMessage("added") + " to " + teamName);
+			sender.sendMessage(playerName + " has been " + MessageUtil.positiveMessage("added") + " to " + teamName);
+			player.sendMessage("You have been " + MessageUtil.positiveMessage("added") + " to " + teamName);
 		}
 	}
 
@@ -108,16 +108,16 @@ public class SetTeamAction
 		if (playerName.equals(senderName))
 		{
 			//first person
-			sender.sendMessage(teamName + " has been " + ChatColorUtil.positiveMessage("created"));
-			sender.sendMessage("You have been " + ChatColorUtil.positiveMessage("added") + " to " + teamName);
+			sender.sendMessage(teamName + " has been " + MessageUtil.positiveMessage("created"));
+			sender.sendMessage("You have been " + MessageUtil.positiveMessage("added") + " to " + teamName);
 		}
 		else
 		{
 			//third person
-			sender.sendMessage(teamName + " has been " + ChatColorUtil.positiveMessage("created"));
-			sender.sendMessage(playerName + " has been " + ChatColorUtil.positiveMessage("added") + " to " + teamName);
-			player.sendMessage(teamName + " has been " + ChatColorUtil.positiveMessage("created"));
-			player.sendMessage("You have been " + ChatColorUtil.positiveMessage("added") + " to " + teamName);
+			sender.sendMessage(teamName + " has been " + MessageUtil.positiveMessage("created"));
+			sender.sendMessage(playerName + " has been " + MessageUtil.positiveMessage("added") + " to " + teamName);
+			player.sendMessage(teamName + " has been " + MessageUtil.positiveMessage("created"));
+			player.sendMessage("You have been " + MessageUtil.positiveMessage("added") + " to " + teamName);
 		}
 	}
 }

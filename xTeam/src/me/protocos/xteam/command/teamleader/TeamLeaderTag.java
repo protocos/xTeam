@@ -5,7 +5,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamLeaderTag extends TeamLeaderCommand
@@ -21,10 +21,10 @@ public class TeamLeaderTag extends TeamLeaderCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.setTag(desiredTag);
-		teamPlayer.sendMessage("The team tag has been " + ChatColorUtil.positiveMessage("set") + " to " + desiredTag);
+		teamPlayer.sendMessage("The team tag has been " + MessageUtil.positiveMessage("set") + " to " + desiredTag);
 		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
-			mate.sendMessage("The team tag has been " + ChatColorUtil.positiveMessage("set") + " to " + desiredTag);
+			mate.sendMessage("The team tag has been " + MessageUtil.positiveMessage("set") + " to " + desiredTag);
 		}
 	}
 

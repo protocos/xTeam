@@ -10,7 +10,7 @@ import me.protocos.xteam.model.IHeadquarters;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.model.NullHeadquarters;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.MessageUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -342,9 +342,9 @@ public class Team implements ITeam
 			message += "\n" + (ChatColor.RESET + "Team Leader - " + ChatColor.GREEN + this.getLeader());
 		if (this.getAdmins().size() > 1)
 			message += "\n" + (ChatColor.RESET + "Team Admins - " + ChatColor.GREEN + this.getAdmins().toString().replaceAll("\\[|\\]" + (this.hasLeader() ? "|" + this.getLeader() + ", " : ""), ""));
-		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (ChatColorUtil.positiveMessage("Open")) : (ChatColorUtil.negativeMessage("Closed"))));
+		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.positiveMessage("Open")) : (MessageUtil.negativeMessage("Closed"))));
 		if (usePublicData)
-			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (ChatColorUtil.positiveMessage("Set")) : (ChatColor.RED + "None set")));
+			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.positiveMessage("Set")) : (ChatColor.RED + "None set")));
 		else
 			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (ChatColor.GREEN + "X:" + this.getHeadquarters().getRelativeX() + " Y:" + this.getHeadquarters().getRelativeY() + " Z:" + this.getHeadquarters().getRelativeZ()) : (ChatColor.RED + "None set")));
 		List<TeamPlayer> onlineTeammates = this.getOnlineTeammates();
@@ -499,7 +499,7 @@ public class Team implements ITeam
 			{
 				rally = null;
 				TeleportScheduler.getInstance().clearTeamRally(finalTeam);
-				sendMessage("Team rally has been " + ChatColorUtil.positiveMessage("refreshed"));
+				sendMessage("Team rally has been " + MessageUtil.positiveMessage("refreshed"));
 			}
 		}
 		BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getxTeam(), new RemoveRally(), Configuration.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);

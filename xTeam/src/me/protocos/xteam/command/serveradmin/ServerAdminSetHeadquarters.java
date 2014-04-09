@@ -7,7 +7,7 @@ import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.model.Headquarters;
-import me.protocos.xteam.util.ChatColorUtil;
+import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminSetHeadquarters extends ServerAdminCommand
@@ -24,7 +24,7 @@ public class ServerAdminSetHeadquarters extends ServerAdminCommand
 	{
 		ITeam changeTeam = XTeam.getInstance().getTeamManager().getTeam(teamName);
 		changeTeam.setHeadquarters(new Headquarters(teamPlayer.getLocation()));
-		player.sendMessage("You " + ChatColorUtil.positiveMessage("set") + " the team headquarters for team " + teamName);
+		player.sendMessage("You " + MessageUtil.positiveMessage("set") + " the team headquarters for team " + teamName);
 	}
 
 	@Override
