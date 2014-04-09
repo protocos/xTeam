@@ -2,8 +2,8 @@ package me.protocos.xteam.entity;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.fakeobjects.FakeWorld;
-import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.model.Headquarters;
+import me.protocos.xteam.model.IHeadquarters;
 import me.protocos.xteam.model.NullHeadquarters;
 import org.bukkit.World;
 import org.junit.After;
@@ -212,7 +212,6 @@ public class TeamTest
 		Assert.assertEquals(2, size);
 	}
 
-	/*
 	@Test
 	public void ShouldBeTeam()
 	{
@@ -296,7 +295,7 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:protocos,kmlanglois", t.toString());
+		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
 	}
 
 	@Test
@@ -307,7 +306,7 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:protocos,kmlanglois", t.toString());
+		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
 	}
 
 	@Test
@@ -318,8 +317,8 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:protocos,kmlanglois", t.toString());
-	}*/
+		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
+	}
 
 	@Test
 	public void ShouldBeSelfReference()

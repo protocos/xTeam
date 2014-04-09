@@ -641,7 +641,7 @@ public class Team implements ITeam
 		teamData += " open:" + isOpenJoining();
 		teamData += " default:" + isDefaultTeam();
 		teamData += " timeHeadquartersSet:" + getTimeHeadquartersLastSet();
-		teamData += " hq:" + (getHeadquarters() == null ? "" : getHeadquarters().toString());
+		teamData += " hq:" + (hasHeadquarters() ? getHeadquarters().toString() : "");
 		teamData += " leader:" + getLeader();
 		teamData += " admins:" + getAdmins().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
 		teamData += " players:" + getPlayers().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
