@@ -50,7 +50,7 @@ public class ConsolePromoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "promote one protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You promoted protocos", fakeConsoleSender.getLastMessage());
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("one").getAdmins().contains("protocos"));
+		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("one").isAdmin("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -63,7 +63,7 @@ public class ConsolePromoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "promote one mastermind".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").getAdmins().contains("mastermind"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").isAdmin("mastermind"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -76,7 +76,7 @@ public class ConsolePromoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "promote one Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").getAdmins().contains("Lonely"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").isAdmin("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -89,7 +89,7 @@ public class ConsolePromoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "promote one newbie".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").getAdmins().contains("newbie"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").isAdmin("newbie"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -102,7 +102,7 @@ public class ConsolePromoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "promote three protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").getAdmins().contains("protocos"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").isAdmin("protocos"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

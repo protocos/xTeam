@@ -45,8 +45,6 @@ public interface ITeam extends ITeamEntity, ILocatable
 
 	public abstract Set<String> getPlayers();
 
-	public abstract Set<String> getAdmins();
-
 	public abstract boolean setLeader(String leader);
 
 	public abstract String getLeader();
@@ -66,4 +64,8 @@ public interface ITeam extends ITeamEntity, ILocatable
 	public abstract void setTimeHeadquartersLastSet(long timeHeadquartersLastSet);
 
 	public abstract long getTimeHeadquartersLastSet();
+
+	public abstract boolean isLeader(String name);
+
+	public abstract boolean isAdmin(String name);
 }

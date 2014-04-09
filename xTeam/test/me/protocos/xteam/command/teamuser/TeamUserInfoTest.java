@@ -156,7 +156,7 @@ public class TeamUserInfoTest
 		Assert.assertEquals("Team Name - ONE\n" +
 				"Team Tag - TeamAwesome\n" +
 				"Team Leader - kmlanglois\n" +
-				"Team Admins - protocos, kmlanglois\n" +
+				"Team Admins - protocos\n" +
 				"Team Joining - Closed\n" +
 				"Team Headquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +
@@ -196,7 +196,7 @@ public class TeamUserInfoTest
 		Assert.assertEquals("Team Name - ONE\n" +
 				"Team Tag - TeamAwesome\n" +
 				"Team Leader - kmlanglois\n" +
-				"Team Admins - protocos, kmlanglois\n" +
+				"Team Admins - protocos\n" +
 				"Team Joining - Closed\n" +
 				"Team Headquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +

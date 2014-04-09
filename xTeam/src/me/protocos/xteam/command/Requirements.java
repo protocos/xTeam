@@ -12,7 +12,6 @@ import me.protocos.xteam.model.HelpPages;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import me.protocos.xteam.util.PermissionUtil;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 
@@ -64,7 +63,7 @@ public class Requirements
 
 	public static void checkPlayerIsTeamAdmin(ITeamPlayer player) throws TeamPlayerNotAdminException
 	{
-		if (!player.isAdmin())
+		if (!(player.isAdmin() || player.isLeader()))
 		{
 			throw new TeamPlayerNotAdminException();
 		}

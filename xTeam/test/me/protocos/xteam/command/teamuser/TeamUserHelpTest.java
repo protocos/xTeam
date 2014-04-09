@@ -2,6 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.command.CommandContainer;

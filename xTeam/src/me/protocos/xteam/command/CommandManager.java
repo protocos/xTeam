@@ -62,7 +62,7 @@ public class CommandManager implements ICommandManager
 			}
 			for (TeamAdminCommand command : CommonUtil.subListOfType(commands.toList(), TeamAdminCommand.class))
 			{
-				if (teamPlayer.hasPermission(command) && teamPlayer.isAdmin())
+				if (teamPlayer.hasPermission(command) && (teamPlayer.isLeader() || teamPlayer.isAdmin()))
 				{
 					availableCommands.add(MessageUtil.formatForAdmin(command.getUsage() + " - " + command.getDescription()));
 				}

@@ -46,7 +46,7 @@ public class TeamLeaderSetLeaderTest
 		Assert.assertEquals("protocos is now the team leader (you are an admin)\n" +
 				"You can now leave the team", fakePlayerSender.getLastMessage());
 		Assert.assertEquals("protocos", XTeam.getInstance().getTeamManager().getTeam("one").getLeader());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").getAdmins().contains("protocos"));
+		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").isAdmin("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

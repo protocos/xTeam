@@ -73,7 +73,7 @@ public class TeamTest
 		//ACT
 		team.demote("protocos");
 		//ASSERT
-		Assert.assertFalse(team.getAdmins().contains("protocos"));
+		Assert.assertFalse(team.isAdmin("protocos"));
 	}
 
 	@Test
@@ -121,7 +121,7 @@ public class TeamTest
 		//ACT
 		team.demote("protocos");
 		//ASSERT
-		Assert.assertFalse(team.getAdmins().contains("protocos"));
+		Assert.assertFalse(team.isAdmin("protocos"));
 	}
 
 	@Test
@@ -141,7 +141,7 @@ public class TeamTest
 		//ACT
 		team.promote("protocos");
 		//ASSERT
-		Assert.assertFalse(team.getAdmins().contains("protocos"));
+		Assert.assertFalse(team.isAdmin("protocos"));
 	}
 
 	@Test
@@ -162,7 +162,7 @@ public class TeamTest
 		//ACT
 		team.promote("protocos");
 		//ASSERT
-		Assert.assertTrue(team.getAdmins().contains("protocos"));
+		Assert.assertTrue(team.isAdmin("protocos"));
 	}
 
 	@Test
@@ -218,106 +218,106 @@ public class TeamTest
 		//ASSEMBLE
 		//ACT
 		//ASSERT
-		Assert.assertEquals("name:test tag:test open:false default:false timeHeadquartersSet:0 hq: leader: admins: players:", team.toString());
+		Assert.assertEquals("name:test tag:test open:false default:false timeHeadquartersLastSet:0 hq: leader: admins: players:", team.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamBlankProperties1()
 	{
 		//ASSEMBLE
-		String properties = "name:blank tag:blank open:false default:false timeHeadquartersSet:0 hq: leader: admins: players:";
+		String properties = "name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq: leader: admins: players:";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersSet:0 hq: leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq: leader: admins: players:", t.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamBlankProperties2()
 	{
 		//ASSEMBLE
-		String properties = "name:blank tag:blank open:false world:world default:false timeHeadquartersSet:0 hq:0.0,0.0,0.0,0.0,0.0 leader: admins: players:";
+		String properties = "name:blank tag:blank open:false world:world default:false timeHeadquartersLastSet:0 hq:0.0,0.0,0.0,0.0,0.0 leader: admins: players:";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersSet:0 hq: leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq: leader: admins: players:", t.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamBlankProperties3()
 	{
 		//ASSEMBLE
-		String properties = "name:blank tag:tag open:false world:world default:false timeHeadquartersSet:0 hq:0.0,0.0,0.0,0.0,0.0 leader: admins: players:";
+		String properties = "name:blank tag:tag open:false world:world default:false timeHeadquartersLastSet:0 hq:0.0,0.0,0.0,0.0,0.0 leader: admins: players:";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:tag open:false default:false timeHeadquartersSet:0 hq: leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:tag open:false default:false timeHeadquartersLastSet:0 hq: leader: admins: players:", t.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamCurrentPropertiesFormatDefault1()
 	{
 		//ASSEMBLE
-		String properties = "name:red tag:red open:false default:true timeHeadquartersSet:0 hq: leader: admins: players:protocos";
+		String properties = "name:red tag:red open:false default:true timeHeadquartersLastSet:0 hq: leader: admins: players:protocos";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:red tag:red open:false default:true timeHeadquartersSet:0 hq: leader: admins: players:protocos", t.toString());
+		Assert.assertEquals("name:red tag:red open:false default:true timeHeadquartersLastSet:0 hq: leader: admins: players:protocos", t.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamFromPropertiesDefault1()
 	{
 		//ASSEMBLE
-		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
+		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersLastSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:protocos,kmlanglois", t.toString());
+		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:protocos,kmlanglois", t.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamFromPropertiesDefault2()
 	{
 		//ASSEMBLE
-		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
+		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersLastSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:protocos,kmlanglois", t.toString());
+		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:protocos,kmlanglois", t.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamFromPropertiesRegular1()
 	{
 		//ASSEMBLE
-		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
+		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersLastSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
+		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamFromPropertiesRegular2()
 	{
 		//ASSEMBLE
-		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
+		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersLastSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
+		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamInputEqualsOutput()
 	{
 		//ASSEMBLE
-		String properties = "name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos";
+		String properties = "name:one tag:one open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
+		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
 	}
 
 	@Test
@@ -468,7 +468,7 @@ public class TeamTest
 		//ACT
 		team.removePlayer("protocos");
 		//ASSERT
-		Assert.assertTrue(team.containsPlayer("protocos"));
+		Assert.assertFalse(team.containsPlayer("protocos"));
 	}
 
 	@Test

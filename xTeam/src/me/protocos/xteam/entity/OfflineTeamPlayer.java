@@ -152,7 +152,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	{
 		if (hasTeam())
 		{
-			return getTeam().getAdmins().contains(this.getName());
+			return getTeam().isAdmin(this.getName());
 		}
 		return false;
 	}

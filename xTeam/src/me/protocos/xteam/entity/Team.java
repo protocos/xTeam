@@ -12,7 +12,6 @@ import me.protocos.xteam.model.NullHeadquarters;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.MessageUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.*;
@@ -33,7 +32,7 @@ public class Team implements ITeam
 	private Set<String> players;
 	private Set<String> admins;
 	private IHeadquarters headquarters;
-	private long timeHeadquartersSet;
+	private long timeHeadquartersLastSet;
 	private boolean openJoining;
 	//TODO need to make Default team its own class
 	private boolean defaultTeam;
@@ -139,7 +138,7 @@ public class Team implements ITeam
 		players = builder.players;
 		headquarters = builder.headquarters;
 		openJoining = builder.openJoining;
-		timeHeadquartersSet = builder.timeHeadquartersLastSet;
+		timeHeadquartersLastSet = builder.timeHeadquartersLastSet;
 		defaultTeam = builder.defaultTeam;
 	}
 
@@ -198,9 +197,21 @@ public class Team implements ITeam
 	}
 
 	@Override
-	public Set<String> getAdmins()
+	public boolean isLeader(String player)
 	{
-		return this.admins;
+		return this.leader.equals(player);
+	}
+
+	//	@Override
+	//	public Set<String> getAdmins()
+	//	{
+	//		return this.admins;
+	//	}
+
+	@Override
+	public boolean isAdmin(String admin)
+	{
+		return this.admins.contains(admin);
 	}
 
 	@Override
@@ -224,13 +235,13 @@ public class Team implements ITeam
 	@Override
 	public void setTimeHeadquartersLastSet(long timeHeadquartersSet)
 	{
-		this.timeHeadquartersSet = timeHeadquartersSet;
+		this.timeHeadquartersLastSet = timeHeadquartersSet;
 	}
 
 	@Override
 	public long getTimeHeadquartersLastSet()
 	{
-		return timeHeadquartersSet;
+		return timeHeadquartersLastSet;
 	}
 
 	@Override
@@ -340,8 +351,8 @@ public class Team implements ITeam
 			message += "\n" + (ChatColor.RESET + "Team Tag - " + ChatColor.GREEN + this.getTag());
 		if (this.hasLeader())
 			message += "\n" + (ChatColor.RESET + "Team Leader - " + ChatColor.GREEN + this.getLeader());
-		if (this.getAdmins().size() > 1)
-			message += "\n" + (ChatColor.RESET + "Team Admins - " + ChatColor.GREEN + this.getAdmins().toString().replaceAll("\\[|\\]" + (this.hasLeader() ? "|" + this.getLeader() + ", " : ""), ""));
+		if (this.admins.size() > 0)
+			message += "\n" + (ChatColor.RESET + "Team Admins - " + ChatColor.GREEN + this.admins.toString().replaceAll("\\[|\\]" + (this.hasLeader() ? "|" + this.getLeader() + ", " : ""), ""));
 		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.positiveMessage("Open")) : (MessageUtil.negativeMessage("Closed"))));
 		if (usePublicData)
 			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.positiveMessage("Set")) : (ChatColor.RED + "None set")));
@@ -440,6 +451,12 @@ public class Team implements ITeam
 		if (!this.leader.equals(player))
 		{
 			admins.remove(player);
+			players.remove(player);
+			return true;
+		}
+		else if (this.leader.equals(player) && players.size() == 1)
+		{
+			this.leader = "";
 			players.remove(player);
 			return true;
 		}
@@ -543,7 +560,8 @@ public class Team implements ITeam
 			boolean defaultTeam = Boolean.parseBoolean(teamProperties.get("default") != null ? teamProperties.get("default") : "false");
 			//modify timeLastSet from the previous versions
 			teamProperties.updateKey("timeLastSet", "timeHeadquartersSet");
-			long timeHeadquartersSet = Long.parseLong(teamProperties.get("timeHeadquartersSet") != null ? teamProperties.get("timeHeadquartersSet") : "0");
+			teamProperties.updateKey("timeHeadquartersSet", "timeHeadquartersLastSet");
+			long timeHeadquartersSet = Long.parseLong(teamProperties.get("timeHeadquartersLastSet") != null ? teamProperties.get("timeHeadquartersLastSet") : "0");
 			String hq = teamProperties.get("Headquarters") != null ? teamProperties.get("Headquarters") : (hq = teamProperties.get("hq") != null ? teamProperties.get("hq") : "");
 			if (teamProperties.containsKey("world"))
 				hq = teamProperties.get("world") + "," + hq;
@@ -624,7 +642,7 @@ public class Team implements ITeam
 				.append(tag, other.tag)
 				.append(openJoining, other.openJoining)
 				.append(defaultTeam, other.defaultTeam)
-				.append(timeHeadquartersSet, other.timeHeadquartersSet)
+				.append(timeHeadquartersLastSet, other.timeHeadquartersLastSet)
 				.append(headquarters, other.headquarters)
 				.append(leader, other.leader)
 				.append(admins, other.admins)
@@ -636,15 +654,15 @@ public class Team implements ITeam
 	public String toString()
 	{
 		String teamData = "";
-		teamData += "name:" + getName();
-		teamData += " tag:" + getTag();
-		teamData += " open:" + isOpenJoining();
-		teamData += " default:" + isDefaultTeam();
-		teamData += " timeHeadquartersSet:" + getTimeHeadquartersLastSet();
-		teamData += " hq:" + (hasHeadquarters() ? getHeadquarters().toString() : "");
-		teamData += " leader:" + getLeader();
-		teamData += " admins:" + getAdmins().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
-		teamData += " players:" + getPlayers().toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
+		teamData += "name:" + name;
+		teamData += " tag:" + tag;
+		teamData += " open:" + openJoining;
+		teamData += " default:" + defaultTeam;
+		teamData += " timeHeadquartersLastSet:" + timeHeadquartersLastSet;
+		teamData += " hq:" + (hasHeadquarters() ? headquarters.toString() : "");
+		teamData += " leader:" + leader;
+		teamData += " admins:" + admins.toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
+		teamData += " players:" + players.toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
 		return teamData;
 	}
 }

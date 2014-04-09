@@ -175,7 +175,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	{
 		if (hasTeam())
 		{
-			return getTeam().getAdmins().contains(this.getName());
+			return getTeam().isAdmin(this.getName());
 		}
 		return false;
 	}
@@ -190,7 +190,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	{
 		if (this.hasTeam())
 		{
-			return getTeam().getLeader().equals(this.getName());
+			return getTeam().isLeader(this.getName());
 		}
 		return false;
 	}
