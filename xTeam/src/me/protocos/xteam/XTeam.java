@@ -3,8 +3,6 @@ package me.protocos.xteam;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.command.ICommandManager;
@@ -19,15 +17,10 @@ import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.event.EventDispatcher;
 import me.protocos.xteam.event.IEventDispatcher;
-import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.model.Log;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.StringUtil;
 import me.protocos.xteam.util.SystemUtil;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.permissions.Permission;
 
 public final class XTeam
@@ -186,20 +179,9 @@ public final class XTeam
 
 	public void readTeamData(File f)
 	{
-		// < 1.6.4 format = name password world 1362778787799 hq: 158.01133435293434 66.0 204.6646064980176 -205.5249 28.20008 protocos~~
-		// < 1.7.4 format = name:one world:world open:true leader:protocos timeHeadquartersSet:1362778406367 Headquarters:161.56076240936164,64.0,221.25238913113412,-206.87492,30.750084 players:protocos admins:protocos
-		// = 1.7.4 format = name:one open:false default:false timeHeadquartersSet:0 Headquarters: leader:protocos admins:protocos players:protocos,kmlanglois
 		try
 		{
-			@SuppressWarnings("resource")
-			Scanner input = new Scanner(f);
 			String line;
-			if (input.hasNext() && (line = input.nextLine()) != null && !line.contains("name:"))
-			{
-				readOldData(f);
-				return;
-			}
-			//TODO fix the FileReader being from java.io.FileReader and local
 			BufferedReader br = new BufferedReader(new FileReader(f));
 			while ((line = br.readLine()) != null)
 			{
@@ -237,87 +219,6 @@ public final class XTeam
 			bw.close();
 		}
 		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	@Deprecated
-	public void readOldData(File f) throws NumberFormatException, IOException
-	{
-		// team data as it was stored before 1.6.4
-		BufferedReader br = new BufferedReader(new FileReader(f));
-		String line;
-		while ((line = br.readLine()) != null)
-		{
-			String[] s = line.split(" ");
-			String teamName = s[0];
-			// String pass = s[1];
-			World world = BukkitUtil.getWorld(s[2]);
-			long timeHeadquartersSet = Long.valueOf(s[3]).longValue();
-			Location HQ = new Location(world, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
-			Set<String> players = CommonUtil.emptySet();
-			Set<String> admins = CommonUtil.emptySet();
-			String leader = "";
-			int startIndex = 4;
-			if (s.length > 4)
-			{
-				if (s[4].equalsIgnoreCase("hq:"))
-				{
-					HQ.setWorld(world);
-					HQ.setX(Double.valueOf(s[5]).doubleValue());
-					HQ.setY(Double.valueOf(s[6]).doubleValue());
-					HQ.setZ(Double.valueOf(s[7]).doubleValue());
-					HQ.setYaw(Float.valueOf(s[8]).floatValue());
-					HQ.setPitch(Float.valueOf(s[9]).floatValue());
-					startIndex = 10;
-				}
-				for (int i = startIndex; i < s.length; i++)
-				{
-					if (s[i].contains("~~"))
-						leader = s[i].replaceAll("~", "");
-					if (s[i].contains("~"))
-						admins.add(s[i].replaceAll("~", ""));
-					players.add(s[i].replaceAll("~", ""));
-				}
-			}
-			if (StringUtil.toLowerCase(Configuration.DEFAULT_TEAM_NAMES).contains(teamName.toLowerCase()))
-			{
-				for (ITeam team : this.getTeamManager().getDefaultTeams())
-				{
-					if (team.getName().toLowerCase().equalsIgnoreCase(teamName))
-					{
-						team.setPlayers(players);
-						if (HQ.getY() != 0.0D)
-							team.setHeadquarters(new Headquarters(HQ));
-					}
-				}
-			}
-			else
-			{
-				ITeam team = new Team.Builder(teamName).tag(teamName).leader(leader).players(players).admins(admins).hq(new Headquarters(HQ)).timeHeadquartersSet(timeHeadquartersSet).openJoining(false).defaultTeam(false).build();
-				for (int i = startIndex; i < s.length; i++)
-				{
-					s[i] = s[i].replaceAll("~", "");
-				}
-				this.getTeamManager().createTeam(team);
-			}
-		}
-		br.close();
-	}
-
-	@Deprecated
-	public void writeOldData(File f)
-	{
-		try
-		{
-			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-			HashList<String, ITeam> teams = this.getTeamManager().getTeams();
-			for (ITeam team : teams)
-				bw.write(team.toString() + "\n");
-			bw.close();
-		}
-		catch (Exception e)
 		{
 			e.printStackTrace();
 		}

@@ -66,7 +66,8 @@ public class ConsoleDebug extends ConsoleCommand
 			try
 			{
 				XTeam.getInstance().getLog().exception(new Exception("Test message!"));
-				sender.sendMessage("Error sent!");
+				if (Configuration.SEND_ANONYMOUS_ERROR_REPORTS)
+					sender.sendMessage("Error sent!");
 			}
 			catch (Exception e)
 			{

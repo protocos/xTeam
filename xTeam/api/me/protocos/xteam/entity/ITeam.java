@@ -33,9 +33,9 @@ public interface ITeam extends ITeamEntity, ILocatable
 
 	public abstract boolean isEmpty();
 
-	public abstract void promote(String player);
+	public abstract boolean promote(String player);
 
-	public abstract void demote(String player);
+	public abstract boolean demote(String player);
 
 	public abstract void setOpenJoining(boolean open);
 
@@ -43,15 +43,15 @@ public interface ITeam extends ITeamEntity, ILocatable
 
 	public abstract int size();
 
-	public abstract void setPlayers(Set<String> players);
-
 	public abstract Set<String> getPlayers();
 
 	public abstract Set<String> getAdmins();
 
-	public abstract void setLeader(String leader);
+	public abstract boolean setLeader(String leader);
 
 	public abstract String getLeader();
+
+	public abstract boolean hasLeader();
 
 	public abstract void setDefaultTeam(boolean defaultTeam);
 
