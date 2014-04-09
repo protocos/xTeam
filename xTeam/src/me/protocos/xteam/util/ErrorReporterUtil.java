@@ -53,7 +53,7 @@ public class ErrorReporterUtil
 	private static String formatException(Exception exception)
 	{
 		ArrayList<String> error = new ArrayList<String>();
-		error.add(exception.toString() + " (xTeam v" + XTeam.getInstance().getVersion() + ")");
+		error.add(exception.toString());
 		for (StackTraceElement elem : exception.getStackTrace())
 		{
 			if (elem.toString().contains("me.protocos.xteam"))
@@ -61,6 +61,7 @@ public class ErrorReporterUtil
 				error.add("        @ " + elem.toString());
 			}
 		}
+		error.add("        Reported on " + CommonUtil.formatDateToMonthDay(System.currentTimeMillis()) + " from xTeam client v" + XTeam.getInstance().getVersion());
 		return error.toString()
 				.replaceAll(", ", "\", \"")
 				.replaceAll("\\<", "&lt;")
