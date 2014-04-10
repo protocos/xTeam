@@ -283,7 +283,7 @@ public class Team implements ITeam
 	@Override
 	public boolean hasHeadquarters()
 	{
-		return (headquarters instanceof Headquarters);
+		return headquarters.isValid();
 	}
 
 	@Override
@@ -569,7 +569,7 @@ public class Team implements ITeam
 			String admins = teamProperties.get("admins");// != null ? teamProperties.get("admins") : "";
 			String players = teamProperties.get("players");// != null ? teamProperties.get("players") : "";
 			Team team = new Team.Builder(name).tag(tag).openJoining(openJoining).defaultTeam(defaultTeam).timeHeadquartersSet(timeHeadquartersSet).build();
-			if (!hq.endsWith("0.0,0.0,0.0,0.0,0.0") && !hq.equals(""))
+			if (!hq.endsWith("0.0,0.0,0.0,0.0,0.0") && !hq.equals("") && !hq.equals("none"))
 			{
 				String[] locationData = hq.split(",");
 				World world = BukkitUtil.getWorld(locationData[0]);
@@ -659,7 +659,8 @@ public class Team implements ITeam
 		teamData += " open:" + openJoining;
 		teamData += " default:" + defaultTeam;
 		teamData += " timeHeadquartersLastSet:" + timeHeadquartersLastSet;
-		teamData += " hq:" + (hasHeadquarters() ? headquarters.toString() : "");
+		//		teamData += " hq:" + (hasHeadquarters() ? headquarters.toString() : "");
+		teamData += " hq:" + headquarters;
 		teamData += " leader:" + leader;
 		teamData += " admins:" + admins.toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
 		teamData += " players:" + players.toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");

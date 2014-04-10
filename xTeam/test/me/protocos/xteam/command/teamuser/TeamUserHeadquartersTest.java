@@ -5,6 +5,7 @@ import junit.framework.Assert;
 import me.protocos.xteam.XTeam;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.model.NullHeadquarters;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.command.action.TeleportScheduler;

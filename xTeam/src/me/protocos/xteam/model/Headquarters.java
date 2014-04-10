@@ -4,6 +4,7 @@ import java.util.List;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -108,6 +109,24 @@ public class Headquarters implements IHeadquarters
 	}
 
 	@Override
+	public World getWorld()
+	{
+		return location.getWorld();
+	}
+
+	@Override
+	public boolean isValid()
+	{
+		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return new HashCodeBuilder(61, 173).append(location.getWorld()).append(location.getX()).append(location.getY()).append(location.getZ()).append(location.getPitch()).append(location.getYaw()).toHashCode();
+	}
+
+	@Override
 	public boolean equals(Object obj)
 	{
 		if (obj == null)
@@ -118,13 +137,7 @@ public class Headquarters implements IHeadquarters
 			return false;
 
 		Headquarters rhs = (Headquarters) obj;
-		return new EqualsBuilder().append(this.getWorld(), rhs.getWorld()).append(location.getX(), rhs.getX()).append(location.getY(), rhs.getY()).append(location.getZ(), rhs.getZ()).append(location.getPitch(), rhs.getPitch()).append(location.getYaw(), rhs.getYaw()).isEquals();
-	}
-
-	@Override
-	public World getWorld()
-	{
-		return location.getWorld();
+		return new EqualsBuilder().append(location.getWorld(), rhs.getWorld()).append(location.getX(), rhs.getX()).append(location.getY(), rhs.getY()).append(location.getZ(), rhs.getZ()).append(location.getPitch(), rhs.getPitch()).append(location.getYaw(), rhs.getYaw()).isEquals();
 	}
 
 	@Override

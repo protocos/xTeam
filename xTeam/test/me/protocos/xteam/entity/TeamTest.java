@@ -3,7 +3,6 @@ package me.protocos.xteam.entity;
 import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.fakeobjects.FakeWorld;
 import me.protocos.xteam.model.Headquarters;
-import me.protocos.xteam.model.IHeadquarters;
 import me.protocos.xteam.model.NullHeadquarters;
 import org.bukkit.World;
 import org.junit.After;
@@ -218,18 +217,18 @@ public class TeamTest
 		//ASSEMBLE
 		//ACT
 		//ASSERT
-		Assert.assertEquals("name:test tag:test open:false default:false timeHeadquartersLastSet:0 hq: leader: admins: players:", team.toString());
+		Assert.assertEquals("name:test tag:test open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:", team.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamBlankProperties1()
 	{
 		//ASSEMBLE
-		String properties = "name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq: leader: admins: players:";
+		String properties = "name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq: leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:", t.toString());
 	}
 
 	@Test
@@ -240,7 +239,7 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq: leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:", t.toString());
 	}
 
 	@Test
@@ -251,18 +250,18 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:tag open:false default:false timeHeadquartersLastSet:0 hq: leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:tag open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:", t.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamCurrentPropertiesFormatDefault1()
 	{
 		//ASSEMBLE
-		String properties = "name:red tag:red open:false default:true timeHeadquartersLastSet:0 hq: leader: admins: players:protocos";
+		String properties = "name:red tag:red open:false default:true timeHeadquartersLastSet:0 hq:none leader: admins: players:protocos";
 		//ACT
 		Team t = Team.generateTeamFromProperties(properties);
 		//ASSERT
-		Assert.assertEquals("name:red tag:red open:false default:true timeHeadquartersLastSet:0 hq: leader: admins: players:protocos", t.toString());
+		Assert.assertEquals("name:red tag:red open:false default:true timeHeadquartersLastSet:0 hq:none leader: admins: players:protocos", t.toString());
 	}
 
 	@Test
