@@ -10,11 +10,14 @@ import me.protocos.xteam.model.IHeadquarters;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.model.NullHeadquarters;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
+import me.protocos.xteam.util.MessageUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 
 public class Team implements ITeam

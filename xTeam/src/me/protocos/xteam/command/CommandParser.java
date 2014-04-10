@@ -3,7 +3,6 @@ package me.protocos.xteam.command;
 import java.util.List;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import me.protocos.xteam.util.CommonUtil;
 
 public class CommandParser
 {

@@ -1,9 +1,9 @@
 package me.protocos.xteam.util;
 
 import java.util.List;
-import org.bukkit.ChatColor;
 import me.protocos.xteam.entity.ITeamEntity;
 import me.protocos.xteam.entity.TeamPlayer;
+import org.bukkit.ChatColor;
 
 public class MessageUtil
 {

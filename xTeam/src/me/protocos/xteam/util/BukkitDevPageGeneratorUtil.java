@@ -2,10 +2,10 @@ package me.protocos.xteam.util;
 
 import java.io.*;
 import me.protocos.xteam.XTeamPlugin;
-import me.protocos.xteam.fakeobjects.FakeConsoleSender;
-import me.protocos.xteam.fakeobjects.FakeTeamPlayer;
 import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.command.ICommandManager;
+import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.fakeobjects.FakeTeamPlayer;
 import org.junit.Test;
 
 public class BukkitDevPageGeneratorUtil
