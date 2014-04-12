@@ -11,6 +11,11 @@ public class InviteHandler
 {
 	private static HashMap<String, InviteRequest> invites = new HashMap<String, InviteRequest>();
 
+	private InviteHandler()
+	{
+		//not implementable
+	}
+
 	public static void addInvite(final InviteRequest request)
 	{
 		final ITeamPlayer inviter = request.getInviteSender();
@@ -67,10 +72,5 @@ public class InviteHandler
 	public static void removeInvite(String player)
 	{
 		invites.remove(player);
-	}
-
-	private InviteHandler()
-	{
-
 	}
 }
