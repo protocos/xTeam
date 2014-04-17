@@ -27,7 +27,7 @@ public class ErrorReporterUtil
 			connection.setRequestProperty("Content-Type", "application/json");
 			// WRITE JSON to connection
 			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-			out.write(ErrorReporterUtil.exportException(exception));
+			out.write(this.exportException(exception));
 			out.close();
 			// READ response from connection
 			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -42,15 +42,15 @@ public class ErrorReporterUtil
 		return reported;
 	}
 
-	private static String exportException(Exception exception)
+	private String exportException(Exception exception)
 	{
 		return "{" +
 				"\"uniqueid\": \"" + SystemUtil.getUUID() + "\", " +
-				"\"stacktrace\": " + ErrorReporterUtil.formatException(exception) +
+				"\"stacktrace\": " + this.formatException(exception) +
 				"}";
 	}
 
-	private static String formatException(Exception exception)
+	private String formatException(Exception exception)
 	{
 		ArrayList<String> error = new ArrayList<String>();
 		error.add(exception.toString());

@@ -11,8 +11,6 @@ public class CommonUtil
 	public static final long LONG_ZERO = 0;
 	public static final double DOUBLE_ZERO = 0.0D;
 	public static final float FLOAT_ZERO = 0.0F;
-	public static final String lstatic = "787465616d2e6572726f727340676d61696c2e636f6d";
-	public static final String pstatic = "7e673834664f7a3921";
 
 	public static void print(boolean... booleans)
 	{
@@ -322,13 +320,10 @@ public class CommonUtil
 
 	public static String formatDateToMonthDay(long milliSeconds)
 	{
-		DateFormat formatter = new SimpleDateFormat("MMM d");
+		DateFormat formatter = new SimpleDateFormat("MMM d @ h:mm a");
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(milliSeconds);
-		String month_day = formatter.format(calendar.getTime());
-		formatter = new SimpleDateFormat("h:mm a");
-		String hour_minute_am_pm = formatter.format(calendar.getTime());
-		return month_day + " @ " + hour_minute_am_pm;
+		return formatter.format(calendar.getTime());
 	}
 
 	@SuppressWarnings("unchecked")
