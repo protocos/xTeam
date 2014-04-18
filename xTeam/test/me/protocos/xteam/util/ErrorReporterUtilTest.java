@@ -12,7 +12,7 @@ public class ErrorReporterUtilTest
 
 	@Ignore
 	@Test
-	public void ShouldBeSomething()
+	public void ShouldBeReportError()
 	{
 		//ASSEMBLE
 		ErrorReporterUtil errorUtil = new ErrorReporterUtil();
