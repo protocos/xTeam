@@ -18,6 +18,8 @@ import org.junit.Test;
 
 public class TeamUserJoinTest
 {
+	private InviteHandler inviteHandler;
+
 	@Before
 	public void setup()
 	{
@@ -28,7 +30,8 @@ public class TeamUserJoinTest
 		ITeamPlayer playerReceiver = XTeam.getInstance().getPlayerManager().getPlayer("Lonely");
 		Long timeSent = System.currentTimeMillis();
 		InviteRequest request = new InviteRequest(playerSender, playerReceiver, timeSent);
-		InviteHandler.addInvite(request);
+		inviteHandler = InviteHandler.getInstance();
+		inviteHandler.addInvite(request);
 	}
 
 	@Test
@@ -75,7 +78,7 @@ public class TeamUserJoinTest
 	public void ShouldBeTeamUserJoinExecuteNoInvite()
 	{
 		//ASSEMBLE
-		InviteHandler.removeInvite("Lonely");
+		inviteHandler.removeInvite("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
 		TeamUserCommand fakeCommand = new TeamUserJoin();
 		//ACT

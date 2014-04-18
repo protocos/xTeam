@@ -120,7 +120,7 @@ public class TeamAdminSetHeadquartersTest
 	@After
 	public void takedown()
 	{
-		InviteHandler.clear();
+		InviteHandler.getInstance().clear();
 		Configuration.HQ_INTERVAL = 0;
 	}
 }

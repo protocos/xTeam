@@ -16,11 +16,13 @@ import org.bukkit.permissions.Permission;
 
 public class ConsoleDebug extends ConsoleCommand
 {
+	private InviteHandler inviteHandler;
 	private String subCommand;
 
 	public ConsoleDebug()
 	{
 		super();
+		inviteHandler = InviteHandler.getInstance();
 	}
 
 	@Override
@@ -29,7 +31,7 @@ public class ConsoleDebug extends ConsoleCommand
 		if (subCommand.equalsIgnoreCase("chat"))
 			sender.sendMessage("Chat statuses: " + Configuration.chatStatus.toString());
 		else if (subCommand.equalsIgnoreCase("invites"))
-			sender.sendMessage("Invites: " + InviteHandler.data());
+			sender.sendMessage("Invites: " + inviteHandler.data());
 		else if (subCommand.equalsIgnoreCase("spies"))
 			sender.sendMessage("Spies: " + Configuration.spies.toString());
 		else if (subCommand.equalsIgnoreCase("created"))

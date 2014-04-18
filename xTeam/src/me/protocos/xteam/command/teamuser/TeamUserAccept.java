@@ -11,17 +11,21 @@ import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserAccept extends TeamUserCommand
 {
+
+	private InviteHandler inviteHandler;
+
 	public TeamUserAccept()
 	{
 		super();
+		inviteHandler = InviteHandler.getInstance();
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
+		ITeam inviteTeam = inviteHandler.getInviteTeam(teamPlayer.getName());
 		inviteTeam.addPlayer(teamPlayer.getName());
-		InviteHandler.removeInvite(teamPlayer.getName());
+		inviteHandler.removeInvite(teamPlayer.getName());
 		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + MessageUtil.positiveMessage("joined") + " your team");
 		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("joined") + " " + inviteTeam.getName());
 	}
@@ -31,7 +35,7 @@ public class TeamUserAccept extends TeamUserCommand
 	{
 		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
 		Requirements.checkPlayerDoesNotHaveInvite(teamPlayer);
-		ITeam inviteTeam = InviteHandler.getInviteTeam(teamPlayer.getName());
+		ITeam inviteTeam = inviteHandler.getInviteTeam(teamPlayer.getName());
 		Requirements.checkTeamPlayerMax(inviteTeam.getName());
 	}
 

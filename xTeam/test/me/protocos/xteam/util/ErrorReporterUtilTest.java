@@ -1,9 +1,6 @@
 package me.protocos.xteam.util;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 public class ErrorReporterUtilTest
 {
@@ -13,6 +10,7 @@ public class ErrorReporterUtilTest
 	{
 	}
 
+	@Ignore
 	@Test
 	public void ShouldBeSomething()
 	{

@@ -13,10 +13,12 @@ import me.protocos.xteam.util.PatternBuilder;
 public class TeamUserJoin extends TeamUserCommand
 {
 	private String desiredName;
+	private InviteHandler inviteHandler;
 
 	public TeamUserJoin()
 	{
 		super();
+		inviteHandler = InviteHandler.getInstance();
 	}
 
 	@Override
@@ -24,7 +26,7 @@ public class TeamUserJoin extends TeamUserCommand
 	{
 		ITeam foundTeam = XTeam.getInstance().getTeamManager().getTeam(desiredName);
 		foundTeam.addPlayer(teamPlayer.getName());
-		InviteHandler.removeInvite(teamPlayer.getName());
+		inviteHandler.removeInvite(teamPlayer.getName());
 		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + MessageUtil.positiveMessage("joined") + " your team");
 		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("joined") + " " + foundTeam.getName());
 	}

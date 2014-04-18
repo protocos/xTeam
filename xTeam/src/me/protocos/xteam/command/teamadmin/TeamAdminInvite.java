@@ -14,10 +14,12 @@ import me.protocos.xteam.util.PatternBuilder;
 public class TeamAdminInvite extends TeamAdminCommand
 {
 	private String other;
+	private InviteHandler inviteHandler;
 
 	public TeamAdminInvite()
 	{
 		super();
+		inviteHandler = InviteHandler.getInstance();
 	}
 
 	@Override
@@ -25,7 +27,7 @@ public class TeamAdminInvite extends TeamAdminCommand
 	{
 		ITeamPlayer otherPlayer = XTeam.getInstance().getPlayerManager().getPlayer(other);
 		InviteRequest request = new InviteRequest(teamPlayer, otherPlayer, System.currentTimeMillis());
-		InviteHandler.addInvite(request);
+		inviteHandler.addInvite(request);
 		if (otherPlayer.isOnline())
 			otherPlayer.sendMessage("You've been " + MessageUtil.positiveMessage("invited ") + "to join " + team.getName() + " (/team accept)");
 		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("invited ") + otherPlayer.getName());

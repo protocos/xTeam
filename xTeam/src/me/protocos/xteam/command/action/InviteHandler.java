@@ -9,14 +9,24 @@ import me.protocos.xteam.util.MessageUtil;
 
 public class InviteHandler
 {
-	private static HashMap<String, InviteRequest> invites = new HashMap<String, InviteRequest>();
+	private static InviteHandler instance;
+	private HashMap<String, InviteRequest> invites;
 
 	private InviteHandler()
 	{
-		//not implementable
+		invites = new HashMap<String, InviteRequest>();
 	}
 
-	public static void addInvite(final InviteRequest request)
+	public static InviteHandler getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new InviteHandler();
+		}
+		return instance;
+	}
+
+	public void addInvite(final InviteRequest request)
 	{
 		final ITeamPlayer inviter = request.getInviteSender();
 		final ITeamPlayer invitee = request.getInviteReceiver();
@@ -36,31 +46,31 @@ public class InviteHandler
 		BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getxTeam(), new InviteExpire(), BukkitUtil.ONE_MINUTE_IN_TICKS);
 	}
 
-	public static void clear()
+	public void clear()
 	{
 		invites.clear();
 	}
 
-	public static String data()
+	public String data()
 	{
 		return invites.toString();
 	}
 
-	public static ITeam getInviteTeam(String player)
+	public ITeam getInviteTeam(String player)
 	{
 		if (invites.containsKey(player))
 			return invites.get(player).getSenderTeam();
 		return null;
 	}
 
-	public static long getInviteTime(String player)
+	public long getInviteTime(String player)
 	{
 		if (invites.containsKey(player))
 			return invites.get(player).getTimeSent();
 		return 0;
 	}
 
-	public static boolean hasInvite(String player)
+	public boolean hasInvite(String player)
 	{
 		long currentTime = System.currentTimeMillis();
 		long timeStamp = getInviteTime(player);
@@ -69,7 +79,7 @@ public class InviteHandler
 		return invites.containsKey(player);
 	}
 
-	public static void removeInvite(String player)
+	public void removeInvite(String player)
 	{
 		invites.remove(player);
 	}

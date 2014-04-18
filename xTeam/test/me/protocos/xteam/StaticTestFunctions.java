@@ -15,6 +15,8 @@ import org.junit.Test;
 
 public class StaticTestFunctions
 {
+	private static InviteHandler inviteHandler;
+
 	@Test
 	public void ShouldBeMockData()
 	{
@@ -24,7 +26,8 @@ public class StaticTestFunctions
 
 	private static void initData(TeamPlugin teamPlugin)
 	{
-		InviteHandler.clear();
+		inviteHandler = InviteHandler.getInstance();
+		inviteHandler.clear();
 		TeleportScheduler.getInstance().clearTasks();
 		Configuration.chatStatus.clear();
 		Configuration.spies.clear();

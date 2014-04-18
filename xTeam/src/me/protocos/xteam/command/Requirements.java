@@ -175,7 +175,7 @@ public class Requirements
 
 	public static void checkPlayerHasInvite(ITeamPlayer teamPlayer) throws TeamPlayerHasInviteException
 	{
-		if (InviteHandler.hasInvite(teamPlayer.getName()))
+		if (InviteHandler.getInstance().hasInvite(teamPlayer.getName()))
 		{
 			throw new TeamPlayerHasInviteException();
 		}
@@ -232,7 +232,7 @@ public class Requirements
 
 	public static void checkPlayerDoesNotHaveInvite(TeamPlayer teamPlayer) throws TeamPlayerHasNoInviteException
 	{
-		if (!InviteHandler.hasInvite(teamPlayer.getName()))
+		if (!InviteHandler.getInstance().hasInvite(teamPlayer.getName()))
 		{
 			throw new TeamPlayerHasNoInviteException();
 		}
@@ -240,7 +240,7 @@ public class Requirements
 
 	public static void checkPlayerDoesNotHaveInviteFromTeam(TeamPlayer teamPlayer, ITeam desiredTeam) throws TeamPlayerHasNoInviteException
 	{
-		if (!InviteHandler.hasInvite(teamPlayer.getName()) || !InviteHandler.getInviteTeam(teamPlayer.getName()).equals(desiredTeam))
+		if (!InviteHandler.getInstance().hasInvite(teamPlayer.getName()) || !InviteHandler.getInstance().getInviteTeam(teamPlayer.getName()).equals(desiredTeam))
 		{
 			if (!desiredTeam.isOpenJoining())
 				throw new TeamPlayerHasNoInviteException();
