@@ -10,9 +10,8 @@ import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.IPlayerManager;
 import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.PlayerManager;
 import me.protocos.xteam.core.TeamManager;
-import me.protocos.xteam.data.PlayerDataStorageFactory;
-import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.event.EventDispatcher;
 import me.protocos.xteam.event.IEventDispatcher;
 import me.protocos.xteam.model.ILog;
@@ -49,7 +48,8 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 		this.commandExecutor = new CommandDelegate(this, this.getCommandManager());
 		this.teamManager = new TeamManager(eventDispatcher);
 		this.bukkitUtil = new BukkitUtil(server);
-		this.playerManager = new PlayerDataStorageFactory(this).fromString(Configuration.STORAGE_TYPE);
+		this.playerManager = new PlayerManager(this);
+		//		this.playerManager = new PlayerDataStorageFactory(this).fromString(Configuration.STORAGE_TYPE);
 		this.teleportScheduler = new TeleportScheduler(this, playerManager, bukkitScheduler);
 		this.inviteHandler = new InviteHandler(this);
 	}

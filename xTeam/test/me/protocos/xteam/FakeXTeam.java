@@ -1,6 +1,7 @@
 package me.protocos.xteam;
 
 import me.protocos.xteam.command.ICommandManager;
+import me.protocos.xteam.data.PlayerDataStorageFactory;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.fakeobjects.*;
@@ -107,12 +108,19 @@ public class FakeXTeam extends TeamPlugin
 
 	}
 
+	@Override
+	public void load()
+	{
+		this.playerManager.setDataManager(new PlayerDataStorageFactory(this).fromString(Configuration.STORAGE_TYPE));
+	}
+
 	public static TeamPlugin asTeamPlugin()
 	{
 		Configuration.STORAGE_TYPE = "file";
 		FakeServer fakeServer = new FakeServer();
 		FakeXTeam fakeXTeam = new FakeXTeam(fakeServer);
 		fakeServer.setPlugin(fakeXTeam);
+		fakeXTeam.load();
 		return fakeXTeam;
 	}
 

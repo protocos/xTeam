@@ -1,6 +1,7 @@
 package me.protocos.xteam.core;
 
 import java.util.List;
+import me.protocos.xteam.data.IDataManager;
 import me.protocos.xteam.entity.ITeamEntity;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.OfflineTeamPlayer;
@@ -16,6 +17,8 @@ public interface IPlayerManager
 	public abstract void close();
 
 	public abstract void clear();
+
+	public abstract void setDataManager(IDataManager dataManager);
 
 	public abstract ITeamPlayer getPlayer(String name);
 
