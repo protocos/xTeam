@@ -3,16 +3,18 @@ package me.protocos.xteam.data.configuration;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.model.ILog;
 
 public class FileReader
 {
 	private File file;
 	private boolean caseSensitive;
 	private HashMap<String, String> keySet = new HashMap<String, String>();
+	private ILog log;
 
-	public FileReader(File file, boolean caseSensitive)
+	public FileReader(ILog log, File file, boolean caseSensitive)
 	{
+		this.log = log;
 		this.file = file;
 		this.caseSensitive = caseSensitive;
 		reload();
@@ -78,7 +80,7 @@ public class FileReader
 		}
 		else
 		{
-			XTeam.getInstance().getLog().error("File " + this.file.getAbsoluteFile() + " not found.");
+			log.error("File " + this.file.getAbsoluteFile() + " not found.");
 			return false;
 		}
 		return true;

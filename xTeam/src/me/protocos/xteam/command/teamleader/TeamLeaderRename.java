@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamleader;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
@@ -13,15 +13,15 @@ public class TeamLeaderRename extends TeamLeaderCommand
 {
 	private String desiredName;
 
-	public TeamLeaderRename()
+	public TeamLeaderRename(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		XTeam.getInstance().getTeamManager().renameTeam(team, desiredName);
+		teamManager.renameTeam(team, desiredName);
 		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
 			mate.sendMessage("The team has been " + MessageUtil.positiveMessage("renamed") + " to " + desiredName);
@@ -35,7 +35,7 @@ public class TeamLeaderRename extends TeamLeaderCommand
 		desiredName = commandContainer.getArgument(1);
 		Requirements.checkTeamNameTooLong(desiredName);
 		Requirements.checkTeamNameAlphaNumeric(desiredName);
-		Requirements.checkTeamNameAlreadyUsed(desiredName, team);
+		Requirements.checkTeamNameAlreadyUsed(teamManager, desiredName, team);
 	}
 
 	@Override

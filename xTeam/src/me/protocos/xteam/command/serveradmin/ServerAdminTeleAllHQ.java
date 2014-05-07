@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.serveradmin;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
@@ -12,18 +12,21 @@ import org.bukkit.entity.Player;
 
 public class ServerAdminTeleAllHQ extends ServerAdminCommand
 {
-	public ServerAdminTeleAllHQ()
+	private BukkitUtil bukkitUtil;
+
+	public ServerAdminTeleAllHQ(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
+		bukkitUtil = teamPlugin.getBukkitUtil();
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		Player[] players = BukkitUtil.getOnlinePlayers();
+		Player[] players = bukkitUtil.getOnlinePlayers();
 		for (Player p : players)
 		{
-			TeamPlayer otherPlayer = XTeam.getInstance().getPlayerManager().getPlayer(p);
+			TeamPlayer otherPlayer = playerManager.getPlayer(p);
 			ITeam playerTeam = otherPlayer.getTeam();
 			{
 				if (playerTeam == null)

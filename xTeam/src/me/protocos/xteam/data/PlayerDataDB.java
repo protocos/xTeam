@@ -6,17 +6,19 @@ import java.util.logging.Logger;
 import lib.PatPeter.SQLibrary.Database;
 import lib.PatPeter.SQLibrary.SQLite;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.XTeam;
 import me.protocos.xteam.data.translator.IDataTranslator;
 import me.protocos.xteam.exception.DataManagerNotOpenException;
+import me.protocos.xteam.model.ILog;
 
 public class PlayerDataDB implements IDataManager
 {
 	private boolean open = false;
 	private Database db;
+	private ILog log;
 
 	public PlayerDataDB(TeamPlugin plugin)
 	{
+		this.log = plugin.getLog();
 		this.db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", plugin.getFolder(), "xTeam", ".db");
 	}
 
@@ -67,7 +69,7 @@ public class PlayerDataDB implements IDataManager
 			}
 			catch (SQLException e)
 			{
-				XTeam.getInstance().getLog().exception(e);
+				log.exception(e);
 			}
 		}
 		else
@@ -87,7 +89,7 @@ public class PlayerDataDB implements IDataManager
 			}
 			catch (SQLException e)
 			{
-				XTeam.getInstance().getLog().exception(e);
+				log.exception(e);
 			}
 		}
 		else
@@ -107,7 +109,7 @@ public class PlayerDataDB implements IDataManager
 			}
 			catch (SQLException e)
 			{
-				XTeam.getInstance().getLog().exception(e);
+				log.exception(e);
 			}
 		}
 		else
@@ -134,7 +136,7 @@ public class PlayerDataDB implements IDataManager
 			}
 			catch (SQLException e)
 			{
-				XTeam.getInstance().getLog().exception(e);
+				log.exception(e);
 			}
 			return null;
 		}

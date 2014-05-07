@@ -1,7 +1,6 @@
 package me.protocos.xteam.command;
 
 import java.util.List;
-import me.protocos.xteam.command.CommandContainer;
 import org.bukkit.command.CommandSender;
 
 public interface ICommandManager

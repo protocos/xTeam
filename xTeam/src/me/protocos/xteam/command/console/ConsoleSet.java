@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.console;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.action.SetTeamAction;
@@ -11,9 +12,9 @@ public class ConsoleSet extends ConsoleCommand
 	private String playerName, teamName;
 	private SetTeamAction set;
 
-	public ConsoleSet()
+	public ConsoleSet(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
@@ -27,7 +28,7 @@ public class ConsoleSet extends ConsoleCommand
 	{
 		playerName = commandContainer.getArgument(1);
 		teamName = commandContainer.getArgument(2);
-		set = new SetTeamAction(sender);
+		set = new SetTeamAction(teamPlugin, sender);
 		set.checkRequirementsOn(playerName, teamName);
 	}
 

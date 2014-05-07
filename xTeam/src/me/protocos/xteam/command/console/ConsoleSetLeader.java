@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.console;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.Requirements;
@@ -14,22 +14,22 @@ public class ConsoleSetLeader extends ConsoleCommand
 {
 	private String teamName, playerName;
 
-	public ConsoleSetLeader()
+	public ConsoleSetLeader(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeamPlayer player = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
+		ITeamPlayer player = playerManager.getPlayer(playerName);
 		ITeam team = player.getTeam();
 		team.setLeader(playerName);
 		if (player.isOnline())
 			player.sendMessage("You are now the " + MessageUtil.positiveMessage("team leader"));
 		if (!team.isDefaultTeam())
 		{
-			ITeamPlayer previousLeader = XTeam.getInstance().getPlayerManager().getPlayer(team.getLeader());
+			ITeamPlayer previousLeader = playerManager.getPlayer(team.getLeader());
 			if (previousLeader.isOnline())
 				previousLeader.sendMessage(playerName + " is now the " + MessageUtil.positiveMessage("team leader"));
 		}
@@ -41,10 +41,10 @@ public class ConsoleSetLeader extends ConsoleCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
-		ITeamPlayer player = XTeam.getInstance().getPlayerManager().getPlayer(playerName);
-		ITeam team = XTeam.getInstance().getTeamManager().getTeam(teamName);
+		ITeamPlayer player = playerManager.getPlayer(playerName);
+		ITeam team = teamManager.getTeam(teamName);
 		Requirements.checkPlayerHasPlayedBefore(player);
-		Requirements.checkTeamExists(teamName);
+		Requirements.checkTeamExists(teamManager, teamName);
 		Requirements.checkPlayerHasTeam(player);
 		Requirements.checkPlayerOnTeam(player, team);
 		Requirements.checkTeamIsDefault(team);

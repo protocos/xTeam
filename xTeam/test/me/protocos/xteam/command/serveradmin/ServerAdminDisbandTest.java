@@ -1,49 +1,54 @@
 package me.protocos.xteam.command.serveradmin;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.XTeam;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamIsDefaultException;
+import me.protocos.xteam.fakeobjects.FakeLocation;
+import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ServerAdminDisbandTest
 {
+	private TeamPlugin teamPlugin;
+	private ServerAdminCommand fakeCommand;
+	private ITeamManager teamManager;
+
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
+		fakeCommand = new ServerAdminDisband(teamPlugin);
+		teamManager = teamPlugin.getTeamManager();
 	}
 
 	@Test
 	public void ShouldBeServerAdminDisband()
 	{
-		Assert.assertTrue("disband TEAM".matches(new ServerAdminDisband().getPattern()));
-		Assert.assertTrue("disband TEAM ".matches(new ServerAdminDisband().getPattern()));
-		Assert.assertFalse("disband".matches(new ServerAdminDisband().getPattern()));
-		Assert.assertFalse("d TEAM".matches(new ServerAdminDisband().getPattern()));
-		Assert.assertFalse("disband TEAM dfsaiphjkl".matches(new ServerAdminDisband().getPattern()));
-		Assert.assertTrue(new ServerAdminDisband().getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ServerAdminDisband().getPattern()));
+		Assert.assertTrue("disband TEAM".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("disband TEAM ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("disband".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("d TEAM".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("disband TEAM dfsaiphjkl".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeServerAdminDisbandByName()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new ServerAdminDisband();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband one".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You disbanded ONE [TeamAwesome]", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().containsTeam("one"));
+		Assert.assertFalse(teamManager.containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -51,13 +56,12 @@ public class ServerAdminDisbandTest
 	public void ShouldBeServerAdminDisbandByTag()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new ServerAdminDisband();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband TeamAwesome".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You disbanded ONE [TeamAwesome]", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().containsTeam("one"));
+		Assert.assertFalse(teamManager.containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -65,8 +69,7 @@ public class ServerAdminDisbandTest
 	public void ShouldBeServerAdminDisbandExecuteTeamDoesNotExixts()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new ServerAdminDisband();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband ooga".split(" ")));
 		//ASSERT
@@ -78,13 +81,12 @@ public class ServerAdminDisbandTest
 	public void ShouldBeServerAdminDisbandExecuteTeamIsDefault()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		ServerAdminCommand fakeCommand = new ServerAdminDisband();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband RED".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().containsTeam("RED"));
+		Assert.assertTrue(teamManager.containsTeam("RED"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

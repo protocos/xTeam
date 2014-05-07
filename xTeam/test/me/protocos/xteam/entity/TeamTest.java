@@ -1,6 +1,7 @@
 package me.protocos.xteam.entity;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.fakeobjects.FakeWorld;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.NullHeadquarters;
@@ -12,13 +13,13 @@ import org.junit.Test;
 
 public class TeamTest
 {
-	ITeam team;
+	private TeamPlugin teamPlugin = FakeXTeam.asTeamPlugin();
+	private ITeam team;
 
 	@Before
 	public void setup()
 	{
-		mockData();
-		team = new Team.Builder("test").build();
+		team = new Team.Builder(teamPlugin, "test").build();
 	}
 
 	@Test
@@ -83,7 +84,7 @@ public class TeamTest
 		team.addPlayer("kmlanglois");
 		team.setLeader("protocos");
 		//ACT
-		Team newTeam = new Team.Builder("test").leader("protocos").players("protocos", "kmlanglois").build();
+		Team newTeam = new Team.Builder(teamPlugin, "test").leader("protocos").players("protocos", "kmlanglois").build();
 		boolean equals = newTeam.equals(team);
 		//ASSERT
 		Assert.assertTrue(equals);
@@ -226,7 +227,7 @@ public class TeamTest
 		//ASSEMBLE
 		String properties = "name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:";
 		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
+		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
 		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:", t.toString());
 	}
@@ -237,7 +238,7 @@ public class TeamTest
 		//ASSEMBLE
 		String properties = "name:blank tag:blank open:false world:world default:false timeHeadquartersLastSet:0 hq:0.0,0.0,0.0,0.0,0.0 leader: admins: players:";
 		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
+		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
 		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:", t.toString());
 	}
@@ -248,7 +249,7 @@ public class TeamTest
 		//ASSEMBLE
 		String properties = "name:blank tag:tag open:false world:world default:false timeHeadquartersLastSet:0 hq:0.0,0.0,0.0,0.0,0.0 leader: admins: players:";
 		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
+		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
 		Assert.assertEquals("name:blank tag:tag open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:", t.toString());
 	}
@@ -259,7 +260,7 @@ public class TeamTest
 		//ASSEMBLE
 		String properties = "name:red tag:red open:false default:true timeHeadquartersLastSet:0 hq:none leader: admins: players:protocos";
 		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
+		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
 		Assert.assertEquals("name:red tag:red open:false default:true timeHeadquartersLastSet:0 hq:none leader: admins: players:protocos", t.toString());
 	}
@@ -270,7 +271,7 @@ public class TeamTest
 		//ASSEMBLE
 		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersLastSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
 		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
+		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
 		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:protocos,kmlanglois", t.toString());
 	}
@@ -281,7 +282,7 @@ public class TeamTest
 		//ASSEMBLE
 		String properties = "name:one tag:one world:world open:false leader:default timeHeadquartersLastSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
 		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
+		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
 		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:protocos,kmlanglois", t.toString());
 	}
@@ -292,7 +293,7 @@ public class TeamTest
 		//ASSEMBLE
 		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersLastSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
 		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
+		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
 		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
 	}
@@ -303,7 +304,7 @@ public class TeamTest
 		//ASSEMBLE
 		String properties = "name:one tag:one world:world open:false leader:kmlanglois timeHeadquartersLastSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois";
 		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
+		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
 		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
 	}
@@ -314,7 +315,7 @@ public class TeamTest
 		//ASSEMBLE
 		String properties = "name:one tag:one open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins:kmlanglois players:kmlanglois,protocos";
 		//ACT
-		Team t = Team.generateTeamFromProperties(properties);
+		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
 		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
 	}
@@ -377,7 +378,7 @@ public class TeamTest
 	public void ShouldBeIsEmpty()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").build();
+		team = new Team.Builder(teamPlugin, "name").build();
 		//ACT
 		boolean empty = team.isEmpty();
 		//ASSERT
@@ -388,7 +389,7 @@ public class TeamTest
 	public void ShouldBeContainsTeammates()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").players("protocos", "kmlanglois").build();
+		team = new Team.Builder(teamPlugin, "name").players("protocos", "kmlanglois").build();
 		//ACT
 		//ASSERT
 		Assert.assertTrue(team.containsPlayer("protocos"));
@@ -399,7 +400,7 @@ public class TeamTest
 	public void ShouldBeContainsAdmins()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").admins("protocos", "kmlanglois").build();
+		team = new Team.Builder(teamPlugin, "name").admins("protocos", "kmlanglois").build();
 		//ACT
 		//ASSERT
 		Assert.assertTrue(team.containsPlayer("protocos"));
@@ -410,7 +411,7 @@ public class TeamTest
 	public void ShouldBeContainsLeader()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").leader("protocos").build();
+		team = new Team.Builder(teamPlugin, "name").leader("protocos").build();
 		//ACT
 		//ASSERT
 		Assert.assertTrue(team.containsPlayer("protocos"));
@@ -420,7 +421,7 @@ public class TeamTest
 	public void ShouldBeContainsIgnoreCase()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").leader("protocos").admins("kmlanglois").players("mastermind").build();
+		team = new Team.Builder(teamPlugin, "name").leader("protocos").admins("kmlanglois").players("mastermind").build();
 		//ACT
 		//ASSERT
 		Assert.assertTrue(team.containsPlayer("PROTOcos"));
@@ -432,7 +433,7 @@ public class TeamTest
 	public void ShouldBeNullHeadquarters()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").build();
+		team = new Team.Builder(teamPlugin, "name").build();
 		//ACT
 		//ASSERT
 		Assert.assertEquals(new NullHeadquarters(), team.getHeadquarters());
@@ -443,7 +444,7 @@ public class TeamTest
 	public void ShouldBeHasHeadquarters()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").headquarters(new Headquarters(null)).build();
+		team = new Team.Builder(teamPlugin, "name").headquarters(new Headquarters(FakeXTeam.asTeamPlugin(), null)).build();
 		//ACT
 		//ASSERT
 		Assert.assertTrue(team.hasHeadquarters());
@@ -453,7 +454,7 @@ public class TeamTest
 	public void ShouldBeHasTag()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").tag("tag").build();
+		team = new Team.Builder(teamPlugin, "name").tag("tag").build();
 		//ACT
 		//ASSERT
 		Assert.assertTrue(team.hasTag());
@@ -463,7 +464,7 @@ public class TeamTest
 	public void ShouldBeRemoveLeader()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").leader("protocos").players("protocos").build();
+		team = new Team.Builder(teamPlugin, "name").leader("protocos").players("protocos").build();
 		//ACT
 		team.removePlayer("protocos");
 		//ASSERT
@@ -474,7 +475,7 @@ public class TeamTest
 	public void ShouldBeRemoveAdmin()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").admins("protocos").players("protocos").build();
+		team = new Team.Builder(teamPlugin, "name").admins("protocos").players("protocos").build();
 		//ACT
 		team.removePlayer("protocos");
 		//ASSERT
@@ -486,7 +487,7 @@ public class TeamTest
 	public void ShouldBeSetLeaderNotOnTeam()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").build();
+		team = new Team.Builder(teamPlugin, "name").build();
 		//ACT
 		team.setLeader("protocos");
 		//ASSERT
@@ -497,7 +498,7 @@ public class TeamTest
 	public void ShouldBeSetLeaderNotAdmin()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").admins("protocos").players("protocos").build();
+		team = new Team.Builder(teamPlugin, "name").admins("protocos").players("protocos").build();
 		//ACT
 		boolean leaderSet = team.setLeader("protocos");
 		//ASSERT
@@ -510,7 +511,7 @@ public class TeamTest
 	public void ShouldBePromoteNonPlayer()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").build();
+		team = new Team.Builder(teamPlugin, "name").build();
 		//ACT
 		boolean promoted = team.promote("protocos");
 		//ASSERT
@@ -523,7 +524,7 @@ public class TeamTest
 	public void ShouldBePromotePlayer()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").players("protocos").build();
+		team = new Team.Builder(teamPlugin, "name").players("protocos").build();
 		//ACT
 		boolean promoted = team.promote("protocos");
 		//ASSERT
@@ -536,7 +537,7 @@ public class TeamTest
 	public void ShouldBePromoteAdmin()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").admins("protocos").players("protocos").build();
+		team = new Team.Builder(teamPlugin, "name").admins("protocos").players("protocos").build();
 		//ACT
 		boolean promoted = team.promote("protocos");
 		//ASSERT
@@ -549,7 +550,7 @@ public class TeamTest
 	public void ShouldBePromoteLeader()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").leader("protocos").players("protocos").build();
+		team = new Team.Builder(teamPlugin, "name").leader("protocos").players("protocos").build();
 		//ACT
 		boolean promoted = team.promote("protocos");
 		//ASSERT
@@ -562,7 +563,7 @@ public class TeamTest
 	public void ShouldBeDemoteNonPlayer()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").build();
+		team = new Team.Builder(teamPlugin, "name").build();
 		//ACT
 		boolean demoted = team.demote("protocos");
 		//ASSERT
@@ -575,7 +576,7 @@ public class TeamTest
 	public void ShouldBeDemotePlayer()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").players("protocos").build();
+		team = new Team.Builder(teamPlugin, "name").players("protocos").build();
 		//ACT
 		boolean demoted = team.demote("protocos");
 		//ASSERT
@@ -588,7 +589,7 @@ public class TeamTest
 	public void ShouldBeDemoteAdmin()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").admins("protocos").players("protocos").build();
+		team = new Team.Builder(teamPlugin, "name").admins("protocos").players("protocos").build();
 		//ACT
 		boolean demoted = team.demote("protocos");
 		//ASSERT
@@ -601,7 +602,7 @@ public class TeamTest
 	public void ShouldBeDemoteLeader()
 	{
 		//ASSEMBLE
-		team = new Team.Builder("name").leader("protocos").players("protocos").build();
+		team = new Team.Builder(teamPlugin, "name").leader("protocos").players("protocos").build();
 		//ACT
 		boolean demoted = team.demote("protocos");
 		//ASSERT

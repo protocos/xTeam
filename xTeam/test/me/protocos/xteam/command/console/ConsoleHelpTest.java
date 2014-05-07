@@ -1,45 +1,47 @@
 package me.protocos.xteam.command.console;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ConsoleHelpTest
 {
-	FakeConsoleSender fakeConsoleSender;
+	private TeamPlugin teamPlugin;
+	private FakeConsoleSender fakeConsoleSender;
+	private ConsoleCommand fakeCommand;
 
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeConsoleSender = new FakeConsoleSender();
+		fakeCommand = new ConsoleHelp(teamPlugin);
 	}
 
 	@Test
 	public void ShouldBeConsoleHelp()
 	{
-		Assert.assertTrue("".matches(new ConsoleHelp().getPattern()));
-		Assert.assertTrue("help".matches(new ConsoleHelp().getPattern()));
-		Assert.assertTrue("help ".matches(new ConsoleHelp().getPattern()));
-		Assert.assertFalse("help 1".matches(new ConsoleHelp().getPattern()));
-		Assert.assertTrue("?".matches(new ConsoleHelp().getPattern()));
-		Assert.assertTrue("? ".matches(new ConsoleHelp().getPattern()));
-		Assert.assertFalse("? 1".matches(new ConsoleHelp().getPattern()));
-		Assert.assertFalse("1".matches(new ConsoleHelp().getPattern()));
-		Assert.assertTrue(new ConsoleHelp().getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ConsoleHelp().getPattern()));
+		Assert.assertTrue("".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("help".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("help ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("help 1".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("?".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("? ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("? 1".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("1".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeConsoleHelpExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleHelp();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "".split(" ")));
 		//ASSERT

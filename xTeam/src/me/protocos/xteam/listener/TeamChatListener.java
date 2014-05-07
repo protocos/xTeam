@@ -1,9 +1,11 @@
 package me.protocos.xteam.listener;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
+import me.protocos.xteam.core.IPlayerManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
+import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.MessageUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -14,6 +16,15 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class TeamChatListener implements Listener
 {
+	private ILog log;
+	private IPlayerManager playerManager;
+
+	public TeamChatListener(TeamPlugin teamPlugin)
+	{
+		this.log = teamPlugin.getLog();
+		this.playerManager = teamPlugin.getPlayerManager();
+	}
+
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent event)
 	{
@@ -23,7 +34,7 @@ public class TeamChatListener implements Listener
 			World playerWorld = player.getWorld();
 			String msg = event.getMessage();
 			String format = event.getFormat();
-			ITeamPlayer teamPlayer = XTeam.getInstance().getPlayerManager().getPlayer(player);
+			ITeamPlayer teamPlayer = playerManager.getPlayer(player);
 			if (event.isCancelled())
 			{
 				return;
@@ -44,17 +55,17 @@ public class TeamChatListener implements Listener
 					team.sendMessage("[" + MessageUtil.getColor(Configuration.COLOR_NAME) + playerName + ChatColor.RESET + "] " + msg);
 					for (String p : Configuration.spies)
 					{
-						ITeamPlayer spy = XTeam.getInstance().getPlayerManager().getPlayer(p);
+						ITeamPlayer spy = playerManager.getPlayer(p);
 						if (!spy.isOnSameTeam(teamPlayer))
 							spy.sendMessage(MessageUtil.getColor(Configuration.COLOR_TAG) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
 					}
-					XTeam.getInstance().getLog().info("[" + playerName + "] " + event.getMessage());
+					log.info("[" + playerName + "] " + event.getMessage());
 				}
 			}
 		}
 		catch (Exception e)
 		{
-			XTeam.getInstance().getLog().exception(e);
+			log.exception(e);
 		}
 		//		printEvent(event);
 	}

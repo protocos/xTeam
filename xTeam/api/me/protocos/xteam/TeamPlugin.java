@@ -2,29 +2,61 @@ package me.protocos.xteam;
 
 import java.io.File;
 import java.util.List;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.command.CommandDelegate;
+import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.command.ICommandContainer;
 import me.protocos.xteam.command.ICommandManager;
+import me.protocos.xteam.command.action.InviteHandler;
+import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.IPlayerManager;
 import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.TeamManager;
+import me.protocos.xteam.data.PlayerDataStorageFactory;
+import me.protocos.xteam.data.configuration.Configuration;
+import me.protocos.xteam.event.EventDispatcher;
+import me.protocos.xteam.event.IEventDispatcher;
 import me.protocos.xteam.model.ILog;
+import me.protocos.xteam.model.Log;
+import me.protocos.xteam.util.BukkitUtil;
+import org.bukkit.Server;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 {
-	protected XTeam xteam;
-	protected ILog logger;
+	protected final String folder;
+	protected final CommandExecutor commandExecutor;
+	protected final BukkitScheduler bukkitScheduler;
+	protected final IEventDispatcher eventDispatcher;
+	protected final TeleportScheduler teleportScheduler;
+	protected final InviteHandler inviteHandler;
+	protected final BukkitUtil bukkitUtil;
+	protected final ITeamManager teamManager;
+	protected final IPlayerManager playerManager;
+	protected final ICommandManager commandManager;
+	protected final ILog log;
 
-	public TeamPlugin()
+	public TeamPlugin(Server server, String folder)
 	{
 		super();
-		xteam = XTeam.getInstance();
+		this.folder = folder;
+		this.log = new Log(this, folder + "xTeam.log");
+		this.bukkitScheduler = new BukkitUtil(server).getScheduler();
+		this.eventDispatcher = new EventDispatcher();
+		this.commandManager = new CommandManager();
+		this.commandExecutor = new CommandDelegate(this, this.getCommandManager());
+		this.teamManager = new TeamManager(eventDispatcher);
+		this.bukkitUtil = new BukkitUtil(server);
+		this.playerManager = new PlayerDataStorageFactory(this).fromString(Configuration.STORAGE_TYPE);
+		this.teleportScheduler = new TeleportScheduler(this, playerManager, bukkitScheduler);
+		this.inviteHandler = new InviteHandler(this);
 	}
 
 	public String getFolder()
 	{
-		return this.getDataFolder().getAbsolutePath() + File.separator;
+		return folder + File.separator;
 	}
 
 	public String getVersion()
@@ -37,9 +69,24 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 		return this.getDescription().getPermissions();
 	}
 
-	public ILog getLog()
+	public final IEventDispatcher getEventDispatcher()
 	{
-		return xteam.getLog();
+		return this.eventDispatcher;
+	}
+
+	public final TeleportScheduler getTeleportScheduler()
+	{
+		return this.teleportScheduler;
+	}
+
+	public final BukkitUtil getBukkitUtil()
+	{
+		return this.bukkitUtil;
+	}
+
+	public final BukkitScheduler getBukkitScheduler()
+	{
+		return this.bukkitScheduler;
 	}
 
 	public final String getPluginName()
@@ -49,23 +96,41 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 
 	public final ICommandManager getCommandManager()
 	{
-		return xteam.getCommandManager();
+		return this.commandManager;
 	}
 
 	public final ITeamManager getTeamManager()
 	{
-		return xteam.getTeamManager();
+		return this.teamManager;
 	}
 
 	public final IPlayerManager getPlayerManager()
 	{
-		return xteam.getPlayerManager();
+		return this.playerManager;
+	}
+
+	public final InviteHandler getInviteHandler()
+	{
+		return inviteHandler;
+	}
+
+	public ILog getLog()
+	{
+		return log;
+	}
+
+	public void load()
+	{
 	}
 
 	@Override
 	public final void onLoad()
 	{
-		xteam.load(this);
+		this.load();
 		this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " loaded");
 	}
+
+	public abstract void readTeamData();
+
+	public abstract void writeTeamData();
 }

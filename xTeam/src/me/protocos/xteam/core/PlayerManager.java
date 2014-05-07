@@ -1,6 +1,7 @@
 package me.protocos.xteam.core;
 
 import java.util.List;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.data.IDataManager;
 import me.protocos.xteam.data.translator.LocationDataTranslator;
 import me.protocos.xteam.data.translator.LongDataTranslator;
@@ -17,10 +18,14 @@ import org.bukkit.entity.Player;
 
 public class PlayerManager implements IPlayerManager
 {
+	private TeamPlugin teamPlugin;
 	private IDataManager dataManager;
+	private BukkitUtil bukkitUtil;
 
-	public PlayerManager(IDataManager dataManager)
+	public PlayerManager(TeamPlugin teamPlugin, IDataManager dataManager)
 	{
+		this.teamPlugin = teamPlugin;
+		this.bukkitUtil = teamPlugin.getBukkitUtil();
 		this.dataManager = dataManager;
 		this.dataManager.open();
 		this.dataManager.initializeData();
@@ -47,7 +52,7 @@ public class PlayerManager implements IPlayerManager
 
 	public List<TeamPlayer> getOnlinePlayers()
 	{
-		Player[] players = BukkitUtil.getOnlinePlayers();
+		Player[] players = bukkitUtil.getOnlinePlayers();
 		List<TeamPlayer> onlinePlayers = CommonUtil.emptyList(players.length);
 		for (Player player : players)
 		{
@@ -58,7 +63,7 @@ public class PlayerManager implements IPlayerManager
 
 	public List<OfflineTeamPlayer> getOfflinePlayers()
 	{
-		OfflinePlayer[] players = BukkitUtil.getOfflinePlayers();
+		OfflinePlayer[] players = bukkitUtil.getOfflinePlayers();
 		List<OfflineTeamPlayer> offlinePlayers = CommonUtil.emptyList(players.length);
 		for (OfflinePlayer player : players)
 		{
@@ -84,10 +89,10 @@ public class PlayerManager implements IPlayerManager
 
 	public ITeamPlayer getPlayer(String name)
 	{
-		Player player = BukkitUtil.getPlayer(name);
+		Player player = bukkitUtil.getPlayer(name);
 		if (player != null)
 			return teamPlayerWithValues(player);
-		OfflinePlayer offlinePlayer = BukkitUtil.getOfflinePlayer(name);
+		OfflinePlayer offlinePlayer = bukkitUtil.getOfflinePlayer(name);
 		if (offlinePlayer != null)
 			return offlineTeamPlayerWithValues(offlinePlayer);
 		return playerWithValues(name);
@@ -146,7 +151,7 @@ public class PlayerManager implements IPlayerManager
 
 	private TeamPlayer teamPlayerWithValues(Player player)
 	{
-		TeamPlayer returnPlayer = new TeamPlayer(player);
+		TeamPlayer returnPlayer = new TeamPlayer(teamPlugin, player);
 		String playerName = player.getName();
 		returnPlayer.setLastAttacked(this.getLastAttacked(playerName));
 		returnPlayer.setLastTeleported(this.getLastTeleported(playerName));
@@ -156,7 +161,7 @@ public class PlayerManager implements IPlayerManager
 
 	private OfflineTeamPlayer offlineTeamPlayerWithValues(OfflinePlayer player)
 	{
-		OfflineTeamPlayer returnPlayer = new OfflineTeamPlayer(player);
+		OfflineTeamPlayer returnPlayer = new OfflineTeamPlayer(teamPlugin, player);
 		String playerName = player.getName();
 		returnPlayer.setLastAttacked(this.getLastAttacked(playerName));
 		returnPlayer.setLastTeleported(this.getLastTeleported(playerName));
@@ -167,10 +172,10 @@ public class PlayerManager implements IPlayerManager
 	private ITeamPlayer playerWithValues(String playerName)
 	{
 		ITeamPlayer returnPlayer = null;
-		if (BukkitUtil.getPlayer(playerName) != null)
-			returnPlayer = getPlayer(BukkitUtil.getPlayer(playerName));
-		else if (BukkitUtil.getOfflinePlayer(playerName) != null)
-			returnPlayer = getPlayer(BukkitUtil.getOfflinePlayer(playerName));
+		if (bukkitUtil.getPlayer(playerName) != null)
+			returnPlayer = getPlayer(bukkitUtil.getPlayer(playerName));
+		else if (bukkitUtil.getOfflinePlayer(playerName) != null)
+			returnPlayer = getPlayer(bukkitUtil.getOfflinePlayer(playerName));
 		if (returnPlayer != null)
 		{
 			returnPlayer.setLastAttacked(this.getLastAttacked(playerName));
@@ -192,7 +197,7 @@ public class PlayerManager implements IPlayerManager
 
 	public Location getReturnLocation(String playerName)
 	{
-		return dataManager.getVariable(playerName, "returnLocation", new LocationDataTranslator());
+		return dataManager.getVariable(playerName, "returnLocation", new LocationDataTranslator(teamPlugin));
 	}
 
 	public void setLastAttacked(ITeamPlayer player, Long lastAttacked)
@@ -207,7 +212,7 @@ public class PlayerManager implements IPlayerManager
 
 	public void setReturnLocation(ITeamPlayer player, Location returnLocation)
 	{
-		dataManager.setVariable(player.getName(), "returnLocation", returnLocation, new LocationDataTranslator());
+		dataManager.setVariable(player.getName(), "returnLocation", returnLocation, new LocationDataTranslator(teamPlugin));
 	}
 
 	public String toString()

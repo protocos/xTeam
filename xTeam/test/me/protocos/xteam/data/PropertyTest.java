@@ -1,9 +1,10 @@
 package me.protocos.xteam.data;
 
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakeServer;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.data.translator.IDataTranslator;
 import me.protocos.xteam.data.translator.LocationDataTranslator;
+import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.util.BukkitUtil;
 import org.bukkit.Location;
 import org.junit.After;
@@ -13,11 +14,15 @@ import org.junit.Test;
 
 public class PropertyTest
 {
+	private TeamPlugin teamPlugin;
+	private BukkitUtil bukkitUtil;
 	private Property property;
 
 	@Before
 	public void setup()
 	{
+		teamPlugin = FakeXTeam.asTeamPlugin();
+		bukkitUtil = teamPlugin.getBukkitUtil();
 	}
 
 	@Test
@@ -36,7 +41,7 @@ public class PropertyTest
 	{
 		//ASSEMBLE
 		Location location = new FakeLocation(1, 2, 3, 4, 5);
-		property = Property.fromObject("location", location, new LocationDataTranslator());
+		property = Property.fromObject("location", location, new LocationDataTranslator(teamPlugin));
 		//ACT
 		String decompiledLocation = property.getValue();
 		//ASSERT
@@ -48,9 +53,8 @@ public class PropertyTest
 	public void ShouldBeGetUndecompiledLocation()
 	{
 		//ASSEMBLE
-		BukkitUtil.setServer(new FakeServer());
-		Location originalLocation = new Location(BukkitUtil.getWorld("world"), 0, 0, 0, 0, 0);
-		IDataTranslator<Location> formatter = new LocationDataTranslator();
+		Location originalLocation = new Location(bukkitUtil.getWorld("world"), 0, 0, 0, 0, 0);
+		IDataTranslator<Location> formatter = new LocationDataTranslator(teamPlugin);
 		//ACT
 		String compiledLocation = formatter.decompile(originalLocation);
 		Location decompiledLocation = formatter.compile(compiledLocation);

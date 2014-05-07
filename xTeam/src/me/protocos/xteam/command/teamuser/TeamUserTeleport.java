@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
@@ -12,18 +12,19 @@ import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserTeleport extends TeamUserCommand
 {
+	private TeleportScheduler teleportScheduler;
 	private TeamPlayer teamMate;
 
-	public TeamUserTeleport()
+	public TeamUserTeleport(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
+		this.teleportScheduler = teamPlugin.getTeleportScheduler();
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		TeleportScheduler teleporter = TeleportScheduler.getInstance();
-		teleporter.teleport(teamPlayer, teamMate);
+		teleportScheduler.teleport(teamPlayer, teamMate);
 	}
 
 	@Override
@@ -39,11 +40,11 @@ public class TeamUserTeleport extends TeamUserCommand
 		if (teammateName == null)
 		{
 			Requirements.checkPlayerHasTeammatesOnline(teamPlayer);
-			teamMate = TeleportScheduler.getInstance().getClosestTeammate(teamPlayer);
+			teamMate = teleportScheduler.getClosestTeammate(teamPlayer);
 		}
 		else
 		{
-			ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(teammateName);
+			ITeamPlayer other = playerManager.getPlayer(teammateName);
 			Requirements.checkPlayerHasPlayedBefore(other);
 			Requirements.checkPlayerIsTeammate(teamPlayer, other);
 			Requirements.checkPlayerIsOnline(other);
@@ -56,7 +57,7 @@ public class TeamUserTeleport extends TeamUserCommand
 				}
 			}
 		}
-		Requirements.checkPlayerTeleportRequested(teamPlayer);
+		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamPlayer);
 		Requirements.checkPlayerTeammateWorld(teamPlayer, teamMate);
 		Requirements.checkPlayerTeammateNear(teamPlayer, teamMate);
 		Requirements.checkPlayerTeammateIsOnline(teamMate);

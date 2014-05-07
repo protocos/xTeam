@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
@@ -14,17 +14,17 @@ public class TeamUserCreate extends TeamUserCommand
 {
 	private String desiredName;
 
-	public TeamUserCreate()
+	public TeamUserCreate(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		String leader = teamPlayer.getName();
-		Team newTeam = Team.createTeamWithLeader(desiredName, leader);
-		XTeam.getInstance().getTeamManager().createTeam(newTeam);
+		Team newTeam = Team.createTeamWithLeader(teamPlugin, desiredName, leader);
+		teamManager.createTeam(newTeam);
 		Configuration.lastCreated.put(leader, Long.valueOf(System.currentTimeMillis()));
 		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("created") + " " + desiredName);
 	}
@@ -34,11 +34,11 @@ public class TeamUserCreate extends TeamUserCommand
 	{
 		desiredName = commandContainer.getArgument(1);
 		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
-		Requirements.checkTeamOnlyJoinDefault(desiredName);
+		Requirements.checkTeamOnlyJoinDefault(teamManager, desiredName);
 		Requirements.checkTeamNameTooLong(desiredName);
 		Requirements.checkPlayerLastCreatedTeam(teamPlayer);
 		Requirements.checkTeamNameAlphaNumeric(desiredName);
-		Requirements.checkTeamAlreadyExists(desiredName);
+		Requirements.checkTeamAlreadyExists(teamManager, desiredName);
 	}
 
 	@Override

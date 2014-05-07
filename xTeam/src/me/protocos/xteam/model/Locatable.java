@@ -1,6 +1,7 @@
 package me.protocos.xteam.model;
 
 import java.util.List;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -13,11 +14,13 @@ public class Locatable implements ILocatable
 {
 	private String name;
 	private Location location;
+	private BukkitUtil bukkitUtil;
 
-	public Locatable(String name, Location location)
+	public Locatable(TeamPlugin teamPlugin, String name, Location location)
 	{
 		this.name = name;
 		this.location = location;
+		bukkitUtil = teamPlugin.getBukkitUtil();
 	}
 
 	@Override
@@ -41,7 +44,7 @@ public class Locatable implements ILocatable
 	@Override
 	public Server getServer()
 	{
-		return BukkitUtil.getServer();
+		return bukkitUtil.getServer();
 	}
 
 	@Override

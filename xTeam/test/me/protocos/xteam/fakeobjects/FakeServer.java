@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
 import java.util.logging.Logger;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.*;
 import org.bukkit.Warning.WarningState;
@@ -39,7 +40,11 @@ public class FakeServer implements Server
 		onlinePlayers = new Player[0];
 		offlinePlayers = new OfflinePlayer[0];
 		fakeScheduler = new FakeScheduler();
-		fakePluginManager = new FakePluginManager();
+	}
+
+	public void setPlugin(TeamPlugin teamPlugin)
+	{
+		this.fakePluginManager = new FakePluginManager(teamPlugin);
 	}
 
 	public void setWorld(World world)

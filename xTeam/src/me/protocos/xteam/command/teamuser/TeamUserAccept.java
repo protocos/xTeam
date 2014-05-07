@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
@@ -11,13 +12,12 @@ import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserAccept extends TeamUserCommand
 {
-
 	private InviteHandler inviteHandler;
 
-	public TeamUserAccept()
+	public TeamUserAccept(TeamPlugin teamPlugin)
 	{
-		super();
-		inviteHandler = InviteHandler.getInstance();
+		super(teamPlugin);
+		inviteHandler = teamPlugin.getInviteHandler();
 	}
 
 	@Override
@@ -34,9 +34,9 @@ public class TeamUserAccept extends TeamUserCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
-		Requirements.checkPlayerDoesNotHaveInvite(teamPlayer);
+		Requirements.checkPlayerDoesNotHaveInvite(inviteHandler, teamPlayer);
 		ITeam inviteTeam = inviteHandler.getInviteTeam(teamPlayer.getName());
-		Requirements.checkTeamPlayerMax(inviteTeam.getName());
+		Requirements.checkTeamPlayerMax(teamManager, inviteTeam.getName());
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.teamleader;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.exception.TeamException;
@@ -8,9 +9,9 @@ import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamLeaderOpen extends TeamLeaderCommand
 {
-	public TeamLeaderOpen()
+	public TeamLeaderOpen(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override

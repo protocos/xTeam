@@ -2,7 +2,7 @@ package me.protocos.xteam.entity;
 
 import java.util.List;
 import java.util.UUID;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.core.IPlayerManager;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
@@ -20,11 +20,13 @@ import org.bukkit.util.Vector;
 
 public class TeamWolf implements ITeamWolf
 {
-	Wolf wolf;
+	private IPlayerManager playerManager;
+	private Wolf wolf;
 
-	public TeamWolf(Wolf w)
+	public TeamWolf(IPlayerManager playerManager, Wolf wolf)
 	{
-		this.wolf = w;
+		this.playerManager = playerManager;
+		this.wolf = wolf;
 	}
 
 	public boolean equals(Object obj)
@@ -62,7 +64,7 @@ public class TeamWolf implements ITeamWolf
 	public ITeamPlayer getOwner()
 	{
 		if (wolf.getOwner() != null)
-			return XTeam.getInstance().getPlayerManager().getPlayer(wolf.getOwner().getName());
+			return playerManager.getPlayer(wolf.getOwner().getName());
 		return null;
 	}
 
@@ -399,7 +401,7 @@ public class TeamWolf implements ITeamWolf
 		{
 			for (String p : getTeam().getPlayers())
 			{
-				mates.add(XTeam.getInstance().getPlayerManager().getPlayer(p));
+				mates.add(playerManager.getPlayer(p));
 			}
 		}
 		return mates;
@@ -408,13 +410,13 @@ public class TeamWolf implements ITeamWolf
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return XTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
+		return playerManager.getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return XTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
+		return playerManager.getOnlineTeammatesOf(this);
 	}
 
 	@Override

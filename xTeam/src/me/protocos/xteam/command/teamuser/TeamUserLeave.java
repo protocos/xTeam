@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
@@ -12,9 +12,9 @@ import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserLeave extends TeamUserCommand
 {
-	public TeamUserLeave()
+	public TeamUserLeave(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
@@ -22,11 +22,11 @@ public class TeamUserLeave extends TeamUserCommand
 	{
 		team.removePlayer(teamPlayer.getName());
 		if (team.size() == 0 && !team.isDefaultTeam())
-			XTeam.getInstance().getTeamManager().disbandTeam(team.getName());
+			teamManager.disbandTeam(team.getName());
 		Configuration.chatStatus.remove(teamPlayer.getName());
 		for (String teammate : team.getPlayers())
 		{
-			ITeamPlayer mate = XTeam.getInstance().getPlayerManager().getPlayer(teammate);
+			ITeamPlayer mate = playerManager.getPlayer(teammate);
 			if (mate.isOnline())
 				mate.sendMessage(teamPlayer.getName() + " " + MessageUtil.negativeMessage("left") + " your team");
 		}

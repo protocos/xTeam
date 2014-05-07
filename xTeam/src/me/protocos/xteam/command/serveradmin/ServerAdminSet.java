@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.serveradmin;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.command.action.SetTeamAction;
@@ -11,9 +12,9 @@ public class ServerAdminSet extends ServerAdminCommand
 	private String playerName, teamName;
 	private SetTeamAction set;
 
-	public ServerAdminSet()
+	public ServerAdminSet(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
@@ -27,7 +28,7 @@ public class ServerAdminSet extends ServerAdminCommand
 	{
 		playerName = commandContainer.getArgument(1);
 		teamName = commandContainer.getArgument(2);
-		set = new SetTeamAction(player);
+		set = new SetTeamAction(teamPlugin, player);
 		set.checkRequirementsOn(playerName, teamName);
 	}
 

@@ -1,8 +1,9 @@
 package me.protocos.xteam.command.teamuser;
 
 import java.util.List;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
+import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.exception.TeamException;
@@ -13,12 +14,14 @@ import org.bukkit.ChatColor;
 
 public class TeamUserHelp extends TeamUserCommand
 {
+	private ICommandManager commandManager;
 	private HelpPages pages;
 	private int pageNum;
 
-	public TeamUserHelp()
+	public TeamUserHelp(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
+		this.commandManager = teamPlugin.getCommandManager();
 	}
 
 	@Override
@@ -45,7 +48,7 @@ public class TeamUserHelp extends TeamUserCommand
 			pageNum = 1;
 		}
 		pages = new HelpPages();
-		List<String> availableCommands = XTeam.getInstance().getCommandManager().getAvailableCommandsFor(teamPlayer);
+		List<String> availableCommands = commandManager.getAvailableCommandsFor(teamPlayer);
 		pages.addLines(availableCommands);
 		Requirements.checkPlayerHasCommands(pages);
 		Requirements.checkPlayerCommandPageRange(pages, pageNum);

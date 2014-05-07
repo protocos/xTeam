@@ -1,50 +1,54 @@
 package me.protocos.xteam.command.console;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.XTeam;
-import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamIsDefaultException;
+import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ConsoleDisbandTest
 {
-	FakeConsoleSender fakeConsoleSender;
+	private TeamPlugin teamPlugin;
+	private FakeConsoleSender fakeConsoleSender;
+	private ConsoleCommand fakeCommand;
+	private ITeamManager teamManager;
 
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeConsoleSender = new FakeConsoleSender();
+		fakeCommand = new ConsoleDisband(teamPlugin);
+		teamManager = teamPlugin.getTeamManager();
 	}
 
 	@Test
 	public void ShouldBeConsoleDisband()
 	{
-		Assert.assertTrue("disband TEAM".matches(new ConsoleDisband().getPattern()));
-		Assert.assertTrue("disband TEAM ".matches(new ConsoleDisband().getPattern()));
-		Assert.assertFalse("disband".matches(new ConsoleDisband().getPattern()));
-		Assert.assertFalse("disband ".matches(new ConsoleDisband().getPattern()));
-		Assert.assertFalse("d TEAM".matches(new ConsoleDisband().getPattern()));
-		Assert.assertTrue(new ConsoleDisband().getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ConsoleDisband().getPattern()));
+		Assert.assertTrue("disband TEAM".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("disband TEAM ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("disband".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("disband ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("d TEAM".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeConsoleDisbandExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDisband();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "disband one".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You disbanded ONE [TeamAwesome]", fakeConsoleSender.getLastMessage());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().containsTeam("one"));
+		Assert.assertFalse(teamManager.containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -52,7 +56,6 @@ public class ConsoleDisbandTest
 	public void ShouldBeConsoleDisbandExecuteTeamDoesNotExixts()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDisband();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "disband ooga".split(" ")));
 		//ASSERT
@@ -64,12 +67,11 @@ public class ConsoleDisbandTest
 	public void ShouldBeConsoleDisbandExecuteTeamIsDefault()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleDisband();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "disband RED".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().containsTeam("RED"));
+		Assert.assertTrue(teamManager.containsTeam("RED"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

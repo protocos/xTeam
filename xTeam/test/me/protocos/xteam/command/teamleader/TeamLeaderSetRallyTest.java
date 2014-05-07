@@ -1,15 +1,16 @@
 package me.protocos.xteam.command.teamleader;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
-import me.protocos.xteam.XTeam;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamAlreadyHasRallyException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerNotLeaderException;
+import me.protocos.xteam.fakeobjects.FakeLocation;
+import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,36 +18,40 @@ import org.junit.Test;
 
 public class TeamLeaderSetRallyTest
 {
+	private TeamPlugin teamPlugin;
+	private TeamLeaderCommand fakeCommand;
+	private ITeamManager teamManager;
+
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
+		fakeCommand = new TeamLeaderSetRally(teamPlugin);
+		teamManager = teamPlugin.getTeamManager();
 	}
 
 	@Test
 	public void ShouldBeTeamLeaderSetRally()
 	{
-		Assert.assertTrue("setrally".matches(new TeamLeaderSetRally().getPattern()));
-		Assert.assertTrue("setr".matches(new TeamLeaderSetRally().getPattern()));
-		Assert.assertTrue("setral ".matches(new TeamLeaderSetRally().getPattern()));
-		Assert.assertTrue("str ".matches(new TeamLeaderSetRally().getPattern()));
-		Assert.assertFalse("setrally fasds ".matches(new TeamLeaderSetRally().getPattern()));
-		Assert.assertFalse("set tdfgvbnm".matches(new TeamLeaderSetRally().getPattern()));
-		Assert.assertTrue(new TeamLeaderSetRally().getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new TeamLeaderSetRally().getPattern()));
+		Assert.assertTrue("setrally".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("setr".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("setral ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("str ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("setrally fasds ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("set tdfgvbnm".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeSetRally()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamLeaderCommand fakeCommand = new TeamLeaderSetRally();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You set the team rally point", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("one").hasRally());
+		Assert.assertTrue(teamManager.getTeam("one").hasRally());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -54,8 +59,7 @@ public class TeamLeaderSetRallyTest
 	public void ShouldBeSetRallyPlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		TeamLeaderCommand fakeCommand = new TeamLeaderSetRally();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT
@@ -67,8 +71,7 @@ public class TeamLeaderSetRallyTest
 	public void ShouldBeSetRallyPlayerNotTeamLeader()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		TeamLeaderCommand fakeCommand = new TeamLeaderSetRally();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT
@@ -80,10 +83,9 @@ public class TeamLeaderSetRallyTest
 	public void ShouldBeSetRallyAlreadySet()
 	{
 		//ASSEMBLE
-		ITeam team = XTeam.getInstance().getTeamManager().getTeam("one");
+		ITeam team = teamManager.getTeam("one");
 		team.setRally(team.getHeadquarters().getLocation());
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamLeaderCommand fakeCommand = new TeamLeaderSetRally();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT

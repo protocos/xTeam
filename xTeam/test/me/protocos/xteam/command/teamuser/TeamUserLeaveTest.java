@@ -1,50 +1,55 @@
 package me.protocos.xteam.command.teamuser;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.XTeam;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerLeaderLeavingException;
+import me.protocos.xteam.fakeobjects.FakeLocation;
+import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class TeamUserLeaveTest
 {
+	private TeamPlugin teamPlugin;
+	private TeamUserCommand fakeCommand;
+	private ITeamManager teamManager;
+
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
+		fakeCommand = new TeamUserLeave(teamPlugin);
+		teamManager = teamPlugin.getTeamManager();
 	}
 
 	@Test
-	public void ShouldBeTeamUserJoin()
+	public void ShouldBeTeamUserLeave()
 	{
-		Assert.assertTrue("join TEAM".matches(new TeamUserJoin().getPattern()));
-		Assert.assertTrue("join TEAM ".matches(new TeamUserJoin().getPattern()));
-		Assert.assertTrue("j TEAM".matches(new TeamUserJoin().getPattern()));
-		Assert.assertTrue("jn TEAM ".matches(new TeamUserJoin().getPattern()));
-		Assert.assertFalse("j TEAM sdaf".matches(new TeamUserJoin().getPattern()));
-		Assert.assertTrue(new TeamUserJoin().getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new TeamUserJoin().getPattern()));
+		Assert.assertTrue("leave".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("leave ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("lv  ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("l ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("l sdaf".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeDefaultTeamLeavingOnePerson()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("strandedhelix", new FakeLocation());
-		TeamUserCommand fakeCommand = new TeamUserLeave();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "strandedhelix", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You left red", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().containsTeam("red"));
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("red").containsPlayer("strandedhelix"));
+		Assert.assertTrue(teamManager.containsTeam("red"));
+		Assert.assertFalse(teamManager.getTeam("red").containsPlayer("strandedhelix"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -52,13 +57,12 @@ public class TeamUserLeaveTest
 	public void ShouldBeRegularTeamLeavingOnePerson()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("mastermind", new FakeLocation());
-		TeamUserCommand fakeCommand = new TeamUserLeave();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "mastermind", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You left two", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().containsTeam("two"));
+		Assert.assertFalse(teamManager.containsTeam("two"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -66,13 +70,12 @@ public class TeamUserLeaveTest
 	public void ShouldBeTeamUserLeaveExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		TeamUserCommand fakeCommand = new TeamUserLeave();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
+		Assert.assertFalse(teamManager.getTeam("one").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -80,13 +83,12 @@ public class TeamUserLeaveTest
 	public void ShouldBeTeamUserLeaveExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamUserCommand fakeCommand = new TeamUserLeave();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("kmlanglois"));
+		Assert.assertTrue(teamManager.getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -94,8 +96,7 @@ public class TeamUserLeaveTest
 	public void ShouldBeTeamUserLeaveExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		TeamUserCommand fakeCommand = new TeamUserLeave();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT

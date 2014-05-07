@@ -1,7 +1,8 @@
 package me.protocos.xteam.command.teamuser;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.exception.TeamInvalidPageException;
@@ -13,35 +14,37 @@ import org.junit.Test;
 
 public class TeamUserHelpTest
 {
+	private TeamPlugin teamPlugin;
+	private TeamUserCommand fakeCommand;
+
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
+		fakeCommand = new TeamUserHelp(teamPlugin);
 	}
 
 	@Test
 	public void ShouldBeTeamUserHelp()
 	{
-		Assert.assertTrue("help 1".matches(new TeamUserHelp().getPattern()));
-		Assert.assertTrue("help 1".matches(new TeamUserHelp().getPattern()));
-		Assert.assertTrue("help 1 ".matches(new TeamUserHelp().getPattern()));
-		Assert.assertTrue("? 1".matches(new TeamUserHelp().getPattern()));
-		Assert.assertTrue("??? 1 ".matches(new TeamUserHelp().getPattern()));
-		Assert.assertTrue("1".matches(new TeamUserHelp().getPattern()));
-		Assert.assertTrue("2 ".matches(new TeamUserHelp().getPattern()));
-		Assert.assertFalse("".matches(new TeamUserHelp().getPattern()));
-		Assert.assertFalse("1 dfas".matches(new TeamUserHelp().getPattern()));
-		Assert.assertFalse("11 ?".matches(new TeamUserHelp().getPattern()));
-		Assert.assertTrue(new TeamUserHelp().getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new TeamUserHelp().getPattern()));
+		Assert.assertTrue("help 1".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("help 1".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("help 1 ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("? 1".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("??? 1 ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("1".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("2 ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("1 dfas".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("11 ?".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeTeamUserHelpPageExecutePage1()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamUserCommand fakeCommand = new TeamUserHelp();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 1".split(" ")));
 		//ASSERT
@@ -62,8 +65,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage2()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamUserCommand fakeCommand = new TeamUserHelp();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 2".split(" ")));
 		//ASSERT
@@ -84,8 +86,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage3()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamUserCommand fakeCommand = new TeamUserHelp();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 3".split(" ")));
 		//ASSERT
@@ -106,8 +107,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage4()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamUserCommand fakeCommand = new TeamUserHelp();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 4".split(" ")));
 		//ASSERT
@@ -128,8 +128,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage5()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamUserCommand fakeCommand = new TeamUserHelp();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 5".split(" ")));
 		//ASSERT
@@ -150,8 +149,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecuteInvalidPage()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamUserCommand fakeCommand = new TeamUserHelp();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 10".split(" ")));
 		//ASSERT

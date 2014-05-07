@@ -7,12 +7,18 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 
 public class ErrorReporterUtil
 {
 	private static final String SERVER = "http://xteam-server.herokuapp.com";
 	private static final String PATH_REPORT = "/services/error/report";
+	private TeamPlugin teamPlugin;
+
+	public ErrorReporterUtil(TeamPlugin teamPlugin)
+	{
+		this.teamPlugin = teamPlugin;
+	}
 
 	public boolean report(Exception exception)
 	{
@@ -61,7 +67,7 @@ public class ErrorReporterUtil
 				error.add("        @ " + elem.toString());
 			}
 		}
-		error.add("        Reported on " + CommonUtil.formatDateToMonthDay(System.currentTimeMillis()) + " from xTeam client v" + XTeam.getInstance().getVersion());
+		error.add("        Reported on " + CommonUtil.formatDateToMonthDay(System.currentTimeMillis()) + " from " + teamPlugin.getPluginName() + " client v" + teamPlugin.getVersion());
 		return error.toString()
 				.replaceAll(", ", "\", \"")
 				.replaceAll("\\<", "&lt;")

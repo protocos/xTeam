@@ -1,52 +1,57 @@
 package me.protocos.xteam.command.teamleader;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.XTeam;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerNotLeaderException;
+import me.protocos.xteam.fakeobjects.FakeLocation;
+import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class TeamLeaderSetLeaderTest
 {
+	private TeamPlugin teamPlugin;
+	private TeamLeaderCommand fakeCommand;
+	private ITeamManager teamManager;
+
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
+		fakeCommand = new TeamLeaderSetLeader(teamPlugin);
+		teamManager = teamPlugin.getTeamManager();
 	}
 
 	@Test
 	public void ShouldBeTeamLeaderSetLeader()
 	{
-		Assert.assertTrue("setleader PLAYER".matches(new TeamLeaderSetLeader().getPattern()));
-		Assert.assertTrue("setleader PLAYER ".matches(new TeamLeaderSetLeader().getPattern()));
-		Assert.assertTrue("setl PLAYER".matches(new TeamLeaderSetLeader().getPattern()));
-		Assert.assertTrue("setlead PLAYER ".matches(new TeamLeaderSetLeader().getPattern()));
-		Assert.assertTrue("stl PLAYER ".matches(new TeamLeaderSetLeader().getPattern()));
-		Assert.assertFalse("set PLAYER dfsa".matches(new TeamLeaderSetLeader().getPattern()));
-		Assert.assertTrue(new TeamLeaderSetLeader().getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new TeamLeaderSetLeader().getPattern()));
+		Assert.assertTrue("setleader PLAYER".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("setleader PLAYER ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("setl PLAYER".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("setlead PLAYER ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("stl PLAYER ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("set PLAYER dfsa".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeTeamAdminSetLeaderExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamLeaderCommand fakeCommand = new TeamLeaderSetLeader();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals("protocos is now the team leader (you are an admin)\n" +
 				"You can now leave the team", fakePlayerSender.getLastMessage());
-		Assert.assertEquals("protocos", XTeam.getInstance().getTeamManager().getTeam("one").getLeader());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").isAdmin("protocos"));
+		Assert.assertEquals("protocos", teamManager.getTeam("one").getLeader());
+		Assert.assertFalse(teamManager.getTeam("one").isAdmin("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -54,8 +59,7 @@ public class TeamLeaderSetLeaderTest
 	public void ShouldBeTeamAdminSetLeaderExecuteNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		TeamLeaderCommand fakeCommand = new TeamLeaderSetLeader();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader protocos".split(" ")));
 		//ASSERT
@@ -67,13 +71,12 @@ public class TeamLeaderSetLeaderTest
 	public void ShouldBeTeamAdminSetLeaderExecuteNotLeader()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		TeamLeaderCommand fakeCommand = new TeamLeaderSetLeader();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", XTeam.getInstance().getTeamManager().getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", teamManager.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -81,13 +84,12 @@ public class TeamLeaderSetLeaderTest
 	public void ShouldBeTeamAdminSetLeaderExecuteNotTeammate()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		TeamLeaderCommand fakeCommand = new TeamLeaderSetLeader();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader newbie".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", XTeam.getInstance().getTeamManager().getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", teamManager.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

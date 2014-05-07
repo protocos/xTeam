@@ -1,7 +1,8 @@
 package me.protocos.xteam.util;
 
 import java.io.*;
-import me.protocos.xteam.XTeamPlugin;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
@@ -61,21 +62,22 @@ public class BukkitDevPageGeneratorUtil
 		writer.write(PARAMETERS);
 		writer.write(FEATURES);
 		ICommandManager manager = new CommandManager();
-		(new XTeamPlugin()).registerCommands(manager);
+		TeamPlugin fakePlugin = FakeXTeam.asTeamPlugin();
+		fakePlugin.registerCommands(manager);
 		writer.write(TEAM_USER_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(FakeTeamPlayer.PermissionType.USER)))
+		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(fakePlugin, FakeTeamPlayer.PermissionType.USER)))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(TEAM_ADMIN_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(FakeTeamPlayer.PermissionType.ADMIN)))
+		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(fakePlugin, FakeTeamPlayer.PermissionType.ADMIN)))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(TEAM_LEADER_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(FakeTeamPlayer.PermissionType.LEADER)))
+		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(fakePlugin, FakeTeamPlayer.PermissionType.LEADER)))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(SERVER_ADMIN_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(FakeTeamPlayer.PermissionType.SERVERADMIN)))
+		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(fakePlugin, FakeTeamPlayer.PermissionType.SERVERADMIN)))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(CONSOLE_COMMANDS);

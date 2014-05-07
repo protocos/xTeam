@@ -1,6 +1,7 @@
 package me.protocos.xteam.model;
 
 import java.util.List;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -12,11 +13,13 @@ import org.bukkit.entity.Entity;
 
 public class Headquarters implements IHeadquarters
 {
+	private BukkitUtil bukkitUtil;
 	private Location location;
 
-	public Headquarters(Location location)
+	public Headquarters(TeamPlugin teamPlugin, Location location)
 	{
 		this.location = location;
+		bukkitUtil = teamPlugin.getBukkitUtil();
 	}
 
 	public Headquarters(World world, double X, double Y, double Z, float yaw, float pitch)
@@ -69,7 +72,7 @@ public class Headquarters implements IHeadquarters
 	@Override
 	public Server getServer()
 	{
-		return BukkitUtil.getServer();
+		return bukkitUtil.getServer();
 	}
 
 	@Override

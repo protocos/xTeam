@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.command.action.InfoAction;
@@ -11,9 +12,9 @@ public class TeamUserInfo extends TeamUserCommand
 	private String other;
 	private InfoAction info;
 
-	public TeamUserInfo()
+	public TeamUserInfo(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
@@ -30,7 +31,7 @@ public class TeamUserInfo extends TeamUserCommand
 		{
 			other = commandContainer.getArgument(1);
 		}
-		info = new InfoAction();
+		info = new InfoAction(teamManager, playerManager);
 		info.checkRequirements(other);
 	}
 

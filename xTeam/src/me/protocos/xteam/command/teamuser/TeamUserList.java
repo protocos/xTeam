@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.teamuser;
 
 import java.util.List;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.exception.TeamException;
@@ -10,15 +10,15 @@ import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserList extends TeamUserCommand
 {
-	public TeamUserList()
+	public TeamUserList(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		List<String> teams = XTeam.getInstance().getTeamManager().getTeams().getOrder();
+		List<String> teams = teamManager.getTeams().getOrder();
 		String message = "Teams: " + teams.toString().replaceAll("\\[|\\]", "");
 		if (teams.isEmpty())
 			teamPlayer.sendMessage("There are " + MessageUtil.negativeMessage("no") + " teams");

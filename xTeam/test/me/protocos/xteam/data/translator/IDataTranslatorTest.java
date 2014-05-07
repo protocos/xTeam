@@ -1,6 +1,7 @@
 package me.protocos.xteam.data.translator;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.util.BukkitUtil;
 import org.bukkit.Location;
@@ -11,10 +12,14 @@ import org.junit.Test;
 
 public class IDataTranslatorTest
 {
+	private TeamPlugin teamPlugin;
+	private BukkitUtil bukkitUtil;
+
 	@Before
 	public void setup()
 	{
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
+		bukkitUtil = teamPlugin.getBukkitUtil();
 	}
 
 	@Test
@@ -125,8 +130,8 @@ public class IDataTranslatorTest
 	public void ShouldBeLocationTranslator()
 	{
 		//ASSEMBLE
-		Location original = new FakeLocation(BukkitUtil.getWorld("world")).toLocation();
-		IDataTranslator<Location> strategy = new LocationDataTranslator();
+		Location original = new FakeLocation(bukkitUtil.getWorld("world")).toLocation();
+		IDataTranslator<Location> strategy = new LocationDataTranslator(teamPlugin);
 		//ACT
 		String decompiled = strategy.decompile(original);
 		Location compiled = strategy.compile(decompiled);

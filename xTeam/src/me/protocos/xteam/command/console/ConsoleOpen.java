@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.console;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.entity.ITeam;
@@ -12,15 +12,15 @@ public class ConsoleOpen extends ConsoleCommand
 {
 	String teamName;
 
-	public ConsoleOpen()
+	public ConsoleOpen(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam team = XTeam.getInstance().getTeamManager().getTeam(teamName);
+		ITeam team = teamManager.getTeam(teamName);
 		team.setOpenJoining(!team.isOpenJoining());
 		if (team.isOpenJoining())
 			sender.sendMessage("Open joining is now " + MessageUtil.positiveMessage("enabled") + " for team " + teamName);

@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamleader;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
@@ -13,9 +13,9 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 {
 	private String otherPlayer;
 
-	public TeamLeaderSetLeader()
+	public TeamLeaderSetLeader(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 	{
 		team.setLeader(otherPlayer);
 		team.promote(teamPlayer.getName());
-		ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = playerManager.getPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You are now the " + MessageUtil.positiveMessage("team leader"));
 		teamPlayer.sendMessage(otherPlayer + " is now the " + MessageUtil.positiveMessage("team leader") + " (you are an admin)" +
@@ -34,7 +34,7 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = commandContainer.getArgument(1);
-		ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = playerManager.getPlayer(otherPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);
 	}
 

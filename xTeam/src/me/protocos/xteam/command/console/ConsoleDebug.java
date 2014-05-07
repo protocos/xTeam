@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.console;
 
 import java.util.List;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.action.InviteHandler;
@@ -16,13 +16,15 @@ import org.bukkit.permissions.Permission;
 
 public class ConsoleDebug extends ConsoleCommand
 {
+	private BukkitUtil bukkitUtil;
 	private InviteHandler inviteHandler;
 	private String subCommand;
 
-	public ConsoleDebug()
+	public ConsoleDebug(TeamPlugin teamPlugin)
 	{
-		super();
-		inviteHandler = InviteHandler.getInstance();
+		super(teamPlugin);
+		bukkitUtil = teamPlugin.getBukkitUtil();
+		inviteHandler = teamPlugin.getInviteHandler();
 	}
 
 	@Override
@@ -37,14 +39,14 @@ public class ConsoleDebug extends ConsoleCommand
 		else if (subCommand.equalsIgnoreCase("created"))
 			sender.sendMessage("Last created: " + Configuration.lastCreated.toString());
 		else if (subCommand.equalsIgnoreCase("players"))
-			sender.sendMessage("Players: \n" + XTeam.getInstance().getPlayerManager().toString());
+			sender.sendMessage("Players: \n" + playerManager.toString());
 		else if (subCommand.equalsIgnoreCase("teams"))
-			sender.sendMessage("Teams: \n" + XTeam.getInstance().getTeamManager().toString());
+			sender.sendMessage("Teams: \n" + teamManager.toString());
 		else if (subCommand.equalsIgnoreCase("perms"))
 			sender.sendMessage("Debugging permissions: \n" + printPermissions());
 		else if (subCommand.equalsIgnoreCase("reset"))
 		{
-			for (Player player : BukkitUtil.getOnlinePlayers())
+			for (Player player : bukkitUtil.getOnlinePlayers())
 			{
 				player.setHealth(20);
 				player.setFoodLevel(20);
@@ -62,12 +64,12 @@ public class ConsoleDebug extends ConsoleCommand
 			}
 		}
 		else if (subCommand.equalsIgnoreCase("live"))
-			sender.sendMessage("Bukkit server is " + (BukkitUtil.isLive() ? "live!" : "offline."));
+			sender.sendMessage("Bukkit server is " + (BukkitUtil.serverIsLive() ? "live!" : "offline."));
 		else if (subCommand.equalsIgnoreCase("error"))
 		{
 			try
 			{
-				XTeam.getInstance().getLog().exception(new Exception("Test message!"));
+				log.exception(new Exception("Test message!"));
 				if (Configuration.SEND_ANONYMOUS_ERROR_REPORTS)
 					sender.sendMessage("Error sent!");
 			}
@@ -83,7 +85,7 @@ public class ConsoleDebug extends ConsoleCommand
 	private String printPermissions()
 	{
 		String output = "";
-		List<Permission> perms = XTeam.getInstance().getPermissions();
+		List<Permission> perms = teamPlugin.getPermissions();
 		for (Permission perm : perms)
 		{
 			output += perm.getName() + " - " + perm.getDescription() + "\n";

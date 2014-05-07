@@ -1,15 +1,17 @@
 package me.protocos.xteam.command.teamadmin;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.XTeam;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamAdminCommand;
 import me.protocos.xteam.command.action.InviteHandler;
+import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.*;
+import me.protocos.xteam.fakeobjects.FakeLocation;
+import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.model.InviteRequest;
 import org.junit.After;
 import org.junit.Before;
@@ -17,40 +19,45 @@ import org.junit.Test;
 
 public class TeamAdminInviteTest
 {
+	private TeamPlugin teamPlugin;
+	private TeamAdminCommand fakeCommand;
+	private ITeamManager teamManager;
+	private IPlayerManager playerManager;
 	private InviteHandler inviteHandler;
 
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
-		inviteHandler = InviteHandler.getInstance();
+		teamPlugin = FakeXTeam.asTeamPlugin();
+		fakeCommand = new TeamAdminInvite(teamPlugin);
+		teamManager = teamPlugin.getTeamManager();
+		playerManager = teamPlugin.getPlayerManager();
+		inviteHandler = teamPlugin.getInviteHandler();
 	}
 
 	@Test
 	public void ShouldBeTeamAdminInvite()
 	{
-		Assert.assertTrue("invite PLAYER".matches(new TeamAdminInvite().getPattern()));
-		Assert.assertTrue("invite PLAYER ".matches(new TeamAdminInvite().getPattern()));
-		Assert.assertTrue("inv PLAYER ".matches(new TeamAdminInvite().getPattern()));
-		Assert.assertFalse("i PLAYER".matches(new TeamAdminInvite().getPattern()));
-		Assert.assertFalse("in PLAYER ".matches(new TeamAdminInvite().getPattern()));
-		Assert.assertFalse("inv PLAYER 2".matches(new TeamAdminInvite().getPattern()));
-		Assert.assertTrue(new TeamAdminInvite().getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new TeamAdminInvite().getPattern()));
+		Assert.assertTrue("invite PLAYER".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("invite PLAYER ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("inv PLAYER ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("i PLAYER".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("in PLAYER ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("inv PLAYER 2".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeTeamAdminInviteExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamAdminCommand fakeCommand = new TeamAdminInvite();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You invited Lonely", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(inviteHandler.hasInvite("Lonely"));
-		Assert.assertEquals(XTeam.getInstance().getTeamManager().getTeam("one"), inviteHandler.getInviteTeam("Lonely"));
+		Assert.assertEquals(teamManager.getTeam("one"), inviteHandler.getInviteTeam("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -58,15 +65,14 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecuteAdmin()
 	{
 		//ASSEMBLE
-		XTeam.getInstance().getTeamManager().getTeam("one").promote("protocos");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		TeamAdminCommand fakeCommand = new TeamAdminInvite();
+		teamManager.getTeam("one").promote("protocos");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You invited Lonely", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(inviteHandler.hasInvite("Lonely"));
-		Assert.assertEquals(XTeam.getInstance().getTeamManager().getTeam("one"), inviteHandler.getInviteTeam("Lonely"));
+		Assert.assertEquals(teamManager.getTeam("one"), inviteHandler.getInviteTeam("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -74,8 +80,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecuteNotAdmin()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("protocos", new FakeLocation());
-		TeamAdminCommand fakeCommand = new TeamAdminInvite();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
@@ -88,13 +93,12 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecutePlayerHasInvite()
 	{
 		//ASSEMBLE
-		ITeamPlayer playerSender = XTeam.getInstance().getPlayerManager().getPlayer("kmlanglois");
-		ITeamPlayer playerReceiver = XTeam.getInstance().getPlayerManager().getPlayer("Lonely");
+		ITeamPlayer playerSender = playerManager.getPlayer("kmlanglois");
+		ITeamPlayer playerReceiver = playerManager.getPlayer("Lonely");
 		Long timeSent = System.currentTimeMillis();
 		InviteRequest request = new InviteRequest(playerSender, playerReceiver, timeSent);
 		inviteHandler.addInvite(request);
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamAdminCommand fakeCommand = new TeamAdminInvite();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
@@ -107,8 +111,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamAdminCommand fakeCommand = new TeamAdminInvite();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite newbie".split(" ")));
 		//ASSERT
@@ -121,8 +124,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("Lonely", new FakeLocation());
-		TeamAdminCommand fakeCommand = new TeamAdminInvite();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite mastermind".split(" ")));
 		//ASSERT
@@ -135,8 +137,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecuteSelfInvite()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamAdminCommand fakeCommand = new TeamAdminInvite();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite kmlanglois".split(" ")));
 		//ASSERT

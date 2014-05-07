@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
@@ -15,16 +15,16 @@ public class TeamUserJoin extends TeamUserCommand
 	private String desiredName;
 	private InviteHandler inviteHandler;
 
-	public TeamUserJoin()
+	public TeamUserJoin(TeamPlugin teamPlugin)
 	{
-		super();
-		inviteHandler = InviteHandler.getInstance();
+		super(teamPlugin);
+		inviteHandler = teamPlugin.getInviteHandler();
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam foundTeam = XTeam.getInstance().getTeamManager().getTeam(desiredName);
+		ITeam foundTeam = teamManager.getTeam(desiredName);
 		foundTeam.addPlayer(teamPlayer.getName());
 		inviteHandler.removeInvite(teamPlayer.getName());
 		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + MessageUtil.positiveMessage("joined") + " your team");
@@ -35,12 +35,12 @@ public class TeamUserJoin extends TeamUserCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		desiredName = commandContainer.getArgument(1);
-		ITeam desiredTeam = XTeam.getInstance().getTeamManager().getTeam(desiredName);
+		ITeam desiredTeam = teamManager.getTeam(desiredName);
 		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
-		Requirements.checkTeamOnlyJoinDefault(desiredName);
-		Requirements.checkTeamExists(desiredName);
-		Requirements.checkPlayerDoesNotHaveInviteFromTeam(teamPlayer, desiredTeam);
-		Requirements.checkTeamPlayerMax(desiredName);
+		Requirements.checkTeamOnlyJoinDefault(teamManager, desiredName);
+		Requirements.checkTeamExists(teamManager, desiredName);
+		Requirements.checkPlayerDoesNotHaveInviteFromTeam(inviteHandler, teamPlayer, desiredTeam);
+		Requirements.checkTeamPlayerMax(teamManager, desiredName);
 	}
 
 	@Override

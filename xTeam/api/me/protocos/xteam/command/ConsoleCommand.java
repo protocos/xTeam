@@ -1,7 +1,6 @@
 package me.protocos.xteam.command;
 
-import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.command.Requirements;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.command.ConsoleCommandSender;
@@ -10,9 +9,9 @@ public abstract class ConsoleCommand extends BaseCommand
 {
 	protected ConsoleCommandSender sender;
 
-	public ConsoleCommand()
+	public ConsoleCommand(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override

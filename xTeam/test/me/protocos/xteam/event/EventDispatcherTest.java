@@ -1,5 +1,7 @@
 package me.protocos.xteam.event;
 
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.Team;
@@ -14,6 +16,7 @@ import org.junit.Test;
 
 public class EventDispatcherTest
 {
+	private TeamPlugin teamPlugin = FakeXTeam.asTeamPlugin();
 	private IEventDispatcher dispatcher;
 	private ITeamListener listener;
 	private String responseMessage;
@@ -58,11 +61,10 @@ public class EventDispatcherTest
 		}
 		listener = new TeamListener();
 		dispatcher.addTeamListener(listener);
-		team = new Team.Builder("one").build();
-		ITeamPlayer player1 = new TeamPlayer(new FakePlayer("protocos"));
-		ITeamPlayer player2 = new TeamPlayer(new FakePlayer("kmlanglois"));
+		team = new Team.Builder(teamPlugin, "one").build();
+		ITeamPlayer player1 = new TeamPlayer(teamPlugin, new FakePlayer("protocos"));
+		ITeamPlayer player2 = new TeamPlayer(teamPlugin, new FakePlayer("kmlanglois"));
 		inviteRequest = new InviteRequest(player1, player2, System.currentTimeMillis());
-
 	}
 
 	@Test

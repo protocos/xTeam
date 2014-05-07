@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.console;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.Requirements;
@@ -13,15 +13,15 @@ public class ConsoleTag extends ConsoleCommand
 {
 	private String teamName, desiredTag;
 
-	public ConsoleTag()
+	public ConsoleTag(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam team = XTeam.getInstance().getTeamManager().getTeam(teamName);
+		ITeam team = teamManager.getTeam(teamName);
 		team.setTag(desiredTag);
 		sender.sendMessage("The team tag has been " + MessageUtil.positiveMessage("set") + " to " + desiredTag);
 		team.sendMessage("The team tag has been " + MessageUtil.positiveMessage("set") + " to " + desiredTag + " by an admin");
@@ -32,9 +32,9 @@ public class ConsoleTag extends ConsoleCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		desiredTag = commandContainer.getArgument(2);
-		ITeam team = XTeam.getInstance().getTeamManager().getTeam(teamName);
-		Requirements.checkTeamExists(teamName);
-		Requirements.checkTeamNameAlreadyUsed(desiredTag, team);
+		ITeam team = teamManager.getTeam(teamName);
+		Requirements.checkTeamExists(teamManager, teamName);
+		Requirements.checkTeamNameAlreadyUsed(teamManager, desiredTag, team);
 		Requirements.checkTeamNameAlphaNumeric(desiredTag);
 	}
 

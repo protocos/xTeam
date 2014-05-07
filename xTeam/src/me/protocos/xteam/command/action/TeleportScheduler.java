@@ -3,7 +3,8 @@ package me.protocos.xteam.command.action;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
+import me.protocos.xteam.core.IPlayerManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -20,15 +21,19 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 public class TeleportScheduler
 {
-	private static TeleportScheduler teleporter;
-	private static BukkitScheduler taskScheduler;
-
 	private HashMap<TeamPlayer, Integer> currentTaskIDs = new HashMap<TeamPlayer, Integer>();
 	private HashMap<TeamPlayer, Integer> countWaitTime = new HashMap<TeamPlayer, Integer>();
 	private HashSet<String> rallyUsed = new HashSet<String>();
 
-	private TeleportScheduler()
+	private TeamPlugin teamPlugin;
+	private IPlayerManager playerManager;
+	private BukkitScheduler bukkitScheduler;
+
+	public TeleportScheduler(TeamPlugin teamPlugin, IPlayerManager playerManager, BukkitScheduler bukkitScheduler)
 	{
+		this.teamPlugin = teamPlugin;
+		this.playerManager = playerManager;
+		this.bukkitScheduler = bukkitScheduler;
 	}
 
 	public void clearTasks()
@@ -71,17 +76,7 @@ public class TeleportScheduler
 
 	public void removeCurrentTask(TeamPlayer teamPlayer)
 	{
-		taskScheduler.cancelTask(currentTaskIDs.remove(teamPlayer));
-	}
-
-	public static TeleportScheduler getInstance()
-	{
-		if (teleporter == null)
-		{
-			teleporter = new TeleportScheduler();
-			taskScheduler = BukkitUtil.getScheduler();
-		}
-		return teleporter;
+		bukkitScheduler.cancelTask(currentTaskIDs.remove(teamPlayer));
 	}
 
 	public void teleport(TeamPlayer teamPlayer, ILocatable toLocation)
@@ -99,7 +94,7 @@ public class TeleportScheduler
 		teamPlayer.sendMessage(MessageUtil.negativeMessage("You cannot teleport with enemies nearby"));
 		teamPlayer.sendMessage(MessageUtil.negativeMessage("You must wait " + Configuration.TELE_DELAY + " seconds"));
 		Runnable teleportWait = new TeleportWait(teamPlayer, toLocatable, currentLocation);
-		setCurrentTask(teamPlayer, taskScheduler.scheduleSyncRepeatingTask(BukkitUtil.getxTeam(), teleportWait, CommonUtil.LONG_ZERO, 2L));
+		setCurrentTask(teamPlayer, bukkitScheduler.scheduleSyncRepeatingTask(teamPlugin, teleportWait, CommonUtil.LONG_ZERO, 2L));
 	}
 
 	private void teleportTo(final TeamPlayer teamPlayer, final ILocatable toLocatable)
@@ -113,7 +108,7 @@ public class TeleportScheduler
 		else
 		{
 			Runnable teleRefreshMessage = new TeleportRefreshMessage(teamPlayer);
-			taskScheduler.scheduleSyncDelayedTask(BukkitUtil.getxTeam(), teleRefreshMessage, Configuration.TELE_REFRESH_DELAY * BukkitUtil.ONE_SECOND_IN_TICKS);
+			bukkitScheduler.scheduleSyncDelayedTask(teamPlugin, teleRefreshMessage, Configuration.TELE_REFRESH_DELAY * BukkitUtil.ONE_SECOND_IN_TICKS);
 			teamPlayer.setLastTeleported(System.currentTimeMillis());
 		}
 		teamPlayer.teleport(toLocation);
@@ -146,7 +141,7 @@ public class TeleportScheduler
 			else if (e instanceof Player)
 			{
 				Player unknownPlayer = (Player) e;
-				ITeamPlayer otherPlayer = XTeam.getInstance().getPlayerManager().getPlayer(unknownPlayer);
+				ITeamPlayer otherPlayer = playerManager.getPlayer(unknownPlayer);
 				if (!entity.isOnSameTeam(otherPlayer))
 					return true;
 			}

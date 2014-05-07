@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
@@ -12,9 +13,9 @@ public class TeamUserChat extends TeamUserCommand
 {
 	private String option;
 
-	public TeamUserChat()
+	public TeamUserChat(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override

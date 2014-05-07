@@ -1,29 +1,25 @@
 package me.protocos.xteam.command.action;
 
 import java.util.HashMap;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.MessageUtil;
+import org.bukkit.scheduler.BukkitScheduler;
 
 public class InviteHandler
 {
-	private static InviteHandler instance;
+	private BukkitScheduler bukkitScheduler;
+	private TeamPlugin teamPlugin;
 	private HashMap<String, InviteRequest> invites;
 
-	private InviteHandler()
+	public InviteHandler(TeamPlugin teamPlugin)
 	{
+		this.teamPlugin = teamPlugin;
+		bukkitScheduler = teamPlugin.getBukkitScheduler();
 		invites = new HashMap<String, InviteRequest>();
-	}
-
-	public static InviteHandler getInstance()
-	{
-		if (instance == null)
-		{
-			instance = new InviteHandler();
-		}
-		return instance;
 	}
 
 	public void addInvite(final InviteRequest request)
@@ -43,7 +39,7 @@ public class InviteHandler
 				}
 			}
 		}
-		BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getxTeam(), new InviteExpire(), BukkitUtil.ONE_MINUTE_IN_TICKS);
+		bukkitScheduler.scheduleSyncDelayedTask(teamPlugin, new InviteExpire(), BukkitUtil.ONE_MINUTE_IN_TICKS);
 	}
 
 	public void clear()

@@ -1,69 +1,44 @@
 package me.protocos.xteam;
 
-import junit.framework.Assert;
-import me.protocos.xteam.fakeobjects.*;
-import me.protocos.xteam.command.action.InviteHandler;
-import me.protocos.xteam.command.action.TeleportScheduler;
+import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.Team;
-import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.fakeobjects.*;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.junit.Test;
 
-public class StaticTestFunctions
+public class FakeXTeam extends TeamPlugin
 {
-	private static InviteHandler inviteHandler;
+	private FakeServer server;
 
-	@Test
-	public void ShouldBeMockData()
+	private FakeXTeam(FakeServer server)
 	{
-		mockData();
-		Assert.assertNotNull(XTeam.getInstance().getLog());
+		super(server, "test/");
+		this.server = server;
+		generateDefaultData();
+		this.registerCommands(this.getCommandManager());
 	}
 
-	private static void initData(TeamPlugin teamPlugin)
+	private void generateDefaultData()
 	{
-		inviteHandler = InviteHandler.getInstance();
-		inviteHandler.clear();
-		TeleportScheduler.getInstance().clearTasks();
-		Configuration.chatStatus.clear();
-		Configuration.spies.clear();
-		Configuration.lastCreated.clear();
-		teamPlugin.onLoad();
-		XTeam.getInstance().getTeamManager().clear();
-		XTeam.getInstance().getPlayerManager().clear();
-	}
-
-	public static void mockData()
-	{
-		//MOCK Server
-		FakeServer fakeServer = new FakeServer();
-		BukkitUtil.setServer(fakeServer);
-		TeamPlugin teamPlugin = new FakeTeamPlugin();
-		initData(teamPlugin);
-
-		Team team1 = Team.generateTeamFromProperties("name:ONE tag:TeamAwesome world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois");
-		XTeam.getInstance().getTeamManager().createTeam(team1);
-		Team team2 = Team.generateTeamFromProperties("name:two world:world open:false leader:mastermind timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 players:mastermind admins:mastermind");
-		XTeam.getInstance().getTeamManager().createTeam(team2);
+		Configuration.DISPLAY_COORDINATES = true;
+		Team team1 = Team.generateTeamFromProperties(this, "name:ONE tag:TeamAwesome world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois");
+		teamManager.createTeam(team1);
+		Team team2 = Team.generateTeamFromProperties(this, "name:two world:world open:false leader:mastermind timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 players:mastermind admins:mastermind");
+		teamManager.createTeam(team2);
 		/////////////////////////////////////////////////
 		Configuration.DEFAULT_TEAM_NAMES.add("red");
 		Configuration.DEFAULT_TEAM_NAMES.add("blue");
 		/////////////////////////////////////////////////
-		Team team3 = Team.generateTeamFromProperties("name:red tag:REDONE world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:strandedhelix,teammate");
-		XTeam.getInstance().getTeamManager().createTeam(team3);
-		Team team4 = Team.generateTeamFromProperties("name:blue world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:");
-		XTeam.getInstance().getTeamManager().createTeam(team4);
+		Team team3 = Team.generateTeamFromProperties(this, "name:red tag:REDONE world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:strandedhelix,teammate");
+		teamManager.createTeam(team3);
+		Team team4 = Team.generateTeamFromProperties(this, "name:blue world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:");
+		teamManager.createTeam(team4);
 
 		//MOCK players
-		mockPlayers(fakeServer);
-	}
 
-	public static void mockPlayers(FakeServer server)
-	{
 		World mockWorld = new FakeWorld();
 		Location mockLocation = new FakeLocation(mockWorld, 0.0D, 64.0D, 0.0D);
 		//FAKE protocos
@@ -105,4 +80,40 @@ public class StaticTestFunctions
 		server.setOnlinePlayers(new Player[] { protocosOnline, kmlangloisOnline, mastermindOnline, LonelyOnline, oneOnline, twoOnline });
 		server.setOfflinePlayers(new OfflinePlayer[] { protocosOffline, kmlangloisOffline, mastermindOffline, LonelyOffline, strandedhelixOffline, kestraOffline, newbieOffline, threeOffline, oneOffline, twoOffline, thrOffline, teammateOffline, neverPlayedOffline });
 	}
+
+	@Override
+	public String getVersion()
+	{
+		return "CURRENT";
+	}
+
+	@Override
+	public void registerCommands(ICommandManager manager)
+	{
+		(new XTeam(server, "test")).registerCommands(manager);
+	}
+
+	@Override
+	public void readTeamData()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void writeTeamData()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	public static TeamPlugin asTeamPlugin()
+	{
+		Configuration.STORAGE_TYPE = "file";
+		FakeServer fakeServer = new FakeServer();
+		FakeXTeam fakeXTeam = new FakeXTeam(fakeServer);
+		fakeServer.setPlugin(fakeXTeam);
+		return fakeXTeam;
+	}
+
 }

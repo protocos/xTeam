@@ -1,8 +1,8 @@
 package me.protocos.xteam.command;
 
-import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -17,10 +17,6 @@ import org.bukkit.command.CommandSender;
 
 public class Requirements
 {
-	private Requirements()
-	{
-	}
-
 	public static void checkPlayerHasPermission(CommandSender sender, IPermissible permission) throws TeamPlayerPermissionException
 	{
 		if (!PermissionUtil.hasPermission(sender, permission))
@@ -37,9 +33,9 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamExists(String teamName) throws TeamDoesNotExistException
+	public static void checkTeamExists(ITeamManager teamManager, String teamName) throws TeamDoesNotExistException
 	{
-		if (!XTeam.getInstance().getTeamManager().containsTeam(teamName))
+		if (!teamManager.containsTeam(teamName))
 		{
 			throw new TeamDoesNotExistException();
 		}
@@ -101,9 +97,9 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamAlreadyExists(String desiredName) throws TeamAlreadyExistsException
+	public static void checkTeamAlreadyExists(ITeamManager teamManager, String desiredName) throws TeamAlreadyExistsException
 	{
-		if (XTeam.getInstance().getTeamManager().containsTeam(desiredName))
+		if (teamManager.containsTeam(desiredName))
 		{
 			throw new TeamAlreadyExistsException();
 		}
@@ -125,17 +121,17 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamPlayerMax(String teamName) throws TeamPlayerMaxException
+	public static void checkTeamPlayerMax(ITeamManager teamManager, String teamName) throws TeamPlayerMaxException
 	{
-		if (XTeam.getInstance().getTeamManager().containsTeam(teamName) && XTeam.getInstance().getTeamManager().getTeam(teamName).size() >= Configuration.MAX_PLAYERS && Configuration.MAX_PLAYERS > 0)
+		if (teamManager.containsTeam(teamName) && teamManager.getTeam(teamName).size() >= Configuration.MAX_PLAYERS && Configuration.MAX_PLAYERS > 0)
 		{
 			throw new TeamPlayerMaxException();
 		}
 	}
 
-	public static void checkTeamNameAlreadyUsed(String desiredName, ITeam team) throws TeamNameConflictsWithNameException
+	public static void checkTeamNameAlreadyUsed(ITeamManager teamManager, String desiredName, ITeam team) throws TeamNameConflictsWithNameException
 	{
-		if (!desiredName.equalsIgnoreCase(team.getName()) && XTeam.getInstance().getTeamManager().containsTeam(desiredName))
+		if (!desiredName.equalsIgnoreCase(team.getName()) && teamManager.containsTeam(desiredName))
 		{
 			throw new TeamNameConflictsWithNameException();
 		}
@@ -173,9 +169,9 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerHasInvite(ITeamPlayer teamPlayer) throws TeamPlayerHasInviteException
+	public static void checkPlayerHasInvite(InviteHandler inviteHandler, ITeamPlayer teamPlayer) throws TeamPlayerHasInviteException
 	{
-		if (InviteHandler.getInstance().hasInvite(teamPlayer.getName()))
+		if (inviteHandler.hasInvite(teamPlayer.getName()))
 		{
 			throw new TeamPlayerHasInviteException();
 		}
@@ -230,28 +226,28 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerDoesNotHaveInvite(TeamPlayer teamPlayer) throws TeamPlayerHasNoInviteException
+	public static void checkPlayerDoesNotHaveInvite(InviteHandler inviteHandler, TeamPlayer teamPlayer) throws TeamPlayerHasNoInviteException
 	{
-		if (!InviteHandler.getInstance().hasInvite(teamPlayer.getName()))
+		if (!inviteHandler.hasInvite(teamPlayer.getName()))
 		{
 			throw new TeamPlayerHasNoInviteException();
 		}
 	}
 
-	public static void checkPlayerDoesNotHaveInviteFromTeam(TeamPlayer teamPlayer, ITeam desiredTeam) throws TeamPlayerHasNoInviteException
+	public static void checkPlayerDoesNotHaveInviteFromTeam(InviteHandler inviteHandler, TeamPlayer teamPlayer, ITeam desiredTeam) throws TeamPlayerHasNoInviteException
 	{
-		if (!InviteHandler.getInstance().hasInvite(teamPlayer.getName()) || !InviteHandler.getInstance().getInviteTeam(teamPlayer.getName()).equals(desiredTeam))
+		if (!inviteHandler.hasInvite(teamPlayer.getName()) || !inviteHandler.getInviteTeam(teamPlayer.getName()).equals(desiredTeam))
 		{
 			if (!desiredTeam.isOpenJoining())
 				throw new TeamPlayerHasNoInviteException();
 		}
 	}
 
-	public static void checkTeamOnlyJoinDefault(String desiredName) throws TeamOnlyJoinDefaultException
+	public static void checkTeamOnlyJoinDefault(ITeamManager teamManager, String desiredName) throws TeamOnlyJoinDefaultException
 	{
 		if (Configuration.DEFAULT_TEAM_ONLY && !CommonUtil.toLowerCase(Configuration.DEFAULT_TEAM_NAMES).contains(desiredName.toLowerCase()) && Configuration.DEFAULT_TEAM_NAMES.size() > 0)
 		{
-			throw new TeamOnlyJoinDefaultException();
+			throw new TeamOnlyJoinDefaultException(teamManager);
 		}
 	}
 
@@ -292,9 +288,9 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerTeleportRequested(TeamPlayer teamPlayer) throws TeamPlayerTeleRequestException
+	public static void checkPlayerTeleportRequested(TeleportScheduler teleportScheduler, TeamPlayer teamPlayer) throws TeamPlayerTeleRequestException
 	{
-		if (TeleportScheduler.getInstance().hasCurrentTask(teamPlayer))
+		if (teleportScheduler.hasCurrentTask(teamPlayer))
 		{
 			throw new TeamPlayerTeleRequestException();
 		}
@@ -373,9 +369,9 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerCanRally(TeamPlayer player) throws TeamPlayerAlreadyUsedRallyException
+	public static void checkPlayerCanRally(TeleportScheduler teleportScheduler, TeamPlayer player) throws TeamPlayerAlreadyUsedRallyException
 	{
-		if (!TeleportScheduler.getInstance().canRally(player))
+		if (!teleportScheduler.canRally(player))
 		{
 			throw new TeamPlayerAlreadyUsedRallyException();
 		}

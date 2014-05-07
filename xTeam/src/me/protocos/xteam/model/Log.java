@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.sql.Timestamp;
 import java.util.Scanner;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.LimitedQueue;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.util.BukkitUtil;
@@ -15,11 +16,13 @@ import me.protocos.xteam.util.SystemUtil;
 
 public class Log implements ILog
 {
+	private TeamPlugin teamPlugin;
 	private ErrorReporterUtil errorReporter;
 	private PrintStream printStream;
 
-	public Log(String filePath)
+	public Log(TeamPlugin teamPlugin, String filePath)
 	{
+		this.teamPlugin = teamPlugin;
 		File file = SystemUtil.ensureFile(filePath);
 		try
 		{
@@ -39,7 +42,7 @@ public class Log implements ILog
 		{
 			e.printStackTrace();
 		}
-		errorReporter = new ErrorReporterUtil();
+		errorReporter = new ErrorReporterUtil(teamPlugin);
 	}
 
 	public void close()
@@ -49,7 +52,7 @@ public class Log implements ILog
 
 	public void debug(String message)
 	{
-		message = "DEBUG: " + message;
+		message = "[DEBUG] " + message;
 		write(message);
 	}
 
@@ -62,9 +65,12 @@ public class Log implements ILog
 
 	public void error(String message)
 	{
-		message = "ERROR: " + message;
-		write(message);
-		print(message);
+		if (BukkitUtil.serverIsLive())
+		{
+			message = "ERROR: " + message;
+			write(message);
+			print(message);
+		}
 	}
 
 	public void exception(final Exception e)
@@ -87,7 +93,7 @@ public class Log implements ILog
 					errorReporter.report(e);
 				}
 			}
-			BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getxTeam(), new EmailReport(), CommonUtil.LONG_ZERO);
+			teamPlugin.getBukkitScheduler().scheduleSyncDelayedTask(teamPlugin, new EmailReport(), CommonUtil.LONG_ZERO);
 		}
 	}
 

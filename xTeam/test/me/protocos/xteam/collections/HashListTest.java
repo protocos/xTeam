@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import me.protocos.xteam.collections.HashList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

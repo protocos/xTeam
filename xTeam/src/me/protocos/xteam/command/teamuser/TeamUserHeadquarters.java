@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
@@ -9,16 +10,18 @@ import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserHeadquarters extends TeamUserCommand
 {
-	public TeamUserHeadquarters()
+	private TeleportScheduler teleportScheduler;
+
+	public TeamUserHeadquarters(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
+		this.teleportScheduler = teamPlugin.getTeleportScheduler();
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		TeleportScheduler teleporter = TeleportScheduler.getInstance();
-		teleporter.teleport(teamPlayer, teamPlayer.getTeam().getHeadquarters());
+		teleportScheduler.teleport(teamPlayer, teamPlayer.getTeam().getHeadquarters());
 	}
 
 	@Override
@@ -26,7 +29,7 @@ public class TeamUserHeadquarters extends TeamUserCommand
 	{
 		Requirements.checkPlayerCanTeleport(teamPlayer);
 		Requirements.checkTeamHasHeadquarters(team);
-		Requirements.checkPlayerTeleportRequested(teamPlayer);
+		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamPlayer);
 	}
 
 	@Override

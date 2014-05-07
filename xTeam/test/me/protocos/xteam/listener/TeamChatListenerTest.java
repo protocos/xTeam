@@ -1,9 +1,10 @@
 package me.protocos.xteam.listener;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import java.util.HashSet;
 import java.util.Set;
 import junit.framework.Assert;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -13,18 +14,19 @@ import org.junit.Test;
 
 public class TeamChatListenerTest
 {
-	Player mockPlayer;
-	Set<Player> recipients;
-	AsyncPlayerChatEvent playerChatEvent;
-	TeamChatListener chatListener;
+	private TeamPlugin teamPlugin;
+	private Player mockPlayer;
+	private Set<Player> recipients;
+	private AsyncPlayerChatEvent playerChatEvent;
+	private TeamChatListener chatListener;
 
 	@Before
 	public void setup()
 	{
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
 		mockPlayer = new FakePlayer("protocos");
 		recipients = new HashSet<Player>();
-		chatListener = new TeamChatListener();
+		chatListener = new TeamChatListener(teamPlugin);
 	}
 
 	@Test

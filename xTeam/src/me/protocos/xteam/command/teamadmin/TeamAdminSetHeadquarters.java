@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.teamadmin;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamAdminCommand;
@@ -10,15 +11,15 @@ import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamAdminSetHeadquarters extends TeamAdminCommand
 {
-	public TeamAdminSetHeadquarters()
+	public TeamAdminSetHeadquarters(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		team.setHeadquarters(new Headquarters(teamPlayer.getLocation()));
+		team.setHeadquarters(new Headquarters(teamPlugin, teamPlayer.getLocation()));
 		team.setTimeHeadquartersLastSet(System.currentTimeMillis());
 		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("set") + " the team headquarters");
 	}

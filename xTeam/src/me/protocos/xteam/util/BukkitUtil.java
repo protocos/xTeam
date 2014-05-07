@@ -11,14 +11,14 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 public class BukkitUtil
 {
-	private static Server BUKKIT = Bukkit.getServer();
 	public static final double EYE_LEVEL_HEIGHT = 1.62;
 	public static final long ONE_SECOND_IN_TICKS = 20L;
 	public static final long ONE_MINUTE_IN_TICKS = 60 * 20L;
+	private Server server;
 
-	public static void setServer(Server server)
+	public BukkitUtil(Server server)
 	{
-		BUKKIT = server;
+		this.server = server;
 	}
 
 	public static List<Entity> getNearbyEntities(Location location, int radius)
@@ -37,57 +37,57 @@ public class BukkitUtil
 		return nearbyEntities;
 	}
 
-	public static Server getServer()
+	public Server getServer()
 	{
-		return BUKKIT;
+		return server;
 	}
 
-	public static World getWorld(String string)
+	public World getWorld(String string)
 	{
-		return getServer().getWorld(string);
+		return server.getWorld(string);
 	}
 
-	public static Player[] getOnlinePlayers()
+	public Player[] getOnlinePlayers()
 	{
-		return getServer().getOnlinePlayers();
+		return server.getOnlinePlayers();
 	}
 
-	public static OfflinePlayer[] getOfflinePlayers()
+	public OfflinePlayer[] getOfflinePlayers()
 	{
-		return getServer().getOfflinePlayers();
+		return server.getOfflinePlayers();
 	}
 
-	public static Player getPlayer(String name)
+	public Player getPlayer(String name)
 	{
-		return getServer().getPlayer(name);
+		return server.getPlayer(name);
 	}
 
-	public static OfflinePlayer getOfflinePlayer(String name)
+	public OfflinePlayer getOfflinePlayer(String name)
 	{
-		return getServer().getOfflinePlayer(name);
+		return server.getOfflinePlayer(name);
 	}
 
-	public static BukkitScheduler getScheduler()
+	public BukkitScheduler getScheduler()
 	{
-		return getServer().getScheduler();
+		return server.getScheduler();
 	}
 
-	public static PluginManager getPluginManager()
+	public PluginManager getPluginManager()
 	{
-		return getServer().getPluginManager();
+		return server.getPluginManager();
 	}
 
-	public static Plugin getPlugin(String string)
+	public Plugin getPlugin(String string)
 	{
 		return getPluginManager().getPlugin(string);
 	}
 
-	public static Plugin getxTeam()
+	public Plugin getxTeam()
 	{
 		return getPlugin("xTeam");
 	}
 
-	public static boolean isLive()
+	public static boolean serverIsLive()
 	{
 		Server liveServer = Bukkit.getServer();
 		if (liveServer == null)

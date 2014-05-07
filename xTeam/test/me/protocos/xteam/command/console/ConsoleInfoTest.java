@@ -1,27 +1,30 @@
 package me.protocos.xteam.command.console;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
+import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ConsoleInfoTest
 {
-	FakeConsoleSender fakeConsoleSender;
-	ConsoleInfo fakeCommand;
+	private TeamPlugin teamPlugin;
+	private FakeConsoleSender fakeConsoleSender;
+	private ConsoleCommand fakeCommand;
 
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeConsoleSender = new FakeConsoleSender();
-		fakeCommand = new ConsoleInfo();
+		fakeCommand = new ConsoleInfo(teamPlugin);
+		teamPlugin.getTeamManager();
 	}
 
 	@Test

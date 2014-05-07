@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.serveradmin;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
@@ -13,15 +13,15 @@ public class ServerAdminTpAll extends ServerAdminCommand
 {
 	private String teamName;
 
-	public ServerAdminTpAll()
+	public ServerAdminTpAll(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam changeTeam = XTeam.getInstance().getTeamManager().getTeam(teamName);
+		ITeam changeTeam = teamManager.getTeam(teamName);
 		for (TeamPlayer teammate : changeTeam.getOnlineTeammates())
 		{
 			if (teammate.isOnline())
@@ -37,7 +37,7 @@ public class ServerAdminTpAll extends ServerAdminCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		teamName = commandContainer.getArgument(1);
-		Requirements.checkTeamExists(teamName);
+		Requirements.checkTeamExists(teamManager, teamName);
 	}
 
 	@Override

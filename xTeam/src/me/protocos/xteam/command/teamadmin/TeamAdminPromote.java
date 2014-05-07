@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamadmin;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamAdminCommand;
@@ -13,16 +13,16 @@ public class TeamAdminPromote extends TeamAdminCommand
 {
 	private String otherPlayer;
 
-	public TeamAdminPromote()
+	public TeamAdminPromote(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.promote(otherPlayer);
-		ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = playerManager.getPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You've been " + MessageUtil.positiveMessage("promoted"));
 		teamPlayer.sendMessage("You" + MessageUtil.positiveMessage(" promoted ") + otherPlayer);
@@ -32,7 +32,7 @@ public class TeamAdminPromote extends TeamAdminCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = commandContainer.getArgument(1);
-		ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = playerManager.getPlayer(otherPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);
 	}
 

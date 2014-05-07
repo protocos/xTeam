@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.teamleader;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
@@ -12,9 +13,9 @@ public class TeamLeaderTag extends TeamLeaderCommand
 {
 	private String desiredTag;
 
-	public TeamLeaderTag()
+	public TeamLeaderTag(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class TeamLeaderTag extends TeamLeaderCommand
 		desiredTag = commandContainer.getArgument(1);
 		Requirements.checkTeamNameTooLong(desiredTag);
 		Requirements.checkTeamNameAlphaNumeric(desiredTag);
-		Requirements.checkTeamNameAlreadyUsed(desiredTag, team);
+		Requirements.checkTeamNameAlreadyUsed(teamManager, desiredTag, team);
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.teamleader;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
@@ -14,10 +14,12 @@ import org.bukkit.entity.Player;
 public class TeamLeaderRemove extends TeamLeaderCommand
 {
 	private String otherPlayer;
+	private BukkitUtil bukkitUtil;
 
-	public TeamLeaderRemove()
+	public TeamLeaderRemove(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
+		bukkitUtil = teamPlugin.getBukkitUtil();
 	}
 
 	@Override
@@ -25,14 +27,14 @@ public class TeamLeaderRemove extends TeamLeaderCommand
 	{
 		String teamName = teamPlayer.getTeam().getName();
 		team.removePlayer(otherPlayer);
-		Player other = BukkitUtil.getPlayer(otherPlayer);
+		Player other = bukkitUtil.getPlayer(otherPlayer);
 		if (other != null)
 			other.sendMessage("You've been " + MessageUtil.negativeMessage("removed") + " from " + team.getName());
 		teamPlayer.sendMessage("You" + MessageUtil.negativeMessage(" removed ") + otherPlayer + " from your team");
 		if (team.isEmpty())
 		{
 			teamPlayer.sendMessage(teamName + " has been disbanded");
-			XTeam.getInstance().getTeamManager().disbandTeam(team.getName());
+			teamManager.disbandTeam(team.getName());
 		}
 	}
 
@@ -40,7 +42,7 @@ public class TeamLeaderRemove extends TeamLeaderCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = commandContainer.getArgument(1);
-		ITeamPlayer other = XTeam.getInstance().getPlayerManager().getPlayer(otherPlayer);
+		ITeamPlayer other = playerManager.getPlayer(otherPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);
 		Requirements.checkPlayerLeaderLeaving(other);
 	}

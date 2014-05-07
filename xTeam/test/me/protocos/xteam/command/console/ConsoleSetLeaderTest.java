@@ -1,50 +1,54 @@
 package me.protocos.xteam.command.console;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.XTeam;
-import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.exception.*;
+import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ConsoleSetLeaderTest
 {
-	FakeConsoleSender fakeConsoleSender;
+	private TeamPlugin teamPlugin;
+	private FakeConsoleSender fakeConsoleSender;
+	private ConsoleCommand fakeCommand;
+	private ITeamManager teamManager;
 
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeConsoleSender = new FakeConsoleSender();
+		fakeCommand = new ConsoleSetLeader(teamPlugin);
+		teamManager = teamPlugin.getTeamManager();
 	}
 
 	@Test
 	public void ShouldBeConsoleSetLeader()
 	{
-		Assert.assertTrue("setleader PLAYER TEAM".matches(new ConsoleSetLeader().getPattern()));
-		Assert.assertTrue("setleader PLAYER TEAM ".matches(new ConsoleSetLeader().getPattern()));
-		Assert.assertFalse("s PLAYER TEAM".matches(new ConsoleSetLeader().getPattern()));
-		Assert.assertFalse("se PLAYER TEAM ".matches(new ConsoleSetLeader().getPattern()));
-		Assert.assertFalse("s".matches(new ConsoleSetLeader().getPattern()));
-		Assert.assertFalse("se ".matches(new ConsoleSetLeader().getPattern()));
-		Assert.assertTrue(new ConsoleSetLeader().getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ConsoleSetLeader().getPattern()));
+		Assert.assertTrue("setleader PLAYER TEAM".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("setleader PLAYER TEAM ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("s PLAYER TEAM".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("se PLAYER TEAM ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("s".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("se ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeConsoleSetExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader one protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals("protocos is now the team leader for ONE", fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("protocos", XTeam.getInstance().getTeamManager().getTeam("one").getLeader());
+		Assert.assertEquals("protocos", teamManager.getTeam("one").getLeader());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -52,12 +56,11 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader one newbie".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", XTeam.getInstance().getTeamManager().getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", teamManager.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -65,12 +68,11 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader one Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", XTeam.getInstance().getTeamManager().getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", teamManager.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -78,12 +80,11 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecutePlayerNotOnTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader one mastermind".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", XTeam.getInstance().getTeamManager().getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", teamManager.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -91,12 +92,11 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecuteTeamIsDefault()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader red strandedhelix".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", XTeam.getInstance().getTeamManager().getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", teamManager.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -104,12 +104,11 @@ public class ConsoleSetLeaderTest
 	public void ShouldBeConsoleSetExecuteTeamNotExist()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSetLeader();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader three Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("kmlanglois", XTeam.getInstance().getTeamManager().getTeam("one").getLeader());
+		Assert.assertEquals("kmlanglois", teamManager.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

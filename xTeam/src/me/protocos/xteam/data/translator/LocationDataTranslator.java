@@ -1,8 +1,9 @@
 package me.protocos.xteam.data.translator;
 
 import java.util.List;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.exception.InvalidFormatException;
+import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
@@ -10,6 +11,15 @@ import org.bukkit.World;
 
 public class LocationDataTranslator implements IDataTranslator<Location>
 {
+	private BukkitUtil bukkitUtil;
+	private ILog log;
+
+	public LocationDataTranslator(TeamPlugin teamPlugin)
+	{
+		this.bukkitUtil = teamPlugin.getBukkitUtil();
+		this.log = teamPlugin.getLog();
+	}
+
 	@Override
 	public String decompile(Location location)
 	{
@@ -28,7 +38,7 @@ public class LocationDataTranslator implements IDataTranslator<Location>
 			throw new InvalidFormatException(formattedString, "world,x,y,z,yaw,pitch");
 		try
 		{
-			World world = BukkitUtil.getWorld(components.get(0));
+			World world = bukkitUtil.getWorld(components.get(0));
 			Double x = Double.valueOf(components.get(1));
 			Double y = Double.valueOf(components.get(2));
 			Double z = Double.valueOf(components.get(3));
@@ -38,7 +48,7 @@ public class LocationDataTranslator implements IDataTranslator<Location>
 		}
 		catch (Exception e)
 		{
-			XTeam.getInstance().getLog().exception(e);
+			log.exception(e);
 		}
 		return null;
 	}

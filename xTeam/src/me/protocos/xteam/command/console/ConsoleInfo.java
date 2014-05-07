@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.console;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.action.InfoAction;
@@ -11,9 +12,9 @@ public class ConsoleInfo extends ConsoleCommand
 	private String other;
 	private InfoAction info;
 
-	public ConsoleInfo()
+	public ConsoleInfo(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
@@ -26,7 +27,7 @@ public class ConsoleInfo extends ConsoleCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		other = commandContainer.getArgument(1);
-		info = new InfoAction();
+		info = new InfoAction(teamManager, playerManager);
 		info.checkRequirements(other);
 	}
 

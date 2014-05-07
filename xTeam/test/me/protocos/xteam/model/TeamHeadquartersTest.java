@@ -1,8 +1,6 @@
 package me.protocos.xteam.model;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import me.protocos.xteam.fakeobjects.FakeWorld;
-import me.protocos.xteam.model.Headquarters;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,8 +13,6 @@ public class TeamHeadquartersTest
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
 	}
 
 	@Test

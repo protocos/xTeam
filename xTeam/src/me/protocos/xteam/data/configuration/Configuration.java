@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.util.*;
 import me.protocos.xteam.XTeam;
 import me.protocos.xteam.collections.HashList;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.entity.Team;
+import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.permissions.Permission;
 
@@ -50,10 +52,16 @@ public class Configuration
 	private HashList<String, ConfigurationOption<?>> options;
 	private FileReader fileReader;
 	private FileWriter fileWriter;
+	private XTeam xteam;
+	private ITeamManager teamManager;
+	private ILog log;
 
-	public Configuration(File file)
+	public Configuration(XTeam xteam, File file)
 	{
-		fileReader = new FileReader(file, false);
+		this.xteam = xteam;
+		this.teamManager = xteam.getTeamManager();
+		this.log = xteam.getLog();
+		fileReader = new FileReader(log, file, false);
 		try
 		{
 			fileWriter = new FileWriter(file);
@@ -90,7 +98,7 @@ public class Configuration
 			if (option.length() > max.length())
 				max = option.getComment();
 		}
-		List<Permission> perms = XTeam.getInstance().getPermissions();
+		List<Permission> perms = xteam.getPermissions();
 		for (Permission perm : perms)
 		{
 			if (this.formatPermission(perm).length() > max.length())
@@ -142,9 +150,9 @@ public class Configuration
 	{
 		for (String name : Configuration.DEFAULT_TEAM_NAMES)
 		{
-			Team team = new Team.Builder(name).defaultTeam(true).openJoining(true).build();
-			if (!CommonUtil.containsIgnoreCase(XTeam.getInstance().getTeamManager().getDefaultTeams().getOrder(), name))
-				XTeam.getInstance().getTeamManager().createTeam(team);
+			Team team = new Team.Builder(xteam, name).defaultTeam(true).openJoining(true).build();
+			if (!CommonUtil.containsIgnoreCase(teamManager.getDefaultTeams().getOrder(), name))
+				teamManager.createTeam(team);
 		}
 	}
 
@@ -188,7 +196,7 @@ public class Configuration
 				"# Permissions\n" +
 				"# \n" +
 				getLineBreak();
-		List<Permission> perms = XTeam.getInstance().getPermissions();
+		List<Permission> perms = xteam.getPermissions();
 		for (Permission perm : perms)
 		{
 			output += this.formatPermission(perm) + "\n";

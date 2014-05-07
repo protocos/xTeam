@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.teamleader;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
@@ -10,9 +11,9 @@ import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamLeaderSetRally extends TeamLeaderCommand
 {
-	public TeamLeaderSetRally()
+	public TeamLeaderSetRally(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override

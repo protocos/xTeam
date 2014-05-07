@@ -1,10 +1,10 @@
 package me.protocos.xteam.entity;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
+import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.fakeobjects.*;
-import me.protocos.xteam.entity.TeamPlayer;
-import me.protocos.xteam.entity.TeamWolf;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -15,11 +15,15 @@ import org.junit.Test;
 
 public class TeamWolfTest
 {
+	private TeamPlugin teamPlugin = FakeXTeam.asTeamPlugin();
+	private IPlayerManager playerManager;
+	private ITeamManager teamManager;
+
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		playerManager = teamPlugin.getPlayerManager();
+		teamManager = teamPlugin.getTeamManager();
 	}
 
 	@Test
@@ -27,8 +31,8 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		World world = new FakeWorld();
-		TeamPlayer player = XTeam.getInstance().getPlayerManager().getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
-		TeamWolf wolf = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(world, 200, 64, 0)));
+		TeamPlayer player = playerManager.getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		TeamWolf wolf = new TeamWolf(playerManager, new FakeWolf("protocos", 20, new FakeLocation(world, 200, 64, 0)));
 		//ACT
 		double distance = player.getDistanceTo(wolf);
 		//ASSERT
@@ -40,8 +44,8 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		Location location = new FakeLocation(new FakeWorld(), 0, 64, 0);
-		TeamWolf wolf1 = new TeamWolf(new FakeWolf("protocos", 20, location));
-		TeamWolf wolf2 = new TeamWolf(new FakeWolf("protocos", 20, location));
+		TeamWolf wolf1 = new TeamWolf(playerManager, new FakeWolf("protocos", 20, location));
+		TeamWolf wolf2 = new TeamWolf(playerManager, new FakeWolf("protocos", 20, location));
 		//ACT
 		boolean equals = wolf1.equals(wolf2);
 		//ASSERT
@@ -53,7 +57,7 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		World world = new FakeWorld();
-		TeamWolf wolf = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(world, 0, 64, 0)));
+		TeamWolf wolf = new TeamWolf(playerManager, new FakeWolf("protocos", 20, new FakeLocation(world, 0, 64, 0)));
 		//ACT
 		double health = wolf.getHealth();
 		//ASSERT
@@ -65,7 +69,7 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		World world = new FakeWorld();
-		TeamWolf wolf = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(world, 0, 64, 0)));
+		TeamWolf wolf = new TeamWolf(playerManager, new FakeWolf("protocos", 20, new FakeLocation(world, 0, 64, 0)));
 		//ACT
 		Location location = wolf.getLocation();
 		//ASSERT
@@ -80,7 +84,7 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		Server server = new FakeServer();
-		TeamWolf wolf = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0), server));
+		TeamWolf wolf = new TeamWolf(playerManager, new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0), server));
 		//ACT
 		//ASSERT
 		Assert.assertEquals(server, wolf.getServer());
@@ -90,11 +94,11 @@ public class TeamWolfTest
 	public void ShouldBeGetTeam()
 	{
 		//ASSEMBLE
-		TeamWolf wolf = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		TeamWolf wolf = new TeamWolf(playerManager, new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		//ACT
 		ITeam team = wolf.getTeam();
 		//ASSERT
-		Assert.assertEquals(XTeam.getInstance().getTeamManager().getTeam("one"), team);
+		Assert.assertEquals(teamManager.getTeam("one"), team);
 	}
 
 	@Test
@@ -102,7 +106,7 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		World world = new FakeWorld();
-		TeamWolf wolf = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(world, 0, 64, 0)));
+		TeamWolf wolf = new TeamWolf(playerManager, new FakeWolf("protocos", 20, new FakeLocation(world, 0, 64, 0)));
 		//ACT
 		//ASSERT
 		Assert.assertEquals(world, wolf.getWorld());
@@ -112,7 +116,7 @@ public class TeamWolfTest
 	public void ShouldBeHasTeam()
 	{
 		//ASSEMBLE
-		TeamWolf wolf = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		TeamWolf wolf = new TeamWolf(playerManager, new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		//ACT
 		boolean hasTeam = wolf.hasTeam();
 		//ASSERT
@@ -123,8 +127,8 @@ public class TeamWolfTest
 	public void ShouldBeIsOnSameTeam()
 	{
 		//ASSEMBLE
-		TeamWolf wolf1 = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
-		TeamWolf wolf2 = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 20, 64, 0)));
+		TeamWolf wolf1 = new TeamWolf(playerManager, new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		TeamWolf wolf2 = new TeamWolf(playerManager, new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 20, 64, 0)));
 		//ACT
 		boolean equals = wolf1.isOnSameTeam(wolf2);
 		//ASSERT
@@ -136,8 +140,8 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		Location location = new FakeLocation(new FakeWorld(), 0, 64, 0);
-		TeamWolf wolf1 = new TeamWolf(new FakeWolf("protocos", 20, location));
-		TeamWolf wolf2 = new TeamWolf(new FakeWolf("kmlanglois", 20, location));
+		TeamWolf wolf1 = new TeamWolf(playerManager, new FakeWolf("protocos", 20, location));
+		TeamWolf wolf2 = new TeamWolf(playerManager, new FakeWolf("kmlanglois", 20, location));
 		//ACT
 		boolean equals = wolf1.equals(wolf2);
 		//ASSERT
@@ -149,7 +153,7 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		Location location = new FakeLocation(new FakeWorld(), 64.4, 64.6, 64.4);
-		TeamWolf wolf = new TeamWolf(new FakeWolf("protocos", 20, location));
+		TeamWolf wolf = new TeamWolf(playerManager, new FakeWolf("protocos", 20, location));
 		//ACT
 		double relativeX = wolf.getRelativeX(), relativeY = wolf.getRelativeY(), relativeZ = wolf.getRelativeZ();
 		//ASSERT
@@ -162,8 +166,8 @@ public class TeamWolfTest
 	public void ShouldBeTeleportEntity()
 	{
 		//ASSEMBLE
-		TeamWolf wolf1 = new TeamWolf(new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
-		TeamWolf wolf2 = new TeamWolf(new FakeWolf("kmlanglois", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		TeamWolf wolf1 = new TeamWolf(playerManager, new FakeWolf("protocos", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		TeamWolf wolf2 = new TeamWolf(playerManager, new FakeWolf("kmlanglois", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
 		//ACT
 		boolean teleport = wolf1.teleportTo(wolf2);
 		//ASSERT
@@ -175,7 +179,8 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		Location location = new FakeLocation(new FakeWorld(), 0, 64, 0);
-		TeamWolf wolf = new TeamWolf(new FakeWolf("kmlanglois", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		TeamWolf teamWolf = new TeamWolf(playerManager, new FakeWolf("kmlanglois", 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
+		TeamWolf wolf = teamWolf;
 		//ACT
 		boolean teleport = wolf.teleport(location);
 		//ASSERT

@@ -1,9 +1,10 @@
 package me.protocos.xteam.entity;
 
 import java.util.*;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.command.action.TeleportScheduler;
+import me.protocos.xteam.core.IPlayerManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.IHeadquarters;
@@ -29,6 +30,10 @@ public class Team implements ITeam
 	 * if you are "admin", you are not the "leader"
 	 */
 
+	private TeamPlugin teamPlugin;
+	private IPlayerManager playerManager;
+	private TeleportScheduler teleportScheduler;
+	private BukkitUtil bukkitUtil;
 	private String name;
 	private String tag;
 	private String leader;
@@ -44,6 +49,7 @@ public class Team implements ITeam
 	public static class Builder
 	{
 		//required
+		private TeamPlugin teamPlugin;
 		private final String name;
 
 		//optional
@@ -57,8 +63,9 @@ public class Team implements ITeam
 		private boolean defaultTeam = false;
 		private long timeHeadquartersLastSet = 0L;
 
-		public Builder(String name)
+		public Builder(TeamPlugin teamPlugin, String name)
 		{
+			this.teamPlugin = teamPlugin;
 			this.name = name;
 			this.tag = name;
 		}
@@ -134,6 +141,10 @@ public class Team implements ITeam
 
 	private Team(Builder builder)
 	{
+		teamPlugin = builder.teamPlugin;
+		bukkitUtil = teamPlugin.getBukkitUtil();
+		playerManager = teamPlugin.getPlayerManager();
+		teleportScheduler = teamPlugin.getTeleportScheduler();
 		name = builder.name;
 		tag = builder.tag;
 		leader = builder.leader;
@@ -311,21 +322,21 @@ public class Team implements ITeam
 	public List<TeamPlayer> getOnlineTeammates()
 	{
 		//EXTERNAL call
-		return XTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
+		return playerManager.getOnlineTeammatesOf(this);
 	}
 
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
 		//EXTERNAL call
-		return XTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
+		return playerManager.getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
 		//EXTERNAL call
-		return XTeam.getInstance().getPlayerManager().getTeammatesOf(this);
+		return playerManager.getTeammatesOf(this);
 	}
 
 	@Override
@@ -518,11 +529,11 @@ public class Team implements ITeam
 			public void run()
 			{
 				rally = null;
-				TeleportScheduler.getInstance().clearTeamRally(finalTeam);
+				teleportScheduler.clearTeamRally(finalTeam);
 				sendMessage("Team rally has been " + MessageUtil.positiveMessage("refreshed"));
 			}
 		}
-		BukkitUtil.getScheduler().scheduleSyncDelayedTask(BukkitUtil.getxTeam(), new RemoveRally(), Configuration.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);
+		bukkitUtil.getScheduler().scheduleSyncDelayedTask(teamPlugin, new RemoveRally(), Configuration.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);
 	}
 
 	@Override
@@ -543,7 +554,7 @@ public class Team implements ITeam
 		return players.size();
 	}
 
-	public static Team generateTeamFromProperties(String properties)
+	public static Team generateTeamFromProperties(TeamPlugin teamPlugin, String properties)
 	{
 		String[] props = properties.split(" ");
 		HashList<String, String> teamProperties = new HashList<String, String>();
@@ -571,11 +582,11 @@ public class Team implements ITeam
 			String leader = teamProperties.get("leader");// != null ? teamProperties.get("leader") : "";
 			String admins = teamProperties.get("admins");// != null ? teamProperties.get("admins") : "";
 			String players = teamProperties.get("players");// != null ? teamProperties.get("players") : "";
-			Team team = new Team.Builder(name).tag(tag).openJoining(openJoining).defaultTeam(defaultTeam).timeHeadquartersSet(timeHeadquartersSet).build();
+			Team team = new Team.Builder(teamPlugin, name).tag(tag).openJoining(openJoining).defaultTeam(defaultTeam).timeHeadquartersSet(timeHeadquartersSet).build();
 			if (!hq.endsWith("0.0,0.0,0.0,0.0,0.0") && !hq.equals("") && !hq.equals("none"))
 			{
 				String[] locationData = hq.split(",");
-				World world = BukkitUtil.getWorld(locationData[0]);
+				World world = teamPlugin.getBukkitUtil().getWorld(locationData[0]);
 				double X = Double.parseDouble(locationData[1]);
 				double Y = Double.parseDouble(locationData[2]);
 				double Z = Double.parseDouble(locationData[3]);
@@ -611,15 +622,15 @@ public class Team implements ITeam
 		this.players = players;
 	}
 
-	public static Team createTeam(String teamName)
+	public static Team createTeam(TeamPlugin teamPlugin, String teamName)
 	{
-		Team team = new Team.Builder(teamName).build();
+		Team team = new Team.Builder(teamPlugin, teamName).build();
 		return team;
 	}
 
-	public static Team createTeamWithLeader(String teamName, String player)
+	public static Team createTeamWithLeader(TeamPlugin teamPlugin, String teamName, String player)
 	{
-		Team team = new Team.Builder(teamName).players(player).admins(player).leader(player).build();
+		Team team = new Team.Builder(teamPlugin, teamName).players(player).admins(player).leader(player).build();
 		return team;
 	}
 

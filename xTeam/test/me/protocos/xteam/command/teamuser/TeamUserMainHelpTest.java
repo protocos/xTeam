@@ -1,42 +1,45 @@
 package me.protocos.xteam.command.teamuser;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
+import me.protocos.xteam.fakeobjects.FakeLocation;
+import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class TeamUserMainHelpTest
 {
+	private TeamPlugin teamPlugin;
+	private TeamUserCommand fakeCommand;
+
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
+		fakeCommand = new TeamUserMainHelp(teamPlugin);
 	}
 
 	@Test
 	public void ShouldBeTeamUserMainHelp()
 	{
-		Assert.assertTrue("".matches(new TeamUserMainHelp().getPattern()));
-		Assert.assertTrue(" ".matches(new TeamUserMainHelp().getPattern()));
-		Assert.assertTrue("help".matches(new TeamUserMainHelp().getPattern()));
-		Assert.assertTrue("help ".matches(new TeamUserMainHelp().getPattern()));
-		Assert.assertTrue("???".matches(new TeamUserMainHelp().getPattern()));
-		Assert.assertTrue("? ".matches(new TeamUserMainHelp().getPattern()));
-		Assert.assertTrue(new TeamUserMainHelp().getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new TeamUserMainHelp().getPattern()));
+		Assert.assertTrue("".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(" ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("help".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("help ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("???".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("? ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeTeamUserMainHelpExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender("kmlanglois", new FakeLocation());
-		TeamUserCommand fakeCommand = new TeamUserMainHelp();
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "".split(" ")));
 		//ASSERT

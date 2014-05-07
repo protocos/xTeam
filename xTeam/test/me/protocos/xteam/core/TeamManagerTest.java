@@ -1,7 +1,7 @@
 package me.protocos.xteam.core;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.Team;
 import org.junit.After;
@@ -11,23 +11,26 @@ import org.junit.Test;
 
 public class TeamManagerTest
 {
+	private TeamPlugin teamPlugin;
+	private ITeamManager teamManager;
+
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
+		teamManager = teamPlugin.getTeamManager();
 	}
 
 	@Test
 	public void ShouldBeClear()
 	{
 		//ASSEMBLE
-		XTeam.getInstance().getTeamManager().createTeam(Team.createTeamWithLeader("test1", "protocos"));
-		XTeam.getInstance().getTeamManager().createTeam(Team.createTeamWithLeader("test2", "kmlanglois"));
+		teamManager.createTeam(Team.createTeamWithLeader(teamPlugin, "test1", "protocos"));
+		teamManager.createTeam(Team.createTeamWithLeader(teamPlugin, "test2", "kmlanglois"));
 		//ACT
-		XTeam.getInstance().getTeamManager().clear();
+		teamManager.clear();
 		//ASSERT
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeams().size() == 0);
+		Assert.assertTrue(teamManager.getTeams().size() == 0);
 	}
 
 	@Test
@@ -35,9 +38,9 @@ public class TeamManagerTest
 	{
 		//ASSEMBLE
 		//ACT
-		XTeam.getInstance().getTeamManager().createTeam(Team.createTeam("test"));
+		teamManager.createTeam(Team.createTeam(teamPlugin, "test"));
 		//ASSERT
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().containsTeam("test"));
+		Assert.assertTrue(teamManager.containsTeam("test"));
 	}
 
 	@Test
@@ -45,10 +48,10 @@ public class TeamManagerTest
 	{
 		//ASSEMBLE
 		//ACT
-		XTeam.getInstance().getTeamManager().createTeam(Team.createTeamWithLeader("test", "protocos"));
+		teamManager.createTeam(Team.createTeamWithLeader(teamPlugin, "test", "protocos"));
 		//ASSERT
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().containsTeam("test"));
-		Assert.assertEquals("protocos", XTeam.getInstance().getTeamManager().getTeam("test").getLeader());
+		Assert.assertTrue(teamManager.containsTeam("test"));
+		Assert.assertEquals("protocos", teamManager.getTeam("test").getLeader());
 	}
 
 	@Test
@@ -60,7 +63,7 @@ public class TeamManagerTest
 		Assert.assertEquals("{ONE=name:ONE tag:TeamAwesome open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois, " +
 				"two=name:two tag:two open:false default:false timeHeadquartersLastSet:0 hq:none leader:mastermind admins: players:mastermind, " +
 				"red=name:red tag:REDONE open:true default:true timeHeadquartersLastSet:0 hq:none leader: admins: players:teammate,strandedhelix, " +
-				"blue=name:blue tag:blue open:true default:true timeHeadquartersLastSet:0 hq:none leader: admins: players:}", XTeam.getInstance().getTeamManager().getTeams().toString());
+				"blue=name:blue tag:blue open:true default:true timeHeadquartersLastSet:0 hq:none leader: admins: players:}", teamManager.getTeams().toString());
 	}
 
 	@Test
@@ -68,7 +71,7 @@ public class TeamManagerTest
 	{
 		//ASSEMBLE
 		//ACT
-		ITeam test = XTeam.getInstance().getTeamManager().getTeam("one");
+		ITeam test = teamManager.getTeam("one");
 		//ASSERT
 		Assert.assertEquals("ONE", test.getName());
 	}
@@ -77,10 +80,10 @@ public class TeamManagerTest
 	public void ShouldBeSameNameConflict()
 	{
 		//ASSEMBLE
-		Team team1 = new Team.Builder("ONE").build();
+		Team team1 = new Team.Builder(teamPlugin, "ONE").build();
 		//ACT
-		XTeam.getInstance().getTeamManager().createTeam(team1);
-		boolean exists = XTeam.getInstance().getTeamManager().containsTeam("one");
+		teamManager.createTeam(team1);
+		boolean exists = teamManager.containsTeam("one");
 		//ASSERT
 		Assert.assertTrue(exists);
 	}
@@ -88,6 +91,6 @@ public class TeamManagerTest
 	@After
 	public void takedown()
 	{
-		XTeam.getInstance().getTeamManager().clear();
+		teamManager.clear();
 	}
 }

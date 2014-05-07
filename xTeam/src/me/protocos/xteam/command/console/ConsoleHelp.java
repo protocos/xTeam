@@ -1,8 +1,9 @@
 package me.protocos.xteam.command.console;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.model.HelpPages;
 import me.protocos.xteam.util.MessageUtil;
@@ -12,10 +13,12 @@ import org.bukkit.ChatColor;
 public class ConsoleHelp extends ConsoleCommand
 {
 	private HelpPages pages;
+	private ICommandManager commandManager;
 
-	public ConsoleHelp()
+	public ConsoleHelp(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
+		this.commandManager = teamPlugin.getCommandManager();
 	}
 
 	@Override
@@ -33,7 +36,7 @@ public class ConsoleHelp extends ConsoleCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		pages = new HelpPages();
-		pages.addLines(XTeam.getInstance().getCommandManager().getAvailableCommandsFor(sender));
+		pages.addLines(commandManager.getAvailableCommandsFor(sender));
 	}
 
 	@Override

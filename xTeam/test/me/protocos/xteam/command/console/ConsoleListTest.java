@@ -1,49 +1,53 @@
 package me.protocos.xteam.command.console;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.XTeam;
-import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ConsoleListTest
 {
-	FakeConsoleSender fakeConsoleSender;
+	private TeamPlugin teamPlugin;
+	private FakeConsoleSender fakeConsoleSender;
+	private ConsoleCommand fakeCommand;
+	private ITeamManager teamManager;
 
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeConsoleSender = new FakeConsoleSender();
+		fakeCommand = new ConsoleList(teamPlugin);
+		teamManager = teamPlugin.getTeamManager();
 	}
 
 	@Test
 	public void ShouldBeConsoleList()
 	{
-		Assert.assertTrue("list".matches(new ConsoleList().getPattern()));
-		Assert.assertTrue("list ".matches(new ConsoleList().getPattern()));
-		Assert.assertTrue("l".matches(new ConsoleList().getPattern()));
-		Assert.assertTrue("l ".matches(new ConsoleList().getPattern()));
-		Assert.assertTrue("li".matches(new ConsoleList().getPattern()));
-		Assert.assertTrue("li ".matches(new ConsoleList().getPattern()));
-		Assert.assertTrue("ls".matches(new ConsoleList().getPattern()));
-		Assert.assertTrue("ls ".matches(new ConsoleList().getPattern()));
-		Assert.assertFalse("ls1".matches(new ConsoleList().getPattern()));
-		Assert.assertFalse("ls 1".matches(new ConsoleList().getPattern()));
-		Assert.assertTrue(new ConsoleList().getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ConsoleList().getPattern()));
+		Assert.assertTrue("list".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("list ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("l".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("l ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("li".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("li ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("ls".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("ls ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("ls1".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("ls 1".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeTeamUserListExecuteNoTeams()
 	{
 		//ASSEMBLE
-		XTeam.getInstance().getTeamManager().clear();
-		ConsoleCommand fakeCommand = new ConsoleList();
+		teamManager.clear();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "list".split(" ")));
 		//ASSERT
@@ -55,10 +59,9 @@ public class ConsoleListTest
 	public void ShouldBeTeamUserListExecuteOneTeam()
 	{
 		//ASSEMBLE
-		XTeam.getInstance().getTeamManager().disbandTeam("ONE");
-		XTeam.getInstance().getTeamManager().disbandTeam("TWO");
-		XTeam.getInstance().getTeamManager().disbandTeam("blue");
-		ConsoleCommand fakeCommand = new ConsoleList();
+		teamManager.disbandTeam("ONE");
+		teamManager.disbandTeam("TWO");
+		teamManager.disbandTeam("blue");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "list".split(" ")));
 		//ASSERT
@@ -70,7 +73,6 @@ public class ConsoleListTest
 	public void ShouldBeConsoleListExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleList();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "list".split(" ")));
 		//ASSERT

@@ -1,16 +1,27 @@
 package me.protocos.xteam.command;
 
 import java.io.InvalidClassException;
-import me.protocos.xteam.XTeam;
-import me.protocos.xteam.command.CommandContainer;
+import me.protocos.xteam.TeamPlugin;
+import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.MessageUtil;
 import org.bukkit.command.CommandSender;
 
 public abstract class BaseCommand
 {
-	public BaseCommand()
+	protected TeamPlugin teamPlugin;
+	protected ILog log;
+	protected ITeamManager teamManager;
+	protected IPlayerManager playerManager;
+
+	public BaseCommand(TeamPlugin teamPlugin)
 	{
+		this.teamPlugin = teamPlugin;
+		this.log = teamPlugin.getLog();
+		this.teamManager = teamPlugin.getTeamManager();
+		this.playerManager = teamPlugin.getPlayerManager();
 	}
 
 	public abstract String getUsage();
@@ -42,7 +53,7 @@ public abstract class BaseCommand
 		catch (TeamException e)
 		{
 			sender.sendMessage(MessageUtil.negativeMessage(e.getMessage()));
-			XTeam.getInstance().getLog().debug("Command execute failed for reason: " + e.getMessage());
+			log.debug("Command execute failed for reason: " + e.getMessage());
 		}
 		catch (InvalidClassException e)
 		{

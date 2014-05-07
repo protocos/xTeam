@@ -1,8 +1,6 @@
 package me.protocos.xteam.command;
 
-import me.protocos.xteam.XTeam;
-import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.command.Requirements;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.TeamException;
@@ -11,6 +9,11 @@ import org.bukkit.entity.Player;
 
 public abstract class PlayerCommand extends BaseCommand implements IPermissible
 {
+	public PlayerCommand(TeamPlugin teamPlugin)
+	{
+		super(teamPlugin);
+	}
+
 	protected TeamPlayer teamPlayer;
 	protected ITeam team;
 
@@ -18,7 +21,7 @@ public abstract class PlayerCommand extends BaseCommand implements IPermissible
 	public void preInitialize(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		Player player = CommonUtil.assignFromType(commandContainer.getSender(), Player.class);
-		teamPlayer = XTeam.getInstance().getPlayerManager().getPlayer(player);
+		teamPlayer = playerManager.getPlayer(player);
 		team = teamPlayer.getTeam();
 		Requirements.checkPlayerWorldDisabled(teamPlayer);
 		Requirements.checkPlayerHasPermission(commandContainer.getSender(), this);

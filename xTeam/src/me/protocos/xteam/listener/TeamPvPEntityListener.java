@@ -1,8 +1,10 @@
 package me.protocos.xteam.listener;
 
 import me.protocos.xteam.XTeam;
+import me.protocos.xteam.core.IPlayerManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeamPlayer;
+import me.protocos.xteam.model.ILog;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -13,6 +15,15 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class TeamPvPEntityListener implements Listener
 {
+	private ILog log;
+	private IPlayerManager playerManager;
+
+	public TeamPvPEntityListener(XTeam xteam)
+	{
+		this.log = xteam.getLog();
+		this.playerManager = xteam.getPlayerManager();
+	}
+
 	private static void checkTeam(EntityDamageEvent event, ITeamPlayer attacker, ITeamPlayer defender)
 	{
 		if (Configuration.TEAM_FRIENDLY_FIRE)
@@ -52,18 +63,18 @@ public class TeamPvPEntityListener implements Listener
 				// Player hurt Player
 				if (damager instanceof Player)
 				{
-					attacker = XTeam.getInstance().getPlayerManager().getPlayer((Player) damager);
-					defender = XTeam.getInstance().getPlayerManager().getPlayer((Player) entity);
+					attacker = playerManager.getPlayer((Player) damager);
+					defender = playerManager.getPlayer((Player) entity);
 					checkTeam(event, attacker, defender);
 				}
 				// Projectile hurt Player
 				else if (damager instanceof Projectile)
 				{
 					if (((Projectile) damager).getShooter() instanceof Player)
-						attacker = XTeam.getInstance().getPlayerManager().getPlayer((Player) ((Projectile) damager).getShooter());
+						attacker = playerManager.getPlayer((Player) ((Projectile) damager).getShooter());
 					else
 						return;
-					defender = XTeam.getInstance().getPlayerManager().getPlayer((Player) entity);
+					defender = playerManager.getPlayer((Player) entity);
 					checkTeam(event, attacker, defender);
 				}
 				else
@@ -72,7 +83,7 @@ public class TeamPvPEntityListener implements Listener
 		}
 		catch (Exception e)
 		{
-			XTeam.getInstance().getLog().exception(e);
+			log.exception(e);
 		}
 	}
 }

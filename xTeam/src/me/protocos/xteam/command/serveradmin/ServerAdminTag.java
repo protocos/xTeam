@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.serveradmin;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
@@ -14,9 +14,9 @@ public class ServerAdminTag extends ServerAdminCommand
 	private String teamName, desiredTag;
 	private ITeam changeTeam;
 
-	public ServerAdminTag()
+	public ServerAdminTag(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
@@ -33,9 +33,9 @@ public class ServerAdminTag extends ServerAdminCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		desiredTag = commandContainer.getArgument(2);
-		changeTeam = XTeam.getInstance().getTeamManager().getTeam(teamName);
-		Requirements.checkTeamExists(teamName);
-		Requirements.checkTeamNameAlreadyUsed(desiredTag, changeTeam);
+		changeTeam = teamManager.getTeam(teamName);
+		Requirements.checkTeamExists(teamManager, teamName);
+		Requirements.checkTeamNameAlreadyUsed(teamManager, desiredTag, changeTeam);
 		Requirements.checkTeamNameAlphaNumeric(desiredTag);
 	}
 

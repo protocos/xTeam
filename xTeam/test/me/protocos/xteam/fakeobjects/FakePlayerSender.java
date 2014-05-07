@@ -2,7 +2,7 @@ package me.protocos.xteam.fakeobjects;
 
 import java.net.InetSocketAddress;
 import java.util.*;
-import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -28,28 +28,30 @@ import org.bukkit.util.Vector;
 public class FakePlayerSender implements Player, CommandSender
 {
 	private static final int STORED_MESSAGES = 10;
+	private TeamPlugin teamPlugin;
 	private String name;
 	private Location location;
 	private boolean isOp;
 	private LinkedList<String> messageLog;
 	private int noDamageTicks;
 
-	public FakePlayerSender()
+	public FakePlayerSender(TeamPlugin teamPlugin)
 	{
-		this("sender", new FakeLocation());
+		this(teamPlugin, "sender", new FakeLocation());
 	}
 
-	public FakePlayerSender(String name, Location location)
+	public FakePlayerSender(TeamPlugin teamPlugin, String name, Location location)
 	{
-		this(name, location, false);
+		this(teamPlugin, name, location, false);
 	}
 
-	public FakePlayerSender(String name, Location location, boolean isOp)
+	public FakePlayerSender(TeamPlugin teamPlugin, String name, Location location, boolean isOp)
 	{
 		this.name = name;
 		this.location = location;
 		this.isOp = isOp;
 		messageLog = new LinkedList<String>();
+		this.teamPlugin = teamPlugin;
 	}
 
 	@Override
@@ -519,7 +521,7 @@ public class FakePlayerSender implements Player, CommandSender
 	@Override
 	public Player getPlayer()
 	{
-		return BukkitUtil.getPlayer(name);
+		return teamPlugin.getBukkitUtil().getPlayer(name);
 	}
 
 	@Override

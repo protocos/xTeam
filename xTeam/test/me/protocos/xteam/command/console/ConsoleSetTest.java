@@ -1,53 +1,57 @@
 package me.protocos.xteam.command.console;
 
-import static me.protocos.xteam.StaticTestFunctions.mockData;
 import junit.framework.Assert;
-import me.protocos.xteam.XTeam;
-import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.exception.TeamPlayerMaxException;
 import me.protocos.xteam.exception.TeamPlayerNeverPlayedException;
+import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ConsoleSetTest
 {
-	FakeConsoleSender fakeConsoleSender;
+	private TeamPlugin teamPlugin;
+	private FakeConsoleSender fakeConsoleSender;
+	private ConsoleCommand fakeCommand;
+	private ITeamManager teamManager;
 
 	@Before
 	public void setup()
 	{
-		//MOCK data
-		mockData();
+		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeConsoleSender = new FakeConsoleSender();
+		fakeCommand = new ConsoleSet(teamPlugin);
+		teamManager = teamPlugin.getTeamManager();
 	}
 
 	@Test
 	public void ShouldBeConsoleSet()
 	{
-		Assert.assertTrue("set PLAYER TEAM".matches(new ConsoleSet().getPattern()));
-		Assert.assertTrue("set PLAYER TEAM ".matches(new ConsoleSet().getPattern()));
-		Assert.assertTrue("s PLAYER TEAM".matches(new ConsoleSet().getPattern()));
-		Assert.assertTrue("se PLAYER TEAM ".matches(new ConsoleSet().getPattern()));
-		Assert.assertFalse("s".matches(new ConsoleSet().getPattern()));
-		Assert.assertFalse("se ".matches(new ConsoleSet().getPattern()));
-		Assert.assertTrue(new ConsoleSet().getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new ConsoleSet().getPattern()));
+		Assert.assertTrue("set PLAYER TEAM".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("set PLAYER TEAM ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("s PLAYER TEAM".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("se PLAYER TEAM ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("s".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("se ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
 	public void ShouldBeConsoleSetExecute()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set Lonely two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Lonely has been added to two", fakeConsoleSender.getLastMessage());
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("Lonely"));
+		Assert.assertTrue(teamManager.getTeam("two").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -55,15 +59,14 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecuteCreateTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set Lonely three".split(" ")));
 		//ASSERT
 		Assert.assertEquals("three has been created\n" +
 				"Lonely has been added to three\n", fakeConsoleSender.getAllMessages());
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().containsTeam("three"));
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("three").containsPlayer("Lonely"));
-		Assert.assertEquals(1, XTeam.getInstance().getTeamManager().getTeam("three").size());
+		Assert.assertTrue(teamManager.containsTeam("three"));
+		Assert.assertTrue(teamManager.getTeam("three").containsPlayer("Lonely"));
+		Assert.assertEquals(1, teamManager.getTeam("three").size());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -71,14 +74,13 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecuteHasTeam()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set protocos two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("protocos has been removed from ONE\n" +
 				"protocos has been added to two\n", fakeConsoleSender.getAllMessages());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().getTeam("one").containsPlayer("protocos"));
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("protocos"));
+		Assert.assertFalse(teamManager.getTeam("one").containsPlayer("protocos"));
+		Assert.assertTrue(teamManager.getTeam("two").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -86,16 +88,15 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecuteLastPerson()
 	{
 		//ASSEMBLE
-		XTeam.getInstance().getTeamManager().getTeam("one").removePlayer("protocos");
-		ConsoleCommand fakeCommand = new ConsoleSet();
+		teamManager.getTeam("one").removePlayer("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set kmlanglois two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
 				"ONE has been disbanded\n" +
 				"kmlanglois has been added to two\n", fakeConsoleSender.getAllMessages());
-		Assert.assertFalse(XTeam.getInstance().getTeamManager().containsTeam("one"));
-		Assert.assertTrue(XTeam.getInstance().getTeamManager().getTeam("two").containsPlayer("kmlanglois"));
+		Assert.assertFalse(teamManager.containsTeam("one"));
+		Assert.assertTrue(teamManager.getTeam("two").containsPlayer("kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -103,7 +104,6 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set kmlanglois two".split(" ")));
 		//ASSERT
@@ -115,7 +115,6 @@ public class ConsoleSetTest
 	public void ShouldBeConsoleSetExecutePlayerHasNotPlayed()
 	{
 		//ASSEMBLE
-		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set newbie one".split(" ")));
 		//ASSERT
@@ -128,7 +127,6 @@ public class ConsoleSetTest
 	{
 		//ASSEMBLE
 		Configuration.MAX_PLAYERS = 2;
-		ConsoleCommand fakeCommand = new ConsoleSet();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set Lonely one".split(" ")));
 		//ASSERT

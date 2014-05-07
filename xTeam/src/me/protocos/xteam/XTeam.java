@@ -2,82 +2,33 @@ package me.protocos.xteam;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import me.protocos.xteam.collections.HashList;
-import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.command.ICommandManager;
-import me.protocos.xteam.core.IPlayerManager;
-import me.protocos.xteam.core.ITeamManager;
-import me.protocos.xteam.core.PlayerManager;
-import me.protocos.xteam.core.TeamManager;
-import me.protocos.xteam.data.PlayerDataDB;
-import me.protocos.xteam.data.PlayerDataFile;
+import me.protocos.xteam.command.console.*;
+import me.protocos.xteam.command.serveradmin.*;
+import me.protocos.xteam.command.teamadmin.TeamAdminInvite;
+import me.protocos.xteam.command.teamadmin.TeamAdminPromote;
+import me.protocos.xteam.command.teamadmin.TeamAdminSetHeadquarters;
+import me.protocos.xteam.command.teamleader.*;
+import me.protocos.xteam.command.teamuser.*;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.Team;
-import me.protocos.xteam.event.EventDispatcher;
-import me.protocos.xteam.event.IEventDispatcher;
-import me.protocos.xteam.model.ILog;
-import me.protocos.xteam.model.Log;
-import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.listener.TeamChatListener;
+import me.protocos.xteam.listener.TeamPlayerListener;
+import me.protocos.xteam.listener.TeamPvPEntityListener;
 import me.protocos.xteam.util.SystemUtil;
-import org.bukkit.permissions.Permission;
+import org.bukkit.Server;
+import org.bukkit.plugin.PluginManager;
 
-public final class XTeam
+public final class XTeam extends TeamPlugin
 {
-	private static XTeam xteam;
 	private String version;
-	private ILog logger;
-	private IEventDispatcher eventDispatcher;
-	private IPlayerManager playerManager;
-	private ITeamManager teamManager;
-	private ICommandManager commandManager;
-	private List<Permission> permissions;
 	private Configuration configLoader;
 
-	private XTeam()
+	public XTeam(Server server, String folder)
 	{
-		this.eventDispatcher = new EventDispatcher();
-		this.commandManager = new CommandManager();
-	}
-
-	public static XTeam getInstance()
-	{
-		if (xteam == null)
-		{
-			xteam = new XTeam();
-		}
-		return xteam;
-	}
-
-	public ILog getLog()
-	{
-		return logger;
-	}
-
-	public ICommandManager getCommandManager()
-	{
-		return commandManager;
-	}
-
-	public IEventDispatcher getEventDispatcher()
-	{
-		return eventDispatcher;
-	}
-
-	public ITeamManager getTeamManager()
-	{
-		return teamManager;
-	}
-
-	public IPlayerManager getPlayerManager()
-	{
-		return playerManager;
-	}
-
-	public List<Permission> getPermissions()
-	{
-		return permissions;
+		super(server, folder);
 	}
 
 	public String getVersion()
@@ -85,64 +36,17 @@ public final class XTeam
 		return version;
 	}
 
-	public void load(TeamPlugin plugin)
+	public void load()
 	{
-		if ("XTeamPlugin".equals(plugin.getPluginName()) || "FakeTeamPlugin".equals(plugin.getPluginName()))
-		{
-			this.version = plugin.getVersion();
-			if (plugin.getLog() == null)
-				this.logger = new Log(plugin.getFolder() + "xTeam.log");
-			else
-				this.logger = plugin.getLog();
-			this.permissions = new ArrayList<Permission>(plugin.getPermissions());
-			this.eventDispatcher = new EventDispatcher();
-			this.initFileSystem(plugin);
-			this.initDataStorage(plugin);
-		}
-		else
-		{
-			this.permissions.addAll(plugin.getPermissions());
-		}
-		this.commandManager.register(plugin);
+		this.commandManager.register(this);
+		this.initFileSystem();
 	}
 
-	private void initDataStorage(TeamPlugin plugin)
+	private void initFileSystem()
 	{
-		if (this.playerManager == null)
-		{
-			if ("SQLite".equals(Configuration.STORAGE_TYPE))
-			{
-				if (BukkitUtil.getPluginManager().getPlugin("SQLibrary") != null)
-					this.playerManager = new PlayerManager(new PlayerDataDB(plugin));
-				else
-					this.getLog().error("Cannot use \"" + Configuration.STORAGE_TYPE + "\" for storage because plugin \"SQLibrary\" cannot be found!" +
-							"\nSQLibrary can be found here: http://dev.bukkit.org/bukkit-plugins/sqlibrary/");
-			}
-			else if ("file".equals(Configuration.STORAGE_TYPE))
-			{
-				this.playerManager = new PlayerManager(new PlayerDataFile(plugin));
-			}
-			else
-			{
-				this.getLog().error("\"" + Configuration.STORAGE_TYPE + "\" is not a valid storage type");
-			}
-			if (this.playerManager == null)
-			{
-				this.getLog().info("Resorting to \"file\" storage type");
-				this.playerManager = new PlayerManager(new PlayerDataFile(plugin));
-			}
-		}
-		if (this.teamManager == null)
-		{
-			this.teamManager = new TeamManager(eventDispatcher);
-		}
-	}
-
-	private void initFileSystem(TeamPlugin plugin)
-	{
-		SystemUtil.ensureFolder(plugin.getFolder());
-		SystemUtil.ensureFile(plugin.getFolder() + "teams.txt");
-		this.configLoader = new Configuration(SystemUtil.ensureFile(plugin.getFolder() + "xTeam.cfg"));
+		SystemUtil.ensureFolder(this.getFolder());
+		SystemUtil.ensureFile(this.getFolder() + "teams.txt");
+		this.configLoader = new Configuration(this, SystemUtil.ensureFile(this.getFolder() + "xTeam.cfg"));
 		this.configLoader.addAttribute("playersonteam", 10, "Amount of players that can be on a team");
 		this.configLoader.addAttribute("sethqinterval", 0, "Delay in hours between use of /team sethq");
 		this.configLoader.addAttribute("teleportradius", 500, "Maximum distance in blocks between team mates to teleport to one another");
@@ -177,16 +81,18 @@ public final class XTeam
 		this.configLoader.load();
 	}
 
-	public void readTeamData(File f)
+	@Override
+	public void readTeamData()
 	{
+		File f = new File("plugins/xTeam/teams.txt");
 		try
 		{
 			String line;
 			BufferedReader br = new BufferedReader(new FileReader(f));
 			while ((line = br.readLine()) != null)
 			{
-				Team team = Team.generateTeamFromProperties(line);
-				XTeam.getInstance().getTeamManager().createTeam(team);
+				Team team = Team.generateTeamFromProperties(this, line);
+				this.getTeamManager().createTeam(team);
 			}
 			br.close();
 		}
@@ -196,8 +102,10 @@ public final class XTeam
 		}
 	}
 
-	public void writeTeamData(File f)
+	@Override
+	public void writeTeamData()
 	{
+		File f = new File("plugins/xTeam/teams.txt");
 		ArrayList<String> data = new ArrayList<String>();
 		try
 		{
@@ -222,5 +130,134 @@ public final class XTeam
 		{
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void onEnable()
+	{
+		this.enable();
+	}
+
+	@Override
+	public void onDisable()
+	{
+		this.disable();
+	}
+
+	private void enable()
+	{
+		try
+		{
+			PluginManager pm = bukkitUtil.getPluginManager();
+			pm.registerEvents(new TeamPvPEntityListener(this), this);
+			pm.registerEvents(new TeamPlayerListener(this), this);
+			pm.registerEvents(new TeamChatListener(this), this);
+			this.readTeamData();
+			this.getCommand("team").setExecutor(commandExecutor);
+			this.getPlayerManager().open();
+			this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " enabled");
+		}
+		catch (Exception e)
+		{
+			this.getLog().exception(e);
+		}
+	}
+
+	private void disable()
+	{
+		try
+		{
+			this.writeTeamData();
+			this.getPlayerManager().close();
+			this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " disabled");
+			this.getLog().close();
+		}
+		catch (Exception e)
+		{
+			this.getLog().exception(e);
+		}
+	}
+
+	@Override
+	public void registerCommands(ICommandManager manager)
+	{
+		this.registerConsoleCommands(manager);
+		this.registerServerAdminCommands(manager);
+		this.registerUserCommands(manager);
+		this.registerAdminCommands(manager);
+		this.registerLeaderCommands(manager);
+	}
+
+	public void registerConsoleCommands(ICommandManager manager)
+	{
+		manager.registerCommand(new ConsoleDebug(this));
+		manager.registerCommand(new ConsoleDemote(this));
+		manager.registerCommand(new ConsoleDisband(this));
+		manager.registerCommand(new ConsoleHelp(this));
+		manager.registerCommand(new ConsoleInfo(this));
+		manager.registerCommand(new ConsoleList(this));
+		manager.registerCommand(new ConsolePromote(this));
+		manager.registerCommand(new ConsoleRemove(this));
+		manager.registerCommand(new ConsoleRename(this));
+		manager.registerCommand(new ConsoleTag(this));
+		manager.registerCommand(new ConsoleOpen(this));
+		manager.registerCommand(new ConsoleSet(this));
+		manager.registerCommand(new ConsoleSetLeader(this));
+		manager.registerCommand(new ConsoleTeleAllHQ(this));
+	}
+
+	public void registerServerAdminCommands(ICommandManager manager)
+	{
+		manager.registerCommand(new ServerAdminChatSpy(this));
+		manager.registerCommand(new ServerAdminDisband(this));
+		manager.registerCommand(new ServerAdminDemote(this));
+		manager.registerCommand(new ServerAdminHeadquarters(this));
+		manager.registerCommand(new ServerAdminPromote(this));
+		manager.registerCommand(new ServerAdminRemove(this));
+		manager.registerCommand(new ServerAdminRename(this));
+		manager.registerCommand(new ServerAdminTag(this));
+		manager.registerCommand(new ServerAdminOpen(this));
+		manager.registerCommand(new ServerAdminSet(this));
+		manager.registerCommand(new ServerAdminSetHeadquarters(this));
+		manager.registerCommand(new ServerAdminSetLeader(this));
+		manager.registerCommand(new ServerAdminTeleAllHQ(this));
+		manager.registerCommand(new ServerAdminTpAll(this));
+	}
+
+	public void registerLeaderCommands(ICommandManager manager)
+	{
+		manager.registerCommand(new TeamLeaderDemote(this));
+		manager.registerCommand(new TeamLeaderDisband(this));
+		manager.registerCommand(new TeamLeaderOpen(this));
+		manager.registerCommand(new TeamLeaderRemove(this));
+		manager.registerCommand(new TeamLeaderRename(this));
+		manager.registerCommand(new TeamLeaderTag(this));
+		manager.registerCommand(new TeamLeaderSetLeader(this));
+		manager.registerCommand(new TeamLeaderSetRally(this));
+	}
+
+	public void registerAdminCommands(ICommandManager manager)
+	{
+		manager.registerCommand(new TeamAdminSetHeadquarters(this));
+		manager.registerCommand(new TeamAdminInvite(this));
+		manager.registerCommand(new TeamAdminPromote(this));
+	}
+
+	public void registerUserCommands(ICommandManager manager)
+	{
+		manager.registerCommand(new TeamUserMainHelp(this));
+		manager.registerCommand(new TeamUserHelp(this));
+		manager.registerCommand(new TeamUserInfo(this));
+		manager.registerCommand(new TeamUserList(this));
+		manager.registerCommand(new TeamUserCreate(this));
+		manager.registerCommand(new TeamUserJoin(this));
+		manager.registerCommand(new TeamUserLeave(this));
+		manager.registerCommand(new TeamUserAccept(this));
+		manager.registerCommand(new TeamUserHeadquarters(this));
+		manager.registerCommand(new TeamUserTeleport(this));
+		manager.registerCommand(new TeamUserReturn(this));
+		manager.registerCommand(new TeamUserRally(this));
+		manager.registerCommand(new TeamUserChat(this));
+		manager.registerCommand(new TeamUserMessage(this));
 	}
 }

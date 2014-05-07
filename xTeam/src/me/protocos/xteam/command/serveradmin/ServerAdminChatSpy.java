@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.serveradmin;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.data.configuration.Configuration;
@@ -9,8 +10,9 @@ import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminChatSpy extends ServerAdminCommand
 {
-	public ServerAdminChatSpy()
+	public ServerAdminChatSpy(TeamPlugin teamPlugin)
 	{
+		super(teamPlugin);
 	}
 
 	@Override

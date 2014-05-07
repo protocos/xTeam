@@ -1,5 +1,6 @@
 package me.protocos.xteam.fakeobjects;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.*;
 import me.protocos.xteam.entity.TeamPlayer;
 
@@ -12,9 +13,9 @@ public class FakeTeamPlayer extends TeamPlayer
 
 	private PermissionType permissionType;
 
-	public FakeTeamPlayer(PermissionType permissionType)
+	public FakeTeamPlayer(TeamPlugin teamPlugin, PermissionType permissionType)
 	{
-		super(new FakePlayer());
+		super(teamPlugin, new FakePlayer());
 		this.permissionType = permissionType;
 	}
 

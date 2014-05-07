@@ -3,13 +3,12 @@ package me.protocos.xteam.data;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.data.translator.LocationDataTranslator;
 import me.protocos.xteam.data.translator.LongDataTranslator;
 import me.protocos.xteam.exception.DataManagerNotOpenException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakeServer;
-import me.protocos.xteam.fakeobjects.FakeTeamPlugin;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.SystemUtil;
 import org.bukkit.Location;
@@ -20,22 +19,22 @@ import org.junit.Test;
 
 public class PlayerDataFileTest
 {
-	private TeamPlugin plugin;
+	private TeamPlugin teamPlugin;
+	private BukkitUtil bukkitUtil;
 	private PlayerDataFile playerData;
 
 	@Before
 	public void setup()
 	{
-		BukkitUtil.setServer(new FakeServer());
-		plugin = new FakeTeamPlugin();
-		plugin.onEnable();
+		teamPlugin = FakeXTeam.asTeamPlugin();
+		bukkitUtil = teamPlugin.getBukkitUtil();
 	}
 
 	@Test
 	public void ShouldBeOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(plugin);
+		playerData = new PlayerDataFile(teamPlugin);
 		//ACT
 		playerData.open();
 		//ASSERT
@@ -46,7 +45,7 @@ public class PlayerDataFileTest
 	public void ShouldBeClosed()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(plugin);
+		playerData = new PlayerDataFile(teamPlugin);
 		playerData.open();
 		//ACT
 		playerData.close();
@@ -58,7 +57,7 @@ public class PlayerDataFileTest
 	public void ShouldBeInitializeWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(plugin);
+		playerData = new PlayerDataFile(teamPlugin);
 		//ACT
 		playerData.initializeData();
 		//ASSERT
@@ -68,7 +67,7 @@ public class PlayerDataFileTest
 	public void ShouldBeClearWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(plugin);
+		playerData = new PlayerDataFile(teamPlugin);
 		//ACT
 		playerData.clearData();
 		//ASSERT
@@ -78,7 +77,7 @@ public class PlayerDataFileTest
 	public void ShouldBeSetWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(plugin);
+		playerData = new PlayerDataFile(teamPlugin);
 		//ACT
 		playerData.setVariable("protocos", "lastAttacked", 10L, new LongDataTranslator());
 		//ASSERT
@@ -88,7 +87,7 @@ public class PlayerDataFileTest
 	public void ShouldBeGetWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(plugin);
+		playerData = new PlayerDataFile(teamPlugin);
 		//ACT
 		playerData.getVariable("protocos", "lastAttacked", new LongDataTranslator());
 		//ASSERT
@@ -98,7 +97,7 @@ public class PlayerDataFileTest
 	public void ShouldBeReadWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(plugin);
+		playerData = new PlayerDataFile(teamPlugin);
 		//ACT
 		playerData.read();
 		//ASSERT
@@ -108,7 +107,7 @@ public class PlayerDataFileTest
 	public void ShouldBeWriteWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(plugin);
+		playerData = new PlayerDataFile(teamPlugin);
 		//ACT
 		playerData.write();
 		//ASSERT
@@ -118,14 +117,14 @@ public class PlayerDataFileTest
 	public void ShouldBeWriteThenRead()
 	{
 		//ASSEMBLE
-		Location originalLocation = new FakeLocation(BukkitUtil.getWorld("world")).toLocation();
-		playerData = new PlayerDataFile(plugin);
+		Location originalLocation = new FakeLocation(bukkitUtil.getWorld("world")).toLocation();
+		playerData = new PlayerDataFile(teamPlugin);
 		playerData.open();
 		//ACT
-		playerData.setVariable("protocos", "returnLocation", originalLocation, new LocationDataTranslator());
+		playerData.setVariable("protocos", "returnLocation", originalLocation, new LocationDataTranslator(teamPlugin));
 		playerData.write();
 		playerData.read();
-		Location returnLocation = playerData.getVariable("protocos", "returnLocation", new LocationDataTranslator());
+		Location returnLocation = playerData.getVariable("protocos", "returnLocation", new LocationDataTranslator(teamPlugin));
 		//ASSERT
 		Assert.assertEquals(originalLocation, returnLocation);
 	}
@@ -134,19 +133,19 @@ public class PlayerDataFileTest
 	public void ShouldBeReadCurruptedFileExample1() throws IOException
 	{
 		//ASSEMBLE
-		Location originalLocation = new FakeLocation(BukkitUtil.getWorld("world")).toLocation();
+		Location originalLocation = new FakeLocation(bukkitUtil.getWorld("world")).toLocation();
 		BufferedWriter writer = new BufferedWriter(new FileWriter(SystemUtil.ensureFile("test/players.txt")));
 		writer.write("name:protocos lastAttacked:0 lastTeleported:0:name returnLocation:world,0.0,0.0,0.0,0.0,0.0\n");
 		writer.write("name:kmlanglois lastAttacked:0 lastTeleported:0 returnLocation:world,0.0,0.0,0.0,0.0,0.0\n");
 		writer.write("name:mastermind lastAttacked:0 lastTeleported:0 returnLocation:world,0.0,0.0,0.0,0.0,0.0\n");
 		writer.close();
-		playerData = new PlayerDataFile(plugin);
+		playerData = new PlayerDataFile(teamPlugin);
 		//ACT
 		playerData.open();
 		playerData.read();
-		Location protocosLocation = playerData.getVariable("protocos", "returnLocation", new LocationDataTranslator());
-		Location kmlangloisLocation = playerData.getVariable("kmlanglois", "returnLocation", new LocationDataTranslator());
-		Location mastermindLocation = playerData.getVariable("mastermind", "returnLocation", new LocationDataTranslator());
+		Location protocosLocation = playerData.getVariable("protocos", "returnLocation", new LocationDataTranslator(teamPlugin));
+		Location kmlangloisLocation = playerData.getVariable("kmlanglois", "returnLocation", new LocationDataTranslator(teamPlugin));
+		Location mastermindLocation = playerData.getVariable("mastermind", "returnLocation", new LocationDataTranslator(teamPlugin));
 		playerData.write();
 		playerData.close();
 		//ASSERT
@@ -159,19 +158,19 @@ public class PlayerDataFileTest
 	public void ShouldBeReadCurruptedFileExample2() throws IOException
 	{
 		//ASSEMBLE
-		Location originalLocation = new FakeLocation(BukkitUtil.getWorld("world")).toLocation();
+		Location originalLocation = new FakeLocation(bukkitUtil.getWorld("world")).toLocation();
 		BufferedWriter writer = new BufferedWriter(new FileWriter(SystemUtil.ensureFile("test/players.txt")));
 		writer.write("name:protocos lastAttacked:0 lastTeleported:0 returnLocation:world,0.0,0.0,0.0,0.0,0.0ll\n");
 		writer.write("name:kmlanglois lastAttacked:0 lastTeleported:0 returnLocation:world,0.0,0.0,0.0,0.0,0.0\n");
 		writer.write("name:mastermind lastAttacked:0 lastTeleported:0 returnLocation:world,0.0,0.0,0.0,0.0,0.0\n");
 		writer.close();
-		playerData = new PlayerDataFile(plugin);
+		playerData = new PlayerDataFile(teamPlugin);
 		//ACT
 		playerData.open();
 		playerData.read();
-		Location protocosLocation = playerData.getVariable("protocos", "returnLocation", new LocationDataTranslator());
-		Location kmlangloisLocation = playerData.getVariable("kmlanglois", "returnLocation", new LocationDataTranslator());
-		Location mastermindLocation = playerData.getVariable("mastermind", "returnLocation", new LocationDataTranslator());
+		Location protocosLocation = playerData.getVariable("protocos", "returnLocation", new LocationDataTranslator(teamPlugin));
+		Location kmlangloisLocation = playerData.getVariable("kmlanglois", "returnLocation", new LocationDataTranslator(teamPlugin));
+		Location mastermindLocation = playerData.getVariable("mastermind", "returnLocation", new LocationDataTranslator(teamPlugin));
 		playerData.write();
 		playerData.close();
 		//ASSERT

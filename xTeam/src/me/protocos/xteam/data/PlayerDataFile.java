@@ -2,24 +2,29 @@ package me.protocos.xteam.data;
 
 import java.io.*;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.XTeam;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.data.translator.IDataTranslator;
 import me.protocos.xteam.exception.DataManagerNotOpenException;
+import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.SystemUtil;
+import org.bukkit.scheduler.BukkitScheduler;
 
 public class PlayerDataFile implements IDataManager
 {
 	private boolean open = false;
 	private TeamPlugin plugin;
+	private BukkitScheduler bukkitScheduler;
 	private File file;
 	private HashList<String, PropertyList> playerProperties;
 	private PeriodicWriter periodicWriter;
+	private ILog log;
 
 	public PlayerDataFile(TeamPlugin plugin)
 	{
 		this.plugin = plugin;
+		this.bukkitScheduler = plugin.getBukkitScheduler();
+		this.log = plugin.getLog();
 		this.file = SystemUtil.ensureFile(plugin.getFolder() + "players.txt");
 	}
 
@@ -53,20 +58,20 @@ public class PlayerDataFile implements IDataManager
 					catch (Exception e)
 					{
 						//this way if one line fails to write, the entire file isn't lost
-						XTeam.getInstance().getLog().exception(e);
+						log.exception(e);
 					}
 				}
 				reader.close();
 			}
 			catch (Exception e)
 			{
-				XTeam.getInstance().getLog().exception(e);
+				log.exception(e);
 			}
 			if (periodicWriter == null)
 			{
-				periodicWriter = new PeriodicWriter(this);
+				periodicWriter = new PeriodicWriter(log, this);
 				long interval = 10 * BukkitUtil.ONE_MINUTE_IN_TICKS;
-				BukkitUtil.getScheduler().scheduleSyncRepeatingTask(plugin, periodicWriter, interval, interval);
+				bukkitScheduler.scheduleSyncRepeatingTask(plugin, periodicWriter, interval, interval);
 			}
 		}
 		else
@@ -101,14 +106,14 @@ public class PlayerDataFile implements IDataManager
 					catch (Exception e)
 					{
 						//this way if one line fails to write, the entire file isn't lost
-						XTeam.getInstance().getLog().exception(e);
+						log.exception(e);
 					}
 				}
 				writer.close();
 			}
 			catch (IOException e)
 			{
-				XTeam.getInstance().getLog().exception(e);
+				log.exception(e);
 			}
 		}
 		else
@@ -204,18 +209,20 @@ public class PlayerDataFile implements IDataManager
 class PeriodicWriter implements Runnable
 {
 	private IDataManager writer;
+	private ILog log;
 
-	public PeriodicWriter(IDataManager writer)
+	public PeriodicWriter(ILog log, IDataManager writer)
 	{
+		this.log = log;
 		this.writer = writer;
 	}
 
 	@Override
 	public void run()
 	{
-		XTeam.getInstance().getLog().info("Saving player data...");
+		log.info("Saving player data...");
 		writer.write();
-		XTeam.getInstance().getLog().info("Done.");
+		log.info("Done.");
 	}
 
 }

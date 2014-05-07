@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.console;
 
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.Requirements;
@@ -13,16 +13,16 @@ public class ConsoleRename extends ConsoleCommand
 {
 	private String teamName, desiredName;
 
-	public ConsoleRename()
+	public ConsoleRename(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam team = XTeam.getInstance().getTeamManager().getTeam(teamName);
-		XTeam.getInstance().getTeamManager().renameTeam(team, desiredName);
+		ITeam team = teamManager.getTeam(teamName);
+		teamManager.renameTeam(team, desiredName);
 		sender.sendMessage("You " + MessageUtil.positiveMessage("renamed") + " the team to " + desiredName);
 		team.sendMessage("The team has been " + MessageUtil.positiveMessage("renamed") + " to " + desiredName);
 	}
@@ -32,8 +32,8 @@ public class ConsoleRename extends ConsoleCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		desiredName = commandContainer.getArgument(2);
-		Requirements.checkTeamExists(teamName);
-		Requirements.checkTeamAlreadyExists(desiredName);
+		Requirements.checkTeamExists(teamManager, teamName);
+		Requirements.checkTeamAlreadyExists(teamManager, desiredName);
 		Requirements.checkTeamNameAlphaNumeric(desiredName);
 	}
 

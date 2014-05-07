@@ -3,9 +3,11 @@ package me.protocos.xteam.entity;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.command.action.TeleportScheduler;
+import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
@@ -30,10 +32,16 @@ import org.bukkit.util.Vector;
 
 public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSender
 {
+	private TeleportScheduler teleportScheduler;
+	private ITeamManager teamManager;
+	private IPlayerManager playerManager;
 	private Player player;
 
-	public TeamPlayer(Player player)
+	public TeamPlayer(TeamPlugin teamPlugin, Player player)
 	{
+		this.teleportScheduler = teamPlugin.getTeleportScheduler();
+		this.teamManager = teamPlugin.getTeamManager();
+		this.playerManager = teamPlugin.getPlayerManager();
 		this.player = player;
 	}
 
@@ -66,13 +74,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public void setLastTeleported(long lastTeleported)
 	{
-		XTeam.getInstance().getPlayerManager().setLastTeleported(this, lastTeleported);
+		playerManager.setLastTeleported(this, lastTeleported);
 	}
 
 	@Override
 	public long getLastTeleported()
 	{
-		return XTeam.getInstance().getPlayerManager().getLastTeleported(this.getName());
+		return playerManager.getLastTeleported(this.getName());
 	}
 
 	@Override
@@ -96,13 +104,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return XTeam.getInstance().getPlayerManager().getOfflineTeammatesOf(this);
+		return playerManager.getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return XTeam.getInstance().getPlayerManager().getOnlineTeammatesOf(this);
+		return playerManager.getOnlineTeammatesOf(this);
 	}
 
 	@Override
@@ -135,13 +143,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public ITeam getTeam()
 	{
-		return XTeam.getInstance().getTeamManager().getTeamByPlayer(player.getName());
+		return teamManager.getTeamByPlayer(player.getName());
 	}
 
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
-		return XTeam.getInstance().getPlayerManager().getTeammatesOf(this);
+		return playerManager.getTeammatesOf(this);
 	}
 
 	@Override
@@ -229,7 +237,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public boolean teleportTo(ILocatable entity)
 	{
-		TeleportScheduler.getInstance().teleport(this, entity);
+		teleportScheduler.teleport(this, entity);
 		return true;
 	}
 
@@ -500,13 +508,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public void setReturnLocation(Location returnLocation)
 	{
-		XTeam.getInstance().getPlayerManager().setReturnLocation(this, returnLocation);
+		playerManager.setReturnLocation(this, returnLocation);
 	}
 
 	@Override
 	public Location getReturnLocation()
 	{
-		return XTeam.getInstance().getPlayerManager().getReturnLocation(this.getName());
+		return playerManager.getReturnLocation(this.getName());
 	}
 
 	@Override
@@ -518,19 +526,19 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public void removeReturnLocation()
 	{
-		XTeam.getInstance().getPlayerManager().setReturnLocation(this, null);
+		playerManager.setReturnLocation(this, null);
 	}
 
 	@Override
 	public void setLastAttacked(long lastAttacked)
 	{
-		XTeam.getInstance().getPlayerManager().setLastAttacked(this, lastAttacked);
+		playerManager.setLastAttacked(this, lastAttacked);
 	}
 
 	@Override
 	public long getLastAttacked()
 	{
-		return XTeam.getInstance().getPlayerManager().getLastAttacked(this.getName());
+		return playerManager.getLastAttacked(this.getName());
 	}
 
 	@Override

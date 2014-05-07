@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.teamuser;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
@@ -11,17 +12,19 @@ import org.bukkit.Location;
 
 public class TeamUserReturn extends TeamUserCommand
 {
-	public TeamUserReturn()
+	private TeleportScheduler teleportScheduler;
+
+	public TeamUserReturn(TeamPlugin teamPlugin)
 	{
-		super();
+		super(teamPlugin);
+		this.teleportScheduler = teamPlugin.getTeleportScheduler();
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		TeleportScheduler teleporter = TeleportScheduler.getInstance();
 		Location returnLocation = teamPlayer.getReturnLocation();
-		teleporter.teleport(teamPlayer, new Locatable("your return location", returnLocation));
+		teleportScheduler.teleport(teamPlayer, new Locatable(teamPlugin, "your return location", returnLocation));
 	}
 
 	@Override
@@ -30,7 +33,7 @@ public class TeamUserReturn extends TeamUserCommand
 		Requirements.checkPlayerCanTeleport(teamPlayer);
 		Requirements.checkPlayerHasReturnLocation(teamPlayer);
 		Requirements.checkPlayerLastAttacked(teamPlayer);
-		Requirements.checkPlayerTeleportRequested(teamPlayer);
+		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamPlayer);
 	}
 
 	@Override
