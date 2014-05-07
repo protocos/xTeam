@@ -11,11 +11,12 @@ import org.bukkit.entity.Player;
 
 public class FakeXTeam extends TeamPlugin
 {
+	private static final String FOLDER = "test/";
 	private FakeServer server;
 
 	private FakeXTeam(FakeServer server)
 	{
-		super(server, "test/");
+		super(server, FOLDER);
 		this.server = server;
 		generateDefaultData();
 		this.registerCommands(this.getCommandManager());
@@ -38,7 +39,6 @@ public class FakeXTeam extends TeamPlugin
 		teamManager.createTeam(team4);
 
 		//MOCK players
-
 		World mockWorld = new FakeWorld();
 		Location mockLocation = new FakeLocation(mockWorld, 0.0D, 64.0D, 0.0D);
 		//FAKE protocos
@@ -90,7 +90,7 @@ public class FakeXTeam extends TeamPlugin
 	@Override
 	public void registerCommands(ICommandManager manager)
 	{
-		(new XTeam(server, "test")).registerCommands(manager);
+		(new XTeam(server, FOLDER)).registerCommands(manager);
 	}
 
 	@Override
