@@ -18,6 +18,7 @@ import me.protocos.xteam.listener.TeamChatListener;
 import me.protocos.xteam.listener.TeamPlayerListener;
 import me.protocos.xteam.listener.TeamPvPEntityListener;
 import me.protocos.xteam.util.SystemUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginManager;
 
@@ -25,6 +26,11 @@ public final class XTeam extends TeamPlugin
 {
 	private String version;
 	private Configuration configLoader;
+
+	public XTeam()
+	{
+		super(Bukkit.getServer(), "plugins/xTeam");
+	}
 
 	public XTeam(Server server, String folder)
 	{
