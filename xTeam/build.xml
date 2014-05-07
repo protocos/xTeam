@@ -8,7 +8,7 @@
         	</fileset>
         </unzip>
     	<delete dir="build/META-INF/"/>
-    	<zip destfile="../../../plugins/xTeam.jar">
+    	<zip destfile="../../../CraftBukkit/plugins/xTeam.jar">
             <fileset dir="" includes="**/*.yml"/>
             <fileset dir="bin"/>
             <fileset dir="build"/>
