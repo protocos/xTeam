@@ -10,17 +10,17 @@ import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.SystemUtil;
 import org.bukkit.scheduler.BukkitScheduler;
 
-public class PlayerDataFile implements IDataManager
+public class PlayerFlatFile implements IDataManager
 {
 	private boolean open = false;
 	private TeamPlugin plugin;
 	private BukkitScheduler bukkitScheduler;
 	private File file;
 	private HashList<String, PropertyList> playerProperties;
-	private PeriodicWriter periodicWriter;
+	private PeriodicPlayerWriter periodicWriter;
 	private ILog log;
 
-	public PlayerDataFile(TeamPlugin plugin)
+	public PlayerFlatFile(TeamPlugin plugin)
 	{
 		this.plugin = plugin;
 		this.bukkitScheduler = plugin.getBukkitScheduler();
@@ -69,7 +69,7 @@ public class PlayerDataFile implements IDataManager
 			}
 			if (periodicWriter == null)
 			{
-				periodicWriter = new PeriodicWriter(log, this);
+				periodicWriter = new PeriodicPlayerWriter(log, this);
 				long interval = 10 * BukkitUtil.ONE_MINUTE_IN_TICKS;
 				bukkitScheduler.scheduleSyncRepeatingTask(plugin, periodicWriter, interval, interval);
 			}
@@ -206,12 +206,12 @@ public class PlayerDataFile implements IDataManager
 	}
 }
 
-class PeriodicWriter implements Runnable
+class PeriodicPlayerWriter implements Runnable
 {
 	private IDataManager writer;
 	private ILog log;
 
-	public PeriodicWriter(ILog log, IDataManager writer)
+	public PeriodicPlayerWriter(ILog log, IDataManager writer)
 	{
 		this.log = log;
 		this.writer = writer;

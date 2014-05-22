@@ -3,7 +3,7 @@ package me.protocos.xteam.core;
 import java.util.List;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.data.IDataManager;
-import me.protocos.xteam.data.PlayerDataFile;
+import me.protocos.xteam.data.PlayerFlatFile;
 import me.protocos.xteam.data.translator.LocationDataTranslator;
 import me.protocos.xteam.data.translator.LongDataTranslator;
 import me.protocos.xteam.entity.ITeamEntity;
@@ -26,8 +26,8 @@ public class PlayerManager implements IPlayerManager
 	public PlayerManager(TeamPlugin teamPlugin)
 	{
 		this.teamPlugin = teamPlugin;
+		this.dataManager = new PlayerFlatFile(teamPlugin);
 		this.bukkitUtil = teamPlugin.getBukkitUtil();
-		this.dataManager = new PlayerDataFile(teamPlugin);
 	}
 
 	@Override

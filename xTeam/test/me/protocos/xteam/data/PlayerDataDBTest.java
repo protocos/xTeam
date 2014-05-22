@@ -17,7 +17,7 @@ public class PlayerDataDBTest
 {
 	private TeamPlugin teamPlugin;
 	private BukkitUtil bukkitUtil;
-	private PlayerDataDB playerData;
+	private PlayerSQLite playerData;
 
 	@Before
 	public void setup()
@@ -30,7 +30,7 @@ public class PlayerDataDBTest
 	public void ShouldBeOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataDB(teamPlugin);
+		playerData = new PlayerSQLite(teamPlugin);
 		//ACT
 		playerData.open();
 		//ASSERT
@@ -41,7 +41,7 @@ public class PlayerDataDBTest
 	public void ShouldBeClosed()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataDB(teamPlugin);
+		playerData = new PlayerSQLite(teamPlugin);
 		playerData.open();
 		//ACT
 		playerData.close();
@@ -53,7 +53,7 @@ public class PlayerDataDBTest
 	public void ShouldBeInitializeWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataDB(teamPlugin);
+		playerData = new PlayerSQLite(teamPlugin);
 		//ACT
 		playerData.initializeData();
 		//ASSERT
@@ -63,7 +63,7 @@ public class PlayerDataDBTest
 	public void ShouldBeClearWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataDB(teamPlugin);
+		playerData = new PlayerSQLite(teamPlugin);
 		//ACT
 		playerData.clearData();
 		//ASSERT
@@ -73,7 +73,7 @@ public class PlayerDataDBTest
 	public void ShouldBeSetWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataDB(teamPlugin);
+		playerData = new PlayerSQLite(teamPlugin);
 		//ACT
 		playerData.setVariable("protocos", "lastAttacked", 10L, new LongDataTranslator());
 		//ASSERT
@@ -83,7 +83,7 @@ public class PlayerDataDBTest
 	public void ShouldBeGetWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataDB(teamPlugin);
+		playerData = new PlayerSQLite(teamPlugin);
 		//ACT
 		playerData.getVariable("protocos", "lastAttacked", new LongDataTranslator());
 		//ASSERT
@@ -93,7 +93,7 @@ public class PlayerDataDBTest
 	public void ShouldBeReadWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataDB(teamPlugin);
+		playerData = new PlayerSQLite(teamPlugin);
 		//ACT
 		playerData.read();
 		//ASSERT
@@ -103,7 +103,7 @@ public class PlayerDataDBTest
 	public void ShouldBeWriteWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataDB(teamPlugin);
+		playerData = new PlayerSQLite(teamPlugin);
 		//ACT
 		playerData.write();
 		//ASSERT
@@ -114,7 +114,7 @@ public class PlayerDataDBTest
 	{
 		//ASSEMBLE
 		Location originalLocation = new FakeLocation(bukkitUtil.getWorld("world")).toLocation();
-		playerData = new PlayerDataDB(teamPlugin);
+		playerData = new PlayerSQLite(teamPlugin);
 		playerData.open();
 		//ACT
 		playerData.setVariable("protocos", "returnLocation", originalLocation, new LocationDataTranslator(teamPlugin));

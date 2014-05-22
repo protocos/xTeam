@@ -1,11 +1,18 @@
 package me.protocos.xteam.core;
 
 import me.protocos.xteam.collections.HashList;
+import me.protocos.xteam.data.IDataManager;
 import me.protocos.xteam.entity.ITeam;
 
 public interface ITeamManager
 {
+	public abstract void open();
+
+	public abstract void close();
+
 	public abstract void clear();
+
+	public abstract void setDataManager(IDataManager dataManager);
 
 	public abstract void createTeam(ITeam team);
 

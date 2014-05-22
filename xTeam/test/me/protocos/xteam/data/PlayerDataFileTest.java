@@ -21,7 +21,7 @@ public class PlayerDataFileTest
 {
 	private TeamPlugin teamPlugin;
 	private BukkitUtil bukkitUtil;
-	private PlayerDataFile playerData;
+	private PlayerFlatFile playerData;
 
 	@Before
 	public void setup()
@@ -34,7 +34,7 @@ public class PlayerDataFileTest
 	public void ShouldBeOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(teamPlugin);
+		playerData = new PlayerFlatFile(teamPlugin);
 		//ACT
 		playerData.open();
 		//ASSERT
@@ -45,7 +45,7 @@ public class PlayerDataFileTest
 	public void ShouldBeClosed()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(teamPlugin);
+		playerData = new PlayerFlatFile(teamPlugin);
 		playerData.open();
 		//ACT
 		playerData.close();
@@ -57,7 +57,7 @@ public class PlayerDataFileTest
 	public void ShouldBeInitializeWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(teamPlugin);
+		playerData = new PlayerFlatFile(teamPlugin);
 		//ACT
 		playerData.initializeData();
 		//ASSERT
@@ -67,7 +67,7 @@ public class PlayerDataFileTest
 	public void ShouldBeClearWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(teamPlugin);
+		playerData = new PlayerFlatFile(teamPlugin);
 		//ACT
 		playerData.clearData();
 		//ASSERT
@@ -77,7 +77,7 @@ public class PlayerDataFileTest
 	public void ShouldBeSetWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(teamPlugin);
+		playerData = new PlayerFlatFile(teamPlugin);
 		//ACT
 		playerData.setVariable("protocos", "lastAttacked", 10L, new LongDataTranslator());
 		//ASSERT
@@ -87,7 +87,7 @@ public class PlayerDataFileTest
 	public void ShouldBeGetWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(teamPlugin);
+		playerData = new PlayerFlatFile(teamPlugin);
 		//ACT
 		playerData.getVariable("protocos", "lastAttacked", new LongDataTranslator());
 		//ASSERT
@@ -97,7 +97,7 @@ public class PlayerDataFileTest
 	public void ShouldBeReadWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(teamPlugin);
+		playerData = new PlayerFlatFile(teamPlugin);
 		//ACT
 		playerData.read();
 		//ASSERT
@@ -107,7 +107,7 @@ public class PlayerDataFileTest
 	public void ShouldBeWriteWithoutOpen()
 	{
 		//ASSEMBLE
-		playerData = new PlayerDataFile(teamPlugin);
+		playerData = new PlayerFlatFile(teamPlugin);
 		//ACT
 		playerData.write();
 		//ASSERT
@@ -118,7 +118,7 @@ public class PlayerDataFileTest
 	{
 		//ASSEMBLE
 		Location originalLocation = new FakeLocation(bukkitUtil.getWorld("world")).toLocation();
-		playerData = new PlayerDataFile(teamPlugin);
+		playerData = new PlayerFlatFile(teamPlugin);
 		playerData.open();
 		//ACT
 		playerData.setVariable("protocos", "returnLocation", originalLocation, new LocationDataTranslator(teamPlugin));
@@ -139,7 +139,7 @@ public class PlayerDataFileTest
 		writer.write("name:kmlanglois lastAttacked:0 lastTeleported:0 returnLocation:world,0.0,0.0,0.0,0.0,0.0\n");
 		writer.write("name:mastermind lastAttacked:0 lastTeleported:0 returnLocation:world,0.0,0.0,0.0,0.0,0.0\n");
 		writer.close();
-		playerData = new PlayerDataFile(teamPlugin);
+		playerData = new PlayerFlatFile(teamPlugin);
 		//ACT
 		playerData.open();
 		playerData.read();
@@ -164,7 +164,7 @@ public class PlayerDataFileTest
 		writer.write("name:kmlanglois lastAttacked:0 lastTeleported:0 returnLocation:world,0.0,0.0,0.0,0.0,0.0\n");
 		writer.write("name:mastermind lastAttacked:0 lastTeleported:0 returnLocation:world,0.0,0.0,0.0,0.0,0.0\n");
 		writer.close();
-		playerData = new PlayerDataFile(teamPlugin);
+		playerData = new PlayerFlatFile(teamPlugin);
 		//ACT
 		playerData.open();
 		playerData.read();

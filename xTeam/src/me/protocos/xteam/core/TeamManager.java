@@ -1,18 +1,52 @@
 package me.protocos.xteam.core;
 
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
+import me.protocos.xteam.data.IDataManager;
+import me.protocos.xteam.data.TeamFlatFile;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.event.*;
 import me.protocos.xteam.util.CommonUtil;
 
 public class TeamManager implements ITeamManager
 {
+	private IDataManager dataManager;
 	private IEventDispatcher dispatcher;
 	private HashList<String, ITeam> teams = CommonUtil.emptyHashList();
 
-	public TeamManager(IEventDispatcher dispatcher)
+	public TeamManager(TeamPlugin teamPlugin)
 	{
-		this.dispatcher = dispatcher;
+		this.dataManager = new TeamFlatFile(teamPlugin);
+		this.dispatcher = teamPlugin.getEventDispatcher();
+	}
+
+	@Override
+	public void setDataManager(IDataManager dataManager)
+	{
+		if (this.dataManager.isOpen())
+			this.dataManager.close();
+		this.dataManager = dataManager;
+		this.dataManager.open();
+	}
+
+	@Override
+	public void open()
+	{
+		dataManager.open();
+		dataManager.read();
+	}
+
+	@Override
+	public void close()
+	{
+		dataManager.write();
+		dataManager.close();
+	}
+
+	@Override
+	public void clear()
+	{
+		teams.clear();
 	}
 
 	private void addTeam(ITeam team)
@@ -21,12 +55,6 @@ public class TeamManager implements ITeamManager
 		{
 			teams.put(team.getName().toLowerCase(), team);
 		}
-	}
-
-	@Override
-	public void clear()
-	{
-		teams.clear();
 	}
 
 	@Override

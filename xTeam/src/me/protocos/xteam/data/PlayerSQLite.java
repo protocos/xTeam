@@ -10,13 +10,13 @@ import me.protocos.xteam.data.translator.IDataTranslator;
 import me.protocos.xteam.exception.DataManagerNotOpenException;
 import me.protocos.xteam.model.ILog;
 
-public class PlayerDataDB implements IDataManager
+public class PlayerSQLite implements IDataManager
 {
 	private boolean open = false;
 	private Database db;
 	private ILog log;
 
-	public PlayerDataDB(TeamPlugin plugin)
+	public PlayerSQLite(TeamPlugin plugin)
 	{
 		this.log = plugin.getLog();
 		this.db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", plugin.getFolder(), "xTeam", ".db");

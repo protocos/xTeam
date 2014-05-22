@@ -24,14 +24,14 @@ public class PlayerDataStorageFactory
 		if ("SQLite".equalsIgnoreCase(strategy))
 		{
 			if (bukkitUtil.getPlugin("SQLibrary") != null)
-				playerDataManager = new PlayerDataDB(teamPlugin);
+				playerDataManager = new PlayerSQLite(teamPlugin);
 			else
 				this.log.error("Cannot use \"" + Configuration.STORAGE_TYPE + "\" for storage because plugin \"SQLibrary\" cannot be found!" +
 						"\nSQLibrary can be found here: http://dev.bukkit.org/bukkit-plugins/sqlibrary/");
 		}
 		else if ("file".equalsIgnoreCase(Configuration.STORAGE_TYPE))
 		{
-			playerDataManager = new PlayerDataFile(teamPlugin);
+			playerDataManager = new PlayerFlatFile(teamPlugin);
 		}
 		else
 		{
@@ -40,7 +40,7 @@ public class PlayerDataStorageFactory
 		if (playerDataManager == null)
 		{
 			this.log.info("Resorting to \"file\" storage type");
-			playerDataManager = new PlayerDataFile(teamPlugin);
+			playerDataManager = new PlayerFlatFile(teamPlugin);
 		}
 		return playerDataManager;
 	}

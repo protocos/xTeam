@@ -46,8 +46,8 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 		this.eventDispatcher = new EventDispatcher();
 		this.commandManager = new CommandManager();
 		this.commandExecutor = new CommandDelegate(this, this.getCommandManager());
-		this.teamManager = new TeamManager(eventDispatcher);
 		this.bukkitUtil = new BukkitUtil(server);
+		this.teamManager = new TeamManager(this);
 		this.playerManager = new PlayerManager(this);
 		//		this.playerManager = new PlayerDataStorageFactory(this).fromString(Configuration.STORAGE_TYPE);
 		this.teleportScheduler = new TeleportScheduler(this, playerManager, bukkitScheduler);
