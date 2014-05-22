@@ -7,7 +7,6 @@ import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.fakeobjects.FakePlayer;
-import me.protocos.xteam.model.ITeamListener;
 import me.protocos.xteam.model.InviteRequest;
 import org.junit.After;
 import org.junit.Assert;
@@ -18,7 +17,7 @@ public class EventDispatcherTest
 {
 	private TeamPlugin teamPlugin = FakeXTeam.asTeamPlugin();
 	private IEventDispatcher dispatcher;
-	private ITeamListener listener;
+	private IEventHandler listener;
 	private String responseMessage;
 	private ITeam team;
 	private InviteRequest inviteRequest;
@@ -27,7 +26,7 @@ public class EventDispatcherTest
 	public void setup()
 	{
 		dispatcher = new EventDispatcher();
-		class TeamListener implements ITeamListener
+		class TeamListener implements IEventHandler
 		{
 			@TeamEvent
 			public void onRenameEvent(@SuppressWarnings("unused") TeamRenameEvent event)

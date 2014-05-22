@@ -2,12 +2,11 @@ package me.protocos.xteam.event;
 
 import java.lang.reflect.Method;
 import java.util.List;
-import me.protocos.xteam.model.ITeamListener;
 import me.protocos.xteam.util.CommonUtil;
 
 public class EventDispatcher implements IEventDispatcher
 {
-	private static List<ITeamListener> listeners;
+	private static List<IEventHandler> listeners;
 
 	public EventDispatcher()
 	{
@@ -15,13 +14,13 @@ public class EventDispatcher implements IEventDispatcher
 	}
 
 	@Override
-	public void addTeamListener(ITeamListener listener)
+	public void addTeamListener(IEventHandler listener)
 	{
 		listeners.add(listener);
 	}
 
 	@Override
-	public void removeTeamListener(ITeamListener listener)
+	public void removeTeamListener(IEventHandler listener)
 	{
 		listeners.remove(listener);
 	}
@@ -29,13 +28,13 @@ public class EventDispatcher implements IEventDispatcher
 	@Override
 	public void dispatchEvent(ITeamEvent event)
 	{
-		for (ITeamListener listener : listeners)
+		for (IEventHandler listener : listeners)
 		{
 			dispatchEventTo(event, listener);
 		}
 	}
 
-	private void dispatchEventTo(ITeamEvent event, ITeamListener listener)
+	private void dispatchEventTo(ITeamEvent event, IEventHandler listener)
 	{
 		List<Method> methods = getAllMethodsWithEventAnnotation(listener);
 		for (Method method : methods)
@@ -58,7 +57,7 @@ public class EventDispatcher implements IEventDispatcher
 		}
 	}
 
-	private List<Method> getAllMethodsWithEventAnnotation(ITeamListener listener)
+	private List<Method> getAllMethodsWithEventAnnotation(IEventHandler listener)
 	{
 		Method[] methods = listener.getClass().getDeclaredMethods();
 		List<Method> finalMethods = CommonUtil.emptyList();

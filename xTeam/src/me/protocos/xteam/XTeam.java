@@ -30,7 +30,7 @@ public final class XTeam extends TeamPlugin
 
 	public XTeam()
 	{
-		super(Bukkit.getServer(), "plugins/xTeam");
+		super(Bukkit.getServer(), "plugins/xTeam/");
 	}
 
 	public XTeam(Server server, String folder)
