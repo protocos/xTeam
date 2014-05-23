@@ -28,7 +28,6 @@ public class PlayerSQLite implements IDataManager
 		db.open();
 		open = true;
 		this.initializeData();
-		this.clearData();
 	}
 
 	@Override
@@ -79,22 +78,15 @@ public class PlayerSQLite implements IDataManager
 	}
 
 	@Override
-	public void clearData()
+	public void addEntry(String name, PropertyList properties)
 	{
-		if (open)
+		try
 		{
-			try
-			{
-				db.insert("UPDATE player_data SET lastAttacked=0,lastTeleported=0,returnLocation=null;");
-			}
-			catch (SQLException e)
-			{
-				log.exception(e);
-			}
+			db.insert("INSERT INTO player_data(name, lastAttacked, lastTeleported) VALUES ('" + name + "',0,0);");
 		}
-		else
+		catch (SQLException e)
 		{
-			throw new DataManagerNotOpenException();
+			log.exception(e);
 		}
 	}
 

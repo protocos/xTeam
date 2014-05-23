@@ -4,6 +4,7 @@ import java.io.*;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.data.translator.IDataTranslator;
+import me.protocos.xteam.exception.DataEntryDoesNotExistException;
 import me.protocos.xteam.exception.DataManagerNotOpenException;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.BukkitUtil;
@@ -13,7 +14,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 public class TeamFlatFile implements IDataManager
 {
 	private boolean open = false;
-	private TeamPlugin plugin;
+	private TeamPlugin teamPlugin;
 	private BukkitScheduler bukkitScheduler;
 	private File file;
 	private HashList<String, PropertyList> teamProperties;
@@ -22,7 +23,7 @@ public class TeamFlatFile implements IDataManager
 
 	public TeamFlatFile(TeamPlugin plugin)
 	{
-		this.plugin = plugin;
+		this.teamPlugin = plugin;
 		this.bukkitScheduler = plugin.getBukkitScheduler();
 		this.log = plugin.getLog();
 		this.file = SystemUtil.ensureFile(plugin.getFolder() + "teams.txt");
@@ -33,7 +34,6 @@ public class TeamFlatFile implements IDataManager
 	{
 		open = true;
 		this.initializeData();
-		this.clearData();
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class TeamFlatFile implements IDataManager
 			{
 				periodicWriter = new PeriodicTeamWriter(log, this);
 				long interval = 10 * BukkitUtil.ONE_MINUTE_IN_TICKS;
-				bukkitScheduler.scheduleSyncRepeatingTask(plugin, periodicWriter, interval, interval);
+				bukkitScheduler.scheduleSyncRepeatingTask(teamPlugin, periodicWriter, interval, interval);
 			}
 		}
 		else
@@ -145,18 +145,9 @@ public class TeamFlatFile implements IDataManager
 	}
 
 	@Override
-	public void clearData()
+	public void addEntry(String name, PropertyList properties)
 	{
-		if (open)
-		{
-			for (String team : teamProperties.getOrder())
-			{
-			}
-		}
-		else
-		{
-			throw new DataManagerNotOpenException();
-		}
+		teamProperties.put(name, properties);
 	}
 
 	@Override
@@ -166,6 +157,7 @@ public class TeamFlatFile implements IDataManager
 		{
 			if (!teamProperties.containsKey(teamName))
 			{
+				throw new DataEntryDoesNotExistException();
 			}
 			PropertyList properties = teamProperties.get(teamName);
 			properties.put(variableName, strategy.decompile(variable));
@@ -183,6 +175,7 @@ public class TeamFlatFile implements IDataManager
 		{
 			if (!teamProperties.containsKey(teamName))
 			{
+				throw new DataEntryDoesNotExistException();
 			}
 			PropertyList properties = teamProperties.get(teamName);
 			Property property = properties.get(variableName);

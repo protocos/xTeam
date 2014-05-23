@@ -64,16 +64,6 @@ public class PlayerDataFileTest
 	}
 
 	@Test(expected = DataManagerNotOpenException.class)
-	public void ShouldBeClearWithoutOpen()
-	{
-		//ASSEMBLE
-		playerData = new PlayerFlatFile(teamPlugin);
-		//ACT
-		playerData.clearData();
-		//ASSERT
-	}
-
-	@Test(expected = DataManagerNotOpenException.class)
 	public void ShouldBeSetWithoutOpen()
 	{
 		//ASSEMBLE

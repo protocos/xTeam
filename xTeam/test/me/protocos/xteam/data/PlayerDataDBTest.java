@@ -60,16 +60,6 @@ public class PlayerDataDBTest
 	}
 
 	@Test(expected = DataManagerNotOpenException.class)
-	public void ShouldBeClearWithoutOpen()
-	{
-		//ASSEMBLE
-		playerData = new PlayerSQLite(teamPlugin);
-		//ACT
-		playerData.clearData();
-		//ASSERT
-	}
-
-	@Test(expected = DataManagerNotOpenException.class)
 	public void ShouldBeSetWithoutOpen()
 	{
 		//ASSEMBLE

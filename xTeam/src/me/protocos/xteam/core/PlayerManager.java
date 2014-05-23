@@ -53,11 +53,6 @@ public class PlayerManager implements IPlayerManager
 		this.dataManager.close();
 	}
 
-	public void clear()
-	{
-		this.dataManager.clearData();
-	}
-
 	public List<TeamPlayer> getOnlinePlayers()
 	{
 		Player[] players = bukkitUtil.getOnlinePlayers();

@@ -16,8 +16,6 @@ public interface IPlayerManager
 
 	public abstract void close();
 
-	public abstract void clear();
-
 	public abstract void setDataManager(IDataManager dataManager);
 
 	public abstract ITeamPlayer getPlayer(String name);

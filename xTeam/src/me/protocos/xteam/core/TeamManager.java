@@ -139,7 +139,7 @@ public class TeamManager implements ITeamManager
 		if (!teams.containsKey(team.getName()))
 		{
 			this.addTeam(team);
-			this.dispatchEvent(new TeamCreateEvent(team));
+			dispatcher.dispatchEvent(new TeamCreateEvent(team));
 		}
 	}
 
@@ -152,7 +152,7 @@ public class TeamManager implements ITeamManager
 			ITeam renameTeam = this.removeTeam(team.getName());
 			renameTeam.setName(teamName);
 			this.addTeam(renameTeam);
-			this.dispatchEvent(new TeamRenameEvent(team, oldName));
+			dispatcher.dispatchEvent(new TeamRenameEvent(team, oldName));
 		}
 	}
 
@@ -162,12 +162,7 @@ public class TeamManager implements ITeamManager
 		if (this.containsTeam(teamName))
 		{
 			ITeam removeTeam = this.removeTeam(teamName);
-			this.dispatchEvent(new TeamDisbandEvent(removeTeam));
+			dispatcher.dispatchEvent(new TeamDisbandEvent(removeTeam));
 		}
-	}
-
-	private void dispatchEvent(ITeamEvent event)
-	{
-		dispatcher.dispatchEvent(event);
 	}
 }

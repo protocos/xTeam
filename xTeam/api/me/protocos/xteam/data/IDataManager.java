@@ -12,11 +12,11 @@ public interface IDataManager
 
 	public abstract void initializeData();
 
-	public abstract void clearData();
-
 	public abstract void write();
 
 	public abstract void close();
+
+	public abstract void addEntry(String key, PropertyList properties);
 
 	public abstract <T> void setVariable(String key, String propertyName, T variable, IDataTranslator<T> strategy);
 

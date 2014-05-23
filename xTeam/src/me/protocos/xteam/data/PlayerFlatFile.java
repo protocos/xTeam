@@ -33,7 +33,6 @@ public class PlayerFlatFile implements IDataManager
 	{
 		open = true;
 		this.initializeData();
-		this.clearData();
 	}
 
 	@Override
@@ -145,19 +144,9 @@ public class PlayerFlatFile implements IDataManager
 	}
 
 	@Override
-	public void clearData()
+	public void addEntry(String name, PropertyList properties)
 	{
-		if (open)
-		{
-			for (String player : playerProperties.getOrder())
-			{
-				playerProperties.put(player, blankDataSet());
-			}
-		}
-		else
-		{
-			throw new DataManagerNotOpenException();
-		}
+		playerProperties.put(name, properties);
 	}
 
 	@Override
