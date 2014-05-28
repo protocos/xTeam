@@ -146,7 +146,27 @@ public class PlayerFlatFile implements IDataManager
 	@Override
 	public void addEntry(String name, PropertyList properties)
 	{
-		playerProperties.put(name, properties);
+		if (open)
+		{
+			playerProperties.put(name, properties);
+		}
+		else
+		{
+			throw new DataManagerNotOpenException();
+		}
+	}
+
+	@Override
+	public void removeEntry(String name)
+	{
+		if (open)
+		{
+			playerProperties.remove(name);
+		}
+		else
+		{
+			throw new DataManagerNotOpenException();
+		}
 	}
 
 	@Override

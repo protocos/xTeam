@@ -1,10 +1,11 @@
 package me.protocos.xteam.data;
 
+import java.util.Iterator;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.data.translator.IDataTranslator;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
-public class PropertyList
+public class PropertyList implements Iterable<Property>
 {
 	private HashList<String, Property> properties;
 
@@ -33,6 +34,11 @@ public class PropertyList
 		return properties.get(propertyName);
 	}
 
+	public Property get(int index)
+	{
+		return properties.get(index);
+	}
+
 	public Property remove(String propertyName)
 	{
 		int index = 0;
@@ -42,6 +48,11 @@ public class PropertyList
 				break;
 			index++;
 		}
+		return properties.remove(index);
+	}
+
+	protected Property remove(int index)
+	{
 		return properties.remove(index);
 	}
 
@@ -59,6 +70,11 @@ public class PropertyList
 	public boolean contains(Property property)
 	{
 		return properties.containsKey(property.getKey());
+	}
+
+	protected int size()
+	{
+		return properties.size();
 	}
 
 	@Override
@@ -84,5 +100,33 @@ public class PropertyList
 			output += property.toString() + " ";
 		}
 		return output.trim();
+	}
+
+	@Override
+	public Iterator<Property> iterator()
+	{
+		Iterator<Property> it = new Iterator<Property>()
+		{
+			private int index = 0;
+
+			@Override
+			public boolean hasNext()
+			{
+				return index < PropertyList.this.size() && PropertyList.this.get(index) != null;
+			}
+
+			@Override
+			public Property next()
+			{
+				return PropertyList.this.get(index++);
+			}
+
+			@Override
+			public void remove()
+			{
+				PropertyList.this.remove(index);
+			}
+		};
+		return it;
 	}
 }

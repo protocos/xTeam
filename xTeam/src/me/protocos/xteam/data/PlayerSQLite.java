@@ -80,13 +80,55 @@ public class PlayerSQLite implements IDataManager
 	@Override
 	public void addEntry(String name, PropertyList properties)
 	{
-		try
+		if (open)
 		{
-			db.insert("INSERT INTO player_data(name, lastAttacked, lastTeleported) VALUES ('" + name + "',0,0);");
+			String keys = "", values = "";
+			boolean first = true;
+			for (Property property : properties)
+			{
+				String key = property.getKey();
+				String value = property.getValue();
+				if (!first)
+				{
+					keys += ",";
+					values += ",";
+				}
+				keys += key;
+				values += "'" + value + "'";
+				first = false;
+			}
+			try
+			{
+				db.insert("INSERT INTO player_data(" + keys + ") VALUES (" + values + ");");
+			}
+			catch (SQLException e)
+			{
+				log.exception(e);
+			}
 		}
-		catch (SQLException e)
+		else
 		{
-			log.exception(e);
+			throw new DataManagerNotOpenException();
+		}
+	}
+
+	@Override
+	public void removeEntry(String name)
+	{
+		if (open)
+		{
+			try
+			{
+				db.insert("DELETE FROM player_data WHERE name='" + name + "';");
+			}
+			catch (SQLException e)
+			{
+				log.exception(e);
+			}
+		}
+		else
+		{
+			throw new DataManagerNotOpenException();
 		}
 	}
 

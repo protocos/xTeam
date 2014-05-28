@@ -145,9 +145,29 @@ public class TeamFlatFile implements IDataManager
 	}
 
 	@Override
-	public void addEntry(String name, PropertyList properties)
+	public void addEntry(String teamName, PropertyList properties)
 	{
-		teamProperties.put(name, properties);
+		if (open)
+		{
+			teamProperties.put(teamName, properties);
+		}
+		else
+		{
+			throw new DataManagerNotOpenException();
+		}
+	}
+
+	@Override
+	public void removeEntry(String teamName)
+	{
+		if (open)
+		{
+			teamProperties.remove(teamName);
+		}
+		else
+		{
+			throw new DataManagerNotOpenException();
+		}
 	}
 
 	@Override
