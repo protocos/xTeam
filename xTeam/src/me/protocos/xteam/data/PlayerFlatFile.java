@@ -25,7 +25,6 @@ public class PlayerFlatFile implements IDataManager
 		this.plugin = plugin;
 		this.bukkitScheduler = plugin.getBukkitScheduler();
 		this.log = plugin.getLog();
-		this.file = SystemUtil.ensureFile(plugin.getFolder() + "players.txt");
 	}
 
 	@Override
@@ -132,6 +131,7 @@ public class PlayerFlatFile implements IDataManager
 	{
 		if (open)
 		{
+			this.file = SystemUtil.ensureFile(plugin.getFolder() + "players.txt");
 			if (playerProperties == null)
 			{
 				playerProperties = new HashList<String, PropertyList>();
