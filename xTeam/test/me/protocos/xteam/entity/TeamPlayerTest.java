@@ -3,7 +3,7 @@ package me.protocos.xteam.entity;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.IPermissible;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.fakeobjects.*;
 import org.bukkit.Location;
@@ -17,7 +17,7 @@ import org.junit.Test;
 public class TeamPlayerTest
 {
 	private TeamPlugin teamPlugin = FakeXTeam.asTeamPlugin();
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 	private ITeamManager teamManager;
 	private TeamPlayer teamPlayer;
 

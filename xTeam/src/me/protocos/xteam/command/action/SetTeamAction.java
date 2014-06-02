@@ -2,7 +2,7 @@ package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.Requirements;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
@@ -16,7 +16,7 @@ public class SetTeamAction
 {
 	private TeamPlugin teamPlugin;
 	private ITeamManager teamManager;
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 	private CommandSender sender;
 
 	public SetTeamAction(TeamPlugin teamPlugin, CommandSender sender)

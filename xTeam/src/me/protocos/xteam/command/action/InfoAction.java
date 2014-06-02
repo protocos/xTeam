@@ -1,7 +1,7 @@
 package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.command.Requirements;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -14,9 +14,9 @@ import org.bukkit.command.ConsoleCommandSender;
 public class InfoAction
 {
 	private ITeamManager teamManager;
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 
-	public InfoAction(ITeamManager teamManager, IPlayerManager playerFactory)
+	public InfoAction(ITeamManager teamManager, IPlayerFactory playerFactory)
 	{
 		this.teamManager = teamManager;
 		this.playerFactory = playerFactory;

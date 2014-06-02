@@ -4,7 +4,7 @@ import java.util.*;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.IHeadquarters;
@@ -31,7 +31,7 @@ public class Team implements ITeam
 	 */
 
 	private TeamPlugin teamPlugin;
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 	private TeleportScheduler teleportScheduler;
 	private BukkitUtil bukkitUtil;
 	private String name;

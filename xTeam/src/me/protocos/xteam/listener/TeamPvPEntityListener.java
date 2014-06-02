@@ -1,7 +1,7 @@
 package me.protocos.xteam.listener;
 
 import me.protocos.xteam.XTeam;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.model.ILog;
@@ -16,7 +16,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class TeamPvPEntityListener implements Listener
 {
 	private ILog log;
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 
 	public TeamPvPEntityListener(XTeam xteam)
 	{

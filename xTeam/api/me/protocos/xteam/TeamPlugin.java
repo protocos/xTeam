@@ -8,7 +8,7 @@ import me.protocos.xteam.command.ICommandContainer;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.core.PlayerFactory;
 import me.protocos.xteam.core.TeamManager;
@@ -33,7 +33,7 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 	protected final InviteHandler inviteHandler;
 	protected final BukkitUtil bukkitUtil;
 	protected final ITeamManager teamManager;
-	protected final IPlayerManager playerFactory;
+	protected final IPlayerFactory playerFactory;
 	protected final ICommandManager commandManager;
 	protected final ILog log;
 
@@ -104,7 +104,7 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 		return this.teamManager;
 	}
 
-	public final IPlayerManager getPlayerManager()
+	public final IPlayerFactory getPlayerManager()
 	{
 		return this.playerFactory;
 	}

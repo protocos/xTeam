@@ -2,7 +2,7 @@ package me.protocos.xteam.entity;
 
 import java.util.List;
 import java.util.UUID;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
@@ -20,10 +20,10 @@ import org.bukkit.util.Vector;
 
 public class TeamWolf implements ITeamWolf
 {
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 	private Wolf wolf;
 
-	public TeamWolf(IPlayerManager playerFactory, Wolf wolf)
+	public TeamWolf(IPlayerFactory playerFactory, Wolf wolf)
 	{
 		this.playerFactory = playerFactory;
 		this.wolf = wolf;

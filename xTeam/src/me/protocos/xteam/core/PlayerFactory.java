@@ -17,7 +17,7 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-public class PlayerFactory implements IPlayerManager
+public class PlayerFactory implements IPlayerFactory
 {
 	private TeamPlugin teamPlugin;
 	private IDataManager dataManager;

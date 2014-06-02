@@ -1,30 +1,31 @@
 package me.protocos.xteam.data;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
+import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.data.translator.IDataTranslator;
-import me.protocos.xteam.exception.DataEntryDoesNotExistException;
+import me.protocos.xteam.entity.ITeam;
+import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.exception.DataManagerNotOpenException;
 import me.protocos.xteam.model.ILog;
-import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.SystemUtil;
-import org.bukkit.scheduler.BukkitScheduler;
 
 public class TeamFlatFile implements IDataManager
 {
 	private boolean open = false;
 	private TeamPlugin teamPlugin;
-	private BukkitScheduler bukkitScheduler;
 	private File file;
-	private HashList<String, PropertyList> teamProperties;
-	private PeriodicTeamWriter periodicWriter;
+	private ITeamManager teamManager;
 	private ILog log;
 
-	public TeamFlatFile(TeamPlugin teamPlugin)
+	public TeamFlatFile(TeamPlugin teamPlugin, ITeamManager teamManager)
 	{
 		this.teamPlugin = teamPlugin;
-		this.bukkitScheduler = teamPlugin.getBukkitScheduler();
+		this.teamManager = teamManager;
 		this.log = teamPlugin.getLog();
 	}
 
@@ -42,35 +43,18 @@ public class TeamFlatFile implements IDataManager
 		{
 			try
 			{
-				PropertyList propList;
-				BufferedReader reader = new BufferedReader(new FileReader(file));
 				String line;
-				while ((line = reader.readLine()) != null)
+				BufferedReader br = new BufferedReader(new FileReader(file));
+				while ((line = br.readLine()) != null)
 				{
-					try
-					{
-						propList = PropertyList.fromString(line);
-						Property nameProperty = propList.remove("name");
-						String teamName = nameProperty.getValue();
-						teamProperties.put(teamName, propList);
-					}
-					catch (Exception e)
-					{
-						//this way if one line fails to write, the entire file isn't lost
-						log.exception(e);
-					}
+					Team team = Team.generateTeamFromProperties(teamPlugin, line);
+					teamManager.createTeam(team);
 				}
-				reader.close();
+				br.close();
 			}
 			catch (Exception e)
 			{
 				log.exception(e);
-			}
-			if (periodicWriter == null)
-			{
-				periodicWriter = new PeriodicTeamWriter(log, this);
-				long interval = 10 * BukkitUtil.ONE_MINUTE_IN_TICKS;
-				bukkitScheduler.scheduleSyncRepeatingTask(teamPlugin, periodicWriter, interval, interval);
 			}
 		}
 		else
@@ -92,25 +76,18 @@ public class TeamFlatFile implements IDataManager
 		{
 			try
 			{
-				PropertyList propList;
-				BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-				for (String team : teamProperties.getOrder())
+				ArrayList<String> data = new ArrayList<String>();
+				HashList<String, ITeam> teams = teamManager.getTeams();
+				for (ITeam team : teams)
+					data.add(team.toString());
+				BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+				for (String line : data)
 				{
-
-					try
-					{
-						propList = teamProperties.get(team);
-						writer.write(new StringBuilder().append("name:").append(team).append(" ").append(propList).append("\n").toString());
-					}
-					catch (Exception e)
-					{
-						//this way if one line fails to write, the entire file isn't lost
-						log.exception(e);
-					}
+					bw.write(line + "\n");
 				}
-				writer.close();
+				bw.close();
 			}
-			catch (IOException e)
+			catch (Exception e)
 			{
 				log.exception(e);
 			}
@@ -133,10 +110,6 @@ public class TeamFlatFile implements IDataManager
 		if (open)
 		{
 			this.file = SystemUtil.ensureFile(teamPlugin.getFolder() + "teams.txt");
-			if (teamProperties == null)
-			{
-				teamProperties = new HashList<String, PropertyList>();
-			}
 		}
 		else
 		{
@@ -144,43 +117,53 @@ public class TeamFlatFile implements IDataManager
 		}
 	}
 
-	@Override
-	public void addEntry(String teamName, PropertyList properties)
-	{
-		if (open)
-		{
-			teamProperties.put(teamName, properties);
-		}
-		else
-		{
-			throw new DataManagerNotOpenException();
-		}
-	}
+	//	@Override
+	//	public void addEntry(String teamName, PropertyList properties)
+	//	{
+	//		if (open)
+	//		{
+	//			teamProperties.put(teamName, properties);
+	//		}
+	//		else
+	//		{
+	//			throw new DataManagerNotOpenException();
+	//		}
+	//	}
 
-	@Override
-	public void removeEntry(String teamName)
-	{
-		if (open)
-		{
-			teamProperties.remove(teamName);
-		}
-		else
-		{
-			throw new DataManagerNotOpenException();
-		}
-	}
+	//	@Override
+	//	public void removeEntry(String teamName)
+	//	{
+	//		if (open)
+	//		{
+	//			teamProperties.remove(teamName);
+	//		}
+	//		else
+	//		{
+	//			throw new DataManagerNotOpenException();
+	//		}
+	//	}
 
 	@Override
 	public <T> void setVariable(String teamName, String variableName, T variable, IDataTranslator<T> strategy)
 	{
 		if (open)
 		{
-			if (!teamProperties.containsKey(teamName))
+			ITeam team = teamManager.getTeam(teamName);
+			Method[] methods = Team.class.getMethods();
+			for (Method method : methods)
 			{
-				throw new DataEntryDoesNotExistException();
+				if (method.getName().equalsIgnoreCase("set" + variableName))
+				{
+					try
+					{
+						method.invoke(team, variable);
+					}
+					catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+					{
+						log.exception(e);
+					}
+				}
 			}
-			PropertyList properties = teamProperties.get(teamName);
-			properties.put(variableName, strategy.decompile(variable));
 		}
 		else
 		{
@@ -193,37 +176,23 @@ public class TeamFlatFile implements IDataManager
 	{
 		if (open)
 		{
-			if (!teamProperties.containsKey(teamName))
+			ITeam team = teamManager.getTeam(teamName);
+			Method[] methods = Team.class.getMethods();
+			for (Method method : methods)
 			{
-				throw new DataEntryDoesNotExistException();
+				if (method.getName().equalsIgnoreCase("get" + variableName))
+				{
+					try
+					{
+						method.invoke(team);
+					}
+					catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+					{
+						log.exception(e);
+					}
+				}
 			}
-			PropertyList properties = teamProperties.get(teamName);
-			Property property = properties.get(variableName);
-			if (property == null)
-				return null;
-			return strategy.compile(property.getValue());
 		}
 		throw new DataManagerNotOpenException();
 	}
-}
-
-class PeriodicTeamWriter implements Runnable
-{
-	private IDataManager writer;
-	private ILog log;
-
-	public PeriodicTeamWriter(ILog log, IDataManager writer)
-	{
-		this.log = log;
-		this.writer = writer;
-	}
-
-	@Override
-	public void run()
-	{
-		log.info("Saving team data...");
-		writer.write();
-		log.info("Done.");
-	}
-
 }

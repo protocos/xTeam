@@ -77,60 +77,60 @@ public class PlayerSQLite implements IDataManager
 		}
 	}
 
-	@Override
-	public void addEntry(String name, PropertyList properties)
-	{
-		if (open)
-		{
-			String keys = "", values = "";
-			boolean first = true;
-			for (Property property : properties)
-			{
-				String key = property.getKey();
-				String value = property.getValue();
-				if (!first)
-				{
-					keys += ",";
-					values += ",";
-				}
-				keys += key;
-				values += "'" + value + "'";
-				first = false;
-			}
-			try
-			{
-				db.insert("INSERT INTO player_data(" + keys + ") VALUES (" + values + ");");
-			}
-			catch (SQLException e)
-			{
-				log.exception(e);
-			}
-		}
-		else
-		{
-			throw new DataManagerNotOpenException();
-		}
-	}
+	//	@Override
+	//	public void addEntry(String name, PropertyList properties)
+	//	{
+	//		if (open)
+	//		{
+	//			String keys = "", values = "";
+	//			boolean first = true;
+	//			for (Property property : properties)
+	//			{
+	//				String key = property.getKey();
+	//				String value = property.getValue();
+	//				if (!first)
+	//				{
+	//					keys += ",";
+	//					values += ",";
+	//				}
+	//				keys += key;
+	//				values += "'" + value + "'";
+	//				first = false;
+	//			}
+	//			try
+	//			{
+	//				db.insert("INSERT INTO player_data(" + keys + ") VALUES (" + values + ");");
+	//			}
+	//			catch (SQLException e)
+	//			{
+	//				log.exception(e);
+	//			}
+	//		}
+	//		else
+	//		{
+	//			throw new DataManagerNotOpenException();
+	//		}
+	//	}
 
-	@Override
-	public void removeEntry(String name)
-	{
-		if (open)
-		{
-			try
-			{
-				db.insert("DELETE FROM player_data WHERE name='" + name + "';");
-			}
-			catch (SQLException e)
-			{
-				log.exception(e);
-			}
-		}
-		else
-		{
-			throw new DataManagerNotOpenException();
-		}
-	}
+	//	@Override
+	//	public void removeEntry(String name)
+	//	{
+	//		if (open)
+	//		{
+	//			try
+	//			{
+	//				db.insert("DELETE FROM player_data WHERE name='" + name + "';");
+	//			}
+	//			catch (SQLException e)
+	//			{
+	//				log.exception(e);
+	//			}
+	//		}
+	//		else
+	//		{
+	//			throw new DataManagerNotOpenException();
+	//		}
+	//	}
 
 	@Override
 	public <T> void setVariable(String playerName, String variableName, T variable, IDataTranslator<T> strategy)

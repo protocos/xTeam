@@ -6,7 +6,7 @@ import java.util.UUID;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.model.ILocatable;
@@ -34,7 +34,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 {
 	private TeleportScheduler teleportScheduler;
 	private ITeamManager teamManager;
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 	private Player player;
 
 	public TeamPlayer(TeamPlugin teamPlugin, Player player)

@@ -1,8 +1,5 @@
 package me.protocos.xteam;
 
-import java.io.*;
-import java.util.ArrayList;
-import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.command.console.*;
 import me.protocos.xteam.command.serveradmin.*;
@@ -13,8 +10,6 @@ import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
 import me.protocos.xteam.data.PlayerDataStorageFactory;
 import me.protocos.xteam.data.configuration.Configuration;
-import me.protocos.xteam.entity.ITeam;
-import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.listener.TeamChatListener;
 import me.protocos.xteam.listener.TeamPlayerListener;
 import me.protocos.xteam.listener.TeamPvPEntityListener;
@@ -53,7 +48,6 @@ public final class XTeam extends TeamPlugin
 	private void initFileSystem()
 	{
 		SystemUtil.ensureFolder(this.getFolder());
-		SystemUtil.ensureFile(this.getFolder() + "teams.txt");
 		this.configLoader = new Configuration(this, SystemUtil.ensureFile(this.getFolder() + "xTeam.cfg"));
 		this.configLoader.addAttribute("playersonteam", 10, "Amount of players that can be on a team");
 		this.configLoader.addAttribute("sethqinterval", 0, "Delay in hours between use of /team sethq");
@@ -92,52 +86,13 @@ public final class XTeam extends TeamPlugin
 	@Override
 	public void readTeamData()
 	{
-		File f = new File("plugins/xTeam/teams.txt");
-		try
-		{
-			String line;
-			BufferedReader br = new BufferedReader(new FileReader(f));
-			while ((line = br.readLine()) != null)
-			{
-				Team team = Team.generateTeamFromProperties(this, line);
-				this.getTeamManager().createTeam(team);
-			}
-			br.close();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		teamManager.read();
 	}
 
 	@Override
 	public void writeTeamData()
 	{
-		File f = new File("plugins/xTeam/teams.txt");
-		ArrayList<String> data = new ArrayList<String>();
-		try
-		{
-			HashList<String, ITeam> teams = this.getTeamManager().getTeams();
-			for (ITeam team : teams)
-				data.add(team.toString());
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		try
-		{
-			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-			for (String line : data)
-			{
-				bw.write(line + "\n");
-			}
-			bw.close();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		teamManager.write();
 	}
 
 	@Override
@@ -160,9 +115,10 @@ public final class XTeam extends TeamPlugin
 			pm.registerEvents(new TeamPvPEntityListener(this), this);
 			pm.registerEvents(new TeamPlayerListener(this), this);
 			pm.registerEvents(new TeamChatListener(this), this);
-			this.readTeamData();
 			this.getCommand("team").setExecutor(commandExecutor);
 			this.getPlayerManager().open();
+			this.getTeamManager().open();
+			this.readTeamData();
 			this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " enabled");
 		}
 		catch (Exception e)
@@ -176,6 +132,7 @@ public final class XTeam extends TeamPlugin
 		try
 		{
 			this.writeTeamData();
+			this.getTeamManager().close();
 			this.getPlayerManager().close();
 			this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " disabled");
 			this.getLog().close();

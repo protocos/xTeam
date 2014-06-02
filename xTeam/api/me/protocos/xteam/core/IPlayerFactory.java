@@ -10,7 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-public interface IPlayerManager
+public interface IPlayerFactory
 {
 	public abstract void open();
 

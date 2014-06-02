@@ -2,7 +2,7 @@ package me.protocos.xteam.event;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.model.InviteRequest;
 import org.junit.After;
@@ -13,7 +13,7 @@ import org.junit.Test;
 public class TeamInviteEventTest
 {
 	private TeamPlugin fakePlugin;
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 	private ITeam team;
 	private InviteRequest invite;
 	private IEventDispatcher dispatcher;

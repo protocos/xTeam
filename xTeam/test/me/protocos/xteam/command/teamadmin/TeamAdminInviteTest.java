@@ -6,7 +6,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamAdminCommand;
 import me.protocos.xteam.command.action.InviteHandler;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.*;
@@ -22,7 +22,7 @@ public class TeamAdminInviteTest
 	private TeamPlugin teamPlugin;
 	private TeamAdminCommand fakeCommand;
 	private ITeamManager teamManager;
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 	private InviteHandler inviteHandler;
 
 	@Before

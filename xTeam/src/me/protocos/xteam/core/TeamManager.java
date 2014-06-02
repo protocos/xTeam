@@ -16,7 +16,7 @@ public class TeamManager implements ITeamManager
 
 	public TeamManager(TeamPlugin teamPlugin)
 	{
-		this.dataManager = new TeamFlatFile(teamPlugin);
+		this.dataManager = new TeamFlatFile(teamPlugin, this);
 		this.dispatcher = teamPlugin.getEventDispatcher();
 	}
 
@@ -33,13 +33,23 @@ public class TeamManager implements ITeamManager
 	public void open()
 	{
 		dataManager.open();
+	}
+
+	@Override
+	public void read()
+	{
 		dataManager.read();
+	}
+
+	@Override
+	public void write()
+	{
+		dataManager.write();
 	}
 
 	@Override
 	public void close()
 	{
-		dataManager.write();
 		dataManager.close();
 	}
 

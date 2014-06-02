@@ -143,31 +143,31 @@ public class PlayerFlatFile implements IDataManager
 		}
 	}
 
-	@Override
-	public void addEntry(String name, PropertyList properties)
-	{
-		if (open)
-		{
-			playerProperties.put(name, properties);
-		}
-		else
-		{
-			throw new DataManagerNotOpenException();
-		}
-	}
+	//	@Override
+	//	public void addEntry(String name, PropertyList properties)
+	//	{
+	//		if (open)
+	//		{
+	//			playerProperties.put(name, properties);
+	//		}
+	//		else
+	//		{
+	//			throw new DataManagerNotOpenException();
+	//		}
+	//	}
 
-	@Override
-	public void removeEntry(String name)
-	{
-		if (open)
-		{
-			playerProperties.remove(name);
-		}
-		else
-		{
-			throw new DataManagerNotOpenException();
-		}
-	}
+	//	@Override
+	//	public void removeEntry(String name)
+	//	{
+	//		if (open)
+	//		{
+	//			playerProperties.remove(name);
+	//		}
+	//		else
+	//		{
+	//			throw new DataManagerNotOpenException();
+	//		}
+	//	}
 
 	@Override
 	public <T> void setVariable(String playerName, String variableName, T variable, IDataTranslator<T> strategy)

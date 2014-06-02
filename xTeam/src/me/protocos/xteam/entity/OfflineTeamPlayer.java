@@ -3,7 +3,7 @@ package me.protocos.xteam.entity;
 import java.util.List;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.IPermissible;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.CommonUtil;
@@ -14,7 +14,7 @@ import org.bukkit.OfflinePlayer;
 
 public class OfflineTeamPlayer implements ITeamPlayer
 {
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 	private ITeamManager teamManager;
 	private OfflinePlayer player;
 

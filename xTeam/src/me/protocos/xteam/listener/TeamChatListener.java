@@ -1,7 +1,7 @@
 package me.protocos.xteam.listener;
 
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -17,7 +17,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class TeamChatListener implements Listener
 {
 	private ILog log;
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 
 	public TeamChatListener(TeamPlugin teamPlugin)
 	{

@@ -3,7 +3,7 @@ package me.protocos.xteam.listener;
 import java.util.List;
 import java.util.Random;
 import me.protocos.xteam.XTeam;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
@@ -24,7 +24,7 @@ public class TeamPlayerListener implements Listener
 {
 	private ILog log;
 	private ITeamManager teamManager;
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 
 	public TeamPlayerListener(XTeam xteam)
 	{

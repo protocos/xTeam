@@ -6,7 +6,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.*;
@@ -25,7 +25,7 @@ public class TeamUserTeleportTest
 	private TeamPlugin teamPlugin;
 	private TeamUserCommand fakeCommand;
 	private BukkitUtil bukkitUtil;
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 	private TeleportScheduler teleportScheduler;
 
 	@Before

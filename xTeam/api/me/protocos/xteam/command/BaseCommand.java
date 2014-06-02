@@ -2,7 +2,7 @@ package me.protocos.xteam.command;
 
 import java.io.InvalidClassException;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.model.ILog;
@@ -14,7 +14,7 @@ public abstract class BaseCommand
 	protected TeamPlugin teamPlugin;
 	protected ILog log;
 	protected ITeamManager teamManager;
-	protected IPlayerManager playerFactory;
+	protected IPlayerFactory playerFactory;
 
 	public BaseCommand(TeamPlugin teamPlugin)
 	{

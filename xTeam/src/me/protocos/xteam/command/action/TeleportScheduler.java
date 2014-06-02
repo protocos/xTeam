@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.core.IPlayerManager;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -26,10 +26,10 @@ public class TeleportScheduler
 	private HashSet<String> rallyUsed = new HashSet<String>();
 
 	private TeamPlugin teamPlugin;
-	private IPlayerManager playerFactory;
+	private IPlayerFactory playerFactory;
 	private BukkitScheduler bukkitScheduler;
 
-	public TeleportScheduler(TeamPlugin teamPlugin, IPlayerManager playerFactory, BukkitScheduler bukkitScheduler)
+	public TeleportScheduler(TeamPlugin teamPlugin, IPlayerFactory playerFactory, BukkitScheduler bukkitScheduler)
 	{
 		this.teamPlugin = teamPlugin;
 		this.playerFactory = playerFactory;
