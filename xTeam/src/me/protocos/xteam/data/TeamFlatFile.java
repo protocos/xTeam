@@ -21,12 +21,11 @@ public class TeamFlatFile implements IDataManager
 	private PeriodicTeamWriter periodicWriter;
 	private ILog log;
 
-	public TeamFlatFile(TeamPlugin plugin)
+	public TeamFlatFile(TeamPlugin teamPlugin)
 	{
-		this.teamPlugin = plugin;
-		this.bukkitScheduler = plugin.getBukkitScheduler();
-		this.log = plugin.getLog();
-		this.file = SystemUtil.ensureFile(plugin.getFolder() + "teams.txt");
+		this.teamPlugin = teamPlugin;
+		this.bukkitScheduler = teamPlugin.getBukkitScheduler();
+		this.log = teamPlugin.getLog();
 	}
 
 	@Override
@@ -133,6 +132,7 @@ public class TeamFlatFile implements IDataManager
 	{
 		if (open)
 		{
+			this.file = SystemUtil.ensureFile(teamPlugin.getFolder() + "teams.txt");
 			if (teamProperties == null)
 			{
 				teamProperties = new HashList<String, PropertyList>();
