@@ -218,7 +218,7 @@ public class TeamTest
 		//ASSEMBLE
 		//ACT
 		//ASSERT
-		Assert.assertEquals("name:test tag:test open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:", team.toString());
+		Assert.assertEquals("name:test tag:test openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader: admins: players:", team.toString());
 	}
 
 	@Test
@@ -229,7 +229,7 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:blank openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader: admins: players:", t.toString());
 	}
 
 	@Test
@@ -240,7 +240,7 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:blank openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader: admins: players:", t.toString());
 	}
 
 	@Test
@@ -251,7 +251,18 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:tag open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:tag openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader: admins: players:", t.toString());
+	}
+
+	@Test
+	public void ShouldBeTeamBlankProperties4()
+	{
+		//ASSEMBLE
+		String properties = "name:blank tag:tag openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader: admins: players:";
+		//ACT
+		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
+		//ASSERT
+		Assert.assertEquals("name:blank tag:tag openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader: admins: players:", t.toString());
 	}
 
 	@Test
@@ -262,7 +273,7 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:red tag:red open:false default:true timeHeadquartersLastSet:0 hq:none leader: admins: players:protocos", t.toString());
+		Assert.assertEquals("name:red tag:red openJoining:false defaultTeam:true timeHeadquartersLastSet:0 headquarters: leader: admins: players:protocos", t.toString());
 	}
 
 	@Test
@@ -273,7 +284,7 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:protocos,kmlanglois", t.toString());
+		Assert.assertEquals("name:one tag:one openJoining:false defaultTeam:true timeHeadquartersLastSet:1361318508899 headquarters:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:protocos,kmlanglois", t.toString());
 	}
 
 	@Test
@@ -284,7 +295,7 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:true timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:protocos,kmlanglois", t.toString());
+		Assert.assertEquals("name:one tag:one openJoining:false defaultTeam:true timeHeadquartersLastSet:1361318508899 headquarters:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader: admins:kmlanglois players:protocos,kmlanglois", t.toString());
 	}
 
 	@Test
@@ -295,7 +306,7 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
+		Assert.assertEquals("name:one tag:one openJoining:false defaultTeam:false timeHeadquartersLastSet:1361318508899 headquarters:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
 	}
 
 	@Test
@@ -306,7 +317,7 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
+		Assert.assertEquals("name:one tag:one openJoining:false defaultTeam:false timeHeadquartersLastSet:1361318508899 headquarters:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
 	}
 
 	@Test
@@ -317,7 +328,7 @@ public class TeamTest
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:one tag:one open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
+		Assert.assertEquals("name:one tag:one openJoining:false defaultTeam:false timeHeadquartersLastSet:1361318508899 headquarters:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois", t.toString());
 	}
 
 	@Test

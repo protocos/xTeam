@@ -8,7 +8,7 @@ import me.protocos.xteam.command.teamadmin.TeamAdminPromote;
 import me.protocos.xteam.command.teamadmin.TeamAdminSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
-import me.protocos.xteam.data.PlayerDataStorageFactory;
+import me.protocos.xteam.data.DataStorageFactory;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.listener.TeamChatListener;
 import me.protocos.xteam.listener.TeamPlayerListener;
@@ -42,7 +42,8 @@ public final class XTeam extends TeamPlugin
 	{
 		this.commandManager.register(this);
 		this.initFileSystem();
-		this.playerFactory.setDataManager(new PlayerDataStorageFactory(this).fromString(Configuration.STORAGE_TYPE));
+		this.playerFactory.setDataManager(new DataStorageFactory(this).playerManagerFromString(Configuration.STORAGE_TYPE));
+		this.teamManager.setDataManager(new DataStorageFactory(this).teamManagerFromString(Configuration.STORAGE_TYPE));
 	}
 
 	private void initFileSystem()

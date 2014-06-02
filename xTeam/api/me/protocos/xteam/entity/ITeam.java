@@ -43,6 +43,8 @@ public interface ITeam extends ITeamEntity, ILocatable
 
 	public abstract int size();
 
+	public abstract Set<String> getAdmins();
+
 	public abstract Set<String> getPlayers();
 
 	public abstract boolean setLeader(String leader);

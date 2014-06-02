@@ -97,6 +97,6 @@ public class NullHeadquarters implements IHeadquarters
 	@Override
 	public String toString()
 	{
-		return "none";
+		return "";
 	}
 }

@@ -154,6 +154,13 @@ public class TeamManager implements ITeamManager
 	}
 
 	@Override
+	public void updateTeam(ITeam team)
+	{
+		this.addTeam(team);
+		dispatcher.dispatchEvent(new TeamUpdateEvent(team));
+	}
+
+	@Override
 	public void renameTeam(ITeam team, String teamName)
 	{
 		if (this.containsTeam(team.getName()))

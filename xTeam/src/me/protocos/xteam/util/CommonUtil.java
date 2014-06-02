@@ -253,6 +253,16 @@ public class CommonUtil
 		return new HashList<K, V>();
 	}
 
+	public static String concatenate(@SuppressWarnings("rawtypes") Collection objects)
+	{
+		return concatenate(objects, " ");
+	}
+
+	public static String concatenate(@SuppressWarnings("rawtypes") Collection objects, String glue)
+	{
+		return concatenate(objects.toArray(), glue);
+	}
+
 	public static String concatenate(Object[] objects)
 	{
 		return concatenate(objects, " ");
@@ -269,21 +279,6 @@ public class CommonUtil
 				returnString.append(glue).append(obj.toString());
 		}
 		return returnString.toString();
-	}
-
-	public static String concatenate(@SuppressWarnings("rawtypes") List objects)
-	{
-		return concatenate(objects, " ");
-	}
-
-	public static String concatenate(@SuppressWarnings("rawtypes") List objects, String glue)
-	{
-		StringBuilder returnString = new StringBuilder();
-		for (Object obj : objects)
-		{
-			returnString.append(obj.toString()).append(glue);
-		}
-		return returnString.toString().trim();
 	}
 
 	public static boolean matchesLowerCase(String str, String pattern)

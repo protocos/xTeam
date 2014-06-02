@@ -16,16 +16,17 @@ public class PlayerSQLite implements IDataManager
 	private Database db;
 	private ILog log;
 
-	public PlayerSQLite(TeamPlugin plugin)
+	public PlayerSQLite(TeamPlugin teamPlugin)
 	{
-		this.log = plugin.getLog();
-		this.db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", plugin.getFolder(), "xTeam", ".db");
+		this.db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", teamPlugin.getFolder(), "xTeam", ".db");
+		this.log = teamPlugin.getLog();
 	}
 
 	@Override
 	public void open()
 	{
-		db.open();
+		if (!open)
+			db.open();
 		open = true;
 		this.initializeData();
 	}
@@ -53,7 +54,8 @@ public class PlayerSQLite implements IDataManager
 	@Override
 	public void close()
 	{
-		db.close();
+		if (open)
+			db.close();
 		open = false;
 	}
 

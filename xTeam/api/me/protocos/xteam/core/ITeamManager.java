@@ -20,6 +20,8 @@ public interface ITeamManager
 
 	public abstract void createTeam(ITeam team);
 
+	public abstract void updateTeam(ITeam team);
+
 	public abstract void renameTeam(ITeam team, String teamName);
 
 	public abstract void disbandTeam(String teamName);

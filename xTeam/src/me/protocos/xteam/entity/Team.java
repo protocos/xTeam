@@ -216,11 +216,11 @@ public class Team implements ITeam
 		return this.leader.equals(player);
 	}
 
-	//	@Override
-	//	public Set<String> getAdmins()
-	//	{
-	//		return this.admins;
-	//	}
+	@Override
+	public Set<String> getAdmins()
+	{
+		return new HashSet<String>(this.admins);
+	}
 
 	@Override
 	public boolean isAdmin(String admin)
@@ -231,7 +231,7 @@ public class Team implements ITeam
 	@Override
 	public Set<String> getPlayers()
 	{
-		return this.players;
+		return new HashSet<String>(this.players);
 	}
 
 	@Override
@@ -570,13 +570,17 @@ public class Team implements ITeam
 		{
 			String name = teamProperties.get("name") != null ? teamProperties.get("name") : "";
 			String tag = teamProperties.get("tag") != null ? teamProperties.get("tag") : name;
-			boolean openJoining = Boolean.parseBoolean(teamProperties.get("open") != null ? teamProperties.get("open") : "false");
-			boolean defaultTeam = Boolean.parseBoolean(teamProperties.get("default") != null ? teamProperties.get("default") : "false");
+			teamProperties.updateKey("open", "openJoining");
+			teamProperties.updateKey("default", "defaultTeam");
+			boolean openJoining = Boolean.parseBoolean(teamProperties.get("openJoining") != null ? teamProperties.get("openJoining") : "false");
+			boolean defaultTeam = Boolean.parseBoolean(teamProperties.get("defaultTeam") != null ? teamProperties.get("defaultTeam") : "false");
 			//modify timeLastSet from the previous versions
 			teamProperties.updateKey("timeLastSet", "timeHeadquartersSet");
 			teamProperties.updateKey("timeHeadquartersSet", "timeHeadquartersLastSet");
 			long timeHeadquartersSet = Long.parseLong(teamProperties.get("timeHeadquartersLastSet") != null ? teamProperties.get("timeHeadquartersLastSet") : "0");
-			String hq = teamProperties.get("Headquarters") != null ? teamProperties.get("Headquarters") : (hq = teamProperties.get("hq") != null ? teamProperties.get("hq") : "");
+			teamProperties.updateKey("Headquarters", "headquarters");
+			teamProperties.updateKey("hq", "headquarters");
+			String hq = teamProperties.get("headquarters") != null ? teamProperties.get("headquarters") : "";
 			if (teamProperties.containsKey("world"))
 				hq = teamProperties.get("world") + "," + hq;
 			String leader = teamProperties.get("leader");// != null ? teamProperties.get("leader") : "";
@@ -670,14 +674,13 @@ public class Team implements ITeam
 		String teamData = "";
 		teamData += "name:" + name;
 		teamData += " tag:" + tag;
-		teamData += " open:" + openJoining;
-		teamData += " default:" + defaultTeam;
+		teamData += " openJoining:" + openJoining;
+		teamData += " defaultTeam:" + defaultTeam;
 		teamData += " timeHeadquartersLastSet:" + timeHeadquartersLastSet;
-		//		teamData += " hq:" + (hasHeadquarters() ? headquarters.toString() : "");
-		teamData += " hq:" + headquarters;
+		teamData += " headquarters:" + headquarters;
 		teamData += " leader:" + leader;
-		teamData += " admins:" + admins.toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
-		teamData += " players:" + players.toString().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(" ", "");
+		teamData += " admins:" + CommonUtil.concatenate(admins, ",");
+		teamData += " players:" + CommonUtil.concatenate(players, ",");
 		return teamData;
 	}
 }

@@ -60,10 +60,10 @@ public class TeamManagerTest
 		//ASSEMBLE
 		//ACT
 		//ASSERT
-		Assert.assertEquals("{ONE=name:ONE tag:TeamAwesome open:false default:false timeHeadquartersLastSet:1361318508899 hq:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois, " +
-				"two=name:two tag:two open:false default:false timeHeadquartersLastSet:0 hq:none leader:mastermind admins: players:mastermind, " +
-				"red=name:red tag:REDONE open:true default:true timeHeadquartersLastSet:0 hq:none leader: admins: players:teammate,strandedhelix, " +
-				"blue=name:blue tag:blue open:true default:true timeHeadquartersLastSet:0 hq:none leader: admins: players:}", teamManager.getTeams().toString());
+		Assert.assertEquals("{ONE=name:ONE tag:TeamAwesome openJoining:false defaultTeam:false timeHeadquartersLastSet:1361318508899 headquarters:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois, " +
+				"two=name:two tag:two openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader:mastermind admins: players:mastermind, " +
+				"red=name:red tag:REDONE openJoining:true defaultTeam:true timeHeadquartersLastSet:0 headquarters: leader: admins: players:teammate,strandedhelix, " +
+				"blue=name:blue tag:blue openJoining:true defaultTeam:true timeHeadquartersLastSet:0 headquarters: leader: admins: players:}", teamManager.getTeams().toString());
 	}
 
 	@Test
