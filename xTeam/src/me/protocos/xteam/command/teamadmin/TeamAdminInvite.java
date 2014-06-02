@@ -25,7 +25,7 @@ public class TeamAdminInvite extends TeamAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeamPlayer otherPlayer = playerManager.getPlayer(other);
+		ITeamPlayer otherPlayer = playerFactory.getPlayer(other);
 		InviteRequest request = new InviteRequest(teamPlayer, otherPlayer, System.currentTimeMillis());
 		inviteHandler.addInvite(request);
 		if (otherPlayer.isOnline())
@@ -37,7 +37,7 @@ public class TeamAdminInvite extends TeamAdminCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		other = commandContainer.getArgument(1);
-		ITeamPlayer otherPlayer = playerManager.getPlayer(other);
+		ITeamPlayer otherPlayer = playerFactory.getPlayer(other);
 		Requirements.checkPlayerHasTeam(teamPlayer);
 		Requirements.checkPlayerInviteSelf(teamPlayer, otherPlayer);
 		Requirements.checkPlayerHasPlayedBefore(otherPlayer);

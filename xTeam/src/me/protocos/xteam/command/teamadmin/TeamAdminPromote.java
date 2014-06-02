@@ -22,7 +22,7 @@ public class TeamAdminPromote extends TeamAdminCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.promote(otherPlayer);
-		ITeamPlayer other = playerManager.getPlayer(otherPlayer);
+		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You've been " + MessageUtil.positiveMessage("promoted"));
 		teamPlayer.sendMessage("You" + MessageUtil.positiveMessage(" promoted ") + otherPlayer);
@@ -32,7 +32,7 @@ public class TeamAdminPromote extends TeamAdminCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = commandContainer.getArgument(1);
-		ITeamPlayer other = playerManager.getPlayer(otherPlayer);
+		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);
 	}
 

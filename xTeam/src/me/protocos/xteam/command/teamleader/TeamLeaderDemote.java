@@ -36,8 +36,8 @@ public class TeamLeaderDemote extends TeamLeaderCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = commandContainer.getArgument(1);
-		ITeamPlayer other = playerManager.getPlayer(otherPlayer);
-		ITeamPlayer demotePlayer = playerManager.getPlayer(otherPlayer);
+		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
+		ITeamPlayer demotePlayer = playerFactory.getPlayer(otherPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);
 		Requirements.checkPlayerLeaderDemote(demotePlayer);
 	}

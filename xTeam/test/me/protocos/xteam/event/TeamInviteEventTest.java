@@ -13,7 +13,7 @@ import org.junit.Test;
 public class TeamInviteEventTest
 {
 	private TeamPlugin fakePlugin;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 	private ITeam team;
 	private InviteRequest invite;
 	private IEventDispatcher dispatcher;
@@ -25,10 +25,10 @@ public class TeamInviteEventTest
 	{
 		//set up basics
 		fakePlugin = FakeXTeam.asTeamPlugin();
-		playerManager = fakePlugin.getPlayerManager();
+		playerFactory = fakePlugin.getPlayerManager();
 		team = fakePlugin.getTeamManager().getTeam("ONE");
 		//set up fake invite
-		invite = new InviteRequest(playerManager.getPlayer("kmlanglois"), playerManager.getPlayer("Lonely"), 0L);
+		invite = new InviteRequest(playerFactory.getPlayer("kmlanglois"), playerFactory.getPlayer("Lonely"), 0L);
 		//set up dispatcher and handler
 		dispatcher = new EventDispatcher();
 		handler = new InviteHandler();

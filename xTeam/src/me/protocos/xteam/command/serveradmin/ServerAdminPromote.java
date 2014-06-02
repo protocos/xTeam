@@ -26,7 +26,7 @@ public class ServerAdminPromote extends ServerAdminCommand
 		changeTeam.promote(playerName);
 		if (!changeTeam.containsPlayer(player.getName()))
 			player.sendMessage("You " + MessageUtil.positiveMessage("promoted") + " " + playerName);
-		ITeamPlayer other = playerManager.getPlayer(playerName);
+		ITeamPlayer other = playerFactory.getPlayer(playerName);
 		other.sendMessage("You've been " + MessageUtil.positiveMessage("promoted") + " by an admin");
 	}
 
@@ -36,7 +36,7 @@ public class ServerAdminPromote extends ServerAdminCommand
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
 		changeTeam = teamManager.getTeam(teamName);
-		ITeamPlayer playerPromote = playerManager.getPlayer(playerName);
+		ITeamPlayer playerPromote = playerFactory.getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(playerPromote);
 		Requirements.checkTeamExists(teamManager, teamName);
 		Requirements.checkPlayerHasTeam(playerPromote);

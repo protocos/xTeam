@@ -40,7 +40,7 @@ public class ConsoleRemove extends ConsoleCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
-		changePlayer = playerManager.getPlayer(playerName);
+		changePlayer = playerFactory.getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(changePlayer);
 		Requirements.checkPlayerHasTeam(changePlayer);
 		Requirements.checkPlayerLeaderLeaving(changePlayer);

@@ -22,7 +22,7 @@ public class TeamAdminInviteTest
 	private TeamPlugin teamPlugin;
 	private TeamAdminCommand fakeCommand;
 	private ITeamManager teamManager;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 	private InviteHandler inviteHandler;
 
 	@Before
@@ -31,7 +31,7 @@ public class TeamAdminInviteTest
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new TeamAdminInvite(teamPlugin);
 		teamManager = teamPlugin.getTeamManager();
-		playerManager = teamPlugin.getPlayerManager();
+		playerFactory = teamPlugin.getPlayerManager();
 		inviteHandler = teamPlugin.getInviteHandler();
 	}
 
@@ -93,8 +93,8 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecutePlayerHasInvite()
 	{
 		//ASSEMBLE
-		ITeamPlayer playerSender = playerManager.getPlayer("kmlanglois");
-		ITeamPlayer playerReceiver = playerManager.getPlayer("Lonely");
+		ITeamPlayer playerSender = playerFactory.getPlayer("kmlanglois");
+		ITeamPlayer playerReceiver = playerFactory.getPlayer("Lonely");
 		Long timeSent = System.currentTimeMillis();
 		InviteRequest request = new InviteRequest(playerSender, playerReceiver, timeSent);
 		inviteHandler.addInvite(request);

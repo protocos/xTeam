@@ -25,7 +25,7 @@ public class TeamUserTeleportTest
 	private TeamPlugin teamPlugin;
 	private TeamUserCommand fakeCommand;
 	private BukkitUtil bukkitUtil;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 	private TeleportScheduler teleportScheduler;
 
 	@Before
@@ -33,7 +33,7 @@ public class TeamUserTeleportTest
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		bukkitUtil = teamPlugin.getBukkitUtil();
-		playerManager = teamPlugin.getPlayerManager();
+		playerFactory = teamPlugin.getPlayerManager();
 		teleportScheduler = teamPlugin.getTeleportScheduler();
 		fakeCommand = new TeamUserTeleport(teamPlugin);
 	}
@@ -138,7 +138,7 @@ public class TeamUserTeleportTest
 	{
 		//ASSEMBLE
 		Configuration.LAST_ATTACKED_DELAY = 15;
-		playerManager.getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
+		playerFactory.getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		//ACT
@@ -153,7 +153,7 @@ public class TeamUserTeleportTest
 	public void ShouldBeTeamUserTeleExecuteRecentRequest()
 	{
 		//ASSEMBLE
-		TeamPlayer testPlayer = CommonUtil.assignFromType(playerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer testPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("kmlanglois"), TeamPlayer.class);
 		teleportScheduler.getCurrentTasks().put(testPlayer, 0);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
@@ -170,7 +170,7 @@ public class TeamUserTeleportTest
 	{
 		//ASSEMBLE
 		Configuration.TELE_REFRESH_DELAY = 60;
-		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("kmlanglois"), TeamPlayer.class);
 		teleportScheduler.teleport(teamPlayer, new Locatable(teamPlugin, "previous teleport", new FakeLocation()));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		Location beforeLocation = fakePlayerSender.getLocation();

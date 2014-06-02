@@ -24,13 +24,13 @@ public class TeamPlayerListener implements Listener
 {
 	private ILog log;
 	private ITeamManager teamManager;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 
 	public TeamPlayerListener(XTeam xteam)
 	{
 		this.log = xteam.getLog();
 		this.teamManager = xteam.getTeamManager();
-		this.playerManager = xteam.getPlayerManager();
+		this.playerFactory = xteam.getPlayerManager();
 	}
 
 	@EventHandler
@@ -46,7 +46,7 @@ public class TeamPlayerListener implements Listener
 		{
 			Player player = event.getPlayer();
 			World playerWorld = player.getWorld();
-			ITeamPlayer teamPlayer = playerManager.getPlayer(player);
+			ITeamPlayer teamPlayer = playerFactory.getPlayer(player);
 			if (teamPlayer.hasPlayedBefore() && Configuration.DISABLED_WORLDS.contains(playerWorld.getName()))
 			{
 				return;
@@ -141,7 +141,7 @@ public class TeamPlayerListener implements Listener
 	{
 		try
 		{
-			ITeamPlayer player = playerManager.getPlayer(event.getPlayer());
+			ITeamPlayer player = playerFactory.getPlayer(event.getPlayer());
 			if (Configuration.DISABLED_WORLDS.contains(event.getPlayer().getWorld().getName()))
 			{
 				return;

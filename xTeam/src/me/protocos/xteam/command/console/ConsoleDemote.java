@@ -25,7 +25,7 @@ public class ConsoleDemote extends ConsoleCommand
 		ITeam team = teamManager.getTeam(teamName);
 		team.demote(playerName);
 		sender.sendMessage("You" + MessageUtil.negativeMessage(" demoted ") + playerName);
-		ITeamPlayer other = playerManager.getPlayer(playerName);
+		ITeamPlayer other = playerFactory.getPlayer(playerName);
 		if (other.isOnline())
 			other.sendMessage("You've been " + MessageUtil.negativeMessage("demoted"));
 	}
@@ -35,7 +35,7 @@ public class ConsoleDemote extends ConsoleCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
-		ITeamPlayer player = playerManager.getPlayer(playerName);
+		ITeamPlayer player = playerFactory.getPlayer(playerName);
 		ITeam team = teamManager.getTeam(teamName);
 		Requirements.checkTeamExists(teamManager, teamName);
 		Requirements.checkPlayerHasPlayedBefore(player);

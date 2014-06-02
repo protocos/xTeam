@@ -27,7 +27,7 @@ public class TeamUserRallyTest
 	private TeamUserCommand fakeCommand;
 	private BukkitUtil bukkitUtil;
 	private ITeamManager teamManager;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 	private TeleportScheduler teleportScheduler;
 	private ITeam team;
 
@@ -37,7 +37,7 @@ public class TeamUserRallyTest
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		bukkitUtil = teamPlugin.getBukkitUtil();
 		teamManager = teamPlugin.getTeamManager();
-		playerManager = teamPlugin.getPlayerManager();
+		playerFactory = teamPlugin.getPlayerManager();
 		teleportScheduler = teamPlugin.getTeleportScheduler();
 		team = teamManager.getTeam("one");
 		fakeCommand = new TeamUserRally(teamPlugin);
@@ -67,7 +67,7 @@ public class TeamUserRallyTest
 		//ASSERT
 		Assert.assertEquals("You've been teleported to the rally point", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(rallyLocation, fakePlayerSender.getLocation());
-		Assert.assertEquals(beforeLocation, playerManager.getPlayer("protocos").getReturnLocation());
+		Assert.assertEquals(beforeLocation, playerFactory.getPlayer("protocos").getReturnLocation());
 		Assert.assertTrue(team.hasRally());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -118,7 +118,7 @@ public class TeamUserRallyTest
 	{
 		//ASSEMBLE
 		Configuration.LAST_ATTACKED_DELAY = 15;
-		playerManager.getPlayer("protocos").setLastAttacked(System.currentTimeMillis());
+		playerFactory.getPlayer("protocos").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		teamManager.getTeam("one").setRally(new FakeLocation());
@@ -134,7 +134,7 @@ public class TeamUserRallyTest
 	public void ShouldBeTeamUserRallyExecuteRecentRequest()
 	{
 		//ASSEMBLE
-		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("kmlanglois"), TeamPlayer.class);
 		teleportScheduler.setCurrentTask(teamPlayer, 0);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		teamManager.getTeam("one").setRally(new FakeLocation());
@@ -151,7 +151,7 @@ public class TeamUserRallyTest
 	public void ShouldBeTeamUserRallyExecuteAlreadyRallied()
 	{
 		//ASSEMBLE
-		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("kmlanglois"), TeamPlayer.class);
 		Location rallyLocation = team.getHeadquarters().getLocation();
 		team.setRally(rallyLocation);
 		teleportScheduler.setRallyUsedFor(teamPlayer);

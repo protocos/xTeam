@@ -26,7 +26,7 @@ public class ServerAdminTeleAllHQ extends ServerAdminCommand
 		Player[] players = bukkitUtil.getOnlinePlayers();
 		for (Player p : players)
 		{
-			TeamPlayer otherPlayer = playerManager.getPlayer(p);
+			TeamPlayer otherPlayer = playerFactory.getPlayer(p);
 			ITeam playerTeam = otherPlayer.getTeam();
 			{
 				if (playerTeam == null)

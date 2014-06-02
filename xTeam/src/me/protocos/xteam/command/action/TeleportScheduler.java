@@ -26,13 +26,13 @@ public class TeleportScheduler
 	private HashSet<String> rallyUsed = new HashSet<String>();
 
 	private TeamPlugin teamPlugin;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 	private BukkitScheduler bukkitScheduler;
 
-	public TeleportScheduler(TeamPlugin teamPlugin, IPlayerManager playerManager, BukkitScheduler bukkitScheduler)
+	public TeleportScheduler(TeamPlugin teamPlugin, IPlayerManager playerFactory, BukkitScheduler bukkitScheduler)
 	{
 		this.teamPlugin = teamPlugin;
-		this.playerManager = playerManager;
+		this.playerFactory = playerFactory;
 		this.bukkitScheduler = bukkitScheduler;
 	}
 
@@ -141,7 +141,7 @@ public class TeleportScheduler
 			else if (e instanceof Player)
 			{
 				Player unknownPlayer = (Player) e;
-				ITeamPlayer otherPlayer = playerManager.getPlayer(unknownPlayer);
+				ITeamPlayer otherPlayer = playerFactory.getPlayer(unknownPlayer);
 				if (!entity.isOnSameTeam(otherPlayer))
 					return true;
 			}

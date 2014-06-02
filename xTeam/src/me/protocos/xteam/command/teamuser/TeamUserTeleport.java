@@ -44,7 +44,7 @@ public class TeamUserTeleport extends TeamUserCommand
 		}
 		else
 		{
-			ITeamPlayer other = playerManager.getPlayer(teammateName);
+			ITeamPlayer other = playerFactory.getPlayer(teammateName);
 			Requirements.checkPlayerHasPlayedBefore(other);
 			Requirements.checkPlayerIsTeammate(teamPlayer, other);
 			Requirements.checkPlayerIsOnline(other);

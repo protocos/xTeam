@@ -39,7 +39,7 @@ public class ConsoleDebug extends ConsoleCommand
 		else if (subCommand.equalsIgnoreCase("created"))
 			sender.sendMessage("Last created: " + Configuration.lastCreated.toString());
 		else if (subCommand.equalsIgnoreCase("players"))
-			sender.sendMessage("Players: \n" + playerManager.toString());
+			sender.sendMessage("Players: \n" + playerFactory.toString());
 		else if (subCommand.equalsIgnoreCase("teams"))
 			sender.sendMessage("Teams: \n" + teamManager.toString());
 		else if (subCommand.equalsIgnoreCase("perms"))

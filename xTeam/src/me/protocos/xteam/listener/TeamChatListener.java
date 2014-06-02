@@ -17,12 +17,12 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class TeamChatListener implements Listener
 {
 	private ILog log;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 
 	public TeamChatListener(TeamPlugin teamPlugin)
 	{
 		this.log = teamPlugin.getLog();
-		this.playerManager = teamPlugin.getPlayerManager();
+		this.playerFactory = teamPlugin.getPlayerManager();
 	}
 
 	@EventHandler
@@ -34,7 +34,7 @@ public class TeamChatListener implements Listener
 			World playerWorld = player.getWorld();
 			String msg = event.getMessage();
 			String format = event.getFormat();
-			ITeamPlayer teamPlayer = playerManager.getPlayer(player);
+			ITeamPlayer teamPlayer = playerFactory.getPlayer(player);
 			if (event.isCancelled())
 			{
 				return;
@@ -55,7 +55,7 @@ public class TeamChatListener implements Listener
 					team.sendMessage("[" + MessageUtil.getColor(Configuration.COLOR_NAME) + playerName + ChatColor.RESET + "] " + msg);
 					for (String p : Configuration.spies)
 					{
-						ITeamPlayer spy = playerManager.getPlayer(p);
+						ITeamPlayer spy = playerFactory.getPlayer(p);
 						if (!spy.isOnSameTeam(teamPlayer))
 							spy.sendMessage(MessageUtil.getColor(Configuration.COLOR_TAG) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
 					}

@@ -16,20 +16,20 @@ public class SetTeamAction
 {
 	private TeamPlugin teamPlugin;
 	private ITeamManager teamManager;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 	private CommandSender sender;
 
 	public SetTeamAction(TeamPlugin teamPlugin, CommandSender sender)
 	{
 		this.teamPlugin = teamPlugin;
 		this.teamManager = teamPlugin.getTeamManager();
-		this.playerManager = teamPlugin.getPlayerManager();
+		this.playerFactory = teamPlugin.getPlayerManager();
 		this.sender = sender;
 	}
 
 	public void checkRequirementsOn(String playerName, String teamName) throws TeamException
 	{
-		ITeamPlayer player = playerManager.getPlayer(playerName);
+		ITeamPlayer player = playerFactory.getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(player);
 		Requirements.checkPlayerLeaderLeaving(player);
 		Requirements.checkPlayerAlreadyOnTeam(player, teamName);
@@ -38,7 +38,7 @@ public class SetTeamAction
 
 	public void actOn(String playerName, String teamName)
 	{
-		ITeamPlayer p = playerManager.getPlayer(playerName);
+		ITeamPlayer p = playerFactory.getPlayer(playerName);
 		if (p.hasTeam())
 		{
 			removePlayer(p);

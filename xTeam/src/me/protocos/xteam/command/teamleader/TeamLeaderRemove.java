@@ -42,7 +42,7 @@ public class TeamLeaderRemove extends TeamLeaderCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = commandContainer.getArgument(1);
-		ITeamPlayer other = playerManager.getPlayer(otherPlayer);
+		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);
 		Requirements.checkPlayerLeaderLeaving(other);
 	}

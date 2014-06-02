@@ -26,7 +26,7 @@ public class TeamUserHeadquartersTest
 	private TeamUserCommand fakeCommand;
 	private TeamPlugin teamPlugin;
 	private ITeamManager teamManager;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 	private TeleportScheduler teleportScheduler;
 
 	@Before
@@ -36,7 +36,7 @@ public class TeamUserHeadquartersTest
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new TeamUserHeadquarters(teamPlugin);
 		teamManager = teamPlugin.getTeamManager();
-		playerManager = teamPlugin.getPlayerManager();
+		playerFactory = teamPlugin.getPlayerManager();
 		teleportScheduler = teamPlugin.getTeleportScheduler();
 	}
 
@@ -110,7 +110,7 @@ public class TeamUserHeadquartersTest
 	{
 		//ASSEMBLE
 		Configuration.LAST_ATTACKED_DELAY = 15;
-		playerManager.getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
+		playerFactory.getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", before);
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq".split(" ")));
@@ -124,7 +124,7 @@ public class TeamUserHeadquartersTest
 	public void ShouldBeTeamUserHQRecentRequest()
 	{
 		//ASSEMBLE
-		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerManager.getPlayer("kmlanglois"), TeamPlayer.class);
+		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("kmlanglois"), TeamPlayer.class);
 		teleportScheduler.setCurrentTask(teamPlayer, 0);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", before);
 		//ACT
@@ -140,7 +140,7 @@ public class TeamUserHeadquartersTest
 	{
 		//ASSEMBLE
 		Configuration.TELE_REFRESH_DELAY = 60;
-		playerManager.getPlayer("kmlanglois").teleportTo(teamManager.getTeam("ONE"));
+		playerFactory.getPlayer("kmlanglois").teleportTo(teamManager.getTeam("ONE"));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", before);
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq".split(" ")));
@@ -154,7 +154,7 @@ public class TeamUserHeadquartersTest
 	public void takedown()
 	{
 		Configuration.TELE_REFRESH_DELAY = 0;
-		ITeamPlayer kmlanglois = playerManager.getPlayer("kmlanglois");
+		ITeamPlayer kmlanglois = playerFactory.getPlayer("kmlanglois");
 		kmlanglois.setLastAttacked(0L);
 		kmlanglois.setLastTeleported(0L);
 		kmlanglois.setReturnLocation(null);

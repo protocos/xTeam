@@ -26,7 +26,7 @@ public class TeamUserAcceptTest
 	private TeamUserCommand fakeCommand;
 	private InviteHandler inviteHandler;
 	private ITeamManager teamManager;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 
 	@Before
 	public void setup()
@@ -35,10 +35,10 @@ public class TeamUserAcceptTest
 		fakeCommand = new TeamUserAccept(teamPlugin);
 		inviteHandler = teamPlugin.getInviteHandler();
 		teamManager = teamPlugin.getTeamManager();
-		playerManager = teamPlugin.getPlayerManager();
+		playerFactory = teamPlugin.getPlayerManager();
 		Configuration.MAX_PLAYERS = 3;
-		ITeamPlayer playerSender = playerManager.getPlayer("kmlanglois");
-		ITeamPlayer playerReceiver = playerManager.getPlayer("Lonely");
+		ITeamPlayer playerSender = playerFactory.getPlayer("kmlanglois");
+		ITeamPlayer playerReceiver = playerFactory.getPlayer("Lonely");
 		Long timeSent = System.currentTimeMillis();
 		InviteRequest request = new InviteRequest(playerSender, playerReceiver, timeSent);
 		inviteHandler.addInvite(request);

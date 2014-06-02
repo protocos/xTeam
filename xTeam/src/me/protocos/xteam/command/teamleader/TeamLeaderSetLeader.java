@@ -23,7 +23,7 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 	{
 		team.setLeader(otherPlayer);
 		team.promote(teamPlayer.getName());
-		ITeamPlayer other = playerManager.getPlayer(otherPlayer);
+		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
 		if (other.isOnline())
 			other.sendMessage("You are now the " + MessageUtil.positiveMessage("team leader"));
 		teamPlayer.sendMessage(otherPlayer + " is now the " + MessageUtil.positiveMessage("team leader") + " (you are an admin)" +
@@ -34,7 +34,7 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = commandContainer.getArgument(1);
-		ITeamPlayer other = playerManager.getPlayer(otherPlayer);
+		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
 		Requirements.checkPlayerIsTeammate(teamPlayer, other);
 	}
 

@@ -20,12 +20,12 @@ import org.bukkit.util.Vector;
 
 public class TeamWolf implements ITeamWolf
 {
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 	private Wolf wolf;
 
-	public TeamWolf(IPlayerManager playerManager, Wolf wolf)
+	public TeamWolf(IPlayerManager playerFactory, Wolf wolf)
 	{
-		this.playerManager = playerManager;
+		this.playerFactory = playerFactory;
 		this.wolf = wolf;
 	}
 
@@ -64,7 +64,7 @@ public class TeamWolf implements ITeamWolf
 	public ITeamPlayer getOwner()
 	{
 		if (wolf.getOwner() != null)
-			return playerManager.getPlayer(wolf.getOwner().getName());
+			return playerFactory.getPlayer(wolf.getOwner().getName());
 		return null;
 	}
 
@@ -401,7 +401,7 @@ public class TeamWolf implements ITeamWolf
 		{
 			for (String p : getTeam().getPlayers())
 			{
-				mates.add(playerManager.getPlayer(p));
+				mates.add(playerFactory.getPlayer(p));
 			}
 		}
 		return mates;
@@ -410,13 +410,13 @@ public class TeamWolf implements ITeamWolf
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return playerManager.getOfflineTeammatesOf(this);
+		return playerFactory.getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return playerManager.getOnlineTeammatesOf(this);
+		return playerFactory.getOnlineTeammatesOf(this);
 	}
 
 	@Override

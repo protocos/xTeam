@@ -26,7 +26,7 @@ public class ServerAdminDemote extends ServerAdminCommand
 		changeTeam.demote(playerName);
 		if (!changeTeam.containsPlayer(player.getName()))
 			player.sendMessage("You " + MessageUtil.negativeMessage("demoted") + " " + playerName);
-		ITeamPlayer other = playerManager.getPlayer(playerName);
+		ITeamPlayer other = playerFactory.getPlayer(playerName);
 		other.sendMessage("You have been " + MessageUtil.negativeMessage("demoted") + " by an admin");
 	}
 
@@ -36,7 +36,7 @@ public class ServerAdminDemote extends ServerAdminCommand
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
 		changeTeam = teamManager.getTeam(teamName);
-		ITeamPlayer playerDemote = playerManager.getPlayer(playerName);
+		ITeamPlayer playerDemote = playerFactory.getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(playerDemote);
 		Requirements.checkTeamExists(teamManager, teamName);
 		Requirements.checkPlayerHasTeam(playerDemote);

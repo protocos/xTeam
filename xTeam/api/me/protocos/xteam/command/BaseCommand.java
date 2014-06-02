@@ -14,14 +14,14 @@ public abstract class BaseCommand
 	protected TeamPlugin teamPlugin;
 	protected ILog log;
 	protected ITeamManager teamManager;
-	protected IPlayerManager playerManager;
+	protected IPlayerManager playerFactory;
 
 	public BaseCommand(TeamPlugin teamPlugin)
 	{
 		this.teamPlugin = teamPlugin;
 		this.log = teamPlugin.getLog();
 		this.teamManager = teamPlugin.getTeamManager();
-		this.playerManager = teamPlugin.getPlayerManager();
+		this.playerFactory = teamPlugin.getPlayerManager();
 	}
 
 	public abstract String getUsage();

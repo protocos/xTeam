@@ -34,14 +34,14 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 {
 	private TeleportScheduler teleportScheduler;
 	private ITeamManager teamManager;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 	private Player player;
 
 	public TeamPlayer(TeamPlugin teamPlugin, Player player)
 	{
 		this.teleportScheduler = teamPlugin.getTeleportScheduler();
 		this.teamManager = teamPlugin.getTeamManager();
-		this.playerManager = teamPlugin.getPlayerManager();
+		this.playerFactory = teamPlugin.getPlayerManager();
 		this.player = player;
 	}
 
@@ -74,13 +74,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public void setLastTeleported(long lastTeleported)
 	{
-		playerManager.setLastTeleported(this, lastTeleported);
+		playerFactory.setLastTeleported(this, lastTeleported);
 	}
 
 	@Override
 	public long getLastTeleported()
 	{
-		return playerManager.getLastTeleported(this.getName());
+		return playerFactory.getLastTeleported(this.getName());
 	}
 
 	@Override
@@ -104,13 +104,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
-		return playerManager.getOfflineTeammatesOf(this);
+		return playerFactory.getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<TeamPlayer> getOnlineTeammates()
 	{
-		return playerManager.getOnlineTeammatesOf(this);
+		return playerFactory.getOnlineTeammatesOf(this);
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
-		return playerManager.getTeammatesOf(this);
+		return playerFactory.getTeammatesOf(this);
 	}
 
 	@Override
@@ -508,13 +508,13 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public void setReturnLocation(Location returnLocation)
 	{
-		playerManager.setReturnLocation(this, returnLocation);
+		playerFactory.setReturnLocation(this, returnLocation);
 	}
 
 	@Override
 	public Location getReturnLocation()
 	{
-		return playerManager.getReturnLocation(this.getName());
+		return playerFactory.getReturnLocation(this.getName());
 	}
 
 	@Override
@@ -526,19 +526,19 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public void removeReturnLocation()
 	{
-		playerManager.setReturnLocation(this, null);
+		playerFactory.setReturnLocation(this, null);
 	}
 
 	@Override
 	public void setLastAttacked(long lastAttacked)
 	{
-		playerManager.setLastAttacked(this, lastAttacked);
+		playerFactory.setLastAttacked(this, lastAttacked);
 	}
 
 	@Override
 	public long getLastAttacked()
 	{
-		return playerManager.getLastAttacked(this.getName());
+		return playerFactory.getLastAttacked(this.getName());
 	}
 
 	@Override

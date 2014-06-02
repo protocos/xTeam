@@ -21,7 +21,7 @@ public abstract class PlayerCommand extends BaseCommand implements IPermissible
 	public void preInitialize(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		Player player = CommonUtil.assignFromType(commandContainer.getSender(), Player.class);
-		teamPlayer = playerManager.getPlayer(player);
+		teamPlayer = playerFactory.getPlayer(player);
 		team = teamPlayer.getTeam();
 		Requirements.checkPlayerWorldDisabled(teamPlayer);
 		Requirements.checkPlayerHasPermission(commandContainer.getSender(), this);

@@ -17,13 +17,13 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-public class PlayerManager implements IPlayerManager
+public class PlayerFactory implements IPlayerManager
 {
 	private TeamPlugin teamPlugin;
 	private IDataManager dataManager;
 	private BukkitUtil bukkitUtil;
 
-	public PlayerManager(TeamPlugin teamPlugin)
+	public PlayerFactory(TeamPlugin teamPlugin)
 	{
 		this.teamPlugin = teamPlugin;
 		this.dataManager = new PlayerFlatFile(teamPlugin);

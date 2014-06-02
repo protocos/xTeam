@@ -10,7 +10,7 @@ import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.IPlayerManager;
 import me.protocos.xteam.core.ITeamManager;
-import me.protocos.xteam.core.PlayerManager;
+import me.protocos.xteam.core.PlayerFactory;
 import me.protocos.xteam.core.TeamManager;
 import me.protocos.xteam.event.EventDispatcher;
 import me.protocos.xteam.event.IEventDispatcher;
@@ -33,7 +33,7 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 	protected final InviteHandler inviteHandler;
 	protected final BukkitUtil bukkitUtil;
 	protected final ITeamManager teamManager;
-	protected final IPlayerManager playerManager;
+	protected final IPlayerManager playerFactory;
 	protected final ICommandManager commandManager;
 	protected final ILog log;
 
@@ -48,9 +48,9 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 		this.commandExecutor = new CommandDelegate(this, this.getCommandManager());
 		this.bukkitUtil = new BukkitUtil(server);
 		this.teamManager = new TeamManager(this);
-		this.playerManager = new PlayerManager(this);
-		//		this.playerManager = new PlayerDataStorageFactory(this).fromString(Configuration.STORAGE_TYPE);
-		this.teleportScheduler = new TeleportScheduler(this, playerManager, bukkitScheduler);
+		this.playerFactory = new PlayerFactory(this);
+		//		this.playerFactory = new PlayerDataStorageFactory(this).fromString(Configuration.STORAGE_TYPE);
+		this.teleportScheduler = new TeleportScheduler(this, playerFactory, bukkitScheduler);
 		this.inviteHandler = new InviteHandler(this);
 	}
 
@@ -106,7 +106,7 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 
 	public final IPlayerManager getPlayerManager()
 	{
-		return this.playerManager;
+		return this.playerFactory;
 	}
 
 	public final InviteHandler getInviteHandler()

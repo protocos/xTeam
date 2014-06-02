@@ -17,7 +17,7 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		for (TeamPlayer player : playerManager.getOnlinePlayers())
+		for (TeamPlayer player : playerFactory.getOnlinePlayers())
 		{
 			if (!player.hasTeam())
 			{

@@ -26,7 +26,7 @@ public class TeamUserLeave extends TeamUserCommand
 		Configuration.chatStatus.remove(teamPlayer.getName());
 		for (String teammate : team.getPlayers())
 		{
-			ITeamPlayer mate = playerManager.getPlayer(teammate);
+			ITeamPlayer mate = playerFactory.getPlayer(teammate);
 			if (mate.isOnline())
 				mate.sendMessage(teamPlayer.getName() + " " + MessageUtil.negativeMessage("left") + " your team");
 		}

@@ -31,7 +31,7 @@ public class TeamUserInfo extends TeamUserCommand
 		{
 			other = commandContainer.getArgument(1);
 		}
-		info = new InfoAction(teamManager, playerManager);
+		info = new InfoAction(teamManager, playerFactory);
 		info.checkRequirements(other);
 	}
 

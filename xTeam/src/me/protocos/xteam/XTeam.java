@@ -47,7 +47,7 @@ public final class XTeam extends TeamPlugin
 	{
 		this.commandManager.register(this);
 		this.initFileSystem();
-		this.playerManager.setDataManager(new PlayerDataStorageFactory(this).fromString(Configuration.STORAGE_TYPE));
+		this.playerFactory.setDataManager(new PlayerDataStorageFactory(this).fromString(Configuration.STORAGE_TYPE));
 	}
 
 	private void initFileSystem()

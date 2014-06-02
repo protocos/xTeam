@@ -111,7 +111,7 @@ public class FakeXTeam extends TeamPlugin
 	@Override
 	public void load()
 	{
-		this.playerManager.setDataManager(new PlayerDataStorageFactory(this).fromString(Configuration.STORAGE_TYPE));
+		this.playerFactory.setDataManager(new PlayerDataStorageFactory(this).fromString(Configuration.STORAGE_TYPE));
 	}
 
 	public static TeamPlugin asTeamPlugin()

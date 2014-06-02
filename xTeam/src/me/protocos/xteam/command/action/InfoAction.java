@@ -14,19 +14,19 @@ import org.bukkit.command.ConsoleCommandSender;
 public class InfoAction
 {
 	private ITeamManager teamManager;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 
-	public InfoAction(ITeamManager teamManager, IPlayerManager playerManager)
+	public InfoAction(ITeamManager teamManager, IPlayerManager playerFactory)
 	{
 		this.teamManager = teamManager;
-		this.playerManager = playerManager;
+		this.playerFactory = playerFactory;
 	}
 
 	public void actOn(CommandSender sender, String other)
 	{
 		ITeam infoTeam = teamManager.getTeam(other);
 		if (infoTeam == null)
-			infoTeam = playerManager.getPlayer(other).getTeam();
+			infoTeam = playerFactory.getPlayer(other).getTeam();
 		if (infoTeam != null)
 		{
 			if (sender instanceof ConsoleCommandSender)
@@ -48,11 +48,11 @@ public class InfoAction
 	{
 		if (teamManager.getTeam(other) == null)
 		{
-			if (playerManager.getPlayer(other) == null)
+			if (playerFactory.getPlayer(other) == null)
 			{
 				throw new TeamOrPlayerDoesNotExistException();
 			}
-			Requirements.checkPlayerHasTeam(playerManager.getPlayer(other));
+			Requirements.checkPlayerHasTeam(playerFactory.getPlayer(other));
 		}
 	}
 }

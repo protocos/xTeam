@@ -31,7 +31,7 @@ public class Team implements ITeam
 	 */
 
 	private TeamPlugin teamPlugin;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 	private TeleportScheduler teleportScheduler;
 	private BukkitUtil bukkitUtil;
 	private String name;
@@ -143,7 +143,7 @@ public class Team implements ITeam
 	{
 		teamPlugin = builder.teamPlugin;
 		bukkitUtil = teamPlugin.getBukkitUtil();
-		playerManager = teamPlugin.getPlayerManager();
+		playerFactory = teamPlugin.getPlayerManager();
 		teleportScheduler = teamPlugin.getTeleportScheduler();
 		name = builder.name;
 		tag = builder.tag;
@@ -322,21 +322,21 @@ public class Team implements ITeam
 	public List<TeamPlayer> getOnlineTeammates()
 	{
 		//EXTERNAL call
-		return playerManager.getOnlineTeammatesOf(this);
+		return playerFactory.getOnlineTeammatesOf(this);
 	}
 
 	@Override
 	public List<OfflineTeamPlayer> getOfflineTeammates()
 	{
 		//EXTERNAL call
-		return playerManager.getOfflineTeammatesOf(this);
+		return playerFactory.getOfflineTeammatesOf(this);
 	}
 
 	@Override
 	public List<ITeamPlayer> getTeammates()
 	{
 		//EXTERNAL call
-		return playerManager.getTeammatesOf(this);
+		return playerFactory.getTeammatesOf(this);
 	}
 
 	@Override

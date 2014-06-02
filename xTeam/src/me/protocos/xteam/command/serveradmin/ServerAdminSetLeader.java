@@ -22,12 +22,12 @@ public class ServerAdminSetLeader extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeamPlayer playerSet = playerManager.getPlayer(playerName);
+		ITeamPlayer playerSet = playerFactory.getPlayer(playerName);
 		ITeam playerTeam = playerSet.getTeam();
 		playerTeam.setLeader(playerName);
 		if (playerSet.isOnline() && !playerSet.getName().equals(player.getName()))
 			playerSet.sendMessage("You are now the " + MessageUtil.positiveMessage("team leader"));
-		ITeamPlayer previousLeader = playerManager.getPlayer(playerTeam.getLeader());
+		ITeamPlayer previousLeader = playerFactory.getPlayer(playerTeam.getLeader());
 		if (previousLeader.isOnline() && !previousLeader.getName().equals(player.getName()))
 			previousLeader.sendMessage(playerName + " is now the " + MessageUtil.positiveMessage("team leader"));
 		player.sendMessage(playerName + " is now the " + MessageUtil.positiveMessage("team leader") + " for " + playerTeam.getName());
@@ -39,7 +39,7 @@ public class ServerAdminSetLeader extends ServerAdminCommand
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
 		ITeam desiredTeam = teamManager.getTeam(teamName);
-		ITeamPlayer playerSet = playerManager.getPlayer(playerName);
+		ITeamPlayer playerSet = playerFactory.getPlayer(playerName);
 		ITeam playerTeam = playerSet.getTeam();
 		Requirements.checkPlayerHasPlayedBefore(playerSet);
 		Requirements.checkTeamExists(teamManager, teamName);

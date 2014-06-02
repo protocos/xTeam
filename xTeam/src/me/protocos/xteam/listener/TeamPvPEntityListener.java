@@ -16,12 +16,12 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class TeamPvPEntityListener implements Listener
 {
 	private ILog log;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 
 	public TeamPvPEntityListener(XTeam xteam)
 	{
 		this.log = xteam.getLog();
-		this.playerManager = xteam.getPlayerManager();
+		this.playerFactory = xteam.getPlayerManager();
 	}
 
 	private static void checkTeam(EntityDamageEvent event, ITeamPlayer attacker, ITeamPlayer defender)
@@ -63,18 +63,18 @@ public class TeamPvPEntityListener implements Listener
 				// Player hurt Player
 				if (damager instanceof Player)
 				{
-					attacker = playerManager.getPlayer((Player) damager);
-					defender = playerManager.getPlayer((Player) entity);
+					attacker = playerFactory.getPlayer((Player) damager);
+					defender = playerFactory.getPlayer((Player) entity);
 					checkTeam(event, attacker, defender);
 				}
 				// Projectile hurt Player
 				else if (damager instanceof Projectile)
 				{
 					if (((Projectile) damager).getShooter() instanceof Player)
-						attacker = playerManager.getPlayer((Player) ((Projectile) damager).getShooter());
+						attacker = playerFactory.getPlayer((Player) ((Projectile) damager).getShooter());
 					else
 						return;
-					defender = playerManager.getPlayer((Player) entity);
+					defender = playerFactory.getPlayer((Player) entity);
 					checkTeam(event, attacker, defender);
 				}
 				else

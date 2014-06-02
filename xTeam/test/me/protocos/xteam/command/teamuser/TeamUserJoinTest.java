@@ -23,7 +23,7 @@ public class TeamUserJoinTest
 	private TeamPlugin teamPlugin;
 	private TeamUserCommand fakeCommand;
 	private ITeamManager teamManager;
-	private IPlayerManager playerManager;
+	private IPlayerManager playerFactory;
 	private InviteHandler inviteHandler;
 
 	@Before
@@ -33,10 +33,10 @@ public class TeamUserJoinTest
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new TeamUserJoin(teamPlugin);
 		teamManager = teamPlugin.getTeamManager();
-		playerManager = teamPlugin.getPlayerManager();
+		playerFactory = teamPlugin.getPlayerManager();
 		inviteHandler = teamPlugin.getInviteHandler();
-		ITeamPlayer playerSender = playerManager.getPlayer("kmlanglois");
-		ITeamPlayer playerReceiver = playerManager.getPlayer("Lonely");
+		ITeamPlayer playerSender = playerFactory.getPlayer("kmlanglois");
+		ITeamPlayer playerReceiver = playerFactory.getPlayer("Lonely");
 		Long timeSent = System.currentTimeMillis();
 		InviteRequest request = new InviteRequest(playerSender, playerReceiver, timeSent);
 		inviteHandler.addInvite(request);
