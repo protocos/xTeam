@@ -24,8 +24,8 @@ public class TeamAdminPromote extends TeamAdminCommand
 		team.promote(otherPlayer);
 		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
 		if (other.isOnline())
-			other.sendMessage("You've been " + MessageUtil.positiveMessage("promoted"));
-		teamPlayer.sendMessage("You" + MessageUtil.positiveMessage(" promoted ") + otherPlayer);
+			other.sendMessage("You've been " + MessageUtil.green("promoted"));
+		teamPlayer.sendMessage("You" + MessageUtil.green(" promoted ") + otherPlayer);
 	}
 
 	@Override

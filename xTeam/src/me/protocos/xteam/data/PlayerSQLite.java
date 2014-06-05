@@ -2,180 +2,121 @@ package me.protocos.xteam.data;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 import lib.PatPeter.SQLibrary.Database;
-import lib.PatPeter.SQLibrary.SQLite;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.data.translator.IDataTranslator;
-import me.protocos.xteam.exception.DataManagerNotOpenException;
 import me.protocos.xteam.model.ILog;
 
 public class PlayerSQLite implements IDataManager
 {
-	private boolean open = false;
 	private Database db;
 	private ILog log;
 
-	public PlayerSQLite(TeamPlugin teamPlugin)
+	public PlayerSQLite(TeamPlugin teamPlugin, Database db)
 	{
-		this.db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", teamPlugin.getFolder(), "xTeam", ".db");
+		this.db = db;
 		this.log = teamPlugin.getLog();
-	}
-
-	@Override
-	public void open()
-	{
-		if (!open)
-			db.open();
-		open = true;
-		this.initializeData();
 	}
 
 	@Override
 	public void read()
 	{
-		if (!open)
-			throw new DataManagerNotOpenException();
-	}
-
-	@Override
-	public boolean isOpen()
-	{
-		return open;
 	}
 
 	@Override
 	public void write()
 	{
-		if (!open)
-			throw new DataManagerNotOpenException();
-	}
-
-	@Override
-	public void close()
-	{
-		if (open)
-			db.close();
-		open = false;
 	}
 
 	@Override
 	public void initializeData()
 	{
-		if (open)
+		try
 		{
-			try
-			{
-				db.insert("CREATE TABLE IF NOT EXISTS player_data(name VARCHAR(17) PRIMARY KEY, lastAttacked BIGINT, lastTeleported BIGINT, returnLocation TEXT);");
-			}
-			catch (SQLException e)
-			{
-				log.exception(e);
-			}
+			db.insert("CREATE TABLE IF NOT EXISTS player_data(name VARCHAR(17) PRIMARY KEY, lastAttacked BIGINT, lastTeleported BIGINT, returnLocation TEXT);");
 		}
-		else
+		catch (SQLException e)
 		{
-			throw new DataManagerNotOpenException();
+			log.exception(e);
 		}
 	}
 
-	//	@Override
-	//	public void addEntry(String name, PropertyList properties)
-	//	{
-	//		if (open)
-	//		{
-	//			String keys = "", values = "";
-	//			boolean first = true;
-	//			for (Property property : properties)
-	//			{
-	//				String key = property.getKey();
-	//				String value = property.getValue();
-	//				if (!first)
-	//				{
-	//					keys += ",";
-	//					values += ",";
-	//				}
-	//				keys += key;
-	//				values += "'" + value + "'";
-	//				first = false;
-	//			}
-	//			try
-	//			{
-	//				db.insert("INSERT INTO player_data(" + keys + ") VALUES (" + values + ");");
-	//			}
-	//			catch (SQLException e)
-	//			{
-	//				log.exception(e);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			throw new DataManagerNotOpenException();
-	//		}
-	//	}
+	@Override
+	public void updateEntry(String name, PropertyList properties)
+	{
+		String keys = "", values = "";
+		boolean first = true;
+		for (Property property : properties)
+		{
+			String key = property.getKey();
+			String value = property.getValue();
+			if (!first)
+			{
+				keys += ",";
+				values += ",";
+			}
+			keys += key;
+			values += "'" + value + "'";
+			first = false;
+		}
+		try
+		{
+			db.insert("INSERT INTO player_data(" + keys + ") VALUES (" + values + ");");
+		}
+		catch (SQLException e)
+		{
+			log.exception(e);
+		}
+	}
 
-	//	@Override
-	//	public void removeEntry(String name)
-	//	{
-	//		if (open)
-	//		{
-	//			try
-	//			{
-	//				db.insert("DELETE FROM player_data WHERE name='" + name + "';");
-	//			}
-	//			catch (SQLException e)
-	//			{
-	//				log.exception(e);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			throw new DataManagerNotOpenException();
-	//		}
-	//	}
+	@Override
+	public void removeEntry(String name)
+	{
+		try
+		{
+			db.insert("DELETE FROM player_data WHERE name='" + name + "';");
+		}
+		catch (SQLException e)
+		{
+			log.exception(e);
+		}
+	}
 
 	@Override
 	public <T> void setVariable(String playerName, String variableName, T variable, IDataTranslator<T> strategy)
 	{
-		if (open)
+		try
 		{
-			try
-			{
-				db.insert("UPDATE player_data SET " + variableName + "='" + strategy.decompile(variable) + "' WHERE name='" + playerName + "';");
-			}
-			catch (SQLException e)
-			{
-				log.exception(e);
-			}
+			db.insert("UPDATE player_data SET " + variableName + "='" + strategy.decompile(variable) + "' WHERE name='" + playerName + "';");
 		}
-		else
+		catch (SQLException e)
 		{
-			throw new DataManagerNotOpenException();
+			log.exception(e);
 		}
 	}
 
 	@Override
 	public <T> T getVariable(String playerName, String variableName, IDataTranslator<T> strategy)
 	{
-		if (open)
+		try
 		{
-			ResultSet set = null;
-			try
+			db.insert("INSERT INTO player_data(name, lastAttacked, lastTeleported) " +
+					"SELECT '" + playerName + "',0,0 " +
+					"WHERE NOT EXISTS (SELECT * FROM player_data WHERE name='" + playerName + "');");
+			ResultSet set = db.query("SELECT " + variableName + " FROM player_data WHERE name='" + playerName + "';");
+			if (set == null || set.getString(1) == null)
 			{
-				db.insert("INSERT INTO player_data(name, lastAttacked, lastTeleported) " +
-						"SELECT '" + playerName + "',0,0 " +
-						"WHERE NOT EXISTS (SELECT * FROM player_data WHERE name='" + playerName + "');");
-				set = db.query("SELECT " + variableName + " FROM player_data WHERE name='" + playerName + "';");
-				if (set == null || set.getString(1) == null)
-					return null;
-				return strategy.compile(set.getString(1));
+
+				return null;
 			}
-			catch (SQLException e)
-			{
-				log.exception(e);
-			}
-			return null;
+			T result = strategy.compile(set.getString(1));
+			set.close();
+			return result;
 		}
-		throw new DataManagerNotOpenException();
+		catch (SQLException e)
+		{
+			log.exception(e);
+		}
+		return null;
 	}
 }

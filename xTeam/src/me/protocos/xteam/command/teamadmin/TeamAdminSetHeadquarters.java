@@ -21,7 +21,7 @@ public class TeamAdminSetHeadquarters extends TeamAdminCommand
 	{
 		team.setHeadquarters(new Headquarters(teamPlugin, teamPlayer.getLocation()));
 		team.setTimeHeadquartersLastSet(System.currentTimeMillis());
-		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("set") + " the team headquarters");
+		teamPlayer.sendMessage("You " + MessageUtil.green("set") + " the team headquarters");
 	}
 
 	@Override

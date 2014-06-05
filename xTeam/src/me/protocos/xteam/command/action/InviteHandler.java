@@ -34,7 +34,7 @@ public class InviteHandler
 			{
 				if (invites.containsKey(invitee.getName()))
 				{
-					invitee.sendMessage("Invite from " + inviter.getName() + " has " + MessageUtil.negativeMessage("expired"));
+					invitee.sendMessage("Invite from " + inviter.getName() + " has " + MessageUtil.red("expired"));
 					invites.remove(invitee.getName());
 				}
 			}

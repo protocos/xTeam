@@ -33,24 +33,19 @@ public class PlayerFactory implements IPlayerFactory
 	@Override
 	public void setDataManager(IDataManager dataManager)
 	{
-		if (this.dataManager.isOpen())
-			this.dataManager.close();
 		this.dataManager = dataManager;
-		this.dataManager.open();
 	}
 
 	@Override
-	public void open()
+	public void read()
 	{
-		this.dataManager.open();
 		this.dataManager.read();
 	}
 
 	@Override
-	public void close()
+	public void write()
 	{
 		this.dataManager.write();
-		this.dataManager.close();
 	}
 
 	public List<TeamPlayer> getOnlinePlayers()
@@ -225,7 +220,7 @@ public class PlayerFactory implements IPlayerFactory
 		players.addAll(getOnlinePlayers());
 		players.addAll(getOfflinePlayers());
 		for (ITeamPlayer player : players)
-			output += player.getName() + (player.isOnline() ? MessageUtil.positiveMessage(" online") : MessageUtil.negativeMessage(" offline")) + "\n";
+			output += player.getName() + (player.isOnline() ? MessageUtil.green(" online") : MessageUtil.red(" offline")) + "\n";
 		return output.trim();
 	}
 }

@@ -24,8 +24,8 @@ public class ServerAdminTag extends ServerAdminCommand
 	{
 		changeTeam.setTag(desiredTag);
 		if (!changeTeam.containsPlayer(player.getName()))
-			player.sendMessage("The team tag has been " + MessageUtil.positiveMessage("set") + " to " + desiredTag);
-		changeTeam.sendMessage("The team tag has been " + MessageUtil.positiveMessage("set") + " to " + desiredTag + " by an admin");
+			player.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag);
+		changeTeam.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag + " by an admin");
 	}
 
 	@Override

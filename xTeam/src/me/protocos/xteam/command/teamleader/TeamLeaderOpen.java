@@ -19,9 +19,9 @@ public class TeamLeaderOpen extends TeamLeaderCommand
 	{
 		team.setOpenJoining(!team.isOpenJoining());
 		if (team.isOpenJoining())
-			teamPlayer.sendMessage("Open joining is now " + MessageUtil.positiveMessage("enabled"));
+			teamPlayer.sendMessage("Open joining is now " + MessageUtil.green("enabled"));
 		else
-			teamPlayer.sendMessage("Open joining is now " + MessageUtil.negativeMessage("disabled"));
+			teamPlayer.sendMessage("Open joining is now " + MessageUtil.red("disabled"));
 	}
 
 	@Override

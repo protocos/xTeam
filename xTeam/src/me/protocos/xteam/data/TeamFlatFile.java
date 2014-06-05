@@ -10,13 +10,11 @@ import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.data.translator.IDataTranslator;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.Team;
-import me.protocos.xteam.exception.DataManagerNotOpenException;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.SystemUtil;
 
 public class TeamFlatFile implements IDataManager
 {
-	private boolean open = false;
 	private TeamPlugin teamPlugin;
 	private File file;
 	private ITeamManager teamManager;
@@ -30,169 +28,107 @@ public class TeamFlatFile implements IDataManager
 	}
 
 	@Override
-	public void open()
-	{
-		open = true;
-		this.initializeData();
-	}
-
-	@Override
 	public void read()
 	{
-		if (open)
+		this.initializeData();
+		try
 		{
-			try
+			String line;
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			while ((line = br.readLine()) != null)
 			{
-				String line;
-				BufferedReader br = new BufferedReader(new FileReader(file));
-				while ((line = br.readLine()) != null)
-				{
-					Team team = Team.generateTeamFromProperties(teamPlugin, line);
-					teamManager.createTeam(team);
-				}
-				br.close();
+				Team team = Team.generateTeamFromProperties(teamPlugin, line);
+				teamManager.createTeam(team);
 			}
-			catch (Exception e)
-			{
-				log.exception(e);
-			}
+			br.close();
 		}
-		else
+		catch (Exception e)
 		{
-			throw new DataManagerNotOpenException();
+			log.exception(e);
 		}
-	}
-
-	@Override
-	public boolean isOpen()
-	{
-		return open;
 	}
 
 	@Override
 	public void write()
 	{
-		if (open)
+		this.initializeData();
+		try
 		{
-			try
+			ArrayList<String> data = new ArrayList<String>();
+			HashList<String, ITeam> teams = teamManager.getTeams();
+			for (ITeam team : teams)
+				data.add(team.toString());
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			for (String line : data)
 			{
-				ArrayList<String> data = new ArrayList<String>();
-				HashList<String, ITeam> teams = teamManager.getTeams();
-				for (ITeam team : teams)
-					data.add(team.toString());
-				BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-				for (String line : data)
-				{
-					bw.write(line + "\n");
-				}
-				bw.close();
+				bw.write(line + "\n");
 			}
-			catch (Exception e)
-			{
-				log.exception(e);
-			}
+			bw.close();
 		}
-		else
+		catch (Exception e)
 		{
-			throw new DataManagerNotOpenException();
+			log.exception(e);
 		}
-	}
-
-	@Override
-	public void close()
-	{
-		open = false;
 	}
 
 	@Override
 	public void initializeData()
 	{
-		if (open)
-		{
-			this.file = SystemUtil.ensureFile(teamPlugin.getFolder() + "teams.txt");
-		}
-		else
-		{
-			throw new DataManagerNotOpenException();
-		}
+		this.file = SystemUtil.ensureFile(teamPlugin.getFolder() + "teams.txt");
 	}
 
-	//	@Override
-	//	public void addEntry(String teamName, PropertyList properties)
-	//	{
-	//		if (open)
-	//		{
-	//			teamProperties.put(teamName, properties);
-	//		}
-	//		else
-	//		{
-	//			throw new DataManagerNotOpenException();
-	//		}
-	//	}
+	@Override
+	public void updateEntry(String teamName, PropertyList properties)
+	{
+	}
 
-	//	@Override
-	//	public void removeEntry(String teamName)
-	//	{
-	//		if (open)
-	//		{
-	//			teamProperties.remove(teamName);
-	//		}
-	//		else
-	//		{
-	//			throw new DataManagerNotOpenException();
-	//		}
-	//	}
+	@Override
+	public void removeEntry(String teamName)
+	{
+	}
 
 	@Override
 	public <T> void setVariable(String teamName, String variableName, T variable, IDataTranslator<T> strategy)
 	{
-		if (open)
+		this.initializeData();
+		ITeam team = teamManager.getTeam(teamName);
+		Method[] methods = Team.class.getMethods();
+		for (Method method : methods)
 		{
-			ITeam team = teamManager.getTeam(teamName);
-			Method[] methods = Team.class.getMethods();
-			for (Method method : methods)
+			if (method.getName().equalsIgnoreCase("set" + variableName))
 			{
-				if (method.getName().equalsIgnoreCase("set" + variableName))
+				try
 				{
-					try
-					{
-						method.invoke(team, variable);
-					}
-					catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
-					{
-						log.exception(e);
-					}
+					method.invoke(team, variable);
+				}
+				catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+				{
+					log.exception(e);
 				}
 			}
-		}
-		else
-		{
-			throw new DataManagerNotOpenException();
 		}
 	}
 
 	@Override
 	public <T> T getVariable(String teamName, String variableName, IDataTranslator<T> strategy)
 	{
-		if (open)
+		this.initializeData();
+		ITeam team = teamManager.getTeam(teamName);
+		Method[] methods = Team.class.getMethods();
+		for (Method method : methods)
 		{
-			ITeam team = teamManager.getTeam(teamName);
-			Method[] methods = Team.class.getMethods();
-			for (Method method : methods)
+			if (method.getName().equalsIgnoreCase("get" + variableName))
 			{
-				if (method.getName().equalsIgnoreCase("get" + variableName))
+				try
 				{
-					try
-					{
-						method.invoke(team);
-					}
-					catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
-					{
-						log.exception(e);
-					}
+					method.invoke(team);
+				}
+				catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+				{
+					log.exception(e);
 				}
 			}
 		}
-		throw new DataManagerNotOpenException();
+		return null;
 	}
 }

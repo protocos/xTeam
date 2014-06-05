@@ -27,8 +27,8 @@ public class TeamUserJoin extends TeamUserCommand
 		ITeam foundTeam = teamManager.getTeam(desiredName);
 		foundTeam.addPlayer(teamPlayer.getName());
 		inviteHandler.removeInvite(teamPlayer.getName());
-		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + MessageUtil.positiveMessage("joined") + " your team");
-		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("joined") + " " + foundTeam.getName());
+		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + MessageUtil.green("joined") + " your team");
+		teamPlayer.sendMessage("You " + MessageUtil.green("joined") + " " + foundTeam.getName());
 	}
 
 	@Override

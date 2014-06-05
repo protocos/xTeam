@@ -24,8 +24,8 @@ public class ServerAdminRename extends ServerAdminCommand
 		ITeam changeTeam = teamManager.getTeam(teamName);
 		teamManager.renameTeam(changeTeam, desiredName);
 		if (!changeTeam.containsPlayer(player.getName()))
-			player.sendMessage("You " + MessageUtil.positiveMessage("renamed") + " the team to " + desiredName);
-		changeTeam.sendMessage("The team has been " + MessageUtil.positiveMessage("renamed") + " to " + desiredName + " by an admin");
+			player.sendMessage("You " + MessageUtil.green("renamed") + " the team to " + desiredName);
+		changeTeam.sendMessage("The team has been " + MessageUtil.green("renamed") + " to " + desiredName + " by an admin");
 	}
 
 	@Override

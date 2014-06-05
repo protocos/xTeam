@@ -23,8 +23,8 @@ public class ConsoleTag extends ConsoleCommand
 	{
 		ITeam team = teamManager.getTeam(teamName);
 		team.setTag(desiredTag);
-		sender.sendMessage("The team tag has been " + MessageUtil.positiveMessage("set") + " to " + desiredTag);
-		team.sendMessage("The team tag has been " + MessageUtil.positiveMessage("set") + " to " + desiredTag + " by an admin");
+		sender.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag);
+		team.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag + " by an admin");
 	}
 
 	@Override

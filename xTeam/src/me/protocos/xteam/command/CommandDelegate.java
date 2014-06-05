@@ -32,7 +32,7 @@ public class CommandDelegate implements CommandExecutor
 			logCommand(commandContainer);
 			if (command == null)
 			{
-				sender.sendMessage(MessageUtil.negativeMessage((new TeamInvalidCommandException()).getMessage()));
+				sender.sendMessage(MessageUtil.red((new TeamInvalidCommandException()).getMessage()));
 				log.debug("Command execute failed for reason: " + (new TeamInvalidCommandException()).getMessage());
 			}
 			else if (command.execute(commandContainer) == true)
@@ -40,7 +40,7 @@ public class CommandDelegate implements CommandExecutor
 		}
 		catch (Exception e)
 		{
-			sender.sendMessage(MessageUtil.negativeMessage("There was a server error executing command: /" + commandID + " " + CommonUtil.concatenate(args)));
+			sender.sendMessage(MessageUtil.red("There was a server error executing command: /" + commandID + " " + CommonUtil.concatenate(args)));
 			log.exception(e);
 		}
 		return true;

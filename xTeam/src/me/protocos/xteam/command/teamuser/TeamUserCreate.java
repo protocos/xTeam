@@ -26,7 +26,7 @@ public class TeamUserCreate extends TeamUserCommand
 		Team newTeam = Team.createTeamWithLeader(teamPlugin, desiredName, leader);
 		teamManager.createTeam(newTeam);
 		Configuration.lastCreated.put(leader, Long.valueOf(System.currentTimeMillis()));
-		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("created") + " " + desiredName);
+		teamPlayer.sendMessage("You " + MessageUtil.green("created") + " " + desiredName);
 	}
 
 	@Override

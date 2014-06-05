@@ -24,12 +24,12 @@ public class TeamUserChat extends TeamUserCommand
 		if (option.equalsIgnoreCase("ON"))
 		{
 			Configuration.chatStatus.add(teamPlayer.getName());
-			teamPlayer.sendMessage("You are now only chatting with " + MessageUtil.positiveMessage("your team"));
+			teamPlayer.sendMessage("You are now only chatting with " + MessageUtil.green("your team"));
 		}
 		if (option.equalsIgnoreCase("OFF"))
 		{
 			Configuration.chatStatus.remove(teamPlayer.getName());
-			teamPlayer.sendMessage("You are now chatting with " + MessageUtil.negativeMessage("everyone"));
+			teamPlayer.sendMessage("You are now chatting with " + MessageUtil.red("everyone"));
 		}
 	}
 

@@ -24,10 +24,10 @@ public class ConsolePromote extends ConsoleCommand
 	{
 		ITeam team = teamManager.getTeam(teamName);
 		team.promote(playerName);
-		sender.sendMessage("You " + MessageUtil.positiveMessage("promoted ") + playerName);
+		sender.sendMessage("You " + MessageUtil.green("promoted ") + playerName);
 		ITeamPlayer other = playerFactory.getPlayer(playerName);
 		if (other.isOnline())
-			other.sendMessage("You've been " + MessageUtil.positiveMessage("promoted"));
+			other.sendMessage("You've been " + MessageUtil.green("promoted"));
 	}
 
 	@Override

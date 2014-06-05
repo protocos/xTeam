@@ -6,13 +6,9 @@ import me.protocos.xteam.entity.ITeam;
 
 public interface ITeamManager
 {
-	public abstract void open();
-
 	public abstract void read();
 
 	public abstract void write();
-
-	public abstract void close();
 
 	public abstract void clear();
 

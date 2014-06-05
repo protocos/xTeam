@@ -25,9 +25,9 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 		team.promote(teamPlayer.getName());
 		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
 		if (other.isOnline())
-			other.sendMessage("You are now the " + MessageUtil.positiveMessage("team leader"));
-		teamPlayer.sendMessage(otherPlayer + " is now the " + MessageUtil.positiveMessage("team leader") + " (you are an admin)" +
-				"\nYou can now " + MessageUtil.negativeMessage("leave") + " the team");
+			other.sendMessage("You are now the " + MessageUtil.green("team leader"));
+		teamPlayer.sendMessage(otherPlayer + " is now the " + MessageUtil.green("team leader") + " (you are an admin)" +
+				"\nYou can now " + MessageUtil.red("leave") + " the team");
 	}
 
 	@Override

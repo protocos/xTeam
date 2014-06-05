@@ -59,12 +59,12 @@ public class MessageUtil
 		return highlightString(ChatColor.DARK_AQUA, string);
 	}
 
-	public static String positiveMessage(String string)
+	public static String green(String string)
 	{
 		return ChatColor.GREEN + string + ChatColor.RESET;
 	}
 
-	public static String negativeMessage(String string)
+	public static String red(String string)
 	{
 		return ChatColor.RED + string + ChatColor.RESET;
 	}

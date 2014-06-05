@@ -6,8 +6,6 @@ import java.io.IOException;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.data.translator.LocationDataTranslator;
-import me.protocos.xteam.data.translator.LongDataTranslator;
-import me.protocos.xteam.exception.DataManagerNotOpenException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.SystemUtil;
@@ -31,85 +29,11 @@ public class PlayerDataFileTest
 	}
 
 	@Test
-	public void ShouldBeOpen()
-	{
-		//ASSEMBLE
-		playerData = new PlayerFlatFile(teamPlugin);
-		//ACT
-		playerData.open();
-		//ASSERT
-		Assert.assertTrue(playerData.isOpen());
-	}
-
-	@Test
-	public void ShouldBeClosed()
-	{
-		//ASSEMBLE
-		playerData = new PlayerFlatFile(teamPlugin);
-		playerData.open();
-		//ACT
-		playerData.close();
-		//ASSERT
-		Assert.assertFalse(playerData.isOpen());
-	}
-
-	@Test(expected = DataManagerNotOpenException.class)
-	public void ShouldBeInitializeWithoutOpen()
-	{
-		//ASSEMBLE
-		playerData = new PlayerFlatFile(teamPlugin);
-		//ACT
-		playerData.initializeData();
-		//ASSERT
-	}
-
-	@Test(expected = DataManagerNotOpenException.class)
-	public void ShouldBeSetWithoutOpen()
-	{
-		//ASSEMBLE
-		playerData = new PlayerFlatFile(teamPlugin);
-		//ACT
-		playerData.setVariable("protocos", "lastAttacked", 10L, new LongDataTranslator());
-		//ASSERT
-	}
-
-	@Test(expected = DataManagerNotOpenException.class)
-	public void ShouldBeGetWithoutOpen()
-	{
-		//ASSEMBLE
-		playerData = new PlayerFlatFile(teamPlugin);
-		//ACT
-		playerData.getVariable("protocos", "lastAttacked", new LongDataTranslator());
-		//ASSERT
-	}
-
-	@Test(expected = DataManagerNotOpenException.class)
-	public void ShouldBeReadWithoutOpen()
-	{
-		//ASSEMBLE
-		playerData = new PlayerFlatFile(teamPlugin);
-		//ACT
-		playerData.read();
-		//ASSERT
-	}
-
-	@Test(expected = DataManagerNotOpenException.class)
-	public void ShouldBeWriteWithoutOpen()
-	{
-		//ASSEMBLE
-		playerData = new PlayerFlatFile(teamPlugin);
-		//ACT
-		playerData.write();
-		//ASSERT
-	}
-
-	@Test
 	public void ShouldBeWriteThenRead()
 	{
 		//ASSEMBLE
 		Location originalLocation = new FakeLocation(bukkitUtil.getWorld("world")).toLocation();
 		playerData = new PlayerFlatFile(teamPlugin);
-		playerData.open();
 		//ACT
 		playerData.setVariable("protocos", "returnLocation", originalLocation, new LocationDataTranslator(teamPlugin));
 		playerData.write();
@@ -131,13 +55,11 @@ public class PlayerDataFileTest
 		writer.close();
 		playerData = new PlayerFlatFile(teamPlugin);
 		//ACT
-		playerData.open();
 		playerData.read();
 		Location protocosLocation = playerData.getVariable("protocos", "returnLocation", new LocationDataTranslator(teamPlugin));
 		Location kmlangloisLocation = playerData.getVariable("kmlanglois", "returnLocation", new LocationDataTranslator(teamPlugin));
 		Location mastermindLocation = playerData.getVariable("mastermind", "returnLocation", new LocationDataTranslator(teamPlugin));
 		playerData.write();
-		playerData.close();
 		//ASSERT
 		Assert.assertNull(protocosLocation);
 		Assert.assertEquals(originalLocation, kmlangloisLocation);
@@ -156,13 +78,11 @@ public class PlayerDataFileTest
 		writer.close();
 		playerData = new PlayerFlatFile(teamPlugin);
 		//ACT
-		playerData.open();
 		playerData.read();
 		Location protocosLocation = playerData.getVariable("protocos", "returnLocation", new LocationDataTranslator(teamPlugin));
 		Location kmlangloisLocation = playerData.getVariable("kmlanglois", "returnLocation", new LocationDataTranslator(teamPlugin));
 		Location mastermindLocation = playerData.getVariable("mastermind", "returnLocation", new LocationDataTranslator(teamPlugin));
 		playerData.write();
-		playerData.close();
 		//ASSERT
 		Assert.assertNull(protocosLocation);
 		Assert.assertEquals(originalLocation, kmlangloisLocation);

@@ -367,9 +367,9 @@ public class Team implements ITeam
 			message += "\n" + (ChatColor.RESET + "Team Leader - " + ChatColor.GREEN + this.getLeader());
 		if (this.admins.size() > 0)
 			message += "\n" + (ChatColor.RESET + "Team Admins - " + ChatColor.GREEN + this.admins.toString().replaceAll("\\[|\\]" + (this.hasLeader() ? "|" + this.getLeader() + ", " : ""), ""));
-		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.positiveMessage("Open")) : (MessageUtil.negativeMessage("Closed"))));
+		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.green("Open")) : (MessageUtil.red("Closed"))));
 		if (usePublicData)
-			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.positiveMessage("Set")) : (ChatColor.RED + "None set")));
+			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.green("Set")) : (ChatColor.RED + "None set")));
 		else
 			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (ChatColor.GREEN + "X:" + this.getHeadquarters().getRelativeX() + " Y:" + this.getHeadquarters().getRelativeY() + " Z:" + this.getHeadquarters().getRelativeZ()) : (ChatColor.RED + "None set")));
 		List<TeamPlayer> onlineTeammates = this.getOnlineTeammates();
@@ -530,7 +530,7 @@ public class Team implements ITeam
 			{
 				rally = null;
 				teleportScheduler.clearTeamRally(finalTeam);
-				sendMessage("Team rally has been " + MessageUtil.positiveMessage("refreshed"));
+				sendMessage("Team rally has been " + MessageUtil.green("refreshed"));
 			}
 		}
 		bukkitUtil.getScheduler().scheduleSyncDelayedTask(teamPlugin, new RemoveRally(), Configuration.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);
@@ -634,7 +634,7 @@ public class Team implements ITeam
 
 	public static Team createTeamWithLeader(TeamPlugin teamPlugin, String teamName, String player)
 	{
-		Team team = new Team.Builder(teamPlugin, teamName).players(player).admins(player).leader(player).build();
+		Team team = new Team.Builder(teamPlugin, teamName).players(player).leader(player).build();
 		return team;
 	}
 

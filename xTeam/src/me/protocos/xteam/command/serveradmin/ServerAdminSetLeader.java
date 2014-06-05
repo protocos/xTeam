@@ -26,11 +26,11 @@ public class ServerAdminSetLeader extends ServerAdminCommand
 		ITeam playerTeam = playerSet.getTeam();
 		playerTeam.setLeader(playerName);
 		if (playerSet.isOnline() && !playerSet.getName().equals(player.getName()))
-			playerSet.sendMessage("You are now the " + MessageUtil.positiveMessage("team leader"));
+			playerSet.sendMessage("You are now the " + MessageUtil.green("team leader"));
 		ITeamPlayer previousLeader = playerFactory.getPlayer(playerTeam.getLeader());
 		if (previousLeader.isOnline() && !previousLeader.getName().equals(player.getName()))
-			previousLeader.sendMessage(playerName + " is now the " + MessageUtil.positiveMessage("team leader"));
-		player.sendMessage(playerName + " is now the " + MessageUtil.positiveMessage("team leader") + " for " + playerTeam.getName());
+			previousLeader.sendMessage(playerName + " is now the " + MessageUtil.green("team leader"));
+		player.sendMessage(playerName + " is now the " + MessageUtil.green("team leader") + " for " + playerTeam.getName());
 	}
 
 	@Override

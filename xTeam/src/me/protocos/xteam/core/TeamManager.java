@@ -3,6 +3,7 @@ package me.protocos.xteam.core;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.data.IDataManager;
+import me.protocos.xteam.data.PropertyList;
 import me.protocos.xteam.data.TeamFlatFile;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.event.*;
@@ -23,16 +24,7 @@ public class TeamManager implements ITeamManager
 	@Override
 	public void setDataManager(IDataManager dataManager)
 	{
-		if (this.dataManager.isOpen())
-			this.dataManager.close();
 		this.dataManager = dataManager;
-		this.dataManager.open();
-	}
-
-	@Override
-	public void open()
-	{
-		dataManager.open();
 	}
 
 	@Override
@@ -48,12 +40,6 @@ public class TeamManager implements ITeamManager
 	}
 
 	@Override
-	public void close()
-	{
-		dataManager.close();
-	}
-
-	@Override
 	public void clear()
 	{
 		teams.clear();
@@ -64,6 +50,7 @@ public class TeamManager implements ITeamManager
 		if (team != null)
 		{
 			teams.put(team.getName().toLowerCase(), team);
+			dataManager.updateEntry(team.getName().toLowerCase(), PropertyList.fromString(team.toString()));
 		}
 	}
 
@@ -120,6 +107,7 @@ public class TeamManager implements ITeamManager
 	{
 		if (this.containsTeam(teamName))
 		{
+			dataManager.removeEntry(this.getTeam(teamName).getName().toLowerCase());
 			return teams.remove(this.getTeam(teamName).getName().toLowerCase());
 		}
 		return null;

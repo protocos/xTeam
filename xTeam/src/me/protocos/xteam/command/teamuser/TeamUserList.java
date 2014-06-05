@@ -21,7 +21,7 @@ public class TeamUserList extends TeamUserCommand
 		List<String> teams = teamManager.getTeams().getOrder();
 		String message = "Teams: " + teams.toString().replaceAll("\\[|\\]", "");
 		if (teams.isEmpty())
-			teamPlayer.sendMessage("There are " + MessageUtil.negativeMessage("no") + " teams");
+			teamPlayer.sendMessage("There are " + MessageUtil.red("no") + " teams");
 		else
 			teamPlayer.sendMessage(message);
 	}

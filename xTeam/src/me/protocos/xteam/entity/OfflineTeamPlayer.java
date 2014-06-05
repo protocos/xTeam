@@ -221,12 +221,12 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public String getPublicInfo()
 	{
-		return MessageUtil.negativeMessage("    " + this.getName());
+		return MessageUtil.red("    " + this.getName());
 	}
 
 	@Override
 	public String getPrivateInfo()
 	{
-		return MessageUtil.negativeMessage("    " + this.getName()) + " was last online on " + this.getLastPlayed();
+		return MessageUtil.red("    " + this.getName()) + " was last online on " + this.getLastPlayed();
 	}
 }

@@ -25,12 +25,12 @@ public class ConsoleRemove extends ConsoleCommand
 	{
 		ITeam changeTeam = changePlayer.getTeam();
 		changeTeam.removePlayer(playerName);
-		sender.sendMessage("You" + MessageUtil.negativeMessage(" removed ") + playerName + " from " + teamName);
+		sender.sendMessage("You" + MessageUtil.red(" removed ") + playerName + " from " + teamName);
 		if (changePlayer.isOnline())
-			changePlayer.sendMessage("You've been " + MessageUtil.negativeMessage("removed") + " from " + changeTeam.getName());
+			changePlayer.sendMessage("You've been " + MessageUtil.red("removed") + " from " + changeTeam.getName());
 		if (changeTeam.isEmpty())
 		{
-			sender.sendMessage(teamName + " has been " + MessageUtil.negativeMessage("disbanded"));
+			sender.sendMessage(teamName + " has been " + MessageUtil.red("disbanded"));
 			teamManager.disbandTeam(changeTeam.getName());
 		}
 	}

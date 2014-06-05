@@ -22,9 +22,9 @@ public class ServerAdminDisband extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		changeTeam.sendMessage("Your team has been " + MessageUtil.negativeMessage("disbanded") + " by an admin");
+		changeTeam.sendMessage("Your team has been " + MessageUtil.red("disbanded") + " by an admin");
 		teamManager.disbandTeam(teamName);
-		player.sendMessage("You " + MessageUtil.negativeMessage("disbanded") + " " + changeTeam.getName() + (changeTeam.hasTag() ? " [" + changeTeam.getTag() + "]" : ""));
+		player.sendMessage("You " + MessageUtil.red("disbanded") + " " + changeTeam.getName() + (changeTeam.hasTag() ? " [" + changeTeam.getTag() + "]" : ""));
 	}
 
 	@Override

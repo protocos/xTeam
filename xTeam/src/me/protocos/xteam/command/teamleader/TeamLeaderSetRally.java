@@ -20,8 +20,8 @@ public class TeamLeaderSetRally extends TeamLeaderCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.setRally(teamPlayer.getLocation());
-		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("set") + " the team rally point");
-		teamPlayer.sendMessageToTeam("Team rally point has been " + MessageUtil.positiveMessage("set") + " (expires in " + Configuration.RALLY_DELAY + " minutes)");
+		teamPlayer.sendMessage("You " + MessageUtil.green("set") + " the team rally point");
+		teamPlayer.sendMessageToTeam("Team rally point has been " + MessageUtil.green("set") + " (expires in " + Configuration.RALLY_DELAY + " minutes)");
 	}
 
 	@Override

@@ -91,8 +91,8 @@ public class TeleportScheduler
 	{
 		countWaitTime.put(teamPlayer, 0);
 		final Location currentLocation = teamPlayer.getLocation();
-		teamPlayer.sendMessage(MessageUtil.negativeMessage("You cannot teleport with enemies nearby"));
-		teamPlayer.sendMessage(MessageUtil.negativeMessage("You must wait " + Configuration.TELE_DELAY + " seconds"));
+		teamPlayer.sendMessage(MessageUtil.red("You cannot teleport with enemies nearby"));
+		teamPlayer.sendMessage(MessageUtil.red("You must wait " + Configuration.TELE_DELAY + " seconds"));
 		Runnable teleportWait = new TeleportWait(teamPlayer, toLocatable, currentLocation);
 		setCurrentTask(teamPlayer, bukkitScheduler.scheduleSyncRepeatingTask(teamPlugin, teleportWait, CommonUtil.LONG_ZERO, 2L));
 	}
@@ -112,11 +112,11 @@ public class TeleportScheduler
 			teamPlayer.setLastTeleported(System.currentTimeMillis());
 		}
 		teamPlayer.teleport(toLocation);
-		teamPlayer.sendMessage("You've been " + MessageUtil.positiveMessage("teleported") + " to " + toLocatable.getName());
+		teamPlayer.sendMessage("You've been " + MessageUtil.green("teleported") + " to " + toLocatable.getName());
 		if (toLocatable instanceof TeamPlayer)
 		{
 			TeamPlayer toPlayer = CommonUtil.assignFromType(toLocatable, TeamPlayer.class);
-			toPlayer.sendMessage(teamPlayer.getName() + " has " + MessageUtil.positiveMessage("teleported") + " to you");
+			toPlayer.sendMessage(teamPlayer.getName() + " has " + MessageUtil.green("teleported") + " to you");
 		}
 	}
 
@@ -189,7 +189,7 @@ public class TeleportScheduler
 		public void run()
 		{
 			if (Configuration.TELE_REFRESH_DELAY > 0)
-				fromEntity.sendMessage("Teleport " + MessageUtil.positiveMessage("refreshed"));
+				fromEntity.sendMessage("Teleport " + MessageUtil.green("refreshed"));
 		}
 	}
 
@@ -211,14 +211,14 @@ public class TeleportScheduler
 		{
 			if ((System.currentTimeMillis() - fromEntity.getLastAttacked()) / 1000 < Configuration.LAST_ATTACKED_DELAY)
 			{
-				fromEntity.sendMessage("Teleport " + MessageUtil.negativeMessage("cancelled") + "! You were attacked!");
+				fromEntity.sendMessage("Teleport " + MessageUtil.red("cancelled") + "! You were attacked!");
 				countWaitTime.remove(fromEntity);
 				removeCurrentTask(fromEntity);
 			}
 			Location loc = fromEntity.getLocation();
 			if (loc.getBlockX() != previousLocation.getBlockX() || loc.getBlockY() != previousLocation.getBlockY() || loc.getBlockZ() != previousLocation.getBlockZ())
 			{
-				fromEntity.sendMessage(MessageUtil.negativeMessage("Teleport cancelled! You moved!"));
+				fromEntity.sendMessage(MessageUtil.red("Teleport cancelled! You moved!"));
 				countWaitTime.remove(fromEntity);
 				removeCurrentTask(fromEntity);
 			}

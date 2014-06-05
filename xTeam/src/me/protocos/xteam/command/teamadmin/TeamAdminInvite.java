@@ -29,8 +29,8 @@ public class TeamAdminInvite extends TeamAdminCommand
 		InviteRequest request = new InviteRequest(teamPlayer, otherPlayer, System.currentTimeMillis());
 		inviteHandler.addInvite(request);
 		if (otherPlayer.isOnline())
-			otherPlayer.sendMessage("You've been " + MessageUtil.positiveMessage("invited ") + "to join " + team.getName() + " (/team accept)");
-		teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("invited ") + otherPlayer.getName());
+			otherPlayer.sendMessage("You've been " + MessageUtil.green("invited ") + "to join " + team.getName() + " (/team accept)");
+		teamPlayer.sendMessage("You " + MessageUtil.green("invited ") + otherPlayer.getName());
 	}
 
 	@Override

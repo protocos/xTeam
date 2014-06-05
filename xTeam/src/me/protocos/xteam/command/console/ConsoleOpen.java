@@ -23,9 +23,9 @@ public class ConsoleOpen extends ConsoleCommand
 		ITeam team = teamManager.getTeam(teamName);
 		team.setOpenJoining(!team.isOpenJoining());
 		if (team.isOpenJoining())
-			sender.sendMessage("Open joining is now " + MessageUtil.positiveMessage("enabled") + " for team " + teamName);
+			sender.sendMessage("Open joining is now " + MessageUtil.green("enabled") + " for team " + teamName);
 		else
-			sender.sendMessage("Open joining is now " + MessageUtil.negativeMessage("disabled") + " for team " + teamName);
+			sender.sendMessage("Open joining is now " + MessageUtil.red("disabled") + " for team " + teamName);
 	}
 
 	@Override

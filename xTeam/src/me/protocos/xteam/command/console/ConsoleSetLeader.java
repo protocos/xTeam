@@ -26,14 +26,14 @@ public class ConsoleSetLeader extends ConsoleCommand
 		ITeam team = player.getTeam();
 		team.setLeader(playerName);
 		if (player.isOnline())
-			player.sendMessage("You are now the " + MessageUtil.positiveMessage("team leader"));
+			player.sendMessage("You are now the " + MessageUtil.green("team leader"));
 		if (!team.isDefaultTeam())
 		{
 			ITeamPlayer previousLeader = playerFactory.getPlayer(team.getLeader());
 			if (previousLeader.isOnline())
-				previousLeader.sendMessage(playerName + " is now the " + MessageUtil.positiveMessage("team leader"));
+				previousLeader.sendMessage(playerName + " is now the " + MessageUtil.green("team leader"));
 		}
-		sender.sendMessage(playerName + " is now the " + MessageUtil.positiveMessage("team leader") + " for " + team.getName());
+		sender.sendMessage(playerName + " is now the " + MessageUtil.green("team leader") + " for " + team.getName());
 	}
 
 	@Override

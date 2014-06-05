@@ -23,7 +23,7 @@ public class ServerAdminHeadquarters extends ServerAdminCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		teamPlayer.teleport(changeTeam.getHeadquarters().getLocation());
-		player.sendMessage("You have been " + MessageUtil.positiveMessage("teleported") + " to the headquarters of team " + teamName);
+		player.sendMessage("You have been " + MessageUtil.green("teleported") + " to the headquarters of team " + teamName);
 	}
 
 	@Override

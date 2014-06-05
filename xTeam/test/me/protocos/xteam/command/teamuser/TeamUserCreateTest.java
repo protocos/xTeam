@@ -51,7 +51,7 @@ public class TeamUserCreateTest
 		Assert.assertEquals("You created newteam", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(teamManager.containsTeam("newteam"));
 		Assert.assertTrue(teamManager.getTeam("newteam").getPlayers().contains("Lonely"));
-		Assert.assertTrue(teamManager.getTeam("newteam").isAdmin("Lonely"));
+		Assert.assertFalse(teamManager.getTeam("newteam").isAdmin("Lonely"));
 		Assert.assertTrue(teamManager.getTeam("newteam").getLeader().equals("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}

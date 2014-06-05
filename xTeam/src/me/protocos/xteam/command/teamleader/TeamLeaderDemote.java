@@ -28,8 +28,8 @@ public class TeamLeaderDemote extends TeamLeaderCommand
 		team.demote(otherPlayer);
 		Player other = bukkitUtil.getPlayer(otherPlayer);
 		if (other != null)
-			other.sendMessage("You've been " + MessageUtil.negativeMessage("demoted"));
-		teamPlayer.sendMessage("You" + MessageUtil.negativeMessage(" demoted ") + otherPlayer);
+			other.sendMessage("You've been " + MessageUtil.red("demoted"));
+		teamPlayer.sendMessage("You" + MessageUtil.red(" demoted ") + otherPlayer);
 	}
 
 	@Override

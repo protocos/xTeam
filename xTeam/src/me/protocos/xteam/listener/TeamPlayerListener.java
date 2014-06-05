@@ -86,16 +86,16 @@ public class TeamPlayerListener implements Listener
 						int index = r.nextInt(availableTeams.size());
 						ITeam team = availableTeams.get(index);
 						team.addPlayer(teamPlayer.getName());
-						teamPlayer.sendMessage("You " + MessageUtil.positiveMessage("joined") + " " + team.getName());
+						teamPlayer.sendMessage("You " + MessageUtil.green("joined") + " " + team.getName());
 						for (ITeamPlayer teammate : teamPlayer.getOnlineTeammates())
 						{
-							teammate.sendMessage(teamPlayer.getName() + " " + MessageUtil.positiveMessage("joined") + " your team");
+							teammate.sendMessage(teamPlayer.getName() + " " + MessageUtil.green("joined") + " your team");
 						}
 						log.info("Added " + teamPlayer.getName() + " to team " + team.getName());
 					}
 					else
 					{
-						log.info(MessageUtil.negativeMessage("Player not assigned a team: No default teams have been set"));
+						log.info(MessageUtil.red("Player not assigned a team: No default teams have been set"));
 					}
 				}
 			}
@@ -107,11 +107,11 @@ public class TeamPlayerListener implements Listener
 					if (team.hasHeadquarters())
 					{
 						teamPlayer.teleportTo(team.getHeadquarters());
-						teamPlayer.sendMessage(MessageUtil.negativeMessage("You've been teleported to your Headquarters"));
+						teamPlayer.sendMessage(MessageUtil.red("You've been teleported to your Headquarters"));
 					}
 					else
 					{
-						teamPlayer.sendMessage(MessageUtil.negativeMessage("Your team does not have an Headquarters"));
+						teamPlayer.sendMessage(MessageUtil.red("Your team does not have an Headquarters"));
 					}
 				}
 			}
@@ -156,7 +156,7 @@ public class TeamPlayerListener implements Listener
 					}
 					else
 					{
-						player.sendMessage(MessageUtil.negativeMessage("You have not set a headquarters yet."));
+						player.sendMessage(MessageUtil.red("You have not set a headquarters yet."));
 					}
 				}
 			}

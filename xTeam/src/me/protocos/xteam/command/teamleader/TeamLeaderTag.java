@@ -22,10 +22,10 @@ public class TeamLeaderTag extends TeamLeaderCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.setTag(desiredTag);
-		teamPlayer.sendMessage("The team tag has been " + MessageUtil.positiveMessage("set") + " to " + desiredTag);
+		teamPlayer.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag);
 		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
-			mate.sendMessage("The team tag has been " + MessageUtil.positiveMessage("set") + " to " + desiredTag);
+			mate.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag);
 		}
 	}
 

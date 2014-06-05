@@ -23,8 +23,8 @@ public class ConsoleRename extends ConsoleCommand
 	{
 		ITeam team = teamManager.getTeam(teamName);
 		teamManager.renameTeam(team, desiredName);
-		sender.sendMessage("You " + MessageUtil.positiveMessage("renamed") + " the team to " + desiredName);
-		team.sendMessage("The team has been " + MessageUtil.positiveMessage("renamed") + " to " + desiredName);
+		sender.sendMessage("You " + MessageUtil.green("renamed") + " the team to " + desiredName);
+		team.sendMessage("The team has been " + MessageUtil.green("renamed") + " to " + desiredName);
 	}
 
 	@Override

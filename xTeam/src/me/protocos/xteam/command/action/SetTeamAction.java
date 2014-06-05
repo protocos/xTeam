@@ -62,28 +62,28 @@ public class SetTeamAction
 		playerTeam.removePlayer(player.getName());
 		Configuration.chatStatus.remove(playerName);
 		player.removeReturnLocation();
-		playerTeam.sendMessage(playerName + " has been " + MessageUtil.negativeMessage("removed") + " from " + teamName);
+		playerTeam.sendMessage(playerName + " has been " + MessageUtil.red("removed") + " from " + teamName);
 		if (playerName.equals(senderName))
 		{
 			//first person
-			sender.sendMessage("You have been " + MessageUtil.negativeMessage("removed") + " from " + teamName);
+			sender.sendMessage("You have been " + MessageUtil.red("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
 				teamManager.disbandTeam(teamName);
-				sender.sendMessage(teamName + " has been " + MessageUtil.negativeMessage("disbanded"));
+				sender.sendMessage(teamName + " has been " + MessageUtil.red("disbanded"));
 			}
 		}
 		else
 		{
 			//third person
 			if (!playerTeam.containsPlayer(senderName))
-				sender.sendMessage(playerName + " has been " + MessageUtil.negativeMessage("removed") + " from " + teamName);
-			player.sendMessage("You have been " + MessageUtil.negativeMessage("removed") + " from " + teamName);
+				sender.sendMessage(playerName + " has been " + MessageUtil.red("removed") + " from " + teamName);
+			player.sendMessage("You have been " + MessageUtil.red("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
 				teamManager.disbandTeam(teamName);
-				sender.sendMessage(teamName + " has been " + MessageUtil.negativeMessage("disbanded"));
-				player.sendMessage(teamName + " has been " + MessageUtil.negativeMessage("disbanded"));
+				sender.sendMessage(teamName + " has been " + MessageUtil.red("disbanded"));
+				player.sendMessage(teamName + " has been " + MessageUtil.red("disbanded"));
 			}
 		}
 	}
@@ -97,13 +97,13 @@ public class SetTeamAction
 		if (playerName.equals(senderName))
 		{
 			//first person
-			sender.sendMessage("You have been " + MessageUtil.positiveMessage("added") + " to " + teamName);
+			sender.sendMessage("You have been " + MessageUtil.green("added") + " to " + teamName);
 		}
 		else
 		{
 			//third person
-			sender.sendMessage(playerName + " has been " + MessageUtil.positiveMessage("added") + " to " + teamName);
-			player.sendMessage("You have been " + MessageUtil.positiveMessage("added") + " to " + teamName);
+			sender.sendMessage(playerName + " has been " + MessageUtil.green("added") + " to " + teamName);
+			player.sendMessage("You have been " + MessageUtil.green("added") + " to " + teamName);
 		}
 	}
 
@@ -116,16 +116,16 @@ public class SetTeamAction
 		if (playerName.equals(senderName))
 		{
 			//first person
-			sender.sendMessage(teamName + " has been " + MessageUtil.positiveMessage("created"));
-			sender.sendMessage("You have been " + MessageUtil.positiveMessage("added") + " to " + teamName);
+			sender.sendMessage(teamName + " has been " + MessageUtil.green("created"));
+			sender.sendMessage("You have been " + MessageUtil.green("added") + " to " + teamName);
 		}
 		else
 		{
 			//third person
-			sender.sendMessage(teamName + " has been " + MessageUtil.positiveMessage("created"));
-			sender.sendMessage(playerName + " has been " + MessageUtil.positiveMessage("added") + " to " + teamName);
-			player.sendMessage(teamName + " has been " + MessageUtil.positiveMessage("created"));
-			player.sendMessage("You have been " + MessageUtil.positiveMessage("added") + " to " + teamName);
+			sender.sendMessage(teamName + " has been " + MessageUtil.green("created"));
+			sender.sendMessage(playerName + " has been " + MessageUtil.green("added") + " to " + teamName);
+			player.sendMessage(teamName + " has been " + MessageUtil.green("created"));
+			player.sendMessage("You have been " + MessageUtil.green("added") + " to " + teamName);
 		}
 	}
 }

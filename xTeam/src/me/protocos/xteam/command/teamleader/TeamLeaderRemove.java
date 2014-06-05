@@ -29,8 +29,8 @@ public class TeamLeaderRemove extends TeamLeaderCommand
 		team.removePlayer(otherPlayer);
 		Player other = bukkitUtil.getPlayer(otherPlayer);
 		if (other != null)
-			other.sendMessage("You've been " + MessageUtil.negativeMessage("removed") + " from " + team.getName());
-		teamPlayer.sendMessage("You" + MessageUtil.negativeMessage(" removed ") + otherPlayer + " from your team");
+			other.sendMessage("You've been " + MessageUtil.red("removed") + " from " + team.getName());
+		teamPlayer.sendMessage("You" + MessageUtil.red(" removed ") + otherPlayer + " from your team");
 		if (team.isEmpty())
 		{
 			teamPlayer.sendMessage(teamName + " has been disbanded");

@@ -3,48 +3,34 @@ package me.protocos.xteam.data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 import lib.PatPeter.SQLibrary.Database;
-import lib.PatPeter.SQLibrary.SQLite;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.ITeamManager;
 import me.protocos.xteam.data.translator.IDataTranslator;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.Team;
-import me.protocos.xteam.exception.DataManagerNotOpenException;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
 
 public class TeamSQLite implements IDataManager
 {
-	private boolean open = false;
 	private TeamPlugin teamPlugin;
 	private ITeamManager teamManager;
 	private Database db;
 	private ILog log;
 
-	public TeamSQLite(TeamPlugin teamPlugin, ITeamManager teamManager)
+	public TeamSQLite(TeamPlugin teamPlugin, Database db, ITeamManager teamManager)
 	{
 		this.teamPlugin = teamPlugin;
 		this.teamManager = teamManager;
-		this.db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", teamPlugin.getFolder(), "xTeam", ".db");
+		this.db = db;
 		this.log = teamPlugin.getLog();
-	}
-
-	@Override
-	public void open()
-	{
-		if (!open)
-			db.open();
-		open = true;
-		this.initializeData();
 	}
 
 	@Override
 	public void read()
 	{
-		if (!open)
-			throw new DataManagerNotOpenException();
+		this.initializeData();
 		try
 		{
 			ResultSet resultSet = db.query("SELECT * FROM team_data;");
@@ -63,6 +49,7 @@ public class TeamSQLite implements IDataManager
 				ITeam team = Team.generateTeamFromProperties(teamPlugin, properties.toString());
 				teamManager.updateTeam(team);
 			}
+			resultSet.close();
 		}
 		catch (SQLException e)
 		{
@@ -71,16 +58,9 @@ public class TeamSQLite implements IDataManager
 	}
 
 	@Override
-	public boolean isOpen()
-	{
-		return open;
-	}
-
-	@Override
 	public void write()
 	{
-		if (!open)
-			throw new DataManagerNotOpenException();
+		this.initializeData();
 		try
 		{
 			for (ITeam team : teamManager.getTeams())
@@ -95,6 +75,7 @@ public class TeamSQLite implements IDataManager
 				statement.setString(7, CommonUtil.concatenate(team.getAdmins(), ","));
 				statement.setString(8, CommonUtil.concatenate(team.getPlayers(), ","));
 				db.insert(statement);
+				statement.close();
 			}
 		}
 		catch (SQLException e)
@@ -104,69 +85,90 @@ public class TeamSQLite implements IDataManager
 	}
 
 	@Override
-	public void close()
+	public void initializeData()
 	{
-		if (open)
-			db.close();
-		open = false;
+		try
+		{
+			db.insert("CREATE TABLE IF NOT EXISTS team_data(name TEXT PRIMARY KEY, tag TEXT, openJoining BOOLEAN, defaultTeam BOOLEAN, timeHeadquartersLastSet BIGINT, headquarters TEXT, leader TEXT, admins TEXT, players TEXT);");
+		}
+		catch (SQLException e)
+		{
+			log.exception(e);
+		}
 	}
 
 	@Override
-	public void initializeData()
+	public void updateEntry(String key, PropertyList properties)
 	{
-		if (open)
+		try
 		{
-			try
-			{
-				db.insert("CREATE TABLE IF NOT EXISTS team_data(name TEXT PRIMARY KEY, tag TEXT, openJoining BOOLEAN, defaultTeam BOOLEAN, timeHeadquartersLastSet BIGINT, headquarters TEXT, leader TEXT, admins TEXT, players TEXT);");
-			}
-			catch (SQLException e)
-			{
-				log.exception(e);
-			}
+			ITeam team = Team.generateTeamFromProperties(teamPlugin, properties.toString());
+			//			PreparedStatement statement = db.prepare("SELECT name FROM team_data WHERE name = ?");
+			//			statement.setString(1, team.getName());
+			//			ResultSet resultSet = db.query(statement);
+			//			System.out.println("............." + resultSet.getString(1));
+			PreparedStatement statement = db.prepare("INSERT INTO team_data (name, tag, openJoining, defaultTeam, timeheadquartersLastSet, headquarters, leader, admins, players) VALUES(?,?,?,?,?,?,?,?,?);");
+			statement.setString(1, team.getName());
+			statement.setString(2, team.getTag());
+			statement.setBoolean(3, team.isOpenJoining());
+			statement.setBoolean(4, team.isDefaultTeam());
+			statement.setLong(5, team.getTimeHeadquartersLastSet());
+			statement.setString(6, team.getHeadquarters().toString());
+			statement.setString(7, team.getLeader());
+			statement.setString(8, CommonUtil.concatenate(team.getAdmins(), ","));
+			statement.setString(9, CommonUtil.concatenate(team.getPlayers(), ","));
+			db.insert(statement);
+			statement.close();
 		}
-		else
+		catch (SQLException e)
 		{
-			throw new DataManagerNotOpenException();
+			log.exception(e);
+		}
+	}
+
+	@Override
+	public void removeEntry(String key)
+	{
+		try
+		{
+			PreparedStatement statement = db.prepare("DELETE FROM team_data WHERE name = ?");
+			statement.setString(1, key);
+			db.insert(statement);
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			log.exception(e);
 		}
 	}
 
 	@Override
 	public <T> void setVariable(String teamName, String variableName, T variable, IDataTranslator<T> strategy)
 	{
-		if (open)
+		try
 		{
-			try
-			{
-				db.insert("UPDATE player_data SET " + variableName + " = '" + strategy.decompile(variable) + "' WHERE name = '" + teamName + "';");
-			}
-			catch (SQLException e)
-			{
-				log.exception(e);
-			}
-			this.read();
+			db.insert("UPDATE team_data SET " + variableName + " = '" + strategy.decompile(variable) + "' WHERE name = '" + teamName + "';");
 		}
-		else
+		catch (SQLException e)
 		{
-			throw new DataManagerNotOpenException();
+			log.exception(e);
 		}
 	}
 
 	@Override
 	public <T> T getVariable(String teamName, String variableName, IDataTranslator<T> strategy)
 	{
-		if (open)
+		try
 		{
-			try
-			{
-				ResultSet resultSet = db.query("SELECT " + variableName + " FROM team_data WHERE name = '" + teamName + "';");
-				return strategy.compile(resultSet.getString(1));
-			}
-			catch (SQLException e)
-			{
-				log.exception(e);
-			}
+			ResultSet resultSet = db.query("SELECT " + variableName + " FROM team_data WHERE name = '" + teamName + "';");
+			T result = strategy.compile(resultSet.getString(1));
+			resultSet.close();
+			return result;
 		}
-		throw new DataManagerNotOpenException();
+		catch (SQLException e)
+		{
+			log.exception(e);
+		}
+		return null;
 	}
 }

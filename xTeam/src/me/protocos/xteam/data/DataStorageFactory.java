@@ -1,5 +1,8 @@
 package me.protocos.xteam.data;
 
+import java.util.logging.Logger;
+import lib.PatPeter.SQLibrary.Database;
+import lib.PatPeter.SQLibrary.SQLite;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.model.ILog;
@@ -7,6 +10,7 @@ import me.protocos.xteam.util.BukkitUtil;
 
 public class DataStorageFactory
 {
+	private static Database db;
 	private TeamPlugin teamPlugin;
 	private BukkitUtil bukkitUtil;
 	private ILog log;
@@ -15,7 +19,20 @@ public class DataStorageFactory
 	{
 		this.teamPlugin = teamPlugin;
 		this.bukkitUtil = teamPlugin.getBukkitUtil();
+		if (bukkitUtil.getPlugin("SQLibrary") != null)
+		{
+			db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", teamPlugin.getFolder(), "xTeam", ".db");
+			db.open();
+		}
 		this.log = teamPlugin.getLog();
+	}
+
+	public static void closeDatabase()
+	{
+		if (db != null)
+		{
+			db.close();
+		}
 	}
 
 	public IDataManager playerManagerFromString(String strategy)
@@ -24,7 +41,9 @@ public class DataStorageFactory
 		if ("SQLite".equalsIgnoreCase(strategy))
 		{
 			if (bukkitUtil.getPlugin("SQLibrary") != null)
-				playerDataManager = new PlayerSQLite(teamPlugin);
+			{
+				playerDataManager = new PlayerSQLite(teamPlugin, db);
+			}
 			else
 				this.log.error("Cannot use \"" + Configuration.STORAGE_TYPE + "\" for storage because plugin \"SQLibrary\" cannot be found!" +
 						"\nSQLibrary can be found here: http://dev.bukkit.org/bukkit-plugins/sqlibrary/");
@@ -51,7 +70,9 @@ public class DataStorageFactory
 		if ("SQLite".equalsIgnoreCase(strategy))
 		{
 			if (bukkitUtil.getPlugin("SQLibrary") != null)
-				teamDataManager = new TeamSQLite(teamPlugin, teamPlugin.getTeamManager());
+			{
+				teamDataManager = new TeamSQLite(teamPlugin, db, teamPlugin.getTeamManager());
+			}
 			else
 				this.log.error("Cannot use \"" + Configuration.STORAGE_TYPE + "\" for storage because plugin \"SQLibrary\" cannot be found!" +
 						"\nSQLibrary can be found here: http://dev.bukkit.org/bukkit-plugins/sqlibrary/");

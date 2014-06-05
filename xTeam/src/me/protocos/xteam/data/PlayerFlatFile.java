@@ -4,7 +4,6 @@ import java.io.*;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.data.translator.IDataTranslator;
-import me.protocos.xteam.exception.DataManagerNotOpenException;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.SystemUtil;
@@ -12,7 +11,6 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 public class PlayerFlatFile implements IDataManager
 {
-	private boolean open = false;
 	private TeamPlugin plugin;
 	private BukkitScheduler bukkitScheduler;
 	private File file;
@@ -28,181 +26,122 @@ public class PlayerFlatFile implements IDataManager
 	}
 
 	@Override
-	public void open()
-	{
-		open = true;
-		this.initializeData();
-	}
-
-	@Override
 	public void read()
 	{
-		if (open)
+		this.initializeData();
+		try
 		{
-			try
+			PropertyList propList;
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			String line;
+			while ((line = reader.readLine()) != null)
 			{
-				PropertyList propList;
-				BufferedReader reader = new BufferedReader(new FileReader(file));
-				String line;
-				while ((line = reader.readLine()) != null)
+				try
 				{
-					try
-					{
-						propList = PropertyList.fromString(line);
-						Property nameProperty = propList.remove("name");
-						String playerName = nameProperty.getValue();
-						playerProperties.put(playerName, propList);
-					}
-					catch (Exception e)
-					{
-						//this way if one line fails to write, the entire file isn't lost
-						log.exception(e);
-					}
+					propList = PropertyList.fromString(line);
+					Property nameProperty = propList.remove("name");
+					String playerName = nameProperty.getValue();
+					playerProperties.put(playerName, propList);
 				}
-				reader.close();
+				catch (Exception e)
+				{
+					//this way if one line fails to write, the entire file isn't lost
+					log.exception(e);
+				}
 			}
-			catch (Exception e)
-			{
-				log.exception(e);
-			}
-			if (periodicWriter == null)
-			{
-				periodicWriter = new PeriodicPlayerWriter(log, this);
-				long interval = 10 * BukkitUtil.ONE_MINUTE_IN_TICKS;
-				bukkitScheduler.scheduleSyncRepeatingTask(plugin, periodicWriter, interval, interval);
-			}
+			reader.close();
 		}
-		else
+		catch (Exception e)
 		{
-			throw new DataManagerNotOpenException();
+			log.exception(e);
 		}
-	}
-
-	@Override
-	public boolean isOpen()
-	{
-		return open;
+		if (periodicWriter == null)
+		{
+			periodicWriter = new PeriodicPlayerWriter(log, this);
+			long interval = 10 * BukkitUtil.ONE_MINUTE_IN_TICKS;
+			bukkitScheduler.scheduleSyncRepeatingTask(plugin, periodicWriter, interval, interval);
+		}
 	}
 
 	@Override
 	public void write()
 	{
-		if (open)
+		this.initializeData();
+		try
 		{
-			try
+			PropertyList propList;
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			for (String player : playerProperties.getOrder())
 			{
-				PropertyList propList;
-				BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-				for (String player : playerProperties.getOrder())
+
+				try
 				{
-
-					try
-					{
-						propList = playerProperties.get(player);
-						writer.write(new StringBuilder().append("name:").append(player).append(" ").append(propList).append("\n").toString());
-					}
-					catch (Exception e)
-					{
-						//this way if one line fails to write, the entire file isn't lost
-						log.exception(e);
-					}
+					propList = playerProperties.get(player);
+					writer.write(new StringBuilder().append("name:").append(player).append(" ").append(propList).append("\n").toString());
 				}
-				writer.close();
+				catch (Exception e)
+				{
+					//this way if one line fails to write, the entire file isn't lost
+					log.exception(e);
+				}
 			}
-			catch (IOException e)
-			{
-				log.exception(e);
-			}
+			writer.close();
 		}
-		else
+		catch (IOException e)
 		{
-			throw new DataManagerNotOpenException();
+			log.exception(e);
 		}
-	}
-
-	@Override
-	public void close()
-	{
-		open = false;
 	}
 
 	@Override
 	public void initializeData()
 	{
-		if (open)
+		this.file = SystemUtil.ensureFile(plugin.getFolder() + "players.txt");
+		if (playerProperties == null)
 		{
-			this.file = SystemUtil.ensureFile(plugin.getFolder() + "players.txt");
-			if (playerProperties == null)
-			{
-				playerProperties = new HashList<String, PropertyList>();
-			}
-		}
-		else
-		{
-			throw new DataManagerNotOpenException();
+			playerProperties = new HashList<String, PropertyList>();
 		}
 	}
 
-	//	@Override
-	//	public void addEntry(String name, PropertyList properties)
-	//	{
-	//		if (open)
-	//		{
-	//			playerProperties.put(name, properties);
-	//		}
-	//		else
-	//		{
-	//			throw new DataManagerNotOpenException();
-	//		}
-	//	}
+	@Override
+	public void updateEntry(String name, PropertyList properties)
+	{
+		this.initializeData();
+		playerProperties.put(name, properties);
+	}
 
-	//	@Override
-	//	public void removeEntry(String name)
-	//	{
-	//		if (open)
-	//		{
-	//			playerProperties.remove(name);
-	//		}
-	//		else
-	//		{
-	//			throw new DataManagerNotOpenException();
-	//		}
-	//	}
+	@Override
+	public void removeEntry(String name)
+	{
+		this.initializeData();
+		playerProperties.remove(name);
+	}
 
 	@Override
 	public <T> void setVariable(String playerName, String variableName, T variable, IDataTranslator<T> strategy)
 	{
-		if (open)
+		this.initializeData();
+		if (!playerProperties.containsKey(playerName))
 		{
-			if (!playerProperties.containsKey(playerName))
-			{
-				playerProperties.put(playerName, blankDataSet());
-			}
-			PropertyList properties = playerProperties.get(playerName);
-			properties.put(variableName, strategy.decompile(variable));
+			playerProperties.put(playerName, blankDataSet());
 		}
-		else
-		{
-			throw new DataManagerNotOpenException();
-		}
+		PropertyList properties = playerProperties.get(playerName);
+		properties.put(variableName, strategy.decompile(variable));
 	}
 
 	@Override
 	public <T> T getVariable(String playerName, String variableName, IDataTranslator<T> strategy)
 	{
-		if (open)
+		this.initializeData();
+		if (!playerProperties.containsKey(playerName))
 		{
-			if (!playerProperties.containsKey(playerName))
-			{
-				playerProperties.put(playerName, blankDataSet());
-			}
-			PropertyList properties = playerProperties.get(playerName);
-			Property property = properties.get(variableName);
-			if (property == null)
-				return null;
-			return strategy.compile(property.getValue());
+			playerProperties.put(playerName, blankDataSet());
 		}
-		throw new DataManagerNotOpenException();
+		PropertyList properties = playerProperties.get(playerName);
+		Property property = properties.get(variableName);
+		if (property == null)
+			return null;
+		return strategy.compile(property.getValue());
 	}
 
 	private PropertyList blankDataSet()

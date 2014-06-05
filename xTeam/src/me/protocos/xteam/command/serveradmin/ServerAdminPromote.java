@@ -25,9 +25,9 @@ public class ServerAdminPromote extends ServerAdminCommand
 	{
 		changeTeam.promote(playerName);
 		if (!changeTeam.containsPlayer(player.getName()))
-			player.sendMessage("You " + MessageUtil.positiveMessage("promoted") + " " + playerName);
+			player.sendMessage("You " + MessageUtil.green("promoted") + " " + playerName);
 		ITeamPlayer other = playerFactory.getPlayer(playerName);
-		other.sendMessage("You've been " + MessageUtil.positiveMessage("promoted") + " by an admin");
+		other.sendMessage("You've been " + MessageUtil.green("promoted") + " by an admin");
 	}
 
 	@Override

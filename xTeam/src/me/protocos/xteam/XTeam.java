@@ -20,7 +20,7 @@ import org.bukkit.plugin.PluginManager;
 
 public final class XTeam extends TeamPlugin
 {
-	private String version;
+	//	private String version;
 	private Configuration configLoader;
 
 	public XTeam()
@@ -33,10 +33,10 @@ public final class XTeam extends TeamPlugin
 		super(server, folder);
 	}
 
-	public String getVersion()
-	{
-		return version;
-	}
+	//	public String getVersion()
+	//	{
+	//		return version;
+	//	}
 
 	public void load()
 	{
@@ -117,8 +117,7 @@ public final class XTeam extends TeamPlugin
 			pm.registerEvents(new TeamPlayerListener(this), this);
 			pm.registerEvents(new TeamChatListener(this), this);
 			this.getCommand("team").setExecutor(commandExecutor);
-			this.getPlayerManager().open();
-			this.getTeamManager().open();
+			this.getPlayerManager().read();
 			this.readTeamData();
 			this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " enabled");
 		}
@@ -133,8 +132,8 @@ public final class XTeam extends TeamPlugin
 		try
 		{
 			this.writeTeamData();
-			this.getTeamManager().close();
-			this.getPlayerManager().close();
+			this.getPlayerManager().write();
+			DataStorageFactory.closeDatabase();
 			this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " disabled");
 			this.getLog().close();
 		}

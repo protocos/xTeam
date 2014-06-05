@@ -24,7 +24,7 @@ public class ServerAdminSetHeadquarters extends ServerAdminCommand
 	{
 		ITeam changeTeam = teamManager.getTeam(teamName);
 		changeTeam.setHeadquarters(new Headquarters(teamPlugin, teamPlayer.getLocation()));
-		player.sendMessage("You " + MessageUtil.positiveMessage("set") + " the team headquarters for team " + teamName);
+		player.sendMessage("You " + MessageUtil.green("set") + " the team headquarters for team " + teamName);
 	}
 
 	@Override

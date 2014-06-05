@@ -12,9 +12,9 @@ import org.bukkit.entity.Player;
 
 public interface IPlayerFactory
 {
-	public abstract void open();
+	public abstract void read();
 
-	public abstract void close();
+	public abstract void write();
 
 	public abstract void setDataManager(IDataManager dataManager);
 
