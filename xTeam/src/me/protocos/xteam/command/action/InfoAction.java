@@ -31,7 +31,8 @@ public class InfoAction
 		{
 			if (sender instanceof ConsoleCommandSender)
 			{
-				sender.sendMessage(infoTeam.getPrivateInfo());
+				for (String line : infoTeam.getPrivateInfo().split("\n"))
+					sender.sendMessage(line);
 			}
 			else if (sender instanceof ITeamPlayer)
 			{

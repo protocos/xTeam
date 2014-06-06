@@ -23,7 +23,7 @@ public class TeamCoordinator implements ITeamCoordinator
 		teams.clear();
 	}
 
-	private void addTeam(ITeam team)
+	public void putTeam(ITeam team)
 	{
 		if (team != null)
 		{
@@ -112,16 +112,9 @@ public class TeamCoordinator implements ITeamCoordinator
 	{
 		if (!teams.containsKey(team.getName()))
 		{
-			this.addTeam(team);
+			this.putTeam(team);
 			dispatcher.dispatchEvent(new TeamCreateEvent(team));
 		}
-	}
-
-	@Override
-	public void updateTeam(ITeam team)
-	{
-		this.addTeam(team);
-		dispatcher.dispatchEvent(new TeamUpdateEvent(team));
 	}
 
 	@Override
@@ -132,7 +125,7 @@ public class TeamCoordinator implements ITeamCoordinator
 			String oldName = team.getName();
 			ITeam renameTeam = this.removeTeam(team.getName());
 			renameTeam.setName(teamName);
-			this.addTeam(renameTeam);
+			this.putTeam(renameTeam);
 			dispatcher.dispatchEvent(new TeamRenameEvent(team, oldName));
 		}
 	}

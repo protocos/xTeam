@@ -17,17 +17,15 @@ public class TeamUserAccept extends TeamUserCommand
 	public TeamUserAccept(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
-		inviteHandler = teamPlugin.getInviteHandler();
+		this.inviteHandler = teamPlugin.getInviteHandler();
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam inviteTeam = inviteHandler.getInviteTeam(teamPlayer.getName());
-		inviteTeam.addPlayer(teamPlayer.getName());
-		inviteHandler.removeInvite(teamPlayer.getName());
+		inviteHandler.acceptInvite(teamPlayer);
 		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + MessageUtil.green("joined") + " your team");
-		teamPlayer.sendMessage("You " + MessageUtil.green("joined") + " " + inviteTeam.getName());
+		teamPlayer.sendMessage("You " + MessageUtil.green("joined") + " " + teamPlayer.getTeam().getName());
 	}
 
 	@Override

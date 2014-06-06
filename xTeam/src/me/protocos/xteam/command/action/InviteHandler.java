@@ -4,6 +4,10 @@ import java.util.HashMap;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
+import me.protocos.xteam.entity.TeamPlayer;
+import me.protocos.xteam.event.IEventDispatcher;
+import me.protocos.xteam.event.TeamAcceptEvent;
+import me.protocos.xteam.event.TeamInviteEvent;
 import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.MessageUtil;
@@ -11,13 +15,15 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 public class InviteHandler
 {
-	private BukkitScheduler bukkitScheduler;
 	private TeamPlugin teamPlugin;
+	private IEventDispatcher dispatcher;
+	private BukkitScheduler bukkitScheduler;
 	private HashMap<String, InviteRequest> invites;
 
 	public InviteHandler(TeamPlugin teamPlugin)
 	{
 		this.teamPlugin = teamPlugin;
+		this.dispatcher = teamPlugin.getEventDispatcher();
 		bukkitScheduler = teamPlugin.getBukkitScheduler();
 		invites = new HashMap<String, InviteRequest>();
 	}
@@ -27,6 +33,7 @@ public class InviteHandler
 		final ITeamPlayer inviter = request.getInviteSender();
 		final ITeamPlayer invitee = request.getInviteReceiver();
 		invites.put(invitee.getName(), request);
+		dispatcher.dispatchEvent(new TeamInviteEvent(inviter.getTeam(), request));
 		class InviteExpire implements Runnable
 		{
 			@Override
@@ -42,9 +49,12 @@ public class InviteHandler
 		bukkitScheduler.scheduleSyncDelayedTask(teamPlugin, new InviteExpire(), BukkitUtil.ONE_MINUTE_IN_TICKS);
 	}
 
-	public void clear()
+	public void acceptInvite(TeamPlayer teamPlayer)
 	{
-		invites.clear();
+		ITeam inviteTeam = this.getInviteTeam(teamPlayer.getName());
+		inviteTeam.addPlayer(teamPlayer.getName());
+		this.removeInvite(teamPlayer.getName());
+		dispatcher.dispatchEvent(new TeamAcceptEvent(inviteTeam, invites.get(teamPlayer.getName())));
 	}
 
 	public String data()

@@ -8,9 +8,9 @@ public interface ITeamCoordinator extends IDataContainer
 {
 	public abstract void clear();
 
-	public abstract void createTeam(ITeam team);
+	public abstract void putTeam(ITeam team);
 
-	public abstract void updateTeam(ITeam team);
+	public abstract void createTeam(ITeam team);
 
 	public abstract void renameTeam(ITeam team, String teamName);
 

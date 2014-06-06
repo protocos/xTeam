@@ -9,10 +9,11 @@ import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.Team;
+import me.protocos.xteam.event.*;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
 
-public class SQLiteDataManager implements IPersistenceLayer
+public class SQLiteDataManager implements IPersistenceLayer, IEventHandler
 {
 	private TeamPlugin teamPlugin;
 	private Database db;
@@ -36,6 +37,7 @@ public class SQLiteDataManager implements IPersistenceLayer
 		{
 			log.exception(e);
 		}
+		teamPlugin.getEventDispatcher().addTeamListener(this);
 	}
 
 	@Override
@@ -57,7 +59,7 @@ public class SQLiteDataManager implements IPersistenceLayer
 				propertyList.put("admins", resultSet.getObject("admins"));
 				propertyList.put("players", resultSet.getObject("players"));
 				ITeam team = Team.generateTeamFromProperties(teamPlugin, propertyList.toString());
-				teamCoordinator.updateTeam(team);
+				teamCoordinator.putTeam(team);
 			}
 			resultSet.close();
 			resultSet = db.query("SELECT * FROM player_data;");
@@ -85,30 +87,22 @@ public class SQLiteDataManager implements IPersistenceLayer
 		{
 			for (ITeam team : teamCoordinator.getTeams())
 			{
-				PreparedStatement checkTeamInDatabase = db.prepare("SELECT * FROM team_data WHERE name = ?;");
-				checkTeamInDatabase.setString(1, team.getName());
-				ResultSet resultSet = db.query(checkTeamInDatabase);
+				//				PreparedStatement checkTeamInDatabase = db.prepare("SELECT * FROM team_data WHERE name = ?;");
+				//				checkTeamInDatabase.setString(1, team.getName());
+				//				ResultSet resultSet = db.query(checkTeamInDatabase);
 				PreparedStatement statement;
-				if (resultSet.next())
-				{
-					statement = db.prepare("UPDATE team_data SET tag = ?, openJoining = ?, defaultTeam = ?, timeHeadquartersLastSet = ?, headquarters = ?, leader = ?, admins = ?, players = ? WHERE name = ?;");
-				}
-				else
-				{
-					statement = db.prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
-				}
-				statement.setString(1, team.getTag());
-				statement.setBoolean(2, team.isOpenJoining());
-				statement.setBoolean(3, team.isDefaultTeam());
-				statement.setLong(4, team.getTimeHeadquartersLastSet());
-				statement.setString(5, team.getHeadquarters().toString());
-				statement.setString(6, team.getLeader());
-				statement.setString(7, CommonUtil.concatenate(team.getAdmins(), ","));
-				statement.setString(8, CommonUtil.concatenate(team.getPlayers(), ","));
-				statement.setString(9, team.getName());
+				//				if (resultSet.next())
+				//				{
+				statement = db.prepare("UPDATE team_data SET tag = ?, openJoining = ?, defaultTeam = ?, timeHeadquartersLastSet = ?, headquarters = ?, leader = ?, admins = ?, players = ? WHERE name = ?;");
+				//				}
+				//				else
+				//				{
+				//					statement = db.prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
+				//				}
+				insertTeamDataIntoStatement(statement, team);
 				db.insert(statement);
-				checkTeamInDatabase.close();
-				resultSet.close();
+				//				checkTeamInDatabase.close();
+				//				resultSet.close();
 				statement.close();
 			}
 			for (String playerData : playerFactory.exportData())
@@ -140,5 +134,71 @@ public class SQLiteDataManager implements IPersistenceLayer
 		{
 			log.exception(e);
 		}
+	}
+
+	@TeamEvent
+	public void onCreate(TeamCreateEvent event)
+	{
+		try
+		{
+			ITeam team = event.getTeam();
+			PreparedStatement statement = db.prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
+			insertTeamDataIntoStatement(statement, team);
+			db.insert(statement);
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			log.exception(e);
+		}
+	}
+
+	@TeamEvent
+	public void onRename(TeamRenameEvent event)
+	{
+		try
+		{
+			PreparedStatement statement = db.prepare("DELETE FROM team_data WHERE name = ?;");
+			statement.setString(1, event.getOldName());
+			db.insert(statement);
+			ITeam team = event.getTeam();
+			statement = db.prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
+			insertTeamDataIntoStatement(statement, team);
+			db.insert(statement);
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			log.exception(e);
+		}
+	}
+
+	@TeamEvent
+	public void onDisband(TeamDisbandEvent event)
+	{
+		try
+		{
+			PreparedStatement statement = db.prepare("DELETE FROM team_data WHERE name = ?;");
+			statement.setString(1, event.getTeamName());
+			db.insert(statement);
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			log.exception(e);
+		}
+	}
+
+	private void insertTeamDataIntoStatement(PreparedStatement statement, ITeam team) throws SQLException
+	{
+		statement.setString(1, team.getTag());
+		statement.setBoolean(2, team.isOpenJoining());
+		statement.setBoolean(3, team.isDefaultTeam());
+		statement.setLong(4, team.getTimeHeadquartersLastSet());
+		statement.setString(5, team.getHeadquarters().toString());
+		statement.setString(6, team.getLeader());
+		statement.setString(7, CommonUtil.concatenate(team.getAdmins(), ","));
+		statement.setString(8, CommonUtil.concatenate(team.getPlayers(), ","));
+		statement.setString(9, team.getName());
 	}
 }

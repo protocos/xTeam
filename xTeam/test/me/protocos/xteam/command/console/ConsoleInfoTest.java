@@ -53,7 +53,7 @@ public class ConsoleInfoTest
 				"\nTeammates online:" +
 				"\n    protocos Health: 100% Location: 0 64 0 in \"world\"" +
 				"\n    kmlanglois Health: 100% Location: 0 64 0 in \"world\"",
-				fakeConsoleSender.getLastMessage());
+				fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -70,7 +70,7 @@ public class ConsoleInfoTest
 				"\nTeam Headquarters - None set" +
 				"\nTeammates online:" +
 				"\n    mastermind Health: 100% Location: 0 64 0 in \"world\"",
-				fakeConsoleSender.getLastMessage());
+				fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

@@ -118,6 +118,5 @@ public class TeamUserAcceptTest
 	public void takedown()
 	{
 		Configuration.MAX_PLAYERS = 0;
-		inviteHandler.clear();
 	}
 }
