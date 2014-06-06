@@ -87,22 +87,10 @@ public class SQLiteDataManager implements IPersistenceLayer, IEventHandler
 		{
 			for (ITeam team : teamCoordinator.getTeams())
 			{
-				//				PreparedStatement checkTeamInDatabase = db.prepare("SELECT * FROM team_data WHERE name = ?;");
-				//				checkTeamInDatabase.setString(1, team.getName());
-				//				ResultSet resultSet = db.query(checkTeamInDatabase);
 				PreparedStatement statement;
-				//				if (resultSet.next())
-				//				{
 				statement = db.prepare("UPDATE team_data SET tag = ?, openJoining = ?, defaultTeam = ?, timeHeadquartersLastSet = ?, headquarters = ?, leader = ?, admins = ?, players = ? WHERE name = ?;");
-				//				}
-				//				else
-				//				{
-				//					statement = db.prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
-				//				}
 				insertTeamDataIntoStatement(statement, team);
 				db.insert(statement);
-				//				checkTeamInDatabase.close();
-				//				resultSet.close();
 				statement.close();
 			}
 			for (String playerData : playerFactory.exportData())
