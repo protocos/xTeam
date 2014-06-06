@@ -321,35 +321,11 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerTeammateWorld(TeamPlayer teamPlayer, TeamPlayer teamMate) throws TeamPlayerTeammateException
-	{
-		if (!teamPlayer.getLocation().getWorld().equals(teamMate.getLocation().getWorld()) && Configuration.TELE_RADIUS > 0)
-		{
-			throw new TeamPlayerTeammateException("Teammate is in a different world");
-		}
-	}
-
-	public static void checkPlayerTeammateNear(TeamPlayer teamPlayer, TeamPlayer teamMate) throws TeamPlayerTeammateException
-	{
-		if (teamPlayer.getLocation().distance(teamMate.getLocation()) > Configuration.TELE_RADIUS && Configuration.TELE_RADIUS > 0)
-		{
-			throw new TeamPlayerTeammateException("There are no teammates near you\nClosest teammate: " + teamMate.getName() + " @ " + (int) Math.ceil(teamPlayer.getLocation().distance(teamMate.getLocation())) + " blocks away");
-		}
-	}
-
 	public static void checkPlayerTeammateIsOnline(TeamPlayer teamMate) throws TeamPlayerTeammateException
 	{
 		if (!teamMate.isOnline())
 		{
 			throw new TeamPlayerTeammateException("Player teammate is not online");
-		}
-	}
-
-	public static void checkPlayerTeammateTooFar(TeamPlayer teamPlayer, TeamPlayer teamMate) throws TeamPlayerTeleException
-	{
-		if (teamPlayer.getLocation().distance(teamMate.getLocation()) > Configuration.TELE_RADIUS && Configuration.TELE_RADIUS > 0)
-		{
-			throw new TeamPlayerTeleException(teamMate.getName() + " is too far away @ " + (int) Math.ceil(teamPlayer.getLocation().distance(teamMate.getLocation())) + " blocks away");
 		}
 	}
 

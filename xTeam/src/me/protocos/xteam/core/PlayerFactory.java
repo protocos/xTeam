@@ -152,9 +152,9 @@ public class PlayerFactory implements IPlayerFactory
 	private ITeamPlayer playerWithValues(String playerName)
 	{
 		ITeamPlayer returnPlayer = null;
-		if (bukkitUtil.getPlayer(playerName) != null)
+		if (isOnline(playerName))
 			returnPlayer = getPlayer(bukkitUtil.getPlayer(playerName));
-		else if (bukkitUtil.getOfflinePlayer(playerName) != null)
+		else if (hasPlayedBefore(playerName))
 			returnPlayer = getPlayer(bukkitUtil.getOfflinePlayer(playerName));
 		if (returnPlayer != null)
 		{
@@ -163,6 +163,16 @@ public class PlayerFactory implements IPlayerFactory
 			returnPlayer.setReturnLocation(this.getReturnLocation(playerName));
 		}
 		return returnPlayer;
+	}
+
+	private boolean isOnline(String playerName)
+	{
+		return bukkitUtil.getPlayer(playerName) != null;
+	}
+
+	private boolean hasPlayedBefore(String playerName)
+	{
+		return bukkitUtil.getOfflinePlayer(playerName).hasPlayedBefore();
 	}
 
 	public Long getLastAttacked(String playerName)

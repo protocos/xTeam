@@ -58,10 +58,7 @@ public class TeamUserTeleport extends TeamUserCommand
 			}
 		}
 		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamPlayer);
-		Requirements.checkPlayerTeammateWorld(teamPlayer, teamMate);
-		Requirements.checkPlayerTeammateNear(teamPlayer, teamMate);
 		Requirements.checkPlayerTeammateIsOnline(teamMate);
-		Requirements.checkPlayerTeammateTooFar(teamPlayer, teamMate);
 	}
 
 	@Override

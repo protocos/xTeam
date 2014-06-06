@@ -40,7 +40,6 @@ public final class XTeam extends TeamPlugin
 		this.configLoader = new Configuration(this, SystemUtil.ensureFile(this.getFolder() + "xTeam.cfg"));
 		this.configLoader.addAttribute("playersonteam", 10, "Amount of players that can be on a team");
 		this.configLoader.addAttribute("sethqinterval", 0, "Delay in hours between use of /team sethq");
-		this.configLoader.addAttribute("teleportradius", 500, "Maximum distance in blocks between team mates to teleport to one another");
 		this.configLoader.addAttribute("canteamchat", true, "Allows/Disallows the use of team chat function completely");
 		this.configLoader.addAttribute("hqondeath", true, "When a player dies, they are teleported to their headquarters when they respawn");
 		this.configLoader.addAttribute("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");

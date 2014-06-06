@@ -33,7 +33,6 @@ public class Configuration
 	public static boolean SEND_ANONYMOUS_ERROR_REPORTS;
 	public static int MAX_PLAYERS;
 	public static int HQ_INTERVAL;
-	public static int TELE_RADIUS;
 	public static int ENEMY_PROX;
 	public static int TELE_DELAY;
 	public static int CREATE_INTERVAL;
@@ -129,7 +128,6 @@ public class Configuration
 		SEND_ANONYMOUS_ERROR_REPORTS = CommonUtil.assignFromType(options.get("anonymouserrorreporting").getValue(), Boolean.class);
 		MAX_PLAYERS = CommonUtil.assignFromType(options.get("playersonteam").getValue(), Integer.class);
 		HQ_INTERVAL = CommonUtil.assignFromType(options.get("sethqinterval").getValue(), Integer.class);
-		TELE_RADIUS = CommonUtil.assignFromType(options.get("teleportradius").getValue(), Integer.class);
 		ENEMY_PROX = CommonUtil.assignFromType(options.get("enemyproximity").getValue(), Integer.class);
 		TELE_DELAY = CommonUtil.assignFromType(options.get("teledelay").getValue(), Integer.class);
 		CREATE_INTERVAL = CommonUtil.assignFromType(options.get("createteamdelay").getValue(), Integer.class);
