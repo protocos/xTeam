@@ -84,8 +84,10 @@ public class ConsoleDebug extends ConsoleCommand
 				e.printStackTrace();
 			}
 		}
+		else if (subCommand.equalsIgnoreCase("tasks"))
+			sender.sendMessage("Tasks: " + teamPlugin.getBukkitScheduler().getPendingTasks());
 		else
-			sender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, live, error]");
+			sender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, live, error, tasks]");
 	}
 
 	private String printPermissions()

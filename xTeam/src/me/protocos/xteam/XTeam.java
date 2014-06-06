@@ -18,6 +18,7 @@ import me.protocos.xteam.util.SystemUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.scheduler.BukkitTask;
 
 public final class XTeam extends TeamPlugin
 {
@@ -127,6 +128,11 @@ public final class XTeam extends TeamPlugin
 		{
 			this.write();
 			DataStorageFactory.closeDatabase();
+			for (BukkitTask task : this.bukkitScheduler.getPendingTasks())
+			{
+				log.info("Cancelling task id: " + task.getTaskId());
+				task.cancel();
+			}
 			this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " disabled");
 			this.getLog().close();
 		}

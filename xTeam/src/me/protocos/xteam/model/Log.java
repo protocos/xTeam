@@ -10,7 +10,6 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.LimitedQueue;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.ErrorReporterUtil;
 import me.protocos.xteam.util.SystemUtil;
 
@@ -58,7 +57,6 @@ public class Log implements ILog
 
 	public void info(String message)
 	{
-		message = "INFO: " + message;
 		write(message);
 		print(message);
 	}
@@ -67,7 +65,7 @@ public class Log implements ILog
 	{
 		if (BukkitUtil.serverIsLive())
 		{
-			message = "ERROR: " + message;
+			message = "[ERROR] " + message;
 			write(message);
 			print(message);
 		}
@@ -93,7 +91,7 @@ public class Log implements ILog
 					errorReporter.report(e);
 				}
 			}
-			teamPlugin.getBukkitScheduler().scheduleSyncDelayedTask(teamPlugin, new EmailReport(), CommonUtil.LONG_ZERO);
+			teamPlugin.getBukkitScheduler().runTaskAsynchronously(teamPlugin, new EmailReport());
 		}
 	}
 
