@@ -1,7 +1,5 @@
 package me.protocos.xteam.exception;
 
-import me.protocos.xteam.command.teamuser.TeamUserHelp;
-
 public class TeamInvalidCommandException extends TeamException
 {
 	/**
@@ -11,7 +9,7 @@ public class TeamInvalidCommandException extends TeamException
 
 	public TeamInvalidCommandException()
 	{
-		super("Not a valid team command (use '" + new TeamUserHelp(null).getUsage() + "')");
+		super("Not a valid team command (use '/team help')");
 	}
 
 	public TeamInvalidCommandException(String message)

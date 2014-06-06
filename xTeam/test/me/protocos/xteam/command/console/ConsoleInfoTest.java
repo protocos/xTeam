@@ -5,6 +5,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.exception.TeamInvalidCommandException;
 import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
@@ -71,6 +72,17 @@ public class ConsoleInfoTest
 				"\n    mastermind Health: 100% Location: 0 64 0 in \"world\"",
 				fakeConsoleSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeConsoleInfoExecuteIncompleteCommand()
+	{
+		//ASSEMBLE
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info".split(" ")));
+		//ASSERT
+		Assert.assertEquals((new TeamInvalidCommandException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertFalse(fakeExecuteResponse);
 	}
 
 	@Test
