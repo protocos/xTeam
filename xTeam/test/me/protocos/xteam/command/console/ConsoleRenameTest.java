@@ -7,7 +7,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
-import me.protocos.xteam.exception.TeamAlreadyExistsException;
+import me.protocos.xteam.exception.TeamNameAlreadyInUseException;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamNameNotAlphaException;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
@@ -65,7 +65,7 @@ public class ConsoleRenameTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "rename two one".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamNameAlreadyInUseException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("ONE", teamCoordinator.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}

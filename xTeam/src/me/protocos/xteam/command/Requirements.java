@@ -97,11 +97,19 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamAlreadyExists(ITeamCoordinator teamCoordinator, String desiredName) throws TeamAlreadyExistsException
+	public static void checkTeamNameInUse(ITeamCoordinator teamCoordinator, String desiredName) throws TeamNameAlreadyInUseException
 	{
 		if (teamCoordinator.containsTeam(desiredName))
 		{
-			throw new TeamAlreadyExistsException();
+			throw new TeamNameAlreadyInUseException();
+		}
+	}
+
+	public static void checkTeamRenameInUse(ITeamCoordinator teamCoordinator, ITeam team, String desiredName) throws TeamNameAlreadyInUseException
+	{
+		if (teamCoordinator.containsTeam(desiredName) && !desiredName.equalsIgnoreCase(team.getName()) && !desiredName.equalsIgnoreCase(team.getTag()))
+		{
+			throw new TeamNameAlreadyInUseException();
 		}
 	}
 
@@ -126,14 +134,6 @@ public class Requirements
 		if (teamCoordinator.containsTeam(teamName) && teamCoordinator.getTeam(teamName).size() >= Configuration.MAX_PLAYERS && Configuration.MAX_PLAYERS > 0)
 		{
 			throw new TeamPlayerMaxException();
-		}
-	}
-
-	public static void checkTeamNameAlreadyUsed(ITeamCoordinator teamCoordinator, String desiredName, ITeam team) throws TeamNameConflictsWithNameException
-	{
-		if (!desiredName.equalsIgnoreCase(team.getName()) && teamCoordinator.containsTeam(desiredName))
-		{
-			throw new TeamNameConflictsWithNameException();
 		}
 	}
 

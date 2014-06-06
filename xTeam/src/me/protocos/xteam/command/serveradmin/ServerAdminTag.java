@@ -12,7 +12,6 @@ import me.protocos.xteam.util.PatternBuilder;
 public class ServerAdminTag extends ServerAdminCommand
 {
 	private String teamName, desiredTag;
-	private ITeam changeTeam;
 
 	public ServerAdminTag(TeamPlugin teamPlugin)
 	{
@@ -22,6 +21,7 @@ public class ServerAdminTag extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
+		ITeam changeTeam = teamCoordinator.getTeam(teamName);
 		changeTeam.setTag(desiredTag);
 		if (!changeTeam.containsPlayer(player.getName()))
 			player.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag);
@@ -33,9 +33,9 @@ public class ServerAdminTag extends ServerAdminCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		desiredTag = commandContainer.getArgument(2);
-		changeTeam = teamCoordinator.getTeam(teamName);
+		ITeam changeTeam = teamCoordinator.getTeam(teamName);
 		Requirements.checkTeamExists(teamCoordinator, teamName);
-		Requirements.checkTeamNameAlreadyUsed(teamCoordinator, desiredTag, changeTeam);
+		Requirements.checkTeamRenameInUse(teamCoordinator, changeTeam, desiredTag);
 		Requirements.checkTeamNameAlphaNumeric(desiredTag);
 	}
 

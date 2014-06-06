@@ -10,25 +10,25 @@ import me.protocos.xteam.util.PatternBuilder;
 public class ConsoleInfo extends ConsoleCommand
 {
 	private String other;
-	private InfoAction info;
+	private InfoAction infoAction;
 
 	public ConsoleInfo(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
+		infoAction = new InfoAction(teamCoordinator, playerFactory);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		info.actOn(sender, other);
+		infoAction.actOn(sender, other);
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		other = commandContainer.getArgument(1);
-		info = new InfoAction(teamCoordinator, playerFactory);
-		info.checkRequirements(other);
+		infoAction.checkRequirements(other);
 	}
 
 	@Override

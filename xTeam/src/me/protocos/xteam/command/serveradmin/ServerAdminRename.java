@@ -2,30 +2,26 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
-import me.protocos.xteam.entity.ITeam;
+import me.protocos.xteam.command.action.RenameTeamAction;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminRename extends ServerAdminCommand
 {
 	private String teamName, desiredName;
+	private RenameTeamAction renameTeamAction;
 
 	public ServerAdminRename(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
+		renameTeamAction = new RenameTeamAction(teamPlugin.getTeamCoordinator());
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam changeTeam = teamCoordinator.getTeam(teamName);
-		teamCoordinator.renameTeam(changeTeam, desiredName);
-		if (!changeTeam.containsPlayer(player.getName()))
-			player.sendMessage("You " + MessageUtil.green("renamed") + " the team to " + desiredName);
-		changeTeam.sendMessage("The team has been " + MessageUtil.green("renamed") + " to " + desiredName + " by an admin");
+		renameTeamAction.actOn(teamPlayer, teamName, desiredName);
 	}
 
 	@Override
@@ -33,9 +29,7 @@ public class ServerAdminRename extends ServerAdminCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		desiredName = commandContainer.getArgument(2);
-		Requirements.checkTeamExists(teamCoordinator, teamName);
-		Requirements.checkTeamAlreadyExists(teamCoordinator, desiredName);
-		Requirements.checkTeamNameAlphaNumeric(desiredName);
+		renameTeamAction.checkRequirementsOn(teamName, desiredName);
 	}
 
 	@Override

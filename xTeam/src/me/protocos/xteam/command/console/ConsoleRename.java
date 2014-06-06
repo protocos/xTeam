@@ -3,28 +3,26 @@ package me.protocos.xteam.command.console;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.command.Requirements;
-import me.protocos.xteam.entity.ITeam;
+import me.protocos.xteam.command.action.RenameTeamAction;
+import me.protocos.xteam.entity.ConsoleEntity;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleRename extends ConsoleCommand
 {
 	private String teamName, desiredName;
+	private RenameTeamAction renameTeamAction;
 
 	public ConsoleRename(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
+		renameTeamAction = new RenameTeamAction(teamPlugin.getTeamCoordinator());
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam team = teamCoordinator.getTeam(teamName);
-		teamCoordinator.renameTeam(team, desiredName);
-		sender.sendMessage("You " + MessageUtil.green("renamed") + " the team to " + desiredName);
-		team.sendMessage("The team has been " + MessageUtil.green("renamed") + " to " + desiredName);
+		renameTeamAction.actOn(new ConsoleEntity(sender), teamName, desiredName);
 	}
 
 	@Override
@@ -32,9 +30,7 @@ public class ConsoleRename extends ConsoleCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		desiredName = commandContainer.getArgument(2);
-		Requirements.checkTeamExists(teamCoordinator, teamName);
-		Requirements.checkTeamAlreadyExists(teamCoordinator, desiredName);
-		Requirements.checkTeamNameAlphaNumeric(desiredName);
+		renameTeamAction.checkRequirementsOn(teamName, desiredName);
 	}
 
 	@Override

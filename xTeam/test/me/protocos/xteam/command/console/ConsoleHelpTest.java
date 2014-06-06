@@ -59,8 +59,7 @@ public class ConsoleHelpTest
 				"/team open [Team] - open team to public joining\n" +
 				"/team set [Player] [Team] - set team of player\n" +
 				"/team setleader [Team] [Player] - set leader of team\n" +
-				"/team teleallhq - teleports everyone to their headquarters\n" +
-				"", fakeConsoleSender.getAllMessages());
+				"/team teleallhq - teleports everyone to their headquarters", fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

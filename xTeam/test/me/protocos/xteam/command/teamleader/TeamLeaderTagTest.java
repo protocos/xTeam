@@ -63,7 +63,7 @@ public class TeamLeaderTagTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag two".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamNameConflictsWithNameException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamNameAlreadyInUseException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}

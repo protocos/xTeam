@@ -42,7 +42,7 @@ public class TeamLeaderRenameTest
 	}
 
 	@Test
-	public void ShouldBeTeamAdminRenameExecute()
+	public void ShouldBeTeamLeaderRenameExecute()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
@@ -55,7 +55,7 @@ public class TeamLeaderRenameTest
 	}
 
 	@Test
-	public void ShouldBeTeamAdminRenameExecuteAlreadyExists()
+	public void ShouldBeTeamLeaderRenameExecuteAlreadyExists()
 	{
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
@@ -63,13 +63,13 @@ public class TeamLeaderRenameTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename two".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamNameConflictsWithNameException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamNameAlreadyInUseException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("ONE", teamCoordinator.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
 	@Test
-	public void ShouldBeTeamAdminRenameExecuteNameNotAlpha()
+	public void ShouldBeTeamLeaderRenameExecuteNameNotAlpha()
 	{
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
@@ -83,7 +83,7 @@ public class TeamLeaderRenameTest
 	}
 
 	@Test
-	public void ShouldBeTeamAdminRenameExecutenNmeTooLong()
+	public void ShouldBeTeamLeaderRenameExecutenNmeTooLong()
 	{
 		//ASSEMBLE
 		Configuration.TEAM_NAME_LENGTH = 10;
@@ -97,7 +97,7 @@ public class TeamLeaderRenameTest
 	}
 
 	@Test
-	public void ShouldBeTeamAdminRenameExecuteNoTeam()
+	public void ShouldBeTeamLeaderRenameExecuteNoTeam()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
@@ -110,7 +110,7 @@ public class TeamLeaderRenameTest
 	}
 
 	@Test
-	public void ShouldBeTeamAdminRenameExecuteNotLeader()
+	public void ShouldBeTeamLeaderRenameExecuteNotLeader()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());

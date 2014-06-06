@@ -38,7 +38,7 @@ public class TeamUserCreate extends TeamUserCommand
 		Requirements.checkTeamNameTooLong(desiredName);
 		Requirements.checkPlayerLastCreatedTeam(teamPlayer);
 		Requirements.checkTeamNameAlphaNumeric(desiredName);
-		Requirements.checkTeamAlreadyExists(teamCoordinator, desiredName);
+		Requirements.checkTeamNameInUse(teamCoordinator, desiredName);
 	}
 
 	@Override
