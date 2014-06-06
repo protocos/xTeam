@@ -34,13 +34,6 @@ public final class XTeam extends TeamPlugin
 		super(server, folder);
 	}
 
-	public void load()
-	{
-		this.commandManager.register(this);
-		this.initFileSystem();
-		persistenceLayer = new DataStorageFactory(this).dataManagerFromString(Configuration.STORAGE_TYPE);
-	}
-
 	private void initFileSystem()
 	{
 		SystemUtil.ensureFolder(this.getFolder());
@@ -77,6 +70,14 @@ public final class XTeam extends TeamPlugin
 		this.configLoader.addAttribute("savedatainterval", 10, "Frequency, in minutes, that the plugin will write data to disk if storagetype = file");
 		this.configLoader.write();
 		this.configLoader.load();
+	}
+
+	@Override
+	public void load()
+	{
+		this.commandManager.register(this);
+		this.initFileSystem();
+		persistenceLayer = new DataStorageFactory(this).dataManagerFromString(Configuration.STORAGE_TYPE);
 	}
 
 	@Override

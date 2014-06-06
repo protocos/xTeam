@@ -13,7 +13,6 @@ import me.protocos.xteam.entity.OfflineTeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.MessageUtil;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -216,17 +215,6 @@ public class PlayerFactory implements IPlayerFactory
 			propertyList.put("returnLocation", "");
 			playerProperties.put(name, propertyList);
 		}
-	}
-
-	public String toString()
-	{
-		String output = "";
-		List<ITeamPlayer> players = CommonUtil.emptyList();
-		players.addAll(getOnlinePlayers());
-		players.addAll(getOfflinePlayers());
-		for (ITeamPlayer player : players)
-			output += player.getName() + (player.isOnline() ? MessageUtil.green(" online") : MessageUtil.red(" offline")) + "\n";
-		return output.trim();
 	}
 
 	@Override

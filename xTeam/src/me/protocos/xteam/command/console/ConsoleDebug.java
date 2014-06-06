@@ -39,9 +39,17 @@ public class ConsoleDebug extends ConsoleCommand
 		else if (subCommand.equalsIgnoreCase("created"))
 			sender.sendMessage("Last created: " + Configuration.lastCreated.toString());
 		else if (subCommand.equalsIgnoreCase("players"))
-			sender.sendMessage("Players: \n" + playerFactory.toString());
+		{
+			sender.sendMessage("Players:");
+			for (String line : playerFactory.exportData())
+				sender.sendMessage(line);
+		}
 		else if (subCommand.equalsIgnoreCase("teams"))
-			sender.sendMessage("Teams: \n" + teamCoordinator.toString());
+		{
+			sender.sendMessage("Teams:");
+			for (String line : teamCoordinator.exportData())
+				sender.sendMessage(line);
+		}
 		else if (subCommand.equalsIgnoreCase("perms"))
 			sender.sendMessage("Debugging permissions: \n" + printPermissions());
 		else if (subCommand.equalsIgnoreCase("reset"))
@@ -69,9 +77,7 @@ public class ConsoleDebug extends ConsoleCommand
 		{
 			try
 			{
-				log.exception(new Exception("Test message!"));
-				if (Configuration.SEND_ANONYMOUS_ERROR_REPORTS)
-					sender.sendMessage("Error sent!");
+				log.exception(new Exception("Test exception!"));
 			}
 			catch (Exception e)
 			{

@@ -75,7 +75,7 @@ public class ConsoleInfoTest
 	}
 
 	@Test
-	public void ShouldBeConsoleInfoExecuteIncompleteCommand()
+	public void ShouldBeConsoleInfoExecuteInvalidCommand()
 	{
 		//ASSEMBLE
 		//ACT
