@@ -62,7 +62,9 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public double getDistanceTo(ILocatable entity)
 	{
-		return this.getLocation().distance(entity.getLocation());
+		if (this.getLocation().getWorld().equals(entity.getLocation().getWorld()))
+			return this.getLocation().distance(entity.getLocation());
+		return Double.MAX_VALUE;
 	}
 
 	@Override
