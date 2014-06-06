@@ -3,7 +3,7 @@ package me.protocos.xteam.command.action;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.core.IPlayerFactory;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -15,15 +15,15 @@ import org.bukkit.command.CommandSender;
 public class SetTeamAction
 {
 	private TeamPlugin teamPlugin;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 	private IPlayerFactory playerFactory;
 	private CommandSender sender;
 
 	public SetTeamAction(TeamPlugin teamPlugin, CommandSender sender)
 	{
 		this.teamPlugin = teamPlugin;
-		this.teamManager = teamPlugin.getTeamManager();
-		this.playerFactory = teamPlugin.getPlayerManager();
+		this.teamCoordinator = teamPlugin.getTeamCoordinator();
+		this.playerFactory = teamPlugin.getPlayerFactory();
 		this.sender = sender;
 	}
 
@@ -33,7 +33,7 @@ public class SetTeamAction
 		Requirements.checkPlayerHasPlayedBefore(player);
 		Requirements.checkPlayerLeaderLeaving(player);
 		Requirements.checkPlayerAlreadyOnTeam(player, teamName);
-		Requirements.checkTeamPlayerMax(teamManager, teamName);
+		Requirements.checkTeamPlayerMax(teamCoordinator, teamName);
 	}
 
 	public void actOn(String playerName, String teamName)
@@ -43,13 +43,13 @@ public class SetTeamAction
 		{
 			removePlayer(p);
 		}
-		if (!teamManager.containsTeam(teamName))
+		if (!teamCoordinator.containsTeam(teamName))
 		{
 			createTeamWithLeader(teamName, p);
 		}
 		else
 		{
-			addPlayerToTeam(p, teamManager.getTeam(teamName));
+			addPlayerToTeam(p, teamCoordinator.getTeam(teamName));
 		}
 	}
 
@@ -69,7 +69,7 @@ public class SetTeamAction
 			sender.sendMessage("You have been " + MessageUtil.red("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
-				teamManager.disbandTeam(teamName);
+				teamCoordinator.disbandTeam(teamName);
 				sender.sendMessage(teamName + " has been " + MessageUtil.red("disbanded"));
 			}
 		}
@@ -81,7 +81,7 @@ public class SetTeamAction
 			player.sendMessage("You have been " + MessageUtil.red("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
-				teamManager.disbandTeam(teamName);
+				teamCoordinator.disbandTeam(teamName);
 				sender.sendMessage(teamName + " has been " + MessageUtil.red("disbanded"));
 				player.sendMessage(teamName + " has been " + MessageUtil.red("disbanded"));
 			}
@@ -112,7 +112,7 @@ public class SetTeamAction
 		String senderName = sender.getName();
 		String playerName = player.getName();
 		Team newTeam = Team.createTeamWithLeader(teamPlugin, teamName, playerName);
-		teamManager.createTeam(newTeam);
+		teamCoordinator.createTeam(newTeam);
 		if (playerName.equals(senderName))
 		{
 			//first person

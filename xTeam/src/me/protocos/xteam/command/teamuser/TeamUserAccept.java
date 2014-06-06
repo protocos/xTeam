@@ -36,7 +36,7 @@ public class TeamUserAccept extends TeamUserCommand
 		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
 		Requirements.checkPlayerDoesNotHaveInvite(inviteHandler, teamPlayer);
 		ITeam inviteTeam = inviteHandler.getInviteTeam(teamPlayer.getName());
-		Requirements.checkTeamPlayerMax(teamManager, inviteTeam.getName());
+		Requirements.checkTeamPlayerMax(teamCoordinator, inviteTeam.getName());
 	}
 
 	@Override

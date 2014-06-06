@@ -21,8 +21,8 @@ public class ConsoleRename extends ConsoleCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam team = teamManager.getTeam(teamName);
-		teamManager.renameTeam(team, desiredName);
+		ITeam team = teamCoordinator.getTeam(teamName);
+		teamCoordinator.renameTeam(team, desiredName);
 		sender.sendMessage("You " + MessageUtil.green("renamed") + " the team to " + desiredName);
 		team.sendMessage("The team has been " + MessageUtil.green("renamed") + " to " + desiredName);
 	}
@@ -32,8 +32,8 @@ public class ConsoleRename extends ConsoleCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		desiredName = commandContainer.getArgument(2);
-		Requirements.checkTeamExists(teamManager, teamName);
-		Requirements.checkTeamAlreadyExists(teamManager, desiredName);
+		Requirements.checkTeamExists(teamCoordinator, teamName);
+		Requirements.checkTeamAlreadyExists(teamCoordinator, desiredName);
 		Requirements.checkTeamNameAlphaNumeric(desiredName);
 	}
 

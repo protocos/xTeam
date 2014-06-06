@@ -5,7 +5,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import org.junit.After;
 import org.junit.Before;
@@ -16,7 +16,7 @@ public class ConsoleListTest
 	private TeamPlugin teamPlugin;
 	private FakeConsoleSender fakeConsoleSender;
 	private ConsoleCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
@@ -24,7 +24,7 @@ public class ConsoleListTest
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeConsoleSender = new FakeConsoleSender();
 		fakeCommand = new ConsoleList(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
@@ -47,7 +47,7 @@ public class ConsoleListTest
 	public void ShouldBeTeamUserListExecuteNoTeams()
 	{
 		//ASSEMBLE
-		teamManager.clear();
+		teamCoordinator.clear();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "list".split(" ")));
 		//ASSERT
@@ -59,9 +59,9 @@ public class ConsoleListTest
 	public void ShouldBeTeamUserListExecuteOneTeam()
 	{
 		//ASSEMBLE
-		teamManager.disbandTeam("ONE");
-		teamManager.disbandTeam("TWO");
-		teamManager.disbandTeam("blue");
+		teamCoordinator.disbandTeam("ONE");
+		teamCoordinator.disbandTeam("TWO");
+		teamCoordinator.disbandTeam("blue");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "list".split(" ")));
 		//ASSERT

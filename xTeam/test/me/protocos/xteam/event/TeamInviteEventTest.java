@@ -25,8 +25,8 @@ public class TeamInviteEventTest
 	{
 		//set up basics
 		fakePlugin = FakeXTeam.asTeamPlugin();
-		playerFactory = fakePlugin.getPlayerManager();
-		team = fakePlugin.getTeamManager().getTeam("ONE");
+		playerFactory = fakePlugin.getPlayerFactory();
+		team = fakePlugin.getTeamCoordinator().getTeam("ONE");
 		//set up fake invite
 		invite = new InviteRequest(playerFactory.getPlayer("kmlanglois"), playerFactory.getPlayer("Lonely"), 0L);
 		//set up dispatcher and handler

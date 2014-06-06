@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.*;
 import me.protocos.xteam.XTeam;
 import me.protocos.xteam.collections.HashList;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
@@ -53,13 +53,13 @@ public class Configuration
 	private FileReader fileReader;
 	private FileWriter fileWriter;
 	private XTeam xteam;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 	private ILog log;
 
 	public Configuration(XTeam xteam, File file)
 	{
 		this.xteam = xteam;
-		this.teamManager = xteam.getTeamManager();
+		this.teamCoordinator = xteam.getTeamCoordinator();
 		this.log = xteam.getLog();
 		fileReader = new FileReader(log, file, false);
 		try
@@ -151,8 +151,8 @@ public class Configuration
 		for (String name : Configuration.DEFAULT_TEAM_NAMES)
 		{
 			Team team = new Team.Builder(xteam, name).defaultTeam(true).openJoining(true).build();
-			if (!CommonUtil.containsIgnoreCase(teamManager.getDefaultTeams().getOrder(), name))
-				teamManager.createTeam(team);
+			if (!CommonUtil.containsIgnoreCase(teamCoordinator.getDefaultTeams().getOrder(), name))
+				teamCoordinator.createTeam(team);
 		}
 	}
 

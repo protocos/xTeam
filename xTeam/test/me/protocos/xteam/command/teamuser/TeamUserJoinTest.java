@@ -7,7 +7,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.core.IPlayerFactory;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.*;
@@ -22,7 +22,7 @@ public class TeamUserJoinTest
 {
 	private TeamPlugin teamPlugin;
 	private TeamUserCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 	private IPlayerFactory playerFactory;
 	private InviteHandler inviteHandler;
 
@@ -32,8 +32,8 @@ public class TeamUserJoinTest
 		Configuration.MAX_PLAYERS = 3;
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new TeamUserJoin(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
-		playerFactory = teamPlugin.getPlayerManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
+		playerFactory = teamPlugin.getPlayerFactory();
 		inviteHandler = teamPlugin.getInviteHandler();
 		ITeamPlayer playerSender = playerFactory.getPlayer("kmlanglois");
 		ITeamPlayer playerReceiver = playerFactory.getPlayer("Lonely");
@@ -62,7 +62,7 @@ public class TeamUserJoinTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You joined ONE", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(teamManager.getTeam("one").containsPlayer("Lonely"));
+		Assert.assertTrue(teamCoordinator.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -70,13 +70,13 @@ public class TeamUserJoinTest
 	public void ShouldBeTeamUserJoinExecuteMaxPlayers()
 	{
 		//ASSEMBLE
-		teamManager.getTeam("one").addPlayer("stranger");
+		teamCoordinator.getTeam("one").addPlayer("stranger");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(teamManager.getTeam("one").containsPlayer("Lonely"));
+		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -90,7 +90,7 @@ public class TeamUserJoinTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoInviteException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(teamManager.getTeam("one").containsPlayer("Lonely"));
+		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -103,8 +103,8 @@ public class TeamUserJoinTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamOnlyJoinDefaultException(teamManager)).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(teamManager.getTeam("one").containsPlayer("Lonely"));
+		Assert.assertEquals((new TeamOnlyJoinDefaultException(teamCoordinator)).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -117,7 +117,7 @@ public class TeamUserJoinTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(teamManager.getTeam("one").containsPlayer("Lonely"));
+		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -130,7 +130,7 @@ public class TeamUserJoinTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join three".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(teamManager.getTeam("one").containsPlayer("Lonely"));
+		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

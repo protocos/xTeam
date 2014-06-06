@@ -35,10 +35,10 @@ public class ServerAdminDemote extends ServerAdminCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
-		changeTeam = teamManager.getTeam(teamName);
+		changeTeam = teamCoordinator.getTeam(teamName);
 		ITeamPlayer playerDemote = playerFactory.getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(playerDemote);
-		Requirements.checkTeamExists(teamManager, teamName);
+		Requirements.checkTeamExists(teamCoordinator, teamName);
 		Requirements.checkPlayerHasTeam(playerDemote);
 		Requirements.checkPlayerIsTeamAdmin(playerDemote);
 		Requirements.checkPlayerOnTeam(playerDemote, changeTeam);

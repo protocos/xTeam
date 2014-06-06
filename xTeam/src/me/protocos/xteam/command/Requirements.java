@@ -2,7 +2,7 @@ package me.protocos.xteam.command;
 
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -33,9 +33,9 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamExists(ITeamManager teamManager, String teamName) throws TeamDoesNotExistException
+	public static void checkTeamExists(ITeamCoordinator teamCoordinator, String teamName) throws TeamDoesNotExistException
 	{
-		if (!teamManager.containsTeam(teamName))
+		if (!teamCoordinator.containsTeam(teamName))
 		{
 			throw new TeamDoesNotExistException();
 		}
@@ -97,9 +97,9 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamAlreadyExists(ITeamManager teamManager, String desiredName) throws TeamAlreadyExistsException
+	public static void checkTeamAlreadyExists(ITeamCoordinator teamCoordinator, String desiredName) throws TeamAlreadyExistsException
 	{
-		if (teamManager.containsTeam(desiredName))
+		if (teamCoordinator.containsTeam(desiredName))
 		{
 			throw new TeamAlreadyExistsException();
 		}
@@ -121,17 +121,17 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamPlayerMax(ITeamManager teamManager, String teamName) throws TeamPlayerMaxException
+	public static void checkTeamPlayerMax(ITeamCoordinator teamCoordinator, String teamName) throws TeamPlayerMaxException
 	{
-		if (teamManager.containsTeam(teamName) && teamManager.getTeam(teamName).size() >= Configuration.MAX_PLAYERS && Configuration.MAX_PLAYERS > 0)
+		if (teamCoordinator.containsTeam(teamName) && teamCoordinator.getTeam(teamName).size() >= Configuration.MAX_PLAYERS && Configuration.MAX_PLAYERS > 0)
 		{
 			throw new TeamPlayerMaxException();
 		}
 	}
 
-	public static void checkTeamNameAlreadyUsed(ITeamManager teamManager, String desiredName, ITeam team) throws TeamNameConflictsWithNameException
+	public static void checkTeamNameAlreadyUsed(ITeamCoordinator teamCoordinator, String desiredName, ITeam team) throws TeamNameConflictsWithNameException
 	{
-		if (!desiredName.equalsIgnoreCase(team.getName()) && teamManager.containsTeam(desiredName))
+		if (!desiredName.equalsIgnoreCase(team.getName()) && teamCoordinator.containsTeam(desiredName))
 		{
 			throw new TeamNameConflictsWithNameException();
 		}
@@ -243,11 +243,11 @@ public class Requirements
 		}
 	}
 
-	public static void checkTeamOnlyJoinDefault(ITeamManager teamManager, String desiredName) throws TeamOnlyJoinDefaultException
+	public static void checkTeamOnlyJoinDefault(ITeamCoordinator teamCoordinator, String desiredName) throws TeamOnlyJoinDefaultException
 	{
 		if (Configuration.DEFAULT_TEAM_ONLY && !CommonUtil.toLowerCase(Configuration.DEFAULT_TEAM_NAMES).contains(desiredName.toLowerCase()) && Configuration.DEFAULT_TEAM_NAMES.size() > 0)
 		{
-			throw new TeamOnlyJoinDefaultException(teamManager);
+			throw new TeamOnlyJoinDefaultException(teamCoordinator);
 		}
 	}
 

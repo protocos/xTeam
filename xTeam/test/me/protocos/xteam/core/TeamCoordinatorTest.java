@@ -9,28 +9,28 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TeamManagerTest
+public class TeamCoordinatorTest
 {
 	private TeamPlugin teamPlugin;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
-		teamManager = teamPlugin.getTeamManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
 	public void ShouldBeClear()
 	{
 		//ASSEMBLE
-		teamManager.createTeam(Team.createTeamWithLeader(teamPlugin, "test1", "protocos"));
-		teamManager.createTeam(Team.createTeamWithLeader(teamPlugin, "test2", "kmlanglois"));
+		teamCoordinator.createTeam(Team.createTeamWithLeader(teamPlugin, "test1", "protocos"));
+		teamCoordinator.createTeam(Team.createTeamWithLeader(teamPlugin, "test2", "kmlanglois"));
 		//ACT
-		teamManager.clear();
+		teamCoordinator.clear();
 		//ASSERT
-		Assert.assertTrue(teamManager.getTeams().size() == 0);
+		Assert.assertTrue(teamCoordinator.getTeams().size() == 0);
 	}
 
 	@Test
@@ -38,9 +38,9 @@ public class TeamManagerTest
 	{
 		//ASSEMBLE
 		//ACT
-		teamManager.createTeam(Team.createTeam(teamPlugin, "test"));
+		teamCoordinator.createTeam(Team.createTeam(teamPlugin, "test"));
 		//ASSERT
-		Assert.assertTrue(teamManager.containsTeam("test"));
+		Assert.assertTrue(teamCoordinator.containsTeam("test"));
 	}
 
 	@Test
@@ -48,10 +48,10 @@ public class TeamManagerTest
 	{
 		//ASSEMBLE
 		//ACT
-		teamManager.createTeam(Team.createTeamWithLeader(teamPlugin, "test", "protocos"));
+		teamCoordinator.createTeam(Team.createTeamWithLeader(teamPlugin, "test", "protocos"));
 		//ASSERT
-		Assert.assertTrue(teamManager.containsTeam("test"));
-		Assert.assertEquals("protocos", teamManager.getTeam("test").getLeader());
+		Assert.assertTrue(teamCoordinator.containsTeam("test"));
+		Assert.assertEquals("protocos", teamCoordinator.getTeam("test").getLeader());
 	}
 
 	@Test
@@ -63,7 +63,7 @@ public class TeamManagerTest
 		Assert.assertEquals("{ONE=name:ONE tag:TeamAwesome openJoining:false defaultTeam:false timeHeadquartersLastSet:1361318508899 headquarters:world,169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 leader:kmlanglois admins: players:protocos,kmlanglois, " +
 				"two=name:two tag:two openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader:mastermind admins: players:mastermind, " +
 				"red=name:red tag:REDONE openJoining:true defaultTeam:true timeHeadquartersLastSet:0 headquarters: leader: admins: players:teammate,strandedhelix, " +
-				"blue=name:blue tag:blue openJoining:true defaultTeam:true timeHeadquartersLastSet:0 headquarters: leader: admins: players:}", teamManager.getTeams().toString());
+				"blue=name:blue tag:blue openJoining:true defaultTeam:true timeHeadquartersLastSet:0 headquarters: leader: admins: players:}", teamCoordinator.getTeams().toString());
 	}
 
 	@Test
@@ -71,7 +71,7 @@ public class TeamManagerTest
 	{
 		//ASSEMBLE
 		//ACT
-		ITeam test = teamManager.getTeam("one");
+		ITeam test = teamCoordinator.getTeam("one");
 		//ASSERT
 		Assert.assertEquals("ONE", test.getName());
 	}
@@ -82,8 +82,8 @@ public class TeamManagerTest
 		//ASSEMBLE
 		Team team1 = new Team.Builder(teamPlugin, "ONE").build();
 		//ACT
-		teamManager.createTeam(team1);
-		boolean exists = teamManager.containsTeam("one");
+		teamCoordinator.createTeam(team1);
+		boolean exists = teamCoordinator.containsTeam("one");
 		//ASSERT
 		Assert.assertTrue(exists);
 	}
@@ -91,6 +91,6 @@ public class TeamManagerTest
 	@After
 	public void takedown()
 	{
-		teamManager.clear();
+		teamCoordinator.clear();
 	}
 }

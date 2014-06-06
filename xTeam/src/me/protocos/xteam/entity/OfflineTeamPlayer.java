@@ -4,7 +4,7 @@ import java.util.List;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.core.IPlayerFactory;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.MessageUtil;
@@ -15,20 +15,20 @@ import org.bukkit.OfflinePlayer;
 public class OfflineTeamPlayer implements ITeamPlayer
 {
 	private IPlayerFactory playerFactory;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 	private OfflinePlayer player;
 
 	public OfflineTeamPlayer(TeamPlugin teamPlugin, OfflinePlayer player)
 	{
-		this.teamManager = teamPlugin.getTeamManager();
-		this.playerFactory = teamPlugin.getPlayerManager();
+		this.teamCoordinator = teamPlugin.getTeamCoordinator();
+		this.playerFactory = teamPlugin.getPlayerFactory();
 		this.player = player;
 	}
 
 	@Override
 	public ITeam getTeam()
 	{
-		return teamManager.getTeamByPlayer(player.getName());
+		return teamCoordinator.getTeamByPlayer(player.getName());
 	}
 
 	@Override

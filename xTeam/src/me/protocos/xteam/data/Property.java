@@ -15,12 +15,18 @@ public class Property
 		this.value = value;
 	}
 
+	public <T> Property(String key, T value, IDataTranslator<T> dataTranslator)
+	{
+		this.key = key;
+		this.value = dataTranslator.decompile(value);
+	}
+
 	public String getKey()
 	{
 		return key;
 	}
 
-	public <T> T getValue(IDataTranslator<T> strategy)
+	public <T> T getValueUsing(IDataTranslator<T> strategy)
 	{
 		return strategy.compile(value);
 	}

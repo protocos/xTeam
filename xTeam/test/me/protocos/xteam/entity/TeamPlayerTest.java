@@ -4,7 +4,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.core.IPlayerFactory;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.fakeobjects.*;
 import org.bukkit.Location;
 import org.bukkit.Server;
@@ -18,14 +18,14 @@ public class TeamPlayerTest
 {
 	private TeamPlugin teamPlugin = FakeXTeam.asTeamPlugin();
 	private IPlayerFactory playerFactory;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 	private TeamPlayer teamPlayer;
 
 	@Before
 	public void setup()
 	{
-		playerFactory = teamPlugin.getPlayerManager();
-		teamManager = teamPlugin.getTeamManager();
+		playerFactory = teamPlugin.getPlayerFactory();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class TeamPlayerTest
 		//ACT
 		ITeam team = teamPlayer.getTeam();
 		//ASSERT
-		Assert.assertEquals(teamManager.getTeam("one"), team);
+		Assert.assertEquals(teamCoordinator.getTeam("one"), team);
 	}
 
 	@Test
@@ -110,7 +110,7 @@ public class TeamPlayerTest
 		team.addPlayer("one");
 		team.addPlayer("two");
 		team.addPlayer("thr");
-		teamManager.createTeam(team);
+		teamCoordinator.createTeam(team);
 		//ACT
 		//ASSERT
 		Assert.assertEquals(2, player1.getTeammates().size());
@@ -207,7 +207,7 @@ public class TeamPlayerTest
 	{
 		//ASSEMBLE
 		teamPlayer = playerFactory.getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
-		teamManager.getTeam("one").promote("protocos");
+		teamCoordinator.getTeam("one").promote("protocos");
 		//ACT
 		boolean isTeamAdmin = teamPlayer.isAdmin();
 		//ASSERT
@@ -219,7 +219,7 @@ public class TeamPlayerTest
 	{
 		//ASSEMBLE
 		teamPlayer = playerFactory.getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(new FakeWorld(), 0, 64, 0)));
-		teamManager.getTeam("one").setLeader("protocos");
+		teamCoordinator.getTeam("one").setLeader("protocos");
 		//ACT
 		boolean isTeamLeader = teamPlayer.isLeader();
 		//ASSERT
@@ -260,7 +260,7 @@ public class TeamPlayerTest
 		team.addPlayer(player1.getName());
 		team.addPlayer(player2.getName());
 		team.addPlayer(player3.getName());
-		teamManager.createTeam(team);
+		teamCoordinator.createTeam(team);
 		//ACT
 		//ASSERT
 		Assert.assertEquals(true, player1.getOfflineTeammates().contains(player3));
@@ -278,7 +278,7 @@ public class TeamPlayerTest
 		team.addPlayer(player1.getName());
 		team.addPlayer(player2.getName());
 		team.addPlayer(player3.getName());
-		teamManager.createTeam(team);
+		teamCoordinator.createTeam(team);
 		//ACT
 		//ASSERT
 		Assert.assertEquals(true, player1.getOnlineTeammates().contains(player2));

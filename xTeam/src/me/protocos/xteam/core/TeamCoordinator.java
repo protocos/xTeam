@@ -1,42 +1,20 @@
 package me.protocos.xteam.core;
 
+import java.util.List;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
-import me.protocos.xteam.data.IDataManager;
-import me.protocos.xteam.data.PropertyList;
-import me.protocos.xteam.data.TeamFlatFile;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.event.*;
 import me.protocos.xteam.util.CommonUtil;
 
-public class TeamManager implements ITeamManager
+public class TeamCoordinator implements ITeamCoordinator
 {
-	private IDataManager dataManager;
 	private IEventDispatcher dispatcher;
 	private HashList<String, ITeam> teams = CommonUtil.emptyHashList();
 
-	public TeamManager(TeamPlugin teamPlugin)
+	public TeamCoordinator(TeamPlugin teamPlugin)
 	{
-		this.dataManager = new TeamFlatFile(teamPlugin, this);
 		this.dispatcher = teamPlugin.getEventDispatcher();
-	}
-
-	@Override
-	public void setDataManager(IDataManager dataManager)
-	{
-		this.dataManager = dataManager;
-	}
-
-	@Override
-	public void read()
-	{
-		dataManager.read();
-	}
-
-	@Override
-	public void write()
-	{
-		dataManager.write();
 	}
 
 	@Override
@@ -50,7 +28,6 @@ public class TeamManager implements ITeamManager
 		if (team != null)
 		{
 			teams.put(team.getName().toLowerCase(), team);
-			dataManager.updateEntry(team.getName().toLowerCase(), PropertyList.fromString(team.toString()));
 		}
 	}
 
@@ -107,7 +84,6 @@ public class TeamManager implements ITeamManager
 	{
 		if (this.containsTeam(teamName))
 		{
-			dataManager.removeEntry(this.getTeam(teamName).getName().toLowerCase());
 			return teams.remove(this.getTeam(teamName).getName().toLowerCase());
 		}
 		return null;
@@ -169,5 +145,16 @@ public class TeamManager implements ITeamManager
 			ITeam removeTeam = this.removeTeam(teamName);
 			dispatcher.dispatchEvent(new TeamDisbandEvent(removeTeam));
 		}
+	}
+
+	@Override
+	public List<String> exportData()
+	{
+		List<String> exportTeams = CommonUtil.emptyList(teams.size());
+		for (ITeam team : teams)
+		{
+			exportTeams.add(team.toString());
+		}
+		return exportTeams;
 	}
 }

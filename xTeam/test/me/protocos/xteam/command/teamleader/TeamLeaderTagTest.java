@@ -4,7 +4,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.*;
 import me.protocos.xteam.fakeobjects.FakeLocation;
@@ -18,14 +18,14 @@ public class TeamLeaderTagTest
 {
 	private TeamPlugin teamPlugin;
 	private TeamLeaderCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new TeamLeaderTag(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
@@ -50,7 +50,7 @@ public class TeamLeaderTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag tag".split(" ")));
 		//ASSERT
 		Assert.assertEquals("The team tag has been set to tag", fakePlayerSender.getLastMessage());
-		Assert.assertEquals("tag", teamManager.getTeam("one").getTag());
+		Assert.assertEquals("tag", teamCoordinator.getTeam("one").getTag());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -64,7 +64,7 @@ public class TeamLeaderTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag two".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameConflictsWithNameException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", teamManager.getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -78,7 +78,7 @@ public class TeamLeaderTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag †Eåm".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", teamManager.getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -92,7 +92,7 @@ public class TeamLeaderTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag tagiswaytoolong".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameTooLongException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", teamManager.getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -117,7 +117,7 @@ public class TeamLeaderTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag tag".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", teamManager.getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

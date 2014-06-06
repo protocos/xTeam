@@ -21,8 +21,8 @@ public class ServerAdminRename extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam changeTeam = teamManager.getTeam(teamName);
-		teamManager.renameTeam(changeTeam, desiredName);
+		ITeam changeTeam = teamCoordinator.getTeam(teamName);
+		teamCoordinator.renameTeam(changeTeam, desiredName);
 		if (!changeTeam.containsPlayer(player.getName()))
 			player.sendMessage("You " + MessageUtil.green("renamed") + " the team to " + desiredName);
 		changeTeam.sendMessage("The team has been " + MessageUtil.green("renamed") + " to " + desiredName + " by an admin");
@@ -33,8 +33,8 @@ public class ServerAdminRename extends ServerAdminCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		desiredName = commandContainer.getArgument(2);
-		Requirements.checkTeamExists(teamManager, teamName);
-		Requirements.checkTeamAlreadyExists(teamManager, desiredName);
+		Requirements.checkTeamExists(teamCoordinator, teamName);
+		Requirements.checkTeamAlreadyExists(teamCoordinator, desiredName);
 		Requirements.checkTeamNameAlphaNumeric(desiredName);
 	}
 

@@ -24,7 +24,7 @@ public class TeamUserJoin extends TeamUserCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam foundTeam = teamManager.getTeam(desiredName);
+		ITeam foundTeam = teamCoordinator.getTeam(desiredName);
 		foundTeam.addPlayer(teamPlayer.getName());
 		inviteHandler.removeInvite(teamPlayer.getName());
 		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + MessageUtil.green("joined") + " your team");
@@ -35,12 +35,12 @@ public class TeamUserJoin extends TeamUserCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		desiredName = commandContainer.getArgument(1);
-		ITeam desiredTeam = teamManager.getTeam(desiredName);
+		ITeam desiredTeam = teamCoordinator.getTeam(desiredName);
 		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
-		Requirements.checkTeamOnlyJoinDefault(teamManager, desiredName);
-		Requirements.checkTeamExists(teamManager, desiredName);
+		Requirements.checkTeamOnlyJoinDefault(teamCoordinator, desiredName);
+		Requirements.checkTeamExists(teamCoordinator, desiredName);
 		Requirements.checkPlayerDoesNotHaveInviteFromTeam(inviteHandler, teamPlayer, desiredTeam);
-		Requirements.checkTeamPlayerMax(teamManager, desiredName);
+		Requirements.checkTeamPlayerMax(teamCoordinator, desiredName);
 	}
 
 	@Override

@@ -30,8 +30,8 @@ public class ServerAdminHeadquarters extends ServerAdminCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		teamName = commandContainer.getArgument(1);
-		changeTeam = teamManager.getTeam(teamName);
-		Requirements.checkTeamExists(teamManager, teamName);
+		changeTeam = teamCoordinator.getTeam(teamName);
+		Requirements.checkTeamExists(teamCoordinator, teamName);
 		Requirements.checkTeamHasHeadquarters(changeTeam);
 	}
 

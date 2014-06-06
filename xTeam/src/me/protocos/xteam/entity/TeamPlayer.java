@@ -7,7 +7,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.IPlayerFactory;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
@@ -33,15 +33,15 @@ import org.bukkit.util.Vector;
 public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSender
 {
 	private TeleportScheduler teleportScheduler;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 	private IPlayerFactory playerFactory;
 	private Player player;
 
 	public TeamPlayer(TeamPlugin teamPlugin, Player player)
 	{
 		this.teleportScheduler = teamPlugin.getTeleportScheduler();
-		this.teamManager = teamPlugin.getTeamManager();
-		this.playerFactory = teamPlugin.getPlayerManager();
+		this.teamCoordinator = teamPlugin.getTeamCoordinator();
+		this.playerFactory = teamPlugin.getPlayerFactory();
 		this.player = player;
 	}
 
@@ -143,7 +143,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public ITeam getTeam()
 	{
-		return teamManager.getTeamByPlayer(player.getName());
+		return teamCoordinator.getTeamByPlayer(player.getName());
 	}
 
 	@Override

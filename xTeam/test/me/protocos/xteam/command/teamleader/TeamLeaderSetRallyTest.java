@@ -4,7 +4,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamAlreadyHasRallyException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
@@ -20,14 +20,14 @@ public class TeamLeaderSetRallyTest
 {
 	private TeamPlugin teamPlugin;
 	private TeamLeaderCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new TeamLeaderSetRally(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class TeamLeaderSetRallyTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You set the team rally point", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(teamManager.getTeam("one").hasRally());
+		Assert.assertTrue(teamCoordinator.getTeam("one").hasRally());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -83,7 +83,7 @@ public class TeamLeaderSetRallyTest
 	public void ShouldBeSetRallyAlreadySet()
 	{
 		//ASSEMBLE
-		ITeam team = teamManager.getTeam("one");
+		ITeam team = teamCoordinator.getTeam("one");
 		team.setRally(team.getHeadquarters().getLocation());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT

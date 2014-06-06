@@ -36,7 +36,7 @@ public class CommandDelegate implements CommandExecutor
 				log.debug("Command execute failed for reason: " + (new TeamInvalidCommandException()).getMessage());
 			}
 			else if (command.execute(commandContainer) == true)
-				teamPlugin.writeTeamData();
+				teamPlugin.write();
 		}
 		catch (Exception e)
 		{

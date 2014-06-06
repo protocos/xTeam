@@ -1,7 +1,8 @@
 package me.protocos.xteam.core;
 
 import java.util.List;
-import me.protocos.xteam.data.IDataManager;
+import me.protocos.xteam.data.IDataContainer;
+import me.protocos.xteam.data.PropertyList;
 import me.protocos.xteam.entity.ITeamEntity;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.OfflineTeamPlayer;
@@ -10,14 +11,8 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-public interface IPlayerFactory
+public interface IPlayerFactory extends IDataContainer
 {
-	public abstract void read();
-
-	public abstract void write();
-
-	public abstract void setDataManager(IDataManager dataManager);
-
 	public abstract ITeamPlayer getPlayer(String name);
 
 	public abstract TeamPlayer getPlayer(Player player);
@@ -45,4 +40,6 @@ public interface IPlayerFactory
 	public abstract void setLastTeleported(ITeamPlayer teamPlayer, Long lastTeleported);
 
 	public abstract Long getLastTeleported(String name);
+
+	public abstract void updateValues(PropertyList propertyList);
 }

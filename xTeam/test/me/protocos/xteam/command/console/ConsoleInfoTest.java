@@ -24,7 +24,7 @@ public class ConsoleInfoTest
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeConsoleSender = new FakeConsoleSender();
 		fakeCommand = new ConsoleInfo(teamPlugin);
-		teamPlugin.getTeamManager();
+		teamPlugin.getTeamCoordinator();
 	}
 
 	@Test

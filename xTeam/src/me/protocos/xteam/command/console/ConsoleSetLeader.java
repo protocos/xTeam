@@ -42,9 +42,9 @@ public class ConsoleSetLeader extends ConsoleCommand
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
 		ITeamPlayer player = playerFactory.getPlayer(playerName);
-		ITeam team = teamManager.getTeam(teamName);
+		ITeam team = teamCoordinator.getTeam(teamName);
 		Requirements.checkPlayerHasPlayedBefore(player);
-		Requirements.checkTeamExists(teamManager, teamName);
+		Requirements.checkTeamExists(teamCoordinator, teamName);
 		Requirements.checkPlayerHasTeam(player);
 		Requirements.checkPlayerOnTeam(player, team);
 		Requirements.checkTeamIsDefault(team);

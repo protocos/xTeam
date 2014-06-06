@@ -22,7 +22,7 @@ public class TeamChatListener implements Listener
 	public TeamChatListener(TeamPlugin teamPlugin)
 	{
 		this.log = teamPlugin.getLog();
-		this.playerFactory = teamPlugin.getPlayerManager();
+		this.playerFactory = teamPlugin.getPlayerFactory();
 	}
 
 	@EventHandler

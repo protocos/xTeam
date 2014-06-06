@@ -35,7 +35,7 @@ public class TeamLeaderTag extends TeamLeaderCommand
 		desiredTag = commandContainer.getArgument(1);
 		Requirements.checkTeamNameTooLong(desiredTag);
 		Requirements.checkTeamNameAlphaNumeric(desiredTag);
-		Requirements.checkTeamNameAlreadyUsed(teamManager, desiredTag, team);
+		Requirements.checkTeamNameAlreadyUsed(teamCoordinator, desiredTag, team);
 	}
 
 	@Override

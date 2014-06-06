@@ -3,7 +3,7 @@ package me.protocos.xteam.entity;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.fakeobjects.*;
 import org.bukkit.Location;
 import org.bukkit.Server;
@@ -17,13 +17,13 @@ public class TeamWolfTest
 {
 	private TeamPlugin teamPlugin = FakeXTeam.asTeamPlugin();
 	private IPlayerFactory playerFactory;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
 	{
-		playerFactory = teamPlugin.getPlayerManager();
-		teamManager = teamPlugin.getTeamManager();
+		playerFactory = teamPlugin.getPlayerFactory();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class TeamWolfTest
 		//ACT
 		ITeam team = wolf.getTeam();
 		//ASSERT
-		Assert.assertEquals(teamManager.getTeam("one"), team);
+		Assert.assertEquals(teamCoordinator.getTeam("one"), team);
 	}
 
 	@Test

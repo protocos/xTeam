@@ -5,7 +5,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
@@ -18,14 +18,14 @@ public class ServerAdminSetHeadquartersTest
 {
 	private TeamPlugin teamPlugin;
 	private ServerAdminCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new ServerAdminSetHeadquarters(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
@@ -50,7 +50,7 @@ public class ServerAdminSetHeadquartersTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You set the team headquarters for team two", fakePlayerSender.getLastMessage());
-		Assert.assertEquals(newHQ, teamManager.getTeam("two").getHeadquarters());
+		Assert.assertEquals(newHQ, teamCoordinator.getTeam("two").getHeadquarters());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

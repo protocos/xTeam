@@ -5,7 +5,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerLeaderDemoteException;
 import me.protocos.xteam.exception.TeamPlayerNotLeaderException;
@@ -20,15 +20,15 @@ public class TeamLeaderDemoteTest
 {
 	private TeamPlugin teamPlugin;
 	private TeamLeaderCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new TeamLeaderDemote(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
-		teamManager.getTeam("one").promote("protocos");
+		teamCoordinator = teamPlugin.getTeamCoordinator();
+		teamCoordinator.getTeam("one").promote("protocos");
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class TeamLeaderDemoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You demoted protocos", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(teamManager.getTeam("one").isAdmin("protocos"));
+		Assert.assertFalse(teamCoordinator.getTeam("one").isAdmin("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -64,7 +64,7 @@ public class TeamLeaderDemoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote kmlanglois".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderDemoteException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(teamManager.getTeam("one").isAdmin("protocos"));
+		Assert.assertTrue(teamCoordinator.getTeam("one").isAdmin("protocos"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -77,7 +77,7 @@ public class TeamLeaderDemoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(teamManager.getTeam("one").isAdmin("protocos"));
+		Assert.assertTrue(teamCoordinator.getTeam("one").isAdmin("protocos"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -90,7 +90,7 @@ public class TeamLeaderDemoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(teamManager.getTeam("one").isAdmin("protocos"));
+		Assert.assertTrue(teamCoordinator.getTeam("one").isAdmin("protocos"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -103,7 +103,7 @@ public class TeamLeaderDemoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote mastermind".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotTeammateException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(teamManager.getTeam("one").isAdmin("protocos"));
+		Assert.assertTrue(teamCoordinator.getTeam("one").isAdmin("protocos"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

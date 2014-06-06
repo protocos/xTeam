@@ -33,9 +33,9 @@ public class ServerAdminTag extends ServerAdminCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		desiredTag = commandContainer.getArgument(2);
-		changeTeam = teamManager.getTeam(teamName);
-		Requirements.checkTeamExists(teamManager, teamName);
-		Requirements.checkTeamNameAlreadyUsed(teamManager, desiredTag, changeTeam);
+		changeTeam = teamCoordinator.getTeam(teamName);
+		Requirements.checkTeamExists(teamCoordinator, teamName);
+		Requirements.checkTeamNameAlreadyUsed(teamCoordinator, desiredTag, changeTeam);
 		Requirements.checkTeamNameAlphaNumeric(desiredTag);
 	}
 

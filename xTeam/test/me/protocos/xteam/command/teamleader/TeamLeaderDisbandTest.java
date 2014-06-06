@@ -4,7 +4,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerNotLeaderException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
@@ -18,14 +18,14 @@ public class TeamLeaderDisbandTest
 {
 	private TeamPlugin teamPlugin;
 	private TeamLeaderCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new TeamLeaderDisband(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
@@ -47,7 +47,7 @@ public class TeamLeaderDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You disbanded your team", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(teamManager.containsTeam("one"));
+		Assert.assertFalse(teamCoordinator.containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -60,7 +60,7 @@ public class TeamLeaderDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(teamManager.containsTeam("one"));
+		Assert.assertTrue(teamCoordinator.containsTeam("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -73,7 +73,7 @@ public class TeamLeaderDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(teamManager.containsTeam("one"));
+		Assert.assertTrue(teamCoordinator.containsTeam("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

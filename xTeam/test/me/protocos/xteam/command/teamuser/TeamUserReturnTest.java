@@ -7,7 +7,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.IPlayerFactory;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.*;
@@ -23,7 +23,7 @@ public class TeamUserReturnTest
 {
 	private TeamPlugin teamPlugin;
 	private TeamUserCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 	private IPlayerFactory playerFactory;
 	private TeleportScheduler teleportScheduler;
 
@@ -31,8 +31,8 @@ public class TeamUserReturnTest
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
-		teamManager = teamPlugin.getTeamManager();
-		playerFactory = teamPlugin.getPlayerManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
+		playerFactory = teamPlugin.getPlayerFactory();
 		teleportScheduler = teamPlugin.getTeleportScheduler();
 		fakeCommand = new TeamUserReturn(teamPlugin);
 	}
@@ -54,7 +54,7 @@ public class TeamUserReturnTest
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("protocos"), TeamPlayer.class);
-		Location returnLocation = new FakeLocation(teamManager.getTeam("one").getHeadquarters().getLocation()).toLocation();
+		Location returnLocation = new FakeLocation(teamCoordinator.getTeam("one").getHeadquarters().getLocation()).toLocation();
 		playerFactory.getPlayer("protocos").setReturnLocation(returnLocation);
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "return".split(" ")));

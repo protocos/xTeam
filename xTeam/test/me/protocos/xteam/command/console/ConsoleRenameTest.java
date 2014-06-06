@@ -5,7 +5,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamAlreadyExistsException;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
@@ -20,7 +20,7 @@ public class ConsoleRenameTest
 	private TeamPlugin teamPlugin;
 	private FakeConsoleSender fakeConsoleSender;
 	private ConsoleCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
@@ -28,7 +28,7 @@ public class ConsoleRenameTest
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeConsoleSender = new FakeConsoleSender();
 		fakeCommand = new ConsoleRename(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
@@ -54,7 +54,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "rename one newname".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You renamed the team to newname", fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("newname", teamManager.getTeam("newname").getName());
+		Assert.assertEquals("newname", teamCoordinator.getTeam("newname").getName());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -66,7 +66,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "rename two one".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamAlreadyExistsException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("ONE", teamManager.getTeam("one").getName());
+		Assert.assertEquals("ONE", teamCoordinator.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -78,7 +78,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "rename three one".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("ONE", teamManager.getTeam("one").getName());
+		Assert.assertEquals("ONE", teamCoordinator.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -91,7 +91,7 @@ public class ConsoleRenameTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "rename two †Eåm".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakeConsoleSender.getLastMessage());
-		Assert.assertEquals("ONE", teamManager.getTeam("one").getName());
+		Assert.assertEquals("ONE", teamCoordinator.getTeam("one").getName());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

@@ -2,7 +2,7 @@ package me.protocos.xteam.command.action;
 
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.core.IPlayerFactory;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
@@ -13,18 +13,18 @@ import org.bukkit.command.ConsoleCommandSender;
 
 public class InfoAction
 {
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 	private IPlayerFactory playerFactory;
 
-	public InfoAction(ITeamManager teamManager, IPlayerFactory playerFactory)
+	public InfoAction(ITeamCoordinator teamCoordinator, IPlayerFactory playerFactory)
 	{
-		this.teamManager = teamManager;
+		this.teamCoordinator = teamCoordinator;
 		this.playerFactory = playerFactory;
 	}
 
 	public void actOn(CommandSender sender, String other)
 	{
-		ITeam infoTeam = teamManager.getTeam(other);
+		ITeam infoTeam = teamCoordinator.getTeam(other);
 		if (infoTeam == null)
 			infoTeam = playerFactory.getPlayer(other).getTeam();
 		if (infoTeam != null)
@@ -46,7 +46,7 @@ public class InfoAction
 
 	public void checkRequirements(String other) throws TeamOrPlayerDoesNotExistException, TeamPlayerHasNoTeamException
 	{
-		if (teamManager.getTeam(other) == null)
+		if (teamCoordinator.getTeam(other) == null)
 		{
 			if (playerFactory.getPlayer(other) == null)
 			{

@@ -38,11 +38,11 @@ public class ServerAdminSetLeader extends ServerAdminCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
-		ITeam desiredTeam = teamManager.getTeam(teamName);
+		ITeam desiredTeam = teamCoordinator.getTeam(teamName);
 		ITeamPlayer playerSet = playerFactory.getPlayer(playerName);
 		ITeam playerTeam = playerSet.getTeam();
 		Requirements.checkPlayerHasPlayedBefore(playerSet);
-		Requirements.checkTeamExists(teamManager, teamName);
+		Requirements.checkTeamExists(teamCoordinator, teamName);
 		Requirements.checkPlayerHasTeam(playerSet);
 		Requirements.checkPlayerOnTeam(playerSet, desiredTeam);
 		Requirements.checkTeamIsDefault(playerTeam);

@@ -22,7 +22,7 @@ public class TeamLeaderDisband extends TeamLeaderCommand
 		{
 			playerDisband.sendMessage("Team has been " + MessageUtil.red("disbanded") + " by the team leader");
 		}
-		teamManager.disbandTeam(team.getName());
+		teamCoordinator.disbandTeam(team.getName());
 		teamPlayer.sendMessage("You " + MessageUtil.red("disbanded") + " your team");
 	}
 

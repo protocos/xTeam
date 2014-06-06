@@ -21,7 +21,7 @@ public class ConsoleTag extends ConsoleCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam team = teamManager.getTeam(teamName);
+		ITeam team = teamCoordinator.getTeam(teamName);
 		team.setTag(desiredTag);
 		sender.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag);
 		team.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag + " by an admin");
@@ -32,9 +32,9 @@ public class ConsoleTag extends ConsoleCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		desiredTag = commandContainer.getArgument(2);
-		ITeam team = teamManager.getTeam(teamName);
-		Requirements.checkTeamExists(teamManager, teamName);
-		Requirements.checkTeamNameAlreadyUsed(teamManager, desiredTag, team);
+		ITeam team = teamCoordinator.getTeam(teamName);
+		Requirements.checkTeamExists(teamCoordinator, teamName);
+		Requirements.checkTeamNameAlreadyUsed(teamCoordinator, desiredTag, team);
 		Requirements.checkTeamNameAlphaNumeric(desiredTag);
 	}
 

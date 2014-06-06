@@ -32,7 +32,7 @@ public class ServerAdminOpen extends ServerAdminCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		teamName = commandContainer.getArgument(1);
-		changeTeam = teamManager.getTeam(teamName);
+		changeTeam = teamCoordinator.getTeam(teamName);
 	}
 
 	@Override

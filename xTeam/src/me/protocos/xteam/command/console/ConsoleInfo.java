@@ -27,7 +27,7 @@ public class ConsoleInfo extends ConsoleCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		other = commandContainer.getArgument(1);
-		info = new InfoAction(teamManager, playerFactory);
+		info = new InfoAction(teamCoordinator, playerFactory);
 		info.checkRequirements(other);
 	}
 

@@ -35,10 +35,10 @@ public class ServerAdminPromote extends ServerAdminCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		playerName = commandContainer.getArgument(2);
-		changeTeam = teamManager.getTeam(teamName);
+		changeTeam = teamCoordinator.getTeam(teamName);
 		ITeamPlayer playerPromote = playerFactory.getPlayer(playerName);
 		Requirements.checkPlayerHasPlayedBefore(playerPromote);
-		Requirements.checkTeamExists(teamManager, teamName);
+		Requirements.checkTeamExists(teamCoordinator, teamName);
 		Requirements.checkPlayerHasTeam(playerPromote);
 		Requirements.checkPlayerOnTeam(playerPromote, changeTeam);
 	}

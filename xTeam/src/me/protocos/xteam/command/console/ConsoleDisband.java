@@ -23,7 +23,7 @@ public class ConsoleDisband extends ConsoleCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		changeTeam.sendMessage("Your team has been " + MessageUtil.red("disbanded") + " by an admin");
-		teamManager.disbandTeam(teamName);
+		teamCoordinator.disbandTeam(teamName);
 		sender.sendMessage("You " + MessageUtil.red("disbanded") + " " + changeTeam.getName() + (changeTeam.hasTag() ? " [" + changeTeam.getTag() + "]" : ""));
 	}
 
@@ -31,8 +31,8 @@ public class ConsoleDisband extends ConsoleCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		teamName = commandContainer.getArgument(1);
-		changeTeam = teamManager.getTeam(teamName);
-		Requirements.checkTeamExists(teamManager, teamName);
+		changeTeam = teamCoordinator.getTeam(teamName);
+		Requirements.checkTeamExists(teamCoordinator, teamName);
 		Requirements.checkTeamIsDefault(changeTeam);
 	}
 

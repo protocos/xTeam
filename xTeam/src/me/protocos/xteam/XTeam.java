@@ -9,6 +9,7 @@ import me.protocos.xteam.command.teamadmin.TeamAdminSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
 import me.protocos.xteam.data.DataStorageFactory;
+import me.protocos.xteam.data.IPersistenceLayer;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.listener.TeamChatListener;
 import me.protocos.xteam.listener.TeamPlayerListener;
@@ -20,8 +21,8 @@ import org.bukkit.plugin.PluginManager;
 
 public final class XTeam extends TeamPlugin
 {
-	//	private String version;
 	private Configuration configLoader;
+	private IPersistenceLayer persistenceLayer;
 
 	public XTeam()
 	{
@@ -33,17 +34,11 @@ public final class XTeam extends TeamPlugin
 		super(server, folder);
 	}
 
-	//	public String getVersion()
-	//	{
-	//		return version;
-	//	}
-
 	public void load()
 	{
 		this.commandManager.register(this);
 		this.initFileSystem();
-		this.playerFactory.setDataManager(new DataStorageFactory(this).playerManagerFromString(Configuration.STORAGE_TYPE));
-		this.teamManager.setDataManager(new DataStorageFactory(this).teamManagerFromString(Configuration.STORAGE_TYPE));
+		persistenceLayer = new DataStorageFactory(this).dataManagerFromString(Configuration.STORAGE_TYPE);
 	}
 
 	private void initFileSystem()
@@ -85,15 +80,15 @@ public final class XTeam extends TeamPlugin
 	}
 
 	@Override
-	public void readTeamData()
+	public void read()
 	{
-		teamManager.read();
+		persistenceLayer.read();
 	}
 
 	@Override
-	public void writeTeamData()
+	public void write()
 	{
-		teamManager.write();
+		persistenceLayer.write();
 	}
 
 	@Override
@@ -117,8 +112,7 @@ public final class XTeam extends TeamPlugin
 			pm.registerEvents(new TeamPlayerListener(this), this);
 			pm.registerEvents(new TeamChatListener(this), this);
 			this.getCommand("team").setExecutor(commandExecutor);
-			this.getPlayerManager().read();
-			this.readTeamData();
+			this.read();
 			this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " enabled");
 		}
 		catch (Exception e)
@@ -131,8 +125,7 @@ public final class XTeam extends TeamPlugin
 	{
 		try
 		{
-			this.writeTeamData();
-			this.getPlayerManager().write();
+			this.write();
 			DataStorageFactory.closeDatabase();
 			this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " disabled");
 			this.getLog().close();

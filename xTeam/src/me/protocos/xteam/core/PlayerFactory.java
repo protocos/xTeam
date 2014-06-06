@@ -2,8 +2,9 @@ package me.protocos.xteam.core;
 
 import java.util.List;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.data.IDataManager;
-import me.protocos.xteam.data.PlayerFlatFile;
+import me.protocos.xteam.collections.HashList;
+import me.protocos.xteam.data.Property;
+import me.protocos.xteam.data.PropertyList;
 import me.protocos.xteam.data.translator.LocationDataTranslator;
 import me.protocos.xteam.data.translator.LongDataTranslator;
 import me.protocos.xteam.entity.ITeamEntity;
@@ -20,32 +21,14 @@ import org.bukkit.entity.Player;
 public class PlayerFactory implements IPlayerFactory
 {
 	private TeamPlugin teamPlugin;
-	private IDataManager dataManager;
 	private BukkitUtil bukkitUtil;
+	private HashList<String, PropertyList> playerProperties;
 
 	public PlayerFactory(TeamPlugin teamPlugin)
 	{
 		this.teamPlugin = teamPlugin;
-		this.dataManager = new PlayerFlatFile(teamPlugin);
 		this.bukkitUtil = teamPlugin.getBukkitUtil();
-	}
-
-	@Override
-	public void setDataManager(IDataManager dataManager)
-	{
-		this.dataManager = dataManager;
-	}
-
-	@Override
-	public void read()
-	{
-		this.dataManager.read();
-	}
-
-	@Override
-	public void write()
-	{
-		this.dataManager.write();
+		this.playerProperties = new HashList<String, PropertyList>();
 	}
 
 	public List<TeamPlayer> getOnlinePlayers()
@@ -185,32 +168,54 @@ public class PlayerFactory implements IPlayerFactory
 
 	public Long getLastAttacked(String playerName)
 	{
-		return dataManager.getVariable(playerName, "lastAttacked", new LongDataTranslator());
+		this.ensurePlayer(playerName);
+		return playerProperties.get(playerName).get("lastAttacked").getValueUsing(new LongDataTranslator());
 	}
 
 	public Long getLastTeleported(String playerName)
 	{
-		return dataManager.getVariable(playerName, "lastTeleported", new LongDataTranslator());
+		this.ensurePlayer(playerName);
+		return playerProperties.get(playerName).get("lastTeleported").getValueUsing(new LongDataTranslator());
 	}
 
 	public Location getReturnLocation(String playerName)
 	{
-		return dataManager.getVariable(playerName, "returnLocation", new LocationDataTranslator(teamPlugin));
+		this.ensurePlayer(playerName);
+		return playerProperties.get(playerName).get("returnLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
 	}
 
 	public void setLastAttacked(ITeamPlayer player, Long lastAttacked)
 	{
-		dataManager.setVariable(player.getName(), "lastAttacked", lastAttacked, new LongDataTranslator());
+		this.ensurePlayer(player.getName());
+		playerProperties.get(player.getName()).remove("lastAttacked");
+		playerProperties.get(player.getName()).put(new Property("lastAttacked", lastAttacked, new LongDataTranslator()));
 	}
 
 	public void setLastTeleported(ITeamPlayer player, Long lastTeleported)
 	{
-		dataManager.setVariable(player.getName(), "lastTeleported", lastTeleported, new LongDataTranslator());
+		this.ensurePlayer(player.getName());
+		playerProperties.get(player.getName()).remove("lastTeleported");
+		playerProperties.get(player.getName()).put(new Property("lastTeleported", lastTeleported, new LongDataTranslator()));
 	}
 
 	public void setReturnLocation(ITeamPlayer player, Location returnLocation)
 	{
-		dataManager.setVariable(player.getName(), "returnLocation", returnLocation, new LocationDataTranslator(teamPlugin));
+		this.ensurePlayer(player.getName());
+		playerProperties.get(player.getName()).remove("returnLocation");
+		playerProperties.get(player.getName()).put(new Property("returnLocation", returnLocation, new LocationDataTranslator(teamPlugin)));
+	}
+
+	private void ensurePlayer(String name)
+	{
+		if (!playerProperties.containsKey(name))
+		{
+			PropertyList propertyList = new PropertyList();
+			propertyList.put("name", name);
+			propertyList.put("lastAttacked", "0");
+			propertyList.put("lastTeleported", "0");
+			propertyList.put("returnLocation", "");
+			playerProperties.put(name, propertyList);
+		}
 	}
 
 	public String toString()
@@ -222,5 +227,22 @@ public class PlayerFactory implements IPlayerFactory
 		for (ITeamPlayer player : players)
 			output += player.getName() + (player.isOnline() ? MessageUtil.green(" online") : MessageUtil.red(" offline")) + "\n";
 		return output.trim();
+	}
+
+	@Override
+	public void updateValues(PropertyList propertyList)
+	{
+		playerProperties.put(propertyList.get("name").getValue(), propertyList);
+	}
+
+	@Override
+	public List<String> exportData()
+	{
+		List<String> exportTeams = CommonUtil.emptyList(playerProperties.size());
+		for (PropertyList propertyList : playerProperties)
+		{
+			exportTeams.add(propertyList.toString());
+		}
+		return exportTeams;
 	}
 }

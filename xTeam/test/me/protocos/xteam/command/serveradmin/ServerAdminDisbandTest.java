@@ -5,7 +5,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamIsDefaultException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
@@ -18,14 +18,14 @@ public class ServerAdminDisbandTest
 {
 	private TeamPlugin teamPlugin;
 	private ServerAdminCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new ServerAdminDisband(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
@@ -48,7 +48,7 @@ public class ServerAdminDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband one".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You disbanded ONE [TeamAwesome]", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(teamManager.containsTeam("one"));
+		Assert.assertFalse(teamCoordinator.containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -61,7 +61,7 @@ public class ServerAdminDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband TeamAwesome".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You disbanded ONE [TeamAwesome]", fakePlayerSender.getLastMessage());
-		Assert.assertFalse(teamManager.containsTeam("one"));
+		Assert.assertFalse(teamCoordinator.containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -86,7 +86,7 @@ public class ServerAdminDisbandTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband RED".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertTrue(teamManager.containsTeam("RED"));
+		Assert.assertTrue(teamCoordinator.containsTeam("RED"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

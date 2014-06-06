@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 import me.protocos.xteam.XTeam;
 import me.protocos.xteam.core.IPlayerFactory;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -23,14 +23,14 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 public class TeamPlayerListener implements Listener
 {
 	private ILog log;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 	private IPlayerFactory playerFactory;
 
 	public TeamPlayerListener(XTeam xteam)
 	{
 		this.log = xteam.getLog();
-		this.teamManager = xteam.getTeamManager();
-		this.playerFactory = xteam.getPlayerManager();
+		this.teamCoordinator = xteam.getTeamCoordinator();
+		this.playerFactory = xteam.getPlayerFactory();
 	}
 
 	@EventHandler
@@ -61,8 +61,8 @@ public class TeamPlayerListener implements Listener
 						List<ITeam> availableTeams = CommonUtil.emptyList();
 						if (Configuration.BALANCE_TEAMS)
 						{
-							int smallest = teamManager.getDefaultTeams().get(0).size();
-							for (ITeam t : teamManager.getDefaultTeams())
+							int smallest = teamCoordinator.getDefaultTeams().get(0).size();
+							for (ITeam t : teamCoordinator.getDefaultTeams())
 							{
 								if (t.size() < smallest)
 								{
@@ -78,7 +78,7 @@ public class TeamPlayerListener implements Listener
 						}
 						else
 						{
-							for (ITeam t : teamManager.getDefaultTeams())
+							for (ITeam t : teamCoordinator.getDefaultTeams())
 							{
 								availableTeams.add(t);
 							}

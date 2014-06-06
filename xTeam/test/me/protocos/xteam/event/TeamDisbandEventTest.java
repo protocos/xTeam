@@ -21,7 +21,7 @@ public class TeamDisbandEventTest
 	{
 		//set up basics
 		fakePlugin = FakeXTeam.asTeamPlugin();
-		team = fakePlugin.getTeamManager().getTeam("ONE");
+		team = fakePlugin.getTeamCoordinator().getTeam("ONE");
 		//set up dispatcher and handler
 		dispatcher = new EventDispatcher();
 		handler = new DisbandHandler();

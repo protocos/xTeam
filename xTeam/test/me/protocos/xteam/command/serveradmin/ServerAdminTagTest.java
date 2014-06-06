@@ -5,7 +5,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamNameConflictsWithNameException;
@@ -20,14 +20,14 @@ public class ServerAdminTagTest
 {
 	private TeamPlugin teamPlugin;
 	private ServerAdminCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new ServerAdminTag(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
@@ -52,7 +52,7 @@ public class ServerAdminTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag one tag".split(" ")));
 		//ASSERT
 		Assert.assertEquals("The team tag has been set to tag", fakePlayerSender.getLastMessage());
-		Assert.assertEquals("tag", teamManager.getTeam("one").getTag());
+		Assert.assertEquals("tag", teamCoordinator.getTeam("one").getTag());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -65,7 +65,7 @@ public class ServerAdminTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag one two".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameConflictsWithNameException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", teamManager.getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -79,7 +79,7 @@ public class ServerAdminTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag one †Eåm".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", teamManager.getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -92,7 +92,7 @@ public class ServerAdminTagTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag three tag".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertEquals("TeamAwesome", teamManager.getTeam("one").getTag());
+		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

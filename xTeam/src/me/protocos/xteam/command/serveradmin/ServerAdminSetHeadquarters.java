@@ -22,7 +22,7 @@ public class ServerAdminSetHeadquarters extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam changeTeam = teamManager.getTeam(teamName);
+		ITeam changeTeam = teamCoordinator.getTeam(teamName);
 		changeTeam.setHeadquarters(new Headquarters(teamPlugin, teamPlayer.getLocation()));
 		player.sendMessage("You " + MessageUtil.green("set") + " the team headquarters for team " + teamName);
 	}
@@ -31,7 +31,7 @@ public class ServerAdminSetHeadquarters extends ServerAdminCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		teamName = commandContainer.getArgument(1);
-		Requirements.checkTeamExists(teamManager, teamName);
+		Requirements.checkTeamExists(teamCoordinator, teamName);
 	}
 
 	@Override

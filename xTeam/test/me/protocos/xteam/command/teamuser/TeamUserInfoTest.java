@@ -5,7 +5,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
@@ -18,13 +18,13 @@ public class TeamUserInfoTest
 {
 	private TeamPlugin teamPlugin;
 	private TeamUserCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
-		teamManager = teamPlugin.getTeamManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 		fakeCommand = new TeamUserInfo(teamPlugin);
 	}
 
@@ -128,9 +128,9 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute6()
 	{
 		//ASSEMBLE
-		teamManager.getTeam("red").addPlayer("Lonely");
-		teamManager.getTeam("red").promote("strandedhelix");
-		teamManager.getTeam("red").promote("Lonely");
+		teamCoordinator.getTeam("red").addPlayer("Lonely");
+		teamCoordinator.getTeam("red").promote("strandedhelix");
+		teamCoordinator.getTeam("red").promote("Lonely");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "strandedhelix", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
@@ -152,7 +152,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute7()
 	{
 		//ASSEMBLE
-		teamManager.getTeam("one").promote("protocos");
+		teamCoordinator.getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
@@ -173,7 +173,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecutePlayerNotOnTeamUsingTag()
 	{
 		//ASSEMBLE
-		teamManager.getTeam("one").promote("protocos");
+		teamCoordinator.getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info REDONE".split(" ")));
@@ -192,7 +192,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecutePlayerOnTeamUsingTag()
 	{
 		//ASSEMBLE
-		teamManager.getTeam("one").promote("protocos");
+		teamCoordinator.getTeam("one").promote("protocos");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info TeamAwesome".split(" ")));

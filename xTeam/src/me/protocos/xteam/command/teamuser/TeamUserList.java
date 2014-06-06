@@ -18,7 +18,7 @@ public class TeamUserList extends TeamUserCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		List<String> teams = teamManager.getTeams().getOrder();
+		List<String> teams = teamCoordinator.getTeams().getOrder();
 		String message = "Teams: " + teams.toString().replaceAll("\\[|\\]", "");
 		if (teams.isEmpty())
 			teamPlayer.sendMessage("There are " + MessageUtil.red("no") + " teams");

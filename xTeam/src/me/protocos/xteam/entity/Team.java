@@ -143,7 +143,7 @@ public class Team implements ITeam
 	{
 		teamPlugin = builder.teamPlugin;
 		bukkitUtil = teamPlugin.getBukkitUtil();
-		playerFactory = teamPlugin.getPlayerManager();
+		playerFactory = teamPlugin.getPlayerFactory();
 		teleportScheduler = teamPlugin.getTeleportScheduler();
 		name = builder.name;
 		tag = builder.tag;

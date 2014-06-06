@@ -33,7 +33,7 @@ public class TeamUserTeleportTest
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		bukkitUtil = teamPlugin.getBukkitUtil();
-		playerFactory = teamPlugin.getPlayerManager();
+		playerFactory = teamPlugin.getPlayerFactory();
 		teleportScheduler = teamPlugin.getTeleportScheduler();
 		fakeCommand = new TeamUserTeleport(teamPlugin);
 	}

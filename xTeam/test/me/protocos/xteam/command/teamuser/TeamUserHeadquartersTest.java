@@ -7,7 +7,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.IPlayerFactory;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
@@ -25,7 +25,7 @@ public class TeamUserHeadquartersTest
 	private Location before;
 	private TeamUserCommand fakeCommand;
 	private TeamPlugin teamPlugin;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 	private IPlayerFactory playerFactory;
 	private TeleportScheduler teleportScheduler;
 
@@ -35,8 +35,8 @@ public class TeamUserHeadquartersTest
 		before = new FakeLocation();
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new TeamUserHeadquarters(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
-		playerFactory = teamPlugin.getPlayerManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
+		playerFactory = teamPlugin.getPlayerFactory();
 		teleportScheduler = teamPlugin.getTeleportScheduler();
 	}
 
@@ -60,7 +60,7 @@ public class TeamUserHeadquartersTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You've been teleported to the team headquarters", fakePlayerSender.getLastMessage());
-		Assert.assertEquals(teamManager.getTeam("one").getHeadquarters().getLocation(), fakePlayerSender.getLocation());
+		Assert.assertEquals(teamCoordinator.getTeam("one").getHeadquarters().getLocation(), fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 		//TODO assert everything! (including teleport)
 	}
@@ -140,7 +140,7 @@ public class TeamUserHeadquartersTest
 	{
 		//ASSEMBLE
 		Configuration.TELE_REFRESH_DELAY = 60;
-		playerFactory.getPlayer("kmlanglois").teleportTo(teamManager.getTeam("ONE"));
+		playerFactory.getPlayer("kmlanglois").teleportTo(teamCoordinator.getTeam("ONE"));
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", before);
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq".split(" ")));

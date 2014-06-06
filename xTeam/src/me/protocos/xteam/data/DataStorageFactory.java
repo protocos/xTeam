@@ -19,11 +19,6 @@ public class DataStorageFactory
 	{
 		this.teamPlugin = teamPlugin;
 		this.bukkitUtil = teamPlugin.getBukkitUtil();
-		if (bukkitUtil.getPlugin("SQLibrary") != null)
-		{
-			db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", teamPlugin.getFolder(), "xTeam", ".db");
-			db.open();
-		}
 		this.log = teamPlugin.getLog();
 	}
 
@@ -35,14 +30,16 @@ public class DataStorageFactory
 		}
 	}
 
-	public IDataManager playerManagerFromString(String strategy)
+	public IPersistenceLayer dataManagerFromString(String strategy)
 	{
-		IDataManager playerDataManager = null;
+		IPersistenceLayer dataManager = null;
 		if ("SQLite".equalsIgnoreCase(strategy))
 		{
 			if (bukkitUtil.getPlugin("SQLibrary") != null)
 			{
-				playerDataManager = new PlayerSQLite(teamPlugin, db);
+				db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", teamPlugin.getFolder(), "xTeam", ".db");
+				db.open();
+				dataManager = new SQLiteDataManager(teamPlugin, db, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
 			}
 			else
 				this.log.error("Cannot use \"" + Configuration.STORAGE_TYPE + "\" for storage because plugin \"SQLibrary\" cannot be found!" +
@@ -50,46 +47,17 @@ public class DataStorageFactory
 		}
 		else if ("file".equalsIgnoreCase(Configuration.STORAGE_TYPE))
 		{
-			playerDataManager = new PlayerFlatFile(teamPlugin);
+			dataManager = new FlatFileDataManager(teamPlugin, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
 		}
 		else
 		{
 			this.log.error("\"" + Configuration.STORAGE_TYPE + "\" is not a valid storage type");
 		}
-		if (playerDataManager == null)
+		if (dataManager == null)
 		{
 			this.log.info("Resorting to \"file\" storage type");
-			playerDataManager = new PlayerFlatFile(teamPlugin);
+			dataManager = new FlatFileDataManager(teamPlugin, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
 		}
-		return playerDataManager;
-	}
-
-	public IDataManager teamManagerFromString(String strategy)
-	{
-		IDataManager teamDataManager = null;
-		if ("SQLite".equalsIgnoreCase(strategy))
-		{
-			if (bukkitUtil.getPlugin("SQLibrary") != null)
-			{
-				teamDataManager = new TeamSQLite(teamPlugin, db, teamPlugin.getTeamManager());
-			}
-			else
-				this.log.error("Cannot use \"" + Configuration.STORAGE_TYPE + "\" for storage because plugin \"SQLibrary\" cannot be found!" +
-						"\nSQLibrary can be found here: http://dev.bukkit.org/bukkit-plugins/sqlibrary/");
-		}
-		else if ("file".equalsIgnoreCase(Configuration.STORAGE_TYPE))
-		{
-			teamDataManager = new TeamFlatFile(teamPlugin, teamPlugin.getTeamManager());
-		}
-		else
-		{
-			this.log.error("\"" + Configuration.STORAGE_TYPE + "\" is not a valid storage type");
-		}
-		if (teamDataManager == null)
-		{
-			this.log.info("Resorting to \"file\" storage type");
-			teamDataManager = new TeamFlatFile(teamPlugin, teamPlugin.getTeamManager());
-		}
-		return teamDataManager;
+		return dataManager;
 	}
 }

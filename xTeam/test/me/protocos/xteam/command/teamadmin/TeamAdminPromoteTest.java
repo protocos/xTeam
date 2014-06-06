@@ -5,7 +5,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamAdminCommand;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerNotAdminException;
 import me.protocos.xteam.exception.TeamPlayerNotTeammateException;
@@ -19,14 +19,14 @@ public class TeamAdminPromoteTest
 {
 	private TeamPlugin teamPlugin;
 	private TeamAdminCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new TeamAdminPromote(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
@@ -49,7 +49,7 @@ public class TeamAdminPromoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals("You promoted protocos", fakePlayerSender.getLastMessage());
-		Assert.assertTrue(teamManager.getTeam("one").isAdmin("protocos"));
+		Assert.assertTrue(teamCoordinator.getTeam("one").isAdmin("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -62,7 +62,7 @@ public class TeamAdminPromoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote kmlanglois".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotAdminException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(teamManager.getTeam("one").isAdmin("kmlanglois"));
+		Assert.assertFalse(teamCoordinator.getTeam("one").isAdmin("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -87,7 +87,7 @@ public class TeamAdminPromoteTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote Lonely".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotTeammateException()).getMessage(), fakePlayerSender.getLastMessage());
-		Assert.assertFalse(teamManager.getTeam("one").isAdmin("Lonely"));
+		Assert.assertFalse(teamCoordinator.getTeam("one").isAdmin("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

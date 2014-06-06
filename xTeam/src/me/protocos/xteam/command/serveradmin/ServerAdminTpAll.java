@@ -21,7 +21,7 @@ public class ServerAdminTpAll extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam changeTeam = teamManager.getTeam(teamName);
+		ITeam changeTeam = teamCoordinator.getTeam(teamName);
 		for (TeamPlayer teammate : changeTeam.getOnlineTeammates())
 		{
 			if (teammate.isOnline())
@@ -37,7 +37,7 @@ public class ServerAdminTpAll extends ServerAdminCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		teamName = commandContainer.getArgument(1);
-		Requirements.checkTeamExists(teamManager, teamName);
+		Requirements.checkTeamExists(teamCoordinator, teamName);
 	}
 
 	@Override

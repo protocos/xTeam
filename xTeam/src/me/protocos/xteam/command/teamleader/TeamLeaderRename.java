@@ -21,7 +21,7 @@ public class TeamLeaderRename extends TeamLeaderCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		teamManager.renameTeam(team, desiredName);
+		teamCoordinator.renameTeam(team, desiredName);
 		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
 		{
 			mate.sendMessage("The team has been " + MessageUtil.green("renamed") + " to " + desiredName);
@@ -35,7 +35,7 @@ public class TeamLeaderRename extends TeamLeaderCommand
 		desiredName = commandContainer.getArgument(1);
 		Requirements.checkTeamNameTooLong(desiredName);
 		Requirements.checkTeamNameAlphaNumeric(desiredName);
-		Requirements.checkTeamNameAlreadyUsed(teamManager, desiredName, team);
+		Requirements.checkTeamNameAlreadyUsed(teamCoordinator, desiredName, team);
 	}
 
 	@Override

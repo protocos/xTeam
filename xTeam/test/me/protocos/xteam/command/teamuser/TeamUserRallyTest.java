@@ -7,7 +7,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.IPlayerFactory;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.TeamPlayer;
@@ -26,7 +26,7 @@ public class TeamUserRallyTest
 	private TeamPlugin teamPlugin;
 	private TeamUserCommand fakeCommand;
 	private BukkitUtil bukkitUtil;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 	private IPlayerFactory playerFactory;
 	private TeleportScheduler teleportScheduler;
 	private ITeam team;
@@ -36,10 +36,10 @@ public class TeamUserRallyTest
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		bukkitUtil = teamPlugin.getBukkitUtil();
-		teamManager = teamPlugin.getTeamManager();
-		playerFactory = teamPlugin.getPlayerManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
+		playerFactory = teamPlugin.getPlayerFactory();
 		teleportScheduler = teamPlugin.getTeleportScheduler();
-		team = teamManager.getTeam("one");
+		team = teamCoordinator.getTeam("one");
 		fakeCommand = new TeamUserRally(teamPlugin);
 	}
 
@@ -121,7 +121,7 @@ public class TeamUserRallyTest
 		playerFactory.getPlayer("protocos").setLastAttacked(System.currentTimeMillis());
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
-		teamManager.getTeam("one").setRally(new FakeLocation());
+		teamCoordinator.getTeam("one").setRally(new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rally".split(" ")));
 		//ASSERT
@@ -137,7 +137,7 @@ public class TeamUserRallyTest
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("kmlanglois"), TeamPlayer.class);
 		teleportScheduler.setCurrentTask(teamPlayer, 0);
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
-		teamManager.getTeam("one").setRally(new FakeLocation());
+		teamCoordinator.getTeam("one").setRally(new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rally".split(" ")));

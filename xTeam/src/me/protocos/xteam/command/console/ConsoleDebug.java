@@ -41,7 +41,7 @@ public class ConsoleDebug extends ConsoleCommand
 		else if (subCommand.equalsIgnoreCase("players"))
 			sender.sendMessage("Players: \n" + playerFactory.toString());
 		else if (subCommand.equalsIgnoreCase("teams"))
-			sender.sendMessage("Teams: \n" + teamManager.toString());
+			sender.sendMessage("Teams: \n" + teamCoordinator.toString());
 		else if (subCommand.equalsIgnoreCase("perms"))
 			sender.sendMessage("Debugging permissions: \n" + printPermissions());
 		else if (subCommand.equalsIgnoreCase("reset"))

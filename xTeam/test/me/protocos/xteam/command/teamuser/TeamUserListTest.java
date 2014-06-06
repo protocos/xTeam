@@ -5,7 +5,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
-import me.protocos.xteam.core.ITeamManager;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import org.junit.After;
@@ -16,14 +16,14 @@ public class TeamUserListTest
 {
 	private TeamPlugin teamPlugin;
 	private TeamUserCommand fakeCommand;
-	private ITeamManager teamManager;
+	private ITeamCoordinator teamCoordinator;
 
 	@Before
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		fakeCommand = new TeamUserList(teamPlugin);
-		teamManager = teamPlugin.getTeamManager();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
 
 	@Test
@@ -40,7 +40,7 @@ public class TeamUserListTest
 	public void ShouldBeTeamUserListExecuteNoTeams()
 	{
 		//ASSEMBLE
-		teamManager.clear();
+		teamCoordinator.clear();
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
@@ -53,9 +53,9 @@ public class TeamUserListTest
 	public void ShouldBeTeamUserListExecuteOneTeam()
 	{
 		//ASSEMBLE
-		teamManager.disbandTeam("ONE");
-		teamManager.disbandTeam("TWO");
-		teamManager.disbandTeam("blue");
+		teamCoordinator.disbandTeam("ONE");
+		teamCoordinator.disbandTeam("TWO");
+		teamCoordinator.disbandTeam("blue");
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));

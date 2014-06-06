@@ -24,7 +24,7 @@ public class TeamUserCreate extends TeamUserCommand
 	{
 		String leader = teamPlayer.getName();
 		Team newTeam = Team.createTeamWithLeader(teamPlugin, desiredName, leader);
-		teamManager.createTeam(newTeam);
+		teamCoordinator.createTeam(newTeam);
 		Configuration.lastCreated.put(leader, Long.valueOf(System.currentTimeMillis()));
 		teamPlayer.sendMessage("You " + MessageUtil.green("created") + " " + desiredName);
 	}
@@ -34,11 +34,11 @@ public class TeamUserCreate extends TeamUserCommand
 	{
 		desiredName = commandContainer.getArgument(1);
 		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
-		Requirements.checkTeamOnlyJoinDefault(teamManager, desiredName);
+		Requirements.checkTeamOnlyJoinDefault(teamCoordinator, desiredName);
 		Requirements.checkTeamNameTooLong(desiredName);
 		Requirements.checkPlayerLastCreatedTeam(teamPlayer);
 		Requirements.checkTeamNameAlphaNumeric(desiredName);
-		Requirements.checkTeamAlreadyExists(teamManager, desiredName);
+		Requirements.checkTeamAlreadyExists(teamCoordinator, desiredName);
 	}
 
 	@Override

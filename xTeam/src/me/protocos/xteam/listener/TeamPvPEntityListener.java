@@ -21,7 +21,7 @@ public class TeamPvPEntityListener implements Listener
 	public TeamPvPEntityListener(XTeam xteam)
 	{
 		this.log = xteam.getLog();
-		this.playerFactory = xteam.getPlayerManager();
+		this.playerFactory = xteam.getPlayerFactory();
 	}
 
 	private static void checkTeam(EntityDamageEvent event, ITeamPlayer attacker, ITeamPlayer defender)
