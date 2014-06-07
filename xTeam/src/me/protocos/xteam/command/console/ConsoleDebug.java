@@ -89,7 +89,7 @@ public class ConsoleDebug extends ConsoleCommand
 		{
 			if (!testmode)
 			{
-				this.log.info("Entering test mode");
+				this.log.info("ENTERING test mode...");
 				taskID = bukkitScheduler.scheduleSyncRepeatingTask(teamPlugin, new Runnable()
 				{
 					@Override
@@ -101,7 +101,7 @@ public class ConsoleDebug extends ConsoleCommand
 			}
 			else
 			{
-				this.log.info("Exiting test mode");
+				this.log.info("EXITING test mode...");
 				bukkitScheduler.cancelTask(taskID);
 			}
 			testmode = !testmode;
