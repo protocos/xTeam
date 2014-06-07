@@ -6,6 +6,9 @@ import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.data.configuration.Configuration;
+import me.protocos.xteam.event.IEventDispatcher;
+import me.protocos.xteam.event.TeamJoinEvent;
+import me.protocos.xteam.event.TeamLeaveEvent;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.IHeadquarters;
 import me.protocos.xteam.model.ILocatable;
@@ -31,9 +34,10 @@ public class Team implements ITeam
 	 */
 
 	private TeamPlugin teamPlugin;
+	private BukkitUtil bukkitUtil;
 	private IPlayerFactory playerFactory;
 	private TeleportScheduler teleportScheduler;
-	private BukkitUtil bukkitUtil;
+	private IEventDispatcher dispatcher;
 	private String name;
 	private String tag;
 	private String leader;
@@ -145,6 +149,7 @@ public class Team implements ITeam
 		bukkitUtil = teamPlugin.getBukkitUtil();
 		playerFactory = teamPlugin.getPlayerFactory();
 		teleportScheduler = teamPlugin.getTeleportScheduler();
+		dispatcher = teamPlugin.getEventDispatcher();
 		name = builder.name;
 		tag = builder.tag;
 		leader = builder.leader;
@@ -456,25 +461,29 @@ public class Team implements ITeam
 	@Override
 	public boolean addPlayer(String player)
 	{
-		return players.add(player);
+		boolean result = players.add(player);
+		if (result)
+			this.dispatcher.dispatchEvent(new TeamJoinEvent(this, playerFactory.getPlayer(player)));
+		return result;
 	}
 
 	@Override
 	public boolean removePlayer(String player)
 	{
+		boolean result = false;
 		if (!this.leader.equals(player))
 		{
 			admins.remove(player);
-			players.remove(player);
-			return true;
+			result = players.remove(player);
 		}
 		else if (this.leader.equals(player) && players.size() == 1)
 		{
 			this.leader = "";
-			players.remove(player);
-			return true;
+			result = players.remove(player);
 		}
-		return false;
+		if (result)
+			this.dispatcher.dispatchEvent(new TeamLeaveEvent(this, playerFactory.getPlayer(player)));
+		return result;
 	}
 
 	@Override

@@ -18,9 +18,11 @@ public class EventDispatcherTest
 	private TeamPlugin teamPlugin = FakeXTeam.asTeamPlugin();
 	private IEventDispatcher dispatcher;
 	private IEventHandler listener;
-	private String responseMessage;
+	private ITeamEvent spawnedEvent;
 	private ITeam team;
 	private InviteRequest inviteRequest;
+	private ITeamPlayer player1;
+	private ITeamPlayer player2;
 
 	@Before
 	public void setup()
@@ -29,40 +31,52 @@ public class EventDispatcherTest
 		class TeamListener implements IEventHandler
 		{
 			@TeamEvent
-			public void onRenameEvent(@SuppressWarnings("unused") TeamRenameEvent event)
+			public void onRenameEvent(TeamRenameEvent event)
 			{
-				responseMessage = "Rename Event";
+				spawnedEvent = event;
 			}
 
 			@TeamEvent
-			public void onCreateEvent(@SuppressWarnings("unused") TeamCreateEvent event)
+			public void onCreateEvent(TeamCreateEvent event)
 			{
-				responseMessage = "Create Event";
+				spawnedEvent = event;
 			}
 
 			@TeamEvent
-			public void onDisbandEvent(@SuppressWarnings("unused") TeamDisbandEvent event)
+			public void onDisbandEvent(TeamDisbandEvent event)
 			{
-				responseMessage = "Disband Event";
+				spawnedEvent = event;
 			}
 
 			@TeamEvent
-			public void onInviteEvent(@SuppressWarnings("unused") TeamInviteEvent event)
+			public void onInviteEvent(TeamInviteEvent event)
 			{
-				responseMessage = "Invite Event";
+				spawnedEvent = event;
 			}
 
 			@TeamEvent
-			public void onAcceptEvent(@SuppressWarnings("unused") TeamAcceptEvent event)
+			public void onAcceptEvent(TeamAcceptEvent event)
 			{
-				responseMessage = "Accept Event";
+				spawnedEvent = event;
+			}
+
+			@TeamEvent
+			public void onJoinEvent(TeamJoinEvent event)
+			{
+				spawnedEvent = event;
+			}
+
+			@TeamEvent
+			public void onLeaveEvent(TeamLeaveEvent event)
+			{
+				spawnedEvent = event;
 			}
 		}
 		listener = new TeamListener();
 		dispatcher.addTeamListener(listener);
 		team = new Team.Builder(teamPlugin, "one").build();
-		ITeamPlayer player1 = new TeamPlayer(teamPlugin, new FakePlayer("protocos"));
-		ITeamPlayer player2 = new TeamPlayer(teamPlugin, new FakePlayer("kmlanglois"));
+		player1 = new TeamPlayer(teamPlugin, new FakePlayer("protocos"));
+		player2 = new TeamPlayer(teamPlugin, new FakePlayer("kmlanglois"));
 		inviteRequest = new InviteRequest(player1, player2, System.currentTimeMillis());
 	}
 
@@ -74,7 +88,7 @@ public class EventDispatcherTest
 		//ACT
 		dispatcher.dispatchEvent(event);
 		//ASSERT
-		Assert.assertEquals("Rename Event", responseMessage);
+		Assert.assertEquals(TeamRenameEvent.class, spawnedEvent.getClass());
 	}
 
 	@Test
@@ -85,7 +99,7 @@ public class EventDispatcherTest
 		//ACT
 		dispatcher.dispatchEvent(event);
 		//ASSERT
-		Assert.assertEquals("Create Event", responseMessage);
+		Assert.assertEquals(TeamCreateEvent.class, spawnedEvent.getClass());
 	}
 
 	@Test
@@ -96,7 +110,7 @@ public class EventDispatcherTest
 		//ACT
 		dispatcher.dispatchEvent(event);
 		//ASSERT
-		Assert.assertEquals("Disband Event", responseMessage);
+		Assert.assertEquals(TeamDisbandEvent.class, spawnedEvent.getClass());
 	}
 
 	@Test
@@ -107,7 +121,7 @@ public class EventDispatcherTest
 		//ACT
 		dispatcher.dispatchEvent(event);
 		//ASSERT
-		Assert.assertEquals("Invite Event", responseMessage);
+		Assert.assertEquals(TeamInviteEvent.class, spawnedEvent.getClass());
 	}
 
 	@Test
@@ -118,7 +132,29 @@ public class EventDispatcherTest
 		//ACT
 		dispatcher.dispatchEvent(event);
 		//ASSERT
-		Assert.assertEquals("Accept Event", responseMessage);
+		Assert.assertEquals(TeamAcceptEvent.class, spawnedEvent.getClass());
+	}
+
+	@Test
+	public void ShouldBeJoinEvent()
+	{
+		//ASSEMBLE
+		ITeamEvent event = new TeamJoinEvent(team, player1);
+		//ACT
+		dispatcher.dispatchEvent(event);
+		//ASSERT
+		Assert.assertEquals(TeamJoinEvent.class, spawnedEvent.getClass());
+	}
+
+	@Test
+	public void ShouldBeLeaveEvent()
+	{
+		//ASSEMBLE
+		ITeamEvent event = new TeamLeaveEvent(team, player1);
+		//ACT
+		dispatcher.dispatchEvent(event);
+		//ASSERT
+		Assert.assertEquals(TeamLeaveEvent.class, spawnedEvent.getClass());
 	}
 
 	@After

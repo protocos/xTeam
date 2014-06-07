@@ -324,7 +324,7 @@ public class FakeServer implements Server
 				return p;
 			}
 		}
-		return null;
+		return new FakeOfflinePlayer(name);
 	}
 
 	@Override

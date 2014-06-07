@@ -17,14 +17,12 @@ public class SetTeamAction
 	private TeamPlugin teamPlugin;
 	private ITeamCoordinator teamCoordinator;
 	private IPlayerFactory playerFactory;
-	private CommandSender sender;
 
-	public SetTeamAction(TeamPlugin teamPlugin, CommandSender sender)
+	public SetTeamAction(TeamPlugin teamPlugin)
 	{
 		this.teamPlugin = teamPlugin;
 		this.teamCoordinator = teamPlugin.getTeamCoordinator();
 		this.playerFactory = teamPlugin.getPlayerFactory();
-		this.sender = sender;
 	}
 
 	public void checkRequirementsOn(String playerName, String teamName) throws TeamException
@@ -36,24 +34,24 @@ public class SetTeamAction
 		Requirements.checkTeamPlayerMax(teamCoordinator, teamName);
 	}
 
-	public void actOn(String playerName, String teamName)
+	public void actOn(CommandSender sender, String playerName, String teamName)
 	{
 		ITeamPlayer p = playerFactory.getPlayer(playerName);
 		if (p.hasTeam())
 		{
-			removePlayer(p);
+			removePlayer(sender, p);
 		}
 		if (!teamCoordinator.containsTeam(teamName))
 		{
-			createTeamWithLeader(teamName, p);
+			createTeamWithLeader(sender, teamName, p);
 		}
 		else
 		{
-			addPlayerToTeam(p, teamCoordinator.getTeam(teamName));
+			addPlayerToTeam(sender, p, teamCoordinator.getTeam(teamName));
 		}
 	}
 
-	public void removePlayer(ITeamPlayer player)
+	public void removePlayer(CommandSender sender, ITeamPlayer player)
 	{
 		ITeam playerTeam = player.getTeam();
 		String teamName = playerTeam.getName();
@@ -88,7 +86,7 @@ public class SetTeamAction
 		}
 	}
 
-	public void addPlayerToTeam(ITeamPlayer player, ITeam team)
+	public void addPlayerToTeam(CommandSender sender, ITeamPlayer player, ITeam team)
 	{
 		String senderName = sender.getName();
 		String playerName = player.getName();
@@ -107,7 +105,7 @@ public class SetTeamAction
 		}
 	}
 
-	public void createTeamWithLeader(String teamName, ITeamPlayer player)
+	public void createTeamWithLeader(CommandSender sender, String teamName, ITeamPlayer player)
 	{
 		String senderName = sender.getName();
 		String playerName = player.getName();

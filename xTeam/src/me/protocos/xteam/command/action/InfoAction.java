@@ -49,7 +49,7 @@ public class InfoAction
 	{
 		if (teamCoordinator.getTeam(other) == null)
 		{
-			if (playerFactory.getPlayer(other) == null)
+			if (!playerFactory.getPlayer(other).hasPlayedBefore())
 			{
 				throw new TeamOrPlayerDoesNotExistException();
 			}

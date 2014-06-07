@@ -1,6 +1,7 @@
 package me.protocos.xteam.event;
 
 import me.protocos.xteam.entity.ITeam;
+import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.model.InviteRequest;
 
 public class TeamAcceptEvent implements ITeamEvent
@@ -24,6 +25,16 @@ public class TeamAcceptEvent implements ITeamEvent
 	public ITeam getTeam()
 	{
 		return team;
+	}
+
+	public ITeamPlayer getInviteSender()
+	{
+		return request.getInviteSender();
+	}
+
+	public ITeamPlayer getInviteReceiver()
+	{
+		return request.getInviteReceiver();
 	}
 
 	public InviteRequest getRequest()

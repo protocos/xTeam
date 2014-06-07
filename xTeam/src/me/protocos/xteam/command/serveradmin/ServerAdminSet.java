@@ -15,12 +15,13 @@ public class ServerAdminSet extends ServerAdminCommand
 	public ServerAdminSet(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
+		set = new SetTeamAction(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		set.actOn(playerName, teamName);
+		set.actOn(player, playerName, teamName);
 	}
 
 	@Override
@@ -28,7 +29,6 @@ public class ServerAdminSet extends ServerAdminCommand
 	{
 		playerName = commandContainer.getArgument(1);
 		teamName = commandContainer.getArgument(2);
-		set = new SetTeamAction(teamPlugin, player);
 		set.checkRequirementsOn(playerName, teamName);
 	}
 

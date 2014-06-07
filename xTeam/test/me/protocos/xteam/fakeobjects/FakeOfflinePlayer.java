@@ -19,7 +19,7 @@ public class FakeOfflinePlayer implements OfflinePlayer
 
 	public FakeOfflinePlayer(String name)
 	{
-		this.name = name;
+		this(name, false, false, false);
 	}
 
 	public FakeOfflinePlayer(String name, boolean isOp, boolean isOnline, boolean hasPlayedBefore)

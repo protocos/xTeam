@@ -15,12 +15,13 @@ public class ConsoleSet extends ConsoleCommand
 	public ConsoleSet(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
+		set = new SetTeamAction(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		set.actOn(playerName, teamName);
+		set.actOn(sender, playerName, teamName);
 	}
 
 	@Override
@@ -28,7 +29,6 @@ public class ConsoleSet extends ConsoleCommand
 	{
 		playerName = commandContainer.getArgument(1);
 		teamName = commandContainer.getArgument(2);
-		set = new SetTeamAction(teamPlugin, sender);
 		set.checkRequirementsOn(playerName, teamName);
 	}
 
