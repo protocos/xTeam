@@ -58,6 +58,7 @@ public class ConsoleHelpTest
 				"/team tag [Team] [Tag] - set team tag\n" +
 				"/team open [Team] - open team to public joining\n" +
 				"/team set [Player] [Team] - set team of player\n" +
+				"/team sethq [Team] [World] [X] [Y] [Z] - set headquarters of team\n" +
 				"/team setleader [Team] [Player] - set leader of team\n" +
 				"/team teleallhq - teleports everyone to their headquarters", fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
