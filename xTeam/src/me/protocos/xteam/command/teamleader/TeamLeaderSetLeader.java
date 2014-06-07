@@ -27,7 +27,7 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 		if (other.isOnline())
 			other.sendMessage("You are now the " + MessageUtil.green("team leader"));
 		teamPlayer.sendMessage(otherPlayer + " is now the " + MessageUtil.green("team leader") + " (you are an admin)" +
-				"\nYou can now " + MessageUtil.gold("leave") + " the team");
+				"\nYou can now " + MessageUtil.red("leave") + " the team");
 	}
 
 	@Override

@@ -25,9 +25,9 @@ public class ServerAdminDemote extends ServerAdminCommand
 	{
 		changeTeam.demote(playerName);
 		if (!changeTeam.containsPlayer(player.getName()))
-			player.sendMessage("You " + MessageUtil.gold("demoted") + " " + playerName);
+			player.sendMessage("You " + MessageUtil.red("demoted") + " " + playerName);
 		ITeamPlayer other = playerFactory.getPlayer(playerName);
-		other.sendMessage("You have been " + MessageUtil.gold("demoted") + " by an admin");
+		other.sendMessage("You have been " + MessageUtil.red("demoted") + " by an admin");
 	}
 
 	@Override

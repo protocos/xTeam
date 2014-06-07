@@ -29,7 +29,7 @@ public class TeamUserChat extends TeamUserCommand
 		if (option.equalsIgnoreCase("OFF"))
 		{
 			Configuration.chatStatus.remove(teamPlayer.getName());
-			teamPlayer.sendMessage("You are now chatting with " + MessageUtil.gold("everyone"));
+			teamPlayer.sendMessage("You are now chatting with " + MessageUtil.red("everyone"));
 		}
 	}
 

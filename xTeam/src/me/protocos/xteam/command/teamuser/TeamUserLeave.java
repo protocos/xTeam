@@ -28,9 +28,9 @@ public class TeamUserLeave extends TeamUserCommand
 		{
 			ITeamPlayer mate = playerFactory.getPlayer(teammate);
 			if (mate.isOnline())
-				mate.sendMessage(teamPlayer.getName() + " " + MessageUtil.gold("left") + " your team");
+				mate.sendMessage(teamPlayer.getName() + " " + MessageUtil.red("left") + " your team");
 		}
-		teamPlayer.sendMessage("You " + MessageUtil.gold("left") + " " + team.getName());
+		teamPlayer.sendMessage("You " + MessageUtil.red("left") + " " + team.getName());
 	}
 
 	@Override

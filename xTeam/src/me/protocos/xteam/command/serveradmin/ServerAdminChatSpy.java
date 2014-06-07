@@ -21,7 +21,7 @@ public class ServerAdminChatSpy extends ServerAdminCommand
 		if (!Configuration.spies.contains(player.getName()))
 		{
 			Configuration.spies.add(player.getName());
-			player.sendMessage("You are " + MessageUtil.gold("now") + " spying on team chat");
+			player.sendMessage("You are " + MessageUtil.red("now") + " spying on team chat");
 		}
 		else
 		{

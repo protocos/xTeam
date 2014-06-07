@@ -61,11 +61,6 @@ public class MessageUtil
 		return ChatColor.GREEN + string + ChatColor.RESET;
 	}
 
-	public static String gold(String string)
-	{
-		return ChatColor.GOLD + string + ChatColor.RESET;
-	}
-
 	public static String red(String string)
 	{
 		return ChatColor.RED + string + ChatColor.RESET;

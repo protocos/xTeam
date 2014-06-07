@@ -26,11 +26,11 @@ public class ServerAdminRemove extends ServerAdminCommand
 		ITeam changeTeam = changePlayer.getTeam();
 		changeTeam.removePlayer(playerName);
 		if (!playerName.equals(player.getName()))
-			player.sendMessage("You " + MessageUtil.gold("removed") + " " + playerName + " from " + teamName);
-		changePlayer.sendMessage("You have been " + MessageUtil.gold("removed") + " from " + changeTeam.getName() + " by an admin");
+			player.sendMessage("You " + MessageUtil.red("removed") + " " + playerName + " from " + teamName);
+		changePlayer.sendMessage("You have been " + MessageUtil.red("removed") + " from " + changeTeam.getName() + " by an admin");
 		if (changeTeam.isEmpty())
 		{
-			player.sendMessage(teamName + " has been " + MessageUtil.gold("disbanded"));
+			player.sendMessage(teamName + " has been " + MessageUtil.red("disbanded"));
 			teamCoordinator.disbandTeam(changeTeam.getName());
 		}
 	}

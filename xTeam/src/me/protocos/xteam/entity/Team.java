@@ -387,9 +387,9 @@ public class Team implements ITeam
 			message += "\n" + (ChatColor.RESET + "Team Leader - " + ChatColor.GREEN + this.getLeader());
 		if (this.admins.size() > 0)
 			message += "\n" + (ChatColor.RESET + "Team Admins - " + ChatColor.GREEN + this.admins.toString().replaceAll("\\[|\\]" + (this.hasLeader() ? "|" + this.getLeader() + ", " : ""), ""));
-		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.green("Open")) : (MessageUtil.gold("Closed"))));
+		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.green("Open")) : (MessageUtil.red("Closed"))));
 		if (usePublicData)
-			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.green("Set")) : (MessageUtil.gold("None set"))));
+			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.green("Set")) : (MessageUtil.red("None set"))));
 		else
 			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (ChatColor.GREEN + "X:" + this.getHeadquarters().getRelativeX() + " Y:" + this.getHeadquarters().getRelativeY() + " Z:" + this.getHeadquarters().getRelativeZ()) : (ChatColor.RED + "None set")));
 		List<TeamPlayer> onlineTeammates = this.getOnlineTeammates();

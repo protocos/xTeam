@@ -24,10 +24,10 @@ public class ConsoleDemote extends ConsoleCommand
 	{
 		ITeam team = teamCoordinator.getTeam(teamName);
 		team.demote(playerName);
-		sender.sendMessage("You" + MessageUtil.gold(" demoted ") + playerName);
+		sender.sendMessage("You" + MessageUtil.red(" demoted ") + playerName);
 		ITeamPlayer other = playerFactory.getPlayer(playerName);
 		if (other.isOnline())
-			other.sendMessage("You've been " + MessageUtil.gold("demoted"));
+			other.sendMessage("You've been " + MessageUtil.red("demoted"));
 	}
 
 	@Override

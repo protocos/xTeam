@@ -16,12 +16,14 @@ public class Message
 		private final String message;
 		private final Set<IMessageRecipient> recipients;
 		private final Set<IMessageRecipient> excludeSet;
+		private boolean formatting;
 
 		public Builder(String message)
 		{
 			this.message = message;
 			this.recipients = new HashSet<IMessageRecipient>();
 			this.excludeSet = new HashSet<IMessageRecipient>();
+			this.formatting = true;
 		}
 
 		public Builder addRecipients(IMessageRecipient... messageRecipients)
@@ -48,6 +50,12 @@ public class Message
 			return this;
 		}
 
+		public Builder disableFormatting()
+		{
+			this.formatting = false;
+			return this;
+		}
+
 		public Message build()
 		{
 			return new Message(this);
@@ -56,7 +64,7 @@ public class Message
 
 	private Message(Builder builder)
 	{
-		this.message = MessageUtil.formatMessage(builder.message);
+		this.message = (builder.formatting ? MessageUtil.formatMessage(builder.message) : builder.message);
 		this.recipients = new ArrayList<IMessageRecipient>();
 		this.recipients.addAll(builder.recipients);
 		for (IMessageRecipient recipient : builder.recipients)

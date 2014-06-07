@@ -21,7 +21,7 @@ public class TeamLeaderOpen extends TeamLeaderCommand
 		if (team.isOpenJoining())
 			teamPlayer.sendMessage("Open joining is now " + MessageUtil.green("enabled"));
 		else
-			teamPlayer.sendMessage("Open joining is now " + MessageUtil.gold("disabled"));
+			teamPlayer.sendMessage("Open joining is now " + MessageUtil.red("disabled"));
 	}
 
 	@Override

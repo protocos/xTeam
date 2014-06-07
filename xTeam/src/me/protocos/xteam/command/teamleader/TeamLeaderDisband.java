@@ -20,10 +20,10 @@ public class TeamLeaderDisband extends TeamLeaderCommand
 	{
 		for (ITeamPlayer playerDisband : teamPlayer.getOnlineTeammates())
 		{
-			playerDisband.sendMessage("Team has been " + MessageUtil.gold("disbanded") + " by the team leader");
+			playerDisband.sendMessage("Team has been " + MessageUtil.red("disbanded") + " by the team leader");
 		}
 		teamCoordinator.disbandTeam(team.getName());
-		teamPlayer.sendMessage("You " + MessageUtil.gold("disbanded") + " your team");
+		teamPlayer.sendMessage("You " + MessageUtil.red("disbanded") + " your team");
 	}
 
 	@Override

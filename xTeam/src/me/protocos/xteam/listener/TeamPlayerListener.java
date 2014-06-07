@@ -95,7 +95,7 @@ public class TeamPlayerListener implements Listener
 					}
 					else
 					{
-						log.info(MessageUtil.gold("Player not assigned a team: No default teams have been set"));
+						log.info(MessageUtil.red("Player not assigned a team: No default teams have been set"));
 					}
 				}
 			}
@@ -107,11 +107,11 @@ public class TeamPlayerListener implements Listener
 					if (team.hasHeadquarters())
 					{
 						teamPlayer.teleportTo(team.getHeadquarters());
-						teamPlayer.sendMessage(MessageUtil.gold("You've been teleported to your Headquarters"));
+						teamPlayer.sendMessage(MessageUtil.red("You've been teleported to your Headquarters"));
 					}
 					else
 					{
-						teamPlayer.sendMessage(MessageUtil.gold("Your team does not have an Headquarters"));
+						teamPlayer.sendMessage(MessageUtil.red("Your team does not have an Headquarters"));
 					}
 				}
 			}
@@ -156,7 +156,7 @@ public class TeamPlayerListener implements Listener
 					}
 					else
 					{
-						player.sendMessage(MessageUtil.gold("You have not set a headquarters yet."));
+						player.sendMessage(MessageUtil.red("You have not set a headquarters yet."));
 					}
 				}
 			}

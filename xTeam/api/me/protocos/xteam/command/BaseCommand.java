@@ -52,7 +52,7 @@ public abstract class BaseCommand
 		}
 		catch (TeamException e)
 		{
-			sender.sendMessage(MessageUtil.gold(e.getMessage()));
+			sender.sendMessage(MessageUtil.red(e.getMessage()));
 			log.debug("Command execute failed for reason: " + e.getMessage());
 		}
 		catch (InvalidClassException e)

@@ -22,9 +22,9 @@ public class ConsoleDisband extends ConsoleCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		changeTeam.sendMessage("Your team has been " + MessageUtil.gold("disbanded") + " by an admin");
+		changeTeam.sendMessage("Your team has been " + MessageUtil.red("disbanded") + " by an admin");
 		teamCoordinator.disbandTeam(teamName);
-		sender.sendMessage("You " + MessageUtil.gold("disbanded") + " " + changeTeam.getName() + (changeTeam.hasTag() ? " [" + changeTeam.getTag() + "]" : ""));
+		sender.sendMessage("You " + MessageUtil.red("disbanded") + " " + changeTeam.getName() + (changeTeam.hasTag() ? " [" + changeTeam.getTag() + "]" : ""));
 	}
 
 	@Override
