@@ -5,7 +5,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminOpen extends ServerAdminCommand
@@ -25,7 +25,7 @@ public class ServerAdminOpen extends ServerAdminCommand
 		if (changeTeam.isOpenJoining())
 			player.sendMessage("Open joining is now " + MessageUtil.green("enabled") + " for team " + teamName);
 		else
-			player.sendMessage("Open joining is now " + MessageUtil.red("disabled") + " for team " + teamName);
+			player.sendMessage("Open joining is now " + MessageUtil.gold("disabled") + " for team " + teamName);
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminTag extends ServerAdminCommand

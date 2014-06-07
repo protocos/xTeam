@@ -1,11 +1,12 @@
 package me.protocos.xteam.entity;
 
 import java.util.Set;
+import me.protocos.xteam.message.IMessageRecipientContainer;
 import me.protocos.xteam.model.IHeadquarters;
 import me.protocos.xteam.model.ILocatable;
 import org.bukkit.Location;
 
-public interface ITeam extends ITeamEntity, ILocatable
+public interface ITeam extends ITeamEntity, ILocatable, IMessageRecipientContainer
 {
 	public abstract void setName(String name);
 

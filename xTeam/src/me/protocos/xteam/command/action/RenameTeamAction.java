@@ -5,7 +5,7 @@ import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamEntity;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.message.MessageUtil;
 
 public class RenameTeamAction
 {

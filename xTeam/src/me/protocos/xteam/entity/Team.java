@@ -9,13 +9,15 @@ import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.event.IEventDispatcher;
 import me.protocos.xteam.event.TeamJoinEvent;
 import me.protocos.xteam.event.TeamLeaveEvent;
+import me.protocos.xteam.message.IMessageRecipient;
+import me.protocos.xteam.message.Message;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.IHeadquarters;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.model.NullHeadquarters;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.MessageUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.ChatColor;
@@ -348,7 +350,20 @@ public class Team implements ITeam
 	public void sendMessage(String message)
 	{
 		//EXTERNAL call
-		MessageUtil.sendMessageToTeam(this, message);
+		//		MessageUtil.sendMessageToTeam(this, message);
+		Message m = new Message.Builder(message).addRecipients(this).build();
+		m.send();
+	}
+
+	@Override
+	public Set<IMessageRecipient> getMessageRecipients()
+	{
+		Set<IMessageRecipient> recipients = new HashSet<IMessageRecipient>();
+		for (ITeamPlayer teamPlayer : this.getTeammates())
+		{
+			recipients.add(teamPlayer);
+		}
+		return recipients;
 	}
 
 	@Override
@@ -372,9 +387,9 @@ public class Team implements ITeam
 			message += "\n" + (ChatColor.RESET + "Team Leader - " + ChatColor.GREEN + this.getLeader());
 		if (this.admins.size() > 0)
 			message += "\n" + (ChatColor.RESET + "Team Admins - " + ChatColor.GREEN + this.admins.toString().replaceAll("\\[|\\]" + (this.hasLeader() ? "|" + this.getLeader() + ", " : ""), ""));
-		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.green("Open")) : (MessageUtil.red("Closed"))));
+		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.green("Open")) : (MessageUtil.gold("Closed"))));
 		if (usePublicData)
-			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.green("Set")) : (ChatColor.RED + "None set")));
+			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.green("Set")) : (MessageUtil.gold("None set"))));
 		else
 			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (ChatColor.GREEN + "X:" + this.getHeadquarters().getRelativeX() + " Y:" + this.getHeadquarters().getRelativeY() + " Z:" + this.getHeadquarters().getRelativeZ()) : (ChatColor.RED + "None set")));
 		List<TeamPlayer> onlineTeammates = this.getOnlineTeammates();

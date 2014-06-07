@@ -9,10 +9,10 @@ import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PermissionUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -233,7 +233,9 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public void sendMessageToTeam(String message)
 	{
-		MessageUtil.sendMessageToTeam(this, message);
+		//		MessageUtil.sendMessageToTeam(this, message);
+		Message m = new Message.Builder(message).addRecipients(this.getTeam()).build();
+		m.send();
 	}
 
 	@Override

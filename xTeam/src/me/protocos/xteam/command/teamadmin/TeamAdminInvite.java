@@ -7,8 +7,8 @@ import me.protocos.xteam.command.TeamAdminCommand;
 import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.InviteRequest;
-import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamAdminInvite extends TeamAdminCommand

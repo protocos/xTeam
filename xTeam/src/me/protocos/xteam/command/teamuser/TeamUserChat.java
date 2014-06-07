@@ -6,7 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserChat extends TeamUserCommand
@@ -29,7 +29,7 @@ public class TeamUserChat extends TeamUserCommand
 		if (option.equalsIgnoreCase("OFF"))
 		{
 			Configuration.chatStatus.remove(teamPlayer.getName());
-			teamPlayer.sendMessage("You are now chatting with " + MessageUtil.red("everyone"));
+			teamPlayer.sendMessage("You are now chatting with " + MessageUtil.gold("everyone"));
 		}
 	}
 

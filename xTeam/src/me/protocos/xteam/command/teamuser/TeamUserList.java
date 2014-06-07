@@ -5,7 +5,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserList extends TeamUserCommand
@@ -21,7 +21,7 @@ public class TeamUserList extends TeamUserCommand
 		List<String> teams = teamCoordinator.getTeams().getOrder();
 		String message = "Teams: " + teams.toString().replaceAll("\\[|\\]", "");
 		if (teams.isEmpty())
-			teamPlayer.sendMessage("There are " + MessageUtil.red("no") + " teams");
+			teamPlayer.sendMessage("There are " + MessageUtil.gold("no") + " teams");
 		else
 			teamPlayer.sendMessage(message);
 	}

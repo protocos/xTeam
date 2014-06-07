@@ -8,9 +8,9 @@ import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.event.IEventDispatcher;
 import me.protocos.xteam.event.TeamAcceptEvent;
 import me.protocos.xteam.event.TeamInviteEvent;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.MessageUtil;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public class InviteHandler
@@ -41,7 +41,7 @@ public class InviteHandler
 			{
 				if (invites.containsKey(invitee.getName()))
 				{
-					invitee.sendMessage("Invite from " + inviter.getName() + " has " + MessageUtil.red("expired"));
+					invitee.sendMessage("Invite from " + inviter.getName() + " has " + MessageUtil.gold("expired"));
 					invites.remove(invitee.getName());
 				}
 			}

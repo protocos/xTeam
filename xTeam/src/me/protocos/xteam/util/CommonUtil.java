@@ -183,9 +183,9 @@ public class CommonUtil
 		return new ArrayList<String>(Arrays.asList(strings));
 	}
 
-	public static List<Object> toList(Object... objects)
+	public static <T> List<T> toList(@SuppressWarnings("unchecked") T... objects)
 	{
-		return new ArrayList<Object>(Arrays.asList(objects));
+		return new ArrayList<T>(Arrays.asList(objects));
 	}
 
 	public static boolean containsIgnoreCase(List<String> list, String string)

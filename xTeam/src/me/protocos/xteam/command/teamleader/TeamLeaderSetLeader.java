@@ -6,7 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamLeaderSetLeader extends TeamLeaderCommand
@@ -27,7 +27,7 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 		if (other.isOnline())
 			other.sendMessage("You are now the " + MessageUtil.green("team leader"));
 		teamPlayer.sendMessage(otherPlayer + " is now the " + MessageUtil.green("team leader") + " (you are an admin)" +
-				"\nYou can now " + MessageUtil.red("leave") + " the team");
+				"\nYou can now " + MessageUtil.gold("leave") + " the team");
 	}
 
 	@Override

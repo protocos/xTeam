@@ -4,7 +4,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamLeaderOpen extends TeamLeaderCommand
@@ -21,7 +21,7 @@ public class TeamLeaderOpen extends TeamLeaderCommand
 		if (team.isOpenJoining())
 			teamPlayer.sendMessage("Open joining is now " + MessageUtil.green("enabled"));
 		else
-			teamPlayer.sendMessage("Open joining is now " + MessageUtil.red("disabled"));
+			teamPlayer.sendMessage("Open joining is now " + MessageUtil.gold("disabled"));
 	}
 
 	@Override

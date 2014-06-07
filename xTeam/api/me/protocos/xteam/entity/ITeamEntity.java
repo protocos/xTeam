@@ -1,10 +1,9 @@
 package me.protocos.xteam.entity;
 
 import java.util.List;
-import me.protocos.xteam.entity.OfflineTeamPlayer;
-import me.protocos.xteam.entity.TeamPlayer;
+import me.protocos.xteam.message.IMessageRecipient;
 
-public interface ITeamEntity
+public interface ITeamEntity extends IMessageRecipient
 {
 	public abstract ITeam getTeam();
 
@@ -23,8 +22,6 @@ public interface ITeamEntity
 	public abstract List<TeamPlayer> getOnlineTeammates();
 
 	public abstract List<ITeamPlayer> getTeammates();
-
-	public abstract void sendMessage(String message);
 
 	public abstract String getPublicInfo();
 

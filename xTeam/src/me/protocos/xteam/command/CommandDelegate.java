@@ -2,9 +2,9 @@ package me.protocos.xteam.command;
 
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.exception.TeamInvalidCommandException;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.MessageUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -32,7 +32,7 @@ public class CommandDelegate implements CommandExecutor
 			logCommand(commandContainer);
 			if (command == null)
 			{
-				sender.sendMessage(MessageUtil.red((new TeamInvalidCommandException()).getMessage()));
+				sender.sendMessage(MessageUtil.gold((new TeamInvalidCommandException()).getMessage()));
 				log.debug("Command execute failed for reason: " + (new TeamInvalidCommandException()).getMessage());
 			}
 			else if (command.execute(commandContainer) == true)
@@ -40,7 +40,7 @@ public class CommandDelegate implements CommandExecutor
 		}
 		catch (Exception e)
 		{
-			sender.sendMessage(MessageUtil.red("There was a server error executing command: /" + commandID + " " + CommonUtil.concatenate(args)));
+			sender.sendMessage(MessageUtil.gold("There was a server error executing command: /" + commandID + " " + CommonUtil.concatenate(args)));
 			log.exception(e);
 		}
 		return true;

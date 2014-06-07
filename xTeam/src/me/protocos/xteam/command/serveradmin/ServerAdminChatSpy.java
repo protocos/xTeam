@@ -5,7 +5,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminChatSpy extends ServerAdminCommand
@@ -21,7 +21,7 @@ public class ServerAdminChatSpy extends ServerAdminCommand
 		if (!Configuration.spies.contains(player.getName()))
 		{
 			Configuration.spies.add(player.getName());
-			player.sendMessage("You are " + MessageUtil.red("now") + " spying on team chat");
+			player.sendMessage("You are " + MessageUtil.gold("now") + " spying on team chat");
 		}
 		else
 		{

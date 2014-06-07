@@ -5,9 +5,10 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
+import me.protocos.xteam.message.Message;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.MessageUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -139,7 +140,9 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public void sendMessageToTeam(String message)
 	{
-		MessageUtil.sendMessageToTeam(this, message);
+		//		MessageUtil.sendMessageToTeam(this, message);
+		Message m = new Message.Builder(message).addRecipients(this.getTeam()).build();
+		m.send();
 	}
 
 	@Override
@@ -221,12 +224,12 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public String getPublicInfo()
 	{
-		return MessageUtil.red("    " + this.getName());
+		return MessageUtil.gold("    " + this.getName());
 	}
 
 	@Override
 	public String getPrivateInfo()
 	{
-		return MessageUtil.red("    " + this.getName()) + " was last online on " + this.getLastPlayed();
+		return MessageUtil.gold("    " + this.getName()) + " was last online on " + this.getLastPlayed();
 	}
 }

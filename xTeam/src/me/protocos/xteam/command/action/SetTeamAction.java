@@ -9,7 +9,7 @@ import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.message.MessageUtil;
 import org.bukkit.command.CommandSender;
 
 public class SetTeamAction
@@ -60,28 +60,28 @@ public class SetTeamAction
 		playerTeam.removePlayer(player.getName());
 		Configuration.chatStatus.remove(playerName);
 		player.removeReturnLocation();
-		playerTeam.sendMessage(playerName + " has been " + MessageUtil.red("removed") + " from " + teamName);
+		playerTeam.sendMessage(playerName + " has been " + MessageUtil.gold("removed") + " from " + teamName);
 		if (playerName.equals(senderName))
 		{
 			//first person
-			sender.sendMessage("You have been " + MessageUtil.red("removed") + " from " + teamName);
+			sender.sendMessage("You have been " + MessageUtil.gold("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
 				teamCoordinator.disbandTeam(teamName);
-				sender.sendMessage(teamName + " has been " + MessageUtil.red("disbanded"));
+				sender.sendMessage(teamName + " has been " + MessageUtil.gold("disbanded"));
 			}
 		}
 		else
 		{
 			//third person
 			if (!playerTeam.containsPlayer(senderName))
-				sender.sendMessage(playerName + " has been " + MessageUtil.red("removed") + " from " + teamName);
-			player.sendMessage("You have been " + MessageUtil.red("removed") + " from " + teamName);
+				sender.sendMessage(playerName + " has been " + MessageUtil.gold("removed") + " from " + teamName);
+			player.sendMessage("You have been " + MessageUtil.gold("removed") + " from " + teamName);
 			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 			{
 				teamCoordinator.disbandTeam(teamName);
-				sender.sendMessage(teamName + " has been " + MessageUtil.red("disbanded"));
-				player.sendMessage(teamName + " has been " + MessageUtil.red("disbanded"));
+				sender.sendMessage(teamName + " has been " + MessageUtil.gold("disbanded"));
+				player.sendMessage(teamName + " has been " + MessageUtil.gold("disbanded"));
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 package me.protocos.xteam.util;
 
+import me.protocos.xteam.message.MessageUtil;
 import org.bukkit.ChatColor;
 import org.junit.After;
 import org.junit.Assert;

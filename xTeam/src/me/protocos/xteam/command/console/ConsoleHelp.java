@@ -5,8 +5,8 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.HelpPages;
-import me.protocos.xteam.util.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;
 

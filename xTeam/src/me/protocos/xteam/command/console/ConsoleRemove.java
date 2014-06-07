@@ -7,7 +7,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.MessageUtil;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleRemove extends ConsoleCommand
@@ -25,12 +25,12 @@ public class ConsoleRemove extends ConsoleCommand
 	{
 		ITeam changeTeam = changePlayer.getTeam();
 		changeTeam.removePlayer(playerName);
-		sender.sendMessage("You" + MessageUtil.red(" removed ") + playerName + " from " + teamName);
+		sender.sendMessage("You" + MessageUtil.gold(" removed ") + playerName + " from " + teamName);
 		if (changePlayer.isOnline())
-			changePlayer.sendMessage("You've been " + MessageUtil.red("removed") + " from " + changeTeam.getName());
+			changePlayer.sendMessage("You've been " + MessageUtil.gold("removed") + " from " + changeTeam.getName());
 		if (changeTeam.isEmpty())
 		{
-			sender.sendMessage(teamName + " has been " + MessageUtil.red("disbanded"));
+			sender.sendMessage(teamName + " has been " + MessageUtil.gold("disbanded"));
 			teamCoordinator.disbandTeam(changeTeam.getName());
 		}
 	}
