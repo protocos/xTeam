@@ -108,8 +108,7 @@ public class FakeConsoleSender implements ConsoleCommandSender
 	@Override
 	public String getName()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return "CONSOLE";
 	}
 
 	@Override

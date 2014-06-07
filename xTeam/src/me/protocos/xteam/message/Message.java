@@ -15,13 +15,13 @@ public class Message
 	{
 		private final String message;
 		private final Set<IMessageRecipient> recipients;
-		private final Set<IMessageRecipient> excludeList;
+		private final Set<IMessageRecipient> excludeSet;
 
 		public Builder(String message)
 		{
 			this.message = message;
 			this.recipients = new HashSet<IMessageRecipient>();
-			this.excludeList = new HashSet<IMessageRecipient>();
+			this.excludeSet = new HashSet<IMessageRecipient>();
 		}
 
 		public Builder addRecipients(IMessageRecipient... messageRecipients)
@@ -38,13 +38,13 @@ public class Message
 
 		public Builder excludeRecipients(IMessageRecipient... excludeRecipients)
 		{
-			this.excludeList.addAll(CommonUtil.toList(excludeRecipients));
+			this.excludeSet.addAll(CommonUtil.toList(excludeRecipients));
 			return this;
 		}
 
 		public Builder excludeRecipients(IMessageRecipientContainer messageRecipientContainer)
 		{
-			this.excludeList.addAll(messageRecipientContainer.getMessageRecipients());
+			this.excludeSet.addAll(messageRecipientContainer.getMessageRecipients());
 			return this;
 		}
 
@@ -59,7 +59,14 @@ public class Message
 		this.message = MessageUtil.formatMessage(builder.message);
 		this.recipients = new ArrayList<IMessageRecipient>();
 		this.recipients.addAll(builder.recipients);
-		this.recipients.removeAll(builder.excludeList);
+		for (IMessageRecipient recipient : builder.recipients)
+		{
+			for (IMessageRecipient exclude : builder.excludeSet)
+			{
+				if (recipient.getName().equals(exclude.getName()))
+					recipients.remove(recipient);
+			}
+		}
 	}
 
 	public void send()

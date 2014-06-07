@@ -9,7 +9,8 @@ import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.message.MessageUtil;
+import me.protocos.xteam.message.Message;
+import me.protocos.xteam.message.MessageSender;
 import org.bukkit.command.CommandSender;
 
 public class SetTeamAction
@@ -34,8 +35,9 @@ public class SetTeamAction
 		Requirements.checkTeamPlayerMax(teamCoordinator, teamName);
 	}
 
-	public void actOn(CommandSender sender, String playerName, String teamName)
+	public void actOn(CommandSender commandSender, String playerName, String teamName)
 	{
+		MessageSender sender = new MessageSender(commandSender);
 		ITeamPlayer p = playerFactory.getPlayer(playerName);
 		if (p.hasTeam())
 		{
@@ -51,79 +53,51 @@ public class SetTeamAction
 		}
 	}
 
-	public void removePlayer(CommandSender sender, ITeamPlayer player)
+	public void removePlayer(MessageSender sender, ITeamPlayer player)
 	{
 		ITeam playerTeam = player.getTeam();
 		String teamName = playerTeam.getName();
 		String playerName = player.getName();
-		String senderName = sender.getName();
 		playerTeam.removePlayer(player.getName());
 		Configuration.chatStatus.remove(playerName);
 		player.removeReturnLocation();
-		playerTeam.sendMessage(playerName + " has been " + MessageUtil.gold("removed") + " from " + teamName);
-		if (playerName.equals(senderName))
+		Message message = new Message.Builder("You have been removed from " + teamName).addRecipients(player).build();
+		message.send();
+		message = new Message.Builder(playerName + " has been removed from " + teamName).addRecipients(sender).addRecipients(playerTeam).excludeRecipients(player).build();
+		message.send();
+		if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 		{
-			//first person
-			sender.sendMessage("You have been " + MessageUtil.gold("removed") + " from " + teamName);
-			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
-			{
-				teamCoordinator.disbandTeam(teamName);
-				sender.sendMessage(teamName + " has been " + MessageUtil.gold("disbanded"));
-			}
-		}
-		else
-		{
-			//third person
-			if (!playerTeam.containsPlayer(senderName))
-				sender.sendMessage(playerName + " has been " + MessageUtil.gold("removed") + " from " + teamName);
-			player.sendMessage("You have been " + MessageUtil.gold("removed") + " from " + teamName);
-			if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
-			{
-				teamCoordinator.disbandTeam(teamName);
-				sender.sendMessage(teamName + " has been " + MessageUtil.gold("disbanded"));
-				player.sendMessage(teamName + " has been " + MessageUtil.gold("disbanded"));
-			}
+			teamCoordinator.disbandTeam(teamName);
+			message = new Message.Builder(teamName + " has been disbanded").addRecipients(sender).build();
+			message.send();
+			message = new Message.Builder(teamName + " has been disbanded").addRecipients(player).excludeRecipients(sender).build();
+			message.send();
 		}
 	}
 
-	public void addPlayerToTeam(CommandSender sender, ITeamPlayer player, ITeam team)
+	public void addPlayerToTeam(MessageSender sender, ITeamPlayer player, ITeam team)
 	{
-		String senderName = sender.getName();
 		String playerName = player.getName();
 		String teamName = team.getName();
 		team.addPlayer(playerName);
-		if (playerName.equals(senderName))
-		{
-			//first person
-			sender.sendMessage("You have been " + MessageUtil.green("added") + " to " + teamName);
-		}
-		else
-		{
-			//third person
-			sender.sendMessage(playerName + " has been " + MessageUtil.green("added") + " to " + teamName);
-			player.sendMessage("You have been " + MessageUtil.green("added") + " to " + teamName);
-		}
+		Message message = new Message.Builder("You have been added to " + teamName).addRecipients(player).build();
+		message.send();
+		message = new Message.Builder(playerName + " has been added to " + teamName).addRecipients(sender).addRecipients(team).excludeRecipients(player).build();
+		message.send();
 	}
 
-	public void createTeamWithLeader(CommandSender sender, String teamName, ITeamPlayer player)
+	public void createTeamWithLeader(MessageSender sender, String teamName, ITeamPlayer player)
 	{
-		String senderName = sender.getName();
 		String playerName = player.getName();
 		Team newTeam = Team.createTeamWithLeader(teamPlugin, teamName, playerName);
 		teamCoordinator.createTeam(newTeam);
-		if (playerName.equals(senderName))
-		{
-			//first person
-			sender.sendMessage(teamName + " has been " + MessageUtil.green("created"));
-			sender.sendMessage("You have been " + MessageUtil.green("added") + " to " + teamName);
-		}
-		else
-		{
-			//third person
-			sender.sendMessage(teamName + " has been " + MessageUtil.green("created"));
-			sender.sendMessage(playerName + " has been " + MessageUtil.green("added") + " to " + teamName);
-			player.sendMessage(teamName + " has been " + MessageUtil.green("created"));
-			player.sendMessage("You have been " + MessageUtil.green("added") + " to " + teamName);
-		}
+		Message message = new Message.Builder(teamName + " has been created").addRecipients(player).build();
+		message.send();
+		message = new Message.Builder(teamName + " has been created").addRecipients(sender).excludeRecipients(player).build();
+		message.send();
+		message = new Message.Builder("You have been added to " + teamName).addRecipients(player).build();
+		message.send();
+		message = new Message.Builder(playerName + " has been added to " + teamName).addRecipients(sender).excludeRecipients(player).build();
+		message.send();
 	}
 }
