@@ -4,7 +4,6 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.action.RenameTeamAction;
-import me.protocos.xteam.entity.ConsoleEntity;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -22,7 +21,7 @@ public class ConsoleRename extends ConsoleCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		renameTeamAction.actOn(new ConsoleEntity(sender), teamName, desiredName);
+		renameTeamAction.actOn(sender, teamName, desiredName);
 	}
 
 	@Override
