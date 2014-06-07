@@ -8,71 +8,70 @@ import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
+import org.bukkit.scheduler.BukkitScheduler;
 
 public class ConsoleDebug extends ConsoleCommand
 {
 	private BukkitUtil bukkitUtil;
 	private InviteHandler inviteHandler;
+	private BukkitScheduler bukkitScheduler;
 	private String subCommand;
+	private int taskID;
+	private boolean testmode;
 
 	public ConsoleDebug(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
 		bukkitUtil = teamPlugin.getBukkitUtil();
 		inviteHandler = teamPlugin.getInviteHandler();
+		bukkitScheduler = teamPlugin.getBukkitScheduler();
+		testmode = false;
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		if (subCommand.equalsIgnoreCase("chat"))
-			sender.sendMessage("Chat statuses: " + Configuration.chatStatus.toString());
+			this.log.info("Chat statuses: " + Configuration.chatStatus.toString());
 		else if (subCommand.equalsIgnoreCase("invites"))
-			sender.sendMessage("Invites: " + inviteHandler.data());
+			this.log.info("Invites: " + inviteHandler.data());
 		else if (subCommand.equalsIgnoreCase("spies"))
-			sender.sendMessage("Spies: " + Configuration.spies.toString());
+			this.log.info("Spies: " + Configuration.spies.toString());
 		else if (subCommand.equalsIgnoreCase("created"))
-			sender.sendMessage("Last created: " + Configuration.lastCreated.toString());
+			this.log.info("Last created: " + Configuration.lastCreated.toString());
 		else if (subCommand.equalsIgnoreCase("players"))
 		{
-			sender.sendMessage("Players:");
+			this.log.info("Players:");
 			for (String line : playerFactory.exportData())
-				sender.sendMessage(line);
+				this.log.info(line);
 		}
 		else if (subCommand.equalsIgnoreCase("teams"))
 		{
-			sender.sendMessage("Teams:");
+			this.log.info("Teams:");
 			for (String line : teamCoordinator.exportData())
-				sender.sendMessage(line);
+				this.log.info(line);
 		}
 		else if (subCommand.equalsIgnoreCase("perms"))
-			sender.sendMessage("Debugging permissions: \n" + printPermissions());
+			this.log.info("Debugging permissions: \n" + printPermissions());
 		else if (subCommand.equalsIgnoreCase("reset"))
 		{
-			for (Player player : bukkitUtil.getOnlinePlayers())
-			{
-				player.setHealth(20);
-				player.setFoodLevel(20);
-				player.setNoDamageTicks(0);
-			}
-			sender.sendMessage("All players hunger reset");
-			sender.sendMessage("All players health reset");
-			sender.sendMessage("All players damage reset");
+			reset();
+			this.log.info("All players hunger reset");
+			this.log.info("All players health reset");
+			this.log.info("All players damage reset");
 			for (World world : Bukkit.getWorlds())
 			{
-				world.setStorm(false);
-				world.setThundering(false);
-				world.setTime(0);
-				sender.sendMessage("environment reset for \"" + world.getName() + "\"");
+				this.log.info("environment reset for \"" + world.getName() + "\"");
 			}
 		}
 		else if (subCommand.equalsIgnoreCase("live"))
-			sender.sendMessage("Bukkit server is " + (BukkitUtil.serverIsLive() ? "live!" : "offline."));
+			this.log.info("Bukkit server is " + (BukkitUtil.serverIsLive() ? "live!" : "offline."));
 		else if (subCommand.equalsIgnoreCase("error"))
 		{
 			try
@@ -85,9 +84,46 @@ public class ConsoleDebug extends ConsoleCommand
 			}
 		}
 		else if (subCommand.equalsIgnoreCase("tasks"))
-			sender.sendMessage("Tasks: " + teamPlugin.getBukkitScheduler().getPendingTasks());
+			this.log.info("Tasks: " + teamPlugin.getBukkitScheduler().getPendingTasks());
+		else if (subCommand.equalsIgnoreCase("testmode"))
+		{
+			if (!testmode)
+			{
+				this.log.info("Entering test mode");
+				taskID = bukkitScheduler.scheduleSyncRepeatingTask(teamPlugin, new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						reset();
+					}
+				}, CommonUtil.LONG_ZERO, 100L);
+			}
+			else
+			{
+				this.log.info("Exiting test mode");
+				bukkitScheduler.cancelTask(taskID);
+			}
+		}
 		else
-			sender.sendMessage("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, live, error, tasks]");
+			this.log.info("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, live, error, tasks, testmode]");
+	}
+
+	private void reset()
+	{
+		for (Player player : bukkitUtil.getOnlinePlayers())
+		{
+			player.setHealth(20);
+			player.setFoodLevel(20);
+			player.setNoDamageTicks(0);
+			player.setFireTicks(0);
+		}
+		for (World world : Bukkit.getWorlds())
+		{
+			world.setStorm(false);
+			world.setThundering(false);
+			world.setTime(0);
+		}
 	}
 
 	private String printPermissions()

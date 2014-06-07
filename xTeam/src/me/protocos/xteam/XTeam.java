@@ -128,6 +128,7 @@ public final class XTeam extends TeamPlugin
 		{
 			this.write();
 			DataStorageFactory.closeDatabase();
+			//does the same thing as this.bukkitScheduler.cancelAllTasks();
 			for (BukkitTask task : this.bukkitScheduler.getPendingTasks())
 			{
 				log.info("Cancelling task id: " + task.getTaskId());
