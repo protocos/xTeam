@@ -3,6 +3,7 @@ package me.protocos.xteam.data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import lib.PatPeter.SQLibrary.Database;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
@@ -13,7 +14,7 @@ import me.protocos.xteam.event.*;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
 
-public class SQLiteDataManager implements IPersistenceLayer, IEventHandler
+public class SQLDataManager implements IPersistenceLayer, IEventHandler
 {
 	private TeamPlugin teamPlugin;
 	private Database db;
@@ -21,7 +22,7 @@ public class SQLiteDataManager implements IPersistenceLayer, IEventHandler
 	private IPlayerFactory playerFactory;
 	private ILog log;
 
-	public SQLiteDataManager(TeamPlugin teamPlugin, Database db, ITeamCoordinator teamCoordinator, IPlayerFactory playerFactory)
+	public SQLDataManager(TeamPlugin teamPlugin, Database db, ITeamCoordinator teamCoordinator, IPlayerFactory playerFactory)
 	{
 		this.teamPlugin = teamPlugin;
 		this.db = db;
@@ -30,8 +31,8 @@ public class SQLiteDataManager implements IPersistenceLayer, IEventHandler
 		this.log = teamPlugin.getLog();
 		try
 		{
-			db.insert("CREATE TABLE IF NOT EXISTS team_data(name TEXT PRIMARY KEY, tag TEXT, openJoining BOOLEAN, defaultTeam BOOLEAN, timeHeadquartersLastSet BIGINT, headquarters TEXT, leader TEXT, admins TEXT, players TEXT);");
-			db.insert("CREATE TABLE IF NOT EXISTS player_data(name VARCHAR(17) PRIMARY KEY, lastAttacked BIGINT, lastTeleported BIGINT, returnLocation TEXT);");
+			insert("CREATE TABLE IF NOT EXISTS team_data(name VARCHAR(255) PRIMARY KEY, tag TEXT, openJoining BOOLEAN, defaultTeam BOOLEAN, timeHeadquartersLastSet BIGINT, headquarters TEXT, leader TEXT, admins TEXT, players TEXT);");
+			insert("CREATE TABLE IF NOT EXISTS player_data(name VARCHAR(17) PRIMARY KEY, lastAttacked BIGINT, lastTeleported BIGINT, returnLocation TEXT);");
 		}
 		catch (SQLException e)
 		{
@@ -45,7 +46,7 @@ public class SQLiteDataManager implements IPersistenceLayer, IEventHandler
 	{
 		try
 		{
-			ResultSet resultSet = db.query("SELECT * FROM team_data;");
+			ResultSet resultSet = query("SELECT * FROM team_data;");
 			while (resultSet.next())
 			{
 				PropertyList propertyList = new PropertyList();
@@ -62,7 +63,7 @@ public class SQLiteDataManager implements IPersistenceLayer, IEventHandler
 				teamCoordinator.putTeam(team);
 			}
 			resultSet.close();
-			resultSet = db.query("SELECT * FROM player_data;");
+			resultSet = query("SELECT * FROM player_data;");
 			while (resultSet.next())
 			{
 				PropertyList propertyList = new PropertyList();
@@ -88,31 +89,31 @@ public class SQLiteDataManager implements IPersistenceLayer, IEventHandler
 			for (ITeam team : teamCoordinator.getTeams())
 			{
 				PreparedStatement statement;
-				statement = db.prepare("UPDATE team_data SET tag = ?, openJoining = ?, defaultTeam = ?, timeHeadquartersLastSet = ?, headquarters = ?, leader = ?, admins = ?, players = ? WHERE name = ?;");
+				statement = prepare("UPDATE team_data SET tag = ?, openJoining = ?, defaultTeam = ?, timeHeadquartersLastSet = ?, headquarters = ?, leader = ?, admins = ?, players = ? WHERE name = ?;");
 				insertTeamDataIntoStatement(statement, team);
-				db.insert(statement);
+				insert(statement);
 				statement.close();
 			}
 			for (String playerData : playerFactory.exportData())
 			{
 				PropertyList properties = PropertyList.fromString(playerData);
-				PreparedStatement checkPlayerInDatabase = db.prepare("SELECT * FROM player_data WHERE name = ?;");
+				PreparedStatement checkPlayerInDatabase = prepare("SELECT * FROM player_data WHERE name = ?;");
 				checkPlayerInDatabase.setString(1, properties.get("name").getValue());
-				ResultSet resultSet = db.query(checkPlayerInDatabase);
+				ResultSet resultSet = query(checkPlayerInDatabase);
 				PreparedStatement statement;
 				if (resultSet.next())
 				{
-					statement = db.prepare("UPDATE player_data SET lastAttacked = ?, lastTeleported = ?, returnLocation = ? WHERE name = ?;");
+					statement = prepare("UPDATE player_data SET lastAttacked = ?, lastTeleported = ?, returnLocation = ? WHERE name = ?;");
 				}
 				else
 				{
-					statement = db.prepare("INSERT INTO player_data(lastAttacked, lastTeleported, returnLocation, name) VALUES(?,?,?,?);");
+					statement = prepare("INSERT INTO player_data(lastAttacked, lastTeleported, returnLocation, name) VALUES(?,?,?,?);");
 				}
 				statement.setLong(1, playerFactory.getLastAttacked(properties.get("name").getValue()));
 				statement.setLong(2, playerFactory.getLastTeleported(properties.get("name").getValue()));
 				statement.setString(3, properties.get("returnLocation").getValue());
 				statement.setString(4, properties.get("name").getValue());
-				db.insert(statement);
+				insert(statement);
 				checkPlayerInDatabase.close();
 				resultSet.close();
 				statement.close();
@@ -130,9 +131,10 @@ public class SQLiteDataManager implements IPersistenceLayer, IEventHandler
 		try
 		{
 			ITeam team = event.getTeam();
-			PreparedStatement statement = db.prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
+			PreparedStatement statement = prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
+			//			PreparedStatement statement = db.getConnection().prepareStatement("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
 			insertTeamDataIntoStatement(statement, team);
-			db.insert(statement);
+			insert(statement);
 			statement.close();
 		}
 		catch (SQLException e)
@@ -141,18 +143,44 @@ public class SQLiteDataManager implements IPersistenceLayer, IEventHandler
 		}
 	}
 
+	private PreparedStatement prepare(String prepare) throws SQLException
+	{
+		//		return db.prepare(prepare);
+		return db.getConnection().prepareStatement(prepare, Statement.RETURN_GENERATED_KEYS);
+	}
+
+	private ResultSet query(String statement) throws SQLException
+	{
+		return prepare(statement).executeQuery();
+	}
+
+	private ResultSet query(PreparedStatement statement) throws SQLException
+	{
+		return statement.executeQuery();
+	}
+
+	private boolean insert(String statement) throws SQLException
+	{
+		return prepare(statement).execute();
+	}
+
+	private boolean insert(PreparedStatement statement) throws SQLException
+	{
+		return statement.execute();
+	}
+
 	@TeamEvent
 	public void onRename(TeamRenameEvent event)
 	{
 		try
 		{
-			PreparedStatement statement = db.prepare("DELETE FROM team_data WHERE name = ?;");
+			PreparedStatement statement = prepare("DELETE FROM team_data WHERE name = ?;");
 			statement.setString(1, event.getOldName());
-			db.insert(statement);
+			insert(statement);
 			ITeam team = event.getTeam();
-			statement = db.prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
+			statement = prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
 			insertTeamDataIntoStatement(statement, team);
-			db.insert(statement);
+			insert(statement);
 			statement.close();
 		}
 		catch (SQLException e)
@@ -166,9 +194,9 @@ public class SQLiteDataManager implements IPersistenceLayer, IEventHandler
 	{
 		try
 		{
-			PreparedStatement statement = db.prepare("DELETE FROM team_data WHERE name = ?;");
+			PreparedStatement statement = prepare("DELETE FROM team_data WHERE name = ?;");
 			statement.setString(1, event.getTeamName());
-			db.insert(statement);
+			insert(statement);
 			statement.close();
 		}
 		catch (SQLException e)

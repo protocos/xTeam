@@ -81,7 +81,7 @@ public class Log implements ILog
 				error("\t@ " + elem.toString());
 			}
 		}
-		if (Configuration.SEND_ANONYMOUS_ERROR_REPORTS)
+		if (Configuration.SEND_ANONYMOUS_ERROR_REPORTS && teamPlugin.isEnabled())
 		{
 			class EmailReport implements Runnable
 			{

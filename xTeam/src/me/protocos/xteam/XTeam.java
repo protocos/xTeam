@@ -66,7 +66,7 @@ public final class XTeam extends TeamPlugin
 		this.configLoader.addAttribute("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
 		this.configLoader.addAttribute("rallydelay", 2, "Delay in minutes that a team rally stays active");
 		this.configLoader.addAttribute("newparam", 1, "Delay in minutes that a team rally stays active");
-		this.configLoader.addAttribute("storagetype", "file", "Method for storing data for the plugin (Options: file, SQLite, MySQL)");
+		this.configLoader.addAttribute("storagetype", "file", "Method for storing data for the plugin (Options: file, sqlite, mysql:host:port:databasename:username:password)");
 		this.configLoader.addAttribute("savedatainterval", 10, "Frequency, in minutes, that the plugin will write data to disk if storagetype = file");
 		this.configLoader.write();
 		this.configLoader.load();
