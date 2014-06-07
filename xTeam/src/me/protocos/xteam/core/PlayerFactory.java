@@ -67,15 +67,13 @@ public class PlayerFactory implements IPlayerFactory
 		return null;
 	}
 
-	public ITeamPlayer getPlayer(String name)
+	public ITeamPlayer getPlayer(String playerName)
 	{
-		Player player = bukkitUtil.getPlayer(name);
-		if (player != null)
-			return teamPlayerWithValues(player);
-		OfflinePlayer offlinePlayer = bukkitUtil.getOfflinePlayer(name);
-		if (offlinePlayer != null)
-			return offlineTeamPlayerWithValues(offlinePlayer);
-		return playerWithValues(name);
+		if (isOnline(playerName))
+			return teamPlayerWithValues(bukkitUtil.getPlayer(playerName));
+		if (hasPlayedBefore(playerName))
+			return offlineTeamPlayerWithValues(bukkitUtil.getOfflinePlayer(playerName));
+		return offlinePlayerNeverPlayedBefore(playerName);
 	}
 
 	public List<TeamPlayer> getOnlineTeammatesOf(ITeamEntity teamEntity)
@@ -149,20 +147,9 @@ public class PlayerFactory implements IPlayerFactory
 		return returnPlayer;
 	}
 
-	private ITeamPlayer playerWithValues(String playerName)
+	private ITeamPlayer offlinePlayerNeverPlayedBefore(String playerName)
 	{
-		ITeamPlayer returnPlayer = null;
-		if (isOnline(playerName))
-			returnPlayer = getPlayer(bukkitUtil.getPlayer(playerName));
-		else if (hasPlayedBefore(playerName))
-			returnPlayer = getPlayer(bukkitUtil.getOfflinePlayer(playerName));
-		if (returnPlayer != null)
-		{
-			returnPlayer.setLastAttacked(this.getLastAttacked(playerName));
-			returnPlayer.setLastTeleported(this.getLastTeleported(playerName));
-			returnPlayer.setReturnLocation(this.getReturnLocation(playerName));
-		}
-		return returnPlayer;
+		return new OfflineTeamPlayer(teamPlugin, bukkitUtil.getOfflinePlayer(playerName));
 	}
 
 	private boolean isOnline(String playerName)
