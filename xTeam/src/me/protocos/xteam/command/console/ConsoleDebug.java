@@ -104,6 +104,7 @@ public class ConsoleDebug extends ConsoleCommand
 				this.log.info("Exiting test mode");
 				bukkitScheduler.cancelTask(taskID);
 			}
+			testmode = !testmode;
 		}
 		else
 			this.log.info("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, live, error, tasks, testmode]");
