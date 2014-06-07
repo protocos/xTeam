@@ -3,6 +3,7 @@ package me.protocos.xteam.entity;
 import java.util.*;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
+import me.protocos.xteam.command.action.InviteHandler;
 import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.data.configuration.Configuration;
@@ -39,6 +40,7 @@ public class Team implements ITeam
 	private BukkitUtil bukkitUtil;
 	private IPlayerFactory playerFactory;
 	private TeleportScheduler teleportScheduler;
+	private InviteHandler inviteHandler;
 	private IEventDispatcher dispatcher;
 	private String name;
 	private String tag;
@@ -151,6 +153,7 @@ public class Team implements ITeam
 		bukkitUtil = teamPlugin.getBukkitUtil();
 		playerFactory = teamPlugin.getPlayerFactory();
 		teleportScheduler = teamPlugin.getTeleportScheduler();
+		inviteHandler = teamPlugin.getInviteHandler();
 		dispatcher = teamPlugin.getEventDispatcher();
 		name = builder.name;
 		tag = builder.tag;
@@ -392,6 +395,8 @@ public class Team implements ITeam
 			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.green("Set")) : (MessageUtil.red("None set"))));
 		else
 			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (ChatColor.GREEN + "X:" + this.getHeadquarters().getRelativeX() + " Y:" + this.getHeadquarters().getRelativeY() + " Z:" + this.getHeadquarters().getRelativeZ()) : (ChatColor.RED + "None set")));
+		if (!"".equals(inviteHandler.getInvitesFromTeam(this)))
+			message += "\n" + (ChatColor.RESET + "Team Invites - " + ChatColor.GREEN + inviteHandler.getInvitesFromTeam(this));
 		List<TeamPlayer> onlineTeammates = this.getOnlineTeammates();
 		if (onlineTeammates.size() > 0)
 		{

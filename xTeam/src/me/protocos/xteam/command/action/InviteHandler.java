@@ -1,7 +1,8 @@
 package me.protocos.xteam.command.action;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import me.protocos.xteam.TeamPlugin;
+import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
@@ -11,6 +12,7 @@ import me.protocos.xteam.event.TeamInviteEvent;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public class InviteHandler
@@ -18,14 +20,14 @@ public class InviteHandler
 	private TeamPlugin teamPlugin;
 	private IEventDispatcher dispatcher;
 	private BukkitScheduler bukkitScheduler;
-	private HashMap<String, InviteRequest> invites;
+	private HashList<String, InviteRequest> invites;
 
 	public InviteHandler(TeamPlugin teamPlugin)
 	{
 		this.teamPlugin = teamPlugin;
 		this.dispatcher = teamPlugin.getEventDispatcher();
 		bukkitScheduler = teamPlugin.getBukkitScheduler();
-		invites = new HashMap<String, InviteRequest>();
+		invites = new HashList<String, InviteRequest>();
 	}
 
 	public void addInvite(final InviteRequest request)
@@ -88,5 +90,16 @@ public class InviteHandler
 	public void removeInvite(String player)
 	{
 		invites.remove(player);
+	}
+
+	public String getInvitesFromTeam(ITeam team)
+	{
+		ArrayList<String> names = new ArrayList<String>();
+		for (InviteRequest request : invites)
+		{
+			if (request.getSenderTeam().equals(team))
+				names.add(request.getReceiverName());
+		}
+		return CommonUtil.concatenate(names, ", ");
 	}
 }

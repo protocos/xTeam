@@ -5,11 +5,14 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
+import me.protocos.xteam.command.action.InviteHandler;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.model.InviteRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,13 +22,17 @@ public class TeamUserInfoTest
 	private TeamPlugin teamPlugin;
 	private TeamUserCommand fakeCommand;
 	private ITeamCoordinator teamCoordinator;
+	private IPlayerFactory playerFactory;
+	private InviteHandler inviteHandler;
 
 	@Before
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
-		teamCoordinator = teamPlugin.getTeamCoordinator();
 		fakeCommand = new TeamUserInfo(teamPlugin);
+		teamCoordinator = teamPlugin.getTeamCoordinator();
+		playerFactory = teamPlugin.getPlayerFactory();
+		inviteHandler = teamPlugin.getInviteHandler();
 	}
 
 	@Test
@@ -163,6 +170,27 @@ public class TeamUserInfoTest
 				"Team Admins - protocos\n" +
 				"Team Joining - Closed\n" +
 				"Team Headquarters - X:170 Y:65 Z:209\n" +
+				"Teammates online:\n" +
+				"    protocos Health: 100% Location: 0 64 0 in \"world\"\n" +
+				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
+		Assert.assertTrue(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeTeamUserInfoExecutePendingInvites()
+	{
+		//ASSEMBLE
+		inviteHandler.addInvite(new InviteRequest(playerFactory.getPlayer("kmlanglois"), playerFactory.getPlayer("Lonely"), System.currentTimeMillis()));
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
+		//ASSERT
+		Assert.assertEquals("Team Name - ONE\n" +
+				"Team Tag - TeamAwesome\n" +
+				"Team Leader - kmlanglois\n" +
+				"Team Joining - Closed\n" +
+				"Team Headquarters - X:170 Y:65 Z:209\n" +
+				"Team Invites - Lonely\n" +
 				"Teammates online:\n" +
 				"    protocos Health: 100% Location: 0 64 0 in \"world\"\n" +
 				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
