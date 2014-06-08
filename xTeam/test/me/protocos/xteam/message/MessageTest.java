@@ -9,14 +9,14 @@ import org.junit.Test;
 public class MessageTest
 {
 	private Message message;
-	private FakeMessageRecipient recipient1, recipient2, recipient3;
+	private FakeMessageRecipient recipient1, recipient2, duplicateRecipient1;
 
 	@Before
 	public void setup()
 	{
 		recipient1 = new FakeMessageRecipient("player1");
 		recipient2 = new FakeMessageRecipient("player2");
-		recipient3 = new FakeMessageRecipient("player1");
+		duplicateRecipient1 = new FakeMessageRecipient(recipient1);
 	}
 
 	@Test
@@ -34,7 +34,7 @@ public class MessageTest
 	public void ShouldBeSendMessageToAllRecipientsOnlyOnce()
 	{
 		//ASSEMBLE
-		message = new Message.Builder("Test message.").addRecipients(recipient1, recipient2, recipient3).build();
+		message = new Message.Builder("Test message.").addRecipients(recipient1, recipient2, duplicateRecipient1).build();
 		//ACT
 		message.send();
 		//ASSERT
@@ -46,7 +46,7 @@ public class MessageTest
 	public void ShouldBeSendMessageToRecipient2Only()
 	{
 		//ASSEMBLE
-		message = new Message.Builder("Test message.").addRecipients(recipient1, recipient2).excludeRecipients(recipient3).build();
+		message = new Message.Builder("Test message.").addRecipients(recipient1, recipient2).excludeRecipients(duplicateRecipient1).build();
 		//ACT
 		message.send();
 		//ASSERT

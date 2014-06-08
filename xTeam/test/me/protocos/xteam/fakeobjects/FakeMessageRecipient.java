@@ -15,6 +15,12 @@ public class FakeMessageRecipient implements IMessageRecipient
 		messages = new ArrayList<String>();
 	}
 
+	public FakeMessageRecipient(FakeMessageRecipient recipient)
+	{
+		this.name = recipient.getName();
+		this.messages = recipient.getMessages();
+	}
+
 	@Override
 	public String getName()
 	{
@@ -25,6 +31,11 @@ public class FakeMessageRecipient implements IMessageRecipient
 	public void sendMessage(String message)
 	{
 		messages.add(message);
+	}
+
+	public List<String> getMessages()
+	{
+		return messages;
 	}
 
 	public String getLatestMessage()

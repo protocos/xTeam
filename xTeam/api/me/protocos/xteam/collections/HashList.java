@@ -12,21 +12,16 @@ public class HashList<K, V> implements Iterable<V>
 
 	public HashList()
 	{
-		values = CommonUtil.emptyHashMap();
-		order = CommonUtil.emptyList();
+		this.values = CommonUtil.emptyHashMap();
+		this.order = CommonUtil.emptyList();
 		this.keepSorted = false;
 	}
 
 	public HashList(List<K> keys, List<V> values)
 	{
-		if (keys.size() == values.size())
-		{
-			for (int x = 0; x < keys.size(); x++)
-			{
-				order.add(keys.get(x));
-				this.values.put(keys.get(x), values.get(x));
-			}
-		}
+		this.values = CommonUtil.emptyHashMap();
+		this.order = CommonUtil.emptyList();
+		this.addAll(keys, values);
 		this.keepSorted = false;
 	}
 
@@ -220,5 +215,16 @@ public class HashList<K, V> implements Iterable<V>
 	public final HashMap<K, V> toHashMap()
 	{
 		return this.values;
+	}
+
+	public void addAll(List<K> keys, @SuppressWarnings("hiding") List<V> values)
+	{
+		if (keys.size() != values.size())
+			throw new IllegalArgumentException("Sizes of key and value list do not match");
+		for (int x = 0; x < keys.size(); x++)
+		{
+			this.order.add(keys.get(x));
+			this.values.put(keys.get(x), values.get(x));
+		}
 	}
 }
