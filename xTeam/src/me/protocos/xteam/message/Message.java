@@ -1,6 +1,9 @@
 package me.protocos.xteam.message;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Set;
+import java.util.TreeSet;
+import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
 
 public class Message
@@ -69,8 +72,15 @@ public class Message
 
 	public void send()
 	{
+		send(null);
+	}
+
+	public void send(ILog log)
+	{
 		for (IMessageRecipient recipient : recipients)
 		{
+			if (log != null)
+				log.debug("server response: @" + recipient.getName() + " \"" + message + "\"");
 			recipient.sendMessage(message);
 		}
 	}

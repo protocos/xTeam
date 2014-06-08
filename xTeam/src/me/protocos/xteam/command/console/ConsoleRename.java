@@ -15,7 +15,7 @@ public class ConsoleRename extends ConsoleCommand
 	public ConsoleRename(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
-		renameTeamAction = new RenameTeamAction(teamPlugin.getTeamCoordinator());
+		renameTeamAction = new RenameTeamAction(teamPlugin);
 	}
 
 	@Override

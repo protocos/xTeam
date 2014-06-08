@@ -15,7 +15,7 @@ public class TeamLeaderRename extends TeamLeaderCommand
 	public TeamLeaderRename(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
-		renameTeamAction = new RenameTeamAction(teamPlugin.getTeamCoordinator());
+		renameTeamAction = new RenameTeamAction(teamPlugin);
 	}
 
 	@Override

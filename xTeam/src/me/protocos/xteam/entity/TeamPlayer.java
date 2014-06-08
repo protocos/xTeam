@@ -11,6 +11,7 @@ import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.message.Message;
 import me.protocos.xteam.model.ILocatable;
+import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PermissionUtil;
@@ -32,6 +33,7 @@ import org.bukkit.util.Vector;
 
 public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSender
 {
+	private ILog log;
 	private TeleportScheduler teleportScheduler;
 	private ITeamCoordinator teamCoordinator;
 	private IPlayerFactory playerFactory;
@@ -39,6 +41,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 
 	public TeamPlayer(TeamPlugin teamPlugin, Player player)
 	{
+		this.log = teamPlugin.getLog();
 		this.teleportScheduler = teamPlugin.getTeleportScheduler();
 		this.teamCoordinator = teamPlugin.getTeamCoordinator();
 		this.playerFactory = teamPlugin.getPlayerFactory();
@@ -235,7 +238,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	{
 		//		MessageUtil.sendMessageToTeam(this, message);
 		Message m = new Message.Builder(message).addRecipients(this.getTeam()).build();
-		m.send();
+		m.send(log);
 	}
 
 	@Override

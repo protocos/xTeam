@@ -88,10 +88,22 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 		{
 			for (ITeam team : teamCoordinator.getTeams())
 			{
+				PreparedStatement checkTeamInDatabase = prepare("SELECT * FROM team_data WHERE name = ?;");
+				checkTeamInDatabase.setString(1, team.getName());
+				ResultSet resultSet = query(checkTeamInDatabase);
 				PreparedStatement statement;
-				statement = prepare("UPDATE team_data SET tag = ?, openJoining = ?, defaultTeam = ?, timeHeadquartersLastSet = ?, headquarters = ?, leader = ?, admins = ?, players = ? WHERE name = ?;");
+				if (resultSet.next())
+				{
+					statement = prepare("UPDATE team_data SET tag = ?, openJoining = ?, defaultTeam = ?, timeHeadquartersLastSet = ?, headquarters = ?, leader = ?, admins = ?, players = ? WHERE name = ?;");
+				}
+				else
+				{
+					statement = prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
+				}
 				insertTeamDataIntoStatement(statement, team);
 				insert(statement);
+				checkTeamInDatabase.close();
+				resultSet.close();
 				statement.close();
 			}
 			for (String playerData : playerFactory.exportData())
@@ -143,32 +155,6 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 		}
 	}
 
-	private PreparedStatement prepare(String prepare) throws SQLException
-	{
-		//		return db.prepare(prepare);
-		return db.getConnection().prepareStatement(prepare, Statement.RETURN_GENERATED_KEYS);
-	}
-
-	private ResultSet query(String statement) throws SQLException
-	{
-		return prepare(statement).executeQuery();
-	}
-
-	private ResultSet query(PreparedStatement statement) throws SQLException
-	{
-		return statement.executeQuery();
-	}
-
-	private boolean insert(String statement) throws SQLException
-	{
-		return prepare(statement).execute();
-	}
-
-	private boolean insert(PreparedStatement statement) throws SQLException
-	{
-		return statement.execute();
-	}
-
 	@TeamEvent
 	public void onRename(TeamRenameEvent event)
 	{
@@ -203,6 +189,32 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 		{
 			log.exception(e);
 		}
+	}
+
+	private PreparedStatement prepare(String prepare) throws SQLException
+	{
+		//		return db.prepare(prepare);
+		return db.getConnection().prepareStatement(prepare, Statement.RETURN_GENERATED_KEYS);
+	}
+
+	private ResultSet query(String statement) throws SQLException
+	{
+		return prepare(statement).executeQuery();
+	}
+
+	private ResultSet query(PreparedStatement statement) throws SQLException
+	{
+		return statement.executeQuery();
+	}
+
+	private boolean insert(String statement) throws SQLException
+	{
+		return prepare(statement).execute();
+	}
+
+	private boolean insert(PreparedStatement statement) throws SQLException
+	{
+		return statement.execute();
 	}
 
 	private void insertTeamDataIntoStatement(PreparedStatement statement, ITeam team) throws SQLException

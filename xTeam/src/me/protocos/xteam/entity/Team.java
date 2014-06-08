@@ -13,10 +13,7 @@ import me.protocos.xteam.event.TeamLeaveEvent;
 import me.protocos.xteam.message.IMessageRecipient;
 import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
-import me.protocos.xteam.model.Headquarters;
-import me.protocos.xteam.model.IHeadquarters;
-import me.protocos.xteam.model.ILocatable;
-import me.protocos.xteam.model.NullHeadquarters;
+import me.protocos.xteam.model.*;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -36,6 +33,7 @@ public class Team implements ITeam
 	 * if you are "admin", you are not the "leader"
 	 */
 
+	private ILog log;
 	private TeamPlugin teamPlugin;
 	private BukkitUtil bukkitUtil;
 	private IPlayerFactory playerFactory;
@@ -57,7 +55,7 @@ public class Team implements ITeam
 	public static class Builder
 	{
 		//required
-		private TeamPlugin teamPlugin;
+		private final TeamPlugin teamPlugin;
 		private final String name;
 
 		//optional
@@ -150,6 +148,7 @@ public class Team implements ITeam
 	private Team(Builder builder)
 	{
 		teamPlugin = builder.teamPlugin;
+		log = teamPlugin.getLog();
 		bukkitUtil = teamPlugin.getBukkitUtil();
 		playerFactory = teamPlugin.getPlayerFactory();
 		teleportScheduler = teamPlugin.getTeleportScheduler();
@@ -353,9 +352,8 @@ public class Team implements ITeam
 	public void sendMessage(String message)
 	{
 		//EXTERNAL call
-		//		MessageUtil.sendMessageToTeam(this, message);
 		Message m = new Message.Builder(message).addRecipients(this).build();
-		m.send();
+		m.send(log);
 	}
 
 	@Override

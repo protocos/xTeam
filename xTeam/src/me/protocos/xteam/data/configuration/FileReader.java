@@ -42,6 +42,12 @@ public class FileReader
 		return returnValue;
 	}
 
+	public void reload()
+	{
+		this.keySet.clear();
+		load();
+	}
+
 	private boolean load()
 	{
 		if (this.file.exists())
@@ -84,11 +90,5 @@ public class FileReader
 			return false;
 		}
 		return true;
-	}
-
-	public void reload()
-	{
-		this.keySet.clear();
-		load();
 	}
 }

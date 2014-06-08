@@ -11,6 +11,7 @@ import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageSender;
+import me.protocos.xteam.model.ILog;
 import org.bukkit.command.CommandSender;
 
 public class SetTeamAction
@@ -18,10 +19,12 @@ public class SetTeamAction
 	private TeamPlugin teamPlugin;
 	private ITeamCoordinator teamCoordinator;
 	private IPlayerFactory playerFactory;
+	private ILog log;
 
 	public SetTeamAction(TeamPlugin teamPlugin)
 	{
 		this.teamPlugin = teamPlugin;
+		this.log = teamPlugin.getLog();
 		this.teamCoordinator = teamPlugin.getTeamCoordinator();
 		this.playerFactory = teamPlugin.getPlayerFactory();
 	}
@@ -62,16 +65,16 @@ public class SetTeamAction
 		Configuration.chatStatus.remove(playerName);
 		player.removeReturnLocation();
 		Message message = new Message.Builder("You have been removed from " + teamName).addRecipients(player).build();
-		message.send();
+		message.send(log);
 		message = new Message.Builder(playerName + " has been removed from " + teamName).addRecipients(sender).addRecipients(playerTeam).excludeRecipients(player).build();
-		message.send();
+		message.send(log);
 		if (playerTeam.isEmpty() && !playerTeam.isDefaultTeam())
 		{
 			teamCoordinator.disbandTeam(teamName);
 			message = new Message.Builder(teamName + " has been disbanded").addRecipients(sender).build();
-			message.send();
+			message.send(log);
 			message = new Message.Builder(teamName + " has been disbanded").addRecipients(player).excludeRecipients(sender).build();
-			message.send();
+			message.send(log);
 		}
 	}
 
@@ -81,9 +84,9 @@ public class SetTeamAction
 		String teamName = team.getName();
 		team.addPlayer(playerName);
 		Message message = new Message.Builder("You have been added to " + teamName).addRecipients(player).build();
-		message.send();
+		message.send(log);
 		message = new Message.Builder(playerName + " has been added to " + teamName).addRecipients(sender).addRecipients(team).excludeRecipients(player).build();
-		message.send();
+		message.send(log);
 	}
 
 	public void createTeamWithLeader(MessageSender sender, String teamName, ITeamPlayer player)
@@ -92,12 +95,12 @@ public class SetTeamAction
 		Team newTeam = Team.createTeamWithLeader(teamPlugin, teamName, playerName);
 		teamCoordinator.createTeam(newTeam);
 		Message message = new Message.Builder(teamName + " has been created").addRecipients(player).build();
-		message.send();
+		message.send(log);
 		message = new Message.Builder(teamName + " has been created").addRecipients(sender).excludeRecipients(player).build();
-		message.send();
+		message.send(log);
 		message = new Message.Builder("You have been added to " + teamName).addRecipients(player).build();
-		message.send();
+		message.send(log);
 		message = new Message.Builder(playerName + " has been added to " + teamName).addRecipients(sender).excludeRecipients(player).build();
-		message.send();
+		message.send(log);
 	}
 }

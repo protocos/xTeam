@@ -8,6 +8,7 @@ import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILocatable;
+import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.bukkit.Location;
@@ -15,12 +16,14 @@ import org.bukkit.OfflinePlayer;
 
 public class OfflineTeamPlayer implements ITeamPlayer
 {
+	private ILog log;
 	private IPlayerFactory playerFactory;
 	private ITeamCoordinator teamCoordinator;
 	private OfflinePlayer player;
 
 	public OfflineTeamPlayer(TeamPlugin teamPlugin, OfflinePlayer player)
 	{
+		this.log = teamPlugin.getLog();
 		this.teamCoordinator = teamPlugin.getTeamCoordinator();
 		this.playerFactory = teamPlugin.getPlayerFactory();
 		this.player = player;
@@ -142,7 +145,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	{
 		//		MessageUtil.sendMessageToTeam(this, message);
 		Message m = new Message.Builder(message).addRecipients(this.getTeam()).build();
-		m.send();
+		m.send(log);
 	}
 
 	@Override

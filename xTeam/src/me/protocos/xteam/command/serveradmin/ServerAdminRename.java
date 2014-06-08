@@ -15,7 +15,7 @@ public class ServerAdminRename extends ServerAdminCommand
 	public ServerAdminRename(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
-		renameTeamAction = new RenameTeamAction(teamPlugin.getTeamCoordinator());
+		renameTeamAction = new RenameTeamAction(teamPlugin);
 	}
 
 	@Override

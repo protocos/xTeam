@@ -106,12 +106,13 @@ public class Configuration
 		return max.replaceAll(".", "#") + "\n";
 	}
 
-	public void load()
-	{
-		reload();
-	}
+	//	public void reload()
+	//	{
+	//		fileReader.reload();
+	//		load();
+	//	}
 
-	public void reload()
+	public void load()
 	{
 		CAN_CHAT = CommonUtil.assignFromType(options.get("canteamchat").getValue(), Boolean.class);
 		HQ_ON_DEATH = CommonUtil.assignFromType(options.get("hqondeath").getValue(), Boolean.class);

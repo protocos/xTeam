@@ -32,7 +32,7 @@ public class ConsoleSetHeadquarters extends ConsoleCommand
 		team.setHeadquarters(new Headquarters(bukkitUtil.getWorld(world), X, Y, Z, 0.0F, 0.0F));
 		team.setTimeHeadquartersLastSet(System.currentTimeMillis());
 		Message message = new Message.Builder("You set the team headquarters").addRecipients(new MessageSender(sender)).build();
-		message.send();
+		message.send(log);
 	}
 
 	@Override

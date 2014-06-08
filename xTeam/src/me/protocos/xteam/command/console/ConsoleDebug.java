@@ -85,6 +85,12 @@ public class ConsoleDebug extends ConsoleCommand
 		}
 		else if (subCommand.equalsIgnoreCase("tasks"))
 			this.log.info("Tasks: " + teamPlugin.getBukkitScheduler().getPendingTasks());
+		else if (subCommand.equalsIgnoreCase("reload"))
+		{
+			teamPlugin.write();
+			teamPlugin.read();
+			this.log.info("Reloading Data...");
+		}
 		else if (subCommand.equalsIgnoreCase("testmode"))
 		{
 			if (!testmode)
@@ -107,7 +113,7 @@ public class ConsoleDebug extends ConsoleCommand
 			testmode = !testmode;
 		}
 		else
-			this.log.info("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, live, error, tasks, testmode]");
+			this.log.info("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, live, error, tasks, reload, testmode]");
 	}
 
 	private void reset()
