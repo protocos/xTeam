@@ -43,7 +43,7 @@ public class DataStorageFactory
 					db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", teamPlugin.getFolder(), "xTeam", ".db");
 					db.open();
 					dataManager = new SQLDataManager(teamPlugin, db, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
-					this.log.info("Using \"SQLite\" as storage type");
+					this.log.info("Using SQLite as storage type");
 				}
 				catch (Exception e)
 				{
@@ -52,7 +52,7 @@ public class DataStorageFactory
 				}
 			}
 			else
-				this.log.error("Cannot use \"SQLite\" for storage because plugin \"SQLibrary\" cannot be found!" +
+				this.log.error("Cannot use SQLite for storage because plugin SQLibrary cannot be found!" +
 						"\nSQLibrary can be found here: http://dev.bukkit.org/bukkit-plugins/sqlibrary/");
 		}
 		else if (strategy.toLowerCase().startsWith("mysql"))
@@ -70,7 +70,7 @@ public class DataStorageFactory
 							props.get("password").getValue());
 					db.open();
 					dataManager = new SQLDataManager(teamPlugin, db, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
-					this.log.info("Using \"MySQL\" as storage type");
+					this.log.info("Using MySQL as storage type");
 				}
 				catch (Exception e)
 				{
@@ -79,22 +79,22 @@ public class DataStorageFactory
 				}
 			}
 			else
-				this.log.error("Cannot use \"MySQL\" for storage because plugin \"SQLibrary\" cannot be found!" +
+				this.log.error("Cannot use MySQL for storage because plugin SQLibrary cannot be found!" +
 						"\nSQLibrary can be found here: http://dev.bukkit.org/bukkit-plugins/sqlibrary/");
 		}
 		else if (strategy.toLowerCase().startsWith("file"))
 		{
 			dataManager = new FlatFileDataManager(teamPlugin, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
-			this.log.info("Using \"File\" as storage type");
+			this.log.info("Using File as storage type");
 		}
 		else
 		{
-			this.log.error("\"" + strategy + "\" is not a valid storage type");
+			this.log.error("" + strategy + " is not a valid storage type");
 		}
 		if (dataManager == null)
 		{
 			dataManager = new FlatFileDataManager(teamPlugin, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
-			this.log.info("Resorting to \"File\" storage type");
+			this.log.info("Resorting to File storage type");
 		}
 		return dataManager;
 	}
