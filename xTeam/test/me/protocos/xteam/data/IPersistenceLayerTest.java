@@ -13,7 +13,7 @@ import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
 import org.junit.*;
 
-public class IDataManagerTest
+public class IPersistenceLayerTest
 {
 	private TeamPlugin teamPlugin;
 	private ITeamCoordinator teamCoordinator;
