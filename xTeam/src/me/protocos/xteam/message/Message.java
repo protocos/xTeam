@@ -6,7 +6,7 @@ import me.protocos.xteam.util.CommonUtil;
 public class Message
 {
 	private final String message;
-	private final List<IMessageRecipient> recipients;
+	private final Set<IMessageRecipient> recipients;
 
 	public static class Builder
 	{
@@ -62,16 +62,9 @@ public class Message
 	private Message(Builder builder)
 	{
 		this.message = (builder.formatting ? MessageUtil.formatMessage(builder.message) : builder.message);
-		this.recipients = new ArrayList<IMessageRecipient>();
+		this.recipients = CommonUtil.emptySet(new IMessageRecipientComparator());
 		this.recipients.addAll(builder.recipients);
-		for (IMessageRecipient recipient : builder.recipients)
-		{
-			for (IMessageRecipient exclude : builder.excludes)
-			{
-				if (recipient.getName().equals(exclude.getName()))
-					recipients.remove(recipient);
-			}
-		}
+		this.recipients.removeAll(builder.excludes);
 	}
 
 	public void send()

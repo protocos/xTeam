@@ -248,6 +248,11 @@ public class CommonUtil
 		return new HashSet<T>();
 	}
 
+	public static <T> Set<T> emptySet(Comparator<T> comparator)
+	{
+		return new TreeSet<T>(comparator);
+	}
+
 	public static <K, V> HashMap<K, V> emptyHashMap()
 	{
 		return new HashMap<K, V>();
