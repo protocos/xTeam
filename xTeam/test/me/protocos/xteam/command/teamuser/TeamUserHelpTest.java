@@ -115,7 +115,7 @@ public class TeamUserHelpTest
 				"/team demote [Team] [Player] - demote team admin\n" +
 				"/team hq [Team] - teleport to team headquarters for team\n" +
 				"/team promote [Team] [Player] - promote player to admin\n" +
-				"/team remove [Team] [Player] - remove player from team\n" +
+				"/team remove [Player] [Team] - remove player from team\n" +
 				"/team rename [Team] [Name] - rename a team\n" +
 				"/team tag [Team] [Tag] - set team tag\n" +
 				"/team open [Team] - open team to public joining\n" +
