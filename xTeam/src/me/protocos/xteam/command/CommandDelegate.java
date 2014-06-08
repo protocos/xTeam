@@ -48,6 +48,6 @@ public class CommandDelegate implements CommandExecutor
 
 	private void logCommand(CommandContainer commandContainer)
 	{
-		log.debug(commandContainer.getSenderName() + " issued command: " + commandContainer.getCommand());
+		log.debug(commandContainer.getSenderName() + " issued server command: " + commandContainer.getCommand());
 	}
 }

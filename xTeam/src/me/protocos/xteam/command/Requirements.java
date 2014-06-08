@@ -1,8 +1,8 @@
 package me.protocos.xteam.command;
 
-import me.protocos.xteam.command.action.InviteHandler;
-import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.ITeamCoordinator;
+import me.protocos.xteam.core.InviteHandler;
+import me.protocos.xteam.core.TeleportScheduler;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;

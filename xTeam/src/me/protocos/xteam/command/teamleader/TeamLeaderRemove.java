@@ -2,49 +2,34 @@ package me.protocos.xteam.command.teamleader;
 
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
-import me.protocos.xteam.entity.ITeamPlayer;
+import me.protocos.xteam.command.action.RemoveAction;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.message.MessageUtil;
-import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.entity.Player;
 
 public class TeamLeaderRemove extends TeamLeaderCommand
 {
-	private String otherPlayer;
-	private BukkitUtil bukkitUtil;
+	private String teamName, playerName;
+	private RemoveAction removeAction;
 
 	public TeamLeaderRemove(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
-		bukkitUtil = teamPlugin.getBukkitUtil();
+		this.removeAction = new RemoveAction(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		String teamName = teamPlayer.getTeam().getName();
-		team.removePlayer(otherPlayer);
-		Player other = bukkitUtil.getPlayer(otherPlayer);
-		if (other != null)
-			other.sendMessage("You've been " + MessageUtil.red("removed") + " from " + team.getName());
-		teamPlayer.sendMessage("You" + MessageUtil.red(" removed ") + otherPlayer + " from your team");
-		if (team.isEmpty())
-		{
-			teamPlayer.sendMessage(teamName + " has been disbanded");
-			teamCoordinator.disbandTeam(team.getName());
-		}
+		this.removeAction.actOn(teamPlayer, teamName, playerName);
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		otherPlayer = commandContainer.getArgument(1);
-		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
-		Requirements.checkPlayerIsTeammate(teamPlayer, other);
-		Requirements.checkPlayerLeaderLeaving(other);
+		playerName = commandContainer.getArgument(1);
+		teamName = team.getName();
+		this.removeAction.checkRequirements(teamName, playerName);
 	}
 
 	@Override

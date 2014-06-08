@@ -25,7 +25,7 @@ public class MessageTest
 		//ASSEMBLE
 		message = new Message.Builder("Test message.").addRecipients(recipient1).build();
 		//ACT
-		message.send();
+		message.send(null);
 		//ASSERT
 		Assert.assertEquals("Test message.", recipient1.getLatestMessage());
 	}
@@ -36,7 +36,7 @@ public class MessageTest
 		//ASSEMBLE
 		message = new Message.Builder("Test message.").addRecipients(recipient1, recipient2, duplicateRecipient1).build();
 		//ACT
-		message.send();
+		message.send(null);
 		//ASSERT
 		Assert.assertEquals("Test message.", recipient1.getAllMessages());
 		Assert.assertEquals("Test message.", recipient2.getAllMessages());
@@ -48,7 +48,7 @@ public class MessageTest
 		//ASSEMBLE
 		message = new Message.Builder("Test message.").addRecipients(recipient1, recipient2).excludeRecipients(duplicateRecipient1).build();
 		//ACT
-		message.send();
+		message.send(null);
 		//ASSERT
 		Assert.assertEquals("Test message.", recipient2.getLatestMessage());
 		Assert.assertFalse(recipient1.hasAnyMessages());
@@ -60,7 +60,7 @@ public class MessageTest
 		//ASSEMBLE
 		message = new Message.Builder("refreshed").addRecipients(recipient1).build();
 		//ACT
-		message.send();
+		message.send(null);
 		//ASSERT
 		Assert.assertEquals("§arefreshed§r", recipient1.getLatestMessage());
 	}
@@ -71,7 +71,7 @@ public class MessageTest
 		//ASSEMBLE
 		message = new Message.Builder("refreshed").addRecipients(recipient1).disableFormatting().build();
 		//ACT
-		message.send();
+		message.send(null);
 		//ASSERT
 		Assert.assertEquals("refreshed", recipient1.getLatestMessage());
 	}

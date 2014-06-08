@@ -10,7 +10,6 @@ import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.message.Message;
-import me.protocos.xteam.message.MessageSender;
 import me.protocos.xteam.model.ILog;
 import org.bukkit.command.CommandSender;
 
@@ -38,9 +37,8 @@ public class SetTeamAction
 		Requirements.checkTeamPlayerMax(teamCoordinator, teamName);
 	}
 
-	public void actOn(CommandSender commandSender, String playerName, String teamName)
+	public void actOn(CommandSender sender, String playerName, String teamName)
 	{
-		MessageSender sender = new MessageSender(commandSender);
 		ITeamPlayer p = playerFactory.getPlayer(playerName);
 		if (p.hasTeam())
 		{
@@ -56,7 +54,7 @@ public class SetTeamAction
 		}
 	}
 
-	public void removePlayer(MessageSender sender, ITeamPlayer player)
+	public void removePlayer(CommandSender sender, ITeamPlayer player)
 	{
 		ITeam playerTeam = player.getTeam();
 		String teamName = playerTeam.getName();
@@ -78,7 +76,7 @@ public class SetTeamAction
 		}
 	}
 
-	public void addPlayerToTeam(MessageSender sender, ITeamPlayer player, ITeam team)
+	public void addPlayerToTeam(CommandSender sender, ITeamPlayer player, ITeam team)
 	{
 		String playerName = player.getName();
 		String teamName = team.getName();
@@ -89,7 +87,7 @@ public class SetTeamAction
 		message.send(log);
 	}
 
-	public void createTeamWithLeader(MessageSender sender, String teamName, ITeamPlayer player)
+	public void createTeamWithLeader(CommandSender sender, String teamName, ITeamPlayer player)
 	{
 		String playerName = player.getName();
 		Team newTeam = Team.createTeamWithLeader(teamPlugin, teamName, playerName);

@@ -299,6 +299,17 @@ public class TeamTest
 	}
 
 	@Test
+	public void ShouldBeTeamFromPropertiesDefault3()
+	{
+		//ASSEMBLE
+		String properties = "name:red tag:REDONE world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:strandedhelix,teammate";
+		//ACT
+		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
+		//ASSERT
+		Assert.assertEquals("name:red tag:REDONE openJoining:true defaultTeam:true timeHeadquartersLastSet:0 headquarters: leader: admins: players:teammate,strandedhelix", t.toString());
+	}
+
+	@Test
 	public void ShouldBeTeamFromPropertiesRegular1()
 	{
 		//ASSEMBLE

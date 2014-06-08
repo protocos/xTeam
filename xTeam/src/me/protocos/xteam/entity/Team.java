@@ -3,10 +3,11 @@ package me.protocos.xteam.entity;
 import java.util.*;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
-import me.protocos.xteam.command.action.InviteHandler;
-import me.protocos.xteam.command.action.TeleportScheduler;
 import me.protocos.xteam.core.IPlayerFactory;
+import me.protocos.xteam.core.InviteHandler;
+import me.protocos.xteam.core.TeleportScheduler;
 import me.protocos.xteam.data.configuration.Configuration;
+import me.protocos.xteam.data.translator.BooleanDataTranslator;
 import me.protocos.xteam.event.IEventDispatcher;
 import me.protocos.xteam.event.TeamJoinEvent;
 import me.protocos.xteam.event.TeamLeaveEvent;
@@ -599,8 +600,8 @@ public class Team implements ITeam
 			String tag = teamProperties.get("tag") != null ? teamProperties.get("tag") : name;
 			teamProperties.updateKey("open", "openJoining");
 			teamProperties.updateKey("default", "defaultTeam");
-			boolean openJoining = Boolean.parseBoolean(teamProperties.get("openJoining") != null ? teamProperties.get("openJoining") : "false");
-			boolean defaultTeam = Boolean.parseBoolean(teamProperties.get("defaultTeam") != null ? teamProperties.get("defaultTeam") : "false");
+			boolean openJoining = new BooleanDataTranslator().compile(teamProperties.get("openJoining") != null ? teamProperties.get("openJoining") : "false");
+			boolean defaultTeam = new BooleanDataTranslator().compile(teamProperties.get("defaultTeam") != null ? teamProperties.get("defaultTeam") : "false");
 			//modify timeLastSet from the previous versions
 			teamProperties.updateKey("timeLastSet", "timeHeadquartersSet");
 			teamProperties.updateKey("timeHeadquartersSet", "timeHeadquartersLastSet");

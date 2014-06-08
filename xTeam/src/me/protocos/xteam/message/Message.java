@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
+import org.bukkit.command.CommandSender;
 
 public class Message
 {
@@ -26,6 +27,12 @@ public class Message
 			this.formatting = true;
 		}
 
+		public Builder addRecipients(CommandSender sender)
+		{
+			this.recipients.add(new MessageSender(sender));
+			return this;
+		}
+
 		public Builder addRecipients(IMessageRecipient... messageRecipients)
 		{
 			this.recipients.addAll(CommonUtil.toList(messageRecipients));
@@ -35,6 +42,12 @@ public class Message
 		public Builder addRecipients(IMessageRecipientContainer messageRecipientContainer)
 		{
 			this.recipients.addAll(messageRecipientContainer.getMessageRecipients());
+			return this;
+		}
+
+		public Builder excludeRecipients(CommandSender sender)
+		{
+			this.excludes.add(new MessageSender(sender));
 			return this;
 		}
 
@@ -70,10 +83,10 @@ public class Message
 		this.recipients.removeAll(builder.excludes);
 	}
 
-	public void send()
-	{
-		send(null);
-	}
+	//	public void send()
+	//	{
+	//		send(null);
+	//	}
 
 	public void send(ILog log)
 	{
@@ -92,5 +105,27 @@ class IMessageRecipientComparator implements Comparator<IMessageRecipient>
 	public int compare(IMessageRecipient recipient1, IMessageRecipient recipient2)
 	{
 		return recipient1.getName().compareTo(recipient2.getName());
+	}
+}
+
+class MessageSender implements IMessageRecipient
+{
+	private final CommandSender sender;
+
+	public MessageSender(CommandSender sender)
+	{
+		this.sender = sender;
+	}
+
+	@Override
+	public void sendMessage(String message)
+	{
+		sender.sendMessage(message);
+	}
+
+	@Override
+	public String getName()
+	{
+		return sender.getName();
 	}
 }

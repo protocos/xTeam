@@ -4,7 +4,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamAdminCommand;
-import me.protocos.xteam.command.action.InviteHandler;
+import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.message.MessageUtil;

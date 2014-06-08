@@ -3,14 +3,16 @@ package me.protocos.xteam.data.translator;
 public class BooleanDataTranslator implements IDataTranslator<Boolean>
 {
 	@Override
-	public String decompile(Boolean obj)
+	public String decompile(Boolean object)
 	{
-		return obj.toString();
+		return object.toString();
 	}
 
 	@Override
-	public Boolean compile(String compiledString)
+	public Boolean compile(String string)
 	{
-		return Boolean.valueOf(compiledString);
+		if ("1".equals(string))
+			return Boolean.TRUE;
+		return Boolean.valueOf(string);
 	}
 }

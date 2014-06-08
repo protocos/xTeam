@@ -4,15 +4,6 @@ import org.bukkit.ChatColor;
 
 public class MessageUtil
 {
-	//	public static void sendMessageToTeam(ITeamEntity entity, String message)
-	//	{
-	//		List<TeamPlayer> onlinePlayers = entity.getOnlineTeammates();
-	//		for (TeamPlayer teammate : onlinePlayers)
-	//		{
-	//			teammate.sendMessage(message);
-	//		}
-	//	}
-
 	public static ChatColor getColor(String color)
 	{
 		try

@@ -4,7 +4,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
-import me.protocos.xteam.command.action.TeleportScheduler;
+import me.protocos.xteam.core.TeleportScheduler;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.model.Locatable;
 import me.protocos.xteam.util.PatternBuilder;

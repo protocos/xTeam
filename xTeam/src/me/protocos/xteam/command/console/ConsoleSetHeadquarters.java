@@ -7,7 +7,6 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.message.Message;
-import me.protocos.xteam.message.MessageSender;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.PatternBuilder;
@@ -31,7 +30,7 @@ public class ConsoleSetHeadquarters extends ConsoleCommand
 		team = teamCoordinator.getTeam(teamName);
 		team.setHeadquarters(new Headquarters(bukkitUtil.getWorld(world), X, Y, Z, 0.0F, 0.0F));
 		team.setTimeHeadquartersLastSet(System.currentTimeMillis());
-		Message message = new Message.Builder("You set the team headquarters").addRecipients(new MessageSender(sender)).build();
+		Message message = new Message.Builder("You set the team headquarters").addRecipients(sender).build();
 		message.send(log);
 	}
 

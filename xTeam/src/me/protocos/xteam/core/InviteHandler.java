@@ -1,4 +1,4 @@
-package me.protocos.xteam.command.action;
+package me.protocos.xteam.core;
 
 import java.util.ArrayList;
 import me.protocos.xteam.TeamPlugin;

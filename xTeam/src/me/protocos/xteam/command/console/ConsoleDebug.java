@@ -4,7 +4,7 @@ import java.util.List;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.command.action.InviteHandler;
+import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
