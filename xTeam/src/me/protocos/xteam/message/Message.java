@@ -1,13 +1,7 @@
 package me.protocos.xteam.message;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import me.protocos.xteam.util.CommonUtil;
-import org.apache.commons.lang.builder.CompareToBuilder;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public class Message
 {
@@ -17,39 +11,39 @@ public class Message
 	public static class Builder
 	{
 		private final String message;
-		private final Set<MessageRecipientEqualityWrapper> recipients;
-		private final Set<MessageRecipientEqualityWrapper> excludes;
+		private final Set<IMessageRecipient> recipients;
+		private final Set<IMessageRecipient> excludes;
 		private boolean formatting;
 
 		public Builder(String message)
 		{
 			this.message = message;
-			this.recipients = new HashSet<MessageRecipientEqualityWrapper>();
-			this.excludes = new HashSet<MessageRecipientEqualityWrapper>();
+			this.recipients = new TreeSet<IMessageRecipient>(new IMessageRecipientComparator());
+			this.excludes = new TreeSet<IMessageRecipient>(new IMessageRecipientComparator());
 			this.formatting = true;
 		}
 
 		public Builder addRecipients(IMessageRecipient... messageRecipients)
 		{
-			this.recipients.addAll(MessageRecipientEqualityWrapper.toList(messageRecipients));
+			this.recipients.addAll(CommonUtil.toList(messageRecipients));
 			return this;
 		}
 
 		public Builder addRecipients(IMessageRecipientContainer messageRecipientContainer)
 		{
-			this.recipients.addAll(MessageRecipientEqualityWrapper.toList(messageRecipientContainer));
+			this.recipients.addAll(messageRecipientContainer.getMessageRecipients());
 			return this;
 		}
 
 		public Builder excludeRecipients(IMessageRecipient... excludeRecipients)
 		{
-			this.excludes.addAll(MessageRecipientEqualityWrapper.toList(excludeRecipients));
+			this.excludes.addAll(CommonUtil.toList(excludeRecipients));
 			return this;
 		}
 
 		public Builder excludeRecipients(IMessageRecipientContainer messageExcludeContainer)
 		{
-			this.excludes.addAll(MessageRecipientEqualityWrapper.toList(messageExcludeContainer));
+			this.excludes.addAll(messageExcludeContainer.getMessageRecipients());
 			return this;
 		}
 
@@ -89,66 +83,11 @@ public class Message
 	}
 }
 
-class MessageRecipientEqualityWrapper implements IMessageRecipient, Comparable<MessageRecipientEqualityWrapper>
+class IMessageRecipientComparator implements Comparator<IMessageRecipient>
 {
-	private IMessageRecipient recipient;
-
-	public MessageRecipientEqualityWrapper(IMessageRecipient recipient)
-	{
-		this.recipient = recipient;
-	}
-
 	@Override
-	public String getName()
+	public int compare(IMessageRecipient recipient1, IMessageRecipient recipient2)
 	{
-		return recipient.getName();
-	}
-
-	@Override
-	public void sendMessage(String message)
-	{
-		recipient.sendMessage(message);
-	}
-
-	public static List<MessageRecipientEqualityWrapper> toList(IMessageRecipient... recipients)
-	{
-		List<MessageRecipientEqualityWrapper> list = CommonUtil.emptyList();
-		for (IMessageRecipient recipient : recipients)
-			list.add(new MessageRecipientEqualityWrapper(recipient));
-		return list;
-	}
-
-	public static List<MessageRecipientEqualityWrapper> toList(IMessageRecipientContainer messageRecipientContainer)
-	{
-		List<MessageRecipientEqualityWrapper> list = CommonUtil.emptyList();
-		for (IMessageRecipient recipient : messageRecipientContainer.getMessageRecipients())
-			list.add(new MessageRecipientEqualityWrapper(recipient));
-		return list;
-	}
-
-	@Override
-	public int compareTo(MessageRecipientEqualityWrapper rhs)
-	{
-		return new CompareToBuilder().append(this.getName(), rhs.getName()).toComparison();
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return new HashCodeBuilder(139, 163).append(this.getName()).toHashCode();
-	}
-
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (obj == null)
-			return false;
-		if (obj == this)
-			return true;
-		if (!(obj instanceof MessageRecipientEqualityWrapper))
-			return false;
-
-		MessageRecipientEqualityWrapper rhs = (MessageRecipientEqualityWrapper) obj;
-		return new EqualsBuilder().append(this.getName(), rhs.getName()).isEquals();
+		return recipient1.getName().compareTo(recipient2.getName());
 	}
 }
