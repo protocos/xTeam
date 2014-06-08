@@ -51,7 +51,7 @@ public class ConsoleDisband extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team disband [Team]";
+		return "team disband [Team]";
 	}
 
 	@Override

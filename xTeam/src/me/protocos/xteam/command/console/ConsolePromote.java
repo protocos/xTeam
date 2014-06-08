@@ -59,7 +59,7 @@ public class ConsolePromote extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team promote [Team] [Player]";
+		return "team promote [Team] [Player]";
 	}
 
 	@Override

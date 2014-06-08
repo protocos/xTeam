@@ -55,7 +55,7 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team teleallhq";
+		return "team teleallhq";
 	}
 
 	@Override

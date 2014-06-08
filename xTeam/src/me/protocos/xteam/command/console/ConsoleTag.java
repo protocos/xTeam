@@ -54,7 +54,7 @@ public class ConsoleTag extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team tag [Team] [Tag]";
+		return "team tag [Team] [Tag]";
 	}
 
 	@Override

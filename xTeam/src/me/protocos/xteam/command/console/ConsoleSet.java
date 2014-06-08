@@ -48,7 +48,7 @@ public class ConsoleSet extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team set [Player] [Team]";
+		return "team set [Player] [Team]";
 	}
 
 	@Override

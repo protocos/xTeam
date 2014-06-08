@@ -45,7 +45,7 @@ public class ConsoleInfo extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team info [Player/Team]";
+		return "team info [Player/Team]";
 	}
 
 	@Override

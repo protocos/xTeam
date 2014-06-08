@@ -26,6 +26,18 @@ public class CommandContainer
 		return "";
 	}
 
+	public List<String> getArguments()
+	{
+		return arguments;
+	}
+
+	public String getLastArgument()
+	{
+		if (this.arguments.size() > 0)
+			return this.getArgument(arguments.size() - 1);
+		return "";
+	}
+
 	public CommandSender getSender()
 	{
 		return sender;
@@ -34,11 +46,6 @@ public class CommandContainer
 	public String getSenderName()
 	{
 		return this.sentFromConsole() ? "console" : sender.getName();
-	}
-
-	public List<String> getArguments()
-	{
-		return arguments;
 	}
 
 	public String getCommandID()
@@ -71,6 +78,7 @@ public class CommandContainer
 		return sender instanceof Player;
 	}
 
+	@Override
 	public String toString()
 	{
 		return this.getCommand();

@@ -67,7 +67,7 @@ public class ConsoleSetLeader extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team setleader [Team] [Player]";
+		return "team setleader [Team] [Player]";
 	}
 
 	@Override

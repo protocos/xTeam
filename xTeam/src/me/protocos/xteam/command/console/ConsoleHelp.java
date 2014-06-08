@@ -52,7 +52,7 @@ public class ConsoleHelp extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team {help}";
+		return "team {help}";
 	}
 
 	@Override

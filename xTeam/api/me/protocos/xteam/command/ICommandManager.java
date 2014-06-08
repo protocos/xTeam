@@ -5,6 +5,8 @@ import org.bukkit.command.CommandSender;
 
 public interface ICommandManager
 {
+	public abstract String getHelp(CommandContainer commandContainer);
+
 	public abstract BaseCommand match(CommandContainer commandContainer);
 
 	public abstract List<String> getAvailableCommandsFor(CommandSender sender);

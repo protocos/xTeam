@@ -49,7 +49,7 @@ public class ConsoleRemove extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team remove [Player] [Team]";
+		return "team remove [Player] [Team]";
 	}
 
 	@Override

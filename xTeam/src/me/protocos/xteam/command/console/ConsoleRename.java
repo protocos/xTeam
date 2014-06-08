@@ -49,7 +49,7 @@ public class ConsoleRename extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team rename [Team] [Name]";
+		return "team rename [Team] [Name]";
 	}
 
 	@Override

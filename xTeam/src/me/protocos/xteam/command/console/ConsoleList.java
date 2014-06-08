@@ -42,7 +42,7 @@ public class ConsoleList extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team list";
+		return "team list";
 	}
 
 	@Override

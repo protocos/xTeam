@@ -48,7 +48,7 @@ public class ConsoleOpen extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team open [Team]";
+		return "team open [Team]";
 	}
 
 	@Override

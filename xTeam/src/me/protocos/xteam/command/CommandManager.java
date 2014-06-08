@@ -7,6 +7,8 @@ import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
+import me.protocos.xteam.util.PermissionUtil;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 
@@ -23,6 +25,33 @@ public class CommandManager implements ICommandManager
 	public void registerCommand(BaseCommand command)
 	{
 		commands.put(command.getClass().getName(), command);
+	}
+
+	private String modifyPattern(String commandPattern)
+	{
+		return new PatternBuilder().append(commandPattern.replaceAll("\\\\(s|S)(\\+|\\*)", "").replaceAll("\\[0\\-9\\-\\]\\+|\\[\\]\\+", "")).whiteSpaceOptional().repeatUnlimited(new PatternBuilder().append("\\?+").whiteSpaceOptional()).toString();
+	}
+
+	@Override
+	public String getHelp(CommandContainer commandContainer)
+	{
+		for (BaseCommand command : commands)
+			if (commandContainer.sentFromConsole() && command instanceof ConsoleCommand && PermissionUtil.hasPermission(commandContainer.getSender(), command) && commandContainer.getCommandWithoutID().matches(modifyPattern(command.getPattern())))
+				return MessageUtil.highlightString(ChatColor.GRAY, "Console Parameters: {optional} [required] pick/one\n") +
+						MessageUtil.highlightString(ChatColor.GRAY, "Usage: " + command.getUsage() + " - " + command.getDescription());
+			else if (commandContainer.sentFromPlayer() && command instanceof ServerAdminCommand && PermissionUtil.hasPermission(commandContainer.getSender(), command) && commandContainer.getCommandWithoutID().matches(modifyPattern(command.getPattern())))
+				return MessageUtil.highlightString(ChatColor.RESET, MessageUtil.formatForServerAdmin("Server Admin") + " Parameters: {optional} [required] pick/one\n") +
+						"Usage: " + MessageUtil.formatForServerAdmin(command.getUsage() + " - " + command.getDescription());
+			else if (commandContainer.sentFromPlayer() && command instanceof TeamLeaderCommand && PermissionUtil.hasPermission(commandContainer.getSender(), command) && commandContainer.getCommandWithoutID().matches(modifyPattern(command.getPattern())))
+				return MessageUtil.highlightString(ChatColor.RESET, MessageUtil.formatForLeader("Team Leader") + " Parameters: {optional} [required] pick/one\n") +
+						"Usage: " + MessageUtil.formatForLeader(command.getUsage() + " - " + command.getDescription());
+			else if (commandContainer.sentFromPlayer() && command instanceof TeamAdminCommand && PermissionUtil.hasPermission(commandContainer.getSender(), command) && commandContainer.getCommandWithoutID().matches(modifyPattern(command.getPattern())))
+				return MessageUtil.highlightString(ChatColor.RESET, MessageUtil.formatForAdmin("Team Admin") + " Parameters: {optional} [required] pick/one\n") +
+						"Usage: " + MessageUtil.formatForAdmin(command.getUsage() + " - " + command.getDescription());
+			else if (commandContainer.sentFromPlayer() && command instanceof TeamUserCommand && PermissionUtil.hasPermission(commandContainer.getSender(), command) && commandContainer.getCommandWithoutID().matches(modifyPattern(command.getPattern())))
+				return MessageUtil.highlightString(ChatColor.RESET, MessageUtil.formatForUser("Team User") + " Parameters: {optional} [required] pick/one\n") +
+						"Usage: " + MessageUtil.formatForUser(command.getUsage() + " - " + command.getDescription());
+		return null;
 	}
 
 	@Override

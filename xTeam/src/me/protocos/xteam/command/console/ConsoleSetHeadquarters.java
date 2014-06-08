@@ -69,7 +69,7 @@ public class ConsoleSetHeadquarters extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team sethq [Team] [World] [X] [Y] [Z]";
+		return "team sethq [Team] [World] [X] [Y] [Z]";
 	}
 
 	@Override

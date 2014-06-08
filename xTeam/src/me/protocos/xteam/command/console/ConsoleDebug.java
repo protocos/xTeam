@@ -166,7 +166,7 @@ public class ConsoleDebug extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team debug [Option]";
+		return "team debug [Option]";
 	}
 
 	@Override

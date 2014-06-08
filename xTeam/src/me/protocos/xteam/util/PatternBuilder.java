@@ -158,6 +158,12 @@ public class PatternBuilder
 		return this;
 	}
 
+	public PatternBuilder repeatUnlimited(PatternBuilder append)
+	{
+		this.pattern.append("(" + append.toString() + ")+");
+		return this;
+	}
+
 	public PatternBuilder ignoreCase()
 	{
 		this.pattern.insert(0, IGNORE_CASE);

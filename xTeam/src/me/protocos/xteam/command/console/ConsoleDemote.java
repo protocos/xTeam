@@ -61,7 +61,7 @@ public class ConsoleDemote extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team demote [Team] [Player]";
+		return "team demote [Team] [Player]";
 	}
 
 	@Override
