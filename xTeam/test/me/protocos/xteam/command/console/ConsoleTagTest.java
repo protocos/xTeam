@@ -41,7 +41,7 @@ public class ConsoleTagTest
 		Assert.assertTrue("ta TEAM TAG".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("tg TEAM TAG ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("tg TEAM TAG sdfhkabkl".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("team " + fakeCommand.getPattern()));
 	}
 
 	@Test

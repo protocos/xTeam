@@ -9,7 +9,8 @@ public class PatternBuilder
 	private static final String NUMBERS = "\\d+";
 	private static final String OPTIONAL_NUMBERS = "\\d*";
 	private static final String ANY_CHARS = "\\S+";
-	private static final Object ANY_NUMBERS = "[0-9-]+";
+	private static final Object ANY_INTEGER = "[0-9-]+";
+	private static final String ANY_DOUBLE = "[0-9-\\.]+";
 	private static final String OPTIONAL_ANY_CHARS = "\\S*";
 	private static final String ALPHA_NUMERIC = "\\w+";
 	private static final String OPTIONAL_ALPHA_NUMERIC = "\\w*";
@@ -118,7 +119,13 @@ public class PatternBuilder
 
 	public PatternBuilder anyNumber()
 	{
-		this.pattern.append(ANY_NUMBERS);
+		this.pattern.append(ANY_INTEGER);
+		return this;
+	}
+
+	public PatternBuilder anyDouble()
+	{
+		this.pattern.append(ANY_DOUBLE);
 		return this;
 	}
 

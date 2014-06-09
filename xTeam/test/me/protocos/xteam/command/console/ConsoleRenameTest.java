@@ -43,7 +43,7 @@ public class ConsoleRenameTest
 		Assert.assertFalse("re TEAM NAME ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("r".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("re".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("team " + fakeCommand.getPattern()));
 	}
 
 	@Test

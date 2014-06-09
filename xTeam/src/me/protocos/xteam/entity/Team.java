@@ -52,6 +52,7 @@ public class Team implements ITeam
 	//TODO need to make Default team its own class
 	private boolean defaultTeam;
 	private Location rally;
+	private int rallyTaskID;
 
 	public static class Builder
 	{
@@ -550,6 +551,8 @@ public class Team implements ITeam
 	@Override
 	public void setRally(final Location location)
 	{
+		if (this.hasRally())
+			bukkitUtil.getScheduler().cancelTask(rallyTaskID);
 		rally = location;
 		final Team finalTeam = this;
 		class RemoveRally implements Runnable
@@ -561,7 +564,7 @@ public class Team implements ITeam
 				sendMessage("Team rally has been " + MessageUtil.green("refreshed"));
 			}
 		}
-		bukkitUtil.getScheduler().scheduleSyncDelayedTask(teamPlugin, new RemoveRally(), Configuration.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);
+		rallyTaskID = bukkitUtil.getScheduler().scheduleSyncDelayedTask(teamPlugin, new RemoveRally(), Configuration.RALLY_DELAY * BukkitUtil.ONE_MINUTE_IN_TICKS);
 	}
 
 	@Override

@@ -37,7 +37,7 @@ public class ConsoleDisbandTest
 		Assert.assertFalse("disband".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("disband ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("d TEAM".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("team " + fakeCommand.getPattern()));
 	}
 
 	@Test

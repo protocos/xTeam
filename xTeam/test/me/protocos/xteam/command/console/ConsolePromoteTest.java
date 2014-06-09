@@ -42,7 +42,7 @@ public class ConsolePromoteTest
 		Assert.assertFalse("promote TEAM ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("promote".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("promote ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("team " + fakeCommand.getPattern()));
 	}
 
 	@Test

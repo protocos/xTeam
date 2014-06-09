@@ -32,7 +32,7 @@ public class ConsoleTeleAllHQTest
 		Assert.assertTrue("teleah".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("t".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("tele ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("team " + fakeCommand.getPattern()));
 	}
 
 	@Test

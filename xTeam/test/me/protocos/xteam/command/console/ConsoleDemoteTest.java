@@ -39,7 +39,7 @@ public class ConsoleDemoteTest
 		Assert.assertFalse("demote TEAM ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("dem".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("demote ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("team " + fakeCommand.getPattern()));
 	}
 
 	@Test

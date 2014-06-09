@@ -40,7 +40,7 @@ public class ConsoleListTest
 		Assert.assertTrue("ls ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("ls1".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("ls 1".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("team " + fakeCommand.getPattern()));
 	}
 
 	@Test

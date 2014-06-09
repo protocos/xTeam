@@ -40,7 +40,7 @@ public class ConsoleSetTest
 		Assert.assertTrue("se PLAYER TEAM ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("s".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("se ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("team " + fakeCommand.getPattern()));
 	}
 
 	@Test

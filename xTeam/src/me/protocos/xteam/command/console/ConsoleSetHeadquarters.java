@@ -30,7 +30,7 @@ public class ConsoleSetHeadquarters extends ConsoleCommand
 		team = teamCoordinator.getTeam(teamName);
 		team.setHeadquarters(new Headquarters(bukkitUtil.getWorld(world), X, Y, Z, 0.0F, 0.0F));
 		team.setTimeHeadquartersLastSet(System.currentTimeMillis());
-		Message message = new Message.Builder("You set the team headquarters").addRecipients(sender).build();
+		Message message = new Message.Builder("You set the team headquarters to X:" + X + " Y:" + Y + " Z:" + Z).addRecipients(sender).build();
 		message.send(log);
 	}
 
@@ -38,11 +38,11 @@ public class ConsoleSetHeadquarters extends ConsoleCommand
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		teamName = commandContainer.getArgument(1);
-		Requirements.checkTeamExists(teamCoordinator, teamName);
 		world = commandContainer.getArgument(2);
 		X = Double.parseDouble(commandContainer.getArgument(3));
 		Y = Double.parseDouble(commandContainer.getArgument(4));
 		Z = Double.parseDouble(commandContainer.getArgument(5));
+		Requirements.checkTeamExists(teamCoordinator, teamName);
 	}
 
 	@Override
@@ -57,11 +57,11 @@ public class ConsoleSetHeadquarters extends ConsoleCommand
 				.whiteSpace()
 				.anyString()
 				.whiteSpace()
-				.anyNumber()
+				.anyDouble()
 				.whiteSpace()
-				.anyNumber()
+				.anyDouble()
 				.whiteSpace()
-				.anyNumber()
+				.anyDouble()
 				.whiteSpaceOptional()
 				.toString();
 	}

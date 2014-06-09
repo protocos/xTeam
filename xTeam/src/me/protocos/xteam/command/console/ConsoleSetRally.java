@@ -30,7 +30,7 @@ public class ConsoleSetRally extends ConsoleCommand
 	{
 		team = teamCoordinator.getTeam(teamName);
 		team.setRally(new Location(bukkitUtil.getWorld(world), X, Y, Z, 0.0F, 0.0F));
-		Message message = new Message.Builder("You set the rally point for " + team.getName()).addRecipients(sender).build();
+		Message message = new Message.Builder("You set the rally point for " + team.getName() + " to X:" + X + " Y:" + Y + " Z:" + Z).addRecipients(sender).build();
 		message.send(log);
 		message = new Message.Builder("Team rally point has been set (expires in " + Configuration.RALLY_DELAY + " minutes)").addRecipients(team).excludeRecipients(sender).build();
 		message.send(log);
@@ -58,11 +58,11 @@ public class ConsoleSetRally extends ConsoleCommand
 				.whiteSpace()
 				.anyString()
 				.whiteSpace()
-				.anyNumber()
+				.anyDouble()
 				.whiteSpace()
-				.anyNumber()
+				.anyDouble()
 				.whiteSpace()
-				.anyNumber()
+				.anyDouble()
 				.whiteSpaceOptional()
 				.toString();
 	}
