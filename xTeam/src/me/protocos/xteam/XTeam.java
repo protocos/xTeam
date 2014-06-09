@@ -171,6 +171,7 @@ public final class XTeam extends TeamPlugin
 		manager.registerCommand(new ConsoleSet(this));
 		manager.registerCommand(new ConsoleSetHeadquarters(this));
 		manager.registerCommand(new ConsoleSetLeader(this));
+		manager.registerCommand(new ConsoleSetRally(this));
 		manager.registerCommand(new ConsoleTeleAllHQ(this));
 	}
 
