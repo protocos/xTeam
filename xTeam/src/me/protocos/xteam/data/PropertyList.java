@@ -69,7 +69,12 @@ public class PropertyList implements Iterable<Property>
 
 	public boolean contains(Property property)
 	{
-		return properties.containsKey(property.getKey());
+		return containsKey(property.getKey());
+	}
+
+	public boolean containsKey(String key)
+	{
+		return properties.containsKey(key);
 	}
 
 	protected int size()

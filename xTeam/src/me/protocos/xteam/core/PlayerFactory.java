@@ -232,9 +232,10 @@ public class PlayerFactory implements IPlayerFactory
 			propertyList.put("lastAttacked", "0");
 			propertyList.put("lastTeleported", "0");
 			propertyList.put("returnLocation", "");
-			propertyList.put("lastKnownLocation", "");
 			playerProperties.put(name, propertyList);
 		}
+		if (!playerProperties.get(name).containsKey("lastKnownLocation"))
+			playerProperties.get(name).put("lastKnownLocation", "");
 	}
 
 	@Override
