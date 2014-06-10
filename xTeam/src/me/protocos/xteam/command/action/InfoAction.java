@@ -31,16 +31,13 @@ public class InfoAction
 		{
 			if (sender instanceof ConsoleCommandSender)
 			{
-				for (String line : infoTeam.getPrivateInfo().split("\n"))
+				for (String line : infoTeam.getInfoFor(infoTeam).split("\n"))
 					sender.sendMessage(line);
 			}
 			else if (sender instanceof ITeamPlayer)
 			{
 				ITeamPlayer teamPlayer = CommonUtil.assignFromType(sender, ITeamPlayer.class);
-				if (teamPlayer.isOnSameTeam(infoTeam))
-					teamPlayer.sendMessage(infoTeam.getPrivateInfo());
-				else
-					teamPlayer.sendMessage(infoTeam.getPublicInfo());
+				teamPlayer.sendMessage(infoTeam.getInfoFor(teamPlayer));
 			}
 		}
 	}

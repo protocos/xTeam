@@ -30,6 +30,7 @@ public class Configuration
 	public static boolean NO_PERMISSIONS;
 	public static boolean ALPHA_NUM;
 	public static boolean DISPLAY_COORDINATES;
+	public static boolean DISPLAY_RELATIVE_COORDINATES;
 	public static boolean SEND_ANONYMOUS_ERROR_REPORTS;
 	public static int MAX_PLAYERS;
 	public static int HQ_INTERVAL;
@@ -126,6 +127,7 @@ public class Configuration
 		NO_PERMISSIONS = CommonUtil.assignFromType(options.get("nopermissions").getValue(), Boolean.class);
 		ALPHA_NUM = CommonUtil.assignFromType(options.get("alphanumericnames").getValue(), Boolean.class);
 		DISPLAY_COORDINATES = CommonUtil.assignFromType(options.get("displaycoordinates").getValue(), Boolean.class);
+		DISPLAY_RELATIVE_COORDINATES = CommonUtil.assignFromType(options.get("displayrelativelocations").getValue(), Boolean.class);
 		SEND_ANONYMOUS_ERROR_REPORTS = CommonUtil.assignFromType(options.get("anonymouserrorreporting").getValue(), Boolean.class);
 		MAX_PLAYERS = CommonUtil.assignFromType(options.get("playersonteam").getValue(), Integer.class);
 		HQ_INTERVAL = CommonUtil.assignFromType(options.get("sethqinterval").getValue(), Integer.class);
@@ -136,7 +138,6 @@ public class Configuration
 		TEAM_NAME_LENGTH = CommonUtil.assignFromType(options.get("teamnamemaxlength").getValue(), Integer.class);
 		TELE_REFRESH_DELAY = CommonUtil.assignFromType(options.get("telerefreshdelay").getValue(), Integer.class);
 		RALLY_DELAY = CommonUtil.assignFromType(options.get("rallydelay").getValue(), Integer.class);
-		SAVE_DATA_INTERVAL = CommonUtil.assignFromType(options.get("savedatainterval").getValue(), Integer.class);
 		COLOR_TAG = CommonUtil.assignFromType(options.get("tagcolor").getValue(), String.class);
 		COLOR_NAME = CommonUtil.assignFromType(options.get("chatnamecolor").getValue(), String.class);
 		STORAGE_TYPE = CommonUtil.assignFromType(options.get("storagetype").getValue(), String.class);

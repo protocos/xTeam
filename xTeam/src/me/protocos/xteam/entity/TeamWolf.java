@@ -420,14 +420,10 @@ public class TeamWolf implements ITeamWolf
 	}
 
 	@Override
-	public String getPublicInfo()
+	public String getInfoFor(ITeamEntity entity)
 	{
+		if (this.isOnSameTeam(entity))
+			return this.getOwner() + "'s wolfie";
 		return "Someone else's wolfie";
-	}
-
-	@Override
-	public String getPrivateInfo()
-	{
-		return this.getOwner() + "'s wolfie";
 	}
 }

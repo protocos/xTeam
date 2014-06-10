@@ -14,6 +14,7 @@ import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
+import me.protocos.xteam.util.LocationUtil;
 import me.protocos.xteam.util.PermissionUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -236,7 +237,6 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public void sendMessageToTeam(String message)
 	{
-		//		MessageUtil.sendMessageToTeam(this, message);
 		Message m = new Message.Builder(message).addRecipients(this.getTeam()).build();
 		m.send(log);
 	}
@@ -555,19 +555,26 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	}
 
 	@Override
-	public String getPublicInfo()
+	public String getInfoFor(ITeamEntity entity)
 	{
+		if (this.isOnSameTeam(entity))
+		{
+			String location = "";
+			int health = (int) this.getHealth();
+			if (Configuration.DISPLAY_COORDINATES)
+			{
+				if (Configuration.DISPLAY_RELATIVE_COORDINATES && entity instanceof ILocatable)
+				{
+					ILocatable locatable = (ILocatable) entity;
+					if (!entity.getName().equals(this.getName()))
+						location += " " + LocationUtil.getRelativePosition(locatable.getLocation(), this.getLocation());
+				}
+				else
+					location += " Location: " + ChatColor.RED + this.getRelativeX() + " " + ChatColor.GREEN + this.getRelativeY() + " " + ChatColor.BLUE + this.getRelativeZ() + ChatColor.RESET + " in \"" + this.getWorld().getName() + "\"";
+			}
+			return ChatColor.GREEN + "    " + this.getName() + ChatColor.RESET + " (" + (health >= 15 ? ChatColor.GREEN : ChatColor.RED) + health * 5 + "%" + ChatColor.RESET + ")" + location;
+		}
 		return ChatColor.GREEN + "    " + this.getName();
-	}
-
-	@Override
-	public String getPrivateInfo()
-	{
-		String location = "";
-		int health = (int) this.getHealth();
-		if (Configuration.DISPLAY_COORDINATES)
-			location += " Location: " + ChatColor.RED + this.getRelativeX() + " " + ChatColor.GREEN + this.getRelativeY() + " " + ChatColor.BLUE + this.getRelativeZ() + ChatColor.RESET + " in \"" + this.getWorld().getName() + "\"";
-		return ChatColor.GREEN + "    " + this.getName() + ChatColor.RESET + " Health: " + (health >= 15 ? ChatColor.GREEN : ChatColor.RED) + health * 5 + "%" + ChatColor.RESET + location;
 	}
 
 	@Override

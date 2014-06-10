@@ -4,22 +4,24 @@ import me.protocos.xteam.util.CommonUtil;
 
 public enum Direction
 {
-	FRONT_LEFT(22.5, 67.5),
-	LEFT(67.5, 112.5),
-	BACK_LEFT(112.5, 157.5),
-	BACK(157.5, 202.5),
-	BACK_RIGHT(202.5, 247.5),
-	RIGHT(247.5, 292.5),
-	FRONT_RIGHT(292.5, 337.5),
-	FRONT(337.5, 22.5);
+	FRONT_LEFT(22.5, 67.5, "front-left"),
+	LEFT(67.5, 112.5, "left"),
+	BACK_LEFT(112.5, 157.5, "back-left"),
+	BACK(157.5, 202.5, "back"),
+	BACK_RIGHT(202.5, 247.5, "back-right"),
+	RIGHT(247.5, 292.5, "right"),
+	FRONT_RIGHT(292.5, 337.5, "front-right"),
+	FRONT(337.5, 22.5, "front");
 
-	private double lowerBound;
-	private double upperBound;
+	private final double lowerBound;
+	private final double upperBound;
+	private final String name;
 
-	Direction(double lowerBound, double upperBound)
+	Direction(double lowerBound, double upperBound, String name)
 	{
 		this.lowerBound = lowerBound;
 		this.upperBound = upperBound;
+		this.name = name;
 	}
 
 	public boolean insideRange(double rangeCheck)
@@ -33,5 +35,11 @@ public enum Direction
 			if (direction.insideRange(angle))
 				return direction;
 		return null;
+	}
+
+	@Override
+	public String toString()
+	{
+		return name;
 	}
 }

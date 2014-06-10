@@ -22,12 +22,6 @@ public class TeamLeaderRename extends TeamLeaderCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		renameTeamAction.actOn(teamPlayer, team.getName(), desiredName);
-
-		//		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
-		//		{
-		//			mate.sendMessage("The team has been " + MessageUtil.green("renamed") + " to " + desiredName);
-		//		}
-		//		teamPlayer.sendMessage("You " + MessageUtil.green("renamed") + " the team to " + desiredName);
 	}
 
 	@Override

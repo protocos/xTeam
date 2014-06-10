@@ -225,14 +225,10 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	}
 
 	@Override
-	public String getPublicInfo()
+	public String getInfoFor(ITeamEntity entity)
 	{
+		if (this.isOnSameTeam(entity))
+			return MessageUtil.red("    " + this.getName()) + " was last online on " + this.getLastPlayed();
 		return MessageUtil.red("    " + this.getName());
-	}
-
-	@Override
-	public String getPrivateInfo()
-	{
-		return MessageUtil.red("    " + this.getName()) + " was last online on " + this.getLastPlayed();
 	}
 }

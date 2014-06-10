@@ -17,6 +17,7 @@ import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.*;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
+import me.protocos.xteam.util.LocationUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.ChatColor;
@@ -370,61 +371,6 @@ public class Team implements ITeam
 	}
 
 	@Override
-	public String getPublicInfo()
-	{
-		return getInfo(true);
-	}
-
-	@Override
-	public String getPrivateInfo()
-	{
-		return getInfo(false);
-	}
-
-	private String getInfo(boolean usePublicData)
-	{
-		String message = (ChatColor.RESET + "Team Name - " + ChatColor.GREEN + this.getName());
-		if (!this.getTag().equals(this.getName()))
-			message += "\n" + (ChatColor.RESET + "Team Tag - " + ChatColor.GREEN + this.getTag());
-		if (this.hasLeader())
-			message += "\n" + (ChatColor.RESET + "Team Leader - " + ChatColor.GREEN + this.getLeader());
-		if (this.admins.size() > 0)
-			message += "\n" + (ChatColor.RESET + "Team Admins - " + ChatColor.GREEN + this.admins.toString().replaceAll("\\[|\\]" + (this.hasLeader() ? "|" + this.getLeader() + ", " : ""), ""));
-		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.green("Open")) : (MessageUtil.red("Closed"))));
-		if (usePublicData)
-			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.green("Set")) : (MessageUtil.red("None set"))));
-		else
-			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (ChatColor.GREEN + "X:" + this.getHeadquarters().getRelativeX() + " Y:" + this.getHeadquarters().getRelativeY() + " Z:" + this.getHeadquarters().getRelativeZ()) : (ChatColor.RED + "None set")));
-		if (!"".equals(inviteHandler.getInvitesFromTeam(this)))
-			message += "\n" + (ChatColor.RESET + "Team Invites - " + ChatColor.GREEN + inviteHandler.getInvitesFromTeam(this));
-		List<TeamPlayer> onlineTeammates = this.getOnlineTeammates();
-		if (onlineTeammates.size() > 0)
-		{
-			message += "\n" + (ChatColor.RESET + "Teammates online:");
-			for (TeamPlayer p : onlineTeammates)
-			{
-				if (usePublicData)
-					message += "\n" + p.getPublicInfo();
-				else
-					message += "\n" + p.getPrivateInfo();
-			}
-		}
-		List<OfflineTeamPlayer> offlineTeammates = this.getOfflineTeammates();
-		if (offlineTeammates.size() > 0)
-		{
-			message += "\n" + (ChatColor.RESET + "Teammates offline:");
-			for (OfflineTeamPlayer p : offlineTeammates)
-			{
-				if (usePublicData)
-					message += "\n" + p.getPublicInfo();
-				else
-					message += "\n" + p.getPrivateInfo();
-			}
-		}
-		return message;
-	}
-
-	@Override
 	public Location getLocation()
 	{
 		return headquarters.getLocation();
@@ -713,5 +659,58 @@ public class Team implements ITeam
 		teamData += " admins:" + CommonUtil.concatenate(admins, ",");
 		teamData += " players:" + CommonUtil.concatenate(players, ",");
 		return teamData;
+	}
+
+	@Override
+	public String getInfoFor(ITeamEntity entity)
+	{
+		if (this.isOnSameTeam(entity))
+			return getInfo(entity);
+		return getInfo(entity);
+	}
+
+	private String getInfo(ITeamEntity entity)
+	{
+		String message = (ChatColor.RESET + "Team Name - " + ChatColor.GREEN + this.getName());
+		if (!this.getTag().equals(this.getName()))
+			message += "\n" + (ChatColor.RESET + "Team Tag - " + ChatColor.GREEN + this.getTag());
+		if (this.hasLeader())
+			message += "\n" + (ChatColor.RESET + "Team Leader - " + ChatColor.GREEN + this.getLeader());
+		if (this.admins.size() > 0)
+			message += "\n" + (ChatColor.RESET + "Team Admins - " + ChatColor.GREEN + this.admins.toString().replaceAll("\\[|\\]" + (this.hasLeader() ? "|" + this.getLeader() + ", " : ""), ""));
+		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.green("Open")) : (MessageUtil.red("Closed"))));
+		if (this.isOnSameTeam(entity))
+		{
+			if (Configuration.DISPLAY_RELATIVE_COORDINATES && entity instanceof ILocatable)
+			{
+				ILocatable locatable = (ILocatable) entity;
+				message += "\n" + (ChatColor.RESET + "Team Headquarters - " + LocationUtil.getRelativePosition(locatable.getLocation(), this.getLocation()));
+			}
+			else
+				message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (ChatColor.GREEN + "X:" + this.getHeadquarters().getRelativeX() + " Y:" + this.getHeadquarters().getRelativeY() + " Z:" + this.getHeadquarters().getRelativeZ()) : (ChatColor.RED + "None set")));
+		}
+		else
+			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.green("Set")) : (MessageUtil.red("None set"))));
+		if (!"".equals(inviteHandler.getInvitesFromTeam(this)))
+			message += "\n" + (ChatColor.RESET + "Team Invites - " + ChatColor.GREEN + inviteHandler.getInvitesFromTeam(this));
+		List<TeamPlayer> onlineTeammates = this.getOnlineTeammates();
+		if (onlineTeammates.size() > 0)
+		{
+			message += "\n" + (ChatColor.RESET + "Teammates online:");
+			for (TeamPlayer p : onlineTeammates)
+			{
+				message += "\n" + p.getInfoFor(entity);
+			}
+		}
+		List<OfflineTeamPlayer> offlineTeammates = this.getOfflineTeammates();
+		if (offlineTeammates.size() > 0)
+		{
+			message += "\n" + (ChatColor.RESET + "Teammates offline:");
+			for (OfflineTeamPlayer p : offlineTeammates)
+			{
+				message += "\n" + p.getInfoFor(entity);
+			}
+		}
+		return message;
 	}
 }

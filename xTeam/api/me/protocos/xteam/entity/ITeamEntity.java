@@ -23,7 +23,5 @@ public interface ITeamEntity extends IMessageRecipient
 
 	public abstract List<ITeamPlayer> getTeammates();
 
-	public abstract String getPublicInfo();
-
-	public abstract String getPrivateInfo();
+	public abstract String getInfoFor(ITeamEntity entity);
 }

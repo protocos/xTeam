@@ -350,6 +350,11 @@ public class CommonUtil
 		return uppercase;
 	}
 
+	public static String pluralizeBasedOn(String string, int amount)
+	{
+		return string += Math.abs(amount) == 1.0D ? "" : "s";
+	}
+
 	public static String formatDateToMonthDay(long milliSeconds)
 	{
 		DateFormat formatter = new SimpleDateFormat("MMM d @ h:mm a");
