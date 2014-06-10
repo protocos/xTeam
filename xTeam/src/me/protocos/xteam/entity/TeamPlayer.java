@@ -34,7 +34,7 @@ import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
-public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSender
+public class TeamPlayer implements ITeamPlayer, Entity, CommandSender
 {
 	private TeamPlugin teamPlugin;
 	private ILog log;
@@ -114,22 +114,19 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public int getRelativeX()
 	{
-		Location loc = this.getLocation();
-		return CommonUtil.round(loc.getX());
+		return CommonUtil.round(this.getLocation().getX());
 	}
 
 	@Override
 	public int getRelativeY()
 	{
-		Location loc = this.getLocation();
-		return CommonUtil.round(loc.getY());
+		return CommonUtil.round(this.getLocation().getY());
 	}
 
 	@Override
 	public int getRelativeZ()
 	{
-		Location loc = this.getLocation();
-		return CommonUtil.round(loc.getZ());
+		return CommonUtil.round(this.getLocation().getZ());
 	}
 
 	@Override
@@ -561,6 +558,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public Location getLastKnownLocation()
 	{
+		this.setLastKnownLocation(playerFactory.getPlayer(this.getName()).getLocation());
 		return playerFactory.getPlayerPropertiesFor(this.getName()).get("lastKnownLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
 	}
 

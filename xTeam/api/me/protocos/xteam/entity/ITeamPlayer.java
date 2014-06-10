@@ -4,7 +4,7 @@ import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.model.ILocatable;
 import org.bukkit.Location;
 
-public interface ITeamPlayer extends ITeamEntity
+public interface ITeamPlayer extends ITeamEntity, ILocatable
 {
 	public abstract double getHealth();
 
@@ -15,8 +15,6 @@ public interface ITeamPlayer extends ITeamEntity
 	public abstract boolean hasPermission(IPermissible permission);
 
 	public abstract boolean hasPlayedBefore();
-
-	public abstract boolean hasReturnLocation();
 
 	public abstract boolean isAdmin();
 
@@ -40,11 +38,13 @@ public interface ITeamPlayer extends ITeamEntity
 
 	public abstract Location getReturnLocation();
 
+	public abstract boolean hasReturnLocation();
+
+	public abstract void removeReturnLocation();
+
 	public abstract void setLastKnownLocation(Location location);
 
 	public abstract Location getLastKnownLocation();
-
-	public abstract void removeReturnLocation();
 
 	public abstract boolean teleportTo(ILocatable entity);
 }

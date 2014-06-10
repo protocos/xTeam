@@ -11,10 +11,14 @@ import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.model.ILog;
+import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Server;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
 
 public class OfflineTeamPlayer implements ITeamPlayer
 {
@@ -165,6 +169,8 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public Location getLastKnownLocation()
 	{
+		if (this.isOnline())
+			this.setLastKnownLocation(playerFactory.getPlayer(this.getName()).getLocation());
 		return playerFactory.getPlayerPropertiesFor(this.getName()).get("lastKnownLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
 	}
 
@@ -245,5 +251,55 @@ public class OfflineTeamPlayer implements ITeamPlayer
 		if (this.isOnSameTeam(entity))
 			return MessageUtil.red("    " + this.getName()) + " was last online on " + this.getLastPlayed();
 		return MessageUtil.red("    " + this.getName());
+	}
+
+	@Override
+	public Location getLocation()
+	{
+		return this.getLastKnownLocation();
+	}
+
+	@Override
+	public World getWorld()
+	{
+		return this.getLocation().getWorld();
+	}
+
+	@Override
+	public Server getServer()
+	{
+		return teamPlugin.getServer();
+	}
+
+	@Override
+	public int getRelativeX()
+	{
+		return CommonUtil.round(this.getLocation().getX());
+	}
+
+	@Override
+	public int getRelativeY()
+	{
+		return CommonUtil.round(this.getLocation().getY());
+	}
+
+	@Override
+	public int getRelativeZ()
+	{
+		return CommonUtil.round(this.getLocation().getZ());
+	}
+
+	@Override
+	public double getDistanceTo(ILocatable entity)
+	{
+		if (this.getLocation().getWorld().equals(entity.getLocation().getWorld()))
+			return this.getLocation().distance(entity.getLocation());
+		return Double.MAX_VALUE;
+	}
+
+	@Override
+	public List<Entity> getNearbyEntities(int radius)
+	{
+		return BukkitUtil.getNearbyEntities(this.getLocation(), radius);
 	}
 }
