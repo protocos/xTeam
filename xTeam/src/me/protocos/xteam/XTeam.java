@@ -178,6 +178,7 @@ public final class XTeam extends TeamPlugin
 	public void registerServerAdminCommands(ICommandManager manager)
 	{
 		manager.registerCommand(new ServerAdminChatSpy(this));
+		manager.registerCommand(new ServerAdminDebug(this));
 		manager.registerCommand(new ServerAdminDisband(this));
 		manager.registerCommand(new ServerAdminDemote(this));
 		manager.registerCommand(new ServerAdminHeadquarters(this));

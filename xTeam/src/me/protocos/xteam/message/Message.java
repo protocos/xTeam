@@ -9,8 +9,9 @@ import org.bukkit.command.CommandSender;
 
 public class Message
 {
-	private final String message;
+	private String message;
 	private final Set<IMessageRecipient> recipients;
+	private boolean formatting;
 
 	public static class Builder
 	{
@@ -83,11 +84,6 @@ public class Message
 		this.recipients.removeAll(builder.excludes);
 	}
 
-	//	public void send()
-	//	{
-	//		send(null);
-	//	}
-
 	public void send(ILog log)
 	{
 		for (IMessageRecipient recipient : recipients)
@@ -96,6 +92,16 @@ public class Message
 				log.debug("server response: @" + recipient.getName() + " \"" + message + "\"");
 			recipient.sendMessage(message);
 		}
+	}
+
+	public void setMessage(String message)
+	{
+		this.message = this.formatting ? MessageUtil.formatMessage(message) : message;
+	}
+
+	public String getMessage()
+	{
+		return MessageUtil.resetFormatting(message);
 	}
 }
 

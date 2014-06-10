@@ -113,7 +113,7 @@ public class ConsoleDebug extends ConsoleCommand
 			testmode = !testmode;
 		}
 		else
-			this.log.info("Options are: debug [chat, invites, spies, created, players, teams, perms, reset, live, error, tasks, reload, testmode]");
+			this.log.info("Options are: team debug {chat/invites/spies/created/players/teams/perms/reset/live/error/tasks/reload/testmode}");
 	}
 
 	private void reset()
@@ -166,7 +166,7 @@ public class ConsoleDebug extends ConsoleCommand
 	@Override
 	public String getUsage()
 	{
-		return "team debug [Option]";
+		return "team debug {Option}";
 	}
 
 	@Override

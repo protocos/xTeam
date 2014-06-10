@@ -76,6 +76,17 @@ public class MessageTest
 		Assert.assertEquals("refreshed", recipient1.getLatestMessage());
 	}
 
+	@Test
+	public void ShouldBeSetMessage()
+	{
+		//ASSEMBLE
+		message = new Message.Builder("refreshed").addRecipients(recipient1).build();
+		//ACT
+		message.setMessage("Message refreshed!");
+		//ASSERT
+		Assert.assertEquals("Message refreshed!", message.getMessage());
+	}
+
 	@After
 	public void takedown()
 	{

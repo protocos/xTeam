@@ -26,6 +26,11 @@ public class FakeLocation extends Location
 		super(world, x, y, z, yaw, pitch);
 	}
 
+	public FakeLocation(double x, double y, double z)
+	{
+		super(new FakeWorld(), x, y, z);
+	}
+
 	public FakeLocation(double x, double y, double z, float yaw, float pitch)
 	{
 		super(new FakeWorld(), x, y, z, yaw, pitch);

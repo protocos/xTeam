@@ -111,6 +111,9 @@ permissions:
     xteam.core.serveradmin.chatspy:
         description: Allows server admins to spy on team chat
         default: op
+    xteam.core.serveradmin.debug:
+        description: Allows server admins to debug the plugin
+        default: op
     xteam.core.serveradmin.disband:
         description: Allows server admins to disband a team
         default: op
