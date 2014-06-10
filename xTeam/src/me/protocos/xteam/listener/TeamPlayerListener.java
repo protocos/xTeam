@@ -129,6 +129,7 @@ public class TeamPlayerListener implements Listener
 		try
 		{
 			Configuration.chatStatus.remove(player.getName());
+			playerFactory.setLastKnownLocation(playerFactory.getPlayer(player), player.getLocation());
 		}
 		catch (Exception e)
 		{

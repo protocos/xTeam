@@ -33,7 +33,7 @@ public interface IPlayerFactory extends IDataContainer
 
 	public abstract Location getReturnLocation(String name);
 
-	public abstract void setLastKnownLocation(ITeamPlayer teamPlayer, Location returnLocation);
+	public abstract void setLastKnownLocation(ITeamPlayer teamPlayer, Location lastKnownLocation);
 
 	public abstract Location getLastKnownLocation(String name);
 
