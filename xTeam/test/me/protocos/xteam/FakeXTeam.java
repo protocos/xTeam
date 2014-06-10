@@ -4,6 +4,7 @@ import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.fakeobjects.*;
+import me.protocos.xteam.model.ILog;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
@@ -110,6 +111,12 @@ public class FakeXTeam extends TeamPlugin
 	@Override
 	public void load()
 	{
+	}
+
+	@Override
+	public ILog getLog()
+	{
+		return new FakeLog();
 	}
 
 	public static TeamPlugin asTeamPlugin()

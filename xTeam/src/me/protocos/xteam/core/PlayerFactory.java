@@ -144,6 +144,7 @@ public class PlayerFactory implements IPlayerFactory
 		returnPlayer.setLastAttacked(this.getLastAttacked(playerName));
 		returnPlayer.setLastTeleported(this.getLastTeleported(playerName));
 		returnPlayer.setReturnLocation(this.getReturnLocation(playerName));
+		returnPlayer.setLastKnownLocation(this.getLastKnownLocation(playerName));
 		return returnPlayer;
 	}
 
@@ -162,24 +163,35 @@ public class PlayerFactory implements IPlayerFactory
 		return bukkitUtil.getOfflinePlayer(playerName).hasPlayedBefore();
 	}
 
+	@Override
 	public Long getLastAttacked(String playerName)
 	{
 		this.ensurePlayer(playerName);
 		return playerProperties.get(playerName).get("lastAttacked").getValueUsing(new LongDataTranslator());
 	}
 
+	@Override
 	public Long getLastTeleported(String playerName)
 	{
 		this.ensurePlayer(playerName);
 		return playerProperties.get(playerName).get("lastTeleported").getValueUsing(new LongDataTranslator());
 	}
 
+	@Override
 	public Location getReturnLocation(String playerName)
 	{
 		this.ensurePlayer(playerName);
 		return playerProperties.get(playerName).get("returnLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
 	}
 
+	@Override
+	public Location getLastKnownLocation(String playerName)
+	{
+		this.ensurePlayer(playerName);
+		return playerProperties.get(playerName).get("lastKnownLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
+	}
+
+	@Override
 	public void setLastAttacked(ITeamPlayer player, Long lastAttacked)
 	{
 		this.ensurePlayer(player.getName());
@@ -187,6 +199,7 @@ public class PlayerFactory implements IPlayerFactory
 		playerProperties.get(player.getName()).put(new Property("lastAttacked", lastAttacked, new LongDataTranslator()));
 	}
 
+	@Override
 	public void setLastTeleported(ITeamPlayer player, Long lastTeleported)
 	{
 		this.ensurePlayer(player.getName());
@@ -194,11 +207,20 @@ public class PlayerFactory implements IPlayerFactory
 		playerProperties.get(player.getName()).put(new Property("lastTeleported", lastTeleported, new LongDataTranslator()));
 	}
 
+	@Override
 	public void setReturnLocation(ITeamPlayer player, Location returnLocation)
 	{
 		this.ensurePlayer(player.getName());
 		playerProperties.get(player.getName()).remove("returnLocation");
 		playerProperties.get(player.getName()).put(new Property("returnLocation", returnLocation, new LocationDataTranslator(teamPlugin)));
+	}
+
+	@Override
+	public void setLastKnownLocation(ITeamPlayer player, Location lastKnownLocation)
+	{
+		this.ensurePlayer(player.getName());
+		playerProperties.get(player.getName()).remove("lastKnownLocation");
+		playerProperties.get(player.getName()).put(new Property("lastKnownLocation", lastKnownLocation, new LocationDataTranslator(teamPlugin)));
 	}
 
 	private void ensurePlayer(String name)
@@ -210,6 +232,7 @@ public class PlayerFactory implements IPlayerFactory
 			propertyList.put("lastAttacked", "0");
 			propertyList.put("lastTeleported", "0");
 			propertyList.put("returnLocation", "");
+			propertyList.put("lastKnownLocation", "");
 			playerProperties.put(name, propertyList);
 		}
 	}

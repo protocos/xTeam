@@ -4,7 +4,6 @@ import me.protocos.xteam.model.ILog;
 
 public class FakeLog implements ILog
 {
-
 	@Override
 	public void close()
 	{
@@ -23,6 +22,7 @@ public class FakeLog implements ILog
 	@Override
 	public void exception(Exception e)
 	{
+		e.printStackTrace();
 	}
 
 	@Override

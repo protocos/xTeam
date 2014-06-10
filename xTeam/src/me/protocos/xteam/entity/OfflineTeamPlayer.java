@@ -117,6 +117,18 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	}
 
 	@Override
+	public void setLastKnownLocation(Location lastKnownLocation)
+	{
+		playerFactory.setReturnLocation(this, lastKnownLocation);
+	}
+
+	@Override
+	public Location getLastKnownLocation()
+	{
+		return playerFactory.getLastKnownLocation(this.getName());
+	}
+
+	@Override
 	public void removeReturnLocation()
 	{
 		playerFactory.setReturnLocation(this, null);
@@ -143,7 +155,6 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public void sendMessageToTeam(String message)
 	{
-		//		MessageUtil.sendMessageToTeam(this, message);
 		Message m = new Message.Builder(message).addRecipients(this.getTeam()).build();
 		m.send(log);
 	}

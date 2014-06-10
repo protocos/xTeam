@@ -32,7 +32,7 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 		try
 		{
 			insert("CREATE TABLE IF NOT EXISTS team_data(name VARCHAR(255) PRIMARY KEY, tag TEXT, openJoining BOOLEAN, defaultTeam BOOLEAN, timeHeadquartersLastSet BIGINT, headquarters TEXT, leader TEXT, admins TEXT, players TEXT);");
-			insert("CREATE TABLE IF NOT EXISTS player_data(name VARCHAR(17) PRIMARY KEY, lastAttacked BIGINT, lastTeleported BIGINT, returnLocation TEXT);");
+			insert("CREATE TABLE IF NOT EXISTS player_data(name VARCHAR(17) PRIMARY KEY, lastAttacked BIGINT, lastTeleported BIGINT, returnLocation TEXT, lastKnownLocation TEXT);");
 		}
 		catch (SQLException e)
 		{
@@ -113,18 +113,27 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 				checkPlayerInDatabase.setString(1, properties.get("name").getValue());
 				ResultSet resultSet = query(checkPlayerInDatabase);
 				PreparedStatement statement;
+				try
+				{
+					insert("ALTER TABLE player_data ADD lastKnownLocation TEXT");
+				}
+				catch (SQLException e)
+				{
+					//swallow it
+				}
 				if (resultSet.next())
 				{
-					statement = prepare("UPDATE player_data SET lastAttacked = ?, lastTeleported = ?, returnLocation = ? WHERE name = ?;");
+					statement = prepare("UPDATE player_data SET lastAttacked = ?, lastTeleported = ?, returnLocation = ?, lastKnownLocation = ? WHERE name = ?;");
 				}
 				else
 				{
-					statement = prepare("INSERT INTO player_data(lastAttacked, lastTeleported, returnLocation, name) VALUES(?,?,?,?);");
+					statement = prepare("INSERT INTO player_data(lastAttacked, lastTeleported, returnLocation, lastKnownLocation, name) VALUES(?,?,?,?,?);");
 				}
 				statement.setLong(1, playerFactory.getLastAttacked(properties.get("name").getValue()));
 				statement.setLong(2, playerFactory.getLastTeleported(properties.get("name").getValue()));
 				statement.setString(3, properties.get("returnLocation").getValue());
-				statement.setString(4, properties.get("name").getValue());
+				statement.setString(4, properties.get("lastKnownLocation").getValue());
+				statement.setString(5, properties.get("name").getValue());
 				insert(statement);
 				checkPlayerInDatabase.close();
 				resultSet.close();
@@ -193,7 +202,6 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 
 	private PreparedStatement prepare(String prepare) throws SQLException
 	{
-		//		return db.prepare(prepare);
 		return db.getConnection().prepareStatement(prepare, Statement.RETURN_GENERATED_KEYS);
 	}
 

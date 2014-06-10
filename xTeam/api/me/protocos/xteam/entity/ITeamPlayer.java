@@ -40,6 +40,10 @@ public interface ITeamPlayer extends ITeamEntity
 
 	public abstract Location getReturnLocation();
 
+	public abstract void setLastKnownLocation(Location location);
+
+	public abstract Location getLastKnownLocation();
+
 	public abstract void removeReturnLocation();
 
 	public abstract boolean teleportTo(ILocatable entity);

@@ -21,6 +21,8 @@ public class IPersistenceLayerTest
 	private IPersistenceLayer persistenceLayer;
 	private List<String> teamDataBefore;
 	private List<String> teamDataAfter;
+	private List<String> playerDataBefore;
+	private List<String> playerDataAfter;
 
 	@Before
 	public void setup()
@@ -46,7 +48,7 @@ public class IPersistenceLayerTest
 	{
 		//ASSEMBLE
 		Database db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", "./test/", "xTeam", ".db");
-		initializeDatabase(db);
+		openDatabase(db);
 		persistenceLayer = new SQLDataManager(teamPlugin, db, teamCoordinator, playerFactory);
 		//ACT
 		writeAndRead();
@@ -61,16 +63,17 @@ public class IPersistenceLayerTest
 	{
 		//ASSEMBLE
 		Database db = new MySQL(Logger.getLogger("Minecraft"), "[xTeam] ", "localhost", 8889, "xteam", "root", "root");
-		initializeDatabase(db);
+		openDatabase(db);
 		persistenceLayer = new SQLDataManager(teamPlugin, db, teamCoordinator, playerFactory);
 		//ACT
 		writeAndRead();
 		//ASSERT
 		Assert.assertEquals(teamDataBefore, teamDataAfter);
+		Assert.assertEquals(playerDataBefore, playerDataAfter);
 		closeDatabase(db);
 	}
 
-	private void initializeDatabase(Database db) throws SQLException
+	private void openDatabase(Database db) throws SQLException
 	{
 		db.open();
 		PreparedStatement statement = db.prepare("DROP TABLE IF EXISTS team_data;");
@@ -89,10 +92,14 @@ public class IPersistenceLayerTest
 
 	private void writeAndRead()
 	{
+		playerFactory.getPlayer("protocos");
+		playerFactory.getPlayer("kmlanglois");
 		teamDataBefore = teamCoordinator.exportData();
+		playerDataBefore = playerFactory.exportData();
 		persistenceLayer.write();
 		persistenceLayer.read();
 		teamDataAfter = teamCoordinator.exportData();
+		playerDataAfter = playerFactory.exportData();
 	}
 
 	@After

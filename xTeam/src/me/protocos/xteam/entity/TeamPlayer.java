@@ -525,6 +525,18 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	}
 
 	@Override
+	public void setLastKnownLocation(Location lastKnownLocation)
+	{
+		playerFactory.setLastKnownLocation(this, lastKnownLocation);
+	}
+
+	@Override
+	public Location getLastKnownLocation()
+	{
+		return playerFactory.getLastKnownLocation(this.getName());
+	}
+
+	@Override
 	public boolean hasReturnLocation()
 	{
 		return this.getReturnLocation() != null;
