@@ -190,10 +190,10 @@ public class TeamUserInfoTest
 				"Team Tag - TeamAwesome\n" +
 				"Team Leader - kmlanglois\n" +
 				"Team Joining - Closed\n" +
-				"Team Headquarters - 277 blocks to front-left, 65 blocks up\n" +
+				"Team Headquarters - 270 blocks to front-left, 65 blocks up\n" +
 				"Teammates online:\n" +
 				"    protocos (100%)\n" +
-				"    kmlanglois (100%) 64 blocks to left, 64 blocks up", fakePlayerSender.getLastMessage());
+				"    kmlanglois (100%) Here, 64 blocks up", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 		Configuration.DISPLAY_RELATIVE_COORDINATES = false;
 	}
