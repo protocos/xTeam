@@ -51,8 +51,8 @@ public class ConsoleInfoTest
 				"\nTeam Joining - Closed" +
 				"\nTeam Headquarters - X:170 Y:65 Z:209" +
 				"\nTeammates online:" +
-				"\n    protocos Health: 100% Location: 0 64 0 in \"world\"" +
-				"\n    kmlanglois Health: 100% Location: 0 64 0 in \"world\"",
+				"\n    protocos (100%) Location: 0 64 0 in \"world\"" +
+				"\n    kmlanglois (100%) Location: 0 64 0 in \"world\"",
 				fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -69,7 +69,7 @@ public class ConsoleInfoTest
 				"\nTeam Joining - Closed" +
 				"\nTeam Headquarters - None set" +
 				"\nTeammates online:" +
-				"\n    mastermind Health: 100% Location: 0 64 0 in \"world\"",
+				"\n    mastermind (100%) Location: 0 64 0 in \"world\"",
 				fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}

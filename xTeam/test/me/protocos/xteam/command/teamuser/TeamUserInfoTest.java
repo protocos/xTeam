@@ -62,8 +62,8 @@ public class TeamUserInfoTest
 				"Team Joining - Closed\n" +
 				"Team Headquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +
-				"    protocos Health: 100% Location: 0 64 0 in \"world\"\n" +
-				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\""
+				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
+				"    kmlanglois (100%) Location: 0 64 0 in \"world\""
 				, fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -148,7 +148,7 @@ public class TeamUserInfoTest
 				"Team Joining - Open\n" +
 				"Team Headquarters - None set\n" +
 				"Teammates online:\n" +
-				"    Lonely Health: 100% Location: 0 64 0 in \"world\"\n" +
+				"    Lonely (100%) Location: 0 64 0 in \"world\"\n" +
 				"Teammates offline:\n" +
 				"    teammate was last online on Dec 31 @ 6:00 PM\n" +
 				"    strandedhelix was last online on Dec 31 @ 6:00 PM", fakePlayerSender.getLastMessage());
@@ -171,8 +171,8 @@ public class TeamUserInfoTest
 				"Team Joining - Closed\n" +
 				"Team Headquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +
-				"    protocos Health: 100% Location: 0 64 0 in \"world\"\n" +
-				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
+				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
+				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -192,8 +192,8 @@ public class TeamUserInfoTest
 				"Team Headquarters - X:170 Y:65 Z:209\n" +
 				"Team Invites - Lonely\n" +
 				"Teammates online:\n" +
-				"    protocos Health: 100% Location: 0 64 0 in \"world\"\n" +
-				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
+				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
+				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -232,8 +232,8 @@ public class TeamUserInfoTest
 				"Team Joining - Closed\n" +
 				"Team Headquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +
-				"    protocos Health: 100% Location: 0 64 0 in \"world\"\n" +
-				"    kmlanglois Health: 100% Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
+				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
+				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
