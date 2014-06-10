@@ -215,6 +215,39 @@ public class LocationUtilTest
 	}
 
 	@Test
+	public void ShouldBeRelativePositionHere()
+	{
+		//ASSEMBLE
+		Location location1 = new FakeLocation(0, 0, 0, 180, 0);
+		Location location2 = new FakeLocation(0, 0, 0);
+		//ACT
+		//ASSERT
+		Assert.assertEquals("Here", LocationUtil.getRelativePosition(location1, location2));
+	}
+
+	@Test
+	public void ShouldBeRelativePositionPluralTest()
+	{
+		//ASSEMBLE
+		Location location1 = new FakeLocation(0, 0, 0, 180, 0);
+		Location location2 = new FakeLocation(0, 1, -1);
+		//ACT
+		//ASSERT
+		Assert.assertEquals("1 block to front, 1 block up", LocationUtil.getRelativePosition(location1, location2));
+	}
+
+	@Test
+	public void ShouldBeRelativePositionFlatMeasurement()
+	{
+		//ASSEMBLE
+		Location location1 = new FakeLocation(0, 0, 0, 180, 0);
+		Location location2 = new FakeLocation(0, 10, -10);
+		//ACT
+		//ASSERT
+		Assert.assertEquals("10 blocks to front, 10 blocks up", LocationUtil.getRelativePosition(location1, location2));
+	}
+
+	@Test
 	public void ShouldBeRelativePosition1()
 	{
 		//ASSEMBLE

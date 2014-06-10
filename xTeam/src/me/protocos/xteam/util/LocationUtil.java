@@ -2,28 +2,27 @@ package me.protocos.xteam.util;
 
 import me.protocos.xteam.model.Direction;
 import org.bukkit.Location;
+import org.bukkit.util.NumberConversions;
 
 public class LocationUtil
 {
 	public static String getRelativePosition(Location location1, Location location2)
 	{
-		//If I really really want this to be precise, 
-		//I would set location1 and location2 to have 
-		//the same Y value so that the block distance is exact,
-		//but meh.
-		if (location1.getWorld().getName().equals(location2.getWorld().getName()))
+		Location flatLocation1 = new FlatLocation(location1);
+		Location flatLocation2 = new FlatLocation(location2);
+		if (flatLocation1.getWorld().equals(flatLocation2.getWorld()))
 		{
 			String position = "";
-			int distance = CommonUtil.round(location1.distance(location2));
+			int distance = CommonUtil.round(flatLocation1.distance(flatLocation2));
 			if (distance > 0)
-				position += +distance + CommonUtil.pluralizeBasedOn(" block", distance) + " to " +
-						getRelativeAngleBetween(location1, location2);
+				position += distance + CommonUtil.pluralizeBasedOn(" block", distance) + " to " +
+						getRelativeAngleBetween(flatLocation1, flatLocation2);
 			else
 				position += "Here";
 			position += getVerticleDifference(location1, location2);
 			return position;
 		}
-		return "in world: \"" + location2.getWorld().getName() + "\"";
+		return "in world: \"" + flatLocation2.getWorld().getName() + "\"";
 	}
 
 	private static String getVerticleDifference(Location location1, Location location2)
@@ -60,5 +59,33 @@ public class LocationUtil
 	static double toPositiveAngle(double angle)
 	{
 		return (angle + 360) % 360;
+	}
+}
+
+class FlatLocation extends Location
+{
+	public FlatLocation(Location location)
+	{
+		super(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+	}
+
+	@Override
+	public double getY()
+	{
+		return 0.0D;
+	}
+
+	@Override
+	public double distance(Location location)
+	{
+		if (location == null)
+			throw new IllegalArgumentException("Cannot measure distance to a null location");
+		if ((location.getWorld() == null) || (getWorld() == null))
+			throw new IllegalArgumentException("Cannot measure distance to a null world");
+		if (!this.getWorld().equals(location.getWorld()))
+		{
+			throw new IllegalArgumentException("Cannot measure distance between " + getWorld().getName() + " and " + location.getWorld().getName());
+		}
+		return Math.sqrt(NumberConversions.square(this.getX() - location.getX()) + NumberConversions.square(this.getY() - location.getY()) + NumberConversions.square(this.getZ() - location.getZ()));
 	}
 }

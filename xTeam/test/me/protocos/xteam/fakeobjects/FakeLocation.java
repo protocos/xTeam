@@ -51,7 +51,7 @@ public class FakeLocation extends Location
 	public double distance(Location location)
 	{
 		if (this.getWorld().equals(new FakeLocation(location).getWorld()))
-			location.setWorld(this.getWorld());
+			this.setWorld(location.getWorld());
 		return super.distance(location);
 	}
 
