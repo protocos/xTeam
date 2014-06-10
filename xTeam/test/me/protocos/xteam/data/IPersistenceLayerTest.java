@@ -11,6 +11,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
+import me.protocos.xteam.fakeobjects.FakeLocation;
 import org.junit.*;
 
 public class IPersistenceLayerTest
@@ -30,6 +31,8 @@ public class IPersistenceLayerTest
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		teamCoordinator = teamPlugin.getTeamCoordinator();
 		playerFactory = teamPlugin.getPlayerFactory();
+		playerFactory.getPlayer("protocos").setLastKnownLocation(new FakeLocation());
+		playerFactory.getPlayer("kmlanglois").setLastKnownLocation(new FakeLocation());
 	}
 
 	@Test
@@ -41,6 +44,7 @@ public class IPersistenceLayerTest
 		writeAndRead();
 		//ASSERT
 		Assert.assertEquals(teamDataBefore, teamDataAfter);
+		Assert.assertEquals(playerDataBefore, playerDataAfter);
 	}
 
 	@Test
@@ -54,6 +58,25 @@ public class IPersistenceLayerTest
 		writeAndRead();
 		//ASSERT
 		Assert.assertEquals(teamDataBefore, teamDataAfter);
+		Assert.assertEquals(playerDataBefore, playerDataAfter);
+		closeDatabase(db);
+	}
+
+	@Test
+	public void ShouldBeSQLiteDataPersistenceConvertFromOldTable() throws SQLException
+	{
+		//ASSEMBLE
+		Database db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", "./test/", "xTeam", ".db");
+		openDatabase(db);
+		PreparedStatement statement = db.prepare("CREATE TABLE IF NOT EXISTS player_data(name VARCHAR(17) PRIMARY KEY, lastAttacked BIGINT, lastTeleported BIGINT, returnLocation TEXT);");
+		statement.execute();
+		statement.close();
+		persistenceLayer = new SQLDataManager(teamPlugin, db, teamCoordinator, playerFactory);
+		//ACT
+		writeAndRead();
+		//ASSERT
+		Assert.assertEquals(teamDataBefore, teamDataAfter);
+		Assert.assertEquals(playerDataBefore, playerDataAfter);
 		closeDatabase(db);
 	}
 
@@ -79,9 +102,9 @@ public class IPersistenceLayerTest
 		PreparedStatement statement = db.prepare("DROP TABLE IF EXISTS team_data;");
 		statement.execute();
 		statement.close();
-		//		statement = db.prepare("DROP TABLE IF EXISTS player_data;");
-		//		statement.execute();
-		//		statement.close();
+		statement = db.prepare("DROP TABLE IF EXISTS player_data;");
+		statement.execute();
+		statement.close();
 	}
 
 	private void closeDatabase(Database db)
@@ -92,8 +115,6 @@ public class IPersistenceLayerTest
 
 	private void writeAndRead()
 	{
-		playerFactory.getPlayer("protocos");
-		playerFactory.getPlayer("kmlanglois");
 		teamDataBefore = teamCoordinator.exportData();
 		playerDataBefore = playerFactory.exportData();
 		persistenceLayer.write();

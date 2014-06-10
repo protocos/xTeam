@@ -79,6 +79,7 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 				propertyList.put("lastAttacked", resultSet.getObject("lastAttacked"));
 				propertyList.put("lastTeleported", resultSet.getObject("lastTeleported"));
 				propertyList.put("returnLocation", resultSet.getObject("returnLocation"));
+				propertyList.put("lastKnownLocation", resultSet.getObject("lastKnownLocation"));
 				playerFactory.updateValues(propertyList);
 			}
 			resultSet.close();
