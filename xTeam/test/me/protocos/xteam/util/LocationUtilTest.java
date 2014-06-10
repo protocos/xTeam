@@ -125,7 +125,7 @@ public class LocationUtilTest
 		Location location1 = new FakeLocation(0, 0, 0, 180, 0);
 		Location location2 = new FakeLocation(0, 0, -10);
 		//ACT
-		double difference = LocationUtil.getYawDiffToLocation(location1, location2);
+		double difference = LocationUtil.getYawAngleToLocation(location1, location2);
 		//ASSERT
 		Assert.assertEquals(0.0D, difference, 0);
 	}
@@ -137,7 +137,7 @@ public class LocationUtilTest
 		Location location1 = new FakeLocation(0, 0, 0, 180, 0);
 		Location location2 = new FakeLocation(-10, 0, -10);
 		//ACT
-		double difference = LocationUtil.getYawDiffToLocation(location1, location2);
+		double difference = LocationUtil.getYawAngleToLocation(location1, location2);
 		//ASSERT
 		Assert.assertEquals(45.0D, difference, 0);
 	}
@@ -149,7 +149,7 @@ public class LocationUtilTest
 		Location location1 = new FakeLocation(0, 0, 0, 180, 0);
 		Location location2 = new FakeLocation(-10, 0, 0);
 		//ACT
-		double difference = LocationUtil.getYawDiffToLocation(location1, location2);
+		double difference = LocationUtil.getYawAngleToLocation(location1, location2);
 		//ASSERT
 		Assert.assertEquals(90.0D, difference, 0);
 	}
@@ -161,7 +161,7 @@ public class LocationUtilTest
 		Location location1 = new FakeLocation(0, 0, 0, 180, 0);
 		Location location2 = new FakeLocation(-10, 0, 10);
 		//ACT
-		double difference = LocationUtil.getYawDiffToLocation(location1, location2);
+		double difference = LocationUtil.getYawAngleToLocation(location1, location2);
 		//ASSERT
 		Assert.assertEquals(135.0D, difference, 0);
 	}
@@ -173,7 +173,7 @@ public class LocationUtilTest
 		Location location1 = new FakeLocation(0, 0, 0, 180, 0);
 		Location location2 = new FakeLocation(0, 0, 10);
 		//ACT
-		double difference = LocationUtil.getYawDiffToLocation(location1, location2);
+		double difference = LocationUtil.getYawAngleToLocation(location1, location2);
 		//ASSERT
 		Assert.assertEquals(180.0D, difference, 0);
 	}
@@ -185,7 +185,7 @@ public class LocationUtilTest
 		Location location1 = new FakeLocation(0, 0, 0, 180, 0);
 		Location location2 = new FakeLocation(10, 0, 10);
 		//ACT
-		double difference = LocationUtil.getYawDiffToLocation(location1, location2);
+		double difference = LocationUtil.getYawAngleToLocation(location1, location2);
 		//ASSERT
 		Assert.assertEquals(225.0D, difference, 0);
 	}
@@ -197,7 +197,7 @@ public class LocationUtilTest
 		Location location1 = new FakeLocation(0, 0, 0, 180, 0);
 		Location location2 = new FakeLocation(10, 0, 0);
 		//ACT
-		double difference = LocationUtil.getYawDiffToLocation(location1, location2);
+		double difference = LocationUtil.getYawAngleToLocation(location1, location2);
 		//ASSERT
 		Assert.assertEquals(270.0D, difference, 0);
 	}
@@ -209,7 +209,7 @@ public class LocationUtilTest
 		Location location1 = new FakeLocation(0, 0, 0, 180, 0);
 		Location location2 = new FakeLocation(10, 0, -10);
 		//ACT
-		double difference = LocationUtil.getYawDiffToLocation(location1, location2);
+		double difference = LocationUtil.getYawAngleToLocation(location1, location2);
 		//ASSERT
 		Assert.assertEquals(315.0D, difference, 0);
 	}

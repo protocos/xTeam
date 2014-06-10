@@ -35,7 +35,7 @@ public class ServerAdminDebug extends ServerAdminCommand
 		{
 			for (Player otherPlayer : bukkitUtil.getOnlinePlayers())
 			{
-				Message message = new Message.Builder("Yaw angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getYawDiffToLocation(player.getLocation(), otherPlayer.getLocation())) + "°")
+				Message message = new Message.Builder("Yaw angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getYawAngleToLocation(player.getLocation(), otherPlayer.getLocation())) + "°")
 						.addRecipients(player)
 						.excludeRecipients(otherPlayer)
 						.build();

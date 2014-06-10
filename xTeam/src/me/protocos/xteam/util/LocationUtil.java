@@ -9,7 +9,7 @@ public class LocationUtil
 		return null;
 	}
 
-	public static double getYawDiffToLocation(Location location1, Location location2)
+	public static double getYawAngleToLocation(Location location1, Location location2)
 	{
 		return toPositiveAngle(getAngleBetween(location1, location2) - getYawTranslation(location1));
 	}
