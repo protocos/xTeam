@@ -1,5 +1,10 @@
 package me.protocos.xteam.data;
 
+import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.data.translator.LocationDataTranslator;
+import me.protocos.xteam.fakeobjects.FakeLocation;
+import me.protocos.xteam.fakeobjects.FakeWorld;
+import org.bukkit.Location;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -51,6 +56,58 @@ public class PropertyListTest
 		Property name = list.get("name");
 		//ASSERT
 		Assert.assertEquals(property, name);
+	}
+
+	@Test
+	public void ShouldBePutProperty()
+	{
+		//ASSEMBLE
+		list = new PropertyList();
+		list.put("name", "protocos");
+		//ACT
+		Property name = list.get("name");
+		//ASSERT
+		Assert.assertEquals(new Property("name", "protocos"), name);
+	}
+
+	@Test
+	public void ShouldBePutPropertyAsType()
+	{
+		//ASSEMBLE
+		list = new PropertyList();
+		Location fakeLocation = new FakeLocation();
+		list.put("location", fakeLocation, new LocationDataTranslator(FakeXTeam.asTeamPlugin()));
+		//ACT
+		Property location = list.get("location");
+		//ASSERT
+		Assert.assertEquals(new Property("location", fakeLocation, new LocationDataTranslator(FakeXTeam.asTeamPlugin())), location);
+	}
+
+	@Test
+	public void ShouldBeGetPropertyAsString()
+	{
+		//ASSEMBLE
+		list = new PropertyList();
+		Location fakeLocation = new FakeLocation();
+		list.put("location", fakeLocation, new LocationDataTranslator(FakeXTeam.asTeamPlugin()));
+		//ACT
+		String location = list.getAsString("location");
+		//ASSERT
+		Assert.assertEquals(new LocationDataTranslator(FakeXTeam.asTeamPlugin()).decompile(fakeLocation), location);
+	}
+
+	@Test
+	public void ShouldBeGetPropertyAsType()
+	{
+		//ASSEMBLE
+		list = new PropertyList();
+		Location fakeLocation = new Location(new FakeWorld(), 0, 0, 0);
+		list.put("location", fakeLocation, new LocationDataTranslator(FakeXTeam.asTeamPlugin()));
+		//ACT
+		Location location = list.getAsType("location", new LocationDataTranslator(FakeXTeam.asTeamPlugin()));
+		location.setWorld(fakeLocation.getWorld());
+		//ASSERT
+		Assert.assertEquals(fakeLocation, location);
 	}
 
 	@Test

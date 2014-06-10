@@ -34,6 +34,16 @@ public class PropertyList implements Iterable<Property>
 		return properties.get(propertyName);
 	}
 
+	public String getAsString(String propertyName)
+	{
+		return properties.get(propertyName).getValue();
+	}
+
+	public <T> T getAsType(String propertyName, IDataTranslator<T> strategy)
+	{
+		return properties.get(propertyName).getValueUsing(strategy);
+	}
+
 	public Property get(int index)
 	{
 		return properties.get(index);

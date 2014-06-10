@@ -9,6 +9,8 @@ import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.core.TeleportScheduler;
 import me.protocos.xteam.data.configuration.Configuration;
+import me.protocos.xteam.data.translator.LocationDataTranslator;
+import me.protocos.xteam.data.translator.LongDataTranslator;
 import me.protocos.xteam.message.Message;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.model.ILog;
@@ -34,6 +36,7 @@ import org.bukkit.util.Vector;
 
 public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSender
 {
+	private TeamPlugin teamPlugin;
 	private ILog log;
 	private TeleportScheduler teleportScheduler;
 	private ITeamCoordinator teamCoordinator;
@@ -42,6 +45,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 
 	public TeamPlayer(TeamPlugin teamPlugin, Player player)
 	{
+		this.teamPlugin = teamPlugin;
 		this.log = teamPlugin.getLog();
 		this.teleportScheduler = teamPlugin.getTeleportScheduler();
 		this.teamCoordinator = teamPlugin.getTeamCoordinator();
@@ -75,18 +79,6 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	public double getHealth()
 	{
 		return player.getHealth();
-	}
-
-	@Override
-	public void setLastTeleported(long lastTeleported)
-	{
-		playerFactory.setLastTeleported(this, lastTeleported);
-	}
-
-	@Override
-	public long getLastTeleported()
-	{
-		return playerFactory.getLastTeleported(this.getName());
 	}
 
 	@Override
@@ -513,27 +505,39 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	}
 
 	@Override
+	public void setLastAttacked(long lastAttacked)
+	{
+		playerFactory.getPlayerPropertiesFor(this.getName()).put("lastAttacked", lastAttacked, new LongDataTranslator());
+	}
+
+	@Override
+	public long getLastAttacked()
+	{
+		return playerFactory.getPlayerPropertiesFor(this.getName()).get("lastAttacked").getValueUsing(new LongDataTranslator());
+	}
+
+	@Override
+	public void setLastTeleported(long lastTeleported)
+	{
+		playerFactory.getPlayerPropertiesFor(this.getName()).put("lastTeleported", lastTeleported, new LongDataTranslator());
+	}
+
+	@Override
+	public long getLastTeleported()
+	{
+		return playerFactory.getPlayerPropertiesFor(this.getName()).get("lastTeleported").getValueUsing(new LongDataTranslator());
+	}
+
+	@Override
 	public void setReturnLocation(Location returnLocation)
 	{
-		playerFactory.setReturnLocation(this, returnLocation);
+		playerFactory.getPlayerPropertiesFor(this.getName()).put("returnLocation", returnLocation, new LocationDataTranslator(teamPlugin));
 	}
 
 	@Override
 	public Location getReturnLocation()
 	{
-		return playerFactory.getReturnLocation(this.getName());
-	}
-
-	@Override
-	public void setLastKnownLocation(Location lastKnownLocation)
-	{
-		playerFactory.setLastKnownLocation(this, lastKnownLocation);
-	}
-
-	@Override
-	public Location getLastKnownLocation()
-	{
-		return playerFactory.getLastKnownLocation(this.getName());
+		return playerFactory.getPlayerPropertiesFor(this.getName()).get("returnLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
 	}
 
 	@Override
@@ -545,19 +549,19 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public void removeReturnLocation()
 	{
-		playerFactory.setReturnLocation(this, null);
+		playerFactory.getPlayerPropertiesFor(this.getName()).put("returnLocation", null, new LocationDataTranslator(teamPlugin));
 	}
 
 	@Override
-	public void setLastAttacked(long lastAttacked)
+	public void setLastKnownLocation(Location lastKnownLocation)
 	{
-		playerFactory.setLastAttacked(this, lastAttacked);
+		playerFactory.getPlayerPropertiesFor(this.getName()).put("returnLocation", lastKnownLocation, new LocationDataTranslator(teamPlugin));
 	}
 
 	@Override
-	public long getLastAttacked()
+	public Location getLastKnownLocation()
 	{
-		return playerFactory.getLastAttacked(this.getName());
+		return playerFactory.getPlayerPropertiesFor(this.getName()).get("lastKnownLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
 	}
 
 	@Override

@@ -3,17 +3,13 @@ package me.protocos.xteam.core;
 import java.util.List;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
-import me.protocos.xteam.data.Property;
 import me.protocos.xteam.data.PropertyList;
-import me.protocos.xteam.data.translator.LocationDataTranslator;
-import me.protocos.xteam.data.translator.LongDataTranslator;
 import me.protocos.xteam.entity.ITeamEntity;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.OfflineTeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -129,23 +125,12 @@ public class PlayerFactory implements IPlayerFactory
 
 	private TeamPlayer teamPlayerWithValues(Player player)
 	{
-		TeamPlayer returnPlayer = new TeamPlayer(teamPlugin, player);
-		String playerName = player.getName();
-		returnPlayer.setLastAttacked(this.getLastAttacked(playerName));
-		returnPlayer.setLastTeleported(this.getLastTeleported(playerName));
-		returnPlayer.setReturnLocation(this.getReturnLocation(playerName));
-		return returnPlayer;
+		return new TeamPlayer(teamPlugin, player);
 	}
 
 	private OfflineTeamPlayer offlineTeamPlayerWithValues(OfflinePlayer player)
 	{
-		OfflineTeamPlayer returnPlayer = new OfflineTeamPlayer(teamPlugin, player);
-		String playerName = player.getName();
-		returnPlayer.setLastAttacked(this.getLastAttacked(playerName));
-		returnPlayer.setLastTeleported(this.getLastTeleported(playerName));
-		returnPlayer.setReturnLocation(this.getReturnLocation(playerName));
-		returnPlayer.setLastKnownLocation(this.getLastKnownLocation(playerName));
-		return returnPlayer;
+		return new OfflineTeamPlayer(teamPlugin, player);
 	}
 
 	private ITeamPlayer offlinePlayerNeverPlayedBefore(String playerName)
@@ -164,63 +149,10 @@ public class PlayerFactory implements IPlayerFactory
 	}
 
 	@Override
-	public Long getLastAttacked(String playerName)
+	public PropertyList getPlayerPropertiesFor(String playerName)
 	{
 		this.ensurePlayer(playerName);
-		return playerProperties.get(playerName).get("lastAttacked").getValueUsing(new LongDataTranslator());
-	}
-
-	@Override
-	public Long getLastTeleported(String playerName)
-	{
-		this.ensurePlayer(playerName);
-		return playerProperties.get(playerName).get("lastTeleported").getValueUsing(new LongDataTranslator());
-	}
-
-	@Override
-	public Location getReturnLocation(String playerName)
-	{
-		this.ensurePlayer(playerName);
-		return playerProperties.get(playerName).get("returnLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
-	}
-
-	@Override
-	public Location getLastKnownLocation(String playerName)
-	{
-		this.ensurePlayer(playerName);
-		return playerProperties.get(playerName).get("lastKnownLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
-	}
-
-	@Override
-	public void setLastAttacked(ITeamPlayer player, Long lastAttacked)
-	{
-		this.ensurePlayer(player.getName());
-		playerProperties.get(player.getName()).remove("lastAttacked");
-		playerProperties.get(player.getName()).put(new Property("lastAttacked", lastAttacked, new LongDataTranslator()));
-	}
-
-	@Override
-	public void setLastTeleported(ITeamPlayer player, Long lastTeleported)
-	{
-		this.ensurePlayer(player.getName());
-		playerProperties.get(player.getName()).remove("lastTeleported");
-		playerProperties.get(player.getName()).put(new Property("lastTeleported", lastTeleported, new LongDataTranslator()));
-	}
-
-	@Override
-	public void setReturnLocation(ITeamPlayer player, Location returnLocation)
-	{
-		this.ensurePlayer(player.getName());
-		playerProperties.get(player.getName()).remove("returnLocation");
-		playerProperties.get(player.getName()).put(new Property("returnLocation", returnLocation, new LocationDataTranslator(teamPlugin)));
-	}
-
-	@Override
-	public void setLastKnownLocation(ITeamPlayer player, Location lastKnownLocation)
-	{
-		this.ensurePlayer(player.getName());
-		playerProperties.get(player.getName()).remove("lastKnownLocation");
-		playerProperties.get(player.getName()).put(new Property("lastKnownLocation", lastKnownLocation, new LocationDataTranslator(teamPlugin)));
+		return this.playerProperties.get(playerName);
 	}
 
 	private void ensurePlayer(String name)

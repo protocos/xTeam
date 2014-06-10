@@ -8,6 +8,7 @@ import lib.PatPeter.SQLibrary.Database;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
+import me.protocos.xteam.data.translator.LongDataTranslator;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.event.*;
@@ -130,11 +131,11 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 				{
 					statement = prepare("INSERT INTO player_data(lastAttacked, lastTeleported, returnLocation, lastKnownLocation, name) VALUES(?,?,?,?,?);");
 				}
-				statement.setLong(1, playerFactory.getLastAttacked(properties.get("name").getValue()));
-				statement.setLong(2, playerFactory.getLastTeleported(properties.get("name").getValue()));
-				statement.setString(3, properties.get("returnLocation").getValue());
-				statement.setString(4, properties.get("lastKnownLocation").getValue());
-				statement.setString(5, properties.get("name").getValue());
+				statement.setLong(1, properties.getAsType("lastAttacked", new LongDataTranslator()));
+				statement.setLong(2, properties.getAsType("lastTeleported", new LongDataTranslator()));
+				statement.setString(3, properties.getAsString("returnLocation"));
+				statement.setString(4, properties.getAsString("lastKnownLocation"));
+				statement.setString(5, properties.getAsString("name"));
 				insert(statement);
 				checkPlayerInDatabase.close();
 				resultSet.close();

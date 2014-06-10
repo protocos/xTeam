@@ -5,6 +5,8 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
+import me.protocos.xteam.data.translator.LocationDataTranslator;
+import me.protocos.xteam.data.translator.LongDataTranslator;
 import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILocatable;
@@ -16,6 +18,7 @@ import org.bukkit.OfflinePlayer;
 
 public class OfflineTeamPlayer implements ITeamPlayer
 {
+	private TeamPlugin teamPlugin;
 	private ILog log;
 	private IPlayerFactory playerFactory;
 	private ITeamCoordinator teamCoordinator;
@@ -23,6 +26,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 
 	public OfflineTeamPlayer(TeamPlugin teamPlugin, OfflinePlayer player)
 	{
+		this.teamPlugin = teamPlugin;
 		this.log = teamPlugin.getLog();
 		this.teamCoordinator = teamPlugin.getTeamCoordinator();
 		this.playerFactory = teamPlugin.getPlayerFactory();
@@ -105,51 +109,63 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	}
 
 	@Override
-	public void setReturnLocation(Location returnLocation)
-	{
-		playerFactory.setReturnLocation(this, returnLocation);
-	}
-
-	@Override
-	public Location getReturnLocation()
-	{
-		return playerFactory.getReturnLocation(this.getName());
-	}
-
-	@Override
-	public void setLastKnownLocation(Location lastKnownLocation)
-	{
-		playerFactory.setReturnLocation(this, lastKnownLocation);
-	}
-
-	@Override
-	public Location getLastKnownLocation()
-	{
-		return playerFactory.getLastKnownLocation(this.getName());
-	}
-
-	@Override
-	public void removeReturnLocation()
-	{
-		playerFactory.setReturnLocation(this, null);
-	}
-
-	@Override
-	public boolean hasReturnLocation()
-	{
-		return playerFactory.getReturnLocation(this.getName()) != null;
-	}
-
-	@Override
 	public void setLastAttacked(long lastAttacked)
 	{
-		playerFactory.setLastAttacked(this, lastAttacked);
+		playerFactory.getPlayerPropertiesFor(this.getName()).put("lastAttacked", lastAttacked, new LongDataTranslator());
 	}
 
 	@Override
 	public long getLastAttacked()
 	{
-		return playerFactory.getLastAttacked(this.getName());
+		return playerFactory.getPlayerPropertiesFor(this.getName()).get("lastAttacked").getValueUsing(new LongDataTranslator());
+	}
+
+	@Override
+	public void setLastTeleported(long lastTeleported)
+	{
+		playerFactory.getPlayerPropertiesFor(this.getName()).put("lastTeleported", lastTeleported, new LongDataTranslator());
+	}
+
+	@Override
+	public long getLastTeleported()
+	{
+		return playerFactory.getPlayerPropertiesFor(this.getName()).get("lastTeleported").getValueUsing(new LongDataTranslator());
+	}
+
+	@Override
+	public void setReturnLocation(Location returnLocation)
+	{
+		playerFactory.getPlayerPropertiesFor(this.getName()).put("returnLocation", returnLocation, new LocationDataTranslator(teamPlugin));
+	}
+
+	@Override
+	public Location getReturnLocation()
+	{
+		return playerFactory.getPlayerPropertiesFor(this.getName()).get("returnLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
+	}
+
+	@Override
+	public boolean hasReturnLocation()
+	{
+		return this.getReturnLocation() != null;
+	}
+
+	@Override
+	public void removeReturnLocation()
+	{
+		playerFactory.getPlayerPropertiesFor(this.getName()).put("returnLocation", null, new LocationDataTranslator(teamPlugin));
+	}
+
+	@Override
+	public void setLastKnownLocation(Location lastKnownLocation)
+	{
+		playerFactory.getPlayerPropertiesFor(this.getName()).put("returnLocation", lastKnownLocation, new LocationDataTranslator(teamPlugin));
+	}
+
+	@Override
+	public Location getLastKnownLocation()
+	{
+		return playerFactory.getPlayerPropertiesFor(this.getName()).get("lastKnownLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
 	}
 
 	@Override
@@ -189,18 +205,6 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	public boolean isDamaged()
 	{
 		return false;
-	}
-
-	@Override
-	public void setLastTeleported(long lastTeleported)
-	{
-		playerFactory.setLastTeleported(this, lastTeleported);
-	}
-
-	@Override
-	public long getLastTeleported()
-	{
-		return playerFactory.getLastTeleported(this.getName());
 	}
 
 	@Override
