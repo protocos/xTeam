@@ -163,7 +163,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public void setLastKnownLocation(Location lastKnownLocation)
 	{
-		playerFactory.getPlayerPropertiesFor(this.getName()).put("returnLocation", lastKnownLocation, new LocationDataTranslator(teamPlugin));
+		playerFactory.getPlayerPropertiesFor(this.getName()).put("lastKnownLocation", lastKnownLocation, new LocationDataTranslator(teamPlugin));
 	}
 
 	@Override
