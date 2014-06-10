@@ -42,6 +42,8 @@ public class ServerAdminDebug extends ServerAdminCommand
 				message.send(log);
 				message.setMessage("Location angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getAngleBetween(player.getLocation(), otherPlayer.getLocation())) + "°");
 				message.send(log);
+				message.setMessage("Direction angle to " + otherPlayer.getName() + ": " + LocationUtil.getRelativeDirectionBetween(player.getLocation(), otherPlayer.getLocation()));
+				message.send(log);
 			}
 		}
 		else

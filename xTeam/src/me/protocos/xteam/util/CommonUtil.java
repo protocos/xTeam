@@ -307,6 +307,33 @@ public class CommonUtil
 		return sb.reverse().toString();
 	}
 
+	/**
+	 * @param rangeCheck
+	 *            a variable to be checked
+	 * @param lowerBound
+	 *            the lower bound of the range check inclusive
+	 * @param upperBound
+	 *            the upper bound of the range check exclusive
+	 * @return true if rangeCheck is greater than the lowerBound inclusive and
+	 *         less than the upperBound exclusive
+	 */
+	public static boolean insideRange(int rangeCheck, int lowerBound, int upperBound)
+	{
+		return rangeCheck >= lowerBound && rangeCheck < upperBound;
+	}
+
+	public static boolean insideRange(double rangeCheck, double lowerBound, double upperBound)
+	{
+		return rangeCheck >= lowerBound && rangeCheck < upperBound;
+	}
+
+	public static boolean insideRange(double rangeCheck, double lowerBound, double upperBound, double modulo)
+	{
+		if (upperBound >= lowerBound)
+			return insideRange(rangeCheck % modulo, lowerBound, upperBound);
+		return insideRange(rangeCheck % modulo, lowerBound, modulo) || insideRange(rangeCheck % modulo, 0, upperBound);
+	}
+
 	public static List<String> toLowerCase(List<String> arraylist)
 	{
 		List<String> lowercase = new ArrayList<String>();

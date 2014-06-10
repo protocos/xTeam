@@ -90,6 +90,143 @@ public class CommonUtilTest
 		Assert.assertEquals("dlrow olleh", reverse);
 	}
 
+	@Test
+	public void ShouldBeInsideRange()
+	{
+		//ASSEMBLE
+		int rangeCheck = 5;
+		int lowerBound = 0;
+		int upperBound = 10;
+		//ACT
+		boolean insideRange = insideRange(rangeCheck, lowerBound, upperBound);
+		//ASSERT
+		Assert.assertTrue(insideRange);
+	}
+
+	@Test
+	public void ShouldBeNotInsideRange()
+	{
+		//ASSEMBLE
+		int rangeCheck = 5;
+		int lowerBound = 0;
+		int upperBound = 5;
+		//ACT
+		boolean insideRange = insideRange(rangeCheck, lowerBound, upperBound);
+		//ASSERT
+		Assert.assertFalse(insideRange);
+	}
+
+	@Test
+	public void ShouldBeNotInsideRangeEdgeCase()
+	{
+		//ASSEMBLE
+		int rangeCheck = 5;
+		int lowerBound = 5;
+		int upperBound = 6;
+		//ACT
+		boolean insideRange = insideRange(rangeCheck, lowerBound, upperBound);
+		//ASSERT
+		Assert.assertTrue(insideRange);
+	}
+
+	@Test
+	public void ShouldBeNotInsideRangeModuloHighValue()
+	{
+		//ASSEMBLE
+		double rangeCheck = 1;
+		double lowerBound = 315;
+		double upperBound = 45;
+		double modulo = 360;
+		//ACT
+		boolean insideRange = insideRange(rangeCheck, lowerBound, upperBound, modulo);
+		//ASSERT
+		Assert.assertTrue(insideRange);
+	}
+
+	@Test
+	public void ShouldBeNotInsideRangeModuloLowValue()
+	{
+		//ASSEMBLE
+		double rangeCheck = 359;
+		double lowerBound = 315;
+		double upperBound = 45;
+		double modulo = 360;
+		//ACT
+		boolean insideRange = insideRange(rangeCheck, lowerBound, upperBound, modulo);
+		//ASSERT
+		Assert.assertTrue(insideRange);
+	}
+
+	@Test
+	public void ShouldBeNotInsideRangeModuloEdgeCaseZero()
+	{
+		//ASSEMBLE
+		double rangeCheck = 0;
+		double lowerBound = 315;
+		double upperBound = 45;
+		double modulo = 360;
+		//ACT
+		boolean insideRange = insideRange(rangeCheck, lowerBound, upperBound, modulo);
+		//ASSERT
+		Assert.assertTrue(insideRange);
+	}
+
+	@Test
+	public void ShouldBeNotInsideRangeModuloEdgeCaseModulo()
+	{
+		//ASSEMBLE
+		double rangeCheck = 360;
+		double lowerBound = 315;
+		double upperBound = 45;
+		double modulo = 360;
+		//ACT
+		boolean insideRange = insideRange(rangeCheck, lowerBound, upperBound, modulo);
+		//ASSERT
+		Assert.assertTrue(insideRange);
+	}
+
+	@Test
+	public void ShouldBeNotInsideRangeModuloNotInRangeLow()
+	{
+		//ASSEMBLE
+		double rangeCheck = 300;
+		double lowerBound = 315;
+		double upperBound = 45;
+		double modulo = 360;
+		//ACT
+		boolean insideRange = insideRange(rangeCheck, lowerBound, upperBound, modulo);
+		//ASSERT
+		Assert.assertFalse(insideRange);
+	}
+
+	@Test
+	public void ShouldBeNotInsideRangeModuloNotInRangeHigh()
+	{
+		//ASSEMBLE
+		double rangeCheck = 60;
+		double lowerBound = 315;
+		double upperBound = 45;
+		double modulo = 360;
+		//ACT
+		boolean insideRange = insideRange(rangeCheck, lowerBound, upperBound, modulo);
+		//ASSERT
+		Assert.assertFalse(insideRange);
+	}
+
+	@Test
+	public void ShouldBeNotInsideRangeModuloRegularRange()
+	{
+		//ASSEMBLE
+		double rangeCheck = 0;
+		double lowerBound = 22.5;
+		double upperBound = 67.5;
+		double modulo = 360;
+		//ACT
+		boolean insideRange = insideRange(rangeCheck, lowerBound, upperBound, modulo);
+		//ASSERT
+		Assert.assertFalse(insideRange);
+	}
+
 	@After
 	public void takedown()
 	{

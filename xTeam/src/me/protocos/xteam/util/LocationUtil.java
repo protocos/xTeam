@@ -1,12 +1,14 @@
 package me.protocos.xteam.util;
 
+import me.protocos.xteam.model.Direction;
 import org.bukkit.Location;
 
 public class LocationUtil
 {
-	public static String getRelativeDirectionBetween(Location location1, Location location2)
+	public static Direction getRelativeDirectionBetween(Location location1, Location location2)
 	{
-		return null;
+		double direction = getYawAngleToLocation(location1, location2);
+		return Direction.fromAngle(direction);
 	}
 
 	public static double getYawAngleToLocation(Location location1, Location location2)
