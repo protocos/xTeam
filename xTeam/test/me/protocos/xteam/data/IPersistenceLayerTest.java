@@ -79,9 +79,9 @@ public class IPersistenceLayerTest
 		PreparedStatement statement = db.prepare("DROP TABLE IF EXISTS team_data;");
 		statement.execute();
 		statement.close();
-		statement = db.prepare("DROP TABLE IF EXISTS player_data;");
-		statement.execute();
-		statement.close();
+		//		statement = db.prepare("DROP TABLE IF EXISTS player_data;");
+		//		statement.execute();
+		//		statement.close();
 	}
 
 	private void closeDatabase(Database db)

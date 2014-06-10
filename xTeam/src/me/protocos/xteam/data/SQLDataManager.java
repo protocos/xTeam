@@ -33,6 +33,14 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 		{
 			insert("CREATE TABLE IF NOT EXISTS team_data(name VARCHAR(255) PRIMARY KEY, tag TEXT, openJoining BOOLEAN, defaultTeam BOOLEAN, timeHeadquartersLastSet BIGINT, headquarters TEXT, leader TEXT, admins TEXT, players TEXT);");
 			insert("CREATE TABLE IF NOT EXISTS player_data(name VARCHAR(17) PRIMARY KEY, lastAttacked BIGINT, lastTeleported BIGINT, returnLocation TEXT, lastKnownLocation TEXT);");
+			try
+			{
+				insert("ALTER TABLE player_data ADD lastKnownLocation TEXT");
+			}
+			catch (SQLException e)
+			{
+				//swallow it if the column already exists
+			}
 		}
 		catch (SQLException e)
 		{
@@ -113,14 +121,6 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 				checkPlayerInDatabase.setString(1, properties.get("name").getValue());
 				ResultSet resultSet = query(checkPlayerInDatabase);
 				PreparedStatement statement;
-				try
-				{
-					insert("ALTER TABLE player_data ADD lastKnownLocation TEXT");
-				}
-				catch (SQLException e)
-				{
-					//swallow it
-				}
 				if (resultSet.next())
 				{
 					statement = prepare("UPDATE player_data SET lastAttacked = ?, lastTeleported = ?, returnLocation = ?, lastKnownLocation = ? WHERE name = ?;");
