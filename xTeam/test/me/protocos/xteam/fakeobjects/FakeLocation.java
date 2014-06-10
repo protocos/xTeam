@@ -47,6 +47,13 @@ public class FakeLocation extends Location
 	}
 
 	@Override
+	public double distance(Location location)
+	{
+		location.setWorld(this.getWorld());
+		return super.distance(location);
+	}
+
+	@Override
 	public String toString()
 	{
 		return "Fake" + super.toString();

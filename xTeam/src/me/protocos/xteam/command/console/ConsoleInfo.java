@@ -15,7 +15,7 @@ public class ConsoleInfo extends ConsoleCommand
 	public ConsoleInfo(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
-		infoAction = new InfoAction(teamCoordinator, playerFactory);
+		infoAction = new InfoAction(teamPlugin);
 	}
 
 	@Override

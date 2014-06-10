@@ -5,6 +5,7 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamInvalidCommandException;
 import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
@@ -72,6 +73,27 @@ public class ConsoleInfoTest
 				"\n    mastermind (100%) Location: 0 64 0 in \"world\"",
 				fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeTeamUserInfoExecuteNotRelativeLocation()
+	{
+		//ASSEMBLE
+		Configuration.DISPLAY_RELATIVE_COORDINATES = true;
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info one".split(" ")));
+		//ASSERT
+		Assert.assertEquals("Team Name - ONE" +
+				"\nTeam Tag - TeamAwesome" +
+				"\nTeam Leader - kmlanglois" +
+				"\nTeam Joining - Closed" +
+				"\nTeam Headquarters - X:170 Y:65 Z:209" +
+				"\nTeammates online:" +
+				"\n    protocos (100%) Location: 0 64 0 in \"world\"" +
+				"\n    kmlanglois (100%) Location: 0 64 0 in \"world\"",
+				fakeConsoleSender.getAllMessages());
+		Assert.assertTrue(fakeExecuteResponse);
+		Configuration.DISPLAY_RELATIVE_COORDINATES = false;
 	}
 
 	@Test

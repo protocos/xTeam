@@ -11,7 +11,7 @@ public class LocationUtil
 		//I would set location1 and location2 to have 
 		//the same Y value so that the block distance is exact,
 		//but meh.
-		if (location1.getWorld().equals(location2.getWorld()))
+		if (location1.getWorld().getName().equals(location2.getWorld().getName()))
 		{
 			String position = "";
 			int distance = CommonUtil.round(location1.distance(location2));
@@ -29,7 +29,7 @@ public class LocationUtil
 	private static String getVerticleDifference(Location location1, Location location2)
 	{
 		int diffY = CommonUtil.round(location2.getY() - location1.getY());
-		if (diffY > 0)
+		if (diffY != 0)
 			return ", " + (diffY >= 0 ? diffY + CommonUtil.pluralizeBasedOn(" block", diffY) + " up" : -1 * diffY + CommonUtil.pluralizeBasedOn(" block", diffY) + " down");
 		return "";
 	}

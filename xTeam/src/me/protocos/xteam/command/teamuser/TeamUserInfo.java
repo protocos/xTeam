@@ -15,7 +15,7 @@ public class TeamUserInfo extends TeamUserCommand
 	public TeamUserInfo(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
-		info = new InfoAction(teamCoordinator, playerFactory);
+		info = new InfoAction(teamPlugin);
 	}
 
 	@Override

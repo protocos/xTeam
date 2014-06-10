@@ -8,6 +8,7 @@ import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.core.InviteHandler;
+import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
@@ -174,6 +175,27 @@ public class TeamUserInfoTest
 				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
 				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeTeamUserInfoExecuteRelativeLocation()
+	{
+		//ASSEMBLE
+		Configuration.DISPLAY_RELATIVE_COORDINATES = true;
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
+		//ASSERT
+		Assert.assertEquals("Team Name - ONE\n" +
+				"Team Tag - TeamAwesome\n" +
+				"Team Leader - kmlanglois\n" +
+				"Team Joining - Closed\n" +
+				"Team Headquarters - 277 blocks to front-left, 65 blocks up\n" +
+				"Teammates online:\n" +
+				"    protocos (100%)\n" +
+				"    kmlanglois (100%) 64 blocks to left, 64 blocks up", fakePlayerSender.getLastMessage());
+		Assert.assertTrue(fakeExecuteResponse);
+		Configuration.DISPLAY_RELATIVE_COORDINATES = false;
 	}
 
 	@Test

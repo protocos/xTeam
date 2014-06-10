@@ -557,7 +557,7 @@ public class TeamPlayer implements ITeamPlayer, ILocatable, Entity, CommandSende
 	@Override
 	public String getInfoFor(ITeamEntity entity)
 	{
-		if (this.isOnSameTeam(entity))
+		if (entity.isOnSameTeam(this))
 		{
 			String location = "";
 			int health = (int) this.getHealth();

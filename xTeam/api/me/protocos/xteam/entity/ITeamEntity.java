@@ -17,11 +17,11 @@ public interface ITeamEntity extends IMessageRecipient
 
 	public abstract boolean isVulnerable();
 
-	public abstract List<OfflineTeamPlayer> getOfflineTeammates();
+	public abstract List<ITeamPlayer> getTeammates();
 
 	public abstract List<TeamPlayer> getOnlineTeammates();
 
-	public abstract List<ITeamPlayer> getTeammates();
+	public abstract List<OfflineTeamPlayer> getOfflineTeammates();
 
 	public abstract String getInfoFor(ITeamEntity entity);
 }

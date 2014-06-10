@@ -664,7 +664,9 @@ public class Team implements ITeam
 	@Override
 	public String getInfoFor(ITeamEntity entity)
 	{
-		if (this.isOnSameTeam(entity))
+		if (entity == null)
+			throw new AssertionError("Entity cannot be null");
+		if (entity.isOnSameTeam(this))
 			return getInfo(entity);
 		return getInfo(entity);
 	}
@@ -679,7 +681,7 @@ public class Team implements ITeam
 		if (this.admins.size() > 0)
 			message += "\n" + (ChatColor.RESET + "Team Admins - " + ChatColor.GREEN + this.admins.toString().replaceAll("\\[|\\]" + (this.hasLeader() ? "|" + this.getLeader() + ", " : ""), ""));
 		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.green("Open")) : (MessageUtil.red("Closed"))));
-		if (this.isOnSameTeam(entity))
+		if (entity.isOnSameTeam(this))
 		{
 			if (Configuration.DISPLAY_RELATIVE_COORDINATES && entity instanceof ILocatable)
 			{
