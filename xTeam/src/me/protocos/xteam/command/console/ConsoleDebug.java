@@ -91,7 +91,7 @@ public class ConsoleDebug extends ConsoleCommand
 			teamPlugin.read();
 			this.log.info("Reloading Data...");
 		}
-		else if (subCommand.equalsIgnoreCase("testmode"))
+		else if (subCommand.equalsIgnoreCase("mode"))
 		{
 			if (!testmode)
 			{
