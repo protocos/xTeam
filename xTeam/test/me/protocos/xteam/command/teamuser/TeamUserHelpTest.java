@@ -135,9 +135,9 @@ public class TeamUserHelpTest
 		Assert.assertEquals("Team Commands: [Page 5/5] {optional} [required] pick/one\n" +
 				"/team sethq [Team] - set team headquarters for team\n" +
 				"/team setleader [Team] [Player] - set leader of team\n" +
+				"/team setrally [Team] - set team rally point for team\n" +
 				"/team teleallhq - teleports everyone to their headquarters\n" +
 				"/team tpall [Team] - teleports a team to yourself\n" +
-				" \n" +
 				" \n" +
 				" \n" +
 				" \n" +

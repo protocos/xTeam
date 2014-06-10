@@ -49,7 +49,7 @@ public class ServerAdminHeadquartersTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq one".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You have been teleported to the headquarters of team one", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You have been teleported to the headquarters of team ONE", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(hq, fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 	}

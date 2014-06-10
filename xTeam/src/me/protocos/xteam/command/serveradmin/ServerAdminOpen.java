@@ -23,9 +23,9 @@ public class ServerAdminOpen extends ServerAdminCommand
 	{
 		changeTeam.setOpenJoining(!changeTeam.isOpenJoining());
 		if (changeTeam.isOpenJoining())
-			player.sendMessage("Open joining is now " + MessageUtil.green("enabled") + " for team " + teamName);
+			player.sendMessage("Open joining is now " + MessageUtil.green("enabled") + " for team " + changeTeam.getName());
 		else
-			player.sendMessage("Open joining is now " + MessageUtil.red("disabled") + " for team " + teamName);
+			player.sendMessage("Open joining is now " + MessageUtil.red("disabled") + " for team " + changeTeam.getName());
 	}
 
 	@Override

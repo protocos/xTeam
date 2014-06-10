@@ -2,10 +2,7 @@ package me.protocos.xteam.util;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 public class ErrorReporterUtilTest
 {
@@ -17,6 +14,7 @@ public class ErrorReporterUtilTest
 		teamPlugin = FakeXTeam.asTeamPlugin();
 	}
 
+	@Ignore
 	@Test
 	public void ShouldBeReportError()
 	{
