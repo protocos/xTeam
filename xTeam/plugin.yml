@@ -150,6 +150,9 @@ permissions:
     xteam.core.serveradmin.setleader:
         description: Allows server admins to set the leader of a team
         default: op
+    xteam.core.serveradmin.setrally:
+        description: Allows server admins to set the rally point of a team
+        default: op
     xteam.core.serveradmin.teleallhq:
         description: Allows server admins to teleport everyone to their headquarters
         default: op

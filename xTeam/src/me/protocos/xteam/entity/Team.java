@@ -498,7 +498,10 @@ public class Team implements ITeam
 	public void setRally(final Location location)
 	{
 		if (this.hasRally())
+		{
+			teleportScheduler.clearTeamRally(this);
 			bukkitUtil.getScheduler().cancelTask(rallyTaskID);
+		}
 		rally = location;
 		final Team finalTeam = this;
 		class RemoveRally implements Runnable

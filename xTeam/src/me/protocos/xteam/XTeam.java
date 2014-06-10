@@ -190,6 +190,7 @@ public final class XTeam extends TeamPlugin
 		manager.registerCommand(new ServerAdminSet(this));
 		manager.registerCommand(new ServerAdminSetHeadquarters(this));
 		manager.registerCommand(new ServerAdminSetLeader(this));
+		manager.registerCommand(new ServerAdminSetRally(this));
 		manager.registerCommand(new ServerAdminTeleAllHQ(this));
 		manager.registerCommand(new ServerAdminTpAll(this));
 	}

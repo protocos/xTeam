@@ -7,14 +7,13 @@ import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.message.MessageUtil;
-import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.util.PatternBuilder;
 
-public class ServerAdminSetHeadquarters extends ServerAdminCommand
+public class ServerAdminSetRally extends ServerAdminCommand
 {
 	private String teamName;
 
-	public ServerAdminSetHeadquarters(TeamPlugin teamPlugin)
+	public ServerAdminSetRally(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
 	}
@@ -23,8 +22,8 @@ public class ServerAdminSetHeadquarters extends ServerAdminCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		ITeam changeTeam = teamCoordinator.getTeam(teamName);
-		changeTeam.setHeadquarters(new Headquarters(teamPlugin, teamPlayer.getLocation()));
-		player.sendMessage("You " + MessageUtil.green("set") + " the team headquarters for team " + changeTeam.getName());
+		changeTeam.setRally(player.getLocation());
+		player.sendMessage("You " + MessageUtil.green("set") + " the rally point for team " + changeTeam.getName());
 	}
 
 	@Override
@@ -39,8 +38,7 @@ public class ServerAdminSetHeadquarters extends ServerAdminCommand
 	{
 		return new PatternBuilder()
 				.oneOrMore("set")
-				.oneOrMore("head")
-				.oneOrMore("quarters")
+				.oneOrMore("rally")
 				.whiteSpace()
 				.anyString()
 				.whiteSpaceOptional()
@@ -50,18 +48,18 @@ public class ServerAdminSetHeadquarters extends ServerAdminCommand
 	@Override
 	public String getPermissionNode()
 	{
-		return "xteam.core.serveradmin.sethq";
+		return "xteam.core.serveradmin.setrally";
 	}
 
 	@Override
 	public String getUsage()
 	{
-		return "/team sethq [Team]";
+		return "/team setrally [Team]";
 	}
 
 	@Override
 	public String getDescription()
 	{
-		return "set team headquarters for team";
+		return "set team rally point for team";
 	}
 }
