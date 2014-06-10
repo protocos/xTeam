@@ -214,6 +214,28 @@ public class LocationUtilTest
 		Assert.assertEquals(315.0D, difference, 0);
 	}
 
+	@Test
+	public void ShouldBeRelativePosition1()
+	{
+		//ASSEMBLE
+		Location location1 = new FakeLocation(10, 0, 10, 180, 0);
+		Location location2 = new FakeLocation(50, 0, -100);
+		//ACT
+		//ASSERT
+		Assert.assertEquals("117 blocks to front-right", LocationUtil.getRelativePosition(location1, location2));
+	}
+
+	@Test
+	public void ShouldBeRelativePosition2()
+	{
+		//ASSEMBLE
+		Location location1 = new FakeLocation(-256, 0, -172, 146, 0);
+		Location location2 = new FakeLocation(11, 0, 1000);
+		//ACT
+		//ASSERT
+		Assert.assertEquals("1202 blocks to back-left", LocationUtil.getRelativePosition(location1, location2));
+	}
+
 	@After
 	public void takedown()
 	{

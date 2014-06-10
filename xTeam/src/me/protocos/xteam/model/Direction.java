@@ -4,14 +4,18 @@ import me.protocos.xteam.util.CommonUtil;
 
 public enum Direction
 {
-	FRONT_LEFT(22.5, 67.5, "front-left"),
-	LEFT(67.5, 112.5, "left"),
-	BACK_LEFT(112.5, 157.5, "back-left"),
-	BACK(157.5, 202.5, "back"),
-	BACK_RIGHT(202.5, 247.5, "back-right"),
-	RIGHT(247.5, 292.5, "right"),
-	FRONT_RIGHT(292.5, 337.5, "front-right"),
-	FRONT(337.5, 22.5, "front");
+	FRONT(345, 15, "front"),
+	FRONT_LEFT(15, 45, "front-left"),
+	LEFT_FRONT(45, 75, "left-front"),
+	LEFT(75, 105, "left"),
+	LEFT_BACK(105, 135, "left-back"),
+	BACK_LEFT(135, 165, "back-left"),
+	BACK(165, 195, "back"),
+	BACK_RIGHT(195, 225, "back-right"),
+	RIGHT_BACK(225, 255, "right-back"),
+	RIGHT(255, 285, "right"),
+	RIGHT_FRONT(285, 315, "right-front"),
+	FRONT_RIGHT(315, 345, "front-right");
 
 	private final double lowerBound;
 	private final double upperBound;

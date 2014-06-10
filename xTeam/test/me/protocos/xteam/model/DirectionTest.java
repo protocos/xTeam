@@ -26,10 +26,20 @@ public class DirectionTest
 	public void ShouldBeFrontLeft()
 	{
 		//ASSEMBLE
-		double direction = 45.0D;
+		double direction = 30.0D;
 		//ACT
 		//ASSERT
 		Assert.assertEquals(Direction.FRONT_LEFT, Direction.fromAngle(direction));
+	}
+
+	@Test
+	public void ShouldBeLeftFront()
+	{
+		//ASSEMBLE
+		double direction = 60.0D;
+		//ACT
+		//ASSERT
+		Assert.assertEquals(Direction.LEFT_FRONT, Direction.fromAngle(direction));
 	}
 
 	@Test
@@ -43,10 +53,20 @@ public class DirectionTest
 	}
 
 	@Test
+	public void ShouldBeLeftBack()
+	{
+		//ASSEMBLE
+		double direction = 120.0D;
+		//ACT
+		//ASSERT
+		Assert.assertEquals(Direction.LEFT_BACK, Direction.fromAngle(direction));
+	}
+
+	@Test
 	public void ShouldBeBackLeft()
 	{
 		//ASSEMBLE
-		double direction = 135.0D;
+		double direction = 150.0D;
 		//ACT
 		//ASSERT
 		Assert.assertEquals(Direction.BACK_LEFT, Direction.fromAngle(direction));
@@ -66,10 +86,20 @@ public class DirectionTest
 	public void ShouldBeBackRight()
 	{
 		//ASSEMBLE
-		double direction = 225.0D;
+		double direction = 210.0D;
 		//ACT
 		//ASSERT
 		Assert.assertEquals(Direction.BACK_RIGHT, Direction.fromAngle(direction));
+	}
+
+	@Test
+	public void ShouldBeRightBack()
+	{
+		//ASSEMBLE
+		double direction = 240.0D;
+		//ACT
+		//ASSERT
+		Assert.assertEquals(Direction.RIGHT_BACK, Direction.fromAngle(direction));
 	}
 
 	@Test
@@ -83,13 +113,33 @@ public class DirectionTest
 	}
 
 	@Test
+	public void ShouldBeRightFront()
+	{
+		//ASSEMBLE
+		double direction = 300.0D;
+		//ACT
+		//ASSERT
+		Assert.assertEquals(Direction.RIGHT_FRONT, Direction.fromAngle(direction));
+	}
+
+	@Test
 	public void ShouldBeFrontRight()
 	{
 		//ASSEMBLE
-		double direction = 315.0D;
+		double direction = 330.0D;
 		//ACT
 		//ASSERT
 		Assert.assertEquals(Direction.FRONT_RIGHT, Direction.fromAngle(direction));
+	}
+
+	@Test
+	public void ShouldBeFrontAgain()
+	{
+		//ASSEMBLE
+		double direction = 360.0D;
+		//ACT
+		//ASSERT
+		Assert.assertEquals(Direction.FRONT, Direction.fromAngle(direction));
 	}
 
 	@After
