@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
@@ -861,5 +862,21 @@ public class FakeWorld implements World
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (!(obj instanceof FakeWorld))
+			return false;
+
+		FakeWorld rhs = (FakeWorld) obj;
+		return new EqualsBuilder()
+				.append(this.getName(), rhs.getName())
+				.isEquals();
 	}
 }

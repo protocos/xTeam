@@ -340,6 +340,19 @@ public class TeamPlayerTest
 	}
 
 	@Test
+	public void ShouldBeLastKnownLocationIsCurrentLocation()
+	{
+		//ASSEMBLE
+		Location location = new FakeLocation(new FakeWorld(), 0, 64, 0);
+		teamPlayer = playerFactory.getPlayer(new FakePlayer("kmlanglois", true, true, 20, location));
+		teamPlayer.setLastKnownLocation(location);
+		//ACT
+		Location lastKnownLocation = new FakeLocation(teamPlayer.getLastKnownLocation());
+		//ASSERT
+		Assert.assertEquals(location, lastKnownLocation);
+	}
+
+	@Test
 	public void ShouldBeToString()
 	{
 		//ASSEMBLE

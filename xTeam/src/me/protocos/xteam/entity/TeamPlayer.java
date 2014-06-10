@@ -552,7 +552,7 @@ public class TeamPlayer implements ITeamPlayer, Entity, CommandSender
 	@Override
 	public void setLastKnownLocation(Location lastKnownLocation)
 	{
-		playerFactory.getPlayerPropertiesFor(this.getName()).put("returnLocation", lastKnownLocation, new LocationDataTranslator(teamPlugin));
+		playerFactory.getPlayerPropertiesFor(this.getName()).put("lastKnownLocation", lastKnownLocation, new LocationDataTranslator(teamPlugin));
 	}
 
 	@Override

@@ -28,22 +28,6 @@ public interface IPlayerFactory extends IDataContainer
 
 	public abstract List<OfflineTeamPlayer> getOfflineTeammatesOf(ITeamEntity teamEntity);
 
-	//	public abstract void setReturnLocation(ITeamPlayer teamPlayer, Location returnLocation);
-	//
-	//	public abstract Location getReturnLocation(String name);
-	//
-	//	public abstract void setLastKnownLocation(ITeamPlayer teamPlayer, Location lastKnownLocation);
-	//
-	//	public abstract Location getLastKnownLocation(String name);
-	//
-	//	public abstract void setLastAttacked(ITeamPlayer teamPlayer, Long lastAttacked);
-	//
-	//	public abstract Long getLastAttacked(String name);
-	//
-	//	public abstract void setLastTeleported(ITeamPlayer teamPlayer, Long lastTeleported);
-	//
-	//	public abstract Long getLastTeleported(String name);
-
 	public abstract void updateValues(PropertyList propertyList);
 
 	public abstract PropertyList getPlayerPropertiesFor(String playerName);

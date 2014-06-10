@@ -1,5 +1,6 @@
 package me.protocos.xteam.fakeobjects;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -49,8 +50,30 @@ public class FakeLocation extends Location
 	@Override
 	public double distance(Location location)
 	{
-		location.setWorld(this.getWorld());
+		if (this.getWorld().equals(new FakeLocation(location).getWorld()))
+			location.setWorld(this.getWorld());
 		return super.distance(location);
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (!(obj instanceof FakeLocation))
+			return false;
+
+		FakeLocation rhs = (FakeLocation) obj;
+		return new EqualsBuilder()
+				.append(this.getWorld(), rhs.getWorld())
+				.append(this.getX(), rhs.getX())
+				.append(this.getY(), rhs.getY())
+				.append(this.getZ(), rhs.getZ())
+				.append(this.getYaw(), rhs.getYaw())
+				.append(this.getPitch(), rhs.getPitch())
+				.isEquals();
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package me.protocos.xteam.data;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.data.translator.LocationDataTranslator;
 import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakeWorld;
 import org.bukkit.Location;
 import org.junit.After;
 import org.junit.Assert;
@@ -101,11 +100,10 @@ public class PropertyListTest
 	{
 		//ASSEMBLE
 		list = new PropertyList();
-		Location fakeLocation = new Location(new FakeWorld(), 0, 0, 0);
+		Location fakeLocation = new FakeLocation();
 		list.put("location", fakeLocation, new LocationDataTranslator(FakeXTeam.asTeamPlugin()));
 		//ACT
-		Location location = list.getAsType("location", new LocationDataTranslator(FakeXTeam.asTeamPlugin()));
-		location.setWorld(fakeLocation.getWorld());
+		Location location = new FakeLocation(list.getAsType("location", new LocationDataTranslator(FakeXTeam.asTeamPlugin())));
 		//ASSERT
 		Assert.assertEquals(fakeLocation, location);
 	}
