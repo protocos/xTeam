@@ -20,6 +20,7 @@ public class ConfigurationTest
 		SystemUtil.deleteFile("test/xTeam.cfg");
 		this.configLoader = new Configuration(FakeXTeam.asTeamPlugin(), SystemUtil.ensureFile("test/xTeam.cfg"));
 		this.configLoader.load();
+		this.configLoader.write();
 	}
 
 	@Test

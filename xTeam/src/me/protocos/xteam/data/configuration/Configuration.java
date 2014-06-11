@@ -50,39 +50,27 @@ public class Configuration
 	public static List<String> DISABLED_WORLDS = new ArrayList<String>();
 
 	private HashList<String, ConfigurationOption<?>> options;
-	private FileReader fileReader;
-	private FileWriter fileWriter;
 	private TeamPlugin teamPlugin;
 	private ITeamCoordinator teamCoordinator;
 	private ILog log;
+	private FileReader fileReader;
+	private FileWriter fileWriter;
 
 	public Configuration(TeamPlugin teamPlugin, File file)
 	{
+		this.options = CommonUtil.emptyHashList();
 		this.teamPlugin = teamPlugin;
 		this.teamCoordinator = teamPlugin.getTeamCoordinator();
 		this.log = teamPlugin.getLog();
-		this.fileReader = new FileReader(log, file, false);
 		try
 		{
-			fileWriter = new FileWriter(file);
+			this.fileReader = new FileReader(log, file, false);
+			this.fileWriter = new FileWriter(file);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-		this.options = CommonUtil.emptyHashList();
-	}
-
-	private <T> void addAttribute(String name, T defaultValue, String description)
-	{
-		T value = parse(name, defaultValue);
-		ConfigurationOption<T> option = new ConfigurationOption<T>(name, defaultValue, description, value);
-		options.put(option.getKey(), option);
-	}
-
-	private <T> T parse(String name, T defaultValue)
-	{
-		return fileReader.get(name, defaultValue);
 	}
 
 	private String getLineBreak()
@@ -102,47 +90,48 @@ public class Configuration
 		return max.replaceAll(".", "#") + "\n";
 	}
 
-	private <T> T getAs(String key, Class<T> clazz)
+	private <T> T getAttribute(String key, T defaultValue, String description)
 	{
-		return CommonUtil.assignFromType(options.get(key).getValue(), clazz);
+		ConfigurationOption<T> option = new ConfigurationOption<T>(key, defaultValue, description, fileReader.get(key, defaultValue));
+		options.put(option.getKey(), option);
+		return option.getValue();
 	}
 
-	private List<String> getAsList(String key)
+	private List<String> getAsList(String key, String defaultValue, String description)
 	{
-		return CommonUtil.toList(getAs(key, String.class).replace("\\s+", "").split(","));
+		return CommonUtil.toList(this.getAttribute(key, defaultValue, description).replace("\\s+", "").split(","));
 	}
 
 	public void load()
 	{
-		this.write();
-		CAN_CHAT = getAs("canteamchat", Boolean.class);
-		HQ_ON_DEATH = getAs("hqondeath", Boolean.class);
-		TEAM_WOLVES = getAs("teamwolves", Boolean.class);
-		RANDOM_TEAM = getAs("randomjointeam", Boolean.class);
-		BALANCE_TEAMS = getAs("balanceteams", Boolean.class);
-		DEFAULT_TEAM_ONLY = getAs("onlyjoindefaultteam", Boolean.class);
-		DEFAULT_HQ_ON_JOIN = getAs("defaulthqonjoin", Boolean.class);
-		TEAM_TAG_ENABLED = getAs("teamtagenabled", Boolean.class);
-		TEAM_FRIENDLY_FIRE = getAs("teamfriendlyfire", Boolean.class);
-		NO_PERMISSIONS = getAs("nopermissions", Boolean.class);
-		ALPHA_NUM = getAs("alphanumericnames", Boolean.class);
-		DISPLAY_COORDINATES = getAs("displaycoordinates", Boolean.class);
-		DISPLAY_RELATIVE_COORDINATES = getAs("displayrelativelocations", Boolean.class);
-		SEND_ANONYMOUS_ERROR_REPORTS = getAs("anonymouserrorreporting", Boolean.class);
-		MAX_PLAYERS = getAs("playersonteam", Integer.class);
-		HQ_INTERVAL = getAs("sethqinterval", Integer.class);
-		ENEMY_PROX = getAs("enemyproximity", Integer.class);
-		TELE_DELAY = getAs("teledelay", Integer.class);
-		CREATE_INTERVAL = getAs("createteamdelay", Integer.class);
-		LAST_ATTACKED_DELAY = getAs("lastattackeddelay", Integer.class);
-		TEAM_NAME_LENGTH = getAs("teamnamemaxlength", Integer.class);
-		TELE_REFRESH_DELAY = getAs("telerefreshdelay", Integer.class);
-		RALLY_DELAY = getAs("rallydelay", Integer.class);
-		COLOR_TAG = getAs("tagcolor", String.class);
-		COLOR_NAME = getAs("chatnamecolor", String.class);
-		STORAGE_TYPE = getAs("storagetype", String.class);
-		DEFAULT_TEAM_NAMES = getAsList("defaultteams");
-		DISABLED_WORLDS = getAsList("disabledworlds");
+		CAN_CHAT = this.getAttribute("canteamchat", true, "Allows/Disallows the use of team chat function completely");
+		HQ_ON_DEATH = this.getAttribute("hqondeath", true, "When a player dies, they are teleported to their headquarters when they respawn");
+		TEAM_WOLVES = this.getAttribute("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
+		RANDOM_TEAM = this.getAttribute("randomjointeam", false, "Player randomly joins one of the default teams on joining");
+		BALANCE_TEAMS = this.getAttribute("balanceteams", false, "Balance teams when someone randomly joins");
+		DEFAULT_TEAM_ONLY = this.getAttribute("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
+		DEFAULT_HQ_ON_JOIN = this.getAttribute("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
+		TEAM_TAG_ENABLED = this.getAttribute("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
+		TEAM_FRIENDLY_FIRE = this.getAttribute("teamfriendlyfire", false, "When true, friendly fire will be enabled for all teams");
+		NO_PERMISSIONS = this.getAttribute("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
+		ALPHA_NUM = this.getAttribute("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
+		DISPLAY_COORDINATES = this.getAttribute("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
+		DISPLAY_RELATIVE_COORDINATES = this.getAttribute("displayrelativelocations", true, "When true, players see relative directions to team mates and team headquarters");
+		SEND_ANONYMOUS_ERROR_REPORTS = this.getAttribute("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
+		MAX_PLAYERS = this.getAttribute("playersonteam", 10, "Amount of players that can be on a team");
+		HQ_INTERVAL = this.getAttribute("sethqinterval", 0, "Delay in hours between use of /team sethq");
+		ENEMY_PROX = this.getAttribute("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
+		TELE_DELAY = this.getAttribute("teledelay", 7, "Delay in seconds for teleporting when enemies are near");
+		TELE_REFRESH_DELAY = this.getAttribute("telerefreshdelay", 0, "Delay in seconds for when you can use team teleporting. Does not include /team return");
+		CREATE_INTERVAL = this.getAttribute("createteamdelay", 20, "Delay in minutes for creating teams");
+		LAST_ATTACKED_DELAY = this.getAttribute("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
+		TEAM_NAME_LENGTH = this.getAttribute("teamnamemaxlength", 0, "Maximum length of a team name (0 = unlimited)");
+		RALLY_DELAY = this.getAttribute("rallydelay", 2, "Delay in minutes that a team rally stays active");
+		COLOR_TAG = this.getAttribute("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
+		COLOR_NAME = this.getAttribute("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
+		STORAGE_TYPE = this.getAttribute("storagetype", "file", "Method for storing data for the plugin (Options: file, sqlite, mysql:host:port:databasename:username:password)");
+		DEFAULT_TEAM_NAMES = this.getAsList("defaultteams", "", "Default list of teams for the server separated by commas  (e.g. defaultteams=red,green,blue,yellow)");
+		DISABLED_WORLDS = this.getAsList("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
 		this.ensureDefaultTeams();
 	}
 
@@ -156,40 +145,11 @@ public class Configuration
 		}
 	}
 
-	private void write()
+	public void write()
 	{
 		try
 		{
-			this.addAttribute("playersonteam", 10, "Amount of players that can be on a team");
-			this.addAttribute("sethqinterval", 0, "Delay in hours between use of /team sethq");
-			this.addAttribute("canteamchat", true, "Allows/Disallows the use of team chat function completely");
-			this.addAttribute("hqondeath", true, "When a player dies, they are teleported to their headquarters when they respawn");
-			this.addAttribute("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
-			this.addAttribute("teledelay", 7, "Delay in seconds for teleporting when enemies are near");
-			this.addAttribute("telerefreshdelay", 0, "Delay in seconds for when you can use team teleporting. Does not include /team return");
-			this.addAttribute("createteamdelay", 20, "Delay in minutes for creating teams");
-			this.addAttribute("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
-			this.addAttribute("defaultteams", "", "Default list of teams for the server separated by commas  (e.g. defaultteams=red,green,blue,yellow)");
-			this.addAttribute("randomjointeam", false, "Player randomly joins one of the default teams on joining");
-			this.addAttribute("balanceteams", false, "Balance teams when someone randomly joins");
-			this.addAttribute("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
-			this.addAttribute("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
-			this.addAttribute("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
-			this.addAttribute("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
-			this.addAttribute("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
-			this.addAttribute("teamnamemaxlength", 0, "Maximum length of a team name (0 = unlimited)");
-			this.addAttribute("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
-			this.addAttribute("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
-			this.addAttribute("teamfriendlyfire", false, "When true, friendly fire will be enabled for all teams");
-			this.addAttribute("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
-			this.addAttribute("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
-			this.addAttribute("displayrelativelocations", true, "When true, players see relative directions to team mates and team headquarters");
-			this.addAttribute("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
-			this.addAttribute("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
-			this.addAttribute("rallydelay", 2, "Delay in minutes that a team rally stays active");
-			this.addAttribute("newparam", 1, "Delay in minutes that a team rally stays active");
-			this.addAttribute("storagetype", "file", "Method for storing data for the plugin (Options: file, sqlite, mysql:host:port:databasename:username:password)");
-			fileWriter.write(toString());
+			fileWriter.write(this.toString());
 			fileWriter.close();
 		}
 		catch (IOException e)

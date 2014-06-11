@@ -40,6 +40,7 @@ public final class XTeam extends TeamPlugin
 		SystemUtil.ensureFolder(this.getFolder());
 		this.configLoader = new Configuration(this, SystemUtil.ensureFile(this.getFolder() + "xTeam.cfg"));
 		this.configLoader.load();
+		this.configLoader.write();
 	}
 
 	@Override
