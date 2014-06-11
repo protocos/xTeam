@@ -22,6 +22,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 public final class XTeam extends TeamPlugin
 {
+	//Change made for GitHub
 	private Configuration configLoader;
 	private IPersistenceLayer persistenceLayer;
 
