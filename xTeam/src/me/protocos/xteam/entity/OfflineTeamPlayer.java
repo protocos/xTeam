@@ -80,6 +80,10 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public void sendMessage(String message)
 	{
+		if (this.isOnline())
+			playerFactory.getPlayer(this.getName()).sendMessage(message);
+		else
+			throw new AssertionError("Player is not online");
 	}
 
 	@Override
@@ -301,5 +305,17 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	public List<Entity> getNearbyEntities(int radius)
 	{
 		return BukkitUtil.getNearbyEntities(this.getLocation(), radius);
+	}
+
+	@Override
+	public String toString()
+	{
+		String playerData = "";
+		playerData += "name:" + this.getName();
+		playerData += " hasPlayed:" + this.hasPlayedBefore();
+		playerData += " team:" + (this.hasTeam() ? this.getTeam().getName() : "none");
+		playerData += " admin:" + (this.isAdmin() ? "true" : "false");
+		playerData += " leader:" + (this.isLeader() ? "true" : "false");
+		return playerData;
 	}
 }

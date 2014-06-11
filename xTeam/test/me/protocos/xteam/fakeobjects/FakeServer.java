@@ -692,4 +692,16 @@ public class FakeServer implements Server
 		return null;
 	}
 
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (obj instanceof FakeServer)
+			return true;
+		return false;
+	}
+
 }

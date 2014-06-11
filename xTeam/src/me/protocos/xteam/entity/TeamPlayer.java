@@ -267,11 +267,11 @@ public class TeamPlayer implements ITeamPlayer, Entity, CommandSender
 	public String toString()
 	{
 		String playerData = "";
-		playerData += "name:" + getName();
-		playerData += " hasPlayed:" + hasPlayedBefore();
-		playerData += " team:" + (hasTeam() ? getTeam().getName() : "none");
-		playerData += " admin:" + (isAdmin() ? "true" : "false");
-		playerData += " leader:" + (isLeader() ? "true" : "false");
+		playerData += "name:" + this.getName();
+		playerData += " hasPlayed:" + this.hasPlayedBefore();
+		playerData += " team:" + (this.hasTeam() ? this.getTeam().getName() : "none");
+		playerData += " admin:" + (this.isAdmin() ? "true" : "false");
+		playerData += " leader:" + (this.isLeader() ? "true" : "false");
 		return playerData;
 	}
 
