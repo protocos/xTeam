@@ -25,7 +25,7 @@ public class Log implements ILog
 		File file = SystemUtil.ensureFile(filePath);
 		try
 		{
-			LimitedQueue<String> previousEntries = new LimitedQueue<String>(500);
+			LimitedQueue<String> previousEntries = new LimitedQueue<String>(5000);
 			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(file);
 			String line;
