@@ -84,7 +84,7 @@ public class ConfigurationTest
 		loadConfig();
 		//ACT
 		//ASSERT
-		Assert.assertEquals("playersonteam = 1 is not inside range (2 <= VALUE < 2147483647), defaulting to playersonteam = 10", teamPlugin.getLog().getLastMessage());
+		Assert.assertEquals("playersonteam = 1 is not inside range (2 <= VALUE < 1000), defaulting to playersonteam = 10", teamPlugin.getLog().getLastMessage());
 		Assert.assertEquals(10, Configuration.MAX_PLAYERS);
 	}
 
@@ -105,11 +105,11 @@ public class ConfigurationTest
 	public void ShouldBeListPatternCheckRevertToDefaultValue() throws IOException
 	{
 		//ASSEMBLE
-		customConfigValue("disabledworlds = ∑o®¬");
+		customConfigValue("disabledworlds = ???");
 		loadConfig();
 		//ACT
 		//ASSERT
-		Assert.assertEquals("disabledworlds = '∑o®¬' is not a valid pattern, defaulting to disabledworlds = ''", teamPlugin.getLog().getLastMessage());
+		Assert.assertEquals("disabledworlds = '???' is not a valid pattern, defaulting to disabledworlds = ''", teamPlugin.getLog().getLastMessage());
 		Assert.assertEquals(CommonUtil.emptyList(), Configuration.DISABLED_WORLDS);
 	}
 
