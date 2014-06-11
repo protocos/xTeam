@@ -10,6 +10,7 @@ import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
+import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.permissions.Permission;
 
 public class Configuration
@@ -46,8 +47,8 @@ public class Configuration
 	public static String COLOR_TAG;
 	public static String COLOR_NAME;
 	public static String STORAGE_TYPE;
-	public static List<String> DEFAULT_TEAM_NAMES = new ArrayList<String>();
-	public static List<String> DISABLED_WORLDS = new ArrayList<String>();
+	public static List<String> DEFAULT_TEAM_NAMES = CommonUtil.emptyList();
+	public static List<String> DISABLED_WORLDS = CommonUtil.emptyList();
 
 	private HashList<String, ConfigurationOption<?>> options;
 	private TeamPlugin teamPlugin;
@@ -90,12 +91,20 @@ public class Configuration
 		return max.replaceAll(".", "#") + "\n";
 	}
 
+	private Boolean getAttribute(String key, Boolean defaultValue, String description)
+	{
+		Boolean value = fileReader.get(key, defaultValue);
+		ConfigurationOption<Boolean> option = new ConfigurationOption<Boolean>(key, defaultValue, description, value);
+		options.put(option.getKey(), option);
+		return option.getValue();
+	}
+
 	private Integer getAttribute(String key, Integer defaultValue, Integer lowerBound, Integer upperBound, String description)
 	{
 		Integer value = fileReader.get(key, defaultValue);
 		if (!CommonUtil.insideRange(value, lowerBound, upperBound))
 		{
-			this.log.error(key + " = " + value + " not inside range [" + lowerBound + ", " + upperBound + "), defaulting to " + key + " = " + defaultValue);
+			this.log.error(key + " = " + value + " is not inside range (" + lowerBound + " <= VALUE < " + upperBound + "), defaulting to " + key + " = " + defaultValue);
 			value = defaultValue;
 		}
 		ConfigurationOption<Integer> option = new ConfigurationOption<Integer>(key, defaultValue, description, value);
@@ -103,17 +112,39 @@ public class Configuration
 		return option.getValue();
 	}
 
-	private <T> T getAttribute(String key, T defaultValue, String description)
+	private String getAttribute(String key, String defaultValue, String description)
 	{
-		ConfigurationOption<T> option = new ConfigurationOption<T>(key, defaultValue, description, fileReader.get(key, defaultValue));
+		String value = fileReader.get(key, defaultValue);
+		if (!new PatternBuilder().anyUnlimitedOptional(new PatternBuilder().alphaNumeric().append(":")).whiteSpaceOptional().matches(value))
+		{
+			this.log.error(key + " = '" + value + "' is not a valid pattern, defaulting to " + key + " = '" + defaultValue + "'");
+			value = defaultValue;
+		}
+		ConfigurationOption<String> option = new ConfigurationOption<String>(key, defaultValue, description, value);
 		options.put(option.getKey(), option);
 		return option.getValue();
 	}
 
 	private List<String> getAsList(String key, String defaultValue, String description)
 	{
-		return CommonUtil.toList(this.getAttribute(key, defaultValue, description).replace("\\s+", "").split(","));
+		String value = fileReader.get(key, defaultValue);
+		if (!new PatternBuilder().anyUnlimitedOptional(new PatternBuilder().alphaNumeric().append(",")).whiteSpaceOptional().matches(value))
+		{
+			this.log.error(key + " = '" + value + "' is not a valid pattern, defaulting to " + key + " = '" + defaultValue + "'");
+			value = defaultValue;
+		}
+		ConfigurationOption<String> option = new ConfigurationOption<String>(key, defaultValue, description, value);
+		options.put(option.getKey(), option);
+		return CommonUtil.toList(option.getValue().replace("\\s+", "").split(","));
 	}
+
+	//	private <T> T getAttribute(String key, T defaultValue, String description)
+	//	{
+	//		T value = fileReader.get(key, defaultValue);
+	//		ConfigurationOption<T> option = new ConfigurationOption<T>(key, defaultValue, description, value);
+	//		options.put(option.getKey(), option);
+	//		return option.getValue();
+	//	}
 
 	public void load()
 	{

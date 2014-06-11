@@ -16,7 +16,7 @@ import org.bukkit.permissions.Permission;
 public class FakeXTeam extends TeamPlugin
 {
 	private static final String FOLDER = "test/";
-	private static final ILog fakeLog = new FakeLog();
+	private ILog fakeLog = new FakeLog();
 	private FakeServer server;
 
 	private FakeXTeam(FakeServer server)

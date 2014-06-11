@@ -147,6 +147,12 @@ public class PatternBuilder
 		return this;
 	}
 
+	public PatternBuilder anyUnlimitedOptional(PatternBuilder append)
+	{
+		this.pattern.append("[" + append.toString() + "]*");
+		return this;
+	}
+
 	public PatternBuilder excludeOne(PatternBuilder append)
 	{
 		this.pattern.append("[^" + append.toString() + "]");

@@ -22,15 +22,16 @@ public class ConfigurationTest
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
 		SystemUtil.ensureFolder("test/");
+		SystemUtil.deleteFile("test/xTeam.cfg");
 	}
 
 	@Test
 	public void ShouldBeDefaultConfigValues()
 	{
-		SystemUtil.deleteFile("test/xTeam.cfg");
-		this.configLoader = new Configuration(teamPlugin, SystemUtil.ensureFile("test/xTeam.cfg"));
-		this.configLoader.load();
-		this.configLoader.write();
+		//ASSEMBLE
+		loadConfig();
+		//ACT
+		//ASSERT
 		Assert.assertFalse(Configuration.LOCATIONS_ENABLED);
 		Assert.assertTrue(Configuration.CAN_CHAT);
 		Assert.assertTrue(Configuration.HQ_ON_DEATH);
@@ -65,19 +66,89 @@ public class ConfigurationTest
 	}
 
 	@Test
-	public void ShouldBeOutsideRangeDefaultToDefaultValue() throws IOException
+	public void ShouldBeCustomConfigValue() throws IOException
 	{
 		//ASSEMBLE
-		FileWriter writer = new FileWriter(SystemUtil.ensureFile("test/xTeam.cfg"));
-		writer.write("playersonteam = 1");
-		writer.close();
+		customConfigValue("storagetype = sqlite");
+		loadConfig();
+		//ACT
+		//ASSERT
+		Assert.assertEquals("sqlite", Configuration.STORAGE_TYPE);
+	}
+
+	@Test
+	public void ShouldBeRangeCheckRevertToDefaultValue() throws IOException
+	{
+		//ASSEMBLE
+		customConfigValue("playersonteam = 1");
+		loadConfig();
+		//ACT
+		//ASSERT
+		Assert.assertEquals("playersonteam = 1 is not inside range (2 <= VALUE < 2147483647), defaulting to playersonteam = 10", teamPlugin.getLog().getLastMessage());
+		Assert.assertEquals(10, Configuration.MAX_PLAYERS);
+	}
+
+	@Test
+	public void ShouldBeListPatternCheckValid() throws IOException
+	{
+		//ASSEMBLE
+		customConfigValue("disabledworlds = world,world_nether");
+		loadConfig();
+		//ACT
+		//ASSERT
+		Assert.assertNull(teamPlugin.getLog().getLastMessage());
+		Assert.assertTrue(Configuration.DISABLED_WORLDS.contains("world"));
+		Assert.assertTrue(Configuration.DISABLED_WORLDS.contains("world_nether"));
+	}
+
+	@Test
+	public void ShouldBeListPatternCheckRevertToDefaultValue() throws IOException
+	{
+		//ASSEMBLE
+		customConfigValue("disabledworlds = ∑o®¬");
+		loadConfig();
+		//ACT
+		//ASSERT
+		Assert.assertEquals("disabledworlds = '∑o®¬' is not a valid pattern, defaulting to disabledworlds = ''", teamPlugin.getLog().getLastMessage());
+		Assert.assertEquals(CommonUtil.emptyList(), Configuration.DISABLED_WORLDS);
+	}
+
+	@Test
+	public void ShouldBeStringPatternCheckRevertToDefaultValue() throws IOException
+	{
+		//ASSEMBLE
+		customConfigValue("storagetype = mysql:blah:blah:blah:blah:blah");
+		loadConfig();
+		//ACT
+		//ASSERT
+		Assert.assertNull(teamPlugin.getLog().getLastMessage());
+		Assert.assertEquals("mysql:blah:blah:blah:blah:blah", Configuration.STORAGE_TYPE);
+	}
+
+	@Test
+	public void ShouldBeBooleanPatternCheckRevertToDefaultValue() throws IOException
+	{
+		//ASSEMBLE
+		customConfigValue("friendlyfire = true?");
+		loadConfig();
+		//ACT
+		//ASSERT
+		Assert.assertNull(teamPlugin.getLog().getLastMessage());
+		Assert.assertEquals(false, Configuration.TEAM_FRIENDLY_FIRE);
+	}
+
+	private void loadConfig()
+	{
 		this.configLoader = new Configuration(teamPlugin, SystemUtil.ensureFile("test/xTeam.cfg"));
 		this.configLoader.load();
 		this.configLoader.write();
-		//ACT
-		//ASSERT
-		Assert.assertEquals("playersonteam = 1 not inside range [2, 2147483647), defaulting to playersonteam = 10", teamPlugin.getLog().getLastMessage());
-		Assert.assertEquals(10, Configuration.MAX_PLAYERS);
+	}
+
+	private void customConfigValue(String write) throws IOException
+	{
+		FileWriter writer = new FileWriter(SystemUtil.ensureFile("test/xTeam.cfg"));
+		writer.write(write);
+		writer.close();
 	}
 
 	@After
