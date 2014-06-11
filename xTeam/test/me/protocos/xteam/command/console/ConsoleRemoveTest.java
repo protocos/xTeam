@@ -61,8 +61,8 @@ public class ConsoleRemoveTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "remove kmlanglois one".split(" ")));
 		//ASSERT
-		Assert.assertEquals("kmlanglois has been removed from ONE", fakeConsoleSender.getMessage(0));
-		Assert.assertEquals("ONE has been disbanded", fakeConsoleSender.getMessage(1));
+		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
+				"ONE has been disbanded", fakeConsoleSender.getAllMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}

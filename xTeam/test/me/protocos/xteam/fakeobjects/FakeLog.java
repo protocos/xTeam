@@ -1,9 +1,18 @@
 package me.protocos.xteam.fakeobjects;
 
+import me.protocos.xteam.collections.LimitedQueue;
 import me.protocos.xteam.model.ILog;
 
 public class FakeLog implements ILog
 {
+	private LimitedQueue<String> messageLog;
+
+	public FakeLog()
+	{
+		super();
+		messageLog = new LimitedQueue<String>(50);
+	}
+
 	@Override
 	public void close()
 	{
@@ -17,12 +26,13 @@ public class FakeLog implements ILog
 	@Override
 	public void error(String message)
 	{
+		messageLog.offer(message);
 	}
 
 	@Override
 	public void exception(Exception e)
 	{
-		e.printStackTrace();
+		messageLog.offer(e.getMessage());
 	}
 
 	@Override
@@ -35,4 +45,21 @@ public class FakeLog implements ILog
 	{
 	}
 
+	@Override
+	public String getLastMessage()
+	{
+		return messageLog.getLast();
+	}
+
+	@Override
+	public String getAllMessages()
+	{
+		return messageLog.toString();
+	}
+
+	@Override
+	public LimitedQueue<String> getMessages()
+	{
+		return messageLog;
+	}
 }

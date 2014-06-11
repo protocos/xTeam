@@ -1,6 +1,8 @@
 package me.protocos.xteam.model;
 
-public interface ILog
+import me.protocos.xteam.message.IMessageRecorder;
+
+public interface ILog extends IMessageRecorder
 {
 	public abstract void close();
 

@@ -79,7 +79,7 @@ public class ServerAdminSetTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set Lonely three".split(" ")));
 		//ASSERT
 		Assert.assertEquals("three has been created\n" +
-				"Lonely has been added to three\n", fakePlayerSender.getAllMessages());
+				"Lonely has been added to three", fakePlayerSender.getAllMessages());
 		Assert.assertTrue(teamCoordinator.containsTeam("three"));
 		Assert.assertTrue(teamCoordinator.getTeam("three").containsPlayer("Lonely"));
 		Assert.assertEquals(1, teamCoordinator.getTeam("three").size());
@@ -97,7 +97,7 @@ public class ServerAdminSetTest
 		//ASSERT
 		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
 				"ONE has been disbanded\n" +
-				"kmlanglois has been added to two\n", fakePlayerSender.getAllMessages());
+				"kmlanglois has been added to two", fakePlayerSender.getAllMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("one"));
 		Assert.assertTrue(teamCoordinator.getTeam("two").containsPlayer("kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);
@@ -138,7 +138,7 @@ public class ServerAdminSetTest
 		//ASSERT
 		Assert.assertEquals("protocos has been removed from ONE\n" +
 				"three has been created\n" +
-				"protocos has been added to three\n", fakePlayerSender.getAllMessages());
+				"protocos has been added to three", fakePlayerSender.getAllMessages());
 		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("protocos"));
 		Assert.assertTrue(teamCoordinator.containsTeam("three"));
 		Assert.assertTrue(teamCoordinator.getTeam("three").containsPlayer("protocos"));

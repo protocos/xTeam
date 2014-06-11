@@ -1,7 +1,8 @@
 package me.protocos.xteam.fakeobjects;
 
-import java.util.LinkedList;
 import java.util.Set;
+import me.protocos.xteam.collections.LimitedQueue;
+import me.protocos.xteam.message.IMessageRecorder;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
@@ -12,14 +13,13 @@ import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.Plugin;
 
-public class FakeConsoleSender implements ConsoleCommandSender
+public class FakeConsoleSender implements ConsoleCommandSender, IMessageRecorder
 {
-	private static final int STORED_MESSAGES = 100;
-	private LinkedList<String> messageLog;
+	private LimitedQueue<String> messageLog;
 
 	public FakeConsoleSender()
 	{
-		messageLog = new LinkedList<String>();
+		messageLog = new LimitedQueue<String>(50);
 	}
 
 	@Override
@@ -78,31 +78,11 @@ public class FakeConsoleSender implements ConsoleCommandSender
 		return false;
 	}
 
-	public String getAllMessages()
-	{
-		String messages = "";
-		for (String s : messageLog)
-			messages += s.replaceAll("§.", "") + "\n";
-		return messages.trim();
-	}
-
 	@Override
 	public Set<PermissionAttachmentInfo> getEffectivePermissions()
 	{
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public String getLastMessage()
-	{
-		return messageLog.getLast().replaceAll("§.", "");
-	}
-
-	public String getMessage(int index)
-	{
-		if (index < 0 || index >= STORED_MESSAGES)
-			throw new IndexOutOfBoundsException();
-		return messageLog.get(index).replaceAll("§.", "");
 	}
 
 	@Override
@@ -175,11 +155,7 @@ public class FakeConsoleSender implements ConsoleCommandSender
 	@Override
 	public void sendMessage(String message)
 	{
-		if (messageLog.size() == STORED_MESSAGES)
-		{
-			messageLog.removeFirst();
-		}
-		messageLog.addLast(message);
+		messageLog.offer(message.replaceAll("§.", ""));
 	}
 
 	@Override
@@ -201,5 +177,23 @@ public class FakeConsoleSender implements ConsoleCommandSender
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public String getLastMessage()
+	{
+		return messageLog.getLast();
+	}
+
+	@Override
+	public String getAllMessages()
+	{
+		return messageLog.toString();
+	}
+
+	@Override
+	public LimitedQueue<String> getMessages()
+	{
+		return messageLog;
 	}
 }

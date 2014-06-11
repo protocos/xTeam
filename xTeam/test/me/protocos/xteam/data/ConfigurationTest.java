@@ -1,7 +1,10 @@
 package me.protocos.xteam.data;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import junit.framework.Assert;
 import me.protocos.xteam.FakeXTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.SystemUtil;
@@ -11,21 +14,23 @@ import org.junit.Test;
 
 public class ConfigurationTest
 {
+	private TeamPlugin teamPlugin;
 	private Configuration configLoader;
 
 	@Before
 	public void setup()
 	{
+		teamPlugin = FakeXTeam.asTeamPlugin();
 		SystemUtil.ensureFolder("test/");
-		SystemUtil.deleteFile("test/xTeam.cfg");
-		this.configLoader = new Configuration(FakeXTeam.asTeamPlugin(), SystemUtil.ensureFile("test/xTeam.cfg"));
-		this.configLoader.load();
-		this.configLoader.write();
 	}
 
 	@Test
 	public void ShouldBeDefaultConfigValues()
 	{
+		SystemUtil.deleteFile("test/xTeam.cfg");
+		this.configLoader = new Configuration(teamPlugin, SystemUtil.ensureFile("test/xTeam.cfg"));
+		this.configLoader.load();
+		this.configLoader.write();
 		Assert.assertFalse(Configuration.LOCATIONS_ENABLED);
 		Assert.assertTrue(Configuration.CAN_CHAT);
 		Assert.assertTrue(Configuration.HQ_ON_DEATH);
@@ -57,6 +62,22 @@ public class ConfigurationTest
 		Assert.assertEquals("file", Configuration.STORAGE_TYPE);
 		Assert.assertEquals("", CommonUtil.concatenate(Configuration.DEFAULT_TEAM_NAMES, ","));
 		Assert.assertEquals("", CommonUtil.concatenate(Configuration.DISABLED_WORLDS, ","));
+	}
+
+	@Test
+	public void ShouldBeOutsideRangeDefaultToDefaultValue() throws IOException
+	{
+		//ASSEMBLE
+		FileWriter writer = new FileWriter(SystemUtil.ensureFile("test/xTeam.cfg"));
+		writer.write("playersonteam = 1");
+		writer.close();
+		this.configLoader = new Configuration(teamPlugin, SystemUtil.ensureFile("test/xTeam.cfg"));
+		this.configLoader.load();
+		this.configLoader.write();
+		//ACT
+		//ASSERT
+		Assert.assertEquals("playersonteam = 1 not inside range [2, 2147483647), defaulting to playersonteam = 10", teamPlugin.getLog().getLastMessage());
+		Assert.assertEquals(10, Configuration.MAX_PLAYERS);
 	}
 
 	@After

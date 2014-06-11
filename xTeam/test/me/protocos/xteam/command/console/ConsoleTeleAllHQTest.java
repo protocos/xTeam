@@ -36,7 +36,7 @@ public class ConsoleTeleAllHQTest
 	}
 
 	@Test
-	public void ShouldBeConsoleSetExecute()
+	public void ShouldBeConsoleTeleAllHQExecute()
 	{
 		//ASSEMBLE
 		//ACT

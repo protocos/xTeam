@@ -3,6 +3,8 @@ package me.protocos.xteam.fakeobjects;
 import java.net.InetSocketAddress;
 import java.util.*;
 import me.protocos.xteam.TeamPlugin;
+import me.protocos.xteam.collections.LimitedQueue;
+import me.protocos.xteam.message.IMessageRecorder;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -25,14 +27,13 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.util.Vector;
 
-public class FakePlayerSender implements Player, CommandSender
+public class FakePlayerSender implements Player, CommandSender, IMessageRecorder
 {
-	private static final int STORED_MESSAGES = 10;
 	private TeamPlugin teamPlugin;
 	private String name;
 	private Location location;
 	private boolean isOp;
-	private LinkedList<String> messageLog;
+	private LimitedQueue<String> messageLog;
 	private int noDamageTicks;
 
 	public FakePlayerSender(TeamPlugin teamPlugin)
@@ -50,7 +51,7 @@ public class FakePlayerSender implements Player, CommandSender
 		this.name = name;
 		this.location = location;
 		this.isOp = isOp;
-		messageLog = new LinkedList<String>();
+		messageLog = new LimitedQueue<String>(50);
 		this.teamPlugin = teamPlugin;
 	}
 
@@ -178,14 +179,6 @@ public class FakePlayerSender implements Player, CommandSender
 	{
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public String getAllMessages()
-	{
-		String messages = "";
-		for (String s : messageLog)
-			messages += s.replaceAll("§.", "") + "\n";
-		return messages;
 	}
 
 	@Override
@@ -391,11 +384,6 @@ public class FakePlayerSender implements Player, CommandSender
 		return null;
 	}
 
-	public String getLastMessage()
-	{
-		return messageLog.getLast().replaceAll("§.", "");
-	}
-
 	@Override
 	public long getLastPlayed()
 	{
@@ -470,13 +458,6 @@ public class FakePlayerSender implements Player, CommandSender
 	{
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	public String getMessage(int index)
-	{
-		if (index < 0 || index >= STORED_MESSAGES)
-			throw new IndexOutOfBoundsException();
-		return messageLog.get(index).replaceAll("§.", "");
 	}
 
 	@Override
@@ -1084,11 +1065,7 @@ public class FakePlayerSender implements Player, CommandSender
 	@Override
 	public void sendMessage(String message)
 	{
-		if (messageLog.size() == STORED_MESSAGES)
-		{
-			messageLog.removeFirst();
-		}
-		messageLog.addLast(message);
+		messageLog.offer(message.replaceAll("§.", ""));
 	}
 
 	@Override
@@ -1658,5 +1635,23 @@ public class FakePlayerSender implements Player, CommandSender
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public String getLastMessage()
+	{
+		return messageLog.getLast();
+	}
+
+	@Override
+	public String getAllMessages()
+	{
+		return messageLog.toString();
+	}
+
+	@Override
+	public LimitedQueue<String> getMessages()
+	{
+		return messageLog;
 	}
 }

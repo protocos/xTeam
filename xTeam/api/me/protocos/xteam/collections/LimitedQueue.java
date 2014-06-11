@@ -9,6 +9,7 @@ public class LimitedQueue<T> extends AbstractQueue<T>
 {
 	private Queue<T> data;
 	private int maxSize;
+	private T last;
 
 	public LimitedQueue(int maxSize)
 	{
@@ -23,11 +24,19 @@ public class LimitedQueue<T> extends AbstractQueue<T>
 	}
 
 	@Override
+	public boolean add(T e)
+	{
+		throw new AssertionError("Method not allowed.");
+	}
+
+	@Override
 	public boolean offer(T element)
 	{
 		if (data.size() >= maxSize)
 			data.poll();
-		return data.offer(element);
+		if (data.offer(element))
+			last = element;
+		return last == element;
 	}
 
 	@Override
@@ -42,12 +51,23 @@ public class LimitedQueue<T> extends AbstractQueue<T>
 		return data.poll();
 	}
 
+	public T getFirst()
+	{
+		return data.peek();
+	}
+
+	public T getLast()
+	{
+		return last;
+	}
+
 	@Override
 	public int size()
 	{
 		return maxSize;
 	}
 
+	@Override
 	public String toString()
 	{
 		String result = "";
@@ -55,6 +75,6 @@ public class LimitedQueue<T> extends AbstractQueue<T>
 		{
 			result += element + "\n";
 		}
-		return result;
+		return result.trim();
 	}
 }

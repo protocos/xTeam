@@ -61,8 +61,8 @@ public class ServerAdminRemoveTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove kmlanglois one".split(" ")));
 		//ASSERT
-		Assert.assertEquals("kmlanglois has been removed from ONE", fakePlayerSender.getMessage(0));
-		Assert.assertEquals("ONE has been disbanded", fakePlayerSender.getMessage(1));
+		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
+				"ONE has been disbanded", fakePlayerSender.getAllMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}

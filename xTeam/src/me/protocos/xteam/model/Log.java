@@ -18,6 +18,7 @@ public class Log implements ILog
 	private TeamPlugin teamPlugin;
 	private ErrorReporterUtil errorReporter;
 	private PrintStream printStream;
+	private LimitedQueue<String> messageLog;
 
 	public Log(TeamPlugin teamPlugin, String filePath)
 	{
@@ -25,17 +26,17 @@ public class Log implements ILog
 		File file = SystemUtil.ensureFile(filePath);
 		try
 		{
-			LimitedQueue<String> previousEntries = new LimitedQueue<String>(5000);
+			messageLog = new LimitedQueue<String>(5000);
 			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(file);
 			String line;
 			while (sc.hasNext() && (line = sc.nextLine()) != null)
 			{
-				previousEntries.offer(line);
+				messageLog.offer(line);
 			}
 			FileOutputStream output = new FileOutputStream(file);
 			printStream = new PrintStream(output);
-			printStream.print(previousEntries.toString());
+			printStream.print(messageLog.toString());
 		}
 		catch (FileNotFoundException e)
 		{
@@ -110,5 +111,23 @@ public class Log implements ILog
 			System.out.println(header + line);
 			header = "[xTeam]\t";
 		}
+	}
+
+	@Override
+	public String getLastMessage()
+	{
+		return messageLog.getLast();
+	}
+
+	@Override
+	public String getAllMessages()
+	{
+		return messageLog.toString();
+	}
+
+	@Override
+	public LimitedQueue<String> getMessages()
+	{
+		return messageLog;
 	}
 }

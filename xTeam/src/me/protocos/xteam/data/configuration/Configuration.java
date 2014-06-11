@@ -90,6 +90,19 @@ public class Configuration
 		return max.replaceAll(".", "#") + "\n";
 	}
 
+	private Integer getAttribute(String key, Integer defaultValue, Integer lowerBound, Integer upperBound, String description)
+	{
+		Integer value = fileReader.get(key, defaultValue);
+		if (!CommonUtil.insideRange(value, lowerBound, upperBound))
+		{
+			this.log.error(key + " = " + value + " not inside range [" + lowerBound + ", " + upperBound + "), defaulting to " + key + " = " + defaultValue);
+			value = defaultValue;
+		}
+		ConfigurationOption<Integer> option = new ConfigurationOption<Integer>(key, defaultValue, description, value);
+		options.put(option.getKey(), option);
+		return option.getValue();
+	}
+
 	private <T> T getAttribute(String key, T defaultValue, String description)
 	{
 		ConfigurationOption<T> option = new ConfigurationOption<T>(key, defaultValue, description, fileReader.get(key, defaultValue));
@@ -118,15 +131,15 @@ public class Configuration
 		DISPLAY_COORDINATES = this.getAttribute("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
 		DISPLAY_RELATIVE_COORDINATES = this.getAttribute("displayrelativelocations", true, "When true, players see relative directions to team mates and team headquarters");
 		SEND_ANONYMOUS_ERROR_REPORTS = this.getAttribute("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
-		MAX_PLAYERS = this.getAttribute("playersonteam", 10, "Amount of players that can be on a team");
-		HQ_INTERVAL = this.getAttribute("sethqinterval", 0, "Delay in hours between use of /team sethq");
-		ENEMY_PROX = this.getAttribute("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
-		TELE_DELAY = this.getAttribute("teledelay", 7, "Delay in seconds for teleporting when enemies are near");
-		TELE_REFRESH_DELAY = this.getAttribute("telerefreshdelay", 0, "Delay in seconds for when you can use team teleporting. Does not include /team return");
-		CREATE_INTERVAL = this.getAttribute("createteamdelay", 20, "Delay in minutes for creating teams");
-		LAST_ATTACKED_DELAY = this.getAttribute("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
-		TEAM_NAME_LENGTH = this.getAttribute("teamnamemaxlength", 0, "Maximum length of a team name (0 = unlimited)");
-		RALLY_DELAY = this.getAttribute("rallydelay", 2, "Delay in minutes that a team rally stays active");
+		MAX_PLAYERS = this.getAttribute("playersonteam", 10, 2, Integer.MAX_VALUE, "Amount of players that can be on a team");
+		HQ_INTERVAL = this.getAttribute("sethqinterval", 0, 0, Integer.MAX_VALUE, "Delay in hours between use of /team sethq");
+		ENEMY_PROX = this.getAttribute("enemyproximity", 16, 0, Integer.MAX_VALUE, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
+		TELE_DELAY = this.getAttribute("teledelay", 7, 0, Integer.MAX_VALUE, "Delay in seconds for teleporting when enemies are near");
+		TELE_REFRESH_DELAY = this.getAttribute("telerefreshdelay", 0, 0, Integer.MAX_VALUE, "Delay in seconds for when you can use team teleporting. Does not include /team return");
+		CREATE_INTERVAL = this.getAttribute("createteamdelay", 20, 0, Integer.MAX_VALUE, "Delay in minutes for creating teams");
+		LAST_ATTACKED_DELAY = this.getAttribute("lastattackeddelay", 15, 0, Integer.MAX_VALUE, "How long a player has to wait after being attacked to teleport");
+		TEAM_NAME_LENGTH = this.getAttribute("teamnamemaxlength", 0, 0, Integer.MAX_VALUE, "Maximum length of a team name (0 = unlimited)");
+		RALLY_DELAY = this.getAttribute("rallydelay", 2, 0, Integer.MAX_VALUE, "Delay in minutes that a team rally stays active");
 		COLOR_TAG = this.getAttribute("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
 		COLOR_NAME = this.getAttribute("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
 		STORAGE_TYPE = this.getAttribute("storagetype", "file", "Method for storing data for the plugin (Options: file, sqlite, mysql:host:port:databasename:username:password)");
