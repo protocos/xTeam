@@ -34,6 +34,7 @@ public class TeamUserInfoTest
 		teamCoordinator = teamPlugin.getTeamCoordinator();
 		playerFactory = teamPlugin.getPlayerFactory();
 		inviteHandler = teamPlugin.getInviteHandler();
+		Configuration.DISPLAY_RELATIVE_COORDINATES = false;
 	}
 
 	@Test
@@ -195,7 +196,6 @@ public class TeamUserInfoTest
 				"    protocos (100%)\n" +
 				"    kmlanglois (100%) Here, 64 blocks up", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
-		Configuration.DISPLAY_RELATIVE_COORDINATES = false;
 	}
 
 	@Test
