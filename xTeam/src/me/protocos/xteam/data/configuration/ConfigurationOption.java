@@ -20,6 +20,11 @@ public class ConfigurationOption<T>
 		this.value = value;
 	}
 
+	public T getValue()
+	{
+		return value;
+	}
+
 	public T getDefaultValue()
 	{
 		return defaultValue;
@@ -33,11 +38,6 @@ public class ConfigurationOption<T>
 	public String getKey()
 	{
 		return key;
-	}
-
-	public T getValue()
-	{
-		return value;
 	}
 
 	public int length()
