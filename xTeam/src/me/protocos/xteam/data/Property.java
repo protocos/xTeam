@@ -6,8 +6,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 public class Property
 {
-	private final String key;
-	private final String value;
+	private String key, value;
 
 	public Property(String key, String value)
 	{
@@ -34,6 +33,16 @@ public class Property
 	public String getValue()
 	{
 		return value;
+	}
+
+	public void setValue(Object value)
+	{
+		this.value = value.toString();
+	}
+
+	public <T> void setValue(T value, IDataTranslator<T> strategy)
+	{
+		this.value = strategy.decompile(value);
 	}
 
 	@Override

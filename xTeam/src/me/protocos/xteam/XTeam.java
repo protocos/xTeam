@@ -39,36 +39,6 @@ public final class XTeam extends TeamPlugin
 	{
 		SystemUtil.ensureFolder(this.getFolder());
 		this.configLoader = new Configuration(this, SystemUtil.ensureFile(this.getFolder() + "xTeam.cfg"));
-		this.configLoader.addAttribute("playersonteam", 10, "Amount of players that can be on a team");
-		this.configLoader.addAttribute("sethqinterval", 0, "Delay in hours between use of /team sethq");
-		this.configLoader.addAttribute("canteamchat", true, "Allows/Disallows the use of team chat function completely");
-		this.configLoader.addAttribute("hqondeath", true, "When a player dies, they are teleported to their headquarters when they respawn");
-		this.configLoader.addAttribute("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
-		this.configLoader.addAttribute("teledelay", 7, "Delay in seconds for teleporting when enemies are near");
-		this.configLoader.addAttribute("telerefreshdelay", 0, "Delay in seconds for when you can use team teleporting. Does not include /team return");
-		this.configLoader.addAttribute("createteamdelay", 20, "Delay in minutes for creating teams");
-		this.configLoader.addAttribute("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
-		this.configLoader.addAttribute("defaultteams", "", "Default list of teams for the server separated by commas  (e.g. defaultteams=red,green,blue,yellow)");
-		this.configLoader.addAttribute("randomjointeam", false, "Player randomly joins one of the default teams on joining");
-		this.configLoader.addAttribute("balanceteams", false, "Balance teams when someone randomly joins");
-		this.configLoader.addAttribute("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
-		this.configLoader.addAttribute("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
-		this.configLoader.addAttribute("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
-		this.configLoader.addAttribute("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
-		this.configLoader.addAttribute("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
-		this.configLoader.addAttribute("teamnamemaxlength", 0, "Maximum length of a team name (0 = unlimited)");
-		this.configLoader.addAttribute("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
-		this.configLoader.addAttribute("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
-		this.configLoader.addAttribute("teamfriendlyfire", false, "When true, friendly fire will be enabled for all teams");
-		this.configLoader.addAttribute("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
-		this.configLoader.addAttribute("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
-		this.configLoader.addAttribute("displayrelativelocations", true, "When true, players see relative directions to team mates and team headquarters");
-		this.configLoader.addAttribute("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
-		this.configLoader.addAttribute("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
-		this.configLoader.addAttribute("rallydelay", 2, "Delay in minutes that a team rally stays active");
-		this.configLoader.addAttribute("newparam", 1, "Delay in minutes that a team rally stays active");
-		this.configLoader.addAttribute("storagetype", "file", "Method for storing data for the plugin (Options: file, sqlite, mysql:host:port:databasename:username:password)");
-		this.configLoader.write();
 		this.configLoader.load();
 	}
 

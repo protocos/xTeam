@@ -4,13 +4,8 @@ public class ConfigurationOption<T>
 {
 	private final String key;
 	private final T defaultValue;
-	private String description;
+	private final String description;
 	private T value;
-
-	public ConfigurationOption(String key, T defaultValue, String description)
-	{
-		this(key, defaultValue, description, defaultValue);
-	}
 
 	public ConfigurationOption(String key, T defaultValue, String description, T value)
 	{
@@ -20,19 +15,9 @@ public class ConfigurationOption<T>
 		this.value = value;
 	}
 
-	public void setDescription(String description)
-	{
-		this.description = description;
-	}
-
 	public void setValue(T value)
 	{
 		this.value = value;
-	}
-
-	public String getKey()
-	{
-		return key;
 	}
 
 	public T getDefaultValue()
@@ -43,6 +28,11 @@ public class ConfigurationOption<T>
 	public String getDescription()
 	{
 		return description;
+	}
+
+	public String getKey()
+	{
+		return key;
 	}
 
 	public T getValue()

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-import me.protocos.xteam.XTeam;
+import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.entity.Team;
@@ -52,16 +52,16 @@ public class Configuration
 	private HashList<String, ConfigurationOption<?>> options;
 	private FileReader fileReader;
 	private FileWriter fileWriter;
-	private XTeam xteam;
+	private TeamPlugin teamPlugin;
 	private ITeamCoordinator teamCoordinator;
 	private ILog log;
 
-	public Configuration(XTeam xteam, File file)
+	public Configuration(TeamPlugin teamPlugin, File file)
 	{
-		this.xteam = xteam;
-		this.teamCoordinator = xteam.getTeamCoordinator();
-		this.log = xteam.getLog();
-		fileReader = new FileReader(log, file, false);
+		this.teamPlugin = teamPlugin;
+		this.teamCoordinator = teamPlugin.getTeamCoordinator();
+		this.log = teamPlugin.getLog();
+		this.fileReader = new FileReader(log, file, false);
 		try
 		{
 			fileWriter = new FileWriter(file);
@@ -70,10 +70,10 @@ public class Configuration
 		{
 			e.printStackTrace();
 		}
-		options = CommonUtil.emptyHashList();
+		this.options = CommonUtil.emptyHashList();
 	}
 
-	public <T> void addAttribute(String name, T defaultValue, String description)
+	private <T> void addAttribute(String name, T defaultValue, String description)
 	{
 		T value = parse(name, defaultValue);
 		ConfigurationOption<T> option = new ConfigurationOption<T>(name, defaultValue, description, value);
@@ -85,11 +85,6 @@ public class Configuration
 		return fileReader.get(name, defaultValue);
 	}
 
-	public void removeAttribute(String name)
-	{
-		options.remove(name);
-	}
-
 	private String getLineBreak()
 	{
 		String max = "";
@@ -98,7 +93,7 @@ public class Configuration
 			if (option.length() > max.length())
 				max = option.getComment();
 		}
-		List<Permission> perms = xteam.getPermissions();
+		List<Permission> perms = teamPlugin.getPermissions();
 		for (Permission perm : perms)
 		{
 			if (this.formatPermission(perm).length() > max.length())
@@ -107,42 +102,47 @@ public class Configuration
 		return max.replaceAll(".", "#") + "\n";
 	}
 
-	//	public void reload()
-	//	{
-	//		fileReader.reload();
-	//		load();
-	//	}
+	private <T> T getAs(String key, Class<T> clazz)
+	{
+		return CommonUtil.assignFromType(options.get(key).getValue(), clazz);
+	}
+
+	private List<String> getAsList(String key)
+	{
+		return CommonUtil.toList(getAs(key, String.class).replace("\\s+", "").split(","));
+	}
 
 	public void load()
 	{
-		CAN_CHAT = CommonUtil.assignFromType(options.get("canteamchat").getValue(), Boolean.class);
-		HQ_ON_DEATH = CommonUtil.assignFromType(options.get("hqondeath").getValue(), Boolean.class);
-		TEAM_WOLVES = CommonUtil.assignFromType(options.get("teamwolves").getValue(), Boolean.class);
-		RANDOM_TEAM = CommonUtil.assignFromType(options.get("randomjointeam").getValue(), Boolean.class);
-		BALANCE_TEAMS = CommonUtil.assignFromType(options.get("balanceteams").getValue(), Boolean.class);
-		DEFAULT_TEAM_ONLY = CommonUtil.assignFromType(options.get("onlyjoindefaultteam").getValue(), Boolean.class);
-		DEFAULT_HQ_ON_JOIN = CommonUtil.assignFromType(options.get("defaulthqonjoin").getValue(), Boolean.class);
-		TEAM_TAG_ENABLED = CommonUtil.assignFromType(options.get("teamtagenabled").getValue(), Boolean.class);
-		TEAM_FRIENDLY_FIRE = CommonUtil.assignFromType(options.get("teamfriendlyfire").getValue(), Boolean.class);
-		NO_PERMISSIONS = CommonUtil.assignFromType(options.get("nopermissions").getValue(), Boolean.class);
-		ALPHA_NUM = CommonUtil.assignFromType(options.get("alphanumericnames").getValue(), Boolean.class);
-		DISPLAY_COORDINATES = CommonUtil.assignFromType(options.get("displaycoordinates").getValue(), Boolean.class);
-		DISPLAY_RELATIVE_COORDINATES = CommonUtil.assignFromType(options.get("displayrelativelocations").getValue(), Boolean.class);
-		SEND_ANONYMOUS_ERROR_REPORTS = CommonUtil.assignFromType(options.get("anonymouserrorreporting").getValue(), Boolean.class);
-		MAX_PLAYERS = CommonUtil.assignFromType(options.get("playersonteam").getValue(), Integer.class);
-		HQ_INTERVAL = CommonUtil.assignFromType(options.get("sethqinterval").getValue(), Integer.class);
-		ENEMY_PROX = CommonUtil.assignFromType(options.get("enemyproximity").getValue(), Integer.class);
-		TELE_DELAY = CommonUtil.assignFromType(options.get("teledelay").getValue(), Integer.class);
-		CREATE_INTERVAL = CommonUtil.assignFromType(options.get("createteamdelay").getValue(), Integer.class);
-		LAST_ATTACKED_DELAY = CommonUtil.assignFromType(options.get("lastattackeddelay").getValue(), Integer.class);
-		TEAM_NAME_LENGTH = CommonUtil.assignFromType(options.get("teamnamemaxlength").getValue(), Integer.class);
-		TELE_REFRESH_DELAY = CommonUtil.assignFromType(options.get("telerefreshdelay").getValue(), Integer.class);
-		RALLY_DELAY = CommonUtil.assignFromType(options.get("rallydelay").getValue(), Integer.class);
-		COLOR_TAG = CommonUtil.assignFromType(options.get("tagcolor").getValue(), String.class);
-		COLOR_NAME = CommonUtil.assignFromType(options.get("chatnamecolor").getValue(), String.class);
-		STORAGE_TYPE = CommonUtil.assignFromType(options.get("storagetype").getValue(), String.class);
-		DEFAULT_TEAM_NAMES = CommonUtil.toList(CommonUtil.assignFromType(options.get("defaultteams").getValue(), String.class).replace(" ", "").split(","));
-		DISABLED_WORLDS = CommonUtil.toList(CommonUtil.assignFromType(options.get("disabledworlds").getValue(), String.class).replace(" ", "").split(","));
+		this.write();
+		CAN_CHAT = getAs("canteamchat", Boolean.class);
+		HQ_ON_DEATH = getAs("hqondeath", Boolean.class);
+		TEAM_WOLVES = getAs("teamwolves", Boolean.class);
+		RANDOM_TEAM = getAs("randomjointeam", Boolean.class);
+		BALANCE_TEAMS = getAs("balanceteams", Boolean.class);
+		DEFAULT_TEAM_ONLY = getAs("onlyjoindefaultteam", Boolean.class);
+		DEFAULT_HQ_ON_JOIN = getAs("defaulthqonjoin", Boolean.class);
+		TEAM_TAG_ENABLED = getAs("teamtagenabled", Boolean.class);
+		TEAM_FRIENDLY_FIRE = getAs("teamfriendlyfire", Boolean.class);
+		NO_PERMISSIONS = getAs("nopermissions", Boolean.class);
+		ALPHA_NUM = getAs("alphanumericnames", Boolean.class);
+		DISPLAY_COORDINATES = getAs("displaycoordinates", Boolean.class);
+		DISPLAY_RELATIVE_COORDINATES = getAs("displayrelativelocations", Boolean.class);
+		SEND_ANONYMOUS_ERROR_REPORTS = getAs("anonymouserrorreporting", Boolean.class);
+		MAX_PLAYERS = getAs("playersonteam", Integer.class);
+		HQ_INTERVAL = getAs("sethqinterval", Integer.class);
+		ENEMY_PROX = getAs("enemyproximity", Integer.class);
+		TELE_DELAY = getAs("teledelay", Integer.class);
+		CREATE_INTERVAL = getAs("createteamdelay", Integer.class);
+		LAST_ATTACKED_DELAY = getAs("lastattackeddelay", Integer.class);
+		TEAM_NAME_LENGTH = getAs("teamnamemaxlength", Integer.class);
+		TELE_REFRESH_DELAY = getAs("telerefreshdelay", Integer.class);
+		RALLY_DELAY = getAs("rallydelay", Integer.class);
+		COLOR_TAG = getAs("tagcolor", String.class);
+		COLOR_NAME = getAs("chatnamecolor", String.class);
+		STORAGE_TYPE = getAs("storagetype", String.class);
+		DEFAULT_TEAM_NAMES = getAsList("defaultteams");
+		DISABLED_WORLDS = getAsList("disabledworlds");
 		this.ensureDefaultTeams();
 	}
 
@@ -150,16 +150,45 @@ public class Configuration
 	{
 		for (String name : Configuration.DEFAULT_TEAM_NAMES)
 		{
-			Team team = new Team.Builder(xteam, name).defaultTeam(true).openJoining(true).build();
+			Team team = new Team.Builder(teamPlugin, name).defaultTeam(true).openJoining(true).build();
 			if (!CommonUtil.containsIgnoreCase(teamCoordinator.getDefaultTeams().getOrder(), name))
 				teamCoordinator.createTeam(team);
 		}
 	}
 
-	public void write()
+	private void write()
 	{
 		try
 		{
+			this.addAttribute("playersonteam", 10, "Amount of players that can be on a team");
+			this.addAttribute("sethqinterval", 0, "Delay in hours between use of /team sethq");
+			this.addAttribute("canteamchat", true, "Allows/Disallows the use of team chat function completely");
+			this.addAttribute("hqondeath", true, "When a player dies, they are teleported to their headquarters when they respawn");
+			this.addAttribute("enemyproximity", 16, "When teleporting, if enemies are within this radius of blocks, the teleport is delayed");
+			this.addAttribute("teledelay", 7, "Delay in seconds for teleporting when enemies are near");
+			this.addAttribute("telerefreshdelay", 0, "Delay in seconds for when you can use team teleporting. Does not include /team return");
+			this.addAttribute("createteamdelay", 20, "Delay in minutes for creating teams");
+			this.addAttribute("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
+			this.addAttribute("defaultteams", "", "Default list of teams for the server separated by commas  (e.g. defaultteams=red,green,blue,yellow)");
+			this.addAttribute("randomjointeam", false, "Player randomly joins one of the default teams on joining");
+			this.addAttribute("balanceteams", false, "Balance teams when someone randomly joins");
+			this.addAttribute("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
+			this.addAttribute("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
+			this.addAttribute("anonymouserrorreporting", true, "When true, sends anonymous error reports for faster debugging");
+			this.addAttribute("lastattackeddelay", 15, "How long a player has to wait after being attacked to teleport");
+			this.addAttribute("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
+			this.addAttribute("teamnamemaxlength", 0, "Maximum length of a team name (0 = unlimited)");
+			this.addAttribute("disabledworlds", "", "World names, separated by commas, that xTeam is disabled in (e.g. disabledworlds=world,world_nether,world_the_end)");
+			this.addAttribute("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
+			this.addAttribute("teamfriendlyfire", false, "When true, friendly fire will be enabled for all teams");
+			this.addAttribute("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
+			this.addAttribute("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");
+			this.addAttribute("displayrelativelocations", true, "When true, players see relative directions to team mates and team headquarters");
+			this.addAttribute("tagcolor", "green", "Color representing the color of the tag in game (e.g. green, dark_red, light_purple)");
+			this.addAttribute("chatnamecolor", "dark_green", "Color representing the color of player names in team chat (e.g. green, dark_red, light_purple)");
+			this.addAttribute("rallydelay", 2, "Delay in minutes that a team rally stays active");
+			this.addAttribute("newparam", 1, "Delay in minutes that a team rally stays active");
+			this.addAttribute("storagetype", "file", "Method for storing data for the plugin (Options: file, sqlite, mysql:host:port:databasename:username:password)");
 			fileWriter.write(toString());
 			fileWriter.close();
 		}
@@ -196,7 +225,7 @@ public class Configuration
 				"# Permissions\n" +
 				"# \n" +
 				getLineBreak();
-		List<Permission> perms = xteam.getPermissions();
+		List<Permission> perms = teamPlugin.getPermissions();
 		for (Permission perm : perms)
 		{
 			output += this.formatPermission(perm) + "\n";

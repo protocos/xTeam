@@ -1,14 +1,17 @@
 package me.protocos.xteam;
 
+import java.util.List;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.fakeobjects.*;
 import me.protocos.xteam.model.ILog;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 
 public class FakeXTeam extends TeamPlugin
 {
@@ -80,6 +83,12 @@ public class FakeXTeam extends TeamPlugin
 		//FAKE onlinePlayers
 		server.setOnlinePlayers(new Player[] { protocosOnline, kmlangloisOnline, mastermindOnline, LonelyOnline, oneOnline, twoOnline });
 		server.setOfflinePlayers(new OfflinePlayer[] { protocosOffline, kmlangloisOffline, mastermindOffline, LonelyOffline, strandedhelixOffline, kestraOffline, newbieOffline, threeOffline, oneOffline, twoOffline, thrOffline, teammateOffline, neverPlayedOffline });
+	}
+
+	@Override
+	public List<Permission> getPermissions()
+	{
+		return CommonUtil.emptyList();
 	}
 
 	@Override
