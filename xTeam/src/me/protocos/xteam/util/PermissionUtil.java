@@ -23,9 +23,12 @@ public class PermissionUtil
 		String node = perm.getPermissionNode();
 		if (node == null)
 			return false;
-		if ("help".equals(node) || "info".equals(node))
+		if (node.endsWith("help"))
 			return true;
-		if (Configuration.NO_PERMISSIONS && (node.startsWith("xteam.player.") || node.startsWith("xteam.admin.") || node.startsWith("xteam.leader.")))
+		if (Configuration.NO_PERMISSIONS && (node.startsWith("xteam.core.user.") ||
+				node.startsWith("xteam.core.admin.") ||
+				node.startsWith("xteam.core.leader.") ||
+				node.endsWith("info")))
 			return true;
 		return sender.hasPermission(node);
 	}

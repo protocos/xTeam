@@ -3,7 +3,6 @@ package me.protocos.xteam.command;
 import java.util.List;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.ITeamPlayer;
-import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
@@ -81,7 +80,7 @@ public class CommandManager implements ICommandManager
 		}
 		else if (sender instanceof ITeamPlayer)
 		{
-			TeamPlayer teamPlayer = CommonUtil.assignFromType(sender, TeamPlayer.class);
+			ITeamPlayer teamPlayer = CommonUtil.assignFromType(sender, ITeamPlayer.class);
 			for (TeamUserCommand command : CommonUtil.subListOfType(commands.toList(), TeamUserCommand.class))
 			{
 				if (teamPlayer.hasPermission(command))

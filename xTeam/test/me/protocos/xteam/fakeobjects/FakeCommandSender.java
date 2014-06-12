@@ -17,10 +17,12 @@ public class FakeCommandSender implements CommandSender
 	{
 		this("sender");
 	}
+
 	public FakeCommandSender(String name)
 	{
 		this(name, false);
 	}
+
 	public FakeCommandSender(String name, boolean isOp)
 	{
 		this.name = name;

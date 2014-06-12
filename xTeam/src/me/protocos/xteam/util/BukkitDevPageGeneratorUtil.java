@@ -65,19 +65,19 @@ public class BukkitDevPageGeneratorUtil
 		TeamPlugin fakePlugin = FakeXTeam.asTeamPlugin();
 		fakePlugin.registerCommands(manager);
 		writer.write(TEAM_USER_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(fakePlugin, FakeTeamPlayer.PermissionType.USER)))
+		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(true)))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(TEAM_ADMIN_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(fakePlugin, FakeTeamPlayer.PermissionType.ADMIN)))
+		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(true)))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(TEAM_LEADER_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(fakePlugin, FakeTeamPlayer.PermissionType.LEADER)))
+		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(true)))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(SERVER_ADMIN_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(fakePlugin, FakeTeamPlayer.PermissionType.SERVERADMIN)))
+		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(true)))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(CONSOLE_COMMANDS);
