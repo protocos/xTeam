@@ -161,7 +161,6 @@ public class HashList<K, V> implements Iterable<V>
 		@SuppressWarnings("unchecked")
 		HashList<K, V> other = (HashList<K, V>) obj;
 		return new EqualsBuilder().append(this.values, other.values).append(this.order, other.order).isEquals();
-
 	}
 
 	@Override

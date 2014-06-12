@@ -14,9 +14,9 @@ public class PropertyList implements Iterable<Property>
 		properties = new HashList<String, Property>();
 	}
 
-	public void put(String key, Object value)
+	public void put(String key, String value)
 	{
-		properties.put(key, Property.fromObject(key, value));
+		properties.put(key, Property.fromString(key, value));
 	}
 
 	public <T> void put(String key, T value, IDataTranslator<T> formatter)
@@ -87,6 +87,14 @@ public class PropertyList implements Iterable<Property>
 		return properties.containsKey(key);
 	}
 
+	public boolean updateKey(String oldkey, String newKey)
+	{
+		if (!this.containsKey(oldkey))
+			return false;
+		properties.get(oldkey).updateKey(newKey);
+		return properties.updateKey(oldkey, newKey);
+	}
+
 	protected int size()
 	{
 		return properties.size();
@@ -103,7 +111,7 @@ public class PropertyList implements Iterable<Property>
 			return false;
 
 		PropertyList other = (PropertyList) obj;
-		return new EqualsBuilder().append(this.properties, other.properties).isEquals();
+		return new EqualsBuilder().append(this.properties.toHashMap(), other.properties.toHashMap()).isEquals();
 	}
 
 	@Override

@@ -281,16 +281,6 @@ public class TeamPlayerTest
 		Assert.assertEquals(Math.round(location.getZ()), relativeZ, 0);
 	}
 
-	@Test(expected = AssertionError.class)
-	public void ShouldBeSendMessage()
-	{
-		//ASSEMBLE
-		teamPlayer = playerFactory.getPlayer(new FakeOfflinePlayer("protocos", true, false, true));
-		//ACT
-		teamPlayer.sendMessage("test message");
-		//ASSERT
-	}
-
 	@Test
 	public void ShouldBeTeleportEntity()
 	{

@@ -59,15 +59,15 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 			while (resultSet.next())
 			{
 				PropertyList propertyList = new PropertyList();
-				propertyList.put("name", resultSet.getObject("name"));
-				propertyList.put("tag", resultSet.getObject("tag"));
-				propertyList.put("openJoining", resultSet.getObject("openJoining"));
-				propertyList.put("defaultTeam", resultSet.getObject("defaultTeam"));
-				propertyList.put("timeHeadquartersLastSet", resultSet.getObject("timeHeadquartersLastSet"));
-				propertyList.put("headquarters", resultSet.getObject("headquarters"));
-				propertyList.put("leader", resultSet.getObject("leader"));
-				propertyList.put("admins", resultSet.getObject("admins"));
-				propertyList.put("players", resultSet.getObject("players"));
+				propertyList.put("name", resultSet.getObject("name").toString());
+				propertyList.put("tag", resultSet.getObject("tag").toString());
+				propertyList.put("openJoining", resultSet.getObject("openJoining").toString());
+				propertyList.put("defaultTeam", resultSet.getObject("defaultTeam").toString());
+				propertyList.put("timeHeadquartersLastSet", resultSet.getObject("timeHeadquartersLastSet").toString());
+				propertyList.put("headquarters", resultSet.getObject("headquarters").toString());
+				propertyList.put("leader", resultSet.getObject("leader").toString());
+				propertyList.put("admins", resultSet.getObject("admins").toString());
+				propertyList.put("players", resultSet.getObject("players").toString());
 				ITeam team = Team.generateTeamFromProperties(teamPlugin, propertyList.toString());
 				teamCoordinator.putTeam(team);
 			}
@@ -76,11 +76,11 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 			while (resultSet.next())
 			{
 				PropertyList propertyList = new PropertyList();
-				propertyList.put("name", resultSet.getObject("name"));
-				propertyList.put("lastAttacked", resultSet.getObject("lastAttacked"));
-				propertyList.put("lastTeleported", resultSet.getObject("lastTeleported"));
-				propertyList.put("returnLocation", resultSet.getObject("returnLocation"));
-				propertyList.put("lastKnownLocation", resultSet.getObject("lastKnownLocation"));
+				propertyList.put("name", resultSet.getObject("name").toString());
+				propertyList.put("lastAttacked", resultSet.getObject("lastAttacked").toString());
+				propertyList.put("lastTeleported", resultSet.getObject("lastTeleported").toString());
+				propertyList.put("returnLocation", resultSet.getObject("returnLocation").toString());
+				propertyList.put("lastKnownLocation", resultSet.getObject("lastKnownLocation").toString());
 				playerFactory.updateValues(propertyList);
 			}
 			resultSet.close();

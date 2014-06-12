@@ -75,7 +75,7 @@ public class Property
 		throw new InvalidFormatException(property, "key:value");
 	}
 
-	public static Property fromObject(String key, Object value)
+	public static Property fromString(String key, Object value)
 	{
 		if (value == null)
 			return new Property(key, null);
@@ -85,5 +85,11 @@ public class Property
 	public static <T> Property fromObject(String key, T value, IDataTranslator<T> strategy)
 	{
 		return new Property(key, strategy.decompile(value));
+	}
+
+	public boolean updateKey(String newKey)
+	{
+		this.key = newKey;
+		return true;
 	}
 }

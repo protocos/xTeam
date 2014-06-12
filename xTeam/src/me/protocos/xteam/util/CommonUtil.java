@@ -273,7 +273,7 @@ public class CommonUtil
 		return concatenate(objects.toArray(), glue);
 	}
 
-	public static String concatenate(Object[] objects)
+	public static String concatenate(Object... objects)
 	{
 		return concatenate(objects, " ");
 	}

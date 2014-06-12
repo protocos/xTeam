@@ -67,7 +67,7 @@ public class PropertyTest
 	{
 		//ASSEMBLE
 		Long time = System.currentTimeMillis();
-		property = Property.fromObject("name", time);
+		property = Property.fromString("name", time);
 		//ACT
 		String decompiledLocation = property.getValue();
 		//ASSERT
@@ -84,6 +84,17 @@ public class PropertyTest
 		boolean equals = prop1.equals(prop2);
 		//ASSERT
 		Assert.assertTrue(equals);
+	}
+
+	@Test
+	public void ShouldBeUpdateKey()
+	{
+		//ASSEMBLE
+		Property prop = Property.fromString("name:protocos");
+		//ACT
+		boolean updated = prop.updateKey("tag");
+		//ASSERT
+		Assert.assertTrue(updated);
 	}
 
 	@After

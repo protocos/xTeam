@@ -130,7 +130,7 @@ public class Team implements ITeam
 			return this;
 		}
 
-		public Builder timeHeadquartersSet(@SuppressWarnings("hiding") long timeHeadquartersLastSet)
+		public Builder timeHeadquartersLastSet(@SuppressWarnings("hiding") long timeHeadquartersLastSet)
 		{
 			this.timeHeadquartersLastSet = timeHeadquartersLastSet;
 			return this;
@@ -566,7 +566,7 @@ public class Team implements ITeam
 			String leader = teamProperties.get("leader");// != null ? teamProperties.get("leader") : "";
 			String admins = teamProperties.get("admins");// != null ? teamProperties.get("admins") : "";
 			String players = teamProperties.get("players");// != null ? teamProperties.get("players") : "";
-			Team team = new Team.Builder(teamPlugin, name).tag(tag).openJoining(openJoining).defaultTeam(defaultTeam).timeHeadquartersSet(timeHeadquartersSet).build();
+			Team team = new Team.Builder(teamPlugin, name).tag(tag).openJoining(openJoining).defaultTeam(defaultTeam).timeHeadquartersLastSet(timeHeadquartersSet).build();
 			if (!hq.endsWith("0.0,0.0,0.0,0.0,0.0") && !hq.equals("") && !hq.equals("none"))
 			{
 				String[] locationData = hq.split(",");

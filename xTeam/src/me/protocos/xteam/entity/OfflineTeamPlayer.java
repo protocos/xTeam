@@ -82,8 +82,6 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	{
 		if (this.isOnline())
 			playerFactory.getPlayer(this.getName()).sendMessage(message);
-		else
-			throw new AssertionError("Player is not online");
 	}
 
 	@Override

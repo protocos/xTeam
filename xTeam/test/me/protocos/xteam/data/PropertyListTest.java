@@ -134,6 +134,40 @@ public class PropertyListTest
 		Assert.assertTrue(equals);
 	}
 
+	@Test
+	public void ShouldBeEqualsOutOfOrder()
+	{
+		//ASSEMBLE
+		PropertyList list1 = PropertyList.fromString("name:protocos lastAttacked:0 lastTeleported:0");
+		PropertyList list2 = PropertyList.fromString("lastTeleported:0 lastAttacked:0 name:protocos");
+		//ACT
+		boolean equals = list1.equals(list2);
+		//ASSERT
+		Assert.assertTrue(equals);
+	}
+
+	@Test
+	public void ShouldBeUpdateKey()
+	{
+		//ASSEMBLE
+		list.put("name", "protocos");
+		//ACT
+		boolean updated = list.updateKey("name", "tag");
+		//ASSERT
+		Assert.assertTrue(updated);
+		Assert.assertEquals(new Property("tag", "protocos"), list.get("tag"));
+	}
+
+	@Test
+	public void ShouldBeUpdateKeyNotExists()
+	{
+		//ASSEMBLE
+		//ACT
+		boolean updated = list.updateKey("name", "tag");
+		//ASSERT
+		Assert.assertFalse(updated);
+	}
+
 	@After
 	public void takedown()
 	{
