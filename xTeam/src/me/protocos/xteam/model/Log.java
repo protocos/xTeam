@@ -109,7 +109,7 @@ public class Log implements ILog
 		for (String line : lines)
 		{
 			System.out.println(header + line);
-			header = "[xTeam]\t";
+			header = "[xTeam]\t ";
 		}
 	}
 

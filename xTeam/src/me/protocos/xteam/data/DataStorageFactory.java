@@ -6,7 +6,7 @@ import me.protocos.xteam.util.BukkitUtil;
 
 public class DataStorageFactory
 {
-	private static SQLDataManager datamanager;
+	private static IPersistenceLayer persistenceLayer;
 	private TeamPlugin teamPlugin;
 	private BukkitUtil bukkitUtil;
 	private ILog log;
@@ -18,21 +18,27 @@ public class DataStorageFactory
 		this.log = teamPlugin.getLog();
 	}
 
-	public static void closeDatabase()
+	public static void open()
 	{
-		datamanager.closeDatabase();
+		if (persistenceLayer != null)
+			persistenceLayer.open();
+	}
+
+	public static void close()
+	{
+		if (persistenceLayer != null)
+			persistenceLayer.close();
 	}
 
 	public IPersistenceLayer dataManagerFromString(String strategy)
 	{
-		IPersistenceLayer dataManager = null;
 		if (strategy.toLowerCase().startsWith("sqlite"))
 		{
 			if (bukkitUtil.getPlugin("SQLibrary") != null)
 			{
 				try
 				{
-					dataManager = new SQLDataManager(teamPlugin, SQLDataManager.databaseFrom(teamPlugin, strategy), teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
+					persistenceLayer = new SQLDataManager(teamPlugin, SQLDataManager.databaseFrom(teamPlugin, strategy), teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
 					this.log.info("Using SQLite as storage type");
 				}
 				catch (Exception e)
@@ -51,7 +57,7 @@ public class DataStorageFactory
 			{
 				try
 				{
-					dataManager = new SQLDataManager(teamPlugin, SQLDataManager.databaseFrom(teamPlugin, strategy), teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
+					persistenceLayer = new SQLDataManager(teamPlugin, SQLDataManager.databaseFrom(teamPlugin, strategy), teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
 					this.log.info("Using MySQL as storage type");
 				}
 				catch (Exception e)
@@ -66,18 +72,18 @@ public class DataStorageFactory
 		}
 		else if (strategy.toLowerCase().startsWith("file"))
 		{
-			dataManager = new FlatFileDataManager(teamPlugin, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
+			persistenceLayer = new FlatFileDataManager(teamPlugin, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
 			this.log.info("Using File as storage type");
 		}
 		else
 		{
 			this.log.error("" + strategy + " is not a valid storage type");
 		}
-		if (dataManager == null)
+		if (persistenceLayer == null)
 		{
-			dataManager = new FlatFileDataManager(teamPlugin, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
+			persistenceLayer = new FlatFileDataManager(teamPlugin, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
 			this.log.info("Resorting to File storage type");
 		}
-		return dataManager;
+		return persistenceLayer;
 	}
 }

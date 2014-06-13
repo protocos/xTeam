@@ -111,4 +111,14 @@ public class FlatFileDataManager implements IPersistenceLayer
 			log.exception(e);
 		}
 	}
+
+	@Override
+	public void open()
+	{
+	}
+
+	@Override
+	public void close()
+	{
+	}
 }

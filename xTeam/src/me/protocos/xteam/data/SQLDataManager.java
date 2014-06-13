@@ -31,7 +31,7 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 	{
 		this.teamPlugin = teamPlugin;
 		this.db = db;
-		this.openDatabase();
+		this.open();
 		this.teamCoordinator = teamCoordinator;
 		this.playerFactory = playerFactory;
 		this.log = teamPlugin.getLog();
@@ -55,7 +55,7 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 		teamPlugin.getEventDispatcher().addTeamListener(this);
 	}
 
-	public void openDatabase()
+	public void open()
 	{
 		if (db != null)
 		{
@@ -63,7 +63,7 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 		}
 	}
 
-	public void closeDatabase()
+	public void close()
 	{
 		if (db != null)
 		{

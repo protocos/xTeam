@@ -100,7 +100,7 @@ public final class XTeam extends TeamPlugin
 			this.initFileSystem();
 			persistenceLayer = new DataStorageFactory(this).dataManagerFromString(Configuration.STORAGE_TYPE);
 			this.write();
-			DataStorageFactory.closeDatabase();
+			DataStorageFactory.close();
 			//does the same thing as this.bukkitScheduler.cancelAllTasks();
 			for (BukkitTask task : this.bukkitScheduler.getPendingTasks())
 			{
