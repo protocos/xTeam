@@ -26,10 +26,9 @@ public class ServerAdminDebug extends ServerAdminCommand
 	{
 		if (subCommand.equalsIgnoreCase("yaw"))
 		{
-			Message message = new Message.Builder("Player yaw: " + Math.round(player.getLocation().getYaw()))
+			new Message.Builder("Player yaw: " + Math.round(player.getLocation().getYaw()))
 					.addRecipients(player)
-					.build();
-			message.send(log);
+					.send(log);
 		}
 		else if (subCommand.equalsIgnoreCase("directions"))
 		{
@@ -38,8 +37,7 @@ public class ServerAdminDebug extends ServerAdminCommand
 				Message message = new Message.Builder("Yaw angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getYawAngleToLocation(player.getLocation(), otherPlayer.getLocation())) + "°")
 						.addRecipients(player)
 						.excludeRecipients(otherPlayer)
-						.build();
-				message.send(log);
+						.send(log);
 				message.setMessage("Location angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getAngleBetween(player.getLocation(), otherPlayer.getLocation())) + "°");
 				message.send(log);
 				message.setMessage("Direction angle to " + otherPlayer.getName() + ": " + LocationUtil.getRelativeAngleBetween(player.getLocation(), otherPlayer.getLocation()));
@@ -48,10 +46,9 @@ public class ServerAdminDebug extends ServerAdminCommand
 		}
 		else
 		{
-			Message message = new Message.Builder("Options are: /team debug {yaw/directions}")
+			new Message.Builder("Options are: /team debug {yaw/directions}")
 					.addRecipients(player)
-					.build();
-			message.send(log);
+					.send(log);
 		}
 	}
 

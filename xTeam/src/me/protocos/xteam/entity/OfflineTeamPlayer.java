@@ -179,8 +179,7 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public void sendMessageToTeam(String message)
 	{
-		Message m = new Message.Builder(message).addRecipients(this.getTeam()).build();
-		m.send(log);
+		new Message.Builder(message).addRecipients(this.getTeam()).send(log);
 	}
 
 	@Override

@@ -361,8 +361,7 @@ public class Team implements ITeam
 	public void sendMessage(String message)
 	{
 		//EXTERNAL call
-		Message m = new Message.Builder(message).addRecipients(this).build();
-		m.send(log);
+		new Message.Builder(message).addRecipients(this).send(log);
 	}
 
 	@Override

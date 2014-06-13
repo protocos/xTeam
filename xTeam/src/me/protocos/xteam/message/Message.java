@@ -74,6 +74,13 @@ public class Message
 		{
 			return new Message(this);
 		}
+
+		public Message send(ILog log)
+		{
+			Message sendMessage = this.build();
+			sendMessage.send(log);
+			return sendMessage;
+		}
 	}
 
 	private Message(Builder builder)

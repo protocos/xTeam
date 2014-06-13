@@ -5,6 +5,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILog;
 import org.bukkit.command.CommandSender;
@@ -52,7 +53,7 @@ public abstract class BaseCommand
 		}
 		catch (TeamException e)
 		{
-			sender.sendMessage(MessageUtil.red(e.getMessage()));
+			new Message.Builder(MessageUtil.red(e.getMessage())).addRecipients(sender).disableFormatting().send(log);
 			log.debug("Command execute failed for reason: " + e.getMessage());
 		}
 		catch (InvalidClassException e)

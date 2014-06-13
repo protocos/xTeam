@@ -29,14 +29,11 @@ public class RemoveAction
 		ITeam team = teamCoordinator.getTeam(teamName);
 		ITeamPlayer player = playerFactory.getPlayer(playerName);
 		team.removePlayer(playerName);
-		Message message = new Message.Builder("You have been removed from " + team.getName()).addRecipients(player).build();
-		message.send(log);
-		message = new Message.Builder(playerName + " has been removed from " + team.getName()).addRecipients(sender).addRecipients(team).build();
-		message.send(log);
+		new Message.Builder("You have been removed from " + team.getName()).addRecipients(player).send(log);
+		new Message.Builder(playerName + " has been removed from " + team.getName()).addRecipients(sender).addRecipients(team).send(log);
 		if (team.isEmpty())
 		{
-			message = new Message.Builder(team.getName() + " has been disbanded").addRecipients(sender).addRecipients(player).build();
-			message.send(log);
+			new Message.Builder(team.getName() + " has been disbanded").addRecipients(sender).addRecipients(player).send(log);
 			teamCoordinator.disbandTeam(team.getName());
 		}
 	}

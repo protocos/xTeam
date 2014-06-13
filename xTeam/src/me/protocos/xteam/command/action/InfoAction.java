@@ -74,8 +74,7 @@ class ConsoleTeamEntity implements ITeamEntity
 	@Override
 	public void sendMessage(String message)
 	{
-		Message m = new Message.Builder(message).addRecipients(sender).build();
-		m.send(log);
+		new Message.Builder(message).addRecipients(sender).send(log);
 	}
 
 	@Override

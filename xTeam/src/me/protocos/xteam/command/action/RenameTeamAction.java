@@ -32,9 +32,7 @@ public class RenameTeamAction
 	{
 		ITeam team = teamCoordinator.getTeam(teamName);
 		teamCoordinator.renameTeam(team, desiredName);
-		Message message = new Message.Builder("You renamed the team to " + desiredName).addRecipients(sender).build();
-		message.send(log);
-		message = new Message.Builder("The team has been renamed to " + desiredName).addRecipients(team).excludeRecipients(sender).build();
-		message.send(log);
+		new Message.Builder("You renamed the team to " + desiredName).addRecipients(sender).send(log);
+		new Message.Builder("The team has been renamed to " + desiredName).addRecipients(team).excludeRecipients(sender).send(log);
 	}
 }
