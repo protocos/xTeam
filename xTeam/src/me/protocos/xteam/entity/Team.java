@@ -2,19 +2,26 @@ package me.protocos.xteam.entity;
 
 import java.util.*;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.TeleportScheduler;
+import me.protocos.xteam.data.PropertyList;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.data.translator.BooleanDataTranslator;
+import me.protocos.xteam.data.translator.HeadquartersDataTranslator;
+import me.protocos.xteam.data.translator.LongDataTranslator;
+import me.protocos.xteam.data.translator.SetDataTranslator;
 import me.protocos.xteam.event.IEventDispatcher;
 import me.protocos.xteam.event.TeamJoinEvent;
 import me.protocos.xteam.event.TeamLeaveEvent;
+import me.protocos.xteam.legacy.LegacyDataTranslator;
 import me.protocos.xteam.message.IMessageRecipient;
 import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
-import me.protocos.xteam.model.*;
+import me.protocos.xteam.model.IHeadquarters;
+import me.protocos.xteam.model.ILocatable;
+import me.protocos.xteam.model.ILog;
+import me.protocos.xteam.model.NullHeadquarters;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.LocationUtil;
@@ -88,14 +95,14 @@ public class Team implements ITeam
 		public Builder leader(@SuppressWarnings("hiding") String leader)
 		{
 			this.leader = leader;
-			this.players.add(leader);
+			this.players.addAll(CommonUtil.toList(leader));
 			return this;
 		}
 
 		public Builder admins(@SuppressWarnings("hiding") String... admins)
 		{
-			this.admins.addAll(Arrays.asList(admins));
-			this.players.addAll(Arrays.asList(admins));
+			this.admins.addAll(CommonUtil.toList(admins));
+			this.players.addAll(CommonUtil.toList(admins));
 			return this;
 		}
 
@@ -108,7 +115,7 @@ public class Team implements ITeam
 
 		public Builder players(@SuppressWarnings("hiding") String... players)
 		{
-			this.players.addAll(Arrays.asList(players));
+			this.players.addAll(CommonUtil.toList(players));
 			return this;
 		}
 
@@ -118,7 +125,7 @@ public class Team implements ITeam
 			return this;
 		}
 
-		public Builder headquarters(@SuppressWarnings("hiding") Headquarters headquarters)
+		public Builder headquarters(@SuppressWarnings("hiding") IHeadquarters headquarters)
 		{
 			this.headquarters = headquarters;
 			return this;
@@ -536,75 +543,87 @@ public class Team implements ITeam
 
 	public static Team generateTeamFromProperties(TeamPlugin teamPlugin, String properties)
 	{
-		String[] props = properties.split(" ");
-		HashList<String, String> teamProperties = new HashList<String, String>();
-		for (String prop : props)
-		{
-			String[] left_right = prop.split(":");
-			String left = left_right.length > 0 ? left_right[0] : "";
-			String right = left_right.length > 1 ? left_right[1] : "";
-			if (!left.equals("") && !right.equals(""))
-				teamProperties.put(left, right);
-		}
-		try
-		{
-			String name = teamProperties.get("name") != null ? teamProperties.get("name") : "";
-			String tag = teamProperties.get("tag") != null ? teamProperties.get("tag") : name;
-			teamProperties.updateKey("open", "openJoining");
-			teamProperties.updateKey("default", "defaultTeam");
-			boolean openJoining = new BooleanDataTranslator().compile(teamProperties.get("openJoining") != null ? teamProperties.get("openJoining") : "false");
-			boolean defaultTeam = new BooleanDataTranslator().compile(teamProperties.get("defaultTeam") != null ? teamProperties.get("defaultTeam") : "false");
-			//modify timeLastSet from the previous versions
-			teamProperties.updateKey("timeLastSet", "timeHeadquartersSet");
-			teamProperties.updateKey("timeHeadquartersSet", "timeHeadquartersLastSet");
-			long timeHeadquartersSet = Long.parseLong(teamProperties.get("timeHeadquartersLastSet") != null ? teamProperties.get("timeHeadquartersLastSet") : "0");
-			teamProperties.updateKey("Headquarters", "headquarters");
-			teamProperties.updateKey("hq", "headquarters");
-			String hq = teamProperties.get("headquarters") != null ? teamProperties.get("headquarters") : "";
-			if (teamProperties.containsKey("world"))
-				hq = teamProperties.get("world") + "," + hq;
-			String leader = teamProperties.get("leader");// != null ? teamProperties.get("leader") : "";
-			String admins = teamProperties.get("admins");// != null ? teamProperties.get("admins") : "";
-			String players = teamProperties.get("players");// != null ? teamProperties.get("players") : "";
-			Team team = new Team.Builder(teamPlugin, name).tag(tag).openJoining(openJoining).defaultTeam(defaultTeam).timeHeadquartersLastSet(timeHeadquartersSet).build();
-			if (!hq.endsWith("0.0,0.0,0.0,0.0,0.0") && !hq.equals("") && !hq.equals("none"))
-			{
-				String[] locationData = hq.split(",");
-				World world = teamPlugin.getBukkitUtil().getWorld(locationData[0]);
-				double X = Double.parseDouble(locationData[1]);
-				double Y = Double.parseDouble(locationData[2]);
-				double Z = Double.parseDouble(locationData[3]);
-				float yaw = Float.parseFloat(locationData[4]);
-				float pitch = Float.parseFloat(locationData[5]);
-				team.setHeadquarters(new Headquarters(world, X, Y, Z, yaw, pitch));
-			}
-			team.setPlayers(players == null ? new HashSet<String>() : new HashSet<String>(CommonUtil.split(players, ",")));
-			team.setAdmins(admins == null ? new HashSet<String>() : new HashSet<String>(CommonUtil.split(admins, ",")));
-			if (leader != null)
-			{
-				if (leader.equalsIgnoreCase("default"))
-					team.setDefaultTeam(true);
-				else
-					team.setLeader(leader);
-			}
-			return team;
-		}
-		catch (NullPointerException e)
-		{
-			e.printStackTrace();
-		}
-		return null;
+		PropertyList propertyList = LegacyDataTranslator.fromLegacyData(properties);
+		Team team = new Team.Builder(teamPlugin, propertyList.getAsString("name"))
+				.tag(propertyList.getAsString("tag"))
+				.openJoining(propertyList.getAsType("openJoining", new BooleanDataTranslator()))
+				.defaultTeam(propertyList.getAsType("defaultTeam", new BooleanDataTranslator()))
+				.timeHeadquartersLastSet(propertyList.getAsType("timeHeadquartersLastSet", new LongDataTranslator()))
+				.headquarters(propertyList.getAsType("headquarters", new HeadquartersDataTranslator(teamPlugin)))
+				.leader(propertyList.getAsString("leader"))//Problem is here when leader is being interpretted as ""
+				.admins(propertyList.getAsType("admins", new SetDataTranslator()))
+				.players(propertyList.getAsType("players", new SetDataTranslator()))
+				.build();
+		return team;
+		//		String[] props = properties.split(" ");
+		//		HashList<String, String> teamProperties = new HashList<String, String>();
+		//		for (String prop : props)
+		//		{
+		//			String[] left_right = prop.split(":");
+		//			String left = left_right.length > 0 ? left_right[0] : "";
+		//			String right = left_right.length > 1 ? left_right[1] : "";
+		//			if (!left.equals("") && !right.equals(""))
+		//				teamProperties.put(left, right);
+		//		}
+		//		try
+		//		{
+		//			String name = teamProperties.get("name") != null ? teamProperties.get("name") : "";
+		//			String tag = teamProperties.get("tag") != null ? teamProperties.get("tag") : name;
+		//			teamProperties.updateKey("open", "openJoining");
+		//			teamProperties.updateKey("default", "defaultTeam");
+		//			boolean openJoining = new BooleanDataTranslator().compile(teamProperties.get("openJoining") != null ? teamProperties.get("openJoining") : "false");
+		//			boolean defaultTeam = new BooleanDataTranslator().compile(teamProperties.get("defaultTeam") != null ? teamProperties.get("defaultTeam") : "false");
+		//			//modify timeLastSet from the previous versions
+		//			teamProperties.updateKey("timeLastSet", "timeHeadquartersSet");
+		//			teamProperties.updateKey("timeHeadquartersSet", "timeHeadquartersLastSet");
+		//			long timeHeadquartersSet = Long.parseLong(teamProperties.get("timeHeadquartersLastSet") != null ? teamProperties.get("timeHeadquartersLastSet") : "0");
+		//			teamProperties.updateKey("Headquarters", "headquarters");
+		//			teamProperties.updateKey("hq", "headquarters");
+		//			String hq = teamProperties.get("headquarters") != null ? teamProperties.get("headquarters") : "";
+		//			if (teamProperties.containsKey("world"))
+		//				hq = teamProperties.get("world") + "," + hq;
+		//			String leader = teamProperties.get("leader");// != null ? teamProperties.get("leader") : "";
+		//			String admins = teamProperties.get("admins");// != null ? teamProperties.get("admins") : "";
+		//			String players = teamProperties.get("players");// != null ? teamProperties.get("players") : "";
+		//			Team team = new Team.Builder(teamPlugin, name).tag(tag).openJoining(openJoining).defaultTeam(defaultTeam).timeHeadquartersLastSet(timeHeadquartersSet).build();
+		//			if (!hq.endsWith("0.0,0.0,0.0,0.0,0.0") && !hq.equals("") && !hq.equals("none"))
+		//			{
+		//				String[] locationData = hq.split(",");
+		//				World world = teamPlugin.getBukkitUtil().getWorld(locationData[0]);
+		//				double X = Double.parseDouble(locationData[1]);
+		//				double Y = Double.parseDouble(locationData[2]);
+		//				double Z = Double.parseDouble(locationData[3]);
+		//				float yaw = Float.parseFloat(locationData[4]);
+		//				float pitch = Float.parseFloat(locationData[5]);
+		//				team.setHeadquarters(new Headquarters(world, X, Y, Z, yaw, pitch));
+		//			}
+		//			team.setPlayers(players == null ? new HashSet<String>() : new HashSet<String>(CommonUtil.split(players, ",")));
+		//			team.setAdmins(admins == null ? new HashSet<String>() : new HashSet<String>(CommonUtil.split(admins, ",")));
+		//			if (leader != null)
+		//			{
+		//				if (leader.equalsIgnoreCase("default"))
+		//					team.setDefaultTeam(true);
+		//				else
+		//					team.setLeader(leader);
+		//			}
+		//			return team;
+		//		}
+		//		catch (NullPointerException e)
+		//		{
+		//			e.printStackTrace();
+		//		}
+		//		return null;
 	}
 
-	private void setAdmins(Set<String> admins)
-	{
-		this.admins = admins;
-	}
-
-	private void setPlayers(Set<String> players)
-	{
-		this.players = players;
-	}
+	//	private void setAdmins(Set<String> admins)
+	//	{
+	//		this.admins = admins;
+	//	}
+	//
+	//	private void setPlayers(Set<String> players)
+	//	{
+	//		this.players = players;
+	//	}
 
 	public static Team createTeam(TeamPlugin teamPlugin, String teamName)
 	{

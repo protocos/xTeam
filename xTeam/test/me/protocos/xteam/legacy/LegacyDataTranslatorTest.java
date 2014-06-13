@@ -59,6 +59,31 @@ public class LegacyDataTranslatorTest
 	}
 
 	@Test
+	public void ShouldBeVersion1_0Through1_6_3LeaderOnly()
+	{
+		//ASSEMBLE
+		regularTeam.setTag("name");
+		regularTeam.removePlayer("adminname");
+		regularTeam.removePlayer("playername");
+		//ACT
+		regularTeamProperties = LegacyDataTranslator.fromLegacyData("name password world 1400000000000 hq: 64.0 64.0 64.0 0.0 0.0 leadername~~");
+		//ASSERT
+		Assert.assertEquals(fromString(regularTeam), regularTeamProperties);
+	}
+
+	@Test
+	public void ShouldBeVersion1_0Through1_6_3LeaderAndAdmin()
+	{
+		//ASSEMBLE
+		regularTeam.setTag("name");
+		regularTeam.removePlayer("playername");
+		//ACT
+		regularTeamProperties = LegacyDataTranslator.fromLegacyData("name password world 1400000000000 hq: 64.0 64.0 64.0 0.0 0.0 leadername~~ adminname~");
+		//ASSERT
+		Assert.assertEquals(fromString(regularTeam), regularTeamProperties);
+	}
+
+	@Test
 	public void ShouldBeVersion1_0Through1_6_3NoHeadquarters()
 	{
 		//ASSEMBLE
@@ -80,6 +105,7 @@ public class LegacyDataTranslatorTest
 	public void ShouldBe1_6_4()
 	{
 		//ASSEMBLE
+		defaultTeam.setOpenJoining(false);
 		defaultTeam.setTag("name");
 		regularTeam.setTag("name");
 		//ACT
@@ -94,6 +120,7 @@ public class LegacyDataTranslatorTest
 	public void ShouldBe1_6_4NoHeadquarters()
 	{
 		//ASSEMBLE
+		defaultTeam.setOpenJoining(false);
 		defaultTeam.setTag("name");
 		regularTeam.setTag("name");
 		defaultTeam.setHeadquarters(new NullHeadquarters());
@@ -111,8 +138,8 @@ public class LegacyDataTranslatorTest
 	@Test
 	public void ShouldBe1_6_5Through1_7_3()
 	{
-		//name:name world:world open:false leader:leadername timeLastSet:1400000000000 HQ:1.1,1.1,1.1,1.1,1.1 players:leadername,adminname,playername admins:leadername,adminname
 		//ASSEMBLE
+		defaultTeam.setOpenJoining(false);
 		defaultTeam.setTag("name");
 		regularTeam.setTag("name");
 		//ACT
@@ -126,7 +153,6 @@ public class LegacyDataTranslatorTest
 	@Test
 	public void ShouldBe1_7_4Through1_7_5()
 	{
-		//name:name open:false default:false timeLastSet:1400000000000 hq:world,1.1,1.1,1.1,1.1,1.1 leader:leadername admins:leadername,adminname players:leadername,adminname,playername
 		//ASSEMBLE
 		defaultTeam.setTag("name");
 		regularTeam.setTag("name");
@@ -141,7 +167,6 @@ public class LegacyDataTranslatorTest
 	@Test
 	public void ShouldBe1_7_4Through1_7_5NoHeadquarters()
 	{
-		//name:name open:false default:false timeLastSet:1400000000000 hq:world,1.1,1.1,1.1,1.1,1.1 leader:leadername admins:leadername,adminname players:leadername,adminname,playername
 		//ASSEMBLE
 		defaultTeam.setTag("name");
 		regularTeam.setTag("name");
@@ -160,7 +185,6 @@ public class LegacyDataTranslatorTest
 	@Test
 	public void ShouldBe1_7_6()
 	{
-		//v1.7.6 - name:name tag:name open:false default:false timeHeadquartersSet:1400000000000 hq:world,1.1,1.1,1.1,1.1,1.1 leader:leadername admins:leadername,adminname players:leadername,adminname,playername
 		//ASSEMBLE
 		//ACT
 		defaultTeamProperties = LegacyDataTranslator.fromLegacyData("name:name tag:tag open:true default:true leader: timeLastSet:1400000000000 hq:world,64.0,64.0,64.0,0.0,0.0 players:playername,adminname admins:adminname");
@@ -173,7 +197,6 @@ public class LegacyDataTranslatorTest
 	@Test
 	public void ShouldBe1_7_7()
 	{
-		//v1.7.7 - name: tag: open:true default:true timeHeadquartersSet:0 hq: leader: admins: players:
 		//name:name tag:name open:false default:false timeHeadquartersSet:1400000000000 hq:world,1.1,1.1,1.1,1.1,1.1 leader:leadername admins:leadername,adminname players:leadername,adminname,playername
 		//ASSEMBLE
 		//ACT
@@ -187,7 +210,6 @@ public class LegacyDataTranslatorTest
 	@Test
 	public void ShouldBe1_8_0()
 	{
-		//name:name tag:name open:false default:false timeHeadquartersSet:1400000000000 hq:world,1.1,1.1,1.1,1.1,1.1 leader:leadername admins:leadername,adminname players:leadername,adminname,playername
 		//ASSEMBLE
 		//ACT
 		defaultTeamProperties = LegacyDataTranslator.fromLegacyData("name:name tag:tag open:true default:true timeHeadquartersSet:1400000000000 hq:world,64.0,64.0,64.0,0.0,0.0 leader: players:playername,adminname admins:adminname");
@@ -206,6 +228,41 @@ public class LegacyDataTranslatorTest
 		regularTeamProperties = LegacyDataTranslator.fromLegacyData("name:name tag:tag openJoining:false defaultTeam:false timeLastSet:1400000000000 headquarters:world,64.0,64.0,64.0,0.0,0.0 leader:leadername admins:adminname,leadername players:playername,adminname,leadername");
 		//ASSERT
 		Assert.assertEquals(fromString(defaultTeam), defaultTeamProperties);
+		Assert.assertEquals(fromString(regularTeam), regularTeamProperties);
+	}
+
+	@Test
+	public void ShouldBeCapitalHeadquarters()
+	{
+		//ASSEMBLE
+		//ACT
+		defaultTeamProperties = LegacyDataTranslator.fromLegacyData("name:name tag:tag open:true default:true timeHeadquartersSet:1400000000000 Headquarters:world,64.0,64.0,64.0,0.0,0.0 leader: players:playername,adminname admins:adminname");
+		regularTeamProperties = LegacyDataTranslator.fromLegacyData("name:name tag:tag open:false default:false leader:leadername timeLastSet:1400000000000 Headquarters:world,64.0,64.0,64.0,0.0,0.0 players:playername,adminname,leadername admins:adminname,leadername");
+		//ASSERT
+		Assert.assertEquals(fromString(defaultTeam), defaultTeamProperties);
+		Assert.assertEquals(fromString(regularTeam), regularTeamProperties);
+	}
+
+	@Test
+	public void ShouldBeOnlyLeaderOnTeam()
+	{
+		//ASSEMBLE
+		regularTeam.removePlayer("adminname");
+		regularTeam.removePlayer("playername");
+		//ACT
+		regularTeamProperties = LegacyDataTranslator.fromLegacyData("name:name tag:tag open:false default:false leader:leadername timeLastSet:1400000000000 Headquarters:world,64.0,64.0,64.0,0.0,0.0 players: admins:");
+		//ASSERT
+		Assert.assertEquals(fromString(regularTeam), regularTeamProperties);
+	}
+
+	@Test
+	public void ShouldBeLeaderAndAdminOnTeam()
+	{
+		//ASSEMBLE
+		regularTeam.removePlayer("playername");
+		//ACT
+		regularTeamProperties = LegacyDataTranslator.fromLegacyData("name:name tag:tag open:false default:false leader:leadername timeLastSet:1400000000000 Headquarters:world,64.0,64.0,64.0,0.0,0.0 players: admins:adminname");
+		//ASSERT
 		Assert.assertEquals(fromString(regularTeam), regularTeamProperties);
 	}
 

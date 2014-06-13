@@ -225,44 +225,44 @@ public class TeamTest
 	public void ShouldBeTeamBlankProperties1()
 	{
 		//ASSEMBLE
-		String properties = "name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq:none leader: admins: players:";
+		String properties = "name:blank tag:blank open:false default:false timeHeadquartersLastSet:0 hq:none leader:test admins:test players:test";
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:blank openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:blank openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader:test admins: players:test", t.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamBlankProperties2()
 	{
 		//ASSEMBLE
-		String properties = "name:blank tag:blank open:false world:world default:false timeHeadquartersLastSet:0 hq:0.0,0.0,0.0,0.0,0.0 leader: admins: players:";
+		String properties = "name:blank tag:blank open:false world:world default:false timeHeadquartersLastSet:0 hq:0.0,0.0,0.0,0.0,0.0 leader:test admins: players:";
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:blank openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:blank openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader:test admins: players:test", t.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamBlankProperties3()
 	{
 		//ASSEMBLE
-		String properties = "name:blank tag:tag open:false world:world default:false timeHeadquartersLastSet:0 hq:0.0,0.0,0.0,0.0,0.0 leader: admins: players:";
+		String properties = "name:blank tag:tag open:false world:world default:false timeHeadquartersLastSet:0 hq:0.0,0.0,0.0,0.0,0.0 leader:test admins:test players:test";
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:tag openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:tag openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader:test admins: players:test", t.toString());
 	}
 
 	@Test
 	public void ShouldBeTeamBlankProperties4()
 	{
 		//ASSEMBLE
-		String properties = "name:blank tag:tag openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader: admins: players:";
+		String properties = "name:blank tag:tag openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader:lead admins:test players:";
 		//ACT
 		Team t = Team.generateTeamFromProperties(teamPlugin, properties);
 		//ASSERT
-		Assert.assertEquals("name:blank tag:tag openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader: admins: players:", t.toString());
+		Assert.assertEquals("name:blank tag:tag openJoining:false defaultTeam:false timeHeadquartersLastSet:0 headquarters: leader:lead admins:test players:test,lead", t.toString());
 	}
 
 	@Test

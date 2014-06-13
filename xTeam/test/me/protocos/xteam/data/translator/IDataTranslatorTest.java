@@ -1,9 +1,14 @@
 package me.protocos.xteam.data.translator;
 
+import java.util.Set;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.fakeobjects.FakeLocation;
+import me.protocos.xteam.model.Headquarters;
+import me.protocos.xteam.model.IHeadquarters;
+import me.protocos.xteam.model.NullHeadquarters;
 import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.junit.After;
 import org.junit.Assert;
@@ -137,6 +142,71 @@ public class IDataTranslatorTest
 		Location compiled = strategy.compile(decompiled);
 		//ASSERT
 		Assert.assertEquals(original, compiled);
+	}
+
+	@Test
+	public void ShouldBeNullHeadquartersTranslator()
+	{
+		//ASSEMBLE
+		IHeadquarters original = new NullHeadquarters();
+		IDataTranslator<IHeadquarters> strategy = new HeadquartersDataTranslator(teamPlugin);
+		//ACT
+		String decompiled = strategy.decompile(original);
+		IHeadquarters compiled = strategy.compile(decompiled);
+		//ASSERT
+		Assert.assertEquals(original, compiled);
+	}
+
+	@Test
+	public void ShouldBeHeadquartersTranslator()
+	{
+		//ASSEMBLE
+		IHeadquarters original = new Headquarters(teamPlugin, new FakeLocation(bukkitUtil.getWorld("world")).toLocation());
+		IDataTranslator<IHeadquarters> strategy = new HeadquartersDataTranslator(teamPlugin);
+		//ACT
+		String decompiled = strategy.decompile(original);
+		IHeadquarters compiled = strategy.compile(decompiled);
+		//ASSERT
+		Assert.assertEquals(original, compiled);
+	}
+
+	@Test
+	public void ShouldBeSetTranslator()
+	{
+		//ASSEMBLE
+		Set<String> original = CommonUtil.emptySet();
+		original.add("string1");
+		original.add("string2");
+		IDataTranslator<Set<String>> strategy = new SetDataTranslator();
+		//ACT
+		String decompiled = strategy.decompile(original);
+		Set<String> compiled = strategy.compile(decompiled);
+		//ASSERT
+		Assert.assertEquals(original, compiled);
+	}
+
+	@Test
+	public void ShouldBeEmptySetTranslator()
+	{
+		//ASSEMBLE
+		Set<String> original = CommonUtil.emptySet();
+		IDataTranslator<Set<String>> strategy = new SetDataTranslator();
+		//ACT
+		String decompiled = strategy.decompile(original);
+		Set<String> compiled = strategy.compile(decompiled);
+		//ASSERT
+		Assert.assertEquals(original, compiled);
+	}
+
+	@Test
+	public void ShouldBeEmptySetFromStringTranslator()
+	{
+		//ASSEMBLE
+		IDataTranslator<Set<String>> strategy = new SetDataTranslator();
+		//ACT
+		Set<String> compiled = strategy.compile("");
+		//ASSERT
+		Assert.assertEquals(CommonUtil.emptySet(), compiled);
 	}
 
 	@After

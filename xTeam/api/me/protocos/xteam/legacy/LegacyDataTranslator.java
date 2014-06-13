@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import me.protocos.xteam.data.PropertyList;
+import me.protocos.xteam.data.translator.SetDataTranslator;
 import me.protocos.xteam.util.CommonUtil;
 
 public class LegacyDataTranslator
@@ -48,6 +49,8 @@ public class LegacyDataTranslator
 				properties.updateKey("hq", "headquarters");
 			if (properties.containsKey("HQ"))
 				properties.updateKey("HQ", "headquarters");
+			if (properties.containsKey("Headquarters"))
+				properties.updateKey("Headquarters", "headquarters");
 			if (properties.containsKey("world"))
 			{
 				String headquarters = properties.getAsString("world") + "," + properties.getAsString("headquarters");
@@ -65,6 +68,8 @@ public class LegacyDataTranslator
 			}
 			if (properties.containsKey("open"))
 				properties.updateKey("open", "openJoining");
+			if (!properties.containsKey("openJoining"))
+				properties.put("openJoining", "true");
 			if (properties.containsKey("default"))
 				properties.updateKey("default", "defaultTeam");
 			if (!properties.containsKey("defaultTeam"))
@@ -72,13 +77,15 @@ public class LegacyDataTranslator
 			if ("".equals(properties.getAsString("leader")) || "default".equals(properties.getAsString("leader")))
 			{
 				properties.put("defaultTeam", "true");
-				properties.put("openJoining", "true");
 				properties.put("leader", "");
 			}
-			List<String> admins = CommonUtil.split(properties.getAsString("admins"), ",");
+			Set<String> admins = properties.getAsType("admins", new SetDataTranslator());
+			Set<String> players = properties.getAsType("players", new SetDataTranslator());
 			admins.remove(properties.getAsString("leader"));
+			players.addAll(admins);
+			players.add(properties.getAsString("leader"));
 			properties.put("admins", CommonUtil.concatenate(admins, ","));
-
+			properties.put("players", CommonUtil.concatenate(players, ","));
 		}
 		return properties;
 	}
