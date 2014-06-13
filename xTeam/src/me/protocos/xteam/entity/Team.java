@@ -687,8 +687,6 @@ public class Team implements ITeam
 	{
 		if (entity == null)
 			throw new AssertionError("Entity cannot be null");
-		if (entity.isOnSameTeam(this))
-			return getInfo(entity);
 		return getInfo(entity);
 	}
 
