@@ -4,10 +4,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Logger;
 import lib.PatPeter.SQLibrary.Database;
+import lib.PatPeter.SQLibrary.MySQL;
+import lib.PatPeter.SQLibrary.SQLite;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
+import me.protocos.xteam.data.translator.IntegerDataTranslator;
 import me.protocos.xteam.data.translator.LongDataTranslator;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.Team;
@@ -17,8 +21,8 @@ import me.protocos.xteam.util.CommonUtil;
 
 public class SQLDataManager implements IPersistenceLayer, IEventHandler
 {
-	private TeamPlugin teamPlugin;
 	private Database db;
+	private TeamPlugin teamPlugin;
 	private ITeamCoordinator teamCoordinator;
 	private IPlayerFactory playerFactory;
 	private ILog log;
@@ -27,6 +31,7 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 	{
 		this.teamPlugin = teamPlugin;
 		this.db = db;
+		this.openDatabase();
 		this.teamCoordinator = teamCoordinator;
 		this.playerFactory = playerFactory;
 		this.log = teamPlugin.getLog();
@@ -48,6 +53,22 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 			log.exception(e);
 		}
 		teamPlugin.getEventDispatcher().addTeamListener(this);
+	}
+
+	public void openDatabase()
+	{
+		if (db != null)
+		{
+			db.open();
+		}
+	}
+
+	public void closeDatabase()
+	{
+		if (db != null)
+		{
+			db.close();
+		}
 	}
 
 	@Override
@@ -238,5 +259,39 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 		statement.setString(7, CommonUtil.concatenate(team.getAdmins(), ","));
 		statement.setString(8, CommonUtil.concatenate(team.getPlayers(), ","));
 		statement.setString(9, team.getName());
+	}
+
+	public static Database databaseFrom(TeamPlugin teamPlugin, String strategy)
+	{
+		Database database = null;
+		if (strategy.toLowerCase().startsWith("sqlite"))
+		{
+			database = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", teamPlugin.getFolder(), "xTeam", ".db");
+		}
+		else if (strategy.toLowerCase().startsWith("mysql"))
+		{
+			PropertyList props = parse(strategy);
+			database = new MySQL(Logger.getLogger("Minecraft"), "[xTeam] ",
+					props.get("host").getValue(),
+					props.get("port").getValueUsing(new IntegerDataTranslator()),
+					props.get("databasename").getValue(),
+					props.get("username").getValue(),
+					props.get("password").getValue());
+		}
+		return database;
+	}
+
+	private static PropertyList parse(String mysql)
+	{
+		PropertyList propertyList = new PropertyList();
+		String[] pieces = mysql.split(":");
+		if (pieces.length != 6)
+			throw new IllegalArgumentException(mysql);
+		propertyList.put("host", pieces[1]);
+		propertyList.put("port", pieces[2]);
+		propertyList.put("databasename", pieces[3]);
+		propertyList.put("username", pieces[4]);
+		propertyList.put("password", pieces[5]);
+		return propertyList;
 	}
 }

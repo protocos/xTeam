@@ -1,17 +1,12 @@
 package me.protocos.xteam.data;
 
-import java.util.logging.Logger;
-import lib.PatPeter.SQLibrary.Database;
-import lib.PatPeter.SQLibrary.MySQL;
-import lib.PatPeter.SQLibrary.SQLite;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.data.translator.IntegerDataTranslator;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.BukkitUtil;
 
 public class DataStorageFactory
 {
-	private static Database db;
+	private static SQLDataManager datamanager;
 	private TeamPlugin teamPlugin;
 	private BukkitUtil bukkitUtil;
 	private ILog log;
@@ -25,10 +20,7 @@ public class DataStorageFactory
 
 	public static void closeDatabase()
 	{
-		if (db != null)
-		{
-			db.close();
-		}
+		datamanager.closeDatabase();
 	}
 
 	public IPersistenceLayer dataManagerFromString(String strategy)
@@ -40,9 +32,7 @@ public class DataStorageFactory
 			{
 				try
 				{
-					db = new SQLite(Logger.getLogger("Minecraft"), "[xTeam] ", teamPlugin.getFolder(), "xTeam", ".db");
-					db.open();
-					dataManager = new SQLDataManager(teamPlugin, db, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
+					dataManager = new SQLDataManager(teamPlugin, SQLDataManager.databaseFrom(teamPlugin, strategy), teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
 					this.log.info("Using SQLite as storage type");
 				}
 				catch (Exception e)
@@ -61,15 +51,7 @@ public class DataStorageFactory
 			{
 				try
 				{
-					PropertyList props = parse(strategy);
-					db = new MySQL(Logger.getLogger("Minecraft"), "[xTeam] ",
-							props.get("host").getValue(),
-							props.get("port").getValueUsing(new IntegerDataTranslator()),
-							props.get("databasename").getValue(),
-							props.get("username").getValue(),
-							props.get("password").getValue());
-					db.open();
-					dataManager = new SQLDataManager(teamPlugin, db, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
+					dataManager = new SQLDataManager(teamPlugin, SQLDataManager.databaseFrom(teamPlugin, strategy), teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
 					this.log.info("Using MySQL as storage type");
 				}
 				catch (Exception e)
@@ -97,19 +79,5 @@ public class DataStorageFactory
 			this.log.info("Resorting to File storage type");
 		}
 		return dataManager;
-	}
-
-	private PropertyList parse(String mysql)
-	{
-		PropertyList propertyList = new PropertyList();
-		String[] pieces = mysql.split(":");
-		if (pieces.length != 6)
-			throw new IllegalArgumentException(mysql);
-		propertyList.put("host", pieces[1]);
-		propertyList.put("port", pieces[2]);
-		propertyList.put("databasename", pieces[3]);
-		propertyList.put("username", pieces[4]);
-		propertyList.put("password", pieces[5]);
-		return propertyList;
 	}
 }
