@@ -24,7 +24,6 @@ import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.model.NullHeadquarters;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
-import me.protocos.xteam.util.LocationUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.ChatColor;
@@ -705,13 +704,7 @@ public class Team implements ITeam
 		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.green("Open")) : (MessageUtil.red("Closed"))));
 		if (entity.isOnSameTeam(this))
 		{
-			if (Configuration.DISPLAY_RELATIVE_COORDINATES && entity instanceof ILocatable)
-			{
-				ILocatable locatable = (ILocatable) entity;
-				message += "\n" + (ChatColor.RESET + "Team Headquarters - " + LocationUtil.getRelativePosition(locatable.getLocation(), this.getLocation()));
-			}
-			else
-				message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (ChatColor.GREEN + "X:" + this.getHeadquarters().getRelativeX() + " Y:" + this.getHeadquarters().getRelativeY() + " Z:" + this.getHeadquarters().getRelativeZ()) : (ChatColor.RED + "None set")));
+			message += "\n" + this.getHeadquarters().getInfoFor(entity);
 		}
 		else
 			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.green("Set")) : (MessageUtil.red("None set"))));

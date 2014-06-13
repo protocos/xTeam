@@ -2,7 +2,9 @@ package me.protocos.xteam.entity;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
+import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.fakeobjects.FakeWorld;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.NullHeadquarters;
 import org.bukkit.World;
@@ -632,6 +634,21 @@ public class TeamTest
 		Assert.assertEquals("protocos", team.getLeader());
 		Assert.assertFalse(team.containsAdmin("protocos"));
 		Assert.assertTrue(team.containsPlayer("protocos"));
+	}
+
+	@Test
+	public void ShouldBeGetInfoNullHeadquarters()
+	{
+		//ASSEMBLE
+		Configuration.DISPLAY_RELATIVE_COORDINATES = true;
+		team = new Team.Builder(teamPlugin, "name").build();
+		//ACT
+		//ASSERT
+		Assert.assertEquals("Team Name - name\n" +
+				"Team Joining - Closed\n" +
+				"Team Headquarters - None set", MessageUtil.resetFormatting(team.getInfoFor(team)));
+		Assert.assertFalse(team.hasHeadquarters());
+		Configuration.DISPLAY_RELATIVE_COORDINATES = false;
 	}
 
 	@After

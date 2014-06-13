@@ -1,7 +1,10 @@
 package me.protocos.xteam.model;
 
 import java.util.List;
+import me.protocos.xteam.entity.ITeamEntity;
+import me.protocos.xteam.message.MessageUtil;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -92,6 +95,12 @@ public class NullHeadquarters implements IHeadquarters
 			return false;
 
 		return true;
+	}
+
+	@Override
+	public String getInfoFor(ITeamEntity entity)
+	{
+		return ChatColor.RESET + "Team Headquarters - " + MessageUtil.red("None set");
 	}
 
 	@Override

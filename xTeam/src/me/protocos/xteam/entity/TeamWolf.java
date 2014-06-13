@@ -18,7 +18,7 @@ import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
-public class TeamWolf implements ITeamWolf
+public class TeamWolf implements ITeamWolf, ILocatable
 {
 	private IPlayerFactory playerFactory;
 	private Wolf wolf;

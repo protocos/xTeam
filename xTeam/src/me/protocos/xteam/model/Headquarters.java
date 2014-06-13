@@ -2,10 +2,15 @@ package me.protocos.xteam.model;
 
 import java.util.List;
 import me.protocos.xteam.TeamPlugin;
+import me.protocos.xteam.data.configuration.Configuration;
+import me.protocos.xteam.entity.ITeamEntity;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
+import me.protocos.xteam.util.LocationUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -147,5 +152,18 @@ public class Headquarters implements IHeadquarters
 	public String toString()
 	{
 		return location.getWorld().getName() + "," + location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getYaw() + "," + location.getPitch();
+	}
+
+	@Override
+	public String getInfoFor(ITeamEntity entity)
+	{
+		if (!this.isValid())
+			return MessageUtil.red("None set");
+		if (Configuration.DISPLAY_RELATIVE_COORDINATES && entity instanceof ILocatable)
+		{
+			ILocatable locatable = CommonUtil.assignFromType(entity, ILocatable.class);
+			return ChatColor.RESET + "Team Headquarters - " + LocationUtil.getRelativePosition(locatable.getLocation(), this.getLocation());
+		}
+		return ChatColor.RESET + "Team Headquarters - " + MessageUtil.green("X:" + this.getRelativeX() + " Y:" + this.getRelativeY() + " Z:" + this.getRelativeZ());
 	}
 }
