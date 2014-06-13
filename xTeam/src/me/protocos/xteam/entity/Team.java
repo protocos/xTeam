@@ -686,7 +686,7 @@ public class Team implements ITeam
 	public String getInfoFor(ITeamEntity entity)
 	{
 		if (entity == null)
-			throw new AssertionError("Entity cannot be null");
+			throw new IllegalArgumentException("Entity cannot be null");
 		return getInfo(entity);
 	}
 
