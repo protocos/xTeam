@@ -82,7 +82,7 @@ public class DataStorageFactory
 		if (persistenceLayer == null)
 		{
 			persistenceLayer = new FlatFileDataManager(teamPlugin, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
-			this.log.error("Resorting to File storage type");
+			this.log.error("Resorting to File as storage type");
 		}
 		return persistenceLayer;
 	}
