@@ -66,7 +66,7 @@ public class TeamUserInfoTest
 				"Teammates online:\n" +
 				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
 				"    kmlanglois (100%) Location: 0 64 0 in \"world\""
-				, fakePlayerSender.getLastMessage());
+				, fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -83,7 +83,7 @@ public class TeamUserInfoTest
 				"Team Joining - Closed\n" +
 				"Team Headquarters - None set\n" +
 				"Teammates online:\n" +
-				"    mastermind", fakePlayerSender.getLastMessage());
+				"    mastermind", fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -100,7 +100,7 @@ public class TeamUserInfoTest
 				"Team Joining - Closed\n" +
 				"Team Headquarters - None set\n" +
 				"Teammates online:\n" +
-				"    mastermind", fakePlayerSender.getLastMessage());
+				"    mastermind", fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -129,7 +129,7 @@ public class TeamUserInfoTest
 				"Team Headquarters - None set\n" +
 				"Teammates offline:\n" +
 				"    teammate\n" +
-				"    strandedhelix", fakePlayerSender.getLastMessage());
+				"    strandedhelix", fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -153,7 +153,7 @@ public class TeamUserInfoTest
 				"    Lonely (100%) Location: 0 64 0 in \"world\"\n" +
 				"Teammates offline:\n" +
 				"    teammate was last online on Dec 31 @ 6:00 PM\n" +
-				"    strandedhelix was last online on Dec 31 @ 6:00 PM", fakePlayerSender.getLastMessage());
+				"    strandedhelix was last online on Dec 31 @ 6:00 PM", fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -174,7 +174,7 @@ public class TeamUserInfoTest
 				"Team Headquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +
 				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
-				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
+				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -194,7 +194,7 @@ public class TeamUserInfoTest
 				"Team Headquarters - 270 blocks to front-left, 65 blocks up\n" +
 				"Teammates online:\n" +
 				"    protocos (100%)\n" +
-				"    kmlanglois (100%) Here, 64 blocks up", fakePlayerSender.getLastMessage());
+				"    kmlanglois (100%) Here, 64 blocks up", fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -215,7 +215,7 @@ public class TeamUserInfoTest
 				"Team Invites - Lonely\n" +
 				"Teammates online:\n" +
 				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
-				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
+				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -234,7 +234,7 @@ public class TeamUserInfoTest
 				"Team Headquarters - None set\n" +
 				"Teammates offline:\n" +
 				"    teammate\n" +
-				"    strandedhelix", fakePlayerSender.getLastMessage());
+				"    strandedhelix", fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -255,7 +255,7 @@ public class TeamUserInfoTest
 				"Team Headquarters - X:170 Y:65 Z:209\n" +
 				"Teammates online:\n" +
 				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
-				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getLastMessage());
+				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

@@ -5,6 +5,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleTeleAllHQ extends ConsoleCommand
@@ -21,19 +22,19 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 		{
 			if (!player.hasTeam())
 			{
-				sender.sendMessage(player.getName() + " does not have a team and was not teleported");
+				new Message.Builder(player.getName() + " does not have a team and was not teleported").addRecipients(sender).send(log);
 			}
 			else if (!player.getTeam().hasHeadquarters())
 			{
-				sender.sendMessage("No team headquarters set for team " + player.getTeam().getName() + " for " + player.getName());
+				new Message.Builder("No team headquarters set for team " + player.getTeam().getName() + " for " + player.getName()).addRecipients(sender).send(log);
 			}
 			else
 			{
 				player.teleport(player.getTeam().getHeadquarters().getLocation());
-				player.sendMessage("You have been teleported to the team headquarters by an admin");
+				new Message.Builder("You have been teleported to the team headquarters by an admin").addRecipients(player).send(log);
 			}
 		}
-		sender.sendMessage("Players teleported");
+		new Message.Builder("Players teleported").addRecipients(sender).send(log);
 	}
 
 	@Override

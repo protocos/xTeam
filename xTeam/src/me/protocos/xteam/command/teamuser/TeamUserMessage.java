@@ -6,6 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.ChatColor;
 
@@ -24,17 +25,17 @@ public class TeamUserMessage extends TeamUserCommand
 		{
 			message += " " + commandContainer.getArgument(i);
 		}
-		for (ITeamPlayer teammate : teamPlayer.getOnlineTeammates())
+		for (ITeamPlayer teammate : teamUser.getOnlineTeammates())
 		{
-			teammate.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
+			new Message.Builder("[" + ChatColor.DARK_GREEN + teamUser.getName() + ChatColor.RESET + "]" + message).addRecipients(teammate).send(log);
 		}
-		teamPlayer.sendMessage("[" + ChatColor.DARK_GREEN + teamPlayer.getName() + ChatColor.RESET + "]" + message);
+		new Message.Builder("[" + ChatColor.DARK_GREEN + teamUser.getName() + ChatColor.RESET + "]" + message).addRecipients(teamUser).send(log);
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		Requirements.checkPlayerHasTeam(teamPlayer);
+		Requirements.checkPlayerHasTeam(teamUser);
 	}
 
 	@Override

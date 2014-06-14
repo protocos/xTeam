@@ -2,6 +2,7 @@ package me.protocos.xteam.command;
 
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.exception.TeamInvalidCommandException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
@@ -42,7 +43,7 @@ public class CommandDelegate implements CommandExecutor
 				else
 				{
 					for (String line : help.split("\n"))
-						sender.sendMessage(line);
+						new Message.Builder(line).addRecipients(sender).send(log);
 				}
 			}
 			else
@@ -59,7 +60,7 @@ public class CommandDelegate implements CommandExecutor
 		}
 		catch (Exception e)
 		{
-			sender.sendMessage(MessageUtil.red("There was a server error executing command: /" + commandID + " " + CommonUtil.concatenate(args)));
+			new Message.Builder(MessageUtil.red("There was a server error executing command: /" + commandID + " " + CommonUtil.concatenate(args))).addRecipients(sender).send(log);
 			log.exception(e);
 		}
 		return true;
@@ -67,7 +68,7 @@ public class CommandDelegate implements CommandExecutor
 
 	private void commandFailed(CommandSender sender)
 	{
-		sender.sendMessage(MessageUtil.red((new TeamInvalidCommandException()).getMessage()));
+		new Message.Builder(MessageUtil.red((new TeamInvalidCommandException()).getMessage())).addRecipients(sender).send(log);
 		log.debug("server command failed: " + (new TeamInvalidCommandException()).getMessage());
 	}
 

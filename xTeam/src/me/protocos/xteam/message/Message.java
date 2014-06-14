@@ -96,8 +96,9 @@ public class Message
 		for (IMessageRecipient recipient : recipients)
 		{
 			if (log != null)
-				log.debug("server response: @" + recipient.getName() + " \"" + message + "\"");
-			recipient.sendMessage(message);
+				log.debug("    @ " + recipient.getName() + " server response: \"" + MessageUtil.resetFormatting(message) + "\"");
+			if (recipient.isOnline())
+				recipient.sendMessage(message);
 		}
 	}
 
@@ -140,5 +141,11 @@ class MessageSender implements IMessageRecipient
 	public String getName()
 	{
 		return sender.getName();
+	}
+
+	@Override
+	public boolean isOnline()
+	{
+		return true;
 	}
 }

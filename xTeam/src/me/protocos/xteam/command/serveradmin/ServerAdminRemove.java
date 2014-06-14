@@ -21,7 +21,7 @@ public class ServerAdminRemove extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		this.removeAction.actOn(player, teamName, playerName);
+		this.removeAction.actOn(serverAdmin, teamName, playerName);
 	}
 
 	@Override

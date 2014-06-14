@@ -9,7 +9,9 @@ import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.event.IEventDispatcher;
 import me.protocos.xteam.event.TeamAcceptEvent;
 import me.protocos.xteam.event.TeamInviteEvent;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
+import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
@@ -21,13 +23,15 @@ public class InviteHandler
 	private IEventDispatcher dispatcher;
 	private BukkitScheduler bukkitScheduler;
 	private HashList<String, InviteRequest> invites;
+	private ILog log;
 
 	public InviteHandler(TeamPlugin teamPlugin)
 	{
 		this.teamPlugin = teamPlugin;
 		this.dispatcher = teamPlugin.getEventDispatcher();
-		bukkitScheduler = teamPlugin.getBukkitScheduler();
-		invites = new HashList<String, InviteRequest>();
+		this.bukkitScheduler = teamPlugin.getBukkitScheduler();
+		this.invites = new HashList<String, InviteRequest>();
+		this.log = teamPlugin.getLog();
 	}
 
 	public void addInvite(final InviteRequest request)
@@ -43,7 +47,7 @@ public class InviteHandler
 			{
 				if (invites.containsKey(invitee.getName()))
 				{
-					invitee.sendMessage("Invite from " + inviter.getName() + " has " + MessageUtil.red("expired"));
+					new Message.Builder("Invite from " + inviter.getName() + " has " + MessageUtil.red("expired")).addRecipients(invitee).send(log);
 					invites.remove(invitee.getName());
 				}
 			}

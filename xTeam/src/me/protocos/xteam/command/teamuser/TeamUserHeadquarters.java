@@ -21,15 +21,15 @@ public class TeamUserHeadquarters extends TeamUserCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		teleportScheduler.teleport(teamPlayer, teamPlayer.getTeam().getHeadquarters());
+		teleportScheduler.teleport(teamUser, teamUser.getTeam().getHeadquarters());
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		Requirements.checkPlayerCanTeleport(teamPlayer);
+		Requirements.checkPlayerCanTeleport(teamUser);
 		Requirements.checkTeamHasHeadquarters(team);
-		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamPlayer);
+		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamUser);
 	}
 
 	@Override

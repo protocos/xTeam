@@ -7,6 +7,7 @@ import me.protocos.xteam.command.TeamAdminCommand;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.PatternBuilder;
@@ -26,11 +27,10 @@ public class TeamAdminInvite extends TeamAdminCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		ITeamPlayer otherPlayer = playerFactory.getPlayer(other);
-		InviteRequest request = new InviteRequest(teamPlayer, otherPlayer, System.currentTimeMillis());
+		InviteRequest request = new InviteRequest(teamAdmin, otherPlayer, System.currentTimeMillis());
 		inviteHandler.addInvite(request);
-		if (otherPlayer.isOnline())
-			otherPlayer.sendMessage("You've been " + MessageUtil.green("invited ") + "to join " + team.getName() + " (/team accept)");
-		teamPlayer.sendMessage("You " + MessageUtil.green("invited ") + otherPlayer.getName());
+		new Message.Builder("You have been " + MessageUtil.green("invited ") + "to join " + team.getName() + " (/team accept)").addRecipients(otherPlayer).send(log);
+		new Message.Builder("You " + MessageUtil.green("invited ") + otherPlayer.getName()).addRecipients(teamAdmin).send(log);
 	}
 
 	@Override
@@ -38,8 +38,8 @@ public class TeamAdminInvite extends TeamAdminCommand
 	{
 		other = commandContainer.getArgument(1);
 		ITeamPlayer otherPlayer = playerFactory.getPlayer(other);
-		Requirements.checkPlayerHasTeam(teamPlayer);
-		Requirements.checkPlayerInviteSelf(teamPlayer, otherPlayer);
+		Requirements.checkPlayerHasTeam(teamAdmin);
+		Requirements.checkPlayerInviteSelf(teamAdmin, otherPlayer);
 		Requirements.checkPlayerHasPlayedBefore(otherPlayer);
 		Requirements.checkPlayerHasInvite(inviteHandler, otherPlayer);
 	}

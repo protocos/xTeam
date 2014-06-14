@@ -5,6 +5,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamAdminCommand;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.util.PatternBuilder;
@@ -19,15 +20,15 @@ public class TeamAdminSetHeadquarters extends TeamAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		team.setHeadquarters(new Headquarters(teamPlugin, teamPlayer.getLocation()));
+		team.setHeadquarters(new Headquarters(teamPlugin, teamAdmin.getLocation()));
 		team.setTimeHeadquartersLastSet(System.currentTimeMillis());
-		teamPlayer.sendMessage("You " + MessageUtil.green("set") + " the team headquarters");
+		new Message.Builder("You " + MessageUtil.green("set") + " the team headquarters").addRecipients(teamAdmin).send(log);
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		Requirements.checkPlayerNotDamaged(teamPlayer);
+		Requirements.checkPlayerNotDamaged(teamAdmin);
 		Requirements.checkTeamHeadquartersRecentlySet(team);
 	}
 

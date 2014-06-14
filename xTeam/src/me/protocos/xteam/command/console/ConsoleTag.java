@@ -6,7 +6,7 @@ import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.message.MessageUtil;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleTag extends ConsoleCommand
@@ -23,8 +23,7 @@ public class ConsoleTag extends ConsoleCommand
 	{
 		ITeam changeTeam = teamCoordinator.getTeam(teamName);
 		changeTeam.setTag(desiredTag);
-		sender.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag);
-		changeTeam.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag + " by an admin");
+		new Message.Builder("The team tag has been set to " + desiredTag).addRecipients(sender).addRecipients(changeTeam).send(log);
 	}
 
 	@Override

@@ -59,7 +59,7 @@ public class TeamUserHeadquartersTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You've been teleported to the team headquarters", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You have been teleported to the team headquarters", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(teamCoordinator.getTeam("one").getHeadquarters().getLocation(), fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 		//TODO assert everything! (including teleport)

@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 public abstract class ServerAdminCommand extends PlayerCommand
 {
-	protected Player player;
+	protected Player serverAdmin;
 
 	public ServerAdminCommand(TeamPlugin teamPlugin)
 	{
@@ -15,10 +15,10 @@ public abstract class ServerAdminCommand extends PlayerCommand
 	}
 
 	@Override
-	public final void preInitialize(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
+	public final void preInitialize(CommandContainer commandContainer) throws TeamException
 	{
 		super.preInitialize(commandContainer);
-		player = CommonUtil.assignFromType(commandContainer.getSender(), Player.class);
+		serverAdmin = CommonUtil.assignFromType(commandContainer.getSender(), Player.class);
 
 	}
 }

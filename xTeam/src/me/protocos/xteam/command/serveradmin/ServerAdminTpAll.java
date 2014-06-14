@@ -7,6 +7,7 @@ import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminTpAll extends ServerAdminCommand
@@ -24,13 +25,10 @@ public class ServerAdminTpAll extends ServerAdminCommand
 		ITeam changeTeam = teamCoordinator.getTeam(teamName);
 		for (TeamPlayer teammate : changeTeam.getOnlineTeammates())
 		{
-			if (teammate.isOnline())
-			{
-				teammate.teleport(teamPlayer.getLocation());
-				teammate.sendMessage("You have been teleported to " + player.getName());
-			}
+			teammate.teleportTo(playerFactory.getPlayer(serverAdmin));
+			new Message.Builder("You have been teleported to " + serverAdmin.getName()).addRecipients(teammate).send(log);
 		}
-		player.sendMessage("Players teleported");
+		new Message.Builder("Players teleported").addRecipients(serverAdmin).send(log);
 	}
 
 	@Override

@@ -4,15 +4,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.exception.TeamPlayerHasNoOnlineTeammatesException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILocatable;
+import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
@@ -28,12 +29,14 @@ public class TeleportScheduler
 	private TeamPlugin teamPlugin;
 	private IPlayerFactory playerFactory;
 	private BukkitScheduler bukkitScheduler;
+	private ILog log;
 
 	public TeleportScheduler(TeamPlugin teamPlugin, IPlayerFactory playerFactory, BukkitScheduler bukkitScheduler)
 	{
 		this.teamPlugin = teamPlugin;
 		this.playerFactory = playerFactory;
 		this.bukkitScheduler = bukkitScheduler;
+		this.log = teamPlugin.getLog();
 	}
 
 	public void clearTasks()
@@ -91,8 +94,8 @@ public class TeleportScheduler
 	{
 		countWaitTime.put(teamPlayer, 0);
 		final Location currentLocation = teamPlayer.getLocation();
-		teamPlayer.sendMessage(MessageUtil.red("You cannot teleport with enemies nearby"));
-		teamPlayer.sendMessage(MessageUtil.red("You must wait " + Configuration.TELE_DELAY + " seconds"));
+		new Message.Builder(MessageUtil.red("You cannot teleport with enemies nearby")).addRecipients(teamPlayer).send(log);
+		new Message.Builder(MessageUtil.red("You must wait " + Configuration.TELE_DELAY + " seconds")).addRecipients(teamPlayer).send(log);
 		Runnable teleportWait = new TeleportWait(teamPlayer, toLocatable, currentLocation);
 		setCurrentTask(teamPlayer, bukkitScheduler.scheduleSyncRepeatingTask(teamPlugin, teleportWait, CommonUtil.LONG_ZERO, 2L));
 	}
@@ -112,11 +115,11 @@ public class TeleportScheduler
 			teamPlayer.setLastTeleported(System.currentTimeMillis());
 		}
 		teamPlayer.teleport(toLocation);
-		teamPlayer.sendMessage("You've been " + MessageUtil.green("teleported") + " to " + toLocatable.getName());
+		new Message.Builder("You have been " + MessageUtil.green("teleported") + " to " + toLocatable.getName()).addRecipients(teamPlayer).send(log);
 		if (toLocatable instanceof TeamPlayer)
 		{
 			TeamPlayer toPlayer = CommonUtil.assignFromType(toLocatable, TeamPlayer.class);
-			toPlayer.sendMessage(teamPlayer.getName() + " has " + MessageUtil.green("teleported") + " to you");
+			new Message.Builder(teamPlayer.getName() + " has " + MessageUtil.green("teleported") + " to you").addRecipients(toPlayer).send(log);
 		}
 	}
 
@@ -189,7 +192,7 @@ public class TeleportScheduler
 		public void run()
 		{
 			if (Configuration.TELE_REFRESH_DELAY > 0)
-				fromEntity.sendMessage("Teleport " + MessageUtil.green("refreshed"));
+				new Message.Builder("Teleport " + MessageUtil.green("refreshed")).addRecipients(fromEntity).send(log);
 		}
 	}
 
@@ -211,14 +214,14 @@ public class TeleportScheduler
 		{
 			if ((System.currentTimeMillis() - fromEntity.getLastAttacked()) / 1000 < Configuration.LAST_ATTACKED_DELAY)
 			{
-				fromEntity.sendMessage("Teleport " + MessageUtil.red("cancelled") + "! You were attacked!");
+				new Message.Builder("Teleport " + MessageUtil.red("cancelled") + "! You were attacked!").addRecipients(fromEntity).send(log);
 				countWaitTime.remove(fromEntity);
 				removeCurrentTask(fromEntity);
 			}
 			Location loc = fromEntity.getLocation();
 			if (loc.getBlockX() != previousLocation.getBlockX() || loc.getBlockY() != previousLocation.getBlockY() || loc.getBlockZ() != previousLocation.getBlockZ())
 			{
-				fromEntity.sendMessage(MessageUtil.red("Teleport cancelled! You moved!"));
+				new Message.Builder(MessageUtil.red("Teleport cancelled! You moved!")).addRecipients(fromEntity).send(log);
 				countWaitTime.remove(fromEntity);
 				removeCurrentTask(fromEntity);
 			}

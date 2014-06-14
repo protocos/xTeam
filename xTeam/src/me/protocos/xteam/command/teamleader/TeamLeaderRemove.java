@@ -21,7 +21,7 @@ public class TeamLeaderRemove extends TeamLeaderCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		this.removeAction.actOn(teamPlayer, teamName, playerName);
+		this.removeAction.actOn(teamLeader, teamName, playerName);
 	}
 
 	@Override

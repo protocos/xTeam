@@ -23,17 +23,17 @@ public class TeamUserReturn extends TeamUserCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		Location returnLocation = teamPlayer.getReturnLocation();
-		teleportScheduler.teleport(teamPlayer, new Locatable(teamPlugin, "your return location", returnLocation));
+		Location returnLocation = teamUser.getReturnLocation();
+		teleportScheduler.teleport(teamUser, new Locatable(teamPlugin, "your return location", returnLocation));
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		Requirements.checkPlayerCanTeleport(teamPlayer);
-		Requirements.checkPlayerHasReturnLocation(teamPlayer);
-		Requirements.checkPlayerLastAttacked(teamPlayer);
-		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamPlayer);
+		Requirements.checkPlayerCanTeleport(teamUser);
+		Requirements.checkPlayerHasReturnLocation(teamUser);
+		Requirements.checkPlayerLastAttacked(teamUser);
+		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamUser);
 	}
 
 	@Override

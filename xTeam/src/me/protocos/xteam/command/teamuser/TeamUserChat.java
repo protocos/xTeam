@@ -6,6 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -23,13 +24,13 @@ public class TeamUserChat extends TeamUserCommand
 	{
 		if (option.equalsIgnoreCase("ON"))
 		{
-			Configuration.chatStatus.add(teamPlayer.getName());
-			teamPlayer.sendMessage("You are now only chatting with " + MessageUtil.green("your team"));
+			Configuration.chatStatus.add(teamUser.getName());
+			new Message.Builder("You are now only chatting with " + MessageUtil.green("your team")).addRecipients(teamUser).send(log);
 		}
 		if (option.equalsIgnoreCase("OFF"))
 		{
-			Configuration.chatStatus.remove(teamPlayer.getName());
-			teamPlayer.sendMessage("You are now chatting with " + MessageUtil.red("everyone"));
+			Configuration.chatStatus.remove(teamUser.getName());
+			new Message.Builder("You are now chatting with " + MessageUtil.red("everyone")).addRecipients(teamUser).send(log);
 		}
 	}
 
@@ -39,7 +40,7 @@ public class TeamUserChat extends TeamUserCommand
 		//FIX move this if statememt to the act method
 		if (commandContainer.size() == 1)
 		{
-			if (Configuration.chatStatus.contains(teamPlayer.getName()))
+			if (Configuration.chatStatus.contains(teamUser.getName()))
 				option = "OFF";
 			else
 				option = "ON";
@@ -48,7 +49,7 @@ public class TeamUserChat extends TeamUserCommand
 		{
 			option = commandContainer.getArgument(1);
 		}
-		Requirements.checkPlayerHasTeam(teamPlayer);
+		Requirements.checkPlayerHasTeam(teamUser);
 	}
 
 	@Override

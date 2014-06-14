@@ -7,6 +7,7 @@ import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -25,12 +26,10 @@ public class ServerAdminSetLeader extends ServerAdminCommand
 		ITeamPlayer playerSet = playerFactory.getPlayer(playerName);
 		ITeam playerTeam = playerSet.getTeam();
 		playerTeam.setLeader(playerName);
-		if (playerSet.isOnline() && !playerSet.getName().equals(player.getName()))
-			playerSet.sendMessage("You are now the " + MessageUtil.green("team leader"));
+		new Message.Builder("You are now the " + MessageUtil.green("team leader")).addRecipients(playerSet).excludeRecipients(serverAdmin).send(log);
 		ITeamPlayer previousLeader = playerFactory.getPlayer(playerTeam.getLeader());
-		if (previousLeader.isOnline() && !previousLeader.getName().equals(player.getName()))
-			previousLeader.sendMessage(playerName + " is now the " + MessageUtil.green("team leader"));
-		player.sendMessage(playerName + " is now the " + MessageUtil.green("team leader") + " for " + playerTeam.getName());
+		new Message.Builder(playerName + " is now the " + MessageUtil.green("team leader")).addRecipients(previousLeader).excludeRecipients(serverAdmin).send(log);
+		new Message.Builder(playerName + " is now the " + MessageUtil.green("team leader") + " for " + playerTeam.getName()).addRecipients(serverAdmin).send(log);
 	}
 
 	@Override

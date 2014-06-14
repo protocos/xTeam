@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.serveradmin;
 
-import org.bukkit.entity.Player;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
@@ -9,6 +8,7 @@ import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.LocationUtil;
 import me.protocos.xteam.util.PatternBuilder;
+import org.bukkit.entity.Player;
 
 public class ServerAdminDebug extends ServerAdminCommand
 {
@@ -26,28 +26,28 @@ public class ServerAdminDebug extends ServerAdminCommand
 	{
 		if (subCommand.equalsIgnoreCase("yaw"))
 		{
-			new Message.Builder("Player yaw: " + Math.round(player.getLocation().getYaw()))
-					.addRecipients(player)
+			new Message.Builder("Player yaw: " + Math.round(serverAdmin.getLocation().getYaw()))
+					.addRecipients(serverAdmin)
 					.send(log);
 		}
 		else if (subCommand.equalsIgnoreCase("directions"))
 		{
 			for (Player otherPlayer : bukkitUtil.getOnlinePlayers())
 			{
-				Message message = new Message.Builder("Yaw angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getYawAngleToLocation(player.getLocation(), otherPlayer.getLocation())) + "°")
-						.addRecipients(player)
+				Message message = new Message.Builder("Yaw angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getYawAngleToLocation(serverAdmin.getLocation(), otherPlayer.getLocation())) + "°")
+						.addRecipients(serverAdmin)
 						.excludeRecipients(otherPlayer)
 						.send(log);
-				message.setMessage("Location angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getAngleBetween(player.getLocation(), otherPlayer.getLocation())) + "°");
+				message.setMessage("Location angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getAngleBetween(serverAdmin.getLocation(), otherPlayer.getLocation())) + "°");
 				message.send(log);
-				message.setMessage("Direction angle to " + otherPlayer.getName() + ": " + LocationUtil.getRelativeAngleBetween(player.getLocation(), otherPlayer.getLocation()));
+				message.setMessage("Direction angle to " + otherPlayer.getName() + ": " + LocationUtil.getRelativeAngleBetween(serverAdmin.getLocation(), otherPlayer.getLocation()));
 				message.send(log);
 			}
 		}
 		else
 		{
 			new Message.Builder("Options are: /team debug {yaw/directions}")
-					.addRecipients(player)
+					.addRecipients(serverAdmin)
 					.send(log);
 		}
 	}

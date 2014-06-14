@@ -6,6 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -22,8 +23,8 @@ public class ServerAdminHeadquarters extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		teamPlayer.teleport(changeTeam.getHeadquarters().getLocation());
-		player.sendMessage("You have been " + MessageUtil.green("teleported") + " to the headquarters of team " + changeTeam.getName());
+		serverAdmin.teleport(changeTeam.getHeadquarters().getLocation());
+		new Message.Builder("You have been " + MessageUtil.green("teleported") + " to the headquarters of team " + changeTeam.getName()).addRecipients(serverAdmin).send(log);
 	}
 
 	@Override

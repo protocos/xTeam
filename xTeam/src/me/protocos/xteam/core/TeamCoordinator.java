@@ -4,7 +4,10 @@ import java.util.List;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.ITeam;
-import me.protocos.xteam.event.*;
+import me.protocos.xteam.event.IEventDispatcher;
+import me.protocos.xteam.event.TeamCreateEvent;
+import me.protocos.xteam.event.TeamDisbandEvent;
+import me.protocos.xteam.event.TeamRenameEvent;
 import me.protocos.xteam.util.CommonUtil;
 
 public class TeamCoordinator implements ITeamCoordinator

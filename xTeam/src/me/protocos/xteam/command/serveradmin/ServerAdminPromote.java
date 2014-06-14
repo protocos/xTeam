@@ -7,6 +7,7 @@ import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -24,10 +25,9 @@ public class ServerAdminPromote extends ServerAdminCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		changeTeam.promote(playerName);
-		if (!changeTeam.containsPlayer(player.getName()))
-			player.sendMessage("You " + MessageUtil.green("promoted") + " " + playerName);
+		new Message.Builder("You " + MessageUtil.green("promoted") + " " + playerName).addRecipients(serverAdmin).excludeRecipients(changeTeam).send(log);
 		ITeamPlayer other = playerFactory.getPlayer(playerName);
-		other.sendMessage("You've been " + MessageUtil.green("promoted") + " by an admin");
+		new Message.Builder("You have been " + MessageUtil.green("promoted") + " by an admin").addRecipients(other).send(log);
 	}
 
 	@Override

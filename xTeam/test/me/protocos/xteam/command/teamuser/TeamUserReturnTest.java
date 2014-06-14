@@ -59,7 +59,7 @@ public class TeamUserReturnTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "return".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You've been teleported to your return location", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You have been teleported to your return location", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(returnLocation, fakePlayerSender.getLocation());
 		Assert.assertFalse(teamPlayer.hasReturnLocation());
 		Assert.assertTrue(fakeExecuteResponse);

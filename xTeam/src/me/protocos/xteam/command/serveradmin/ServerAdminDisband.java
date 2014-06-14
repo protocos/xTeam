@@ -6,6 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -22,9 +23,9 @@ public class ServerAdminDisband extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		changeTeam.sendMessage("Your team has been " + MessageUtil.red("disbanded") + " by an admin");
+		new Message.Builder("Your team has been " + MessageUtil.red("disbanded") + " by an admin").addRecipients(changeTeam).send(log);
 		teamCoordinator.disbandTeam(teamName);
-		player.sendMessage("You " + MessageUtil.red("disbanded") + " " + changeTeam.getName() + (changeTeam.hasTag() ? " [" + changeTeam.getTag() + "]" : ""));
+		new Message.Builder("You " + MessageUtil.red("disbanded") + " " + changeTeam.getName() + (changeTeam.hasTag() ? " [" + changeTeam.getTag() + "]" : "")).addRecipients(serverAdmin).send(log);
 	}
 
 	@Override

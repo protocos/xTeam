@@ -58,7 +58,7 @@ public class TeamUserTeleportTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You've been teleported to protocos", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You have been teleported to protocos", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(bukkitUtil.getPlayer("protocos").getLocation(), fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -71,7 +71,7 @@ public class TeamUserTeleportTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You've been teleported to protocos", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You have been teleported to protocos", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(bukkitUtil.getPlayer("protocos").getLocation(), fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 	}

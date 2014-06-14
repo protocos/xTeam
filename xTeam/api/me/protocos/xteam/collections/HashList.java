@@ -1,8 +1,8 @@
 package me.protocos.xteam.collections;
 
 import java.util.*;
-import org.apache.commons.lang.builder.EqualsBuilder;
 import me.protocos.xteam.util.CommonUtil;
+import org.apache.commons.lang.builder.EqualsBuilder;
 
 public class HashList<K, V> implements Iterable<V>
 {

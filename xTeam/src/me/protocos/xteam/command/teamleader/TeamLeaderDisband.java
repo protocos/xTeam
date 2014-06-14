@@ -5,6 +5,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -18,12 +19,12 @@ public class TeamLeaderDisband extends TeamLeaderCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		for (ITeamPlayer playerDisband : teamPlayer.getOnlineTeammates())
+		for (ITeamPlayer playerDisband : teamLeader.getOnlineTeammates())
 		{
-			playerDisband.sendMessage("Team has been " + MessageUtil.red("disbanded") + " by the team leader");
+			new Message.Builder("Team has been " + MessageUtil.red("disbanded") + " by the team leader").addRecipients(playerDisband).send(log);
 		}
 		teamCoordinator.disbandTeam(team.getName());
-		teamPlayer.sendMessage("You " + MessageUtil.red("disbanded") + " your team");
+		new Message.Builder("You " + MessageUtil.red("disbanded") + " your team").addRecipients(teamLeader).send(log);
 	}
 
 	@Override

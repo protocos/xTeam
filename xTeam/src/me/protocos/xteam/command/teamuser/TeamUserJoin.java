@@ -7,6 +7,7 @@ import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -25,10 +26,10 @@ public class TeamUserJoin extends TeamUserCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		ITeam foundTeam = teamCoordinator.getTeam(desiredName);
-		foundTeam.addPlayer(teamPlayer.getName());
-		inviteHandler.removeInvite(teamPlayer.getName());
-		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + MessageUtil.green("joined") + " your team");
-		teamPlayer.sendMessage("You " + MessageUtil.green("joined") + " " + foundTeam.getName());
+		foundTeam.addPlayer(teamUser.getName());
+		inviteHandler.removeInvite(teamUser.getName());
+		teamUser.sendMessageToTeam(teamUser.getName() + " " + MessageUtil.green("joined") + " your team");
+		new Message.Builder("You " + MessageUtil.green("joined") + " " + foundTeam.getName()).addRecipients(teamUser).send(log);
 	}
 
 	@Override
@@ -36,10 +37,10 @@ public class TeamUserJoin extends TeamUserCommand
 	{
 		desiredName = commandContainer.getArgument(1);
 		ITeam desiredTeam = teamCoordinator.getTeam(desiredName);
-		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
+		Requirements.checkPlayerDoesNotHaveTeam(teamUser);
 		Requirements.checkTeamOnlyJoinDefault(teamCoordinator, desiredName);
 		Requirements.checkTeamExists(teamCoordinator, desiredName);
-		Requirements.checkPlayerDoesNotHaveInviteFromTeam(inviteHandler, teamPlayer, desiredTeam);
+		Requirements.checkPlayerDoesNotHaveInviteFromTeam(inviteHandler, teamUser, desiredTeam);
 		Requirements.checkTeamPlayerMax(teamCoordinator, desiredName);
 	}
 

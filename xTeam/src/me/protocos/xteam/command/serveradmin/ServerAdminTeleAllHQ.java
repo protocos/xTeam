@@ -6,6 +6,7 @@ import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.entity.Player;
@@ -31,20 +32,20 @@ public class ServerAdminTeleAllHQ extends ServerAdminCommand
 			{
 				if (playerTeam == null)
 				{
-					player.sendMessage(otherPlayer.getName() + " does not have a team and was not teleported");
+					new Message.Builder(otherPlayer.getName() + " does not have a team and was not teleported").addRecipients(serverAdmin).send(log);
 				}
 				else if (!playerTeam.hasHeadquarters())
 				{
-					player.sendMessage("No team headquarters set for team " + playerTeam.getName() + " for " + p.getName());
+					new Message.Builder("No team headquarters set for team " + playerTeam.getName() + " for " + p.getName()).addRecipients(serverAdmin).send(log);
 				}
 				else
 				{
 					otherPlayer.teleport(playerTeam.getHeadquarters().getLocation());
-					otherPlayer.sendMessage("You have been teleported to the team headquarters by an admin");
+					new Message.Builder("You have been teleported to the team headquarters by an admin").addRecipients(otherPlayer).send(log);
 				}
 			}
 		}
-		player.sendMessage("Players teleported");
+		new Message.Builder("Players teleported").addRecipients(serverAdmin).send(log);
 	}
 
 	@Override

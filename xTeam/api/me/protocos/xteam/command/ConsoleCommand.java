@@ -15,9 +15,9 @@ public abstract class ConsoleCommand extends BaseCommand
 	}
 
 	@Override
-	public final void preInitialize(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
+	public final void preInitialize(CommandContainer commandContainer) throws TeamException
 	{
 		sender = CommonUtil.assignFromType(commandContainer.getSender(), ConsoleCommandSender.class);
-		Requirements.checkPlayerCommandIsValid(commandContainer.getCommandWithoutID(), getPattern());
+		Requirements.checkCommandIsValid(commandContainer.getCommandWithoutID(), getPattern());
 	}
 }

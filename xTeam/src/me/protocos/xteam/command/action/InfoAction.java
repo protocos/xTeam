@@ -37,12 +37,13 @@ public class InfoAction
 			if (sender instanceof ConsoleCommandSender)
 			{
 				for (String line : infoTeam.getInfoFor(new ConsoleTeamEntity(log, sender)).split("\n"))
-					sender.sendMessage(line);
+					new Message.Builder(line).addRecipients(sender).disableFormatting().send(log);
 			}
 			else if (sender instanceof ITeamPlayer)
 			{
 				ITeamPlayer teamPlayer = CommonUtil.assignFromType(sender, ITeamPlayer.class);
-				teamPlayer.sendMessage(infoTeam.getInfoFor(teamPlayer));
+				for (String line : infoTeam.getInfoFor(teamPlayer).split("\n"))
+					new Message.Builder(line).addRecipients(teamPlayer).disableFormatting().send(log);
 			}
 		}
 	}
