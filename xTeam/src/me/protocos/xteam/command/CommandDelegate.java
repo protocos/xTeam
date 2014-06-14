@@ -69,7 +69,6 @@ public class CommandDelegate implements CommandExecutor
 	private void commandFailed(CommandSender sender)
 	{
 		new Message.Builder(MessageUtil.red((new TeamInvalidCommandException()).getMessage())).addRecipients(sender).send(log);
-		log.debug("server command failed: " + (new TeamInvalidCommandException()).getMessage());
 	}
 
 	private void logCommand(CommandContainer commandContainer)
