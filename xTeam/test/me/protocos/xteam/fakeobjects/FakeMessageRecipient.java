@@ -54,4 +54,10 @@ public class FakeMessageRecipient implements IMessageRecipient
 	{
 		return messages.toString().replaceAll(", ", "\n").replaceAll("\\[", "").replaceAll("\\]", "");
 	}
+
+	@Override
+	public boolean isOnline()
+	{
+		return true;
+	}
 }

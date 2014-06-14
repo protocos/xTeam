@@ -6,39 +6,34 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.message.MessageUtil;
-import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.PatternBuilder;
-import org.bukkit.entity.Player;
 
 public class TeamLeaderDemote extends TeamLeaderCommand
 {
 	private String otherPlayer;
-	private BukkitUtil bukkitUtil;
 
 	public TeamLeaderDemote(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
-		bukkitUtil = teamPlugin.getBukkitUtil();
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.demote(otherPlayer);
-		Player other = bukkitUtil.getPlayer(otherPlayer);
-		if (other != null)
-			other.sendMessage("You've been " + MessageUtil.red("demoted"));
-		teamPlayer.sendMessage("You" + MessageUtil.red(" demoted ") + otherPlayer);
+		ITeamPlayer demotePlayer = playerFactory.getPlayer(otherPlayer);
+		new Message.Builder("You have been demoted").addRecipients(demotePlayer).send(log);
+		new Message.Builder("You demoted " + otherPlayer).addRecipients(teamLeader).excludeRecipients(demotePlayer).send(log);
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		otherPlayer = commandContainer.getArgument(1);
-		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
 		ITeamPlayer demotePlayer = playerFactory.getPlayer(otherPlayer);
-		Requirements.checkPlayerIsTeammate(teamPlayer, other);
+		Requirements.checkPlayerHasTeam(demotePlayer);
+		Requirements.checkPlayerIsTeammate(teamLeader, demotePlayer);
 		Requirements.checkPlayerLeaderDemote(demotePlayer);
 	}
 

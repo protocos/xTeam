@@ -80,7 +80,7 @@ public class MessageTest
 	public void ShouldBeSetMessage()
 	{
 		//ASSEMBLE
-		message = new Message.Builder("refreshed").addRecipients(recipient1).build();
+		message = new Message.Builder("Message refreshed!").addRecipients(recipient1).build();
 		//ACT
 		message.setMessage("Message refreshed!");
 		//ASSERT

@@ -5,6 +5,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleList extends ConsoleCommand
@@ -18,11 +19,7 @@ public class ConsoleList extends ConsoleCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		List<String> teams = teamCoordinator.getTeams().getOrder();
-		String message = "Teams: " + teams.toString().replaceAll("\\[|\\]", "");
-		if (teams.isEmpty())
-			sender.sendMessage("There are no teams");
-		else
-			sender.sendMessage(message);
+		new Message.Builder(!teams.isEmpty() ? "Teams: " + teams.toString().replaceAll("\\[|\\]", "") : "There are no teams").addRecipients(sender).send(log);
 	}
 
 	@Override

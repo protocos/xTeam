@@ -14,6 +14,7 @@ import me.protocos.xteam.util.PatternBuilder;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class Requirements
 {
@@ -25,7 +26,7 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerCommandIsValid(String command, String pattern) throws TeamInvalidCommandException
+	public static void checkCommandIsValid(String command, String pattern) throws TeamInvalidCommandException
 	{
 		if (!new PatternBuilder(pattern).ignoreCase().matches(command))
 		{
@@ -361,9 +362,9 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerWorldDisabled(TeamPlayer teamPlayer) throws TeamPlayerDisabledWorldException
+	public static void checkPlayerWorldDisabled(Player player) throws TeamPlayerDisabledWorldException
 	{
-		if (Configuration.DISABLED_WORLDS.contains(teamPlayer.getWorld().getName()))
+		if (Configuration.DISABLED_WORLDS.contains(player.getWorld().getName()))
 		{
 			throw new TeamPlayerDisabledWorldException();
 		}

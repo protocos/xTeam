@@ -65,7 +65,7 @@ public class TeamUserRallyTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rally".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You've been teleported to the rally point", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You have been teleported to the rally point", fakePlayerSender.getLastMessage());
 		Assert.assertEquals(rallyLocation, fakePlayerSender.getLocation());
 		Assert.assertEquals(beforeLocation, playerFactory.getPlayer("protocos").getReturnLocation());
 		Assert.assertTrue(team.hasRally());

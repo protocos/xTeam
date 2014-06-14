@@ -5,7 +5,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.message.MessageUtil;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleOpen extends ConsoleCommand
@@ -22,10 +22,7 @@ public class ConsoleOpen extends ConsoleCommand
 	{
 		ITeam team = teamCoordinator.getTeam(teamName);
 		team.setOpenJoining(!team.isOpenJoining());
-		if (team.isOpenJoining())
-			sender.sendMessage("Open joining is now " + MessageUtil.green("enabled") + " for team " + team.getName());
-		else
-			sender.sendMessage("Open joining is now " + MessageUtil.red("disabled") + " for team " + team.getName());
+		new Message.Builder("Open joining is now " + (team.isOpenJoining() ? "enabled" : "disabled") + " for " + team.getName()).addRecipients(sender).addRecipients(team).send(log);
 	}
 
 	@Override

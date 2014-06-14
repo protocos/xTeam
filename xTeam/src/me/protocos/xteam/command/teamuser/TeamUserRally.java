@@ -24,18 +24,18 @@ public class TeamUserRally extends TeamUserCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		Location rallyLocation = team.getRally();
-		teleportScheduler.teleport(teamPlayer, new Locatable(teamPlugin, "the rally point", rallyLocation));
+		teleportScheduler.teleport(teamUser, new Locatable(teamPlugin, "the rally point", rallyLocation));
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		Requirements.checkPlayerHasTeam(teamPlayer);
-		Requirements.checkPlayerNotDamaged(teamPlayer);
+		Requirements.checkPlayerHasTeam(teamUser);
+		Requirements.checkPlayerNotDamaged(teamUser);
 		Requirements.checkTeamHasRally(team);
-		Requirements.checkPlayerCanRally(teleportScheduler, teamPlayer);
-		Requirements.checkPlayerLastAttacked(teamPlayer);
-		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamPlayer);
+		Requirements.checkPlayerCanRally(teleportScheduler, teamUser);
+		Requirements.checkPlayerLastAttacked(teamUser);
+		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamUser);
 	}
 
 	@Override

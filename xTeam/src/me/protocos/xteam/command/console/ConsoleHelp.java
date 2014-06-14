@@ -5,6 +5,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.HelpPages;
 import me.protocos.xteam.util.PatternBuilder;
@@ -25,10 +26,10 @@ public class ConsoleHelp extends ConsoleCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		pages.setTitle(ChatColor.AQUA + "Console Commands: " + MessageUtil.highlightString(ChatColor.GRAY, "{optional} [required] pick/one"));
-		sender.sendMessage(pages.getTitle());
+		new Message.Builder(pages.getTitle()).addRecipients(sender).send(log);
 		for (int index = 0; index < pages.getNumLines(); index++)
 		{
-			sender.sendMessage(pages.getLine(index));
+			new Message.Builder(pages.getLine(index)).addRecipients(sender).send(log);
 		}
 	}
 

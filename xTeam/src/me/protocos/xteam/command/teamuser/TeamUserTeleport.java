@@ -24,7 +24,7 @@ public class TeamUserTeleport extends TeamUserCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		teleportScheduler.teleport(teamPlayer, teamMate);
+		teleportScheduler.teleport(teamUser, teamMate);
 	}
 
 	@Override
@@ -35,20 +35,20 @@ public class TeamUserTeleport extends TeamUserCommand
 		{
 			teammateName = commandContainer.getArgument(1);
 		}
-		Requirements.checkPlayerCanTeleport(teamPlayer);
-		Requirements.checkPlayerTeleportSelf(teamPlayer, teammateName);
+		Requirements.checkPlayerCanTeleport(teamUser);
+		Requirements.checkPlayerTeleportSelf(teamUser, teammateName);
 		if (teammateName == null)
 		{
-			Requirements.checkPlayerHasTeammatesOnline(teamPlayer);
-			teamMate = teleportScheduler.getClosestTeammate(teamPlayer);
+			Requirements.checkPlayerHasTeammatesOnline(teamUser);
+			teamMate = teleportScheduler.getClosestTeammate(teamUser);
 		}
 		else
 		{
 			ITeamPlayer other = playerFactory.getPlayer(teammateName);
 			Requirements.checkPlayerHasPlayedBefore(other);
-			Requirements.checkPlayerIsTeammate(teamPlayer, other);
+			Requirements.checkPlayerIsTeammate(teamUser, other);
 			Requirements.checkPlayerIsOnline(other);
-			for (TeamPlayer teammate : teamPlayer.getOnlineTeammates())
+			for (TeamPlayer teammate : teamUser.getOnlineTeammates())
 			{
 				if (teammateName.equalsIgnoreCase(teammate.getName()))
 				{
@@ -57,7 +57,7 @@ public class TeamUserTeleport extends TeamUserCommand
 				}
 			}
 		}
-		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamPlayer);
+		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamUser);
 		Requirements.checkPlayerTeammateIsOnline(teamMate);
 	}
 

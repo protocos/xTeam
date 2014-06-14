@@ -6,7 +6,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
-import me.protocos.xteam.exception.*;
+import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.util.BukkitUtil;

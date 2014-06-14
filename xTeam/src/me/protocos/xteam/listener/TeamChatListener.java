@@ -5,6 +5,7 @@ import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILog;
 import org.bukkit.ChatColor;
@@ -52,12 +53,12 @@ public class TeamChatListener implements Listener
 				if (Configuration.chatStatus.contains(playerName))
 				{
 					event.setCancelled(true);
-					team.sendMessage("[" + MessageUtil.getColor(Configuration.COLOR_NAME) + playerName + ChatColor.RESET + "] " + msg);
+					new Message.Builder("[" + MessageUtil.getColor(Configuration.COLOR_NAME) + playerName + ChatColor.RESET + "] " + msg).addRecipients(team).send(log);
 					for (String p : Configuration.spies)
 					{
 						ITeamPlayer spy = playerFactory.getPlayer(p);
 						if (!spy.isOnSameTeam(teamPlayer))
-							spy.sendMessage(MessageUtil.getColor(Configuration.COLOR_TAG) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg);
+							new Message.Builder(MessageUtil.getColor(Configuration.COLOR_TAG) + teamTag + ChatColor.DARK_GRAY + " <" + playerName + "> " + msg).addRecipients(spy).send(log);
 					}
 					log.info("[" + playerName + "] " + event.getMessage());
 				}

@@ -69,7 +69,7 @@ public class TeamLeaderDemoteTest
 	}
 
 	@Test
-	public void ShouldBeTeamAdminDemoteExecuteNoTeam()
+	public void ShouldBeTeamAdminDemoteExecuteSenderNoTeam()
 	{
 		//ASSEMBLE
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
@@ -78,6 +78,18 @@ public class TeamLeaderDemoteTest
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertTrue(teamCoordinator.getTeam("one").isAdmin("protocos"));
+		Assert.assertFalse(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeTeamAdminDemoteExecutePlayerNoTeam()
+	{
+		//ASSEMBLE
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote Lonely".split(" ")));
+		//ASSERT
+		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

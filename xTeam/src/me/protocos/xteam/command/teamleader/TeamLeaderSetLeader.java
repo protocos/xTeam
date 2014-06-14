@@ -6,6 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -22,11 +23,10 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.setLeader(otherPlayer);
-		team.promote(teamPlayer.getName());
+		team.promote(teamLeader.getName());
 		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
-		if (other.isOnline())
-			other.sendMessage("You are now the " + MessageUtil.green("team leader"));
-		teamPlayer.sendMessage(otherPlayer + " is now the " + MessageUtil.green("team leader") + " (you are an admin)" +
+		new Message.Builder("You are now the " + MessageUtil.green("team leader")).addRecipients(other).send(log);
+		teamLeader.sendMessage(otherPlayer + " is now the " + MessageUtil.green("team leader") + " (you are an admin)" +
 				"\nYou can now " + MessageUtil.red("leave") + " the team");
 	}
 
@@ -35,7 +35,7 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 	{
 		otherPlayer = commandContainer.getArgument(1);
 		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
-		Requirements.checkPlayerIsTeammate(teamPlayer, other);
+		Requirements.checkPlayerIsTeammate(teamLeader, other);
 	}
 
 	@Override

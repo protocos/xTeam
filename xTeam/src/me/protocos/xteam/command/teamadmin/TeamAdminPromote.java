@@ -6,6 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamAdminCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -23,9 +24,8 @@ public class TeamAdminPromote extends TeamAdminCommand
 	{
 		team.promote(otherPlayer);
 		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
-		if (other.isOnline())
-			other.sendMessage("You've been " + MessageUtil.green("promoted"));
-		teamPlayer.sendMessage("You" + MessageUtil.green(" promoted ") + otherPlayer);
+		new Message.Builder("You have been " + MessageUtil.green("promoted")).addRecipients(other).send(log);
+		new Message.Builder("You" + MessageUtil.green(" promoted ") + otherPlayer).addRecipients(teamAdmin).send(log);
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class TeamAdminPromote extends TeamAdminCommand
 	{
 		otherPlayer = commandContainer.getArgument(1);
 		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
-		Requirements.checkPlayerIsTeammate(teamPlayer, other);
+		Requirements.checkPlayerIsTeammate(teamAdmin, other);
 	}
 
 	@Override

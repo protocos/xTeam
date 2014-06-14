@@ -7,6 +7,7 @@ import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -22,21 +23,21 @@ public class TeamUserCreate extends TeamUserCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		String leader = teamPlayer.getName();
+		String leader = teamUser.getName();
 		Team newTeam = Team.createTeamWithLeader(teamPlugin, desiredName, leader);
 		teamCoordinator.createTeam(newTeam);
 		Configuration.lastCreated.put(leader, Long.valueOf(System.currentTimeMillis()));
-		teamPlayer.sendMessage("You " + MessageUtil.green("created") + " " + desiredName);
+		new Message.Builder("You " + MessageUtil.green("created") + " " + desiredName).addRecipients(teamUser).send(log);
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		desiredName = commandContainer.getArgument(1);
-		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
+		Requirements.checkPlayerDoesNotHaveTeam(teamUser);
 		Requirements.checkTeamOnlyJoinDefault(teamCoordinator, desiredName);
 		Requirements.checkTeamNameTooLong(desiredName);
-		Requirements.checkPlayerLastCreatedTeam(teamPlayer);
+		Requirements.checkPlayerLastCreatedTeam(teamUser);
 		Requirements.checkTeamNameAlphaNumeric(desiredName);
 		Requirements.checkTeamNameInUse(teamCoordinator, desiredName);
 	}

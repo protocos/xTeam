@@ -21,7 +21,7 @@ public class TeamLeaderRename extends TeamLeaderCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		renameTeamAction.actOn(teamPlayer, team.getName(), desiredName);
+		renameTeamAction.actOn(teamLeader, team.getName(), desiredName);
 	}
 
 	@Override

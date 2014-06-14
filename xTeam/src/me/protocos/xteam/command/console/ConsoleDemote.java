@@ -7,7 +7,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.message.MessageUtil;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleDemote extends ConsoleCommand
@@ -24,10 +24,9 @@ public class ConsoleDemote extends ConsoleCommand
 	{
 		ITeam team = teamCoordinator.getTeam(teamName);
 		team.demote(playerName);
-		sender.sendMessage("You" + MessageUtil.red(" demoted ") + playerName);
 		ITeamPlayer other = playerFactory.getPlayer(playerName);
-		if (other.isOnline())
-			other.sendMessage("You've been " + MessageUtil.red("demoted"));
+		new Message.Builder("You demoted " + playerName).addRecipients(sender).send(log);
+		new Message.Builder("You have been demoted").addRecipients(other).send(log);
 	}
 
 	@Override

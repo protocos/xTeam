@@ -1,6 +1,5 @@
 package me.protocos.xteam.command;
 
-import java.io.InvalidClassException;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
@@ -31,11 +30,7 @@ public abstract class BaseCommand
 
 	public abstract String getDescription();
 
-	protected abstract void preInitialize(CommandContainer commandContainer) throws TeamException, InvalidClassException;
-
-	protected void initializeData(@SuppressWarnings("unused") CommandContainer commandContainer)
-	{
-	}
+	protected abstract void preInitialize(CommandContainer commandContainer) throws TeamException;
 
 	protected abstract void checkCommandRequirements(CommandContainer commandContainer) throws TeamException;
 
@@ -54,11 +49,6 @@ public abstract class BaseCommand
 		catch (TeamException e)
 		{
 			new Message.Builder(MessageUtil.red(e.getMessage())).addRecipients(sender).disableFormatting().send(log);
-			log.debug("Command execute failed for reason: " + e.getMessage());
-		}
-		catch (InvalidClassException e)
-		{
-			e.printStackTrace();
 		}
 		return false;
 	}

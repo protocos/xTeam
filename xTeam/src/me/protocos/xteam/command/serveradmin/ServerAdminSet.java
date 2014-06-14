@@ -21,7 +21,7 @@ public class ServerAdminSet extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		set.actOn(player, playerName, teamName);
+		set.actOn(serverAdmin, playerName, teamName);
 	}
 
 	@Override

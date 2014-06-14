@@ -6,7 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.message.MessageUtil;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminTag extends ServerAdminCommand
@@ -23,9 +23,7 @@ public class ServerAdminTag extends ServerAdminCommand
 	{
 		ITeam changeTeam = teamCoordinator.getTeam(teamName);
 		changeTeam.setTag(desiredTag);
-		if (!changeTeam.containsPlayer(player.getName()))
-			player.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag);
-		changeTeam.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag + " by an admin");
+		new Message.Builder("The team tag has been set to " + desiredTag).addRecipients(serverAdmin).addRecipients(changeTeam).send(log);
 	}
 
 	@Override

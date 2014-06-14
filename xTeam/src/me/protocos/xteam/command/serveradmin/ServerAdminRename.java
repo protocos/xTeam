@@ -21,7 +21,7 @@ public class ServerAdminRename extends ServerAdminCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		renameTeamAction.actOn(teamPlayer, teamName, desiredName);
+		renameTeamAction.actOn(serverAdmin, teamName, desiredName);
 	}
 
 	@Override

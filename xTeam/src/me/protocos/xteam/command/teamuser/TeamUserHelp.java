@@ -7,6 +7,7 @@ import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.HelpPages;
 import me.protocos.xteam.util.PatternBuilder;
@@ -29,7 +30,7 @@ public class TeamUserHelp extends TeamUserCommand
 	{
 		pages.setTitle(ChatColor.AQUA + "Team Commands: [Page " + pageNum + "/" + pages.getTotalPages() + "] " + MessageUtil.highlightString(ChatColor.GRAY, "{optional} [required] pick/one"));
 		pageNum--;
-		teamPlayer.sendMessage(pages.getPage(pageNum));
+		new Message.Builder(pages.getPage(pageNum)).addRecipients(teamUser).send(log);
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class TeamUserHelp extends TeamUserCommand
 			pageNum = 1;
 		}
 		pages = new HelpPages();
-		List<String> availableCommands = commandManager.getAvailableCommandsFor(teamPlayer);
+		List<String> availableCommands = commandManager.getAvailableCommandsFor(teamUser);
 		pages.addLines(availableCommands);
 		Requirements.checkPlayerHasCommands(pages);
 		Requirements.checkPlayerCommandPageRange(pages, pageNum);

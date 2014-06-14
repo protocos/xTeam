@@ -5,8 +5,8 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.data.configuration.Configuration;
-import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -20,24 +20,19 @@ public class TeamUserLeave extends TeamUserCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		team.removePlayer(teamPlayer.getName());
+		team.removePlayer(teamUser.getName());
 		if (team.size() == 0 && !team.isDefaultTeam())
 			teamCoordinator.disbandTeam(team.getName());
-		Configuration.chatStatus.remove(teamPlayer.getName());
-		for (String teammate : team.getPlayers())
-		{
-			ITeamPlayer mate = playerFactory.getPlayer(teammate);
-			if (mate.isOnline())
-				mate.sendMessage(teamPlayer.getName() + " " + MessageUtil.red("left") + " your team");
-		}
-		teamPlayer.sendMessage("You " + MessageUtil.red("left") + " " + team.getName());
+		Configuration.chatStatus.remove(teamUser.getName());
+		new Message.Builder(teamUser.getName() + " " + MessageUtil.red("left") + " your team").addRecipients(team).send(log);
+		new Message.Builder("You " + MessageUtil.red("left") + " " + team.getName()).addRecipients(teamUser).send(log);
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		Requirements.checkPlayerHasTeam(teamPlayer);
-		Requirements.checkPlayerLeaderLeaving(teamPlayer);
+		Requirements.checkPlayerHasTeam(teamUser);
+		Requirements.checkPlayerLeaderLeaving(teamUser);
 	}
 
 	@Override

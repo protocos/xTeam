@@ -8,6 +8,7 @@ import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
@@ -86,10 +87,10 @@ public class TeamPlayerListener implements Listener
 						int index = r.nextInt(availableTeams.size());
 						ITeam team = availableTeams.get(index);
 						team.addPlayer(teamPlayer.getName());
-						teamPlayer.sendMessage("You " + MessageUtil.green("joined") + " " + team.getName());
+						new Message.Builder("You " + MessageUtil.green("joined") + " " + team.getName()).addRecipients(teamPlayer).send(log);
 						for (ITeamPlayer teammate : teamPlayer.getOnlineTeammates())
 						{
-							teammate.sendMessage(teamPlayer.getName() + " " + MessageUtil.green("joined") + " your team");
+							new Message.Builder(teamPlayer.getName() + " " + MessageUtil.green("joined") + " your team").addRecipients(teammate).send(log);
 						}
 						log.info("Added " + teamPlayer.getName() + " to team " + team.getName());
 					}
@@ -107,11 +108,11 @@ public class TeamPlayerListener implements Listener
 					if (team.hasHeadquarters())
 					{
 						teamPlayer.teleportTo(team.getHeadquarters());
-						teamPlayer.sendMessage(MessageUtil.red("You've been teleported to your Headquarters"));
+						new Message.Builder(MessageUtil.red("You have been teleported to your Headquarters")).addRecipients(teamPlayer).send(log);
 					}
 					else
 					{
-						teamPlayer.sendMessage(MessageUtil.red("Your team does not have an Headquarters"));
+						new Message.Builder(MessageUtil.red("Your team does not have an Headquarters")).addRecipients(teamPlayer).send(log);
 					}
 				}
 			}
@@ -157,7 +158,7 @@ public class TeamPlayerListener implements Listener
 					}
 					else
 					{
-						player.sendMessage(MessageUtil.red("You have not set a headquarters yet."));
+						new Message.Builder(MessageUtil.red("You have not set a headquarters yet.")).addRecipients(player).send(log);
 					}
 				}
 			}

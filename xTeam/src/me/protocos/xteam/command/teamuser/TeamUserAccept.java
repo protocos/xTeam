@@ -7,6 +7,7 @@ import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -23,17 +24,17 @@ public class TeamUserAccept extends TeamUserCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		inviteHandler.acceptInvite(teamPlayer);
-		teamPlayer.sendMessageToTeam(teamPlayer.getName() + " " + MessageUtil.green("joined") + " your team");
-		teamPlayer.sendMessage("You " + MessageUtil.green("joined") + " " + teamPlayer.getTeam().getName());
+		inviteHandler.acceptInvite(teamUser);
+		teamUser.sendMessageToTeam(teamUser.getName() + " " + MessageUtil.green("joined") + " your team");
+		new Message.Builder("You " + MessageUtil.green("joined") + " " + teamUser.getTeam().getName()).addRecipients(teamUser).send(log);
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		Requirements.checkPlayerDoesNotHaveTeam(teamPlayer);
-		Requirements.checkPlayerDoesNotHaveInvite(inviteHandler, teamPlayer);
-		ITeam inviteTeam = inviteHandler.getInviteTeam(teamPlayer.getName());
+		Requirements.checkPlayerDoesNotHaveTeam(teamUser);
+		Requirements.checkPlayerDoesNotHaveInvite(inviteHandler, teamUser);
+		ITeam inviteTeam = inviteHandler.getInviteTeam(teamUser.getName());
 		Requirements.checkTeamPlayerMax(teamCoordinator, inviteTeam.getName());
 	}
 

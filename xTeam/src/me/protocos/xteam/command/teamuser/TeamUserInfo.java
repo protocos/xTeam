@@ -21,13 +21,13 @@ public class TeamUserInfo extends TeamUserCommand
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		info.actOn(teamPlayer, other);
+		info.actOn(teamUser, other);
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		other = teamPlayer.getName();
+		other = teamUser.getName();
 		if (commandContainer.size() == 2)
 		{
 			other = commandContainer.getArgument(1);

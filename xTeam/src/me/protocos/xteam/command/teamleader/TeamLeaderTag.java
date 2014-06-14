@@ -6,6 +6,7 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
@@ -22,10 +23,10 @@ public class TeamLeaderTag extends TeamLeaderCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.setTag(desiredTag);
-		teamPlayer.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag);
-		for (ITeamPlayer mate : teamPlayer.getOnlineTeammates())
+		new Message.Builder("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag).addRecipients(teamLeader).send(log);
+		for (ITeamPlayer mate : teamLeader.getOnlineTeammates())
 		{
-			mate.sendMessage("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag);
+			new Message.Builder("The team tag has been " + MessageUtil.green("set") + " to " + desiredTag).addRecipients(mate).send(log);
 		}
 	}
 
