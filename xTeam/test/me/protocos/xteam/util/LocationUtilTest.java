@@ -1,6 +1,7 @@
 package me.protocos.xteam.util;
 
 import me.protocos.xteam.fakeobjects.FakeLocation;
+import me.protocos.xteam.message.MessageUtil;
 import org.bukkit.Location;
 import org.junit.After;
 import org.junit.Assert;
@@ -233,7 +234,7 @@ public class LocationUtilTest
 		Location location2 = new FakeLocation(0, 1, -1);
 		//ACT
 		//ASSERT
-		Assert.assertEquals("1 block to front, 1 block up", LocationUtil.getRelativePosition(location1, location2));
+		Assert.assertEquals("@ 1 block to front, 1 block up", MessageUtil.resetFormatting(LocationUtil.getRelativePosition(location1, location2).trim()));
 	}
 
 	@Test
@@ -244,7 +245,7 @@ public class LocationUtilTest
 		Location location2 = new FakeLocation(0, 10, -10);
 		//ACT
 		//ASSERT
-		Assert.assertEquals("10 blocks to front, 10 blocks up", LocationUtil.getRelativePosition(location1, location2));
+		Assert.assertEquals("@ 10 blocks to front, 10 blocks up", MessageUtil.resetFormatting(LocationUtil.getRelativePosition(location1, location2).trim()));
 	}
 
 	@Test
@@ -255,7 +256,7 @@ public class LocationUtilTest
 		Location location2 = new FakeLocation(50, 0, -100);
 		//ACT
 		//ASSERT
-		Assert.assertEquals("117 blocks to front-right", LocationUtil.getRelativePosition(location1, location2));
+		Assert.assertEquals("@ 117 blocks to front-right", MessageUtil.resetFormatting(LocationUtil.getRelativePosition(location1, location2).trim()));
 	}
 
 	@Test
@@ -266,7 +267,7 @@ public class LocationUtilTest
 		Location location2 = new FakeLocation(11, 0, 1000);
 		//ACT
 		//ASSERT
-		Assert.assertEquals("1202 blocks to back-left", LocationUtil.getRelativePosition(location1, location2));
+		Assert.assertEquals("@ 1202 blocks to back-left", MessageUtil.resetFormatting(LocationUtil.getRelativePosition(location1, location2).trim()));
 	}
 
 	@After

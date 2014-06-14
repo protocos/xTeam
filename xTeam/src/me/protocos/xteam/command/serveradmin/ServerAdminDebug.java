@@ -50,6 +50,10 @@ public class ServerAdminDebug extends ServerAdminCommand
 			for (ChatColor color : ChatColor.values())
 				new Message.Builder(color + color.name()).addRecipients(serverAdmin).disableFormatting().send(log);
 		}
+		else if (subCommand.equalsIgnoreCase("test"))
+		{
+			new Message.Builder("   1234567890 (100%,100%) 99999 blocks to front-right, 256 blocks down").addRecipients(serverAdmin).disableFormatting().send(log);
+		}
 		else
 		{
 			new Message.Builder("Options are: /team debug {yaw/directions/colors}")

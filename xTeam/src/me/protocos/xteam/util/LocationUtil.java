@@ -1,24 +1,31 @@
 package me.protocos.xteam.util;
 
 import me.protocos.xteam.model.Direction;
+import me.protocos.xteam.model.ILocatable;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.util.NumberConversions;
 
 public class LocationUtil
 {
+	public static String getAbsolutePosition(ILocatable location)
+	{
+		return " @ " + ChatColor.DARK_AQUA + location.getRelativeX() + " " + ChatColor.DARK_GREEN + location.getRelativeY() + " " + ChatColor.LIGHT_PURPLE + location.getRelativeZ() + ChatColor.RESET + " in \"" + location.getWorld().getName() + "\"";
+	}
+
 	public static String getRelativePosition(Location location1, Location location2)
 	{
 		Location flatLocation1 = new FlatLocation(location1);
 		Location flatLocation2 = new FlatLocation(location2);
 		if (flatLocation1.getWorld().equals(flatLocation2.getWorld()))
 		{
-			String position = "";
+			String position = "\n      @ ";
 			int distance = CommonUtil.round(flatLocation1.distance(flatLocation2));
 			if (distance > 0)
-				position += distance + CommonUtil.pluralizeBasedOn(" block", distance) + " to " +
+				position += "" + ChatColor.DARK_AQUA + distance + ChatColor.RESET + CommonUtil.pluralizeBasedOn(" block", distance) + " to " +
 						getRelativeAngleBetween(flatLocation1, flatLocation2);
 			else
-				position += "Here";
+				position = "Here";
 			position += getVerticleDifference(location1, location2);
 			return position;
 		}
@@ -29,7 +36,7 @@ public class LocationUtil
 	{
 		int diffY = CommonUtil.round(location2.getY() - location1.getY());
 		if (diffY != 0)
-			return ", " + (diffY >= 0 ? diffY + CommonUtil.pluralizeBasedOn(" block", diffY) + " up" : -1 * diffY + CommonUtil.pluralizeBasedOn(" block", diffY) + " down");
+			return ", " + (diffY >= 0 ? "" + ChatColor.LIGHT_PURPLE + diffY + ChatColor.RESET + CommonUtil.pluralizeBasedOn(" block", diffY) + " up" : "" + ChatColor.LIGHT_PURPLE + (-1 * diffY) + ChatColor.RESET + CommonUtil.pluralizeBasedOn(" block", diffY) + " down");
 		return "";
 	}
 

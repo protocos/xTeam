@@ -585,10 +585,10 @@ public class TeamPlayer implements ITeamPlayer, Entity, CommandSender
 				{
 					ILocatable locatable = (ILocatable) entity;
 					if (!entity.getName().equals(this.getName()))
-						location += " " + LocationUtil.getRelativePosition(locatable.getLocation(), this.getLocation());
+						location += LocationUtil.getRelativePosition(locatable.getLocation(), this.getLocation());
 				}
 				else
-					location += " Location: " + ChatColor.RED + this.getRelativeX() + " " + ChatColor.GREEN + this.getRelativeY() + " " + ChatColor.BLUE + this.getRelativeZ() + ChatColor.RESET + " in \"" + this.getWorld().getName() + "\"";
+					location += LocationUtil.getAbsolutePosition(this);
 			}
 			return ChatColor.GREEN + "   " + this.getName() + ChatColor.RESET + " (" + ChatColor.DARK_RED + this.getHealthLevel() + "%" + ChatColor.RESET + "/" + ChatColor.GOLD + this.getHungerLevel() + "%" + ChatColor.RESET + ")" + location;
 		}

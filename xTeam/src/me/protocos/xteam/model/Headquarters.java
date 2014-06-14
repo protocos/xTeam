@@ -164,6 +164,6 @@ public class Headquarters implements IHeadquarters
 			ILocatable locatable = CommonUtil.assignFromType(entity, ILocatable.class);
 			return ChatColor.RESET + "Team Headquarters: " + LocationUtil.getRelativePosition(locatable.getLocation(), this.getLocation());
 		}
-		return ChatColor.RESET + "Team Headquarters: " + MessageUtil.green("X:" + this.getRelativeX() + " Y:" + this.getRelativeY() + " Z:" + this.getRelativeZ());
+		return ChatColor.RESET + "Team Headquarters: " + LocationUtil.getAbsolutePosition(this);
 	}
 }
