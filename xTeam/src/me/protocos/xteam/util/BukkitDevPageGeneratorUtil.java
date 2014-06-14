@@ -133,8 +133,8 @@ public class BukkitDevPageGeneratorUtil
 			"# There is no permissions plugin on your server in which case I would recommend PermissionsEx as it is pretty simple and straightforward. \n" +
 			"# nopermissions is set to false inside the configuration file." +
 			"\n\n";
-	private static final String PLS_POST_TEH_SRC = "**Q: Can you post the source code online?**\n\n" +
-			"A: I do intend to post the source online once the project is out of Beta. For the time being, I would rather not contend with angry developers when I change the API at will. I still have much to learn in the way of development and more specifically API management and I don't feel like the project is ready for going public with the source code. That being said, I have found that [[http://jd.benow.ca/|JD-GUI]] is an extremely useful decompiler when you want to view someone's code and would recommend it to anyone who asks.\n\n";
+	private static final String PLS_POST_TEH_SRC = "**Q: Is the source code online?**\n\n" +
+			"A: Yes! Head on over to https://github.com/protocos/xTeam to get the latest version of the code!\n\n";
 	private static final String LANGUAGES = "**Q: Are multiple languages supported?**\n\n" +
 			"A: At the moment, only english is supported as it is the language I know the best. I do plan on adding multi-language support in the future, but I would need more help than just google translate to get it correct. Also, this would require an entire overhaul to the way messages are stored and displayed inside the plugin, so I would not expect it very soon.\n\n";
 	private static final String WHY_NO_UPDATE = "**Q: Why hasn't there been an update recently?**\n\n" +
