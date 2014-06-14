@@ -65,19 +65,19 @@ public class BukkitDevPageGeneratorUtil
 		TeamPlugin fakePlugin = FakeXTeam.asTeamPlugin();
 		fakePlugin.registerCommands(manager);
 		writer.write(TEAM_USER_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(true)))
+		for (String command : manager.getAvailableCommandsFor(FakeTeamPlayer.withUserPermissions()))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(TEAM_ADMIN_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(true)))
+		for (String command : manager.getAvailableCommandsFor(FakeTeamPlayer.withAdminPermissions()))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(TEAM_LEADER_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(true)))
+		for (String command : manager.getAvailableCommandsFor(FakeTeamPlayer.withLeaderPermissions()))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(SERVER_ADMIN_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeTeamPlayer(true)))
+		for (String command : manager.getAvailableCommandsFor(FakeTeamPlayer.withServerAdminPermissions()))
 			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(CONSOLE_COMMANDS);

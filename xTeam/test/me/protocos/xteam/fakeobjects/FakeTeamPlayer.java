@@ -18,11 +18,97 @@ import org.bukkit.plugin.Plugin;
 
 public class FakeTeamPlayer implements ITeamPlayer, CommandSender
 {
-	private boolean allPermissions;
-
-	public FakeTeamPlayer(boolean allPermissions)
+	private enum PermissionLevel
 	{
-		this.allPermissions = allPermissions;
+		DELEGATE,
+		SERVER_ADMIN,
+		TEAM_LEADER,
+		TEAM_ADMIN,
+		TEAM_USER,
+		ALL;
+	}
+
+	private PermissionLevel permissionLevel;
+	private String name;
+	private boolean allPermissions;
+	private boolean isOnSameTeam;
+	private Location location;
+
+	public static class Builder
+	{
+		private PermissionLevel permissionLevel = PermissionLevel.DELEGATE;
+		private String name = "player";
+		private boolean allPermissions = true;
+		private boolean isOnSameTeam = true;;
+		private Location location = new FakeLocation();
+
+		public Builder name(@SuppressWarnings("hiding") String name)
+		{
+			this.name = name;
+			return this;
+		}
+
+		public Builder allPermissions(@SuppressWarnings("hiding") boolean allPermissions)
+		{
+			this.allPermissions = allPermissions;
+			return this;
+		}
+
+		public Builder isOnSameTeam(@SuppressWarnings("hiding") boolean isOnSameTeam)
+		{
+			this.isOnSameTeam = isOnSameTeam;
+			return this;
+		}
+
+		public Builder location(@SuppressWarnings("hiding") Location location)
+		{
+			this.location = location;
+			return this;
+		}
+
+		public Builder serverAdminPermissions()
+		{
+			permissionLevel = PermissionLevel.SERVER_ADMIN;
+			return this;
+		}
+
+		public Builder leaderPermissions()
+		{
+			permissionLevel = PermissionLevel.TEAM_LEADER;
+			return this;
+		}
+
+		public Builder adminPermissions()
+		{
+			permissionLevel = PermissionLevel.TEAM_ADMIN;
+			return this;
+		}
+
+		public Builder userPermissions()
+		{
+			permissionLevel = PermissionLevel.TEAM_USER;
+			return this;
+		}
+
+		public Builder allPermissions()
+		{
+			permissionLevel = PermissionLevel.ALL;
+			return this;
+		}
+
+		public FakeTeamPlayer build()
+		{
+			return new FakeTeamPlayer(this);
+		}
+	}
+
+	private FakeTeamPlayer(Builder builder)
+	{
+		this.name = builder.name;
+		this.allPermissions = builder.allPermissions;
+		this.isOnSameTeam = builder.isOnSameTeam;
+		this.location = builder.location;
+		this.permissionLevel = builder.permissionLevel;
 	}
 
 	@Override
@@ -42,8 +128,7 @@ public class FakeTeamPlayer implements ITeamPlayer, CommandSender
 	@Override
 	public boolean isOnSameTeam(ITeamEntity entity)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return isOnSameTeam;
 	}
 
 	@Override
@@ -98,8 +183,7 @@ public class FakeTeamPlayer implements ITeamPlayer, CommandSender
 	@Override
 	public Location getLocation()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return location;
 	}
 
 	@Override
@@ -152,7 +236,7 @@ public class FakeTeamPlayer implements ITeamPlayer, CommandSender
 	}
 
 	@Override
-	public double getHealth()
+	public int getHealthLevel()
 	{
 		// TODO Auto-generated method stub
 		return 0;
@@ -168,14 +252,26 @@ public class FakeTeamPlayer implements ITeamPlayer, CommandSender
 	@Override
 	public String getName()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
 	public boolean hasPermission(IPermissible permissible)
 	{
-		return PermissionUtil.hasPermission(this, permissible);
+		if (permissionLevel == PermissionLevel.DELEGATE)
+			return PermissionUtil.hasPermission(this, permissible);
+		if (permissionLevel == PermissionLevel.SERVER_ADMIN && permissible.getPermissionNode().startsWith("xteam.core.serveradmin."))
+			return true;
+		if (permissionLevel == PermissionLevel.TEAM_LEADER && permissible.getPermissionNode().startsWith("xteam.core.leader."))
+			return true;
+		if (permissionLevel == PermissionLevel.TEAM_ADMIN && permissible.getPermissionNode().startsWith("xteam.core.admin."))
+			return true;
+		if (permissionLevel == PermissionLevel.TEAM_USER && permissible.getPermissionNode().startsWith("xteam.core.user."))
+			return true;
+		if (permissionLevel == PermissionLevel.ALL)
+			return true;
+		return false;
+
 	}
 
 	@Override
@@ -188,8 +284,7 @@ public class FakeTeamPlayer implements ITeamPlayer, CommandSender
 	@Override
 	public boolean isAdmin()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -202,8 +297,7 @@ public class FakeTeamPlayer implements ITeamPlayer, CommandSender
 	@Override
 	public boolean isLeader()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -385,5 +479,32 @@ public class FakeTeamPlayer implements ITeamPlayer, CommandSender
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public int getHungerLevel()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public static FakeTeamPlayer withServerAdminPermissions()
+	{
+		return new FakeTeamPlayer.Builder().serverAdminPermissions().build();
+	}
+
+	public static FakeTeamPlayer withLeaderPermissions()
+	{
+		return new FakeTeamPlayer.Builder().leaderPermissions().build();
+	}
+
+	public static FakeTeamPlayer withAdminPermissions()
+	{
+		return new FakeTeamPlayer.Builder().adminPermissions().build();
+	}
+
+	public static FakeTeamPlayer withUserPermissions()
+	{
+		return new FakeTeamPlayer.Builder().userPermissions().build();
 	}
 }

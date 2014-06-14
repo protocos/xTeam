@@ -66,35 +66,45 @@ public class MessageUtil
 	{
 		String returnMessage = resetFormatting(message);
 		//GREEN MESSAGES
-		returnMessage = returnMessage.replaceAll("added", green("added"));
-		returnMessage = returnMessage.replaceAll("renamed", green("renamed"));
-		returnMessage = returnMessage.replaceAll("created", green("created"));
-		returnMessage = returnMessage.replaceAll("teleported", green("teleported"));
-		returnMessage = returnMessage.replaceAll("refreshed", green("refreshed"));
-		returnMessage = returnMessage.replaceAll("enabled", green("enabled"));
-		returnMessage = returnMessage.replaceAll("promoted", green("promoted"));
-		returnMessage = returnMessage.replaceAll("team leader", green("team leader"));
-		returnMessage = returnMessage.replaceAll("set", green("set"));
-		returnMessage = returnMessage.replaceAll("no longer", green("no longer"));
-		returnMessage = returnMessage.replaceAll("invited", green("invited"));
-		returnMessage = returnMessage.replaceAll("joined", green("joined"));
-		returnMessage = returnMessage.replaceAll("your team", green("your team"));
-		returnMessage = returnMessage.replaceAll("Open", green("Open"));
-		returnMessage = returnMessage.replaceAll("Set", green("Set"));
+		returnMessage = replaceWithGreen(returnMessage, "added");
+		returnMessage = replaceWithGreen(returnMessage, "renamed");
+		returnMessage = replaceWithGreen(returnMessage, "created");
+		returnMessage = replaceWithGreen(returnMessage, "teleported");
+		returnMessage = replaceWithGreen(returnMessage, "refreshed");
+		returnMessage = replaceWithGreen(returnMessage, "enabled");
+		returnMessage = replaceWithGreen(returnMessage, "promoted");
+		returnMessage = replaceWithGreen(returnMessage, "team leader");
+		returnMessage = replaceWithGreen(returnMessage, "set");
+		returnMessage = replaceWithGreen(returnMessage, "no longer");
+		returnMessage = replaceWithGreen(returnMessage, "invited");
+		returnMessage = replaceWithGreen(returnMessage, "joined");
+		returnMessage = replaceWithGreen(returnMessage, "your team");
+		returnMessage = replaceWithGreen(returnMessage, "Open");
+		returnMessage = replaceWithGreen(returnMessage, "Set");
 		//RED MESSAGES
-		returnMessage = returnMessage.replaceAll("expired", red("expired"));
-		returnMessage = returnMessage.replaceAll("removed", red("removed"));
-		returnMessage = returnMessage.replaceAll("disbanded", red("disbanded"));
-		returnMessage = returnMessage.replaceAll("cancelled", red("cancelled"));
-		returnMessage = returnMessage.replaceAll("demoted", red("demoted"));
-		returnMessage = returnMessage.replaceAll("disabled", red("disabled"));
-		returnMessage = returnMessage.replaceAll("spying", red("spying"));
-		returnMessage = returnMessage.replaceAll("leave", red("leave"));
-		returnMessage = returnMessage.replaceAll("everyone", red("everyone"));
-		returnMessage = returnMessage.replaceAll("left", red("left"));
-		returnMessage = returnMessage.replaceAll("no", red("no"));
-		returnMessage = returnMessage.replaceAll("Closed", red("Closed"));
-		returnMessage = returnMessage.replaceAll("None set", red("None set"));
+		returnMessage = replaceWithRed(returnMessage, "expired");
+		returnMessage = replaceWithRed(returnMessage, "removed");
+		returnMessage = replaceWithRed(returnMessage, "disbanded");
+		returnMessage = replaceWithRed(returnMessage, "cancelled");
+		returnMessage = replaceWithRed(returnMessage, "demoted");
+		returnMessage = replaceWithRed(returnMessage, "disabled");
+		returnMessage = replaceWithRed(returnMessage, "spying");
+		returnMessage = replaceWithRed(returnMessage, "leave");
+		returnMessage = replaceWithRed(returnMessage, "everyone");
+		returnMessage = replaceWithRed(returnMessage, "left");
+		returnMessage = replaceWithRed(returnMessage, "no");
+		returnMessage = replaceWithRed(returnMessage, "Closed");
+		returnMessage = replaceWithRed(returnMessage, "None set");
 		return returnMessage;
+	}
+
+	private static String replaceWithGreen(String returnMessage, String word)
+	{
+		return returnMessage.replaceAll("\\b" + word + "\\b", green(word));
+	}
+
+	private static String replaceWithRed(String returnMessage, String word)
+	{
+		return returnMessage.replaceAll("\\b" + word + "\\b", red(word));
 	}
 }

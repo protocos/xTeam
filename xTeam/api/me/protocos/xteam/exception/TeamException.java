@@ -11,6 +11,7 @@ public abstract class TeamException extends Exception
 	{
 		super("Team exception");
 	}
+
 	public TeamException(String message)
 	{
 		super(message);

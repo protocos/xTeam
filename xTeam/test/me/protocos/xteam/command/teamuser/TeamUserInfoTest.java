@@ -13,6 +13,8 @@ import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakeTeamPlayer;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.InviteRequest;
 import org.junit.After;
 import org.junit.Before;
@@ -58,15 +60,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - ONE\n" +
-				"Team Tag - TeamAwesome\n" +
-				"Team Leader - kmlanglois\n" +
-				"Team Joining - Closed\n" +
-				"Team Headquarters - X:170 Y:65 Z:209\n" +
-				"Teammates online:\n" +
-				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
-				"    kmlanglois (100%) Location: 0 64 0 in \"world\""
-				, fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeTeamPlayer.Builder().name("protocos").build())), fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -78,12 +72,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info two".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - two\n" +
-				"Team Leader - mastermind\n" +
-				"Team Joining - Closed\n" +
-				"Team Headquarters - None set\n" +
-				"Teammates online:\n" +
-				"    mastermind", fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("two").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").isOnSameTeam(false).build())), fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -95,12 +84,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info mastermind".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - two\n" +
-				"Team Leader - mastermind\n" +
-				"Team Joining - Closed\n" +
-				"Team Headquarters - None set\n" +
-				"Teammates online:\n" +
-				"    mastermind", fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeamByPlayer("mastermind").getInfoFor(new FakeTeamPlayer.Builder().name("protocos").isOnSameTeam(false).build())), fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -123,13 +107,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info strandedhelix".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - red\n" +
-				"Team Tag - REDONE\n" +
-				"Team Joining - Open\n" +
-				"Team Headquarters - None set\n" +
-				"Teammates offline:\n" +
-				"    teammate\n" +
-				"    strandedhelix", fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeamByPlayer("strandedhelix").getInfoFor(new FakeTeamPlayer.Builder().name("protocos").isOnSameTeam(false).build())), fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -144,16 +122,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - red\n" +
-				"Team Tag - REDONE\n" +
-				"Team Admins - Lonely, strandedhelix\n" +
-				"Team Joining - Open\n" +
-				"Team Headquarters - None set\n" +
-				"Teammates online:\n" +
-				"    Lonely (100%) Location: 0 64 0 in \"world\"\n" +
-				"Teammates offline:\n" +
-				"    teammate was last online on Dec 31 @ 6:00 PM\n" +
-				"    strandedhelix was last online on Dec 31 @ 6:00 PM", fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("red").getInfoFor(new FakeTeamPlayer.Builder().name("strandedhelix").build())), fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -166,15 +135,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - ONE\n" +
-				"Team Tag - TeamAwesome\n" +
-				"Team Leader - kmlanglois\n" +
-				"Team Admins - protocos\n" +
-				"Team Joining - Closed\n" +
-				"Team Headquarters - X:170 Y:65 Z:209\n" +
-				"Teammates online:\n" +
-				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
-				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").build())), fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -187,15 +148,9 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - ONE\n" +
-				"Team Tag - TeamAwesome\n" +
-				"Team Leader - kmlanglois\n" +
-				"Team Joining - Closed\n" +
-				"Team Headquarters - 270 blocks to front-left, 65 blocks up\n" +
-				"Teammates online:\n" +
-				"    protocos (100%)\n" +
-				"    kmlanglois (100%) Here, 64 blocks up", fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeTeamPlayer.Builder().name("protocos").build())), fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
+		Configuration.DISPLAY_RELATIVE_COORDINATES = false;
 	}
 
 	@Test
@@ -207,15 +162,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - ONE\n" +
-				"Team Tag - TeamAwesome\n" +
-				"Team Leader - kmlanglois\n" +
-				"Team Joining - Closed\n" +
-				"Team Headquarters - X:170 Y:65 Z:209\n" +
-				"Team Invites - Lonely\n" +
-				"Teammates online:\n" +
-				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
-				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").build())), fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -228,13 +175,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info REDONE".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - red\n" +
-				"Team Tag - REDONE\n" +
-				"Team Joining - Open\n" +
-				"Team Headquarters - None set\n" +
-				"Teammates offline:\n" +
-				"    teammate\n" +
-				"    strandedhelix", fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("REDONE").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").isOnSameTeam(false).build())), fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -247,15 +188,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info TeamAwesome".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - ONE\n" +
-				"Team Tag - TeamAwesome\n" +
-				"Team Leader - kmlanglois\n" +
-				"Team Admins - protocos\n" +
-				"Team Joining - Closed\n" +
-				"Team Headquarters - X:170 Y:65 Z:209\n" +
-				"Teammates online:\n" +
-				"    protocos (100%) Location: 0 64 0 in \"world\"\n" +
-				"    kmlanglois (100%) Location: 0 64 0 in \"world\"", fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("TeamAwesome").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").build())), fakePlayerSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

@@ -5,6 +5,7 @@ import java.util.*;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.LimitedQueue;
 import me.protocos.xteam.message.IMessageRecorder;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -48,11 +49,11 @@ public class FakePlayerSender implements Player, CommandSender, IMessageRecorder
 
 	public FakePlayerSender(TeamPlugin teamPlugin, String name, Location location, boolean isOp)
 	{
+		this.teamPlugin = teamPlugin;
 		this.name = name;
 		this.location = location;
 		this.isOp = isOp;
 		messageLog = new LimitedQueue<String>(50);
-		this.teamPlugin = teamPlugin;
 	}
 
 	@Override
@@ -1065,7 +1066,7 @@ public class FakePlayerSender implements Player, CommandSender, IMessageRecorder
 	@Override
 	public void sendMessage(String message)
 	{
-		messageLog.offer(message.replaceAll("§.", ""));
+		messageLog.offer(message);
 	}
 
 	@Override
@@ -1640,13 +1641,13 @@ public class FakePlayerSender implements Player, CommandSender, IMessageRecorder
 	@Override
 	public String getLastMessage()
 	{
-		return messageLog.getLast();
+		return MessageUtil.resetFormatting(messageLog.getLast());
 	}
 
 	@Override
 	public String getAllMessages()
 	{
-		return messageLog.toString();
+		return MessageUtil.resetFormatting(messageLog.toString());
 	}
 
 	@Override

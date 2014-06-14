@@ -6,7 +6,9 @@ import org.bukkit.Location;
 
 public interface ITeamPlayer extends ITeamEntity, ILocatable
 {
-	public abstract double getHealth();
+	public abstract int getHealthLevel();
+
+	public abstract int getHungerLevel();
 
 	public abstract String getLastPlayed();
 

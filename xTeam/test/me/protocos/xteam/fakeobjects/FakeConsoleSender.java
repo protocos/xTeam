@@ -3,6 +3,7 @@ package me.protocos.xteam.fakeobjects;
 import java.util.Set;
 import me.protocos.xteam.collections.LimitedQueue;
 import me.protocos.xteam.message.IMessageRecorder;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
@@ -155,7 +156,7 @@ public class FakeConsoleSender implements ConsoleCommandSender, IMessageRecorder
 	@Override
 	public void sendMessage(String message)
 	{
-		messageLog.offer(message.replaceAll("§.", ""));
+		messageLog.offer(message);
 	}
 
 	@Override
@@ -182,13 +183,13 @@ public class FakeConsoleSender implements ConsoleCommandSender, IMessageRecorder
 	@Override
 	public String getLastMessage()
 	{
-		return messageLog.getLast();
+		return MessageUtil.resetFormatting(messageLog.getLast());
 	}
 
 	@Override
 	public String getAllMessages()
 	{
-		return messageLog.toString();
+		return MessageUtil.resetFormatting(messageLog.toString());
 	}
 
 	@Override

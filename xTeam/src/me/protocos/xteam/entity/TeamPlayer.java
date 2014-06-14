@@ -76,9 +76,15 @@ public class TeamPlayer implements ITeamPlayer, Entity, CommandSender
 	}
 
 	@Override
-	public double getHealth()
+	public int getHungerLevel()
 	{
-		return player.getHealth();
+		return player.getFoodLevel() * 5;
+	}
+
+	@Override
+	public int getHealthLevel()
+	{
+		return (int) (player.getHealth() * 5);
 	}
 
 	@Override
@@ -573,7 +579,6 @@ public class TeamPlayer implements ITeamPlayer, Entity, CommandSender
 		if (entity.isOnSameTeam(this))
 		{
 			String location = "";
-			int health = (int) this.getHealth();
 			if (Configuration.DISPLAY_COORDINATES)
 			{
 				if (Configuration.DISPLAY_RELATIVE_COORDINATES && entity instanceof ILocatable)
@@ -585,9 +590,9 @@ public class TeamPlayer implements ITeamPlayer, Entity, CommandSender
 				else
 					location += " Location: " + ChatColor.RED + this.getRelativeX() + " " + ChatColor.GREEN + this.getRelativeY() + " " + ChatColor.BLUE + this.getRelativeZ() + ChatColor.RESET + " in \"" + this.getWorld().getName() + "\"";
 			}
-			return ChatColor.GREEN + "    " + this.getName() + ChatColor.RESET + " (" + (health >= 15 ? ChatColor.GREEN : ChatColor.RED) + health * 5 + "%" + ChatColor.RESET + ")" + location;
+			return ChatColor.GREEN + "   " + this.getName() + ChatColor.RESET + " (" + ChatColor.DARK_RED + this.getHealthLevel() + "%" + ChatColor.RESET + "/" + ChatColor.GOLD + this.getHungerLevel() + "%" + ChatColor.RESET + ")" + location;
 		}
-		return ChatColor.GREEN + "    " + this.getName();
+		return ChatColor.GREEN + "   " + this.getName();
 	}
 
 	@Override

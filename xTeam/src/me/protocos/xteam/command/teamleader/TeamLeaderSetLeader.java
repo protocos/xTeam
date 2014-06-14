@@ -7,7 +7,6 @@ import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.message.Message;
-import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamLeaderSetLeader extends TeamLeaderCommand
@@ -25,9 +24,9 @@ public class TeamLeaderSetLeader extends TeamLeaderCommand
 		team.setLeader(otherPlayer);
 		team.promote(teamLeader.getName());
 		ITeamPlayer other = playerFactory.getPlayer(otherPlayer);
-		new Message.Builder("You are now the " + MessageUtil.green("team leader")).addRecipients(other).send(log);
-		teamLeader.sendMessage(otherPlayer + " is now the " + MessageUtil.green("team leader") + " (you are an admin)" +
-				"\nYou can now " + MessageUtil.red("leave") + " the team");
+		new Message.Builder("You are now the team leader").addRecipients(other).send(log);
+		new Message.Builder(otherPlayer + " is now the team leader (you are an admin)" +
+				"\nYou can now leave the team").addRecipients(teamLeader).send(log);
 	}
 
 	@Override

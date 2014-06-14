@@ -97,8 +97,7 @@ public class Message
 		{
 			if (log != null)
 				log.debug("    @ " + recipient.getName() + " server response: \"" + MessageUtil.resetFormatting(message) + "\"");
-			if (recipient.isOnline())
-				recipient.sendMessage(message);
+			recipient.sendMessage(message);
 		}
 	}
 

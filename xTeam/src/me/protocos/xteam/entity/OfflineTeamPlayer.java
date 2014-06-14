@@ -91,9 +91,15 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	}
 
 	@Override
-	public double getHealth()
+	public int getHungerLevel()
 	{
-		return -1.0;
+		return -1;
+	}
+
+	@Override
+	public int getHealthLevel()
+	{
+		return -1;
 	}
 
 	@Override
@@ -249,9 +255,9 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	@Override
 	public String getInfoFor(ITeamEntity entity)
 	{
-		if (this.isOnSameTeam(entity))
-			return MessageUtil.red("    " + this.getName()) + " was last online on " + this.getLastPlayed();
-		return MessageUtil.red("    " + this.getName());
+		if (entity.isOnSameTeam(this))
+			return MessageUtil.red("   " + this.getName()) + " was last online on " + this.getLastPlayed();
+		return MessageUtil.red("   " + this.getName());
 	}
 
 	@Override

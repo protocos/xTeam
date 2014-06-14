@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.action;
 
-import java.util.List;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.core.IPlayerFactory;
@@ -36,8 +35,9 @@ public class InfoAction
 		{
 			if (sender instanceof ConsoleCommandSender)
 			{
-				for (String line : infoTeam.getInfoFor(new ConsoleTeamEntity(log, sender)).split("\n"))
-					new Message.Builder(line).addRecipients(sender).disableFormatting().send(log);
+				ConsoleTeamEntity consoleTeamEntity = new ConsoleTeamEntity(sender);
+				for (String line : infoTeam.getInfoFor(consoleTeamEntity).split("\n"))
+					new Message.Builder(line).addRecipients(consoleTeamEntity).disableFormatting().send(log);
 			}
 			else if (sender instanceof ITeamPlayer)
 			{
@@ -59,83 +59,4 @@ public class InfoAction
 			Requirements.checkPlayerHasTeam(playerFactory.getPlayer(other));
 		}
 	}
-}
-
-class ConsoleTeamEntity implements ITeamEntity
-{
-	private ILog log;
-	private CommandSender sender;
-
-	public ConsoleTeamEntity(ILog log, CommandSender sender)
-	{
-		this.log = log;
-		this.sender = sender;
-	}
-
-	@Override
-	public void sendMessage(String message)
-	{
-		new Message.Builder(message).addRecipients(sender).send(log);
-	}
-
-	@Override
-	public ITeam getTeam()
-	{
-		return null;
-	}
-
-	@Override
-	public String getName()
-	{
-		return sender.getName();
-	}
-
-	@Override
-	public boolean hasTeam()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isOnSameTeam(ITeamEntity entity)
-	{
-		return true;
-	}
-
-	@Override
-	public boolean isOnline()
-	{
-		return true;
-	}
-
-	@Override
-	public boolean isVulnerable()
-	{
-		return false;
-	}
-
-	@Override
-	public List<ITeamPlayer> getTeammates()
-	{
-		return CommonUtil.emptyList();
-	}
-
-	@Override
-	public List<TeamPlayer> getOnlineTeammates()
-	{
-		return CommonUtil.emptyList();
-	}
-
-	@Override
-	public List<OfflineTeamPlayer> getOfflineTeammates()
-	{
-		return CommonUtil.emptyList();
-	}
-
-	@Override
-	public String getInfoFor(ITeamEntity entity)
-	{
-		return this.getName();
-	}
-
 }

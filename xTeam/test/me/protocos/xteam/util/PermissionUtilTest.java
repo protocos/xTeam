@@ -10,9 +10,12 @@ import org.junit.Test;
 
 public class PermissionUtilTest
 {
+	private FakeTeamPlayer teamPlayer;
+
 	@Before
 	public void setup()
 	{
+		teamPlayer = new FakeTeamPlayer.Builder().allPermissions(false).build();
 	}
 
 	@Test
@@ -20,7 +23,6 @@ public class PermissionUtilTest
 	{
 		//ASSEMBLE
 		Configuration.NO_PERMISSIONS = true;
-		FakeTeamPlayer teamPlayer = new FakeTeamPlayer(false);
 		//ACT
 		//ASSERT
 		Assert.assertTrue(teamPlayer.hasPermission(new Permissible("xteam.core.user.permission")));
@@ -31,7 +33,6 @@ public class PermissionUtilTest
 	{
 		//ASSEMBLE
 		Configuration.NO_PERMISSIONS = true;
-		FakeTeamPlayer teamPlayer = new FakeTeamPlayer(false);
 		//ACT
 		//ASSERT
 		Assert.assertTrue(teamPlayer.hasPermission(new Permissible("xteam.core.admin.permission")));
@@ -42,7 +43,6 @@ public class PermissionUtilTest
 	{
 		//ASSEMBLE
 		Configuration.NO_PERMISSIONS = true;
-		FakeTeamPlayer teamPlayer = new FakeTeamPlayer(false);
 		//ACT
 		//ASSERT
 		Assert.assertTrue(teamPlayer.hasPermission(new Permissible("xteam.core.leader.permission")));
@@ -52,7 +52,6 @@ public class PermissionUtilTest
 	public void ShouldBeHelpPermission()
 	{
 		//ASSEMBLE
-		FakeTeamPlayer teamPlayer = new FakeTeamPlayer(false);
 		//ACT
 		//ASSERT
 		Assert.assertTrue(teamPlayer.hasPermission(new Permissible("help")));
@@ -63,7 +62,6 @@ public class PermissionUtilTest
 	{
 		//ASSEMBLE
 		Configuration.NO_PERMISSIONS = true;
-		FakeTeamPlayer teamPlayer = new FakeTeamPlayer(false);
 		//ACT
 		//ASSERT
 		Assert.assertTrue(teamPlayer.hasPermission(new Permissible("xteam.core.ANYTHING.info")));

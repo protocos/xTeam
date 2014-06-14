@@ -10,23 +10,36 @@ import org.bukkit.plugin.Plugin;
 
 public class FakeCommandSender implements CommandSender
 {
-	String name;
-	boolean isOp;
+	private String name;
+	private boolean isOp;
 
-	public FakeCommandSender()
+	public static class Builder
 	{
-		this("sender");
+		private String name = "sender";
+		private boolean isOp;
+
+		public Builder name(@SuppressWarnings("hiding") String name)
+		{
+			this.name = name;
+			return this;
+		}
+
+		public Builder op(@SuppressWarnings("hiding") boolean isOp)
+		{
+			this.isOp = isOp;
+			return this;
+		}
+
+		public FakeCommandSender build()
+		{
+			return new FakeCommandSender(this);
+		}
 	}
 
-	public FakeCommandSender(String name)
+	private FakeCommandSender(Builder builder)
 	{
-		this(name, false);
-	}
-
-	public FakeCommandSender(String name, boolean isOp)
-	{
-		this.name = name;
-		this.isOp = isOp;
+		this.name = builder.name;
+		this.isOp = builder.isOp;
 	}
 
 	@Override
@@ -85,7 +98,7 @@ public class FakeCommandSender implements CommandSender
 	}
 
 	@Override
-	public boolean hasPermission(String arg0)
+	public boolean hasPermission(String permission)
 	{
 		// TODO Auto-generated method stub
 		return false;

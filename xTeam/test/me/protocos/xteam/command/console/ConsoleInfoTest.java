@@ -5,11 +5,14 @@ import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamInvalidCommandException;
 import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.fakeobjects.FakeConsoleTeamEntity;
+import me.protocos.xteam.message.MessageUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +20,7 @@ import org.junit.Test;
 public class ConsoleInfoTest
 {
 	private TeamPlugin teamPlugin;
+	private ITeamCoordinator teamCoordinator;
 	private FakeConsoleSender fakeConsoleSender;
 	private ConsoleCommand fakeCommand;
 
@@ -24,6 +28,7 @@ public class ConsoleInfoTest
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
+		teamCoordinator = teamPlugin.getTeamCoordinator();
 		fakeConsoleSender = new FakeConsoleSender();
 		fakeCommand = new ConsoleInfo(teamPlugin);
 		teamPlugin.getTeamCoordinator();
@@ -46,15 +51,7 @@ public class ConsoleInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info protocos".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - ONE" +
-				"\nTeam Tag - TeamAwesome" +
-				"\nTeam Leader - kmlanglois" +
-				"\nTeam Joining - Closed" +
-				"\nTeam Headquarters - X:170 Y:65 Z:209" +
-				"\nTeammates online:" +
-				"\n    protocos (100%) Location: 0 64 0 in \"world\"" +
-				"\n    kmlanglois (100%) Location: 0 64 0 in \"world\"",
-				fakeConsoleSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeamByPlayer("protocos").getInfoFor(new FakeConsoleTeamEntity())), fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -65,13 +62,7 @@ public class ConsoleInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info two".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - two" +
-				"\nTeam Leader - mastermind" +
-				"\nTeam Joining - Closed" +
-				"\nTeam Headquarters - None set" +
-				"\nTeammates online:" +
-				"\n    mastermind (100%) Location: 0 64 0 in \"world\"",
-				fakeConsoleSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("two").getInfoFor(new FakeConsoleTeamEntity())), fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -83,15 +74,7 @@ public class ConsoleInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info one".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Team Name - ONE" +
-				"\nTeam Tag - TeamAwesome" +
-				"\nTeam Leader - kmlanglois" +
-				"\nTeam Joining - Closed" +
-				"\nTeam Headquarters - X:170 Y:65 Z:209" +
-				"\nTeammates online:" +
-				"\n    protocos (100%) Location: 0 64 0 in \"world\"" +
-				"\n    kmlanglois (100%) Location: 0 64 0 in \"world\"",
-				fakeConsoleSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeConsoleTeamEntity())), fakeConsoleSender.getAllMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 		Configuration.DISPLAY_RELATIVE_COORDINATES = false;
 	}
