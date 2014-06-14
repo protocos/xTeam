@@ -8,6 +8,7 @@ import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.LocationUtil;
 import me.protocos.xteam.util.PatternBuilder;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class ServerAdminDebug extends ServerAdminCommand
@@ -44,9 +45,14 @@ public class ServerAdminDebug extends ServerAdminCommand
 				message.send(log);
 			}
 		}
+		else if (subCommand.equalsIgnoreCase("colors"))
+		{
+			for (ChatColor color : ChatColor.values())
+				new Message.Builder(color + color.name()).addRecipients(serverAdmin).disableFormatting().send(log);
+		}
 		else
 		{
-			new Message.Builder("Options are: /team debug {yaw/directions}")
+			new Message.Builder("Options are: /team debug {yaw/directions/colors}")
 					.addRecipients(serverAdmin)
 					.send(log);
 		}
