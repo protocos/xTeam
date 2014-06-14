@@ -28,13 +28,14 @@ public class CommandManager implements ICommandManager
 
 	private String modifyPattern(String commandPattern)
 	{
-		return new PatternBuilder().append(commandPattern.replaceAll("\\\\(s|S)(\\+|\\*)", "").replaceAll("\\[0\\-9\\-\\]\\+|\\[\\]\\+", "")).whiteSpaceOptional().repeatUnlimited(new PatternBuilder().append("\\?+").whiteSpaceOptional()).toString();
+		return new PatternBuilder().append(commandPattern.replaceAll("\\\\(s|S)(\\+|\\*)", "").replaceAll("\\[0\\-9\\-\\\\.\\]\\+|\\[\\]\\+", "")).whiteSpaceOptional().repeatUnlimited(new PatternBuilder().append("\\?+").whiteSpaceOptional()).toString();
 	}
 
 	@Override
 	public String getHelp(CommandContainer commandContainer)
 	{
 		for (BaseCommand command : commands)
+		{
 			if (commandContainer.sentFromConsole() && command instanceof ConsoleCommand && PermissionUtil.hasPermission(commandContainer.getSender(), command) && commandContainer.getCommandWithoutID().matches(modifyPattern(command.getPattern())))
 				return MessageUtil.highlightString(ChatColor.GRAY, "Console Parameters: {optional} [required] pick/one\n") +
 						MessageUtil.highlightString(ChatColor.GRAY, "Usage: " + command.getUsage() + " - " + command.getDescription());
@@ -50,6 +51,7 @@ public class CommandManager implements ICommandManager
 			else if (commandContainer.sentFromPlayer() && command instanceof TeamUserCommand && PermissionUtil.hasPermission(commandContainer.getSender(), command) && commandContainer.getCommandWithoutID().matches(modifyPattern(command.getPattern())))
 				return MessageUtil.highlightString(ChatColor.RESET, MessageUtil.formatForUser("Team User") + " Parameters: {optional} [required] pick/one\n") +
 						"Usage: " + MessageUtil.formatForUser(command.getUsage() + " - " + command.getDescription());
+		}
 		return null;
 	}
 
