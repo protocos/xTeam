@@ -176,7 +176,6 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 		{
 			ITeam team = event.getTeam();
 			PreparedStatement statement = prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
-			//			PreparedStatement statement = db.getConnection().prepareStatement("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
 			insertTeamDataIntoStatement(statement, team);
 			insert(statement);
 			statement.close();
@@ -286,7 +285,7 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 		PropertyList propertyList = new PropertyList();
 		String[] pieces = mysql.split(":");
 		if (pieces.length != 6)
-			throw new IllegalArgumentException(mysql);
+			throw new IllegalArgumentException("Invalid argument for storagetype: '" + mysql + "'");
 		propertyList.put("host", pieces[1]);
 		propertyList.put("port", pieces[2]);
 		propertyList.put("databasename", pieces[3]);
