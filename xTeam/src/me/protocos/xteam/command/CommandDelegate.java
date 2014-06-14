@@ -43,7 +43,7 @@ public class CommandDelegate implements CommandExecutor
 				else
 				{
 					for (String line : help.split("\n"))
-						new Message.Builder(line).addRecipients(sender).send(log);
+						new Message.Builder(line).addRecipients(sender).disableFormatting().send(log);
 				}
 			}
 			else
