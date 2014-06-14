@@ -77,7 +77,7 @@ public class DataStorageFactory
 		}
 		else
 		{
-			this.log.error("" + strategy + " is not a valid storage type");
+			this.log.error("'" + strategy + "' is not a valid storage type");
 		}
 		if (persistenceLayer == null)
 		{
