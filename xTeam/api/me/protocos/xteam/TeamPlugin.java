@@ -113,15 +113,32 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 		return log;
 	}
 
-	public void load()
-	{
-	}
+	public abstract void load();
+
+	public abstract void enable();
+
+	public abstract void disable();
 
 	@Override
 	public final void onLoad()
 	{
 		this.load();
-		this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " loaded");
+		this.getLog().debug("" + this.getPluginName() + " v" + this.getVersion() + " loaded");
+	}
+
+	@Override
+	public final void onEnable()
+	{
+		this.enable();
+		this.getLog().debug(this.getPluginName() + " v" + this.getVersion() + " enabled");
+	}
+
+	@Override
+	public final void onDisable()
+	{
+		this.disable();
+		this.getLog().debug(this.getPluginName() + " v" + this.getVersion() + " disabled");
+		this.getLog().close();
 	}
 
 	public abstract void read();

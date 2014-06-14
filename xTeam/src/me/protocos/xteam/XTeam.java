@@ -63,19 +63,7 @@ public final class XTeam extends TeamPlugin
 		persistenceLayer.write();
 	}
 
-	@Override
-	public void onEnable()
-	{
-		this.enable();
-	}
-
-	@Override
-	public void onDisable()
-	{
-		this.disable();
-	}
-
-	private void enable()
+	public void enable()
 	{
 		try
 		{
@@ -85,7 +73,6 @@ public final class XTeam extends TeamPlugin
 			pm.registerEvents(new TeamChatListener(this), this);
 			this.getCommand("team").setExecutor(commandExecutor);
 			this.read();
-			this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " enabled");
 		}
 		catch (Exception e)
 		{
@@ -93,7 +80,7 @@ public final class XTeam extends TeamPlugin
 		}
 	}
 
-	private void disable()
+	public void disable()
 	{
 		try
 		{
@@ -107,8 +94,6 @@ public final class XTeam extends TeamPlugin
 				log.info("Cancelling task id: " + task.getTaskId());
 				task.cancel();
 			}
-			this.getLog().debug("[" + this.getPluginName() + "] v" + this.getVersion() + " disabled");
-			this.getLog().close();
 		}
 		catch (Exception e)
 		{
