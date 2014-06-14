@@ -29,7 +29,7 @@ public class TeamUserMainHelp extends TeamUserCommand
 		message += "\n" + ((temp = ChatColor.YELLOW) + commandID + " [command]" + ChatColor.RESET + " = command for " + temp + "TEAM ADMINS");
 		message += "\n" + ((temp = ChatColor.LIGHT_PURPLE) + commandID + " [command]" + ChatColor.RESET + " = command for " + temp + "TEAM LEADERS");
 		message += "\n" + (ChatColor.DARK_RED + "Report BUGS to " + ChatColor.GRAY + "http://dev.bukkit.org/server-mods/xteam/");
-		new Message.Builder(message).addRecipients(teamUser).send(log);
+		new Message.Builder(message).addRecipients(teamUser).disableFormatting().send(log);
 	}
 
 	@Override

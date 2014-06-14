@@ -26,11 +26,13 @@ public class ConsoleHelp extends ConsoleCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		pages.setTitle(ChatColor.AQUA + "Console Commands: " + MessageUtil.highlightString(ChatColor.GRAY, "{optional} [required] pick/one"));
-		new Message.Builder(pages.getTitle()).addRecipients(sender).send(log);
-		for (int index = 0; index < pages.getNumLines(); index++)
-		{
-			new Message.Builder(pages.getLine(index)).addRecipients(sender).send(log);
-		}
+		for (String line : pages.toString().split("\n"))
+			new Message.Builder(line).addRecipients(sender).disableFormatting().send(log);
+		//		new Message.Builder(pages.getTitle()).addRecipients(sender).send(log);
+		//		for (int index = 0; index < pages.getNumLines(); index++)
+		//		{
+		//			new Message.Builder(pages.getLine(index)).addRecipients(sender).send(log);
+		//		}
 	}
 
 	@Override

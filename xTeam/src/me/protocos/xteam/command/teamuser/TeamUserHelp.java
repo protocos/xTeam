@@ -30,7 +30,7 @@ public class TeamUserHelp extends TeamUserCommand
 	{
 		pages.setTitle(ChatColor.AQUA + "Team Commands: [Page " + pageNum + "/" + pages.getTotalPages() + "] " + MessageUtil.highlightString(ChatColor.GRAY, "{optional} [required] pick/one"));
 		pageNum--;
-		new Message.Builder(pages.getPage(pageNum)).addRecipients(teamUser).send(log);
+		new Message.Builder(pages.getPage(pageNum)).addRecipients(teamUser).disableFormatting().send(log);
 	}
 
 	@Override
