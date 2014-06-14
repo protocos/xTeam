@@ -75,6 +75,6 @@ public class LimitedQueue<T> extends AbstractQueue<T>
 		{
 			result += element + "\n";
 		}
-		return result.trim();
+		return result;
 	}
 }
