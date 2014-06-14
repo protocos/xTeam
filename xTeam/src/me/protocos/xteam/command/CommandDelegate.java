@@ -30,6 +30,7 @@ public class CommandDelegate implements CommandExecutor
 		try
 		{
 			CommandContainer commandContainer = new CommandContainer(sender, commandID, args);
+			logCommand(commandContainer);
 			if (new PatternBuilder()
 					.append("\\?+")
 					.whiteSpaceOptional()
@@ -49,7 +50,6 @@ public class CommandDelegate implements CommandExecutor
 			else
 			{
 				BaseCommand command = manager.match(commandContainer);
-				logCommand(commandContainer);
 				if (command == null)
 				{
 					commandFailed(sender);
