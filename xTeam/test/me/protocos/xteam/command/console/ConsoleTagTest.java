@@ -86,7 +86,7 @@ public class ConsoleTagTest
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "tag two ���������".split(" ")));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "tag two ????".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
