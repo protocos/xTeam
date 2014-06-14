@@ -691,22 +691,22 @@ public class Team implements ITeam
 
 	private String getInfo(ITeamEntity entity)
 	{
-		String message = (ChatColor.RESET + "Team Name - " + MessageUtil.green(this.getName()));
+		String message = (ChatColor.RESET + "Team Name: " + MessageUtil.green(this.getName()));
 		if (!this.getTag().equals(this.getName()))
-			message += "\n" + (ChatColor.RESET + "Team Tag - " + MessageUtil.green(this.getTag()));
+			message += "\n" + (ChatColor.RESET + "Team Tag: " + MessageUtil.green(this.getTag()));
 		if (this.hasLeader())
-			message += "\n" + (ChatColor.RESET + "Team Leader - " + MessageUtil.green(this.getLeader()));
+			message += "\n" + (ChatColor.RESET + "Team Leader: " + MessageUtil.green(this.getLeader()));
 		if (this.admins.size() > 0)
-			message += "\n" + (ChatColor.RESET + "Team Admins - " + MessageUtil.green(this.admins.toString().replaceAll("\\[|\\]" + (this.hasLeader() ? "|" + this.getLeader() + ", " : ""), "")));
-		message += "\n" + (ChatColor.RESET + "Team Joining - " + (this.isOpenJoining() ? (MessageUtil.green("Open")) : (MessageUtil.red("Closed"))));
+			message += "\n" + (ChatColor.RESET + "Team Admins: " + MessageUtil.green(this.admins.toString().replaceAll("\\[|\\]" + (this.hasLeader() ? "|" + this.getLeader() + ", " : ""), "")));
+		message += "\n" + (ChatColor.RESET + "Team Joining: " + (this.isOpenJoining() ? (MessageUtil.green("Open")) : (MessageUtil.red("Closed"))));
 		if (entity.isOnSameTeam(this))
 		{
 			message += "\n" + this.getHeadquarters().getInfoFor(entity);
 		}
 		else
-			message += "\n" + (ChatColor.RESET + "Team Headquarters - " + (this.hasHeadquarters() ? (MessageUtil.green("Set")) : (MessageUtil.red("None set"))));
+			message += "\n" + (ChatColor.RESET + "Team Headquarters: " + (this.hasHeadquarters() ? (MessageUtil.green("Set")) : (MessageUtil.red("None set"))));
 		if (!"".equals(inviteHandler.getInvitesFromTeam(this)))
-			message += "\n" + (ChatColor.RESET + "Team Invites - " + MessageUtil.green(inviteHandler.getInvitesFromTeam(this)));
+			message += "\n" + (ChatColor.RESET + "Team Invites: " + MessageUtil.green(inviteHandler.getInvitesFromTeam(this)));
 		List<TeamPlayer> onlineTeammates = this.getOnlineTeammates();
 		if (onlineTeammates.size() > 0)
 		{

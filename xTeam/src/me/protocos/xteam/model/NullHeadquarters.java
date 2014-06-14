@@ -100,7 +100,7 @@ public class NullHeadquarters implements IHeadquarters
 	@Override
 	public String getInfoFor(ITeamEntity entity)
 	{
-		return ChatColor.RESET + "Team Headquarters - " + MessageUtil.red("None set");
+		return ChatColor.RESET + "Team Headquarters: " + MessageUtil.red("None set");
 	}
 
 	@Override

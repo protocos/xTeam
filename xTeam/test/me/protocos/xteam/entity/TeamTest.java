@@ -2,7 +2,6 @@ package me.protocos.xteam.entity;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.fakeobjects.FakeWorld;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.Headquarters;
@@ -640,15 +639,20 @@ public class TeamTest
 	public void ShouldBeGetInfoNullHeadquarters()
 	{
 		//ASSEMBLE
-		Configuration.DISPLAY_RELATIVE_COORDINATES = true;
-		team = new Team.Builder(teamPlugin, "name").build();
+		team = new Team.Builder(teamPlugin, "name").leader("protocos").admins("kmlanglois").players("truck").build();
 		//ACT
 		//ASSERT
-		Assert.assertEquals("Team Name - name\n" +
-				"Team Joining - Closed\n" +
-				"Team Headquarters - None set", MessageUtil.resetFormatting(team.getInfoFor(team)));
+		Assert.assertEquals("Team Name: name\n" +
+				"Team Leader: protocos\n" +
+				"Team Admins: kmlanglois\n" +
+				"Team Joining: Closed\n" +
+				"Team Headquarters: None set\n" +
+				"Teammates online:\n" +
+				"   protocos\n" +
+				"   kmlanglois\n" +
+				"Teammates offline:\n" +
+				"   truck", MessageUtil.resetFormatting(team.getInfoFor(team)));
 		Assert.assertFalse(team.hasHeadquarters());
-		Configuration.DISPLAY_RELATIVE_COORDINATES = false;
 	}
 
 	@After
