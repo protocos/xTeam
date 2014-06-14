@@ -40,6 +40,7 @@ public class TeamAdminInvite extends TeamAdminCommand
 		ITeamPlayer otherPlayer = playerFactory.getPlayer(other);
 		Requirements.checkPlayerHasTeam(teamAdmin);
 		Requirements.checkPlayerInviteSelf(teamAdmin, otherPlayer);
+		Requirements.checkPlayerAlreadyOnTeam(otherPlayer, team.getName());
 		Requirements.checkPlayerHasPlayedBefore(otherPlayer);
 		Requirements.checkPlayerHasInvite(inviteHandler, otherPlayer);
 	}

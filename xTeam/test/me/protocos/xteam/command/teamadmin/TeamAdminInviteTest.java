@@ -146,6 +146,19 @@ public class TeamAdminInviteTest
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
+	@Test
+	public void ShouldBeTeamAdminInviteExecuteAlreadyOnTeam()
+	{
+		//ASSEMBLE
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite protocos".split(" ")));
+		//ASSERT
+		Assert.assertEquals((new TeamPlayerAlreadyOnTeamException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertFalse(inviteHandler.hasInvite("protocos"));
+		Assert.assertFalse(fakeExecuteResponse);
+	}
+
 	@After
 	public void takedown()
 	{

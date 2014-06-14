@@ -9,8 +9,9 @@ public class TeamPlayerAlreadyOnTeamException extends TeamException
 
 	public TeamPlayerAlreadyOnTeamException()
 	{
-		super("Player is already on that team");
+		super("Player is already on team");
 	}
+
 	public TeamPlayerAlreadyOnTeamException(String message)
 	{
 		super(message);
