@@ -1647,7 +1647,7 @@ public class FakePlayerSender implements Player, CommandSender, IMessageRecorder
 	@Override
 	public String getAllMessages()
 	{
-		return MessageUtil.resetFormatting(messageLog.toString());
+		return MessageUtil.resetFormatting(messageLog.toString().trim());
 	}
 
 	@Override

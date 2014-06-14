@@ -189,7 +189,7 @@ public class FakeConsoleSender implements ConsoleCommandSender, IMessageRecorder
 	@Override
 	public String getAllMessages()
 	{
-		return MessageUtil.resetFormatting(messageLog.toString());
+		return MessageUtil.resetFormatting(messageLog.toString().trim());
 	}
 
 	@Override
