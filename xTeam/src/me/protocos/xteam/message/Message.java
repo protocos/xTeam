@@ -95,10 +95,12 @@ public class Message
 	{
 		for (IMessageRecipient recipient : recipients)
 		{
-			if (log != null)
-				log.debug("    @ " + recipient.getName() + " server response: \"" + MessageUtil.resetFormatting(message) + "\"");
 			if (recipient.isOnline())
+			{
+				if (log != null)
+					log.debug("    @ " + recipient.getName() + " server response: \"" + MessageUtil.resetFormatting(message) + "\"");
 				recipient.sendMessage(message);
+			}
 		}
 	}
 
