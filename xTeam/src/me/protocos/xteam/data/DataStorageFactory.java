@@ -39,7 +39,7 @@ public class DataStorageFactory
 				try
 				{
 					persistenceLayer = new SQLDataManager(teamPlugin, SQLDataManager.databaseFrom(teamPlugin, strategy), teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
-					this.log.info("Using SQLite as storage type");
+					this.log.debug("Using SQLite as storage type");
 				}
 				catch (Exception e)
 				{
@@ -58,7 +58,7 @@ public class DataStorageFactory
 				try
 				{
 					persistenceLayer = new SQLDataManager(teamPlugin, SQLDataManager.databaseFrom(teamPlugin, strategy), teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
-					this.log.info("Using MySQL as storage type");
+					this.log.debug("Using MySQL as storage type");
 				}
 				catch (Exception e)
 				{
@@ -73,7 +73,7 @@ public class DataStorageFactory
 		else if (strategy.toLowerCase().startsWith("file"))
 		{
 			persistenceLayer = new FlatFileDataManager(teamPlugin, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
-			this.log.info("Using File as storage type");
+			this.log.debug("Using File as storage type");
 		}
 		else
 		{
@@ -82,7 +82,7 @@ public class DataStorageFactory
 		if (persistenceLayer == null)
 		{
 			persistenceLayer = new FlatFileDataManager(teamPlugin, teamPlugin.getTeamCoordinator(), teamPlugin.getPlayerFactory());
-			this.log.info("Resorting to File storage type");
+			this.log.error("Resorting to File storage type");
 		}
 		return persistenceLayer;
 	}
