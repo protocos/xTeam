@@ -46,10 +46,10 @@ public class ConsoleHelpTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "".split(" ")));
 		//ASSERT
 		Assert.assertEquals("Console Commands: {optional} [required] pick/one\n" +
+				"team {help} - console help menu for xTeam\n" +
 				"team debug {Option} - console debug menu for xTeam\n" +
 				"team demote [Team] [Player] - demote team admin\n" +
 				"team disband [Team] - disband a team\n" +
-				"team {help} - console help menu for xTeam\n" +
 				"team info [Player/Team] - get info on player/team\n" +
 				"team list - list all teams on the server\n" +
 				"team promote [Team] [Player] - promote player to admin\n" +

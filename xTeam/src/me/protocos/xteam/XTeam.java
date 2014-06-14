@@ -128,10 +128,10 @@ public final class XTeam extends TeamPlugin
 
 	public void registerConsoleCommands(ICommandManager manager)
 	{
+		manager.registerCommand(new ConsoleHelp(this));
 		manager.registerCommand(new ConsoleDebug(this));
 		manager.registerCommand(new ConsoleDemote(this));
 		manager.registerCommand(new ConsoleDisband(this));
-		manager.registerCommand(new ConsoleHelp(this));
 		manager.registerCommand(new ConsoleInfo(this));
 		manager.registerCommand(new ConsoleList(this));
 		manager.registerCommand(new ConsolePromote(this));
