@@ -266,7 +266,7 @@ public class FakeTeamPlayer implements ITeamPlayer, CommandSender
 			return true;
 		if (permissionLevel == PermissionLevel.TEAM_ADMIN && permissible.getPermissionNode().startsWith("xteam.core.admin."))
 			return true;
-		if (permissionLevel == PermissionLevel.TEAM_USER && permissible.getPermissionNode().startsWith("xteam.core.user."))
+		if (permissionLevel == PermissionLevel.TEAM_USER && (permissible.getPermissionNode().startsWith("xteam.core.user.") || permissible.getPermissionNode().equals("help")))
 			return true;
 		if (permissionLevel == PermissionLevel.ALL)
 			return true;
