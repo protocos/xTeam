@@ -1,4 +1,4 @@
-package me.protocos.xteam.data;
+package me.protocos.xteam.data.configuration;
 
 import me.protocos.xteam.data.configuration.ConfigurationOption;
 import org.junit.After;
