@@ -62,7 +62,7 @@ public class MessageTest
 		//ACT
 		message.send(null);
 		//ASSERT
-		Assert.assertEquals("Â§arefreshedÂ§r", recipient1.getLatestMessage());
+		Assert.assertEquals("§arefreshed§r", recipient1.getLatestMessage());
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class MessageTest
 		//ACT
 		new Message.Builder("refreshed").addRecipients(recipient1).send(null);
 		//ASSERT
-		Assert.assertEquals("Â§arefreshedÂ§r", recipient1.getLatestMessage());
+		Assert.assertEquals("§arefreshed§r", recipient1.getLatestMessage());
 	}
 
 	@After

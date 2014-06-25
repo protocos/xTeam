@@ -1632,13 +1632,6 @@ public class FakePlayerSender implements Player, CommandSender, IMessageRecorder
 	}
 
 	@Override
-	public void setResourcePack(String arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public String getLastMessage()
 	{
 		return MessageUtil.resetFormatting(messageLog.getLast());

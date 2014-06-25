@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.serveradmin;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
@@ -75,7 +75,7 @@ public class ServerAdminRenameTest
 		Configuration.ALPHA_NUM = true;
 		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one â€ EÃ¥m".split(" ")));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one € EÃ¥m".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("ONE", teamCoordinator.getTeam("one").getName());

@@ -216,7 +216,7 @@ public class HashList<K, V> implements Iterable<V>
 		return this.values;
 	}
 
-	public void addAll(List<K> keys, @SuppressWarnings("hiding") List<V> values)
+	public void addAll(List<K> keys, List<V> values)
 	{
 		if (keys.size() != values.size())
 			throw new IllegalArgumentException("Sizes of key and value list do not match");

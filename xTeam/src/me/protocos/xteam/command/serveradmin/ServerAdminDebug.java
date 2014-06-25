@@ -35,11 +35,11 @@ public class ServerAdminDebug extends ServerAdminCommand
 		{
 			for (Player otherPlayer : bukkitUtil.getOnlinePlayers())
 			{
-				Message message = new Message.Builder("Yaw angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getYawAngleToLocation(serverAdmin.getLocation(), otherPlayer.getLocation())) + "Â°")
+				Message message = new Message.Builder("Yaw angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getYawAngleToLocation(serverAdmin.getLocation(), otherPlayer.getLocation())) + "°")
 						.addRecipients(serverAdmin)
 						.excludeRecipients(otherPlayer)
 						.send(log);
-				message.setMessage("Location angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getAngleBetween(serverAdmin.getLocation(), otherPlayer.getLocation())) + "Â°");
+				message.setMessage("Location angle to " + otherPlayer.getName() + ": " + Math.round(LocationUtil.getAngleBetween(serverAdmin.getLocation(), otherPlayer.getLocation())) + "°");
 				message.send(log);
 				message.setMessage("Direction angle to " + otherPlayer.getName() + ": " + LocationUtil.getRelativeAngleBetween(serverAdmin.getLocation(), otherPlayer.getLocation()));
 				message.send(log);

@@ -2,7 +2,7 @@ package me.protocos.xteam.data.configuration;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import junit.framework.Assert;
+import org.junit.Assert;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.data.configuration.Configuration;

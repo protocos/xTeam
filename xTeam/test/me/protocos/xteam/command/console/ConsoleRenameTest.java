@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.console;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
@@ -88,7 +88,7 @@ public class ConsoleRenameTest
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "rename two â€ EÃ¥m".split(" ")));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "rename two € EÃ¥m".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakeConsoleSender.getLastMessage());
 		Assert.assertEquals("ONE", teamCoordinator.getTeam("one").getName());

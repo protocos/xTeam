@@ -42,25 +42,25 @@ public class FakeTeamPlayer implements ITeamPlayer, CommandSender
 		private boolean isOnSameTeam = true;;
 		private Location location = new FakeLocation();
 
-		public Builder name(@SuppressWarnings("hiding") String name)
+		public Builder name(String name)
 		{
 			this.name = name;
 			return this;
 		}
 
-		public Builder allPermissions(@SuppressWarnings("hiding") boolean allPermissions)
+		public Builder allPermissions(boolean allPermissions)
 		{
 			this.allPermissions = allPermissions;
 			return this;
 		}
 
-		public Builder isOnSameTeam(@SuppressWarnings("hiding") boolean isOnSameTeam)
+		public Builder isOnSameTeam(boolean isOnSameTeam)
 		{
 			this.isOnSameTeam = isOnSameTeam;
 			return this;
 		}
 
-		public Builder location(@SuppressWarnings("hiding") Location location)
+		public Builder location(Location location)
 		{
 			this.location = location;
 			return this;

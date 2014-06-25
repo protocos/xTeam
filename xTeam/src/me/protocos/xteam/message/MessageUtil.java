@@ -59,7 +59,7 @@ public class MessageUtil
 
 	public static String resetFormatting(String string)
 	{
-		return string.replaceAll("ยง.", "");
+		return string.replaceAll("ง.", "");
 	}
 
 	public static String formatMessage(String message)

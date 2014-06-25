@@ -1635,11 +1635,4 @@ public class FakePlayer implements Player
 
 	}
 
-	@Override
-	public void setResourcePack(String arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
 }

@@ -1,6 +1,6 @@
 package me.protocos.xteam.command.console;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
