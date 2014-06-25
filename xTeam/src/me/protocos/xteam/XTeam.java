@@ -22,6 +22,8 @@ import org.bukkit.scheduler.BukkitTask;
 
 public final class XTeam extends TeamPlugin
 {
+	//update from windows!
+	
 	private Configuration configLoader;
 	private IPersistenceLayer persistenceLayer;
 
