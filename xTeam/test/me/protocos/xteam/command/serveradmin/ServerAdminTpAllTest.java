@@ -45,7 +45,7 @@ public class ServerAdminTpAllTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tpall one".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Players teleported", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("Players have been teleported", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
