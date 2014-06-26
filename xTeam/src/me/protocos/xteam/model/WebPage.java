@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,13 +11,21 @@ import java.util.List;
 public class WebPage
 {
 	private String urlString;
+	private ILog log;
 	private List<String> webpage;
+	private boolean downloadSuccessful;
 
-	public WebPage(String urlString)
+	public WebPage(String urlString, ILog log)
 	{
 		this.urlString = urlString;
+		this.log = log;
 		this.webpage = new LinkedList<String>();
-		this.download();
+		this.downloadSuccessful = this.download();
+	}
+	
+	public boolean isDownloadSuccessful()
+	{
+		return downloadSuccessful;
 	}
 	
 	public boolean download()
@@ -40,13 +47,10 @@ public class WebPage
 	        }
 	        return true;
 	    }
-	    catch (MalformedURLException mue)
+	    catch (Exception e)
 	    {
-	         mue.printStackTrace();
-	    }
-	    catch (IOException ioe)
-	    {
-	         ioe.printStackTrace();
+	    	this.log.error("There was an error downloading the webpage: "+urlString);
+	    	this.log.exception(e);
 	    }
 	    finally
 	    {
