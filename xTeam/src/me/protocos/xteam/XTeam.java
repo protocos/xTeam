@@ -51,7 +51,6 @@ public final class XTeam extends TeamPlugin
 		XTeamWebPage page = new XTeamWebPage("http://dev.bukkit.org/bukkit-plugins/xteam/files/", this.getLog());
 		if (page.isDownloadSuccessful() && !("v"+this.getVersion()).equals(page.getMostRecentVersion()))
 		{
-			this.getLog().debug("Version: " + this.getVersion() + " comparing to " + page.getMostRecentVersion());
 			this.getLog().info("There is a newer version of xTeam available at the following link:");
 			this.getLog().info("	http://dev.bukkit.org/bukkit-plugins/xteam/");
 		}
