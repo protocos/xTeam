@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.teamuser;
 
-import org.junit.Assert;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
@@ -16,7 +15,9 @@ import me.protocos.xteam.exception.TeamPlayerMaxException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.model.InviteRequest;
+
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -97,6 +98,20 @@ public class TeamUserAcceptTest
 		Assert.assertEquals((new TeamPlayerHasNoInviteException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertFalse(inviteHandler.hasInvite("Lonely"));
 		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("Lonely"));
+		Assert.assertFalse(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeTeamUserAcceptExecuteTeamNoLongerExists()
+	{
+		//ASSEMBLE
+		teamCoordinator.disbandTeam("ONE");
+		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		//ACT
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
+		//ASSERT
+		Assert.assertEquals((new TeamPlayerHasNoInviteException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertFalse(inviteHandler.hasInvite("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

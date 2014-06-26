@@ -42,10 +42,10 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 		this.commandManager = new CommandManager();
 		this.commandExecutor = new CommandDelegate(this, this.getCommandManager());
 		this.bukkitUtil = new BukkitUtil(server);
+		this.inviteHandler = new InviteHandler(this);
 		this.teamCoordinator = new TeamCoordinator(this);
 		this.playerFactory = new PlayerFactory(this);
 		this.teleportScheduler = new TeleportScheduler(this, playerFactory, bukkitScheduler);
-		this.inviteHandler = new InviteHandler(this);
 	}
 
 	public String getFolder()

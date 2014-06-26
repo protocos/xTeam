@@ -1,6 +1,7 @@
 package me.protocos.xteam.core;
 
 import java.util.ArrayList;
+
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.ITeam;
@@ -15,6 +16,7 @@ import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
+
 import org.bukkit.scheduler.BukkitScheduler;
 
 public class InviteHandler
@@ -94,6 +96,15 @@ public class InviteHandler
 	public void removeInvite(String player)
 	{
 		invites.remove(player);
+	}
+
+	public void removeInvitesForTeam(ITeam team)
+	{
+		for(InviteRequest invite:invites)
+		{
+			if (invite.getSenderTeam().equals(team));
+				invites.remove(invite.getInviteReceiver().getName());
+		}
 	}
 
 	public String getInvitesFromTeam(ITeam team)

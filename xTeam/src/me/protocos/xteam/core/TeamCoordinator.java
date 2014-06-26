@@ -1,6 +1,7 @@
 package me.protocos.xteam.core;
 
 import java.util.List;
+
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.ITeam;
@@ -13,11 +14,13 @@ import me.protocos.xteam.util.CommonUtil;
 public class TeamCoordinator implements ITeamCoordinator
 {
 	private IEventDispatcher dispatcher;
+	private InviteHandler inviteHandler;
 	private HashList<String, ITeam> teams = CommonUtil.emptyHashList();
 
 	public TeamCoordinator(TeamPlugin teamPlugin)
 	{
 		this.dispatcher = teamPlugin.getEventDispatcher();
+		this.inviteHandler = teamPlugin.getInviteHandler();
 	}
 
 	@Override
@@ -138,6 +141,7 @@ public class TeamCoordinator implements ITeamCoordinator
 	{
 		if (this.containsTeam(teamName))
 		{
+			inviteHandler.removeInvitesForTeam(this.getTeam(teamName));
 			ITeam removeTeam = this.removeTeam(teamName);
 			dispatcher.dispatchEvent(new TeamDisbandEvent(removeTeam));
 		}
