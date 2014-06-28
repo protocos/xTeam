@@ -85,64 +85,64 @@ public class Team implements ITeam
 			this.tag = name;
 		}
 
-		public Builder tag(String tag)
+		public Builder tag(@SuppressWarnings("hiding") String tag)
 		{
 			this.tag = tag;
 			return this;
 		}
 
-		public Builder leader(String leader)
+		public Builder leader(@SuppressWarnings("hiding") String leader)
 		{
 			this.leader = leader;
 			this.players.addAll(CommonUtil.toList(leader));
 			return this;
 		}
 
-		public Builder admins(String... admins)
+		public Builder admins(@SuppressWarnings("hiding") String... admins)
 		{
 			this.admins.addAll(CommonUtil.toList(admins));
 			this.players.addAll(CommonUtil.toList(admins));
 			return this;
 		}
 
-		public Builder admins(Collection<String> admins)
+		public Builder admins(@SuppressWarnings("hiding") Collection<String> admins)
 		{
 			this.admins.addAll(admins);
 			this.players.addAll(admins);
 			return this;
 		}
 
-		public Builder players(String... players)
+		public Builder players(@SuppressWarnings("hiding") String... players)
 		{
 			this.players.addAll(CommonUtil.toList(players));
 			return this;
 		}
 
-		public Builder players(Collection<String> players)
+		public Builder players(@SuppressWarnings("hiding") Collection<String> players)
 		{
 			this.players.addAll(players);
 			return this;
 		}
 
-		public Builder headquarters(IHeadquarters headquarters)
+		public Builder headquarters(@SuppressWarnings("hiding") IHeadquarters headquarters)
 		{
 			this.headquarters = headquarters;
 			return this;
 		}
 
-		public Builder openJoining(boolean openJoining)
+		public Builder openJoining(@SuppressWarnings("hiding") boolean openJoining)
 		{
 			this.openJoining = openJoining;
 			return this;
 		}
 
-		public Builder timeHeadquartersLastSet(long timeHeadquartersLastSet)
+		public Builder timeHeadquartersLastSet(@SuppressWarnings("hiding") long timeHeadquartersLastSet)
 		{
 			this.timeHeadquartersLastSet = timeHeadquartersLastSet;
 			return this;
 		}
 
-		public Builder defaultTeam(boolean defaultTeam)
+		public Builder defaultTeam(@SuppressWarnings("hiding") boolean defaultTeam)
 		{
 			this.defaultTeam = defaultTeam;
 			return this;

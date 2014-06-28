@@ -18,13 +18,13 @@ public class FakeCommandSender implements CommandSender
 		private String name = "sender";
 		private boolean isOp;
 
-		public Builder name(String name)
+		public Builder name(@SuppressWarnings("hiding") String name)
 		{
 			this.name = name;
 			return this;
 		}
 
-		public Builder op(boolean isOp)
+		public Builder op(@SuppressWarnings("hiding") boolean isOp)
 		{
 			this.isOp = isOp;
 			return this;
