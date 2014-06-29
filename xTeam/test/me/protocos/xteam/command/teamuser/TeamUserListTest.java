@@ -2,10 +2,10 @@ package me.protocos.xteam.command.teamuser;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -42,7 +42,7 @@ public class TeamUserListTest
 		teamCoordinator.clear();
 		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "list");
 		//ASSERT
 		Assert.assertEquals("There are no teams", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -57,7 +57,7 @@ public class TeamUserListTest
 		teamCoordinator.disbandTeam("blue");
 		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "list");
 		//ASSERT
 		Assert.assertEquals("Teams: red", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
@@ -69,7 +69,7 @@ public class TeamUserListTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "list");
 		//ASSERT
 		Assert.assertEquals("Teams: ONE, two, red, blue", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);

@@ -2,9 +2,9 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -40,7 +40,7 @@ public class ServerAdminTeleAllHQTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "teleallhq".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "teleallhq");
 		//ASSERT
 		Assert.assertEquals("You have been teleported to the team headquarters\n" +
 				"Players teleported", fakePlayerSender.getLastMessages());

@@ -2,11 +2,11 @@ package me.protocos.xteam.command.teamuser;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -42,7 +42,7 @@ public class TeamUserChatTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "chat".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "chat");
 		//ASSERT
 		Assert.assertEquals("You are now only chatting with your team", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(Configuration.chatStatus.contains("protocos"));
@@ -55,7 +55,7 @@ public class TeamUserChatTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "chat".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "chat");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(Configuration.chatStatus.contains("Lonely"));

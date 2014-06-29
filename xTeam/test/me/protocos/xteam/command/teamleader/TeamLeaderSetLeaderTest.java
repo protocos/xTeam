@@ -2,12 +2,12 @@ package me.protocos.xteam.command.teamleader;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerNotLeaderException;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,7 +45,7 @@ public class TeamLeaderSetLeaderTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader protocos".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "setleader protocos");
 		//ASSERT
 		Assert.assertEquals("protocos is now the team leader (you are an admin)\n" +
 				"You can now leave the team", fakePlayerSender.getLastMessages());
@@ -60,7 +60,7 @@ public class TeamLeaderSetLeaderTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader protocos".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "setleader protocos");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -72,7 +72,7 @@ public class TeamLeaderSetLeaderTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader protocos".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "setleader protocos");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
@@ -85,7 +85,7 @@ public class TeamLeaderSetLeaderTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader newbie".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "setleader newbie");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());

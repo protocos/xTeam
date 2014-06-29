@@ -2,13 +2,13 @@ package me.protocos.xteam.command.console;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,7 +49,7 @@ public class ConsoleSetHeadquartersTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "sethq one world 1.65 2.65 3.65".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "sethq one world 1.65 2.65 3.65");
 		//ASSERT
 		Assert.assertEquals("You set the team headquarters to X:1.65 Y:2.65 Z:3.65", fakeConsoleSender.getLastMessages());
 		Assert.assertEquals(new Headquarters(bukkitUtil.getWorld("world"), 1.65D, 2.65D, 3.65D, 0.0F, 0.0F), teamCoordinator.getTeam("one").getHeadquarters());
@@ -61,7 +61,7 @@ public class ConsoleSetHeadquartersTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "sethq DNE world 1.65 2.65 3.65".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "sethq DNE world 1.65 2.65 3.65");
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);

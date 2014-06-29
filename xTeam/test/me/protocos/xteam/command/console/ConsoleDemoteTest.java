@@ -2,11 +2,11 @@ package me.protocos.xteam.command.console;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.*;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -47,7 +47,7 @@ public class ConsoleDemoteTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "demote one protocos".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "demote one protocos");
 		//ASSERT
 		Assert.assertEquals("You demoted protocos", fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.getTeam("one").isAdmin("protocos"));
@@ -59,7 +59,7 @@ public class ConsoleDemoteTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "demote one kmlanglois".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "demote one kmlanglois");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderDemoteException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.getTeam("one").isAdmin("protocos"));
@@ -71,7 +71,7 @@ public class ConsoleDemoteTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "demote one mastermind".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "demote one mastermind");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.getTeam("one").isAdmin("protocos"));
@@ -83,7 +83,7 @@ public class ConsoleDemoteTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "demote one Lonely".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "demote one Lonely");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.getTeam("one").isAdmin("protocos"));
@@ -95,7 +95,7 @@ public class ConsoleDemoteTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "demote one newbie".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "demote one newbie");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.getTeam("one").isAdmin("protocos"));
@@ -108,7 +108,7 @@ public class ConsoleDemoteTest
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").demote("protocos");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "demote one protocos".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "demote one protocos");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotAdminException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -119,7 +119,7 @@ public class ConsoleDemoteTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "demote three protocos".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "demote three protocos");
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.getTeam("one").isAdmin("protocos"));

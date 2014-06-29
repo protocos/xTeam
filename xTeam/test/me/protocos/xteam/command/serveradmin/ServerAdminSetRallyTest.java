@@ -2,7 +2,6 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
@@ -11,6 +10,7 @@ import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.util.CommandUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.junit.After;
 import org.junit.Assert;
@@ -54,7 +54,7 @@ public class ServerAdminSetRallyTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT 
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally two".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "setrally two");
 		//ASSERT
 		Assert.assertEquals("You set the rally point for team two", fakePlayerSender.getLastMessages());
 		Assert.assertEquals(fakePlayerSender.getLocation(), teamCoordinator.getTeam("two").getRally());
@@ -70,7 +70,7 @@ public class ServerAdminSetRallyTest
 		teleportScheduler.setRallyUsedFor(teamPlayer);
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT 
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally one".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "setrally one");
 		//ASSERT
 		Assert.assertEquals("You set the rally point for team ONE", fakePlayerSender.getLastMessages());
 		Assert.assertEquals(fakePlayerSender.getLocation(), teamCoordinator.getTeam("one").getRally());
@@ -84,7 +84,7 @@ public class ServerAdminSetRallyTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally three".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "setrally three");
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);

@@ -2,7 +2,6 @@ package me.protocos.xteam.command.console;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
@@ -10,6 +9,7 @@ import me.protocos.xteam.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.exception.TeamPlayerMaxException;
 import me.protocos.xteam.exception.TeamPlayerNeverPlayedException;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -48,7 +48,7 @@ public class ConsoleSetTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set Lonely two".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "set Lonely two");
 		//ASSERT
 		Assert.assertEquals("Lonely has been added to two", fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.getTeam("two").containsPlayer("Lonely"));
@@ -60,7 +60,7 @@ public class ConsoleSetTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set Lonely three".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "set Lonely three");
 		//ASSERT
 		Assert.assertEquals("three has been created\n" +
 				"Lonely has been added to three", fakeConsoleSender.getLastMessages());
@@ -75,7 +75,7 @@ public class ConsoleSetTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set protocos two".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "set protocos two");
 		//ASSERT
 		Assert.assertEquals("protocos has been removed from ONE\n" +
 				"protocos has been added to two", fakeConsoleSender.getLastMessages());
@@ -90,7 +90,7 @@ public class ConsoleSetTest
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").removePlayer("protocos");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set kmlanglois two".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "set kmlanglois two");
 		//ASSERT
 		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
 				"ONE has been disbanded\n" +
@@ -105,7 +105,7 @@ public class ConsoleSetTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set kmlanglois two".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "set kmlanglois two");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -116,7 +116,7 @@ public class ConsoleSetTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set newbie one".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "set newbie one");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -128,7 +128,7 @@ public class ConsoleSetTest
 		//ASSEMBLE
 		Configuration.MAX_PLAYERS = 2;
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set Lonely one".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "set Lonely one");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);

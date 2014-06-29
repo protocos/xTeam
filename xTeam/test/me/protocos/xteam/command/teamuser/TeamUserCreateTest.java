@@ -2,12 +2,12 @@ package me.protocos.xteam.command.teamuser;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.*;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,7 +45,7 @@ public class TeamUserCreateTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "create newteam");
 		//ASSERT
 		Assert.assertEquals("You created newteam", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.containsTeam("newteam"));
@@ -62,7 +62,7 @@ public class TeamUserCreateTest
 		Configuration.ALPHA_NUM = true;
 		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create NEW".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "create NEW");
 		//ASSERT
 		Assert.assertEquals("You created NEW", fakePlayerSender.getLastMessages());
 		Assert.assertEquals("NEW", teamCoordinator.getTeam("NEW").getName());
@@ -77,7 +77,7 @@ public class TeamUserCreateTest
 		Configuration.TEAM_NAME_LENGTH = 10;
 		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteamiswaytoolong".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "create newteamiswaytoolong");
 		//ASSERT
 		Assert.assertEquals((new TeamNameTooLongException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("newteamiswaytoolong"));
@@ -91,7 +91,7 @@ public class TeamUserCreateTest
 		Configuration.DEFAULT_TEAM_ONLY = true;
 		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "create newteam");
 		//ASSERT
 		Assert.assertEquals((new TeamOnlyJoinDefaultException(teamCoordinator)).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("newteam"));
@@ -104,7 +104,7 @@ public class TeamUserCreateTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "create newteam");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("newteam"));
@@ -117,7 +117,7 @@ public class TeamUserCreateTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create one".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "create one");
 		//ASSERT
 		Assert.assertEquals((new TeamNameAlreadyInUseException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.containsTeam("one"));
@@ -133,7 +133,7 @@ public class TeamUserCreateTest
 		Configuration.lastCreated.put("Lonely", System.currentTimeMillis());
 		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "create newteam");
 		//ASSERT
 		Assert.assertEquals((new TeamCreatedRecentlyException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("newteam"));
@@ -147,7 +147,7 @@ public class TeamUserCreateTest
 		Configuration.ALPHA_NUM = true;
 		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create ��Eåm".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "create ��Eåm");
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("��Eåm"));

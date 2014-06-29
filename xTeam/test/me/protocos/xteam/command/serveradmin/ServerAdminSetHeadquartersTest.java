@@ -2,12 +2,12 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.model.Headquarters;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -46,7 +46,7 @@ public class ServerAdminSetHeadquartersTest
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		Headquarters newHQ = new Headquarters(teamPlugin, fakePlayerSender.getLocation());
 		//ACT 
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq two".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "sethq two");
 		//ASSERT
 		Assert.assertEquals("You set the team headquarters for team two", fakePlayerSender.getLastMessages());
 		Assert.assertEquals(newHQ, teamCoordinator.getTeam("two").getHeadquarters());
@@ -59,7 +59,7 @@ public class ServerAdminSetHeadquartersTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq three".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "sethq three");
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);

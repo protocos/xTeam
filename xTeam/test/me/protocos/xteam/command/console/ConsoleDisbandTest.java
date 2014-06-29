@@ -2,12 +2,12 @@ package me.protocos.xteam.command.console;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamIsDefaultException;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,7 +45,7 @@ public class ConsoleDisbandTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "disband one".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "disband one");
 		//ASSERT
 		Assert.assertEquals("You disbanded ONE [TeamAwesome]", fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("one"));
@@ -57,7 +57,7 @@ public class ConsoleDisbandTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "disband ooga".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "disband ooga");
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
@@ -68,7 +68,7 @@ public class ConsoleDisbandTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "disband RED".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "disband RED");
 		//ASSERT
 		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.containsTeam("RED"));

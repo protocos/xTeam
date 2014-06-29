@@ -2,7 +2,6 @@ package me.protocos.xteam.command.teamadmin;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamAdminCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
@@ -13,6 +12,7 @@ import me.protocos.xteam.exception.TeamPlayerNotAdminException;
 import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.IHeadquarters;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -50,7 +50,7 @@ public class TeamAdminSetHeadquartersTest
 		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		Headquarters newHQ = new Headquarters(teamPlugin, fakePlayerSender.getLocation());
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "sethq");
 		//ASSERT
 		Assert.assertEquals("You set the team headquarters", fakePlayerSender.getLastMessages());
 		Assert.assertEquals(newHQ, teamCoordinator.getTeam("one").getHeadquarters());
@@ -65,7 +65,7 @@ public class TeamAdminSetHeadquartersTest
 		IHeadquarters oldHQ = teamCoordinator.getTeam("one").getHeadquarters();
 		fakePlayerSender.setNoDamageTicks(1);
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "sethq");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerDyingException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals(oldHQ, teamCoordinator.getTeam("one").getHeadquarters());
@@ -79,7 +79,7 @@ public class TeamAdminSetHeadquartersTest
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		IHeadquarters oldHQ = teamCoordinator.getTeam("one").getHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "sethq");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerNotAdminException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals(oldHQ, teamCoordinator.getTeam("one").getHeadquarters());
@@ -93,7 +93,7 @@ public class TeamAdminSetHeadquartersTest
 		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		IHeadquarters oldHQ = teamCoordinator.getTeam("one").getHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "sethq");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals(oldHQ, teamCoordinator.getTeam("one").getHeadquarters());
@@ -109,7 +109,7 @@ public class TeamAdminSetHeadquartersTest
 		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		IHeadquarters oldHQ = teamCoordinator.getTeam("one").getHeadquarters();
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "sethq");
 		//ASSERT
 		Assert.assertEquals((new TeamHqSetRecentlyException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals(oldHQ, teamCoordinator.getTeam("one").getHeadquarters());

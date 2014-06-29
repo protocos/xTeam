@@ -2,10 +2,10 @@ package me.protocos.xteam.command.serveradmin;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -41,7 +41,7 @@ public class ServerAdminChatSpyTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "chatspy".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "chatspy");
 		//ASSERT
 		Assert.assertEquals("You are now spying on team chat", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(Configuration.spies.contains("protocos"));
@@ -55,7 +55,7 @@ public class ServerAdminChatSpyTest
 		Configuration.spies.add("protocos");
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "chatspy".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "chatspy");
 		//ASSERT
 		Assert.assertEquals("You are no longer spying on team chat", fakePlayerSender.getLastMessages());
 		Assert.assertFalse(Configuration.spies.contains("protocos"));

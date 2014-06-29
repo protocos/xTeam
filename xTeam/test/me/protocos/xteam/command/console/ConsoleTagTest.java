@@ -2,7 +2,6 @@ package me.protocos.xteam.command.console;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
@@ -10,6 +9,7 @@ import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamNameAlreadyInUseException;
 import me.protocos.xteam.exception.TeamNameNotAlphaException;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,7 +49,7 @@ public class ConsoleTagTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "tag one three".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "tag one three");
 		//ASSERT
 		Assert.assertEquals("The team tag has been set to three", fakeConsoleSender.getLastMessages());
 		Assert.assertEquals("three", teamCoordinator.getTeam("one").getTag());
@@ -61,7 +61,7 @@ public class ConsoleTagTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "tag two one".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "tag two one");
 		//ASSERT
 		Assert.assertEquals((new TeamNameAlreadyInUseException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
@@ -73,7 +73,7 @@ public class ConsoleTagTest
 	{
 		//ASSEMBLE
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "tag three one".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "tag three one");
 		//ASSERT
 		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
@@ -86,7 +86,7 @@ public class ConsoleTagTest
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "tag two ????".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakeConsoleSender, fakeCommand, "tag two ????");
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());

@@ -2,12 +2,12 @@ package me.protocos.xteam.command.teamuser;
 
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -44,7 +44,7 @@ public class TeamUserLeaveTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("strandedhelix");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "leave");
 		//ASSERT
 		Assert.assertEquals("You left red", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.containsTeam("red"));
@@ -58,7 +58,7 @@ public class TeamUserLeaveTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("mastermind");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "leave");
 		//ASSERT
 		Assert.assertEquals("You left two", fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("two"));
@@ -71,7 +71,7 @@ public class TeamUserLeaveTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "leave");
 		//ASSERT
 		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("protocos"));
@@ -84,7 +84,7 @@ public class TeamUserLeaveTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "leave");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.getTeam("one").containsPlayer("kmlanglois"));
@@ -97,7 +97,7 @@ public class TeamUserLeaveTest
 		//ASSEMBLE
 		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "leave");
 		//ASSERT
 		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
