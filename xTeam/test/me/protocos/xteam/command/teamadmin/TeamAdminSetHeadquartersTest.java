@@ -47,7 +47,7 @@ public class TeamAdminSetHeadquartersTest
 	public void ShouldBeTeamAdminSetHQExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		Headquarters newHQ = new Headquarters(teamPlugin, fakePlayerSender.getLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));
@@ -61,7 +61,7 @@ public class TeamAdminSetHeadquartersTest
 	public void ShouldBeTeamAdminSetHQExecutePlayerDying()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		IHeadquarters oldHQ = teamCoordinator.getTeam("one").getHeadquarters();
 		fakePlayerSender.setNoDamageTicks(1);
 		//ACT
@@ -76,7 +76,7 @@ public class TeamAdminSetHeadquartersTest
 	public void ShouldBeTeamAdminSetHQExecutePlayerNotAdmin()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		IHeadquarters oldHQ = teamCoordinator.getTeam("one").getHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));
@@ -90,7 +90,7 @@ public class TeamAdminSetHeadquartersTest
 	public void ShouldBeTeamAdminSetHQExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		IHeadquarters oldHQ = teamCoordinator.getTeam("one").getHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));
@@ -106,7 +106,7 @@ public class TeamAdminSetHeadquartersTest
 		//ASSEMBLE
 		Configuration.HQ_INTERVAL = 1;
 		teamCoordinator.getTeam("one").setTimeHeadquartersLastSet(System.currentTimeMillis());
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		IHeadquarters oldHQ = teamCoordinator.getTeam("one").getHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));

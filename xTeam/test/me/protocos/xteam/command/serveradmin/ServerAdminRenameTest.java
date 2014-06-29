@@ -45,7 +45,7 @@ public class ServerAdminRenameTest
 	public void ShouldBeServerAdminRenameExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one newname".split(" ")));
 		//ASSERT
@@ -58,7 +58,7 @@ public class ServerAdminRenameTest
 	public void ShouldBeServerAdminRenameExecuteTeamAlreadyExists()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one two".split(" ")));
 		//ASSERT
@@ -72,7 +72,7 @@ public class ServerAdminRenameTest
 	{
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one ��Eåm".split(" ")));
 		//ASSERT
@@ -85,7 +85,7 @@ public class ServerAdminRenameTest
 	public void ShouldBeServerAdminRenameExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename three newname".split(" ")));
 		//ASSERT

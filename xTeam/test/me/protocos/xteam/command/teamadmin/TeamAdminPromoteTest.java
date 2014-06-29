@@ -43,7 +43,7 @@ public class TeamAdminPromoteTest
 	public void ShouldBeTeamAdminPromoteExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote protocos".split(" ")));
 		//ASSERT
@@ -56,7 +56,7 @@ public class TeamAdminPromoteTest
 	public void ShouldBeTeamAdminPromoteExecutePlayerNotAdmin()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote kmlanglois".split(" ")));
 		//ASSERT
@@ -69,7 +69,7 @@ public class TeamAdminPromoteTest
 	public void ShouldBeTeamAdminPromoteExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote protocos".split(" ")));
 		//ASSERT
@@ -81,7 +81,7 @@ public class TeamAdminPromoteTest
 	public void ShouldBeTeamAdminPromoteExecutePlayerNotTeammate()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote Lonely".split(" ")));
 		//ASSERT

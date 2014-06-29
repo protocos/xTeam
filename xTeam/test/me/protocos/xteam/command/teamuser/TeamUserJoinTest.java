@@ -56,7 +56,7 @@ public class TeamUserJoinTest
 	public void ShouldBeTeamUserJoinExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
@@ -70,7 +70,7 @@ public class TeamUserJoinTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").addPlayer("stranger");
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
@@ -84,7 +84,7 @@ public class TeamUserJoinTest
 	{
 		//ASSEMBLE
 		inviteHandler.removeInvite("Lonely");
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
@@ -98,7 +98,7 @@ public class TeamUserJoinTest
 	{
 		//ASSEMBLE
 		Configuration.DEFAULT_TEAM_ONLY = true;
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
@@ -111,7 +111,7 @@ public class TeamUserJoinTest
 	public void ShouldBeTeamUserJoinExecutePlayerHasTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
@@ -124,7 +124,7 @@ public class TeamUserJoinTest
 	public void ShouldBeTeamUserJoinExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join three".split(" ")));
 		//ASSERT

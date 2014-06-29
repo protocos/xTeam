@@ -251,8 +251,8 @@ public class OfflineTeamPlayerTest
 	public void ShouldBeTeleportEntity()
 	{
 		//ASSEMBLE
-		TeamPlayer player1 = playerFactory.getPlayer(FakePlayer.from("protocos"));
-		TeamPlayer player2 = playerFactory.getPlayer(FakePlayer.from("kmlanglois"));
+		TeamPlayer player1 = playerFactory.getPlayer(FakePlayer.get("protocos"));
+		TeamPlayer player2 = playerFactory.getPlayer(FakePlayer.get("kmlanglois"));
 		//ACT
 		boolean teleport = player1.teleportTo(player2);
 		//ASSERT

@@ -50,7 +50,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
@@ -65,7 +65,7 @@ public class TeamAdminInviteTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").promote("protocos");
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
@@ -79,7 +79,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecuteNotAdmin()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
@@ -97,7 +97,7 @@ public class TeamAdminInviteTest
 		Long timeSent = System.currentTimeMillis();
 		InviteRequest request = new InviteRequest(playerSender, playerReceiver, timeSent);
 		inviteHandler.addInvite(request);
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
@@ -110,7 +110,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite newbie".split(" ")));
 		//ASSERT
@@ -123,7 +123,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite mastermind".split(" ")));
 		//ASSERT
@@ -136,7 +136,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecuteSelfInvite()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite kmlanglois".split(" ")));
 		//ASSERT
@@ -149,7 +149,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecuteAlreadyOnTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite protocos".split(" ")));
 		//ASSERT

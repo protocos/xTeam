@@ -76,7 +76,7 @@ public class TeamUserRallyTest
 	public void ShouldBeTeamUserRallyExecuteNoRally()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("mastermind");
+		FakePlayer fakePlayerSender = FakePlayer.get("mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rally".split(" ")));
 		//ASSERT
@@ -88,7 +88,7 @@ public class TeamUserRallyTest
 	public void ShouldBeTeamUserRallyExecutePlayerDying()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		Location before = fakePlayerSender.getLocation();
 		team.setRally(team.getHeadquarters().getLocation());
 		fakePlayerSender.setNoDamageTicks(1);
@@ -104,7 +104,7 @@ public class TeamUserRallyTest
 	public void ShouldBeTeamUserRallyExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		team.setRally(team.getHeadquarters().getLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rally".split(" ")));
@@ -119,7 +119,7 @@ public class TeamUserRallyTest
 		//ASSEMBLE
 		Configuration.LAST_ATTACKED_DELAY = 15;
 		playerFactory.getPlayer("protocos").setLastAttacked(System.currentTimeMillis());
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		Location before = fakePlayerSender.getLocation();
 		teamCoordinator.getTeam("one").setRally(new FakeLocation());
 		//ACT
@@ -136,7 +136,7 @@ public class TeamUserRallyTest
 		//ASSEMBLE
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("kmlanglois"), TeamPlayer.class);
 		teleportScheduler.setCurrentTask(teamPlayer, 0);
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		teamCoordinator.getTeam("one").setRally(new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		//ACT
@@ -155,7 +155,7 @@ public class TeamUserRallyTest
 		Location rallyLocation = team.getHeadquarters().getLocation();
 		team.setRally(rallyLocation);
 		teleportScheduler.setRallyUsedFor(teamPlayer);
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rally".split(" ")));

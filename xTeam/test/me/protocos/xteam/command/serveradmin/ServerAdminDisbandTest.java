@@ -42,7 +42,7 @@ public class ServerAdminDisbandTest
 	public void ShouldBeServerAdminDisbandByName()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband one".split(" ")));
 		//ASSERT
@@ -55,7 +55,7 @@ public class ServerAdminDisbandTest
 	public void ShouldBeServerAdminDisbandByTag()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband TeamAwesome".split(" ")));
 		//ASSERT
@@ -68,7 +68,7 @@ public class ServerAdminDisbandTest
 	public void ShouldBeServerAdminDisbandExecuteTeamDoesNotExixts()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband ooga".split(" ")));
 		//ASSERT
@@ -80,7 +80,7 @@ public class ServerAdminDisbandTest
 	public void ShouldBeServerAdminDisbandExecuteTeamIsDefault()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband RED".split(" ")));
 		//ASSERT

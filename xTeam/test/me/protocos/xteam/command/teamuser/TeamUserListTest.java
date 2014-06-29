@@ -40,7 +40,7 @@ public class TeamUserListTest
 	{
 		//ASSEMBLE
 		teamCoordinator.clear();
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
 		//ASSERT
@@ -55,7 +55,7 @@ public class TeamUserListTest
 		teamCoordinator.disbandTeam("ONE");
 		teamCoordinator.disbandTeam("TWO");
 		teamCoordinator.disbandTeam("blue");
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
 		//ASSERT
@@ -67,7 +67,7 @@ public class TeamUserListTest
 	public void ShouldBeTeamUserListExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
 		//ASSERT

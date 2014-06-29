@@ -75,8 +75,8 @@ public class EventDispatcherTest
 		listener = new TeamListener();
 		dispatcher.addTeamListener(listener);
 		team = new Team.Builder(teamPlugin, "one").build();
-		player1 = new TeamPlayer(teamPlugin, FakePlayer.from("protocos"));
-		player2 = new TeamPlayer(teamPlugin, FakePlayer.from("kmlanglois"));
+		player1 = new TeamPlayer(teamPlugin, FakePlayer.get("protocos"));
+		player2 = new TeamPlayer(teamPlugin, FakePlayer.get("kmlanglois"));
 		inviteRequest = new InviteRequest(player1, player2, System.currentTimeMillis());
 	}
 

@@ -42,7 +42,7 @@ public class TeamUserLeaveTest
 	public void ShouldBeDefaultTeamLeavingOnePerson()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("strandedhelix");
+		FakePlayer fakePlayerSender = FakePlayer.get("strandedhelix");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
@@ -56,7 +56,7 @@ public class TeamUserLeaveTest
 	public void ShouldBeRegularTeamLeavingOnePerson()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("mastermind");
+		FakePlayer fakePlayerSender = FakePlayer.get("mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
@@ -69,7 +69,7 @@ public class TeamUserLeaveTest
 	public void ShouldBeTeamUserLeaveExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
@@ -82,7 +82,7 @@ public class TeamUserLeaveTest
 	public void ShouldBeTeamUserLeaveExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
@@ -95,7 +95,7 @@ public class TeamUserLeaveTest
 	public void ShouldBeTeamUserLeaveExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT

@@ -40,7 +40,7 @@ public class ServerAdminTpAllTest
 	public void ShouldBeServerAdminTpAllExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tpall one".split(" ")));
 		//ASSERT
@@ -52,7 +52,7 @@ public class ServerAdminTpAllTest
 	public void ShouldBeServerAdminTpAllExecuteTeamNotExist()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tpall three".split(" ")));
 		//ASSERT

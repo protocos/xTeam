@@ -48,7 +48,7 @@ public class ServerAdminSetTest
 	{
 		//ASSEMBLE
 		Configuration.MAX_PLAYERS = 2;
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set Lonely one".split(" ")));
 		//ASSERT
@@ -60,7 +60,7 @@ public class ServerAdminSetTest
 	public void ShouldBeServerAdminSetExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set Lonely two".split(" ")));
 		//ASSERT
@@ -73,7 +73,7 @@ public class ServerAdminSetTest
 	public void ShouldBeServerAdminSetExecuteCreateTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set Lonely three".split(" ")));
 		//ASSERT
@@ -90,7 +90,7 @@ public class ServerAdminSetTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").removePlayer("protocos");
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set kmlanglois two".split(" ")));
 		//ASSERT
@@ -106,7 +106,7 @@ public class ServerAdminSetTest
 	public void ShouldBeServerAdminSetExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set kmlanglois two".split(" ")));
 		//ASSERT
@@ -119,7 +119,7 @@ public class ServerAdminSetTest
 	public void ShouldBeServerAdminSetExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set newbie one".split(" ")));
 		//ASSERT
@@ -131,7 +131,7 @@ public class ServerAdminSetTest
 	public void ShouldBeServerAdminSetExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set protocos three".split(" ")));
 		//ASSERT

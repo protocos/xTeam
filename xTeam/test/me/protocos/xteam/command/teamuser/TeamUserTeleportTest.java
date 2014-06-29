@@ -80,7 +80,7 @@ public class TeamUserTeleportTest
 	public void ShouldBeTeamUserTeleExecuteNoTeammatesOnline()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("mastermind");
+		FakePlayer fakePlayerSender = FakePlayer.get("mastermind");
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele".split(" ")));
@@ -94,7 +94,7 @@ public class TeamUserTeleportTest
 	public void ShouldBeTeamUserTeleExecuteNotTeammate()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele mastermind".split(" ")));
@@ -123,7 +123,7 @@ public class TeamUserTeleportTest
 	public void ShouldBeTeamUserTeleExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
@@ -139,7 +139,7 @@ public class TeamUserTeleportTest
 		//ASSEMBLE
 		Configuration.LAST_ATTACKED_DELAY = 15;
 		playerFactory.getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
@@ -155,7 +155,7 @@ public class TeamUserTeleportTest
 		//ASSEMBLE
 		TeamPlayer testPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("kmlanglois"), TeamPlayer.class);
 		teleportScheduler.getCurrentTasks().put(testPlayer, 0);
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
@@ -172,7 +172,7 @@ public class TeamUserTeleportTest
 		Configuration.TELE_REFRESH_DELAY = 60;
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("kmlanglois"), TeamPlayer.class);
 		teleportScheduler.teleport(teamPlayer, new Locatable(teamPlugin, "previous teleport", new FakeLocation()));
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		Location beforeLocation = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele protocos".split(" ")));
@@ -186,7 +186,7 @@ public class TeamUserTeleportTest
 	public void ShouldBeTeamUserTeleExecuteSelfTele()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele kmlanglois".split(" ")));
@@ -200,7 +200,7 @@ public class TeamUserTeleportTest
 	public void ShouldBeTeamUserTeleExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele neverplayed".split(" ")));
@@ -214,7 +214,7 @@ public class TeamUserTeleportTest
 	public void ShouldBeTeamUserTeleExecutePlayerOffline()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("strandedhelix");
+		FakePlayer fakePlayerSender = FakePlayer.get("strandedhelix");
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tele teammate".split(" ")));

@@ -42,7 +42,7 @@ public class TeamUserMessageTest
 	public void ShouldBeTeamUserMsgExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "msg hello team".split(" ")));
 		//ASSERT
@@ -54,7 +54,7 @@ public class TeamUserMessageTest
 	public void ShouldBeTeamUserMsgExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "msg hello team".split(" ")));
 		//ASSERT

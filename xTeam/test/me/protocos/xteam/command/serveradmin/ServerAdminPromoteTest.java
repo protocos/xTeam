@@ -46,7 +46,7 @@ public class ServerAdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote one protocos".split(" ")));
 		//ASSERT
@@ -59,7 +59,7 @@ public class ServerAdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote one Lonely".split(" ")));
 		//ASSERT
@@ -72,7 +72,7 @@ public class ServerAdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecutePlayerHeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote one newbie".split(" ")));
 		//ASSERT
@@ -85,7 +85,7 @@ public class ServerAdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecutePlayerNotOnTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote one mastermind".split(" ")));
 		//ASSERT
@@ -98,7 +98,7 @@ public class ServerAdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecuteTeamNotExist()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote three protocos".split(" ")));
 		//ASSERT

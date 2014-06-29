@@ -42,7 +42,7 @@ public class ServerAdminSetLeaderTest
 	public void ShouldBeServerAdminSetLeaderExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one protocos".split(" ")));
 		//ASSERT
@@ -55,7 +55,7 @@ public class ServerAdminSetLeaderTest
 	public void ShouldBeServerAdminSetLeaderExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one newbie".split(" ")));
 		//ASSERT
@@ -68,7 +68,7 @@ public class ServerAdminSetLeaderTest
 	public void ShouldBeServerAdminSetLeaderExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one Lonely".split(" ")));
 		//ASSERT
@@ -81,7 +81,7 @@ public class ServerAdminSetLeaderTest
 	public void ShouldBeServerAdminSetLeaderExecutePlayerNotOnTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one mastermind".split(" ")));
 		//ASSERT
@@ -94,7 +94,7 @@ public class ServerAdminSetLeaderTest
 	public void ShouldBeServerAdminSetLeaderExecutePlayerTeamIsDefault()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader red strandedhelix".split(" ")));
 		//ASSERT
@@ -107,7 +107,7 @@ public class ServerAdminSetLeaderTest
 	public void ShouldBeServerAdminSetLeaderExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader three protocos".split(" ")));
 		//ASSERT

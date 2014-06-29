@@ -24,7 +24,7 @@ public class TeamChatListenerTest
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
-		mockPlayer = FakePlayer.from("protocos");
+		mockPlayer = FakePlayer.get("protocos");
 		recipients = new HashSet<Player>();
 		chatListener = new TeamChatListener(teamPlugin);
 	}

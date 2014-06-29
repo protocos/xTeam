@@ -44,7 +44,7 @@ public class ServerAdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote one protocos".split(" ")));
 		//ASSERT
@@ -57,7 +57,7 @@ public class ServerAdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecuteDemoteLeader()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote one kmlanglois".split(" ")));
 		//ASSERT
@@ -70,7 +70,7 @@ public class ServerAdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecuteIncorrectTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote one mastermind".split(" ")));
 		//ASSERT
@@ -82,7 +82,7 @@ public class ServerAdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote one Lonely".split(" ")));
 		//ASSERT
@@ -94,7 +94,7 @@ public class ServerAdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecutePlayerHasNotPlayed()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote one newbie".split(" ")));
 		//ASSERT
@@ -107,7 +107,7 @@ public class ServerAdminDemoteTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").demote("protocos");
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote one protocos".split(" ")));
 		//ASSERT
@@ -119,7 +119,7 @@ public class ServerAdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote three protocos".split(" ")));
 		//ASSERT

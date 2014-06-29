@@ -43,7 +43,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage1()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 1".split(" ")));
 		//ASSERT
@@ -64,7 +64,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage2()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 2".split(" ")));
 		//ASSERT
@@ -85,7 +85,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage3()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 3".split(" ")));
 		//ASSERT
@@ -106,7 +106,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage4()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 4".split(" ")));
 		//ASSERT
@@ -127,7 +127,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage5()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 5".split(" ")));
 		//ASSERT
@@ -148,7 +148,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecuteInvalidPage()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 10".split(" ")));
 		//ASSERT

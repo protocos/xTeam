@@ -38,7 +38,7 @@ public class ServerAdminTeleAllHQTest
 	public void ShouldBeServerAdminTeleAllHQExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "teleallhq".split(" ")));
 		//ASSERT

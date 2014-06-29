@@ -42,7 +42,7 @@ public class ServerAdminRemoveTest
 	public void ShouldBeServerAdminRemoveExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove protocos one".split(" ")));
 		//ASSERT
@@ -56,7 +56,7 @@ public class ServerAdminRemoveTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").removePlayer("protocos");
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove kmlanglois one".split(" ")));
 		//ASSERT
@@ -70,7 +70,7 @@ public class ServerAdminRemoveTest
 	public void ShouldBeServerAdminRemoveExecuteTeamDoesNotExist()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove Lonely DNE".split(" ")));
 		//ASSERT
@@ -83,7 +83,7 @@ public class ServerAdminRemoveTest
 	public void ShouldBeServerAdminRemoveExecuteServerAdminPlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove newbie one".split(" ")));
 		//ASSERT
@@ -96,7 +96,7 @@ public class ServerAdminRemoveTest
 	public void ShouldBeServerAdminRemoveExecuteServerAdminHasNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove Lonely one".split(" ")));
 		//ASSERT
@@ -109,7 +109,7 @@ public class ServerAdminRemoveTest
 	public void ShouldBeServerAdminRemoveExecuteServerAdminNotOnTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove mastermind one".split(" ")));
 		//ASSERT
@@ -122,7 +122,7 @@ public class ServerAdminRemoveTest
 	public void ShouldBeServerAdminRemoveExecuteServerAdminLeader()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove kmlanglois one".split(" ")));
 		//ASSERT

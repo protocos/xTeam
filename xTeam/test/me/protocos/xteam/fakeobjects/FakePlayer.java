@@ -6,6 +6,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.LimitedQueue;
 import me.protocos.xteam.message.IMessageRecorder;
 import me.protocos.xteam.message.MessageUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
@@ -43,6 +44,11 @@ public class FakePlayer implements Player, CommandSender, IMessageRecorder
 	{
 		FakePlayer.teamPlugin = fakeTeamPlugin;
 		FakePlayer.server = fakeServer;
+	}
+
+	public static FakePlayer get(String name)
+	{
+		return CommonUtil.assignFromType(teamPlugin.getBukkitUtil().getPlayer(name), FakePlayer.class);
 	}
 
 	public static FakePlayer from(String name)

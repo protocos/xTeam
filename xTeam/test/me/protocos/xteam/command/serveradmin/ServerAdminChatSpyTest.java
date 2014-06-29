@@ -39,7 +39,7 @@ public class ServerAdminChatSpyTest
 	public void ShouldBeServerAdminChatSpyExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "chatspy".split(" ")));
 		//ASSERT
@@ -53,7 +53,7 @@ public class ServerAdminChatSpyTest
 	{
 		//ASSEMBLE
 		Configuration.spies.add("protocos");
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "chatspy".split(" ")));
 		//ASSERT

@@ -45,7 +45,7 @@ public class TeamLeaderSetRallyTest
 	public void ShouldBeSetRally()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT
@@ -58,7 +58,7 @@ public class TeamLeaderSetRallyTest
 	public void ShouldBeSetRallyPlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT
@@ -70,7 +70,7 @@ public class TeamLeaderSetRallyTest
 	public void ShouldBeSetRallyPlayerNotTeamLeader()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT
@@ -84,7 +84,7 @@ public class TeamLeaderSetRallyTest
 		//ASSEMBLE
 		ITeam team = teamCoordinator.getTeam("one");
 		team.setRally(team.getHeadquarters().getLocation());
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT

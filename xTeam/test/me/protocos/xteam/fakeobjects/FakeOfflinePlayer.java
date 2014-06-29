@@ -2,6 +2,7 @@ package me.protocos.xteam.fakeobjects;
 
 import java.util.Map;
 import me.protocos.xteam.TeamPlugin;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -17,6 +18,11 @@ public class FakeOfflinePlayer implements OfflinePlayer
 	public static void use(TeamPlugin fakeTeamPlugin)
 	{
 		FakeOfflinePlayer.teamPlugin = fakeTeamPlugin;
+	}
+
+	public static FakeOfflinePlayer get(String name)
+	{
+		return CommonUtil.assignFromType(teamPlugin.getBukkitUtil().getOfflinePlayer(name), FakeOfflinePlayer.class);
 	}
 
 	public static FakeOfflinePlayer online(String name)

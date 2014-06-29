@@ -52,7 +52,7 @@ public class ServerAdminSetRallyTest
 	public void ShouldBeServerAdminSetRallyExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT 
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally two".split(" ")));
 		//ASSERT
@@ -68,7 +68,7 @@ public class ServerAdminSetRallyTest
 		teamCoordinator.getTeam("one").setRally(new FakeLocation());
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("protocos"), TeamPlayer.class);
 		teleportScheduler.setRallyUsedFor(teamPlayer);
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT 
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally one".split(" ")));
 		//ASSERT
@@ -82,7 +82,7 @@ public class ServerAdminSetRallyTest
 	public void ShouldBeServerAdminSetRallyExecuteTeamNotExist()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally three".split(" ")));
 		//ASSERT

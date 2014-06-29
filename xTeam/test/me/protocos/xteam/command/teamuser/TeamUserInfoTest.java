@@ -55,7 +55,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
@@ -67,7 +67,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute2()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info two".split(" ")));
 		//ASSERT
@@ -79,7 +79,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute3()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info mastermind".split(" ")));
 		//ASSERT
@@ -91,7 +91,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute4()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info red".split(" ")));
 		//ASSERT
@@ -102,7 +102,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute5()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info strandedhelix".split(" ")));
 		//ASSERT
@@ -117,7 +117,7 @@ public class TeamUserInfoTest
 		teamCoordinator.getTeam("red").addPlayer("Lonely");
 		teamCoordinator.getTeam("red").promote("strandedhelix");
 		teamCoordinator.getTeam("red").promote("Lonely");
-		FakePlayer fakePlayerSender = FakePlayer.from("strandedhelix");
+		FakePlayer fakePlayerSender = FakePlayer.get("strandedhelix");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
@@ -130,7 +130,7 @@ public class TeamUserInfoTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").promote("protocos");
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
@@ -143,7 +143,7 @@ public class TeamUserInfoTest
 	{
 		//ASSEMBLE
 		Configuration.DISPLAY_RELATIVE_COORDINATES = true;
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
@@ -157,7 +157,7 @@ public class TeamUserInfoTest
 	{
 		//ASSEMBLE
 		inviteHandler.addInvite(new InviteRequest(playerFactory.getPlayer("kmlanglois"), playerFactory.getPlayer("Lonely"), System.currentTimeMillis()));
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
@@ -170,7 +170,7 @@ public class TeamUserInfoTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").promote("protocos");
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info REDONE".split(" ")));
 		//ASSERT
@@ -183,7 +183,7 @@ public class TeamUserInfoTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").promote("protocos");
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info TeamAwesome".split(" ")));
 		//ASSERT
@@ -195,7 +195,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecuteNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
@@ -207,7 +207,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info truck".split(" ")));
 		//ASSERT

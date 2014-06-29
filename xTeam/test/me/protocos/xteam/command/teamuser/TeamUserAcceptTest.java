@@ -59,7 +59,7 @@ public class TeamUserAcceptTest
 	public void ShouldBeTeamUserAcceptExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
@@ -74,7 +74,7 @@ public class TeamUserAcceptTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").addPlayer("stranger");
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
@@ -89,7 +89,7 @@ public class TeamUserAcceptTest
 	{
 		//ASSEMBLE
 		inviteHandler.removeInvite("Lonely");
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
@@ -104,7 +104,7 @@ public class TeamUserAcceptTest
 	{
 		//ASSEMBLE
 		teamCoordinator.disbandTeam("ONE");
-		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
+		FakePlayer fakePlayerSender = FakePlayer.get("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
@@ -117,7 +117,7 @@ public class TeamUserAcceptTest
 	public void ShouldBeTeamUserAcceptExecutePlayerHasTeam()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
+		FakePlayer fakePlayerSender = FakePlayer.get("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT

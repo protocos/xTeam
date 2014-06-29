@@ -38,7 +38,7 @@ public class TeamUserMainHelpTest
 	public void ShouldBeTeamUserMainHelpExecute()
 	{
 		//ASSEMBLE
-		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "".split(" ")));
 		//ASSERT
