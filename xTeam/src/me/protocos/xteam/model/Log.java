@@ -36,7 +36,7 @@ public class Log implements ILog
 			}
 			FileOutputStream output = new FileOutputStream(file);
 			printStream = new PrintStream(output);
-			printStream.print(messageLog.toString());
+			printStream.print(messageLog.toString() + "\n");
 		}
 		catch (FileNotFoundException e)
 		{
