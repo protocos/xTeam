@@ -47,7 +47,7 @@ public class TeamUserCreateTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You created newteam", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You created newteam", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.containsTeam("newteam"));
 		Assert.assertTrue(teamCoordinator.getTeam("newteam").getPlayers().contains("Lonely"));
 		Assert.assertFalse(teamCoordinator.getTeam("newteam").isAdmin("Lonely"));
@@ -64,7 +64,7 @@ public class TeamUserCreateTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create NEW".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You created NEW", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You created NEW", fakePlayerSender.getLastMessages());
 		Assert.assertEquals("NEW", teamCoordinator.getTeam("NEW").getName());
 		Assert.assertTrue(teamCoordinator.containsTeam("NEW"));
 		Assert.assertTrue(fakeExecuteResponse);
@@ -79,7 +79,7 @@ public class TeamUserCreateTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteamiswaytoolong".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamNameTooLongException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamNameTooLongException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("newteamiswaytoolong"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -93,7 +93,7 @@ public class TeamUserCreateTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamOnlyJoinDefaultException(teamCoordinator)).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamOnlyJoinDefaultException(teamCoordinator)).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("newteam"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -106,7 +106,7 @@ public class TeamUserCreateTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasTeamException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("newteam"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -119,7 +119,7 @@ public class TeamUserCreateTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create one".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamNameAlreadyInUseException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamNameAlreadyInUseException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.containsTeam("one"));
 		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
@@ -135,7 +135,7 @@ public class TeamUserCreateTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamCreatedRecentlyException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamCreatedRecentlyException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("newteam"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -149,7 +149,7 @@ public class TeamUserCreateTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create ��Eåm".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("��Eåm"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}

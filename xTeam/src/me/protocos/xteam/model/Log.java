@@ -114,13 +114,7 @@ public class Log implements ILog
 	}
 
 	@Override
-	public String getLastMessage()
-	{
-		return messageLog.getLast();
-	}
-
-	@Override
-	public String getAllMessages()
+	public String getLastMessages()
 	{
 		return messageLog.toString();
 	}
@@ -129,5 +123,11 @@ public class Log implements ILog
 	public LimitedQueue<String> getMessages()
 	{
 		return messageLog;
+	}
+
+	@Override
+	public void clearMessages()
+	{
+		messageLog.clear();
 	}
 }

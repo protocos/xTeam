@@ -51,7 +51,7 @@ public class ConsoleInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info protocos".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeamByPlayer("protocos").getInfoFor(new FakeConsoleTeamEntity())), fakeConsoleSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeamByPlayer("protocos").getInfoFor(new FakeConsoleTeamEntity())), fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -62,7 +62,7 @@ public class ConsoleInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info two".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("two").getInfoFor(new FakeConsoleTeamEntity())), fakeConsoleSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("two").getInfoFor(new FakeConsoleTeamEntity())), fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -74,7 +74,7 @@ public class ConsoleInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info one".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeConsoleTeamEntity())), fakeConsoleSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeConsoleTeamEntity())), fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 		Configuration.DISPLAY_RELATIVE_COORDINATES = false;
 	}
@@ -86,7 +86,7 @@ public class ConsoleInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamInvalidCommandException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamInvalidCommandException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -97,7 +97,7 @@ public class ConsoleInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info Lonely".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -108,7 +108,7 @@ public class ConsoleInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "info truck".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamOrPlayerDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamOrPlayerDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

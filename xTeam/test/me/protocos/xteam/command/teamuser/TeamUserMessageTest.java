@@ -46,7 +46,7 @@ public class TeamUserMessageTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "msg hello team".split(" ")));
 		//ASSERT
-		Assert.assertEquals("[protocos] hello team", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("[protocos] hello team", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -58,7 +58,7 @@ public class TeamUserMessageTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "msg hello team".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

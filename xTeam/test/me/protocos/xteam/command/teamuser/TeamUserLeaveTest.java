@@ -46,7 +46,7 @@ public class TeamUserLeaveTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You left red", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You left red", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.containsTeam("red"));
 		Assert.assertFalse(teamCoordinator.getTeam("red").containsPlayer("strandedhelix"));
 		Assert.assertTrue(fakeExecuteResponse);
@@ -60,7 +60,7 @@ public class TeamUserLeaveTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You left two", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You left two", fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("two"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -73,7 +73,7 @@ public class TeamUserLeaveTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You left ONE", fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -86,7 +86,7 @@ public class TeamUserLeaveTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.getTeam("one").containsPlayer("kmlanglois"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -99,7 +99,7 @@ public class TeamUserLeaveTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

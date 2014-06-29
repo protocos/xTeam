@@ -1138,21 +1138,21 @@ public class FakePlayer implements Player, CommandSender, IMessageRecorder
 	}
 
 	@Override
-	public String getLastMessage()
+	public String getLastMessages()
 	{
-		return messageLog.getLast();
-	}
-
-	@Override
-	public String getAllMessages()
-	{
-		return messageLog.toString().trim();
+		return MessageUtil.resetFormatting(messageLog.toString().trim());
 	}
 
 	@Override
 	public LimitedQueue<String> getMessages()
 	{
 		return messageLog;
+	}
+
+	@Override
+	public void clearMessages()
+	{
+		messageLog.clear();
 	}
 
 	@Override

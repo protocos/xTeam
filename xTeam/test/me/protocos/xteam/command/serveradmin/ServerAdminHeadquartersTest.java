@@ -48,7 +48,7 @@ public class ServerAdminHeadquartersTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq one".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You have been teleported to the headquarters of team ONE", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You have been teleported to the headquarters of team ONE", fakePlayerSender.getLastMessages());
 		Assert.assertEquals(hq, fakePlayerSender.getLocation());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -62,7 +62,7 @@ public class ServerAdminHeadquartersTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq team".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -76,7 +76,7 @@ public class ServerAdminHeadquartersTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq two".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamNoHeadquartersException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamNoHeadquartersException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals(before, fakePlayerSender.getLocation());
 		Assert.assertFalse(fakeExecuteResponse);
 	}

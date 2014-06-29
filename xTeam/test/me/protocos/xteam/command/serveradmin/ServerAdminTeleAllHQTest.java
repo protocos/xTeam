@@ -42,7 +42,8 @@ public class ServerAdminTeleAllHQTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "teleallhq".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Players teleported", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You have been teleported to the team headquarters\n" +
+				"Players teleported", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

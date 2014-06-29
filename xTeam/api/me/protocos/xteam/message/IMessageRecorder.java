@@ -4,9 +4,9 @@ import me.protocos.xteam.collections.LimitedQueue;
 
 public interface IMessageRecorder
 {
-	public abstract String getLastMessage();
+	public abstract void clearMessages();
 
-	public abstract String getAllMessages();
+	public abstract String getLastMessages();
 
 	public abstract LimitedQueue<String> getMessages();
 }

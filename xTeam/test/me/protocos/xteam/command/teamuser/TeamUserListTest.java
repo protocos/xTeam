@@ -44,7 +44,7 @@ public class TeamUserListTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
 		//ASSERT
-		Assert.assertEquals("There are no teams", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("There are no teams", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -59,7 +59,7 @@ public class TeamUserListTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Teams: red", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("Teams: red", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -71,7 +71,7 @@ public class TeamUserListTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Teams: ONE, two, red, blue", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("Teams: ONE, two, red, blue", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

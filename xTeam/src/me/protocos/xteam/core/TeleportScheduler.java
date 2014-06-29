@@ -115,11 +115,11 @@ public class TeleportScheduler
 			teamPlayer.setLastTeleported(System.currentTimeMillis());
 		}
 		teamPlayer.teleport(toLocation);
-		new Message.Builder("You have been " + MessageUtil.green("teleported") + " to " + toLocatable.getName()).addRecipients(teamPlayer).send(log);
+		new Message.Builder("You have been teleported to " + toLocatable.getName()).addRecipients(teamPlayer).send(log);
 		if (toLocatable instanceof TeamPlayer)
 		{
 			TeamPlayer toPlayer = CommonUtil.assignFromType(toLocatable, TeamPlayer.class);
-			new Message.Builder(teamPlayer.getName() + " has " + MessageUtil.green("teleported") + " to you").addRecipients(toPlayer).send(log);
+			new Message.Builder(teamPlayer.getName() + " has teleported to you").addRecipients(toPlayer).send(log);
 		}
 	}
 

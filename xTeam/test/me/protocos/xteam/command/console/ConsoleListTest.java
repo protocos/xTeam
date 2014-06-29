@@ -51,7 +51,7 @@ public class ConsoleListTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "list".split(" ")));
 		//ASSERT
-		Assert.assertEquals("There are no teams", fakeConsoleSender.getLastMessage());
+		Assert.assertEquals("There are no teams", fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -65,7 +65,7 @@ public class ConsoleListTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "list".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Teams: red", fakeConsoleSender.getLastMessage());
+		Assert.assertEquals("Teams: red", fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -76,7 +76,7 @@ public class ConsoleListTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "list".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Teams: ONE, two, red, blue", fakeConsoleSender.getLastMessage());
+		Assert.assertEquals("Teams: ONE, two, red, blue", fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

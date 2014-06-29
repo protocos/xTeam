@@ -3,38 +3,24 @@ package me.protocos.xteam.command.console;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.entity.TeamPlayer;
+import me.protocos.xteam.command.action.TeleAllHQAction;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleTeleAllHQ extends ConsoleCommand
 {
+	private TeleAllHQAction action;
+
 	public ConsoleTeleAllHQ(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
+		this.action = new TeleAllHQAction(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		for (TeamPlayer player : playerFactory.getOnlinePlayers())
-		{
-			if (!player.hasTeam())
-			{
-				new Message.Builder(player.getName() + " does not have a team and was not teleported").addRecipients(sender).send(log);
-			}
-			else if (!player.getTeam().hasHeadquarters())
-			{
-				new Message.Builder("No team headquarters set for team " + player.getTeam().getName() + " for " + player.getName()).addRecipients(sender).send(log);
-			}
-			else
-			{
-				player.teleport(player.getTeam().getHeadquarters().getLocation());
-				new Message.Builder("You have been teleported to the team headquarters by an admin").addRecipients(player).send(log);
-			}
-		}
-		new Message.Builder("Players teleported").addRecipients(sender).send(log);
+		action.actOn(sender);
 	}
 
 	@Override
@@ -46,9 +32,10 @@ public class ConsoleTeleAllHQ extends ConsoleCommand
 	public String getPattern()
 	{
 		return new PatternBuilder()
-				.oneOrMore("tele")
+				.oneOrMore("teleport")
 				.oneOrMore("all")
-				.oneOrMore("hq")
+				.oneOrMore("head")
+				.oneOrMore("quarters")
 				.whiteSpaceOptional()
 				.toString();
 	}

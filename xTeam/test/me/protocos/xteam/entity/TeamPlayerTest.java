@@ -307,7 +307,7 @@ public class TeamPlayerTest
 		//ACT
 		teamPlayer.sendMessage("test message");
 		//ASSERT
-		Assert.assertEquals("test message", fakePlayer.getLastMessage());
+		Assert.assertEquals("test message", fakePlayer.getLastMessages());
 	}
 
 	@Test

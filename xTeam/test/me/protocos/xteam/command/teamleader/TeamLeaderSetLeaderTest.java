@@ -48,7 +48,7 @@ public class TeamLeaderSetLeaderTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader protocos".split(" ")));
 		//ASSERT
 		Assert.assertEquals("protocos is now the team leader (you are an admin)\n" +
-				"You can now leave the team", fakePlayerSender.getLastMessage());
+				"You can now leave the team", fakePlayerSender.getLastMessages());
 		Assert.assertEquals("protocos", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(teamCoordinator.getTeam("one").isAdmin("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
@@ -62,7 +62,7 @@ public class TeamLeaderSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader protocos".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -74,7 +74,7 @@ public class TeamLeaderSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader protocos".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -87,7 +87,7 @@ public class TeamLeaderSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader newbie".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}

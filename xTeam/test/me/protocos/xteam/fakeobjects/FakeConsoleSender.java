@@ -181,13 +181,7 @@ public class FakeConsoleSender implements ConsoleCommandSender, IMessageRecorder
 	}
 
 	@Override
-	public String getLastMessage()
-	{
-		return MessageUtil.resetFormatting(messageLog.getLast());
-	}
-
-	@Override
-	public String getAllMessages()
+	public String getLastMessages()
 	{
 		return MessageUtil.resetFormatting(messageLog.toString().trim());
 	}
@@ -196,5 +190,11 @@ public class FakeConsoleSender implements ConsoleCommandSender, IMessageRecorder
 	public LimitedQueue<String> getMessages()
 	{
 		return messageLog;
+	}
+
+	@Override
+	public void clearMessages()
+	{
+		messageLog.clear();
 	}
 }

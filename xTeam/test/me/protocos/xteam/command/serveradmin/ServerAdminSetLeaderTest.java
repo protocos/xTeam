@@ -46,7 +46,7 @@ public class ServerAdminSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one protocos".split(" ")));
 		//ASSERT
-		Assert.assertEquals("protocos is now the team leader for ONE", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("protocos is now the team leader for ONE", fakePlayerSender.getLastMessages());
 		Assert.assertEquals("protocos", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -59,7 +59,7 @@ public class ServerAdminSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one newbie".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -72,7 +72,7 @@ public class ServerAdminSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one Lonely".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -85,7 +85,7 @@ public class ServerAdminSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one mastermind".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -98,7 +98,7 @@ public class ServerAdminSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader red strandedhelix".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -111,7 +111,7 @@ public class ServerAdminSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader three protocos".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}

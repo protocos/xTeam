@@ -61,7 +61,7 @@ public class ConsoleHelpTest
 				"team sethq [Team] [World] [X] [Y] [Z] - set headquarters of team\n" +
 				"team setleader [Team] [Player] - set leader of team\n" +
 				"team setrally [Team] [World] [X] [Y] [Z] - set rally point of team\n" +
-				"team teleallhq - teleports everyone to their headquarters", fakeConsoleSender.getAllMessages());
+				"team teleallhq - teleports everyone to their headquarters", fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

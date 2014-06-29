@@ -56,7 +56,7 @@ public class TeamUserHelpTest
 				"/team join [Team] - join a team\n" +
 				"/team leave - leave your team\n" +
 				"/team accept - accept the most recent team invite\n" +
-				"/team hq - teleport to the team headquarters", fakePlayerSender.getLastMessage());
+				"/team hq - teleport to the team headquarters", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -77,7 +77,7 @@ public class TeamUserHelpTest
 				"/team sethq - set headquarters of team\n" +
 				"/team invite [Player] - invite player to your team\n" +
 				"/team promote [Player] - promote player to team admin\n" +
-				"/team demote [Player] - demote team admin", fakePlayerSender.getLastMessage());
+				"/team demote [Player] - demote team admin", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -98,7 +98,7 @@ public class TeamUserHelpTest
 				"/team setleader [Player] - set new leader for the team\n" +
 				"/team setrally - set rally point for the team\n" +
 				"/team chatspy - spy on team chat\n" +
-				"/team debug {Option} - server admin debug menu for xTeam", fakePlayerSender.getLastMessage());
+				"/team debug {Option} - server admin debug menu for xTeam", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -119,7 +119,7 @@ public class TeamUserHelpTest
 				"/team rename [Team] [Name] - rename a team\n" +
 				"/team tag [Team] [Tag] - set team tag\n" +
 				"/team open [Team] - open team to public joining\n" +
-				"/team set [Player] [Team] - set team of player", fakePlayerSender.getLastMessage());
+				"/team set [Player] [Team] - set team of player", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -136,11 +136,7 @@ public class TeamUserHelpTest
 				"/team setleader [Team] [Player] - set leader of team\n" +
 				"/team setrally [Team] - set team rally point for team\n" +
 				"/team teleallhq - teleports everyone to their headquarters\n" +
-				"/team tpall [Team] - teleports a team to yourself\n" +
-				" \n" +
-				" \n" +
-				" \n" +
-				" ", fakePlayerSender.getLastMessage());
+				"/team tpall [Team] - teleports a team to yourself", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -152,7 +148,7 @@ public class TeamUserHelpTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 10".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamInvalidPageException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamInvalidPageException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

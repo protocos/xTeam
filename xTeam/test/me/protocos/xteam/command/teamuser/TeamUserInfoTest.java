@@ -59,7 +59,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeTeamPlayer.Builder().name("protocos").build())), fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeTeamPlayer.Builder().name("protocos").build())), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -71,7 +71,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info two".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("two").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").isOnSameTeam(false).build())), fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("two").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").isOnSameTeam(false).build())), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -83,7 +83,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info mastermind".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeamByPlayer("mastermind").getInfoFor(new FakeTeamPlayer.Builder().name("protocos").isOnSameTeam(false).build())), fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeamByPlayer("mastermind").getInfoFor(new FakeTeamPlayer.Builder().name("protocos").isOnSameTeam(false).build())), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -106,7 +106,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info strandedhelix".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeamByPlayer("strandedhelix").getInfoFor(new FakeTeamPlayer.Builder().name("protocos").isOnSameTeam(false).build())), fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeamByPlayer("strandedhelix").getInfoFor(new FakeTeamPlayer.Builder().name("protocos").isOnSameTeam(false).build())), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -121,7 +121,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("red").getInfoFor(new FakeTeamPlayer.Builder().name("strandedhelix").build())), fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("red").getInfoFor(new FakeTeamPlayer.Builder().name("strandedhelix").build())), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -134,7 +134,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").build())), fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").build())), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -147,7 +147,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeTeamPlayer.Builder().name("protocos").build())), fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeTeamPlayer.Builder().name("protocos").build())), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 		Configuration.DISPLAY_RELATIVE_COORDINATES = false;
 	}
@@ -161,7 +161,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").build())), fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("one").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").build())), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -174,7 +174,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info REDONE".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("REDONE").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").isOnSameTeam(false).build())), fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("REDONE").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").isOnSameTeam(false).build())), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -187,7 +187,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info TeamAwesome".split(" ")));
 		//ASSERT
-		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("TeamAwesome").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").build())), fakePlayerSender.getAllMessages());
+		Assert.assertEquals(MessageUtil.resetFormatting(teamCoordinator.getTeam("TeamAwesome").getInfoFor(new FakeTeamPlayer.Builder().name("kmlanglois").build())), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 
@@ -199,7 +199,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -211,7 +211,7 @@ public class TeamUserInfoTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info truck".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamOrPlayerDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamOrPlayerDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

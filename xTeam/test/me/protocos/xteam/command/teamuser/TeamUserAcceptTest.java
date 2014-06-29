@@ -63,7 +63,7 @@ public class TeamUserAcceptTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You joined ONE", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You joined ONE", fakePlayerSender.getLastMessages());
 		Assert.assertFalse(inviteHandler.hasInvite("Lonely"));
 		Assert.assertTrue(teamCoordinator.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
@@ -78,7 +78,7 @@ public class TeamUserAcceptTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(inviteHandler.hasInvite("Lonely"));
 		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
@@ -93,7 +93,7 @@ public class TeamUserAcceptTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasNoInviteException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasNoInviteException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(inviteHandler.hasInvite("Lonely"));
 		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
@@ -108,7 +108,7 @@ public class TeamUserAcceptTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasNoInviteException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasNoInviteException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(inviteHandler.hasInvite("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -121,7 +121,7 @@ public class TeamUserAcceptTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasTeamException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(inviteHandler.hasInvite("Lonely"));
 		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);

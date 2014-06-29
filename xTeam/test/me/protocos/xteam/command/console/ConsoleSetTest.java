@@ -50,7 +50,7 @@ public class ConsoleSetTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set Lonely two".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Lonely has been added to two", fakeConsoleSender.getLastMessage());
+		Assert.assertEquals("Lonely has been added to two", fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.getTeam("two").containsPlayer("Lonely"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -63,7 +63,7 @@ public class ConsoleSetTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set Lonely three".split(" ")));
 		//ASSERT
 		Assert.assertEquals("three has been created\n" +
-				"Lonely has been added to three", fakeConsoleSender.getAllMessages());
+				"Lonely has been added to three", fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.containsTeam("three"));
 		Assert.assertTrue(teamCoordinator.getTeam("three").containsPlayer("Lonely"));
 		Assert.assertEquals(1, teamCoordinator.getTeam("three").size());
@@ -78,7 +78,7 @@ public class ConsoleSetTest
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set protocos two".split(" ")));
 		//ASSERT
 		Assert.assertEquals("protocos has been removed from ONE\n" +
-				"protocos has been added to two", fakeConsoleSender.getAllMessages());
+				"protocos has been added to two", fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.getTeam("one").containsPlayer("protocos"));
 		Assert.assertTrue(teamCoordinator.getTeam("two").containsPlayer("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
@@ -94,7 +94,7 @@ public class ConsoleSetTest
 		//ASSERT
 		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
 				"ONE has been disbanded\n" +
-				"kmlanglois has been added to two", fakeConsoleSender.getAllMessages());
+				"kmlanglois has been added to two", fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("one"));
 		Assert.assertTrue(teamCoordinator.getTeam("two").containsPlayer("kmlanglois"));
 		Assert.assertTrue(fakeExecuteResponse);
@@ -107,7 +107,7 @@ public class ConsoleSetTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set kmlanglois two".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerLeaderLeavingException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -118,7 +118,7 @@ public class ConsoleSetTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set newbie one".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
@@ -130,7 +130,7 @@ public class ConsoleSetTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "set Lonely one".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerMaxException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

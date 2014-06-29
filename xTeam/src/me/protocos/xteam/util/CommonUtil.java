@@ -112,6 +112,17 @@ public class CommonUtil
 		return toList(string.split(delimiter));
 	}
 
+	public static <T> String toString(List<T> list)
+	{
+		String output = "";
+		for (T t : list)
+		{
+			output += t.toString();
+		}
+		return output.trim();
+
+	}
+
 	public static List<Boolean> toList(boolean... booleans)
 	{
 		List<Boolean> list = new ArrayList<Boolean>(booleans.length);

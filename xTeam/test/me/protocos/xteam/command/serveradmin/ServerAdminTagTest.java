@@ -50,7 +50,7 @@ public class ServerAdminTagTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag one tag".split(" ")));
 		//ASSERT
-		Assert.assertEquals("The team tag has been set to tag", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("The team tag has been set to tag", fakePlayerSender.getLastMessages());
 		Assert.assertEquals("tag", teamCoordinator.getTeam("one").getTag());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -63,7 +63,7 @@ public class ServerAdminTagTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag one two".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamNameAlreadyInUseException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamNameAlreadyInUseException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -77,7 +77,7 @@ public class ServerAdminTagTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag one ��Eåm".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -90,7 +90,7 @@ public class ServerAdminTagTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag three tag".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
 		Assert.assertFalse(fakeExecuteResponse);
 	}

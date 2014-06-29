@@ -44,7 +44,7 @@ public class TeamUserChatTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "chat".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You are now only chatting with your team", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You are now only chatting with your team", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(Configuration.chatStatus.contains("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -57,7 +57,7 @@ public class TeamUserChatTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "chat".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(Configuration.chatStatus.contains("Lonely"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}

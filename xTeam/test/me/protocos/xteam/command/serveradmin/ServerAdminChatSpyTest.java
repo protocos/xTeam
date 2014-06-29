@@ -43,7 +43,7 @@ public class ServerAdminChatSpyTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "chatspy".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You are now spying on team chat", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You are now spying on team chat", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(Configuration.spies.contains("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -57,7 +57,7 @@ public class ServerAdminChatSpyTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "chatspy".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You are no longer spying on team chat", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You are no longer spying on team chat", fakePlayerSender.getLastMessages());
 		Assert.assertFalse(Configuration.spies.contains("protocos"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}

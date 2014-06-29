@@ -56,7 +56,7 @@ public class ServerAdminSetRallyTest
 		//ACT 
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally two".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You set the rally point for team two", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You set the rally point for team two", fakePlayerSender.getLastMessages());
 		Assert.assertEquals(fakePlayerSender.getLocation(), teamCoordinator.getTeam("two").getRally());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -72,7 +72,7 @@ public class ServerAdminSetRallyTest
 		//ACT 
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally one".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You set the rally point for team ONE", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You set the rally point for team ONE", fakePlayerSender.getLastMessages());
 		Assert.assertEquals(fakePlayerSender.getLocation(), teamCoordinator.getTeam("one").getRally());
 		Assert.assertTrue(teleportScheduler.canRally(teamPlayer));
 		Assert.assertTrue(fakeExecuteResponse);
@@ -86,7 +86,7 @@ public class ServerAdminSetRallyTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally three".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

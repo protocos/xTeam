@@ -47,7 +47,7 @@ public class ConsoleSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader one protocos".split(" ")));
 		//ASSERT
-		Assert.assertEquals("protocos is now the team leader for ONE", fakeConsoleSender.getLastMessage());
+		Assert.assertEquals("protocos is now the team leader for ONE", fakeConsoleSender.getLastMessages());
 		Assert.assertEquals("protocos", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -59,7 +59,7 @@ public class ConsoleSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader one newbie".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerNeverPlayedException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -71,7 +71,7 @@ public class ConsoleSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader one Lonely".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -83,7 +83,7 @@ public class ConsoleSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader one mastermind".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerNotOnTeamException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -95,7 +95,7 @@ public class ConsoleSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader red strandedhelix".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamIsDefaultException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -107,7 +107,7 @@ public class ConsoleSetLeaderTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setleader three Lonely".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertEquals("kmlanglois", teamCoordinator.getTeam("one").getLeader());
 		Assert.assertFalse(fakeExecuteResponse);
 	}

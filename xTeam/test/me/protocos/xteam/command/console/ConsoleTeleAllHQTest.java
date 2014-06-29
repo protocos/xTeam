@@ -29,7 +29,7 @@ public class ConsoleTeleAllHQTest
 	{
 		Assert.assertTrue("teleallhq".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("teleallhq ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue("teleah".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("teleahq".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("t".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("tele ".matches(fakeCommand.getPattern()));
 		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("team " + fakeCommand.getPattern()));
@@ -42,7 +42,7 @@ public class ConsoleTeleAllHQTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "teleallhq".split(" ")));
 		//ASSERT
-		Assert.assertEquals("Players teleported", fakeConsoleSender.getLastMessage());
+		Assert.assertEquals("Players teleported", fakeConsoleSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

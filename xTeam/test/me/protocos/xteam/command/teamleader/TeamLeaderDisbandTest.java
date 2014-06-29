@@ -45,7 +45,7 @@ public class TeamLeaderDisbandTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You disbanded your team", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You disbanded your team", fakePlayerSender.getLastMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -58,7 +58,7 @@ public class TeamLeaderDisbandTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerHasNoTeamException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.containsTeam("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}
@@ -71,7 +71,7 @@ public class TeamLeaderDisbandTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "disband".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessage());
+		Assert.assertEquals((new TeamPlayerNotLeaderException()).getMessage(), fakePlayerSender.getLastMessages());
 		Assert.assertTrue(teamCoordinator.containsTeam("one"));
 		Assert.assertFalse(fakeExecuteResponse);
 	}

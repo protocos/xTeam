@@ -51,7 +51,7 @@ public class ConsoleSetHeadquartersTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "sethq one world 1.65 2.65 3.65".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You set the team headquarters to X:1.65 Y:2.65 Z:3.65", fakeConsoleSender.getLastMessage());
+		Assert.assertEquals("You set the team headquarters to X:1.65 Y:2.65 Z:3.65", fakeConsoleSender.getLastMessages());
 		Assert.assertEquals(new Headquarters(bukkitUtil.getWorld("world"), 1.65D, 2.65D, 3.65D, 0.0F, 0.0F), teamCoordinator.getTeam("one").getHeadquarters());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -63,7 +63,7 @@ public class ConsoleSetHeadquartersTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "sethq DNE world 1.65 2.65 3.65".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

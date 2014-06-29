@@ -53,7 +53,7 @@ public class ConsoleSetRallyTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setrally one world 1.65 2.65 3.65".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You set the rally point for ONE to X:1.65 Y:2.65 Z:3.65", fakeConsoleSender.getLastMessage());
+		Assert.assertEquals("You set the rally point for ONE to X:1.65 Y:2.65 Z:3.65", fakeConsoleSender.getLastMessages());
 		Assert.assertEquals(new Location(bukkitUtil.getWorld("world"), 1.65D, 2.65D, 3.65D, 0.0F, 0.0F), teamCoordinator.getTeam("one").getRally());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -66,7 +66,7 @@ public class ConsoleSetRallyTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setrally one world 1.65 2.65 3.65".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You set the rally point for ONE to X:1.65 Y:2.65 Z:3.65", fakeConsoleSender.getLastMessage());
+		Assert.assertEquals("You set the rally point for ONE to X:1.65 Y:2.65 Z:3.65", fakeConsoleSender.getLastMessages());
 		Assert.assertEquals(new Location(bukkitUtil.getWorld("world"), 1.65D, 2.65D, 3.65D, 0.0F, 0.0F), teamCoordinator.getTeam("one").getRally());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
@@ -78,7 +78,7 @@ public class ConsoleSetRallyTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakeConsoleSender, "team", "setrally DNE world 1.65 2.65 3.65".split(" ")));
 		//ASSERT
-		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessage());
+		Assert.assertEquals((new TeamDoesNotExistException()).getMessage(), fakeConsoleSender.getLastMessages());
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 

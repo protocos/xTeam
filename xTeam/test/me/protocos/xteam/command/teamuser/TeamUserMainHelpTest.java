@@ -48,7 +48,7 @@ public class TeamUserMainHelpTest
 				"/team [command] = command for TEAM PLAYERS\n" +
 				"/team [command] = command for TEAM ADMINS\n" +
 				"/team [command] = command for TEAM LEADERS\n" +
-				"Report BUGS to http://dev.bukkit.org/server-mods/xteam/", fakePlayerSender.getLastMessage());
+				"Report BUGS to http://dev.bukkit.org/server-mods/xteam/", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}
 

@@ -83,7 +83,7 @@ public class ConfigurationTest
 		loadConfig();
 		//ACT
 		//ASSERT
-		Assert.assertEquals("playersonteam = 1 is not inside range (2 <= VALUE < 1000), defaulting to playersonteam = 10", teamPlugin.getLog().getLastMessage());
+		Assert.assertEquals("playersonteam = 1 is not inside range (2 <= VALUE < 1000), defaulting to playersonteam = 10", teamPlugin.getLog().getLastMessages());
 		Assert.assertEquals(10, Configuration.MAX_PLAYERS);
 	}
 
@@ -95,7 +95,7 @@ public class ConfigurationTest
 		loadConfig();
 		//ACT
 		//ASSERT
-		Assert.assertNull(teamPlugin.getLog().getLastMessage());
+		Assert.assertEquals("", teamPlugin.getLog().getLastMessages());
 		Assert.assertTrue(Configuration.DISABLED_WORLDS.contains("world"));
 		Assert.assertTrue(Configuration.DISABLED_WORLDS.contains("world_nether"));
 	}
@@ -108,7 +108,7 @@ public class ConfigurationTest
 		loadConfig();
 		//ACT
 		//ASSERT
-		Assert.assertEquals("disabledworlds = '???' is not a valid pattern, defaulting to disabledworlds = ''", teamPlugin.getLog().getLastMessage());
+		Assert.assertEquals("disabledworlds = '???' is not a valid pattern, defaulting to disabledworlds = ''", teamPlugin.getLog().getLastMessages());
 		Assert.assertEquals(CommonUtil.emptyList(), Configuration.DISABLED_WORLDS);
 	}
 
@@ -120,7 +120,7 @@ public class ConfigurationTest
 		loadConfig();
 		//ACT
 		//ASSERT
-		Assert.assertNull(teamPlugin.getLog().getLastMessage());
+		Assert.assertEquals("", teamPlugin.getLog().getLastMessages());
 		Assert.assertEquals("mysql:blah:blah:blah:blah:blah", Configuration.STORAGE_TYPE);
 	}
 
@@ -132,7 +132,7 @@ public class ConfigurationTest
 		loadConfig();
 		//ACT
 		//ASSERT
-		Assert.assertNull(teamPlugin.getLog().getLastMessage());
+		Assert.assertEquals("", teamPlugin.getLog().getLastMessages());
 		Assert.assertEquals(false, Configuration.TEAM_FRIENDLY_FIRE);
 	}
 
