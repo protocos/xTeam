@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.teamuser;
 
-import org.junit.Assert;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
@@ -17,6 +16,7 @@ import me.protocos.xteam.fakeobjects.FakeTeamPlayer;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.InviteRequest;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

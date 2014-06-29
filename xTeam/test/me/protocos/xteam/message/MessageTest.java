@@ -1,6 +1,7 @@
 package me.protocos.xteam.message;
 
 import me.protocos.xteam.fakeobjects.FakeMessageRecipient;
+import org.bukkit.ChatColor;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -62,7 +63,7 @@ public class MessageTest
 		//ACT
 		message.send(null);
 		//ASSERT
-		Assert.assertEquals("§arefreshed§r", recipient1.getLatestMessage());
+		Assert.assertEquals(ChatColor.GREEN + "refreshed" + ChatColor.RESET, recipient1.getLatestMessage());
 	}
 
 	@Test
@@ -94,7 +95,7 @@ public class MessageTest
 		//ACT
 		new Message.Builder("refreshed").addRecipients(recipient1).send(null);
 		//ASSERT
-		Assert.assertEquals("§arefreshed§r", recipient1.getLatestMessage());
+		Assert.assertEquals(ChatColor.GREEN + "refreshed" + ChatColor.RESET, recipient1.getLatestMessage());
 	}
 
 	@After

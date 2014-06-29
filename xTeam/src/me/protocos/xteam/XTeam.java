@@ -16,7 +16,6 @@ import me.protocos.xteam.listener.TeamPlayerListener;
 import me.protocos.xteam.listener.TeamPvPEntityListener;
 import me.protocos.xteam.model.XTeamWebPage;
 import me.protocos.xteam.util.SystemUtil;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginManager;
@@ -49,12 +48,12 @@ public final class XTeam extends TeamPlugin
 	public void load()
 	{
 		XTeamWebPage page = new XTeamWebPage("http://dev.bukkit.org/bukkit-plugins/xteam/files/", this.getLog());
-		if (page.isDownloadSuccessful() && !("v"+this.getVersion()).equals(page.getMostRecentVersion()))
+		if (page.isDownloadSuccessful() && !("v" + this.getVersion()).equals(page.getMostRecentVersion()))
 		{
 			this.getLog().info("There is a newer version of xTeam available at the following link:");
 			this.getLog().info("	http://dev.bukkit.org/bukkit-plugins/xteam/");
 		}
-		this.commandManager.register(this);
+		this.getCommandManager().register(this);
 		this.initFileSystem();
 		persistenceLayer = new DataStorageFactory(this).dataManagerFromString(Configuration.STORAGE_TYPE);
 	}
@@ -71,41 +70,29 @@ public final class XTeam extends TeamPlugin
 		persistenceLayer.write();
 	}
 
+	@Override
 	public void enable()
 	{
-		try
-		{
-			PluginManager pm = bukkitUtil.getPluginManager();
-			pm.registerEvents(new TeamPvPEntityListener(this), this);
-			pm.registerEvents(new TeamPlayerListener(this), this);
-			pm.registerEvents(new TeamChatListener(this), this);
-			this.getCommand("team").setExecutor(commandExecutor);
-			this.read();
-		}
-		catch (Exception e)
-		{
-			this.getLog().exception(e);
-		}
+		PluginManager pm = this.getBukkitUtil().getPluginManager();
+		pm.registerEvents(new TeamPvPEntityListener(this), this);
+		pm.registerEvents(new TeamPlayerListener(this), this);
+		pm.registerEvents(new TeamChatListener(this), this);
+		this.getCommand("team").setExecutor(this.getCommandExecutor());
+		this.read();
 	}
 
+	@Override
 	public void disable()
 	{
-		try
+		this.initFileSystem();
+		persistenceLayer = new DataStorageFactory(this).dataManagerFromString(Configuration.STORAGE_TYPE);
+		this.write();
+		DataStorageFactory.close();
+		//does the same thing as this.bukkitScheduler.cancelAllTasks();
+		for (BukkitTask task : this.getBukkitScheduler().getPendingTasks())
 		{
-			this.initFileSystem();
-			persistenceLayer = new DataStorageFactory(this).dataManagerFromString(Configuration.STORAGE_TYPE);
-			this.write();
-			DataStorageFactory.close();
-			//does the same thing as this.bukkitScheduler.cancelAllTasks();
-			for (BukkitTask task : this.bukkitScheduler.getPendingTasks())
-			{
-				log.info("Cancelling task id: " + task.getTaskId());
-				task.cancel();
-			}
-		}
-		catch (Exception e)
-		{
-			this.getLog().exception(e);
+			this.getLog().info("Cancelling task id: " + task.getTaskId());
+			task.cancel();
 		}
 	}
 

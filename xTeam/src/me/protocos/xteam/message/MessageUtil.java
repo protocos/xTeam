@@ -1,9 +1,47 @@
 package me.protocos.xteam.message;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.bukkit.ChatColor;
 
 public class MessageUtil
 {
+	private static Set<String> positiveWords = new HashSet<String>();
+	private static Set<String> negativeWords = new HashSet<String>();
+	static
+	{
+		//Positive Words
+		positiveWords.add("added");
+		positiveWords.add("renamed");
+		positiveWords.add("created");
+		positiveWords.add("teleported");
+		positiveWords.add("refreshed");
+		positiveWords.add("enabled");
+		positiveWords.add("promoted");
+		positiveWords.add("team leader");
+		positiveWords.add("set");
+		positiveWords.add("no longer");
+		positiveWords.add("invited");
+		positiveWords.add("joined");
+		positiveWords.add("your team");
+		positiveWords.add("Open");
+		positiveWords.add("Set");
+		//Negative Words
+		negativeWords.add("expired");
+		negativeWords.add("removed");
+		negativeWords.add("disbanded");
+		negativeWords.add("cancelled");
+		negativeWords.add("demoted");
+		negativeWords.add("disabled");
+		negativeWords.add("spying");
+		negativeWords.add("leave");
+		negativeWords.add("everyone");
+		negativeWords.add("left");
+		negativeWords.add("no");
+		negativeWords.add("Closed");
+		negativeWords.add("None set");
+	}
+
 	public static ChatColor getColor(String color)
 	{
 		try
@@ -59,42 +97,28 @@ public class MessageUtil
 
 	public static String resetFormatting(String string)
 	{
-		return string.replaceAll("ง.", "");
+		return string.replaceAll("ยง.", "");
+	}
+
+	public static void addPositiveWord(String word)
+	{
+		positiveWords.add(word);
+	}
+
+	public static void addNegativeWord(String word)
+	{
+		positiveWords.add(word);
 	}
 
 	public static String formatMessage(String message)
 	{
 		String returnMessage = resetFormatting(message);
 		//GREEN MESSAGES
-		returnMessage = replaceWithGreen(returnMessage, "added");
-		returnMessage = replaceWithGreen(returnMessage, "renamed");
-		returnMessage = replaceWithGreen(returnMessage, "created");
-		returnMessage = replaceWithGreen(returnMessage, "teleported");
-		returnMessage = replaceWithGreen(returnMessage, "refreshed");
-		returnMessage = replaceWithGreen(returnMessage, "enabled");
-		returnMessage = replaceWithGreen(returnMessage, "promoted");
-		returnMessage = replaceWithGreen(returnMessage, "team leader");
-		returnMessage = replaceWithGreen(returnMessage, "set");
-		returnMessage = replaceWithGreen(returnMessage, "no longer");
-		returnMessage = replaceWithGreen(returnMessage, "invited");
-		returnMessage = replaceWithGreen(returnMessage, "joined");
-		returnMessage = replaceWithGreen(returnMessage, "your team");
-		returnMessage = replaceWithGreen(returnMessage, "Open");
-		returnMessage = replaceWithGreen(returnMessage, "Set");
+		for (String word : positiveWords)
+			returnMessage = replaceWithGreen(returnMessage, word);
 		//RED MESSAGES
-		returnMessage = replaceWithRed(returnMessage, "expired");
-		returnMessage = replaceWithRed(returnMessage, "removed");
-		returnMessage = replaceWithRed(returnMessage, "disbanded");
-		returnMessage = replaceWithRed(returnMessage, "cancelled");
-		returnMessage = replaceWithRed(returnMessage, "demoted");
-		returnMessage = replaceWithRed(returnMessage, "disabled");
-		returnMessage = replaceWithRed(returnMessage, "spying");
-		returnMessage = replaceWithRed(returnMessage, "leave");
-		returnMessage = replaceWithRed(returnMessage, "everyone");
-		returnMessage = replaceWithRed(returnMessage, "left");
-		returnMessage = replaceWithRed(returnMessage, "no");
-		returnMessage = replaceWithRed(returnMessage, "Closed");
-		returnMessage = replaceWithRed(returnMessage, "None set");
+		for (String word : negativeWords)
+			returnMessage = replaceWithRed(returnMessage, word);
 		return returnMessage;
 	}
 

@@ -12,40 +12,58 @@ import me.protocos.xteam.event.IEventDispatcher;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.model.Log;
 import me.protocos.xteam.util.BukkitUtil;
+import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Server;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permission;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 {
-	protected final String folder;
-	protected final ILog log;
-	protected final BukkitScheduler bukkitScheduler;
-	protected final IEventDispatcher eventDispatcher;
-	protected final ICommandManager commandManager;
-	protected final CommandExecutor commandExecutor;
-	protected final BukkitUtil bukkitUtil;
-	protected final ITeamCoordinator teamCoordinator;
-	protected final IPlayerFactory playerFactory;
-	protected final TeleportScheduler teleportScheduler;
-	protected final InviteHandler inviteHandler;
+	private String folder;
+	private ILog log;
+	private BukkitScheduler bukkitScheduler;
+	private IEventDispatcher eventDispatcher;
+	private ICommandManager commandManager;
+	private CommandExecutor commandExecutor;
+	private BukkitUtil bukkitUtil;
+	private ITeamCoordinator teamCoordinator;
+	private IPlayerFactory playerFactory;
+	private TeleportScheduler teleportScheduler;
+	private InviteHandler inviteHandler;
 
 	public TeamPlugin(Server server, String folder)
 	{
 		super();
 		this.folder = folder;
-		this.log = new Log(this, folder + "xTeam.log");
+		this.log = new Log(this, this.folder + "xTeam.log");
+		this.bukkitUtil = new BukkitUtil(server);
+		if (this.isMainPlugin())
+			initialize(server);
+	}
+
+	private void initialize(Server server)
+	{
 		this.bukkitScheduler = new BukkitUtil(server).getScheduler();
 		this.eventDispatcher = new EventDispatcher();
 		this.commandManager = new CommandManager();
-		this.commandExecutor = new CommandDelegate(this, this.getCommandManager());
-		this.bukkitUtil = new BukkitUtil(server);
+		this.commandExecutor = new CommandDelegate(this, commandManager);
 		this.inviteHandler = new InviteHandler(this);
 		this.teamCoordinator = new TeamCoordinator(this);
 		this.playerFactory = new PlayerFactory(this);
 		this.teleportScheduler = new TeleportScheduler(this, playerFactory, bukkitScheduler);
+	}
+
+	private boolean isMainPlugin()
+	{
+		return this.getPluginName().equals("XTeam") || this.getPluginName().equals("FakeXTeam");
+	}
+
+	public final String getPluginName()
+	{
+		return this.getClass().getSimpleName();
 	}
 
 	public String getFolder()
@@ -63,54 +81,70 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 		return this.getDescription().getPermissions();
 	}
 
-	public final IEventDispatcher getEventDispatcher()
+	public ILog getLog()
 	{
-		return this.eventDispatcher;
+		return this.log;
 	}
 
-	public final TeleportScheduler getTeleportScheduler()
-	{
-		return this.teleportScheduler;
-	}
-
-	public final BukkitUtil getBukkitUtil()
+	public BukkitUtil getBukkitUtil()
 	{
 		return this.bukkitUtil;
 	}
 
-	public final BukkitScheduler getBukkitScheduler()
+	public final IEventDispatcher getEventDispatcher()
 	{
-		return this.bukkitScheduler;
+		if (this.isMainPlugin())
+			return this.eventDispatcher;
+		return this.getMainPlugin().eventDispatcher;
 	}
 
-	public final String getPluginName()
+	public final TeleportScheduler getTeleportScheduler()
 	{
-		return this.getClass().getSimpleName();
+		if (this.isMainPlugin())
+			return this.teleportScheduler;
+		return this.getMainPlugin().teleportScheduler;
+	}
+
+	public final BukkitScheduler getBukkitScheduler()
+	{
+		if (this.isMainPlugin())
+			return this.bukkitScheduler;
+		return this.getMainPlugin().bukkitScheduler;
 	}
 
 	public final ICommandManager getCommandManager()
 	{
-		return this.commandManager;
+		if (this.isMainPlugin())
+			return this.commandManager;
+		return this.getMainPlugin().commandManager;
+	}
+
+	public final CommandExecutor getCommandExecutor()
+	{
+		if (this.isMainPlugin())
+			return this.commandExecutor;
+		return this.getMainPlugin().commandExecutor;
 	}
 
 	public final ITeamCoordinator getTeamCoordinator()
 	{
-		return this.teamCoordinator;
+		if (this.isMainPlugin())
+			return this.teamCoordinator;
+		return this.getMainPlugin().teamCoordinator;
 	}
 
 	public final IPlayerFactory getPlayerFactory()
 	{
-		return this.playerFactory;
+		if (this.isMainPlugin())
+			return this.playerFactory;
+		return this.getMainPlugin().playerFactory;
 	}
 
 	public final InviteHandler getInviteHandler()
 	{
-		return inviteHandler;
-	}
-
-	public ILog getLog()
-	{
-		return log;
+		if (this.isMainPlugin())
+			return this.inviteHandler;
+		return this.getMainPlugin().inviteHandler;
 	}
 
 	public abstract void load();
@@ -122,26 +156,56 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 	@Override
 	public final void onLoad()
 	{
-		this.load();
-		this.getLog().debug("" + this.getPluginName() + " v" + this.getVersion() + " loaded");
+		try
+		{
+			this.load();
+			this.getCommandManager().register(this);
+			this.getLog().debug("" + this.getPluginName() + " v" + this.getVersion() + " loaded");
+		}
+		catch (Exception e)
+		{
+			this.getLog().exception(e);
+		}
 	}
 
 	@Override
 	public final void onEnable()
 	{
-		this.enable();
-		this.getLog().debug(this.getPluginName() + " v" + this.getVersion() + " enabled");
+		try
+		{
+			this.enable();
+			this.getLog().debug(this.getPluginName() + " v" + this.getVersion() + " enabled");
+		}
+		catch (Exception e)
+		{
+			this.getLog().exception(e);
+		}
 	}
 
 	@Override
 	public final void onDisable()
 	{
-		this.disable();
-		this.getLog().debug(this.getPluginName() + " v" + this.getVersion() + " disabled");
-		this.getLog().close();
+		try
+		{
+			this.disable();
+			this.getLog().debug(this.getPluginName() + " v" + this.getVersion() + " disabled");
+			this.getLog().close();
+		}
+		catch (Exception e)
+		{
+			this.getLog().exception(e);
+		}
 	}
 
 	public abstract void read();
 
 	public abstract void write();
+
+	public TeamPlugin getMainPlugin()
+	{
+		Plugin mainPlugin = this.getBukkitUtil().getPlugin("xTeam");
+		if (mainPlugin instanceof TeamPlugin)
+			return CommonUtil.assignFromType(mainPlugin, TeamPlugin.class);
+		return null;
+	}
 }

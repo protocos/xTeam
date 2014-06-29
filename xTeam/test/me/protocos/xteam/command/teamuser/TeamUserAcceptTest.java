@@ -15,7 +15,6 @@ import me.protocos.xteam.exception.TeamPlayerMaxException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayerSender;
 import me.protocos.xteam.model.InviteRequest;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

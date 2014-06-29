@@ -25,9 +25,9 @@ public class PermissionUtil
 			return false;
 		if (node.endsWith("help"))
 			return true;
-		if (Configuration.NO_PERMISSIONS && (node.startsWith("xteam.core.user.") ||
-				node.startsWith("xteam.core.admin.") ||
-				node.startsWith("xteam.core.leader.") ||
+		if (Configuration.NO_PERMISSIONS && ((node.startsWith("xteam.") && node.contains("user.")) ||
+				(node.startsWith("xteam.") && node.contains("admin.")) ||
+				(node.startsWith("xteam.") && node.contains("leader.")) ||
 				node.endsWith("info")))
 			return true;
 		return sender.hasPermission(node);

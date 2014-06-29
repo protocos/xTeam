@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.console;
 
-import org.junit.Assert;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
@@ -12,6 +11,7 @@ import me.protocos.xteam.exception.TeamPlayerMaxException;
 import me.protocos.xteam.exception.TeamPlayerNeverPlayedException;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

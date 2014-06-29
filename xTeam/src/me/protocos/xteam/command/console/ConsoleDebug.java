@@ -1,10 +1,9 @@
 package me.protocos.xteam.command.console;
 
-import java.util.List;
 import me.protocos.xteam.TeamPlugin;
+import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
-import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
@@ -14,111 +13,183 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
-import org.bukkit.scheduler.BukkitScheduler;
 
 public class ConsoleDebug extends ConsoleCommand
 {
-	private BukkitUtil bukkitUtil;
-	private InviteHandler inviteHandler;
-	private BukkitScheduler bukkitScheduler;
+	private static HashList<String, Runnable> options;
+	static
+	{
+		options = new HashList<String, Runnable>();
+		options.put("chat", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				System.out.println("Chat statuses: " + Configuration.chatStatus.toString());
+			}
+		});
+		options.put("invites", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				System.out.println("Invites: " + plugin.getInviteHandler().data());
+			}
+		});
+		options.put("spies", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				System.out.println("Spies: " + Configuration.spies.toString());
+			}
+		});
+		options.put("created", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				System.out.println("Last created: " + Configuration.lastCreated.toString());
+			}
+		});
+		options.put("players", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				System.out.println("Players:");
+				for (String line : plugin.getPlayerFactory().exportData())
+					System.out.println(line);
+			}
+		});
+		options.put("teams", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				System.out.println("Teams:");
+				for (String line : plugin.getTeamCoordinator().exportData())
+					System.out.println(line);
+			}
+		});
+		options.put("perms", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				System.out.println("Debugging permissions: \n");
+				for (Permission perm : plugin.getPermissions())
+					System.out.println(perm.getName() + " - " + perm.getDescription() + "\n");
+			}
+		});
+		options.put("reset", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				reset();
+				System.out.println("All players hunger reset");
+				System.out.println("All players health reset");
+				System.out.println("All players damage reset");
+				for (World world : Bukkit.getWorlds())
+					System.out.println("environment reset for \"" + world.getName() + "\"");
+			}
+		});
+		options.put("live", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				System.out.println("Bukkit server is " + (BukkitUtil.serverIsLive() ? "live!" : "offline."));
+			}
+		});
+		options.put("error", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				throw new RuntimeException("Test exception!");
+			}
+		});
+		options.put("tasks", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				System.out.println("Tasks: " + plugin.getBukkitScheduler().getPendingTasks());
+			}
+		});
+		options.put("reload", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				plugin.write();
+				plugin.read();
+				System.out.println("Reloading Data...");
+			}
+		});
+		options.put("mode", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				if (!testmode)
+				{
+					System.out.println("ENTERING test mode...");
+					taskID = plugin.getBukkitScheduler().scheduleSyncRepeatingTask(plugin, new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							reset();
+						}
+					}, CommonUtil.LONG_ZERO, 100L);
+				}
+				else
+				{
+					System.out.println("EXITING test mode...");
+					plugin.getBukkitScheduler().cancelTask(taskID);
+				}
+				testmode = !testmode;
+			}
+		});
+	}
+
+	public static void addDebugOption(String option, Runnable runnable)
+	{
+		options.put(option, runnable);
+	}
+
+	private static TeamPlugin plugin;
+	private static int taskID;
+	private static boolean testmode;
 	private String subCommand;
-	private int taskID;
-	private boolean testmode;
 
 	public ConsoleDebug(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
-		bukkitUtil = teamPlugin.getBukkitUtil();
-		inviteHandler = teamPlugin.getInviteHandler();
-		bukkitScheduler = teamPlugin.getBukkitScheduler();
+		plugin = teamPlugin;
 		testmode = false;
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		if (subCommand.equalsIgnoreCase("chat"))
-			this.log.info("Chat statuses: " + Configuration.chatStatus.toString());
-		else if (subCommand.equalsIgnoreCase("invites"))
-			this.log.info("Invites: " + inviteHandler.data());
-		else if (subCommand.equalsIgnoreCase("spies"))
-			this.log.info("Spies: " + Configuration.spies.toString());
-		else if (subCommand.equalsIgnoreCase("created"))
-			this.log.info("Last created: " + Configuration.lastCreated.toString());
-		else if (subCommand.equalsIgnoreCase("players"))
+		for (String option : options.getOrder())
 		{
-			this.log.info("Players:");
-			for (String line : playerFactory.exportData())
-				this.log.info(line);
-		}
-		else if (subCommand.equalsIgnoreCase("teams"))
-		{
-			this.log.info("Teams:");
-			for (String line : teamCoordinator.exportData())
-				this.log.info(line);
-		}
-		else if (subCommand.equalsIgnoreCase("perms"))
-			this.log.info("Debugging permissions: \n" + printPermissions());
-		else if (subCommand.equalsIgnoreCase("reset"))
-		{
-			reset();
-			this.log.info("All players hunger reset");
-			this.log.info("All players health reset");
-			this.log.info("All players damage reset");
-			for (World world : Bukkit.getWorlds())
+			if (subCommand.equals(option))
 			{
-				this.log.info("environment reset for \"" + world.getName() + "\"");
+				options.get(option).run();
+				return;
 			}
 		}
-		else if (subCommand.equalsIgnoreCase("live"))
-			this.log.info("Bukkit server is " + (BukkitUtil.serverIsLive() ? "live!" : "offline."));
-		else if (subCommand.equalsIgnoreCase("error"))
-		{
-			try
-			{
-				log.exception(new Exception("Test exception!"));
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
-		else if (subCommand.equalsIgnoreCase("tasks"))
-			this.log.info("Tasks: " + teamPlugin.getBukkitScheduler().getPendingTasks());
-		else if (subCommand.equalsIgnoreCase("reload"))
-		{
-			teamPlugin.write();
-			teamPlugin.read();
-			this.log.info("Reloading Data...");
-		}
-		else if (subCommand.equalsIgnoreCase("mode"))
-		{
-			if (!testmode)
-			{
-				this.log.info("ENTERING test mode...");
-				taskID = bukkitScheduler.scheduleSyncRepeatingTask(teamPlugin, new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						reset();
-					}
-				}, CommonUtil.LONG_ZERO, 100L);
-			}
-			else
-			{
-				this.log.info("EXITING test mode...");
-				bukkitScheduler.cancelTask(taskID);
-			}
-			testmode = !testmode;
-		}
-		else
-			this.log.info("Options are: team debug {chat/invites/spies/created/players/teams/perms/reset/live/error/tasks/reload/mode}");
+		System.out.println("Options are: team debug " + options.getOrder().toString().replaceAll("\\[", "\\{").replaceAll("\\]", "\\}").replaceAll(", ", "/"));
 	}
 
-	private void reset()
+	private static void reset()
 	{
-		for (Player player : bukkitUtil.getOnlinePlayers())
+		for (Player player : plugin.getBukkitUtil().getOnlinePlayers())
 		{
 			player.setHealth(20);
 			player.setFoodLevel(20);
@@ -131,17 +202,6 @@ public class ConsoleDebug extends ConsoleCommand
 			world.setThundering(false);
 			world.setTime(0);
 		}
-	}
-
-	private String printPermissions()
-	{
-		String output = "";
-		List<Permission> perms = teamPlugin.getPermissions();
-		for (Permission perm : perms)
-		{
-			output += perm.getName() + " - " + perm.getDescription() + "\n";
-		}
-		return output;
 	}
 
 	@Override

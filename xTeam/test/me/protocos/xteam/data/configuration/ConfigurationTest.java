@@ -2,13 +2,12 @@ package me.protocos.xteam.data.configuration;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import org.junit.Assert;
 import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.SystemUtil;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

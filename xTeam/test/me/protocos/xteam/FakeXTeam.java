@@ -31,17 +31,17 @@ public class FakeXTeam extends TeamPlugin
 	{
 		Configuration.DISPLAY_COORDINATES = true;
 		Team team1 = Team.generateTeamFromProperties(this, "name:ONE tag:TeamAwesome world:world open:false leader:kmlanglois timeHeadquartersSet:1361318508899 Headquarters:169.92906931820792,65.0,209.31066111932847,22.049545,36.14993 players:kmlanglois,protocos admins:kmlanglois");
-		teamCoordinator.createTeam(team1);
+		this.getTeamCoordinator().createTeam(team1);
 		Team team2 = Team.generateTeamFromProperties(this, "name:two world:world open:false leader:mastermind timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 players:mastermind admins:mastermind");
-		teamCoordinator.createTeam(team2);
+		this.getTeamCoordinator().createTeam(team2);
 		/////////////////////////////////////////////////
 		Configuration.DEFAULT_TEAM_NAMES.add("red");
 		Configuration.DEFAULT_TEAM_NAMES.add("blue");
 		/////////////////////////////////////////////////
 		Team team3 = Team.generateTeamFromProperties(this, "name:red tag:REDONE world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:strandedhelix,teammate");
-		teamCoordinator.createTeam(team3);
+		this.getTeamCoordinator().createTeam(team3);
 		Team team4 = Team.generateTeamFromProperties(this, "name:blue world:world open:true timeHeadquartersSet:0 Headquarters:0.0,0.0,0.0,0.0,0.0 leader:default admins: players:");
-		teamCoordinator.createTeam(team4);
+		this.getTeamCoordinator().createTeam(team4);
 
 		//MOCK players
 		World mockWorld = new FakeWorld();

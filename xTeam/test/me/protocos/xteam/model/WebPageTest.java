@@ -1,12 +1,13 @@
 package me.protocos.xteam.model;
 
 import me.protocos.xteam.fakeobjects.FakeLog;
-
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-public class WebPageTest {
-
+public class WebPageTest
+{
+	@Ignore
 	@Test
 	public void ShouldBeDownloadPage()
 	{
@@ -18,6 +19,7 @@ public class WebPageTest {
 		Assert.assertTrue(result);
 	}
 
+	@Ignore
 	@Test
 	public void ShouldBeSearchLine()
 	{
@@ -29,5 +31,3 @@ public class WebPageTest {
 		Assert.assertNotNull(result);
 	}
 }
-
-

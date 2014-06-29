@@ -79,12 +79,12 @@ public class BukkitUtil
 
 	public Plugin getPlugin(String string)
 	{
-		return getPluginManager().getPlugin(string);
+		return this.getPluginManager().getPlugin(string);
 	}
 
 	public Plugin getxTeam()
 	{
-		return getPlugin("xTeam");
+		return this.getPlugin("xTeam");
 	}
 
 	public static boolean serverIsLive()

@@ -1,6 +1,5 @@
 package me.protocos.xteam.data.configuration;
 
-import me.protocos.xteam.data.configuration.ConfigurationOption;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

@@ -120,4 +120,15 @@ public class CommandManager implements ICommandManager
 	{
 		container.registerCommands(this);
 	}
+
+	@Override
+	public String toString()
+	{
+		String result = "";
+		for (BaseCommand command : commands)
+		{
+			result += command.getUsage() + " - " + command.getDescription() + "\n";
+		}
+		return result;
+	}
 }

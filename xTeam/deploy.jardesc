@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jardesc>
-    <jar path="C:/Users/zach.langlois/Desktop/CraftBukkit/plugins/xTeam.jar"/>
+    <jar path="/Users/zjlanglois/CraftBukkit/plugins/xTeam.jar"/>
     <options buildIfNeeded="true" compress="true" descriptionLocation="/xTeam/deploy.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
@@ -12,10 +12,10 @@
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
         <file path="/xTeam/plugin.yml"/>
-        <javaElement handleIdentifier="=xTeam/src"/>
         <file path="/xTeam/.classpath"/>
+        <javaElement handleIdentifier="=xTeam/src"/>
         <javaElement handleIdentifier="=xTeam/api"/>
+        <javaElement handleIdentifier="=xTeam/test"/>
         <file path="/xTeam/.project"/>
-        <file path="/xTeam/.gitignore"/>
     </selectedElements>
 </jardesc>

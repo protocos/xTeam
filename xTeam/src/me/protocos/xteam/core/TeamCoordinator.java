@@ -1,7 +1,6 @@
 package me.protocos.xteam.core;
 
 import java.util.List;
-
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.ITeam;
