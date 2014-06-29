@@ -553,75 +553,7 @@ public class Team implements ITeam
 				.players(propertyList.getAsType("players", new SetDataTranslator()))
 				.build();
 		return team;
-		//		String[] props = properties.split(" ");
-		//		HashList<String, String> teamProperties = new HashList<String, String>();
-		//		for (String prop : props)
-		//		{
-		//			String[] left_right = prop.split(":");
-		//			String left = left_right.length > 0 ? left_right[0] : "";
-		//			String right = left_right.length > 1 ? left_right[1] : "";
-		//			if (!left.equals("") && !right.equals(""))
-		//				teamProperties.put(left, right);
-		//		}
-		//		try
-		//		{
-		//			String name = teamProperties.get("name") != null ? teamProperties.get("name") : "";
-		//			String tag = teamProperties.get("tag") != null ? teamProperties.get("tag") : name;
-		//			teamProperties.updateKey("open", "openJoining");
-		//			teamProperties.updateKey("default", "defaultTeam");
-		//			boolean openJoining = new BooleanDataTranslator().compile(teamProperties.get("openJoining") != null ? teamProperties.get("openJoining") : "false");
-		//			boolean defaultTeam = new BooleanDataTranslator().compile(teamProperties.get("defaultTeam") != null ? teamProperties.get("defaultTeam") : "false");
-		//			//modify timeLastSet from the previous versions
-		//			teamProperties.updateKey("timeLastSet", "timeHeadquartersSet");
-		//			teamProperties.updateKey("timeHeadquartersSet", "timeHeadquartersLastSet");
-		//			long timeHeadquartersSet = Long.parseLong(teamProperties.get("timeHeadquartersLastSet") != null ? teamProperties.get("timeHeadquartersLastSet") : "0");
-		//			teamProperties.updateKey("Headquarters", "headquarters");
-		//			teamProperties.updateKey("hq", "headquarters");
-		//			String hq = teamProperties.get("headquarters") != null ? teamProperties.get("headquarters") : "";
-		//			if (teamProperties.containsKey("world"))
-		//				hq = teamProperties.get("world") + "," + hq;
-		//			String leader = teamProperties.get("leader");// != null ? teamProperties.get("leader") : "";
-		//			String admins = teamProperties.get("admins");// != null ? teamProperties.get("admins") : "";
-		//			String players = teamProperties.get("players");// != null ? teamProperties.get("players") : "";
-		//			Team team = new Team.Builder(teamPlugin, name).tag(tag).openJoining(openJoining).defaultTeam(defaultTeam).timeHeadquartersLastSet(timeHeadquartersSet).build();
-		//			if (!hq.endsWith("0.0,0.0,0.0,0.0,0.0") && !hq.equals("") && !hq.equals("none"))
-		//			{
-		//				String[] locationData = hq.split(",");
-		//				World world = teamPlugin.getBukkitUtil().getWorld(locationData[0]);
-		//				double X = Double.parseDouble(locationData[1]);
-		//				double Y = Double.parseDouble(locationData[2]);
-		//				double Z = Double.parseDouble(locationData[3]);
-		//				float yaw = Float.parseFloat(locationData[4]);
-		//				float pitch = Float.parseFloat(locationData[5]);
-		//				team.setHeadquarters(new Headquarters(world, X, Y, Z, yaw, pitch));
-		//			}
-		//			team.setPlayers(players == null ? new HashSet<String>() : new HashSet<String>(CommonUtil.split(players, ",")));
-		//			team.setAdmins(admins == null ? new HashSet<String>() : new HashSet<String>(CommonUtil.split(admins, ",")));
-		//			if (leader != null)
-		//			{
-		//				if (leader.equalsIgnoreCase("default"))
-		//					team.setDefaultTeam(true);
-		//				else
-		//					team.setLeader(leader);
-		//			}
-		//			return team;
-		//		}
-		//		catch (NullPointerException e)
-		//		{
-		//			e.printStackTrace();
-		//		}
-		//		return null;
 	}
-
-	//	private void setAdmins(Set<String> admins)
-	//	{
-	//		this.admins = admins;
-	//	}
-	//
-	//	private void setPlayers(Set<String> players)
-	//	{
-	//		this.players = players;
-	//	}
 
 	public static Team createTeam(TeamPlugin teamPlugin, String teamName)
 	{

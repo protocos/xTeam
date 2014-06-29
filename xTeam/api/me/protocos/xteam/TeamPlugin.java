@@ -174,6 +174,7 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 		try
 		{
 			this.enable();
+			this.read();
 			this.getLog().debug(this.getPluginName() + " v" + this.getVersion() + " enabled");
 		}
 		catch (Exception e)
@@ -187,6 +188,7 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 	{
 		try
 		{
+			this.write();
 			this.disable();
 			this.getLog().debug(this.getPluginName() + " v" + this.getVersion() + " disabled");
 			this.getLog().close();

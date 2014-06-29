@@ -19,7 +19,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class TeamPlayerListener implements Listener
 {
@@ -32,12 +31,6 @@ public class TeamPlayerListener implements Listener
 		this.log = xteam.getLog();
 		this.teamCoordinator = xteam.getTeamCoordinator();
 		this.playerFactory = xteam.getPlayerFactory();
-	}
-
-	@EventHandler
-	public void onPlayerJoin(@SuppressWarnings("unused") PlayerTeleportEvent event)
-	{
-		//TODO maybe use this for updateing in the PlayerManager?
 	}
 
 	@EventHandler

@@ -13,7 +13,7 @@ import me.protocos.xteam.data.IPersistenceLayer;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.listener.TeamChatListener;
 import me.protocos.xteam.listener.TeamPlayerListener;
-import me.protocos.xteam.listener.TeamPvPEntityListener;
+import me.protocos.xteam.listener.TeamFriendlyFireListener;
 import me.protocos.xteam.model.XTeamWebPage;
 import me.protocos.xteam.util.SystemUtil;
 import org.bukkit.Bukkit;
@@ -67,6 +67,8 @@ public final class XTeam extends TeamPlugin
 	@Override
 	public void write()
 	{
+		this.initFileSystem();
+		persistenceLayer = new DataStorageFactory(this).dataManagerFromString(Configuration.STORAGE_TYPE);
 		persistenceLayer.write();
 	}
 
@@ -74,19 +76,15 @@ public final class XTeam extends TeamPlugin
 	public void enable()
 	{
 		PluginManager pm = this.getBukkitUtil().getPluginManager();
-		pm.registerEvents(new TeamPvPEntityListener(this), this);
+		pm.registerEvents(new TeamFriendlyFireListener(this), this);
 		pm.registerEvents(new TeamPlayerListener(this), this);
 		pm.registerEvents(new TeamChatListener(this), this);
 		this.getCommand("team").setExecutor(this.getCommandExecutor());
-		this.read();
 	}
 
 	@Override
 	public void disable()
 	{
-		this.initFileSystem();
-		persistenceLayer = new DataStorageFactory(this).dataManagerFromString(Configuration.STORAGE_TYPE);
-		this.write();
 		DataStorageFactory.close();
 		//does the same thing as this.bukkitScheduler.cancelAllTasks();
 		for (BukkitTask task : this.getBukkitScheduler().getPendingTasks())
