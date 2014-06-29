@@ -107,7 +107,7 @@ public class MessageUtil
 
 	public static void addNegativeWord(String word)
 	{
-		positiveWords.add(word);
+		negativeWords.add(word);
 	}
 
 	public static String formatMessage(String message)
