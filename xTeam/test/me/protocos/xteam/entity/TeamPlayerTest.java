@@ -34,7 +34,7 @@ public class TeamPlayerTest
 	{
 		//ASSEMBLE
 		TeamPlayer player1 = playerFactory.getPlayer(FakePlayer.get("protocos"));
-		TeamPlayer player2 = playerFactory.getPlayer(new FakePlayer.Builder().name("kmlanglois").location(new FakeLocation(200, 0, 0)).build());
+		TeamPlayer player2 = playerFactory.getPlayer(new FakePlayer.Builder().name("kmlanglois").location(new FakeLocation(200, 64, 0)).build());
 		//ACT
 		double distance = player1.getDistanceTo(player2);
 		//ASSERT
@@ -75,7 +75,7 @@ public class TeamPlayerTest
 		//ASSERT
 		Assert.assertEquals(world, location.getWorld());
 		Assert.assertEquals(0.0D, location.getX(), 0);
-		Assert.assertEquals(0.0D, location.getY(), 0);
+		Assert.assertEquals(64.0D, location.getY(), 0);
 		Assert.assertEquals(0.0D, location.getZ(), 0);
 	}
 

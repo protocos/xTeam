@@ -26,7 +26,7 @@ public interface ITeamPlayer extends ITeamEntity, ILocatable
 
 	public abstract boolean isOp();
 
-	public abstract void sendMessageToTeam(String message);
+	//	public abstract void sendMessageToTeam(String message);
 
 	public abstract void setLastTeleported(long lastTeleported);
 

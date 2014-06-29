@@ -5,6 +5,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
+import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamAlreadyHasRallyException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
@@ -45,13 +46,15 @@ public class TeamLeaderSetRallyTest
 	public void ShouldBeSetRally()
 	{
 		//ASSEMBLE
+		Configuration.RALLY_DELAY = 2;
 		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT
-		Assert.assertEquals("You set the team rally point", fakePlayerSender.getLastMessage());
+		Assert.assertEquals("You set the team rally point (expires in 2 minutes)", fakePlayerSender.getLastMessage());
 		Assert.assertTrue(teamCoordinator.getTeam("one").hasRally());
 		Assert.assertTrue(fakeExecuteResponse);
+		Configuration.RALLY_DELAY = 0;
 	}
 
 	@Test

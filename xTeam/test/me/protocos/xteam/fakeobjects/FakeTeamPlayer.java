@@ -40,7 +40,7 @@ public class FakeTeamPlayer implements ITeamPlayer, CommandSender
 		private String name = "player";
 		private boolean allPermissions = true;
 		private boolean isOnSameTeam = true;;
-		private Location location = new FakeLocation();
+		private Location location = new FakeLocation(0.0D, 64.0D, 0.0D);
 
 		public Builder name(@SuppressWarnings("hiding") String name)
 		{
@@ -305,13 +305,6 @@ public class FakeTeamPlayer implements ITeamPlayer, CommandSender
 	{
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public void sendMessageToTeam(String message)
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

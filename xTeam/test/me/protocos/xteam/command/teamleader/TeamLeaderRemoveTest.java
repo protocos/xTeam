@@ -60,7 +60,8 @@ public class TeamLeaderRemoveTest
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove kmlanglois".split(" ")));
 		//ASSERT
-		Assert.assertEquals("kmlanglois has been removed from ONE\n" +
+		Assert.assertEquals("You have been removed from ONE\n" +
+				"kmlanglois has been removed from ONE\n" +
 				"ONE has been disbanded", fakePlayerSender.getAllMessages());
 		Assert.assertFalse(teamCoordinator.containsTeam("one"));
 		Assert.assertTrue(fakeExecuteResponse);

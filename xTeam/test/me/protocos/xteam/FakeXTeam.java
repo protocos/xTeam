@@ -62,9 +62,11 @@ public class FakeXTeam extends TeamPlugin
 
 		//FAKE strandedhelix
 		FakeOfflinePlayer strandedhelixOffline = new FakeOfflinePlayer.Builder().name("strandedhelix").isOp(false).isOnline(false).build();
+		FakePlayer strandedhelixOnline = FakePlayer.from("strandedhelix");
 
 		//FAKE kestra
 		FakeOfflinePlayer kestraOffline = new FakeOfflinePlayer.Builder().name("kestra").isOp(false).isOnline(false).build();
+		FakePlayer kestraOnline = FakePlayer.from("kestra");
 
 		//FAKE unreachable players
 		FakeOfflinePlayer newbieOffline = new FakeOfflinePlayer.Builder().name("newbie").isOp(false).isOnline(false).hasPlayedBefore(false).build();
@@ -78,7 +80,7 @@ public class FakeXTeam extends TeamPlugin
 		FakeOfflinePlayer teammateOffline = new FakeOfflinePlayer.Builder().name("teammate").isOp(false).isOnline(false).build();
 
 		//FAKE onlinePlayers
-		server.setOnlinePlayers(new Player[] { protocosOnline, kmlangloisOnline, mastermindOnline, LonelyOnline, oneOnline, twoOnline });
+		server.setOnlinePlayers(new Player[] { protocosOnline, kmlangloisOnline, mastermindOnline, LonelyOnline, strandedhelixOnline, kestraOnline, oneOnline, twoOnline });
 		server.setOfflinePlayers(new OfflinePlayer[] { protocosOffline, kmlangloisOffline, mastermindOffline, LonelyOffline, strandedhelixOffline, kestraOffline, newbieOffline, threeOffline, oneOffline, twoOffline, thrOffline, teammateOffline, neverPlayedOffline });
 	}
 

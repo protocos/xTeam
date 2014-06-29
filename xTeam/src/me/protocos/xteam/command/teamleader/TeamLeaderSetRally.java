@@ -7,7 +7,6 @@ import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.message.Message;
-import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamLeaderSetRally extends TeamLeaderCommand
@@ -21,8 +20,8 @@ public class TeamLeaderSetRally extends TeamLeaderCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		team.setRally(teamLeader.getLocation());
-		new Message.Builder("You " + MessageUtil.green("set") + " the team rally point").addRecipients(teamLeader).send(log);
-		teamLeader.sendMessageToTeam("Team rally point has been " + MessageUtil.green("set") + " (expires in " + Configuration.RALLY_DELAY + " minutes)");
+		new Message.Builder("You set the team rally point (expires in " + Configuration.RALLY_DELAY + " minutes)").addRecipients(teamLeader).send(log);
+		new Message.Builder("Team rally point has been set (expires in " + Configuration.RALLY_DELAY + " minutes)").addRecipients(teamLeader.getTeam()).excludeRecipients(teamLeader).send(log);
 	}
 
 	@Override

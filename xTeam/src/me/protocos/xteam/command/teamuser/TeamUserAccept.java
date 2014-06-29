@@ -8,7 +8,6 @@ import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.message.Message;
-import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserAccept extends TeamUserCommand
@@ -25,8 +24,8 @@ public class TeamUserAccept extends TeamUserCommand
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
 		inviteHandler.acceptInvite(teamUser);
-		teamUser.sendMessageToTeam(teamUser.getName() + " " + MessageUtil.green("joined") + " your team");
-		new Message.Builder("You " + MessageUtil.green("joined") + " " + teamUser.getTeam().getName()).addRecipients(teamUser).send(log);
+		new Message.Builder(teamUser.getName() + " joined your team").addRecipients(teamUser.getTeam()).excludeRecipients(teamUser).send(log);
+		new Message.Builder("You joined " + teamUser.getTeam().getName()).addRecipients(teamUser).send(log);
 	}
 
 	@Override

@@ -7,10 +7,8 @@ import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.translator.LocationDataTranslator;
 import me.protocos.xteam.data.translator.LongDataTranslator;
-import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILocatable;
-import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -23,7 +21,6 @@ import org.bukkit.entity.Entity;
 public class OfflineTeamPlayer implements ITeamPlayer
 {
 	private TeamPlugin teamPlugin;
-	private ILog log;
 	private IPlayerFactory playerFactory;
 	private ITeamCoordinator teamCoordinator;
 	private OfflinePlayer player;
@@ -31,7 +28,6 @@ public class OfflineTeamPlayer implements ITeamPlayer
 	public OfflineTeamPlayer(TeamPlugin teamPlugin, OfflinePlayer player)
 	{
 		this.teamPlugin = teamPlugin;
-		this.log = teamPlugin.getLog();
 		this.teamCoordinator = teamPlugin.getTeamCoordinator();
 		this.playerFactory = teamPlugin.getPlayerFactory();
 		this.player = player;
@@ -182,11 +178,11 @@ public class OfflineTeamPlayer implements ITeamPlayer
 		return playerFactory.getPlayerPropertiesFor(this.getName()).get("lastKnownLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
 	}
 
-	@Override
-	public void sendMessageToTeam(String message)
-	{
-		new Message.Builder(message).addRecipients(this.getTeam()).send(log);
-	}
+	//	@Override
+	//	public void sendMessageToTeam(String message)
+	//	{
+	//		new Message.Builder(message).addRecipients(this.getTeam()).send(log);
+	//	}
 
 	@Override
 	public boolean isLeader()
