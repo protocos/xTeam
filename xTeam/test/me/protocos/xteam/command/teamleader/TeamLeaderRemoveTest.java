@@ -6,8 +6,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.*;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,7 +42,7 @@ public class TeamLeaderRemoveTest
 	public void ShouldBeTeamLeaderRemoveExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove protocos".split(" ")));
 		//ASSERT
@@ -57,7 +56,7 @@ public class TeamLeaderRemoveTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").removePlayer("protocos");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove kmlanglois".split(" ")));
 		//ASSERT
@@ -71,7 +70,7 @@ public class TeamLeaderRemoveTest
 	public void ShouldBeTeamLeaderRemoveExecuteNotLeader()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove protocos".split(" ")));
 		//ASSERT
@@ -84,7 +83,7 @@ public class TeamLeaderRemoveTest
 	public void ShouldBeTeamLeaderRemoveExecuteTeamLeaderPlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove newbie".split(" ")));
 		//ASSERT
@@ -97,7 +96,7 @@ public class TeamLeaderRemoveTest
 	public void ShouldBeTeamLeaderRemoveExecuteNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove protocos".split(" ")));
 		//ASSERT
@@ -109,7 +108,7 @@ public class TeamLeaderRemoveTest
 	public void ShouldBeTeamLeaderRemoveExecutePlayerNotOnTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove mastermind".split(" ")));
 		//ASSERT
@@ -121,7 +120,7 @@ public class TeamLeaderRemoveTest
 	public void ShouldBeTeamLeaderRemoveExecuteLeaderLeave()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "remove kmlanglois".split(" ")));
 		//ASSERT

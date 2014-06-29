@@ -10,8 +10,7 @@ import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.fakeobjects.FakeTeamPlayer;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.InviteRequest;
@@ -56,7 +55,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
@@ -68,7 +67,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute2()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info two".split(" ")));
 		//ASSERT
@@ -80,7 +79,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute3()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info mastermind".split(" ")));
 		//ASSERT
@@ -92,7 +91,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute4()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info red".split(" ")));
 		//ASSERT
@@ -103,7 +102,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecute5()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info strandedhelix".split(" ")));
 		//ASSERT
@@ -118,7 +117,7 @@ public class TeamUserInfoTest
 		teamCoordinator.getTeam("red").addPlayer("Lonely");
 		teamCoordinator.getTeam("red").promote("strandedhelix");
 		teamCoordinator.getTeam("red").promote("Lonely");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "strandedhelix", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("strandedhelix");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
@@ -131,7 +130,7 @@ public class TeamUserInfoTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").promote("protocos");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
@@ -144,7 +143,7 @@ public class TeamUserInfoTest
 	{
 		//ASSEMBLE
 		Configuration.DISPLAY_RELATIVE_COORDINATES = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
@@ -158,7 +157,7 @@ public class TeamUserInfoTest
 	{
 		//ASSEMBLE
 		inviteHandler.addInvite(new InviteRequest(playerFactory.getPlayer("kmlanglois"), playerFactory.getPlayer("Lonely"), System.currentTimeMillis()));
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
@@ -171,7 +170,7 @@ public class TeamUserInfoTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").promote("protocos");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info REDONE".split(" ")));
 		//ASSERT
@@ -184,7 +183,7 @@ public class TeamUserInfoTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").promote("protocos");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info TeamAwesome".split(" ")));
 		//ASSERT
@@ -196,7 +195,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecuteNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info".split(" ")));
 		//ASSERT
@@ -208,7 +207,7 @@ public class TeamUserInfoTest
 	public void ShouldBeTeamUserInfoExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "info truck".split(" ")));
 		//ASSERT

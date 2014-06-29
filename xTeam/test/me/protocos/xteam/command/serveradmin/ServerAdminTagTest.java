@@ -9,8 +9,7 @@ import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamNameAlreadyInUseException;
 import me.protocos.xteam.exception.TeamNameNotAlphaException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -47,7 +46,7 @@ public class ServerAdminTagTest
 	public void ShouldBeServerAdminTagExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag one tag".split(" ")));
 		//ASSERT
@@ -60,7 +59,7 @@ public class ServerAdminTagTest
 	public void ShouldBeServerAdminTagExecuteTeamAlreadyExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag one two".split(" ")));
 		//ASSERT
@@ -74,7 +73,7 @@ public class ServerAdminTagTest
 	{
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag one ��Eåm".split(" ")));
 		//ASSERT
@@ -87,7 +86,7 @@ public class ServerAdminTagTest
 	public void ShouldBeServerAdminTagExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag three tag".split(" ")));
 		//ASSERT

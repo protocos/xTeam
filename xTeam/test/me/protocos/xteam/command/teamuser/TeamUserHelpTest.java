@@ -5,8 +5,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.exception.TeamInvalidPageException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -44,7 +43,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage1()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 1".split(" ")));
 		//ASSERT
@@ -65,7 +64,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage2()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 2".split(" ")));
 		//ASSERT
@@ -86,7 +85,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage3()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 3".split(" ")));
 		//ASSERT
@@ -107,7 +106,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage4()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 4".split(" ")));
 		//ASSERT
@@ -128,7 +127,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecutePage5()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 5".split(" ")));
 		//ASSERT
@@ -149,7 +148,7 @@ public class TeamUserHelpTest
 	public void ShouldBeTeamUserHelpPageExecuteInvalidPage()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "help 10".split(" ")));
 		//ASSERT

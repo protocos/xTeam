@@ -7,8 +7,7 @@ import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamNoHeadquartersException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.bukkit.Location;
 import org.junit.After;
 import org.junit.Assert;
@@ -44,7 +43,7 @@ public class ServerAdminHeadquartersTest
 	public void ShouldBeServerAdminHQExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		Location hq = teamCoordinator.getTeam("one").getHeadquarters().getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq one".split(" ")));
@@ -58,7 +57,7 @@ public class ServerAdminHeadquartersTest
 	public void ShouldBeServerAdminHQExecuteThrowsNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq team".split(" ")));
@@ -72,7 +71,7 @@ public class ServerAdminHeadquartersTest
 	public void ShouldBeServerAdminHQExecuteThrowsNoTeamHeadquarters()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq two".split(" ")));

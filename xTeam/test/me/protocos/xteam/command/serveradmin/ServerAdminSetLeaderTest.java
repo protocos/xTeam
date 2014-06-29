@@ -6,8 +6,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.*;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,7 +42,7 @@ public class ServerAdminSetLeaderTest
 	public void ShouldBeServerAdminSetLeaderExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one protocos".split(" ")));
 		//ASSERT
@@ -56,7 +55,7 @@ public class ServerAdminSetLeaderTest
 	public void ShouldBeServerAdminSetLeaderExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one newbie".split(" ")));
 		//ASSERT
@@ -69,7 +68,7 @@ public class ServerAdminSetLeaderTest
 	public void ShouldBeServerAdminSetLeaderExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one Lonely".split(" ")));
 		//ASSERT
@@ -82,7 +81,7 @@ public class ServerAdminSetLeaderTest
 	public void ShouldBeServerAdminSetLeaderExecutePlayerNotOnTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader one mastermind".split(" ")));
 		//ASSERT
@@ -95,7 +94,7 @@ public class ServerAdminSetLeaderTest
 	public void ShouldBeServerAdminSetLeaderExecutePlayerTeamIsDefault()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader red strandedhelix".split(" ")));
 		//ASSERT
@@ -108,7 +107,7 @@ public class ServerAdminSetLeaderTest
 	public void ShouldBeServerAdminSetLeaderExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setleader three protocos".split(" ")));
 		//ASSERT

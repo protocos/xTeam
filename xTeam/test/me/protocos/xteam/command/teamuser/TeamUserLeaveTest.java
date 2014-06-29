@@ -7,8 +7,7 @@ import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerLeaderLeavingException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,7 +42,7 @@ public class TeamUserLeaveTest
 	public void ShouldBeDefaultTeamLeavingOnePerson()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "strandedhelix", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("strandedhelix");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
@@ -57,7 +56,7 @@ public class TeamUserLeaveTest
 	public void ShouldBeRegularTeamLeavingOnePerson()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "mastermind", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
@@ -70,7 +69,7 @@ public class TeamUserLeaveTest
 	public void ShouldBeTeamUserLeaveExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
@@ -83,7 +82,7 @@ public class TeamUserLeaveTest
 	public void ShouldBeTeamUserLeaveExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT
@@ -96,7 +95,7 @@ public class TeamUserLeaveTest
 	public void ShouldBeTeamUserLeaveExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "leave".split(" ")));
 		//ASSERT

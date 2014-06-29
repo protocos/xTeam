@@ -26,6 +26,13 @@ public class PlayerFactory implements IPlayerFactory
 		this.playerProperties = new HashList<String, PropertyList>();
 	}
 
+	public TeamPlayer getPlayer(Player player)
+	{
+		if (player != null)
+			return teamPlayerWithValues(player);
+		return null;
+	}
+
 	public List<TeamPlayer> getOnlinePlayers()
 	{
 		Player[] players = bukkitUtil.getOnlinePlayers();
@@ -35,6 +42,13 @@ public class PlayerFactory implements IPlayerFactory
 			onlinePlayers.add(getPlayer(player));
 		}
 		return onlinePlayers;
+	}
+
+	public OfflineTeamPlayer getPlayer(OfflinePlayer player)
+	{
+		if (player != null)
+			return offlineTeamPlayerWithValues(player);
+		return null;
 	}
 
 	public List<OfflineTeamPlayer> getOfflinePlayers()
@@ -47,80 +61,6 @@ public class PlayerFactory implements IPlayerFactory
 				offlinePlayers.add(getPlayer(player));
 		}
 		return offlinePlayers;
-	}
-
-	public TeamPlayer getPlayer(Player player)
-	{
-		if (player != null)
-			return teamPlayerWithValues(player);
-		return null;
-	}
-
-	public OfflineTeamPlayer getPlayer(OfflinePlayer player)
-	{
-		if (player != null)
-			return offlineTeamPlayerWithValues(player);
-		return null;
-	}
-
-	public ITeamPlayer getPlayer(String playerName)
-	{
-		if (isOnline(playerName))
-			return teamPlayerWithValues(bukkitUtil.getPlayer(playerName));
-		if (hasPlayedBefore(playerName))
-			return offlineTeamPlayerWithValues(bukkitUtil.getOfflinePlayer(playerName));
-		return offlinePlayerNeverPlayedBefore(playerName);
-	}
-
-	public List<TeamPlayer> getOnlineTeammatesOf(ITeamEntity teamEntity)
-	{
-		List<ITeamPlayer> onlineMates = CommonUtil.emptyList();
-		if (teamEntity.hasTeam())
-		{
-			for (String p : teamEntity.getTeam().getPlayers())
-			{
-				ITeamPlayer mate = getPlayer(p);
-				if (mate.isOnline())
-					onlineMates.add(mate);
-			}
-		}
-		if (teamEntity instanceof ITeamPlayer)
-			onlineMates.remove(teamEntity);
-		return CommonUtil.subListOfType(onlineMates, TeamPlayer.class);
-	}
-
-	public List<OfflineTeamPlayer> getOfflineTeammatesOf(ITeamEntity teamEntity)
-	{
-		List<ITeamPlayer> offlineMates = CommonUtil.emptyList();
-		if (teamEntity.hasTeam())
-		{
-			for (String p : teamEntity.getTeam().getPlayers())
-			{
-				ITeamPlayer mate = getPlayer(p);
-				if (!mate.isOnline())
-					offlineMates.add(mate);
-			}
-		}
-		if (teamEntity instanceof ITeamPlayer)
-			offlineMates.remove(teamEntity);
-		return CommonUtil.subListOfType(offlineMates, OfflineTeamPlayer.class);
-	}
-
-	public List<ITeamPlayer> getTeammatesOf(ITeamEntity teamEntity)
-	{
-		List<ITeamPlayer> mates = CommonUtil.emptyList();
-		if (teamEntity.hasTeam())
-		{
-			for (String p : teamEntity.getTeam().getPlayers())
-			{
-				ITeamPlayer mate = getPlayer(p);
-				if (!teamEntity.getName().equals(p))
-					mates.add(mate);
-			}
-		}
-		if (teamEntity instanceof ITeamPlayer)
-			mates.remove(teamEntity);
-		return mates;
 	}
 
 	private TeamPlayer teamPlayerWithValues(Player player)
@@ -146,6 +86,63 @@ public class PlayerFactory implements IPlayerFactory
 	private boolean hasPlayedBefore(String playerName)
 	{
 		return bukkitUtil.getOfflinePlayer(playerName).hasPlayedBefore();
+	}
+
+	public ITeamPlayer getPlayer(String playerName)
+	{
+		if (isOnline(playerName))
+			return teamPlayerWithValues(bukkitUtil.getPlayer(playerName));
+		if (hasPlayedBefore(playerName))
+			return offlineTeamPlayerWithValues(bukkitUtil.getOfflinePlayer(playerName));
+		return offlinePlayerNeverPlayedBefore(playerName);
+	}
+
+	public List<ITeamPlayer> getTeammatesOf(ITeamEntity teamEntity)
+	{
+		List<ITeamPlayer> mates = CommonUtil.emptyList();
+		if (teamEntity.hasTeam())
+		{
+			for (String p : teamEntity.getTeam().getPlayers())
+			{
+				ITeamPlayer mate = this.getPlayer(p);
+				if (!teamEntity.getName().equals(p))
+					mates.add(mate);
+			}
+		}
+		mates.remove(teamEntity);
+		return mates;
+	}
+
+	public List<TeamPlayer> getOnlineTeammatesOf(ITeamEntity teamEntity)
+	{
+		List<ITeamPlayer> onlineMates = CommonUtil.emptyList();
+		if (teamEntity.hasTeam())
+		{
+			for (String p : teamEntity.getTeam().getPlayers())
+			{
+				ITeamPlayer mate = getPlayer(p);
+				if (mate.isOnline())
+					onlineMates.add(mate);
+			}
+		}
+		onlineMates.remove(teamEntity);
+		return CommonUtil.subListOfType(onlineMates, TeamPlayer.class);
+	}
+
+	public List<OfflineTeamPlayer> getOfflineTeammatesOf(ITeamEntity teamEntity)
+	{
+		List<ITeamPlayer> offlineMates = CommonUtil.emptyList();
+		if (teamEntity.hasTeam())
+		{
+			for (String p : teamEntity.getTeam().getPlayers())
+			{
+				ITeamPlayer mate = getPlayer(p);
+				if (!mate.isOnline())
+					offlineMates.add(mate);
+			}
+		}
+		offlineMates.remove(teamEntity);
+		return CommonUtil.subListOfType(offlineMates, OfflineTeamPlayer.class);
 	}
 
 	@Override

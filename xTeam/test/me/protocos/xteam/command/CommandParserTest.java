@@ -1,8 +1,6 @@
 package me.protocos.xteam.command;
 
-import me.protocos.xteam.FakeXTeam;
-import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,13 +9,11 @@ public class CommandParserTest
 {
 	public final String command = "/command param1 param2 param3";
 	public CommandParser parser;
-	private TeamPlugin teamPlugin;
 
 	@Before
 	public void setup()
 	{
 		parser = new CommandParser(command);
-		teamPlugin = FakeXTeam.asTeamPlugin();
 	}
 
 	@Test
@@ -44,7 +40,7 @@ public class CommandParserTest
 	public void ShouldBeCommandContainerBaseCommand()
 	{
 		//ASSEMBLE
-		CommandContainer container = new CommandContainer(new FakePlayerSender(teamPlugin), "command", "".split(" "));
+		CommandContainer container = new CommandContainer(FakePlayer.player(), "command", "".split(" "));
 		//ACT
 		String base = container.getCommand();
 		//ASSERT
@@ -55,7 +51,7 @@ public class CommandParserTest
 	public void ShouldBeCommandContainerParam1()
 	{
 		//ASSEMBLE
-		CommandContainer container = new CommandContainer(new FakePlayerSender(teamPlugin), "command", "param1 param2 param3".split(" "));
+		CommandContainer container = new CommandContainer(FakePlayer.player(), "command", "param1 param2 param3".split(" "));
 		//ACT
 		String base = container.getArgument(0);
 		//ASSERT

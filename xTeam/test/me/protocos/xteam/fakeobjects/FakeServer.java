@@ -322,7 +322,7 @@ public class FakeServer implements Server
 				return p;
 			}
 		}
-		return new FakeOfflinePlayer(name);
+		return FakeOfflinePlayer.neverPlayed(name);
 	}
 
 	@Override

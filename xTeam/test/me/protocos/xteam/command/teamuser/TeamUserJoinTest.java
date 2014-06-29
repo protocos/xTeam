@@ -10,8 +10,7 @@ import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.*;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.model.InviteRequest;
 import org.junit.After;
 import org.junit.Assert;
@@ -57,7 +56,7 @@ public class TeamUserJoinTest
 	public void ShouldBeTeamUserJoinExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
@@ -71,7 +70,7 @@ public class TeamUserJoinTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").addPlayer("stranger");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
@@ -85,7 +84,7 @@ public class TeamUserJoinTest
 	{
 		//ASSEMBLE
 		inviteHandler.removeInvite("Lonely");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
@@ -99,7 +98,7 @@ public class TeamUserJoinTest
 	{
 		//ASSEMBLE
 		Configuration.DEFAULT_TEAM_ONLY = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
@@ -112,7 +111,7 @@ public class TeamUserJoinTest
 	public void ShouldBeTeamUserJoinExecutePlayerHasTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join one".split(" ")));
 		//ASSERT
@@ -125,7 +124,7 @@ public class TeamUserJoinTest
 	public void ShouldBeTeamUserJoinExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "join three".split(" ")));
 		//ASSERT

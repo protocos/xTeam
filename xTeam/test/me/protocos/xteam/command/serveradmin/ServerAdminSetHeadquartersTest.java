@@ -6,8 +6,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.model.Headquarters;
 import org.junit.After;
 import org.junit.Assert;
@@ -44,7 +43,7 @@ public class ServerAdminSetHeadquartersTest
 	public void ShouldBeServerAdminSetHQExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		Headquarters newHQ = new Headquarters(teamPlugin, fakePlayerSender.getLocation());
 		//ACT 
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq two".split(" ")));
@@ -58,7 +57,7 @@ public class ServerAdminSetHeadquartersTest
 	public void ShouldBeServerAdminSetHQExecuteTeamNotExist()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq three".split(" ")));
 		//ASSERT

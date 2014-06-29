@@ -31,8 +31,8 @@ public class TeamWolfTest
 	{
 		//ASSEMBLE
 		World world = new FakeWorld();
-		TeamPlayer player = playerFactory.getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
-		TeamWolf wolf = new TeamWolf(playerFactory, new FakeWolf("protocos", 20, new FakeLocation(world, 200, 64, 0)));
+		TeamPlayer player = playerFactory.getPlayer(FakePlayer.from("protocos"));
+		TeamWolf wolf = new TeamWolf(playerFactory, new FakeWolf("protocos", 20, new FakeLocation(world, 200, 0, 0)));
 		//ACT
 		double distance = player.getDistanceTo(wolf);
 		//ASSERT

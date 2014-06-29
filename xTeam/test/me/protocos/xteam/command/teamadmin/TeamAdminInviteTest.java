@@ -9,8 +9,7 @@ import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.*;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.model.InviteRequest;
 import org.junit.After;
 import org.junit.Assert;
@@ -51,7 +50,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
@@ -66,7 +65,7 @@ public class TeamAdminInviteTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").promote("protocos");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
@@ -80,7 +79,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecuteNotAdmin()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
@@ -98,7 +97,7 @@ public class TeamAdminInviteTest
 		Long timeSent = System.currentTimeMillis();
 		InviteRequest request = new InviteRequest(playerSender, playerReceiver, timeSent);
 		inviteHandler.addInvite(request);
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite Lonely".split(" ")));
 		//ASSERT
@@ -111,7 +110,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite newbie".split(" ")));
 		//ASSERT
@@ -124,7 +123,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite mastermind".split(" ")));
 		//ASSERT
@@ -137,7 +136,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecuteSelfInvite()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite kmlanglois".split(" ")));
 		//ASSERT
@@ -150,7 +149,7 @@ public class TeamAdminInviteTest
 	public void ShouldBeTeamAdminInviteExecuteAlreadyOnTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "invite protocos".split(" ")));
 		//ASSERT

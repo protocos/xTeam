@@ -7,8 +7,7 @@ import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.*;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,7 +44,7 @@ public class TeamLeaderRenameTest
 	public void ShouldBeTeamLeaderRenameExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename name".split(" ")));
 		//ASSERT
@@ -59,7 +58,7 @@ public class TeamLeaderRenameTest
 	{
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename two".split(" ")));
 		//ASSERT
@@ -73,7 +72,7 @@ public class TeamLeaderRenameTest
 	{
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename ��Eåm".split(" ")));
 		//ASSERT
@@ -87,7 +86,7 @@ public class TeamLeaderRenameTest
 	{
 		//ASSEMBLE
 		Configuration.TEAM_NAME_LENGTH = 10;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename nameiswaytoolong".split(" ")));
 		//ASSERT
@@ -100,7 +99,7 @@ public class TeamLeaderRenameTest
 	public void ShouldBeTeamLeaderRenameExecuteNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename name".split(" ")));
 		//ASSERT
@@ -113,7 +112,7 @@ public class TeamLeaderRenameTest
 	public void ShouldBeTeamLeaderRenameExecuteNotLeader()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename name".split(" ")));
 		//ASSERT

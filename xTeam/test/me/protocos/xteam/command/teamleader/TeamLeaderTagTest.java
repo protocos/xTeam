@@ -7,8 +7,7 @@ import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.*;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,7 +44,7 @@ public class TeamLeaderTagTest
 	public void ShouldBeTagExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag tag".split(" ")));
 		//ASSERT
@@ -59,7 +58,7 @@ public class TeamLeaderTagTest
 	{
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag two".split(" ")));
 		//ASSERT
@@ -73,9 +72,9 @@ public class TeamLeaderTagTest
 	{
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
-		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag € EÃ¥m".split(" ")));
+		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag ï¿½ï¿½EÃ¥m".split(" ")));
 		//ASSERT
 		Assert.assertEquals((new TeamNameNotAlphaException()).getMessage(), fakePlayerSender.getLastMessage());
 		Assert.assertEquals("TeamAwesome", teamCoordinator.getTeam("one").getTag());
@@ -87,7 +86,7 @@ public class TeamLeaderTagTest
 	{
 		//ASSEMBLE
 		Configuration.TEAM_NAME_LENGTH = 10;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag tagiswaytoolong".split(" ")));
 		//ASSERT
@@ -100,7 +99,7 @@ public class TeamLeaderTagTest
 	public void ShouldBeTeamTagExecuteNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag tag".split(" ")));
 		//ASSERT
@@ -112,7 +111,7 @@ public class TeamLeaderTagTest
 	public void ShouldBeTeamTagExecuteNotLeader()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "tag tag".split(" ")));
 		//ASSERT

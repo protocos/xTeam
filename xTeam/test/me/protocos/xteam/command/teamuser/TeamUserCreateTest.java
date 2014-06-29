@@ -7,8 +7,7 @@ import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.*;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -44,7 +43,7 @@ public class TeamUserCreateTest
 	public void ShouldBeTeamUserCreateExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
 		//ASSERT
@@ -61,7 +60,7 @@ public class TeamUserCreateTest
 	{
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create NEW".split(" ")));
 		//ASSERT
@@ -76,7 +75,7 @@ public class TeamUserCreateTest
 	{
 		//ASSEMBLE
 		Configuration.TEAM_NAME_LENGTH = 10;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteamiswaytoolong".split(" ")));
 		//ASSERT
@@ -90,7 +89,7 @@ public class TeamUserCreateTest
 	{
 		//ASSEMBLE
 		Configuration.DEFAULT_TEAM_ONLY = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
 		//ASSERT
@@ -103,7 +102,7 @@ public class TeamUserCreateTest
 	public void ShouldBeTeamUserCreateExecutePlayerHasTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
 		//ASSERT
@@ -116,7 +115,7 @@ public class TeamUserCreateTest
 	public void ShouldBeTeamUserCreateExecuteTeamAlreadyExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create one".split(" ")));
 		//ASSERT
@@ -132,7 +131,7 @@ public class TeamUserCreateTest
 		//ASSEMBLE
 		Configuration.CREATE_INTERVAL = 1;
 		Configuration.lastCreated.put("Lonely", System.currentTimeMillis());
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create newteam".split(" ")));
 		//ASSERT
@@ -146,7 +145,7 @@ public class TeamUserCreateTest
 	{
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "create ��Eåm".split(" ")));
 		//ASSERT

@@ -10,8 +10,7 @@ import me.protocos.xteam.exception.TeamHqSetRecentlyException;
 import me.protocos.xteam.exception.TeamPlayerDyingException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerNotAdminException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.IHeadquarters;
 import org.junit.After;
@@ -48,7 +47,7 @@ public class TeamAdminSetHeadquartersTest
 	public void ShouldBeTeamAdminSetHQExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		Headquarters newHQ = new Headquarters(teamPlugin, fakePlayerSender.getLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));
@@ -62,7 +61,7 @@ public class TeamAdminSetHeadquartersTest
 	public void ShouldBeTeamAdminSetHQExecutePlayerDying()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		IHeadquarters oldHQ = teamCoordinator.getTeam("one").getHeadquarters();
 		fakePlayerSender.setNoDamageTicks(1);
 		//ACT
@@ -77,7 +76,7 @@ public class TeamAdminSetHeadquartersTest
 	public void ShouldBeTeamAdminSetHQExecutePlayerNotAdmin()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		IHeadquarters oldHQ = teamCoordinator.getTeam("one").getHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));
@@ -91,7 +90,7 @@ public class TeamAdminSetHeadquartersTest
 	public void ShouldBeTeamAdminSetHQExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		IHeadquarters oldHQ = teamCoordinator.getTeam("one").getHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));
@@ -107,7 +106,7 @@ public class TeamAdminSetHeadquartersTest
 		//ASSEMBLE
 		Configuration.HQ_INTERVAL = 1;
 		teamCoordinator.getTeam("one").setTimeHeadquartersLastSet(System.currentTimeMillis());
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		IHeadquarters oldHQ = teamCoordinator.getTeam("one").getHeadquarters();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "sethq".split(" ")));

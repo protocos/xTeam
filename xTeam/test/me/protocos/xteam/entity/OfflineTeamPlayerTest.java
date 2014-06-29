@@ -10,7 +10,6 @@ import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.fakeobjects.FakeWorld;
 import me.protocos.xteam.model.Locatable;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,7 +26,7 @@ public class OfflineTeamPlayerTest
 	public void setup()
 	{
 		teamPlugin = FakeXTeam.asTeamPlugin();
-		offlineTeamPlayer = new OfflineTeamPlayer(teamPlugin, new FakeOfflinePlayer("protocos", true, false, true));
+		offlineTeamPlayer = new OfflineTeamPlayer(teamPlugin, FakeOfflinePlayer.offline("protocos"));
 		playerFactory = teamPlugin.getPlayerFactory();
 		teamCoordinator = teamPlugin.getTeamCoordinator();
 	}
@@ -103,7 +102,7 @@ public class OfflineTeamPlayerTest
 	public void ShouldBeHasPlayedBefore()
 	{
 		//ASSEMBLE
-		offlineTeamPlayer = playerFactory.getPlayer(new FakeOfflinePlayer("protocos", true, true, true));
+		offlineTeamPlayer = playerFactory.getPlayer(FakeOfflinePlayer.online("protocos"));
 		//ACT
 		boolean hasPlayedbefore = offlineTeamPlayer.hasPlayedBefore();
 		//ASSERT
@@ -124,7 +123,7 @@ public class OfflineTeamPlayerTest
 	public void ShouldBeIsOnline()
 	{
 		//ASSEMBLE
-		offlineTeamPlayer = playerFactory.getPlayer(new FakeOfflinePlayer("protocos", true, true, true));
+		offlineTeamPlayer = playerFactory.getPlayer(FakeOfflinePlayer.online("protocos"));
 		//ACT
 		boolean isOnline = offlineTeamPlayer.isOnline();
 		//ASSERT
@@ -135,8 +134,8 @@ public class OfflineTeamPlayerTest
 	public void ShouldBeIsOnSameTeam()
 	{
 		//ASSEMBLE
-		OfflineTeamPlayer player1 = playerFactory.getPlayer(new FakeOfflinePlayer("protocos", true, true, true));
-		OfflineTeamPlayer player2 = playerFactory.getPlayer(new FakeOfflinePlayer("kmlanglois", true, true, true));
+		OfflineTeamPlayer player1 = playerFactory.getPlayer(FakeOfflinePlayer.online("protocos"));
+		OfflineTeamPlayer player2 = playerFactory.getPlayer(FakeOfflinePlayer.online("kmlanglois"));
 		//ACT
 		boolean sameTeam = player1.isOnSameTeam(player2);
 		//ASSERT
@@ -147,7 +146,7 @@ public class OfflineTeamPlayerTest
 	public void ShouldBeIsOp()
 	{
 		//ASSEMBLE
-		offlineTeamPlayer = playerFactory.getPlayer(new FakeOfflinePlayer("protocos", true, true, true));
+		offlineTeamPlayer = playerFactory.getPlayer(FakeOfflinePlayer.online("protocos"));
 		//ACT
 		boolean isOp = offlineTeamPlayer.isOp();
 		//ASSERT
@@ -190,8 +189,8 @@ public class OfflineTeamPlayerTest
 	public void ShouldBeNotEquals()
 	{
 		//ASSEMBLE
-		ITeamPlayer player1 = playerFactory.getPlayer(new FakeOfflinePlayer("protocos", true, true, true));
-		ITeamPlayer player2 = playerFactory.getPlayer(new FakeOfflinePlayer("kmlanglois", true, true, true));
+		ITeamPlayer player1 = playerFactory.getPlayer(FakeOfflinePlayer.online("protocos"));
+		ITeamPlayer player2 = playerFactory.getPlayer(FakeOfflinePlayer.online("kmlanglois"));
 		//ACT
 		boolean equals = player1.equals(player2);
 		//ASSERT
@@ -252,9 +251,8 @@ public class OfflineTeamPlayerTest
 	public void ShouldBeTeleportEntity()
 	{
 		//ASSEMBLE
-		World world = new FakeWorld();
-		TeamPlayer player1 = playerFactory.getPlayer(new FakePlayer("protocos", true, true, 20, new FakeLocation(world, 0, 64, 0)));
-		TeamPlayer player2 = playerFactory.getPlayer(new FakePlayer("kmlanglois", true, true, 20, new FakeLocation(world, 0, 64, 0)));
+		TeamPlayer player1 = playerFactory.getPlayer(FakePlayer.from("protocos"));
+		TeamPlayer player2 = playerFactory.getPlayer(FakePlayer.from("kmlanglois"));
 		//ACT
 		boolean teleport = player1.teleportTo(player2);
 		//ASSERT
@@ -278,7 +276,7 @@ public class OfflineTeamPlayerTest
 	{
 		//ASSEMBLE
 		Location location = new FakeLocation(new FakeWorld(), 0, 64, 0);
-		offlineTeamPlayer = playerFactory.getPlayer(new FakeOfflinePlayer("protocos", true, false, true));
+		offlineTeamPlayer = playerFactory.getPlayer(FakeOfflinePlayer.offline("protocos"));
 		offlineTeamPlayer.setLastKnownLocation(location);
 		//ACT
 		Location lastKnownLocation = new FakeLocation(offlineTeamPlayer.getLastKnownLocation());

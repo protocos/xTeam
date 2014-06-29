@@ -9,8 +9,7 @@ import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerNeverPlayedException;
 import me.protocos.xteam.exception.TeamPlayerNotOnTeamException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -47,7 +46,7 @@ public class ServerAdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote one protocos".split(" ")));
 		//ASSERT
@@ -60,7 +59,7 @@ public class ServerAdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote one Lonely".split(" ")));
 		//ASSERT
@@ -73,7 +72,7 @@ public class ServerAdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecutePlayerHeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote one newbie".split(" ")));
 		//ASSERT
@@ -86,7 +85,7 @@ public class ServerAdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecutePlayerNotOnTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote one mastermind".split(" ")));
 		//ASSERT
@@ -99,7 +98,7 @@ public class ServerAdminPromoteTest
 	public void ShouldBeServerAdminPromoteExecuteTeamNotExist()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote three protocos".split(" ")));
 		//ASSERT

@@ -9,7 +9,6 @@ import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 
@@ -44,42 +43,39 @@ public class FakeXTeam extends TeamPlugin
 		this.getTeamCoordinator().createTeam(team4);
 
 		//MOCK players
-		World mockWorld = new FakeWorld();
-		Location mockLocation = new FakeLocation(mockWorld, 0.0D, 64.0D, 0.0D);
+		Location fakeLocation = new FakeLocation(0.0D, 64.0D, 0.0D);
 		//FAKE protocos
-		FakeOfflinePlayer protocosOffline = new FakeOfflinePlayer("protocos", true, true, true);
-		FakePlayer protocosOnline = new FakePlayer("protocos", true, true, 20, mockLocation);
+		FakeOfflinePlayer protocosOffline = FakeOfflinePlayer.online("protocos");
+		FakePlayer protocosOnline = new FakePlayer.Builder().name("protocos").location(fakeLocation).build();
 
 		//FAKE kmlanglois
-		FakeOfflinePlayer kmlangloisOffline = new FakeOfflinePlayer("kmlanglois", true, true, true);
-		FakePlayer kmlangloisOnline = new FakePlayer("kmlanglois", true, true, 20, mockLocation);
+		FakeOfflinePlayer kmlangloisOffline = FakeOfflinePlayer.online("kmlanglois");
+		FakePlayer kmlangloisOnline = new FakePlayer.Builder().name("kmlanglois").location(fakeLocation).build();
 
 		//FAKE mastermind
-		FakeOfflinePlayer mastermindOffline = new FakeOfflinePlayer("mastermind", true, true, true);
-		FakePlayer mastermindOnline = new FakePlayer("mastermind", true, true, 20, mockLocation);
+		FakeOfflinePlayer mastermindOffline = FakeOfflinePlayer.online("mastermind");
+		FakePlayer mastermindOnline = new FakePlayer.Builder().name("mastermind").location(fakeLocation).build();
 
 		//FAKE Lonely
-		FakeOfflinePlayer LonelyOffline = new FakeOfflinePlayer("Lonely", true, true, true);
-		FakePlayer LonelyOnline = new FakePlayer("Lonely", true, true, 20, mockLocation);
+		FakeOfflinePlayer LonelyOffline = FakeOfflinePlayer.online("Lonely");
+		FakePlayer LonelyOnline = new FakePlayer.Builder().name("Lonely").location(fakeLocation).build();
 
 		//FAKE strandedhelix
-		FakeOfflinePlayer strandedhelixOffline = new FakeOfflinePlayer("strandedhelix", false, false, true);
-		//		FakePlayer strandedhelixOnline = new FakePlayer("strandedhelix", false, false, 20, mockLocation);
+		FakeOfflinePlayer strandedhelixOffline = new FakeOfflinePlayer.Builder().name("strandedhelix").isOp(false).isOnline(false).build();
 
 		//FAKE kestra
-		FakeOfflinePlayer kestraOffline = new FakeOfflinePlayer("kestra", false, false, true);
-		//		FakePlayer kestraOnline = new FakePlayer("kestra", false, false, 20, mockLocation);
+		FakeOfflinePlayer kestraOffline = new FakeOfflinePlayer.Builder().name("kestra").isOp(false).isOnline(false).build();
 
 		//FAKE unreachable players
-		FakeOfflinePlayer newbieOffline = new FakeOfflinePlayer("newbie", false, false, false);
-		FakeOfflinePlayer threeOffline = new FakeOfflinePlayer("three", false, false, false);
-		FakePlayer oneOnline = new FakePlayer("one", true, true, 20, mockLocation);
-		FakeOfflinePlayer oneOffline = new FakeOfflinePlayer("one", true, true, true);
-		FakePlayer twoOnline = new FakePlayer("two", true, true, 20, mockLocation);
-		FakeOfflinePlayer twoOffline = new FakeOfflinePlayer("two", true, true, true);
-		FakeOfflinePlayer thrOffline = new FakeOfflinePlayer("thr", true, false, true);
-		FakeOfflinePlayer neverPlayedOffline = new FakeOfflinePlayer("neverplayed", false, false, false);
-		FakeOfflinePlayer teammateOffline = new FakeOfflinePlayer("teammate", false, false, true);
+		FakeOfflinePlayer newbieOffline = new FakeOfflinePlayer.Builder().name("newbie").isOp(false).isOnline(false).hasPlayedBefore(false).build();
+		FakeOfflinePlayer threeOffline = new FakeOfflinePlayer.Builder().name("three").isOp(false).isOnline(false).hasPlayedBefore(false).build();
+		FakePlayer oneOnline = new FakePlayer.Builder().name("one").location(fakeLocation).build();
+		FakeOfflinePlayer oneOffline = FakeOfflinePlayer.online("one");
+		FakePlayer twoOnline = new FakePlayer.Builder().name("two").location(fakeLocation).build();
+		FakeOfflinePlayer twoOffline = FakeOfflinePlayer.online("two");
+		FakeOfflinePlayer thrOffline = FakeOfflinePlayer.offline("thr");
+		FakeOfflinePlayer neverPlayedOffline = new FakeOfflinePlayer.Builder().name("neverplayed").isOp(false).isOnline(false).hasPlayedBefore(false).build();
+		FakeOfflinePlayer teammateOffline = new FakeOfflinePlayer.Builder().name("teammate").isOp(false).isOnline(false).build();
 
 		//FAKE onlinePlayers
 		server.setOnlinePlayers(new Player[] { protocosOnline, kmlangloisOnline, mastermindOnline, LonelyOnline, oneOnline, twoOnline });
@@ -152,6 +148,8 @@ public class FakeXTeam extends TeamPlugin
 		FakeXTeam fakeXTeam = new FakeXTeam(fakeServer);
 		fakeServer.setPlugin(fakeXTeam);
 		fakeXTeam.load();
+		FakePlayer.use(fakeXTeam, fakeServer);
+		FakeOfflinePlayer.use(fakeXTeam);
 		return fakeXTeam;
 	}
 

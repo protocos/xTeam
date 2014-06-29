@@ -12,8 +12,7 @@ import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamPlayerHasNoInviteException;
 import me.protocos.xteam.exception.TeamPlayerHasTeamException;
 import me.protocos.xteam.exception.TeamPlayerMaxException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.model.InviteRequest;
 import org.junit.After;
 import org.junit.Assert;
@@ -60,7 +59,7 @@ public class TeamUserAcceptTest
 	public void ShouldBeTeamUserAcceptExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
@@ -75,7 +74,7 @@ public class TeamUserAcceptTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").addPlayer("stranger");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
@@ -90,7 +89,7 @@ public class TeamUserAcceptTest
 	{
 		//ASSEMBLE
 		inviteHandler.removeInvite("Lonely");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
@@ -105,7 +104,7 @@ public class TeamUserAcceptTest
 	{
 		//ASSEMBLE
 		teamCoordinator.disbandTeam("ONE");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT
@@ -118,7 +117,7 @@ public class TeamUserAcceptTest
 	public void ShouldBeTeamUserAcceptExecutePlayerHasTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "accept".split(" ")));
 		//ASSERT

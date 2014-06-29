@@ -9,8 +9,7 @@ import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamNameAlreadyInUseException;
 import me.protocos.xteam.exception.TeamNameNotAlphaException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -46,7 +45,7 @@ public class ServerAdminRenameTest
 	public void ShouldBeServerAdminRenameExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one newname".split(" ")));
 		//ASSERT
@@ -59,7 +58,7 @@ public class ServerAdminRenameTest
 	public void ShouldBeServerAdminRenameExecuteTeamAlreadyExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one two".split(" ")));
 		//ASSERT
@@ -73,7 +72,7 @@ public class ServerAdminRenameTest
 	{
 		//ASSEMBLE
 		Configuration.ALPHA_NUM = true;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename one ��Eåm".split(" ")));
 		//ASSERT
@@ -86,7 +85,7 @@ public class ServerAdminRenameTest
 	public void ShouldBeServerAdminRenameExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rename three newname".split(" ")));
 		//ASSERT

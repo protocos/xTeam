@@ -6,8 +6,7 @@ import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.*;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,7 +44,7 @@ public class ServerAdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote one protocos".split(" ")));
 		//ASSERT
@@ -58,7 +57,7 @@ public class ServerAdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecuteDemoteLeader()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote one kmlanglois".split(" ")));
 		//ASSERT
@@ -71,7 +70,7 @@ public class ServerAdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecuteIncorrectTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote one mastermind".split(" ")));
 		//ASSERT
@@ -83,7 +82,7 @@ public class ServerAdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecutePlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote one Lonely".split(" ")));
 		//ASSERT
@@ -95,7 +94,7 @@ public class ServerAdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecutePlayerHasNotPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote one newbie".split(" ")));
 		//ASSERT
@@ -108,7 +107,7 @@ public class ServerAdminDemoteTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").demote("protocos");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote one protocos".split(" ")));
 		//ASSERT
@@ -120,7 +119,7 @@ public class ServerAdminDemoteTest
 	public void ShouldBeServerAdminDemoteExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote three protocos".split(" ")));
 		//ASSERT

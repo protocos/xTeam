@@ -5,8 +5,7 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -41,7 +40,7 @@ public class TeamUserListTest
 	{
 		//ASSEMBLE
 		teamCoordinator.clear();
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
 		//ASSERT
@@ -56,7 +55,7 @@ public class TeamUserListTest
 		teamCoordinator.disbandTeam("ONE");
 		teamCoordinator.disbandTeam("TWO");
 		teamCoordinator.disbandTeam("blue");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
 		//ASSERT
@@ -68,7 +67,7 @@ public class TeamUserListTest
 	public void ShouldBeTeamUserListExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "list".split(" ")));
 		//ASSERT

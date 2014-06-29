@@ -10,7 +10,7 @@ import me.protocos.xteam.core.TeleportScheduler;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.util.CommonUtil;
 import org.junit.After;
 import org.junit.Assert;
@@ -52,7 +52,7 @@ public class ServerAdminSetRallyTest
 	public void ShouldBeServerAdminSetRallyExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT 
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally two".split(" ")));
 		//ASSERT
@@ -68,7 +68,7 @@ public class ServerAdminSetRallyTest
 		teamCoordinator.getTeam("one").setRally(new FakeLocation());
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("protocos"), TeamPlayer.class);
 		teleportScheduler.setRallyUsedFor(teamPlayer);
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT 
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally one".split(" ")));
 		//ASSERT
@@ -82,7 +82,7 @@ public class ServerAdminSetRallyTest
 	public void ShouldBeServerAdminSetRallyExecuteTeamNotExist()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally three".split(" ")));
 		//ASSERT

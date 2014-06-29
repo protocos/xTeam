@@ -12,7 +12,7 @@ import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.*;
 import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.junit.After;
@@ -55,7 +55,7 @@ public class TeamUserHeadquartersTest
 	public void ShouldBeTeamUserHQ()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", before);
+		FakePlayer fakePlayerSender = new FakePlayer.Builder().name("kmlanglois").location(before).build();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq".split(" ")));
 		//ASSERT
@@ -69,7 +69,7 @@ public class TeamUserHeadquartersTest
 	public void ShouldBeTeamUserHQNoHeadquarters()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "mastermind", before);
+		FakePlayer fakePlayerSender = new FakePlayer.Builder().name("mastermind").location(before).build();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq".split(" ")));
 		//ASSERT
@@ -82,7 +82,7 @@ public class TeamUserHeadquartersTest
 	public void ShouldBeTeamUserHQPlayerDying()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", before);
+		FakePlayer fakePlayerSender = new FakePlayer.Builder().name("kmlanglois").location(before).build();
 		fakePlayerSender.setNoDamageTicks(1);
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq".split(" ")));
@@ -96,7 +96,7 @@ public class TeamUserHeadquartersTest
 	public void ShouldBeTeamUserHQPlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", before);
+		FakePlayer fakePlayerSender = new FakePlayer.Builder().name("Lonely").location(before).build();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq".split(" ")));
 		//ASSERT
@@ -111,7 +111,7 @@ public class TeamUserHeadquartersTest
 		//ASSEMBLE
 		Configuration.LAST_ATTACKED_DELAY = 15;
 		playerFactory.getPlayer("kmlanglois").setLastAttacked(System.currentTimeMillis());
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", before);
+		FakePlayer fakePlayerSender = new FakePlayer.Builder().name("kmlanglois").location(before).build();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq".split(" ")));
 		//ASSERT
@@ -126,7 +126,7 @@ public class TeamUserHeadquartersTest
 		//ASSEMBLE
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("kmlanglois"), TeamPlayer.class);
 		teleportScheduler.setCurrentTask(teamPlayer, 0);
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", before);
+		FakePlayer fakePlayerSender = new FakePlayer.Builder().name("kmlanglois").location(before).build();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq".split(" ")));
 		//ASSERT
@@ -141,7 +141,7 @@ public class TeamUserHeadquartersTest
 		//ASSEMBLE
 		Configuration.TELE_REFRESH_DELAY = 60;
 		playerFactory.getPlayer("kmlanglois").teleportTo(teamCoordinator.getTeam("ONE"));
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", before);
+		FakePlayer fakePlayerSender = new FakePlayer.Builder().name("kmlanglois").location(before).build();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "hq".split(" ")));
 		//ASSERT

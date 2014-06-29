@@ -12,7 +12,7 @@ import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.*;
 import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
@@ -59,7 +59,7 @@ public class TeamUserRallyTest
 	{
 		//ASSEMBLE
 		Location beforeLocation = new FakeLocation(bukkitUtil.getWorld("world")).toLocation();
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", beforeLocation);
+		FakePlayer fakePlayerSender = new FakePlayer.Builder().name("protocos").location(beforeLocation).build();
 		Location rallyLocation = team.getHeadquarters().getLocation();
 		team.setRally(rallyLocation);
 		//ACT
@@ -76,7 +76,7 @@ public class TeamUserRallyTest
 	public void ShouldBeTeamUserRallyExecuteNoRally()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "mastermind", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("mastermind");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rally".split(" ")));
 		//ASSERT
@@ -88,7 +88,7 @@ public class TeamUserRallyTest
 	public void ShouldBeTeamUserRallyExecutePlayerDying()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		Location before = fakePlayerSender.getLocation();
 		team.setRally(team.getHeadquarters().getLocation());
 		fakePlayerSender.setNoDamageTicks(1);
@@ -104,7 +104,7 @@ public class TeamUserRallyTest
 	public void ShouldBeTeamUserRallyExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		team.setRally(team.getHeadquarters().getLocation());
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rally".split(" ")));
@@ -119,7 +119,7 @@ public class TeamUserRallyTest
 		//ASSEMBLE
 		Configuration.LAST_ATTACKED_DELAY = 15;
 		playerFactory.getPlayer("protocos").setLastAttacked(System.currentTimeMillis());
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		Location before = fakePlayerSender.getLocation();
 		teamCoordinator.getTeam("one").setRally(new FakeLocation());
 		//ACT
@@ -136,7 +136,7 @@ public class TeamUserRallyTest
 		//ASSEMBLE
 		TeamPlayer teamPlayer = CommonUtil.assignFromType(playerFactory.getPlayer("kmlanglois"), TeamPlayer.class);
 		teleportScheduler.setCurrentTask(teamPlayer, 0);
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		teamCoordinator.getTeam("one").setRally(new FakeLocation());
 		Location before = fakePlayerSender.getLocation();
 		//ACT
@@ -155,7 +155,7 @@ public class TeamUserRallyTest
 		Location rallyLocation = team.getHeadquarters().getLocation();
 		team.setRally(rallyLocation);
 		teleportScheduler.setRallyUsedFor(teamPlayer);
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		Location before = fakePlayerSender.getLocation();
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "rally".split(" ")));

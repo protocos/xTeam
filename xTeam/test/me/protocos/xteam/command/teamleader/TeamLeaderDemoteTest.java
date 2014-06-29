@@ -9,8 +9,7 @@ import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerLeaderDemoteException;
 import me.protocos.xteam.exception.TeamPlayerNotLeaderException;
 import me.protocos.xteam.exception.TeamPlayerNotTeammateException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -46,7 +45,7 @@ public class TeamLeaderDemoteTest
 	public void ShouldBeTeamAdminDemoteExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote protocos".split(" ")));
 		//ASSERT
@@ -59,7 +58,7 @@ public class TeamLeaderDemoteTest
 	public void ShouldBeTeamAdminDemoteExecuteLeaderDemote()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote kmlanglois".split(" ")));
 		//ASSERT
@@ -72,7 +71,7 @@ public class TeamLeaderDemoteTest
 	public void ShouldBeTeamAdminDemoteExecuteSenderNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote protocos".split(" ")));
 		//ASSERT
@@ -85,7 +84,7 @@ public class TeamLeaderDemoteTest
 	public void ShouldBeTeamAdminDemoteExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote Lonely".split(" ")));
 		//ASSERT
@@ -97,7 +96,7 @@ public class TeamLeaderDemoteTest
 	public void ShouldBeTeamAdminDemoteExecuteNotLeader()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote protocos".split(" ")));
 		//ASSERT
@@ -110,7 +109,7 @@ public class TeamLeaderDemoteTest
 	public void ShouldBeTeamAdminDemoteExecuteNotTeammate()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "demote mastermind".split(" ")));
 		//ASSERT

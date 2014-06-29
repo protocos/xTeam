@@ -9,8 +9,7 @@ import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamPlayerLeaderLeavingException;
 import me.protocos.xteam.exception.TeamPlayerMaxException;
 import me.protocos.xteam.exception.TeamPlayerNeverPlayedException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,7 +48,7 @@ public class ServerAdminSetTest
 	{
 		//ASSEMBLE
 		Configuration.MAX_PLAYERS = 2;
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set Lonely one".split(" ")));
 		//ASSERT
@@ -61,7 +60,7 @@ public class ServerAdminSetTest
 	public void ShouldBeServerAdminSetExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set Lonely two".split(" ")));
 		//ASSERT
@@ -74,7 +73,7 @@ public class ServerAdminSetTest
 	public void ShouldBeServerAdminSetExecuteCreateTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set Lonely three".split(" ")));
 		//ASSERT
@@ -91,7 +90,7 @@ public class ServerAdminSetTest
 	{
 		//ASSEMBLE
 		teamCoordinator.getTeam("one").removePlayer("protocos");
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set kmlanglois two".split(" ")));
 		//ASSERT
@@ -107,7 +106,7 @@ public class ServerAdminSetTest
 	public void ShouldBeServerAdminSetExecuteLeaderLeaving()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set kmlanglois two".split(" ")));
 		//ASSERT
@@ -120,7 +119,7 @@ public class ServerAdminSetTest
 	public void ShouldBeServerAdminSetExecutePlayerNeverPlayed()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set newbie one".split(" ")));
 		//ASSERT
@@ -132,7 +131,7 @@ public class ServerAdminSetTest
 	public void ShouldBeServerAdminSetExecuteTeamNotExists()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "set protocos three".split(" ")));
 		//ASSERT

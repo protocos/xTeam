@@ -8,8 +8,7 @@ import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerNotAdminException;
 import me.protocos.xteam.exception.TeamPlayerNotTeammateException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -44,7 +43,7 @@ public class TeamAdminPromoteTest
 	public void ShouldBeTeamAdminPromoteExecute()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote protocos".split(" ")));
 		//ASSERT
@@ -57,7 +56,7 @@ public class TeamAdminPromoteTest
 	public void ShouldBeTeamAdminPromoteExecutePlayerNotAdmin()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote kmlanglois".split(" ")));
 		//ASSERT
@@ -70,7 +69,7 @@ public class TeamAdminPromoteTest
 	public void ShouldBeTeamAdminPromoteExecutePlayerNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote protocos".split(" ")));
 		//ASSERT
@@ -82,7 +81,7 @@ public class TeamAdminPromoteTest
 	public void ShouldBeTeamAdminPromoteExecutePlayerNotTeammate()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "promote Lonely".split(" ")));
 		//ASSERT

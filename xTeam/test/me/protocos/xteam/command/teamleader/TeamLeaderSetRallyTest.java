@@ -9,8 +9,7 @@ import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamAlreadyHasRallyException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerNotLeaderException;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakePlayerSender;
+import me.protocos.xteam.fakeobjects.FakePlayer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -46,7 +45,7 @@ public class TeamLeaderSetRallyTest
 	public void ShouldBeSetRally()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT
@@ -59,7 +58,7 @@ public class TeamLeaderSetRallyTest
 	public void ShouldBeSetRallyPlayerHasNoTeam()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "Lonely", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("Lonely");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT
@@ -71,7 +70,7 @@ public class TeamLeaderSetRallyTest
 	public void ShouldBeSetRallyPlayerNotTeamLeader()
 	{
 		//ASSEMBLE
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "protocos", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("protocos");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT
@@ -85,7 +84,7 @@ public class TeamLeaderSetRallyTest
 		//ASSEMBLE
 		ITeam team = teamCoordinator.getTeam("one");
 		team.setRally(team.getHeadquarters().getLocation());
-		FakePlayerSender fakePlayerSender = new FakePlayerSender(teamPlugin, "kmlanglois", new FakeLocation());
+		FakePlayer fakePlayerSender = FakePlayer.from("kmlanglois");
 		//ACT
 		boolean fakeExecuteResponse = fakeCommand.execute(new CommandContainer(fakePlayerSender, "team", "setrally".split(" ")));
 		//ASSERT
