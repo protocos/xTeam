@@ -120,7 +120,16 @@ public class CommonUtil
 			output += t.toString();
 		}
 		return output.trim();
+	}
 
+	public static <K, V> String toString(HashList<K, V> hashList)
+	{
+		String output = "";
+		for (K key : hashList.getOrder())
+		{
+			output += key + " = " + hashList.get(key) + "\n";
+		}
+		return output.trim();
 	}
 
 	public static List<Boolean> toList(boolean... booleans)

@@ -95,16 +95,26 @@ public class Configuration
 		return max.replaceAll(".", "#") + "\n";
 	}
 
-	private Boolean getAttribute(String key, Boolean defaultValue, String description)
+	private void updateAliases(String newKey, String... oldKeys)
 	{
+		for (String oldKey : oldKeys)
+		{
+			fileReader.updateKey(oldKey, newKey);
+		}
+	}
+
+	private Boolean getAttribute(String key, Boolean defaultValue, String description, String... oldKeys)
+	{
+		updateAliases(key, oldKeys);
 		Boolean value = fileReader.get(key, defaultValue);
 		ConfigurationOption<Boolean> option = new ConfigurationOption<Boolean>(key, defaultValue, description, value);
 		options.put(option.getKey(), option);
 		return option.getValue();
 	}
 
-	private Integer getAttribute(String key, Integer defaultValue, Integer lowerBound, Integer upperBound, String description)
+	private Integer getAttribute(String key, Integer defaultValue, Integer lowerBound, Integer upperBound, String description, String... oldKeys)
 	{
+		updateAliases(key, oldKeys);
 		Integer value = fileReader.get(key, defaultValue);
 		if (!CommonUtil.insideRange(value, lowerBound, upperBound))
 		{
@@ -116,8 +126,9 @@ public class Configuration
 		return option.getValue();
 	}
 
-	private String getAttribute(String key, String defaultValue, String description)
+	private String getAttribute(String key, String defaultValue, String description, String... oldKeys)
 	{
+		updateAliases(key, oldKeys);
 		String value = fileReader.get(key, defaultValue);
 		if (!new PatternBuilder().anyUnlimitedOptional(new PatternBuilder().alphaNumeric().append(":")).whiteSpaceOptional().matches(value))
 		{
@@ -129,8 +140,9 @@ public class Configuration
 		return option.getValue();
 	}
 
-	private List<String> getAsList(String key, String defaultValue, String description)
+	private List<String> getAsList(String key, String defaultValue, String description, String... oldKeys)
 	{
+		updateAliases(key, oldKeys);
 		String value = fileReader.get(key, defaultValue);
 		if (!new PatternBuilder().anyUnlimitedOptional(new PatternBuilder().alphaNumeric().append(",")).whiteSpaceOptional().matches(value))
 		{
@@ -142,17 +154,9 @@ public class Configuration
 		return CommonUtil.toList(option.getValue().replace("\\s+", "").split(","));
 	}
 
-	//	private <T> T getAttribute(String key, T defaultValue, String description)
-	//	{
-	//		T value = fileReader.get(key, defaultValue);
-	//		ConfigurationOption<T> option = new ConfigurationOption<T>(key, defaultValue, description, value);
-	//		options.put(option.getKey(), option);
-	//		return option.getValue();
-	//	}
-
 	public void load()
 	{
-		CAN_CHAT = this.getAttribute("canteamchat", true, "Allows/Disallows the use of team chat function completely");
+		CAN_CHAT = this.getAttribute("teamchatenable", true, "Allows/Disallows the use of team chat function completely", "canteamchat");
 		HQ_ON_DEATH = this.getAttribute("hqondeath", true, "When a player dies, they are teleported to their headquarters when they respawn");
 		TEAM_WOLVES = this.getAttribute("teamwolves", true, "Protects your wolfies from you and your teammates from damaging them");
 		RANDOM_TEAM = this.getAttribute("randomjointeam", false, "Player randomly joins one of the default teams on joining");
@@ -160,7 +164,7 @@ public class Configuration
 		DEFAULT_TEAM_ONLY = this.getAttribute("onlyjoindefaultteam", false, "When true, players can only join one of the default teams listed above");
 		DEFAULT_HQ_ON_JOIN = this.getAttribute("defaulthqonjoin", false, "When true, players on default teams are teleported to their headquarters on join");
 		TEAM_TAG_ENABLED = this.getAttribute("teamtagenabled", true, "When true, players have their team tag displayed when in chat");
-		TEAM_FRIENDLY_FIRE = this.getAttribute("teamfriendlyfire", false, "When true, friendly fire will be enabled for all teams");
+		TEAM_FRIENDLY_FIRE = this.getAttribute("friendlyfire", false, "When true, friendly fire will be enabled for all teams", "teamfriendlyfire");
 		NO_PERMISSIONS = this.getAttribute("nopermissions", false, "When true, xTeam will give all regular commands to players and admin commands to OPs");
 		ALPHA_NUM = this.getAttribute("alphanumericnames", true, "When true, players can only create teams with alphanumeric names and no symbols (e.g. TeamAwesome123)");
 		DISPLAY_COORDINATES = this.getAttribute("displaycoordinates", true, "When true, players can see coordinates of other team mates in team info");

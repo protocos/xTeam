@@ -2,14 +2,15 @@ package me.protocos.xteam.data.configuration;
 
 import java.io.*;
 import java.lang.reflect.Method;
-import java.util.HashMap;
+import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.model.ILog;
+import me.protocos.xteam.util.CommonUtil;
 
 public class FileReader
 {
 	private File file;
 	private boolean caseSensitive;
-	private HashMap<String, String> keySet = new HashMap<String, String>();
+	private HashList<String, String> keySet = new HashList<String, String>();
 	private ILog log;
 
 	public FileReader(ILog log, File file, boolean caseSensitive)
@@ -90,5 +91,16 @@ public class FileReader
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString()
+	{
+		return CommonUtil.toString(keySet);
+	}
+
+	public void updateKey(String oldKey, String newKey)
+	{
+		keySet.updateKey(oldKey, newKey);
 	}
 }
