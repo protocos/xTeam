@@ -9,6 +9,7 @@ import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.core.*;
 import me.protocos.xteam.event.EventDispatcher;
 import me.protocos.xteam.event.IEventDispatcher;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.model.Log;
 import me.protocos.xteam.util.BukkitUtil;
@@ -58,7 +59,7 @@ public abstract class TeamPlugin extends JavaPlugin implements ICommandContainer
 
 	private boolean isMainPlugin()
 	{
-		return this.getPluginName().equals("XTeam") || this.getPluginName().equals("FakeXTeam");
+		return this.getPluginName().equals(XTeam.class.getSimpleName()) || this.getPluginName().equals(FakeXTeam.class.getSimpleName());
 	}
 
 	public final String getPluginName()
