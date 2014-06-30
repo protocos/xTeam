@@ -33,6 +33,10 @@ public class TeamUserHelpTest
 		Assert.assertTrue("??? 1 ".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("1".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("2 ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("help".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("help ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("???".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("? ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("1 dfas".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("11 ?".matches(fakeCommand.getPattern()));
@@ -48,8 +52,8 @@ public class TeamUserHelpTest
 		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "help 1");
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 1/5] {optional} [required] pick/one\n" +
-				"/team {help} - main help menu for xTeam\n" +
-				"/team {help} [Page] - user help page for xTeam\n" +
+				"/team - main help menu for xTeam\n" +
+				"/team {help} {Page} - user help page for xTeam\n" +
 				"/team info {Team/Player} - get team info or other team's info\n" +
 				"/team list - list all teams on the server\n" +
 				"/team create [Name] - create a team\n" +

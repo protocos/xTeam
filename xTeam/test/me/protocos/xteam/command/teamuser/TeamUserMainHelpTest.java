@@ -27,11 +27,11 @@ public class TeamUserMainHelpTest
 	{
 		Assert.assertTrue("".matches(fakeCommand.getPattern()));
 		Assert.assertTrue(" ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue("help".matches(fakeCommand.getPattern()));
-		Assert.assertTrue("help ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue("???".matches(fakeCommand.getPattern()));
-		Assert.assertTrue("? ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertFalse("help".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("help ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("???".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("? ".matches(fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team"));
 	}
 
 	@Test

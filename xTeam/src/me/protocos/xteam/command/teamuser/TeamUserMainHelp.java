@@ -42,10 +42,6 @@ public class TeamUserMainHelp extends TeamUserCommand
 	public String getPattern()
 	{
 		return new PatternBuilder()
-				.optional(new PatternBuilder()
-						.or(new PatternBuilder()
-								.oneOrMore("help"), new PatternBuilder()
-								.append("\\?+")))
 				.whiteSpaceOptional()
 				.toString();
 	}
@@ -59,7 +55,7 @@ public class TeamUserMainHelp extends TeamUserCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team {help}";
+		return "/team";
 	}
 
 	@Override

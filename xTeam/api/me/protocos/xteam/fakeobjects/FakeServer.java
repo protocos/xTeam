@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.*;
 import java.util.logging.Logger;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.util.CommonUtil;
+import me.protocos.xteam.collections.HashList;
 import org.bukkit.*;
 import org.bukkit.Warning.WarningState;
 import org.bukkit.command.CommandException;
@@ -26,7 +26,7 @@ import com.avaje.ebean.config.ServerConfig;
 
 public class FakeServer implements Server
 {
-	private World world;
+	private HashList<String, World> worlds = new HashList<String, World>();
 	private Player[] onlinePlayers;
 	private OfflinePlayer[] offlinePlayers;
 	private BukkitScheduler fakeScheduler;
@@ -34,7 +34,8 @@ public class FakeServer implements Server
 
 	public FakeServer()
 	{
-		world = new FakeWorld();
+		World world = new FakeWorld();
+		worlds.put(world.getName(), world);
 		onlinePlayers = new Player[0];
 		offlinePlayers = new OfflinePlayer[0];
 		fakeScheduler = new FakeScheduler();
@@ -43,11 +44,6 @@ public class FakeServer implements Server
 	public void setPlugin(TeamPlugin teamPlugin)
 	{
 		this.fakePluginManager = new FakePluginManager(teamPlugin);
-	}
-
-	public void setWorld(World world)
-	{
-		this.world = world;
 	}
 
 	public void setOnlinePlayers(Player[] onlinePlayers)
@@ -512,13 +508,18 @@ public class FakeServer implements Server
 	@Override
 	public World getWorld(String arg0)
 	{
-		return world;
+		if (!worlds.containsKey(arg0))
+		{
+			World world = new FakeWorld(arg0);
+			worlds.put(world.getName(), world);
+		}
+		return worlds.get(arg0);
 	}
 
 	@Override
 	public World getWorld(UUID arg0)
 	{
-		return world;
+		return worlds.get(0);
 	}
 
 	@Override
@@ -531,9 +532,7 @@ public class FakeServer implements Server
 	@Override
 	public List<World> getWorlds()
 	{
-		List<World> worlds = CommonUtil.emptyList();
-		worlds.add(world);
-		return worlds;
+		return worlds.toList();
 	}
 
 	@Override
