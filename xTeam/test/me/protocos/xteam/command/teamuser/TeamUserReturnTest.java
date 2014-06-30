@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.teamuser;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.core.IPlayerFactory;
@@ -11,6 +10,7 @@ import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.*;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.util.CommandUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;

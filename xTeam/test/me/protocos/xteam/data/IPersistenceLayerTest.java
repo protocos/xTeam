@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 import lib.PatPeter.SQLibrary.Database;
 import lib.PatPeter.SQLibrary.MySQL;
 import lib.PatPeter.SQLibrary.SQLite;
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.fakeobjects.FakeLocation;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import org.junit.*;
 
 public class IPersistenceLayerTest

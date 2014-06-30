@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.teamadmin;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.TeamAdminCommand;
 import me.protocos.xteam.core.IPlayerFactory;
@@ -9,6 +8,7 @@ import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.*;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;

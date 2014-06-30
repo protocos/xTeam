@@ -1,9 +1,9 @@
 package me.protocos.xteam.data.translator;
 
 import java.util.Set;
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.fakeobjects.FakeLocation;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.IHeadquarters;
 import me.protocos.xteam.model.NullHeadquarters;

@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.teamleader;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.TeamLeaderCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
@@ -10,6 +9,7 @@ import me.protocos.xteam.exception.TeamAlreadyHasRallyException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.exception.TeamPlayerNotLeaderException;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;

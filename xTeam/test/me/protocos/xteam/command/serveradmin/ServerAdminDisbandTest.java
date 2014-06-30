@@ -1,12 +1,12 @@
 package me.protocos.xteam.command.serveradmin;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.ServerAdminCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamIsDefaultException;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;

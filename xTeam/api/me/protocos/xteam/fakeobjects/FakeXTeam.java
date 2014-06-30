@@ -1,10 +1,11 @@
-package me.protocos.xteam;
+package me.protocos.xteam.fakeobjects;
 
 import java.util.List;
+import me.protocos.xteam.TeamPlugin;
+import me.protocos.xteam.XTeam;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.Team;
-import me.protocos.xteam.fakeobjects.*;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;

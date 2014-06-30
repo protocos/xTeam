@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.console;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.core.ITeamCoordinator;
@@ -9,6 +8,7 @@ import me.protocos.xteam.exception.TeamDoesNotExistException;
 import me.protocos.xteam.exception.TeamNameAlreadyInUseException;
 import me.protocos.xteam.exception.TeamNameNotAlphaException;
 import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;

@@ -1,9 +1,9 @@
 package me.protocos.xteam.core;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.Team;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

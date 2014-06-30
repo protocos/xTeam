@@ -1,6 +1,5 @@
 package me.protocos.xteam.entity;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.core.IPlayerFactory;

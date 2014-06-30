@@ -1,13 +1,9 @@
 package me.protocos.xteam.entity;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
-import me.protocos.xteam.fakeobjects.FakeLocation;
-import me.protocos.xteam.fakeobjects.FakeOfflinePlayer;
-import me.protocos.xteam.fakeobjects.FakePlayer;
-import me.protocos.xteam.fakeobjects.FakeWorld;
+import me.protocos.xteam.fakeobjects.*;
 import me.protocos.xteam.model.Locatable;
 import org.bukkit.Location;
 import org.junit.After;

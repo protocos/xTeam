@@ -1,6 +1,5 @@
 package me.protocos.xteam.command.teamuser;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.core.IPlayerFactory;
@@ -12,6 +11,7 @@ import me.protocos.xteam.exception.TeamPlayerHasNoInviteException;
 import me.protocos.xteam.exception.TeamPlayerHasTeamException;
 import me.protocos.xteam.exception.TeamPlayerMaxException;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;

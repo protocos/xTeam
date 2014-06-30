@@ -1,7 +1,7 @@
 package me.protocos.xteam.util;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import org.junit.*;
 
 public class ErrorReporterUtilTest

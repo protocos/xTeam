@@ -1,12 +1,12 @@
 package me.protocos.xteam.event;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.model.InviteRequest;
 import org.junit.After;
 import org.junit.Assert;

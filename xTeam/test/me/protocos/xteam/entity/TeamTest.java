@@ -1,8 +1,8 @@
 package me.protocos.xteam.entity;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.fakeobjects.FakeWorld;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.NullHeadquarters;

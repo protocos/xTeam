@@ -1,11 +1,11 @@
 package me.protocos.xteam.command.teamuser;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.fakeobjects.FakePlayer;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.util.CommandUtil;
 import org.junit.After;
 import org.junit.Assert;

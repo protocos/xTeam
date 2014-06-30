@@ -1,10 +1,10 @@
 package me.protocos.xteam.listener;
 
-import me.protocos.xteam.FakeXTeam;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.fakeobjects.FakePlayer;
 import me.protocos.xteam.fakeobjects.FakeProjectile;
+import me.protocos.xteam.fakeobjects.FakeXTeam;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
