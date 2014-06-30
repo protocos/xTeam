@@ -2,20 +2,20 @@
 
 <project default="jar">
     <target name="jar">
-        <!--
-        <unzip dest="build">
-        	<fileset dir="lib">
-        		<include name="**/*.jar"/>
-        	</fileset>
-        </unzip>
-    	<delete dir="build/META-INF/"/>
-        -->
     	<zip destfile="../../../CraftBukkit/plugins/xTeam.jar">
             <fileset dir="" includes="*.yml"/>
-            <fileset dir="bin"/>
-            <!--
-            <fileset dir="build"/>
-            -->
+    		<fileset dir="src">
+    			<include name="**/*.java"/>
+    			<exclude name="**/*Test*"/>
+    		</fileset>
+    		<fileset dir="api" casesensitive="yes">
+    			<include name="**/*.java"/>
+    			<exclude name="**/*Test*"/>
+    		</fileset>
+    		<fileset dir="bin" casesensitive="yes">
+    			<include name="**/*.class"/>
+    			<exclude name="**/*Test*"/>
+    		</fileset>
     	</zip>
     </target>
 </project>
