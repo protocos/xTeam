@@ -12,9 +12,7 @@
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
         <file path="/xTeam/plugin.yml"/>
-        <javaElement handleIdentifier="=xTeam/src"/>
-        <file path="/xTeam/.classpath"/>
         <javaElement handleIdentifier="=xTeam/api"/>
-        <file path="/xTeam/.project"/>
+        <javaElement handleIdentifier="=xTeam/src"/>
     </selectedElements>
 </jardesc>
