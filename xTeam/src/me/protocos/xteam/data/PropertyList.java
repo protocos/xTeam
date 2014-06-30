@@ -72,7 +72,6 @@ public class PropertyList implements Iterable<Property>
 	{
 		PropertyList list = new PropertyList();
 		List<String> properties = CommonUtil.split(line, " ");
-
 		//check all property strings for containing a colon
 		//if no colon present, then it must be part of the previous property
 		for (int x = 1; x < properties.size(); x++)

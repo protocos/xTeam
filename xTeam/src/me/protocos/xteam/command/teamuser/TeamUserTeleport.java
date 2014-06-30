@@ -6,14 +6,13 @@ import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.command.TeamUserCommand;
 import me.protocos.xteam.core.TeleportScheduler;
 import me.protocos.xteam.entity.ITeamPlayer;
-import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class TeamUserTeleport extends TeamUserCommand
 {
 	private TeleportScheduler teleportScheduler;
-	private TeamPlayer teamMate;
+	private ITeamPlayer teamMate;
 
 	public TeamUserTeleport(TeamPlugin teamPlugin)
 	{
@@ -48,14 +47,7 @@ public class TeamUserTeleport extends TeamUserCommand
 			Requirements.checkPlayerHasPlayedBefore(other);
 			Requirements.checkPlayerIsTeammate(teamUser, other);
 			Requirements.checkPlayerIsOnline(other);
-			for (TeamPlayer teammate : teamUser.getOnlineTeammates())
-			{
-				if (teammateName.equalsIgnoreCase(teammate.getName()))
-				{
-					teamMate = teammate;
-					break;
-				}
-			}
+			teamMate = other;
 		}
 		Requirements.checkPlayerTeleportRequested(teleportScheduler, teamUser);
 		Requirements.checkPlayerTeammateIsOnline(teamMate);

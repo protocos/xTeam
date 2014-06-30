@@ -322,11 +322,11 @@ public class Requirements
 		}
 	}
 
-	public static void checkPlayerTeammateIsOnline(TeamPlayer teamMate) throws TeamPlayerTeammateException
+	public static void checkPlayerTeammateIsOnline(ITeamPlayer teamMate) throws TeamPlayerTeammateException
 	{
 		if (!teamMate.isOnline())
 		{
-			throw new TeamPlayerTeammateException("Player teammate is not online");
+			throw new TeamPlayerTeammateException("Teammate is not online");
 		}
 	}
 

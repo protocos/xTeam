@@ -174,13 +174,6 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 	{
 		try
 		{
-			ResultSet resultSet = query("SELECT * FROM team_data");
-			while (resultSet.next())
-			{
-				System.out.println("Already in database: " + resultSet.getObject("name"));
-			}
-			resultSet.close();
-
 			ITeam team = event.getTeam();
 			PreparedStatement statement = prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
 			insertTeamDataIntoStatement(statement, team);

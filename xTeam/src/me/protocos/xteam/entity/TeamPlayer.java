@@ -535,6 +535,7 @@ public class TeamPlayer implements ITeamPlayer, Entity, CommandSender
 	@Override
 	public Location getReturnLocation()
 	{
+		System.out.println(playerFactory.getPlayerPropertiesFor(this.getName()).get("returnLocation"));
 		return playerFactory.getPlayerPropertiesFor(this.getName()).get("returnLocation").getValueUsing(new LocationDataTranslator(teamPlugin));
 	}
 

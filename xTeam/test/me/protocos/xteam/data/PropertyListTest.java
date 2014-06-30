@@ -1,5 +1,7 @@
 package me.protocos.xteam.data;
 
+import me.protocos.xteam.core.IPlayerFactory;
+import me.protocos.xteam.core.PlayerFactory;
 import me.protocos.xteam.data.translator.LocationDataTranslator;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakeXTeam;
@@ -184,6 +186,13 @@ public class PropertyListTest
 		Assert.assertEquals("protocos", list.getAsString("leader"));
 		Assert.assertEquals("", list.getAsString("admins"));
 		Assert.assertEquals("protocos,kmlanglois", list.getAsString("players"));
+		IPlayerFactory playerFactory = new PlayerFactory(FakeXTeam.asTeamPlugin());
+		playerFactory.getPlayerPropertiesFor("protocos").put(new Property("returnLocation", "My World,-236.0,77.0,-184.0,17.999998,12.0"));
+		for (String playerData : playerFactory.exportData())
+		{
+			PropertyList properties = PropertyList.fromString(playerData);
+			System.out.println(properties);
+		}
 	}
 
 	@After
