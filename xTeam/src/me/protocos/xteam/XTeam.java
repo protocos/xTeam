@@ -67,8 +67,6 @@ public final class XTeam extends TeamPlugin
 	@Override
 	public void write()
 	{
-		this.initFileSystem();
-		persistenceLayer = new DataStorageFactory(this).dataManagerFromString(Configuration.STORAGE_TYPE);
 		persistenceLayer.write();
 	}
 
@@ -85,6 +83,8 @@ public final class XTeam extends TeamPlugin
 	@Override
 	public void disable()
 	{
+		this.initFileSystem();
+		persistenceLayer = new DataStorageFactory(this).dataManagerFromString(Configuration.STORAGE_TYPE);
 		DataStorageFactory.close();
 		//does the same thing as this.bukkitScheduler.cancelAllTasks();
 		for (BukkitTask task : this.getBukkitScheduler().getPendingTasks())

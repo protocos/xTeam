@@ -174,6 +174,13 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 	{
 		try
 		{
+			ResultSet resultSet = query("SELECT * FROM team_data");
+			while (resultSet.next())
+			{
+				System.out.println("Already in database: " + resultSet.getObject("name"));
+			}
+			resultSet.close();
+
 			ITeam team = event.getTeam();
 			PreparedStatement statement = prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
 			insertTeamDataIntoStatement(statement, team);
@@ -194,6 +201,7 @@ public class SQLDataManager implements IPersistenceLayer, IEventHandler
 			PreparedStatement statement = prepare("DELETE FROM team_data WHERE name = ?;");
 			statement.setString(1, event.getOldName());
 			insert(statement);
+			statement.close();
 			ITeam team = event.getTeam();
 			statement = prepare("INSERT INTO team_data(tag, openJoining, defaultTeam, timeHeadquartersLastSet, headquarters, leader, admins, players, name) VALUES(?,?,?,?,?,?,?,?,?);");
 			insertTeamDataIntoStatement(statement, team);
