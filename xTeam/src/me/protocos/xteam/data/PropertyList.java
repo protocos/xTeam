@@ -1,8 +1,10 @@
 package me.protocos.xteam.data;
 
 import java.util.Iterator;
+import java.util.List;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.data.translator.IDataTranslator;
+import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 public class PropertyList implements Iterable<Property>
@@ -69,7 +71,17 @@ public class PropertyList implements Iterable<Property>
 	public static PropertyList fromString(String line)
 	{
 		PropertyList list = new PropertyList();
-		String[] properties = line.split(" ");
+		List<String> properties = CommonUtil.split(line, " ");
+
+		//check all property strings for containing a colon
+		//if no colon present, then it must be part of the previous property
+		for (int x = 1; x < properties.size(); x++)
+		{
+			if (!properties.get(x).contains(":"))
+			{
+				properties.set(x - 1, properties.get(x - 1) + " " + properties.remove(x--));
+			}
+		}
 		for (String property : properties)
 		{
 			list.put(Property.fromString(property));

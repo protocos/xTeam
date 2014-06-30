@@ -72,23 +72,23 @@ public class BukkitDevPageGeneratorUtil
 		fakePlugin.registerCommands(manager);
 		writer.write(TEAM_USER_COMMANDS);
 		for (String command : manager.getAvailableCommandsFor(FakeTeamPlayer.withUserPermissions()))
-			writer.write("* " + command.replaceAll("�.", "") + "\n");
+			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(TEAM_ADMIN_COMMANDS);
 		for (String command : manager.getAvailableCommandsFor(FakeTeamPlayer.withAdminPermissions()))
-			writer.write("* " + command.replaceAll("�.", "") + "\n");
+			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(TEAM_LEADER_COMMANDS);
 		for (String command : manager.getAvailableCommandsFor(FakeTeamPlayer.withLeaderPermissions()))
-			writer.write("* " + command.replaceAll("�.", "") + "\n");
+			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(SERVER_ADMIN_COMMANDS);
 		for (String command : manager.getAvailableCommandsFor(FakeTeamPlayer.withServerAdminPermissions()))
-			writer.write("* " + command.replaceAll("�.", "") + "\n");
+			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(CONSOLE_COMMANDS);
 		for (String command : manager.getAvailableCommandsFor(new FakeConsoleSender()))
-			writer.write("* " + command.replaceAll("�.", "") + "\n");
+			writer.write("* " + command.replaceAll("§.", "") + "\n");
 		writer.write("\n");
 		writer.write(PERMISSION_SUPPORT);
 		writer.write(PERMISSION_NODES);
@@ -142,10 +142,11 @@ public class BukkitDevPageGeneratorUtil
 	private static final String MIGRATE_OLD_DATA = "**Q: Is there a way to migrate my old data to new data?**\n\n" +
 			"A: Yes! Just follow the procedure below: \n" +
 			"# Shut down the server.\n" +
-			"# **IMPORTANT** If any tables (team_data, player_data) already exists in the database, delete them! This will avoid corrupting the data.\n" +
-			"# Launch the server with the File storage type set in the config to load all of the data into the cache.\n" +
-			"# Open the configuration file and change the storage type to SQLite or whichever storage type you prefer.\n" +
-			"# Reload the server with the '/reload' command and the data should be migrated.\n" +
+			"# Make sure you have downloaded the latest version of [[http://dev.bukkit.org/bukkit-plugins/sqlibrary/|SQLibrary]] and placed it in your plugins folder.\n" +
+			"# **IMPORTANT** If any tables (team_data, player_data) already exist in the database, delete them! This will avoid corrupting the current data while migrating.\n" +
+			"# Launch the server with the 'file' storage type set in the config to load all of the data into the cache.\n" +
+			"# Open the configuration file and change the storage type to 'SQLite' or whichever storage type you prefer.\n" +
+			"# Reload the server with the '/reload' command and the data should mograte to the new storage type.\n" +
 			"\n\n";
 
 	@Test

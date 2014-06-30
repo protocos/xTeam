@@ -156,7 +156,7 @@ public class Requirements
 
 	public static void checkPlayerCommandPageRange(HelpPages pages, int pageNum) throws TeamInvalidPageException
 	{
-		if (pageNum > pages.getTotalPages())
+		if (pageNum < 1 || pageNum > pages.getTotalPages())
 		{
 			throw new TeamInvalidPageException();
 		}

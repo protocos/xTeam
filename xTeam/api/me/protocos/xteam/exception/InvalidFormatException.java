@@ -19,6 +19,6 @@ public class InvalidFormatException extends RuntimeException
 
 	public InvalidFormatException(String invalidValue, String expectedFormat)
 	{
-		super("Invalid format: \"" + invalidValue + "\" does not match \"" + expectedFormat + "\" pair");
+		super("Invalid format: '" + invalidValue + "' does not match '" + expectedFormat + "'");
 	}
 }

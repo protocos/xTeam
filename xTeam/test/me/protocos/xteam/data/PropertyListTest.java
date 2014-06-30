@@ -168,6 +168,24 @@ public class PropertyListTest
 		Assert.assertFalse(updated);
 	}
 
+	@Test
+	public void ShouldBePropertyListFromPropertyWithSpace()
+	{
+		//ASSEMBLE
+		list = PropertyList.fromString("name:one tag:one openJoining:false defaultTeam:false timeHeadquartersLastSet:1404097928711 headquarters:My World,-236.0,77.0,-184.0,17.999998,12.0 leader:protocos admins: players:protocos,kmlanglois");
+		//ACT
+		//ASSERT
+		Assert.assertEquals("one", list.getAsString("name"));
+		Assert.assertEquals("one", list.getAsString("tag"));
+		Assert.assertEquals("false", list.getAsString("openJoining"));
+		Assert.assertEquals("false", list.getAsString("defaultTeam"));
+		Assert.assertEquals("1404097928711", list.getAsString("timeHeadquartersLastSet"));
+		Assert.assertEquals("My World,-236.0,77.0,-184.0,17.999998,12.0", list.getAsString("headquarters"));
+		Assert.assertEquals("protocos", list.getAsString("leader"));
+		Assert.assertEquals("", list.getAsString("admins"));
+		Assert.assertEquals("protocos,kmlanglois", list.getAsString("players"));
+	}
+
 	@After
 	public void takedown()
 	{

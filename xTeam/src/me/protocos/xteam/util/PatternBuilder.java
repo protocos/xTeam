@@ -6,8 +6,8 @@ public class PatternBuilder
 {
 	private static final String WHITE_SPACE = "\\s+";
 	private static final String OPTIONAL_WHITE_SPACE = "\\s*";
-	private static final String NUMBERS = "\\d+";
-	private static final String OPTIONAL_NUMBERS = "\\d*";
+	private static final String NUMBERS = "(-)?\\d+";
+	private static final String OPTIONAL_NUMBERS = "(-)?\\d*";
 	private static final String ANY_CHARS = "\\S+";
 	private static final Object ANY_INTEGER = "[0-9-]+";
 	private static final String ANY_DOUBLE = "[0-9-\\.]+";

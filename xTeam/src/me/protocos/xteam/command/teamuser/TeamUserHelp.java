@@ -36,11 +36,11 @@ public class TeamUserHelp extends TeamUserCommand
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
-		if (commandContainer.size() == 1 && commandContainer.getArgument(0).matches("[0-9]+"))
+		if (commandContainer.size() == 1 && commandContainer.getArgument(0).matches("(-)?[0-9]+"))
 		{
 			pageNum = Integer.parseInt(commandContainer.getArgument(0));
 		}
-		else if (commandContainer.size() == 2 && commandContainer.getArgument(1).matches("[0-9]+"))
+		else if (commandContainer.size() == 2 && commandContainer.getArgument(1).matches("(-)?[0-9]+"))
 		{
 			pageNum = Integer.parseInt(commandContainer.getArgument(1));
 		}

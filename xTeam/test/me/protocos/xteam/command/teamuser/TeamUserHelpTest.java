@@ -156,6 +156,30 @@ public class TeamUserHelpTest
 		Assert.assertFalse(fakeExecuteResponse);
 	}
 
+	@Test
+	public void ShouldBeTeamUserHelpPageExecuteInvalidPageZero()
+	{
+		//ASSEMBLE
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
+		//ACT
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "help 0");
+		//ASSERT
+		Assert.assertEquals((new TeamInvalidPageException()).getMessage(), fakePlayerSender.getLastMessages());
+		Assert.assertFalse(fakeExecuteResponse);
+	}
+
+	@Test
+	public void ShouldBeTeamUserHelpPageExecuteInvalidPageNegative()
+	{
+		//ASSEMBLE
+		FakePlayer fakePlayerSender = FakePlayer.get("kmlanglois");
+		//ACT
+		boolean fakeExecuteResponse = CommandUtil.execute(fakePlayerSender, fakeCommand, "help -10");
+		//ASSERT
+		Assert.assertEquals((new TeamInvalidPageException()).getMessage(), fakePlayerSender.getLastMessages());
+		Assert.assertFalse(fakeExecuteResponse);
+	}
+
 	@After
 	public void takedown()
 	{

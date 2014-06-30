@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import me.protocos.xteam.TeamPlugin;
 
 public class ErrorReporterUtil
@@ -58,7 +59,7 @@ public class ErrorReporterUtil
 
 	private String formatException(Exception exception)
 	{
-		ArrayList<String> error = new ArrayList<String>();
+		List<String> error = new ArrayList<String>();
 		error.add(exception.toString());
 		for (StackTraceElement elem : exception.getStackTrace())
 		{
