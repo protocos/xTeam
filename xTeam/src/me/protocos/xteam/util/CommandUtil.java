@@ -1,8 +1,8 @@
 package me.protocos.xteam.util;
 
-import org.bukkit.command.CommandSender;
 import me.protocos.xteam.command.BaseCommand;
 import me.protocos.xteam.command.CommandContainer;
+import org.bukkit.command.CommandSender;
 
 public class CommandUtil
 {

@@ -4,6 +4,9 @@ import java.util.List;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.data.PropertyList;
+import me.protocos.xteam.data.translator.LocationDataTranslator;
+import me.protocos.xteam.data.translator.LongDataTranslator;
+import me.protocos.xteam.data.translator.StringDataTranslator;
 import me.protocos.xteam.entity.ITeamEntity;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.OfflineTeamPlayer;
@@ -182,5 +185,16 @@ public class PlayerFactory implements IPlayerFactory
 			exportTeams.add(propertyList.toString());
 		}
 		return exportTeams;
+	}
+
+	public static PropertyList generatePlayerFromProperties(TeamPlugin teamPlugin, String properties)
+	{
+		PropertyList list = PropertyList.fromString(properties);
+		PropertyList propertyList = new PropertyList();
+		propertyList.put("name", new StringDataTranslator().decompile(list.getAsType("name", new StringDataTranslator())));
+		propertyList.put("lastAttacked", new LongDataTranslator().decompile(list.getAsType("lastAttacked", new LongDataTranslator())));
+		propertyList.put("lastTeleported", new LongDataTranslator().decompile(list.getAsType("lastTeleported", new LongDataTranslator())));
+		propertyList.put("returnLocation", new LocationDataTranslator(teamPlugin).decompile(list.getAsType("returnLocation", new LocationDataTranslator(teamPlugin))));
+		return propertyList;
 	}
 }

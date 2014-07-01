@@ -27,7 +27,15 @@ public class Property
 
 	public <T> T getValueUsing(IDataTranslator<T> strategy)
 	{
-		return strategy.compile(value);
+		try
+		{
+			return strategy.compile(value);
+		}
+		catch (Exception e)
+		{
+			value = "";
+			return strategy.compile(value);
+		}
 	}
 
 	public String getValue()
