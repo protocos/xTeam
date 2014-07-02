@@ -43,7 +43,7 @@ public class TeamAdminInviteTest
 		Assert.assertFalse("i PLAYER".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("in PLAYER ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("inv PLAYER 2".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

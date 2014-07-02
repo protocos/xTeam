@@ -39,7 +39,7 @@ public class TeamLeaderSetRallyTest
 		Assert.assertTrue("str ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("setrally fasds ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("set tdfgvbnm".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

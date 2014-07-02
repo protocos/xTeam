@@ -35,7 +35,7 @@ public class ServerAdminSetLeaderTest
 		Assert.assertTrue("setlead TEAM PLAYER ".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("sl TEAM PLAYER ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("s TEAM PLAYER".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

@@ -36,7 +36,7 @@ public class TeamLeaderSetLeaderTest
 		Assert.assertTrue("setlead PLAYER ".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("stl PLAYER ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("set PLAYER dfsa".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

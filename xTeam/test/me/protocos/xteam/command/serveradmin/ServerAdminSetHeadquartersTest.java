@@ -36,7 +36,7 @@ public class ServerAdminSetHeadquartersTest
 		Assert.assertFalse("set TEAM".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("set TEAM ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("sethq TEAM dfsjkal".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

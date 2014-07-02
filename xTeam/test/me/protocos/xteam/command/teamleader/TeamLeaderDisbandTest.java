@@ -34,7 +34,7 @@ public class TeamLeaderDisbandTest
 		Assert.assertTrue("disband  ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("d ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("disband  fdsa ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

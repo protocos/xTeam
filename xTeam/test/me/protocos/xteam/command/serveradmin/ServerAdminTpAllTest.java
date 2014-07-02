@@ -33,7 +33,7 @@ public class ServerAdminTpAllTest
 		Assert.assertFalse("t TEAM".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("tpall".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("tpall ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

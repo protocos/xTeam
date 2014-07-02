@@ -52,7 +52,7 @@ public class TeamUserAcceptTest
 		Assert.assertTrue("acpt ".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("a".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("a dsafkln".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

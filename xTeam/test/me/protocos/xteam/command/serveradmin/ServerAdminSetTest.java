@@ -40,7 +40,7 @@ public class ServerAdminSetTest
 		Assert.assertTrue("st PLAYER TEAM ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("s".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("st PLAYER TEAM jadsldkn ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

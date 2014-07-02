@@ -36,7 +36,7 @@ public class ServerAdminHeadquartersTest
 		Assert.assertFalse("h TEAM".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("h TEAM ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("hq TEAM fdsaj;k".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

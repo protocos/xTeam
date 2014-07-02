@@ -51,7 +51,7 @@ public class TeamUserRallyTest
 		Assert.assertTrue("ral".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("r ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("rally HOME ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

@@ -195,6 +195,7 @@ public class PlayerFactory implements IPlayerFactory
 		propertyList.put("lastAttacked", new LongDataTranslator().decompile(list.getAsType("lastAttacked", new LongDataTranslator())));
 		propertyList.put("lastTeleported", new LongDataTranslator().decompile(list.getAsType("lastTeleported", new LongDataTranslator())));
 		propertyList.put("returnLocation", new LocationDataTranslator(teamPlugin).decompile(list.getAsType("returnLocation", new LocationDataTranslator(teamPlugin))));
+		propertyList.put("lastKnownLocation", new LocationDataTranslator(teamPlugin).decompile(list.getAsType("lastKnownLocation", new LocationDataTranslator(teamPlugin))));
 		return propertyList;
 	}
 }

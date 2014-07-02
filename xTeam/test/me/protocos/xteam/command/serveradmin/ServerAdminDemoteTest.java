@@ -37,7 +37,7 @@ public class ServerAdminDemoteTest
 		Assert.assertTrue("d TEAM PLAYER".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("d TEAM".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("dem TEAM PLAYER sdfkjahl".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

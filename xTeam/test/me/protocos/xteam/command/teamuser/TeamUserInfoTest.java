@@ -48,7 +48,7 @@ public class TeamUserInfoTest
 		Assert.assertTrue("info 1".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("i".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("i ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

@@ -35,7 +35,7 @@ public class TeamLeaderRemoveTest
 		Assert.assertTrue("rem PLAYER".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("remv PLAYER ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("rem PLAYER dfsa ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

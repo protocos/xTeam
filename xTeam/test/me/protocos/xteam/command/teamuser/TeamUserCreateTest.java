@@ -36,7 +36,7 @@ public class TeamUserCreateTest
 		Assert.assertTrue("creat TEAM ".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("c TEAM ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("c ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

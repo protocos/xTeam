@@ -35,7 +35,7 @@ public class TeamUserMessageTest
 		Assert.assertTrue("m example test message ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("message".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("msg ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

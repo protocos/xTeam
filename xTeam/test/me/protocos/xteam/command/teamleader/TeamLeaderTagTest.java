@@ -37,7 +37,7 @@ public class TeamLeaderTagTest
 		Assert.assertTrue("ta TEAM".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("tg TEAM ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("tg TEAM sdfhkabkl".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

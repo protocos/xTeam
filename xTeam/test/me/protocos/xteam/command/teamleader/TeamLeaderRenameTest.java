@@ -37,7 +37,7 @@ public class TeamLeaderRenameTest
 		Assert.assertTrue("rename TEAM ".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("rnm TEAM ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("rnm TEAM sdfhkabkl".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

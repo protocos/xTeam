@@ -35,7 +35,7 @@ public class ServerAdminDisbandTest
 		Assert.assertFalse("disband".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("d TEAM".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("disband TEAM dfsaiphjkl".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

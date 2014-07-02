@@ -38,7 +38,7 @@ public class ServerAdminRenameTest
 		Assert.assertTrue("ren TEAM NAME ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("r TEAM NAME".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("ren TEAM NAME dmtrnsabknb ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

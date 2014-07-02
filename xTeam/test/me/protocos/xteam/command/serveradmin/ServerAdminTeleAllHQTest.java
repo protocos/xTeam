@@ -31,7 +31,7 @@ public class ServerAdminTeleAllHQTest
 		Assert.assertFalse("tele ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("teleallhq fdsakjn".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("teleallhq awkejnr ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
