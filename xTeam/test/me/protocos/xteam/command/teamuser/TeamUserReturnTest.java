@@ -45,7 +45,7 @@ public class TeamUserReturnTest
 		Assert.assertTrue("ret".matches(new TeamUserReturn(teamPlugin).getPattern()));
 		Assert.assertTrue("r ".matches(new TeamUserReturn(teamPlugin).getPattern()));
 		Assert.assertFalse("return HOME ".matches(new TeamUserReturn(teamPlugin).getPattern()));
-		Assert.assertTrue(new TeamUserReturn(teamPlugin).getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new TeamUserReturn(teamPlugin).getPattern()));
+		Assert.assertTrue(new TeamUserReturn(teamPlugin).getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + new TeamUserReturn(teamPlugin).getPattern()));
 	}
 
 	@Test

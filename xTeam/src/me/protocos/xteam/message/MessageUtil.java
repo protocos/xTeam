@@ -97,7 +97,7 @@ public class MessageUtil
 
 	public static String resetFormatting(String string)
 	{
-		return string.replaceAll("§.", "");
+		return ChatColor.stripColor(string);
 	}
 
 	public static void addPositiveWord(String word)

@@ -75,7 +75,7 @@ public class TeamUserHelp extends TeamUserCommand
 	@Override
 	public String getUsage()
 	{
-		return "/team {help} {Page}";
+		return "/team {help} {Page #}";
 	}
 
 	@Override

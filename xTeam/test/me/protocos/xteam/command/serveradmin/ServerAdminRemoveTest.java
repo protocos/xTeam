@@ -35,7 +35,7 @@ public class ServerAdminRemoveTest
 		Assert.assertTrue("remv TEAM PLAYER ".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("rm TEAM PLAYER ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("r TEAM PLAYER".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

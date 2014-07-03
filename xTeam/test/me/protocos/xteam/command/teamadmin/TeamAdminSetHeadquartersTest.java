@@ -40,7 +40,7 @@ public class TeamAdminSetHeadquartersTest
 		Assert.assertTrue("shq".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("set".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("sethq dsaf ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

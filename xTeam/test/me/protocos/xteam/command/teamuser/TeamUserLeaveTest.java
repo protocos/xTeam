@@ -35,7 +35,7 @@ public class TeamUserLeaveTest
 		Assert.assertTrue("lv  ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("l ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("l sdaf".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

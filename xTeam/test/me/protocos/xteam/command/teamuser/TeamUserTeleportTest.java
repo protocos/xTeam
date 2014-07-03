@@ -47,7 +47,7 @@ public class TeamUserTeleportTest
 		Assert.assertTrue("tp PLAYER ".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("tp PLAYER".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("tp PLAYER wekn;ljdkkmsnaf".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

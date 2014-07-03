@@ -49,7 +49,7 @@ public class TeamUserJoinTest
 		Assert.assertTrue("j TEAM".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("jn TEAM ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("j TEAM sdaf".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

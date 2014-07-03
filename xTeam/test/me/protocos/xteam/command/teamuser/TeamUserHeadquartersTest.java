@@ -48,7 +48,7 @@ public class TeamUserHeadquartersTest
 		Assert.assertFalse("h".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("hq dsaf".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("h dsaf".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

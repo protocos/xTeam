@@ -39,7 +39,7 @@ public class ServerAdminPromoteTest
 		Assert.assertTrue("pmte TEAM PLAYER ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("pmte TEAM PLAYER dksjafl ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("pmte TEAM ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

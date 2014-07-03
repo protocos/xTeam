@@ -40,7 +40,7 @@ public class TeamUserHelpTest
 		Assert.assertFalse("".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("1 dfas".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("11 ?".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page #", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
@@ -53,7 +53,7 @@ public class TeamUserHelpTest
 		//ASSERT
 		Assert.assertEquals("Team Commands: [Page 1/5] {optional} [required] pick/one\n" +
 				"/team - main help menu for xTeam\n" +
-				"/team {help} {Page} - user help page for xTeam\n" +
+				"/team {help} {Page #} - user help page for xTeam\n" +
 				"/team info {Team/Player} - get team info or other team's info\n" +
 				"/team list - list all teams on the server\n" +
 				"/team create [Name] - create a team\n" +

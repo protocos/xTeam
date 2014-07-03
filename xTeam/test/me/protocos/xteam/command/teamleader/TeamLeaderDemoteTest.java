@@ -38,7 +38,7 @@ public class TeamLeaderDemoteTest
 		Assert.assertTrue("dmte PLAYER".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("d PLAYER ".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("dmte PLAYER dfsg ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("Page", "1").replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test
