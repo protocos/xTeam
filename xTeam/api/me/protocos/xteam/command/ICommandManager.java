@@ -11,6 +11,8 @@ public interface ICommandManager
 
 	public abstract List<ConsoleCommand> getConsoleCommands();
 
+	public abstract List<PlayerCommand> getPlayerCommands();
+
 	public abstract List<PlayerCommand> getAvailableCommandsFor(ITeamPlayer sender);
 
 	public abstract void registerCommand(BaseCommand command);

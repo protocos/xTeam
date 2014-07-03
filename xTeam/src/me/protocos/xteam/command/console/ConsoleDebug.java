@@ -19,10 +19,28 @@ import org.bukkit.entity.Player;
 
 public class ConsoleDebug extends ConsoleCommand
 {
-	private static HashList<String, Runnable> options;
-	static
+	private static HashList<String, Runnable> options = new HashList<String, Runnable>();
+
+	public static void addDebugOption(String option, Runnable runnable)
 	{
-		options = new HashList<String, Runnable>();
+		options.put(option, runnable);
+	}
+
+	private static TeamPlugin plugin;
+	private static IPlayerFactory pF;
+	private static ICommandManager cM;
+	private static int taskID;
+	private static boolean testmode;
+	private String subCommand;
+
+	public ConsoleDebug(TeamPlugin teamPlugin)
+	{
+		super(teamPlugin);
+		plugin = teamPlugin;
+		pF = teamPlugin.getPlayerFactory();
+		cM = teamPlugin.getCommandManager();
+		testmode = false;
+
 		options.put("chat", new Runnable()
 		{
 			@Override
@@ -80,13 +98,16 @@ public class ConsoleDebug extends ConsoleCommand
 			@Override
 			public void run()
 			{
-				System.out.println("Debugging permissions:");
+				System.out.println("Debugging permissions for players online:");
 				for (ITeamPlayer player : pF.getOnlinePlayers())
 				{
-					System.out.println(player.getName() + " has permisison for:");
-					for (PlayerCommand command : cM.getAvailableCommandsFor(player))
+					System.out.println(player.getName() + " has the following permisisons:");
+					for (PlayerCommand command : cM.getPlayerCommands())
 					{
-						System.out.println("\t" + command.getPermissionNode() + " - " + command.getDescription());
+						if (player.hasPermission(command))
+							System.out.println("[ + ]\t" + command.getPermissionNode() + " - " + command.getDescription());
+						else
+							System.out.println("[   ]\t" + command.getPermissionNode() + " - " + command.getDescription());
 					}
 				}
 			}
@@ -163,27 +184,7 @@ public class ConsoleDebug extends ConsoleCommand
 				testmode = !testmode;
 			}
 		});
-	}
 
-	public static void addDebugOption(String option, Runnable runnable)
-	{
-		options.put(option, runnable);
-	}
-
-	private static TeamPlugin plugin;
-	private static IPlayerFactory pF;
-	private static ICommandManager cM;
-	private static int taskID;
-	private static boolean testmode;
-	private String subCommand;
-
-	public ConsoleDebug(TeamPlugin teamPlugin)
-	{
-		super(teamPlugin);
-		plugin = teamPlugin;
-		pF = teamPlugin.getPlayerFactory();
-		cM = teamPlugin.getCommandManager();
-		testmode = false;
 	}
 
 	@Override

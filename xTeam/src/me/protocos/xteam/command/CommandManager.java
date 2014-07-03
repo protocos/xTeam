@@ -79,6 +79,17 @@ public class CommandManager implements ICommandManager
 	}
 
 	@Override
+	public List<PlayerCommand> getPlayerCommands()
+	{
+		List<PlayerCommand> availableCommands = CommonUtil.emptyList();
+		for (PlayerCommand command : CommonUtil.subListOfType(commands.toList(), PlayerCommand.class))
+		{
+			availableCommands.add(command);
+		}
+		return availableCommands;
+	}
+
+	@Override
 	public List<PlayerCommand> getAvailableCommandsFor(ITeamPlayer sender)
 	{
 		Set<PlayerCommand> availableCommands = CommonUtil.emptySet(new Comparator<PlayerCommand>()
