@@ -99,16 +99,18 @@ public class ConsoleDebug extends ConsoleCommand
 			public void run()
 			{
 				System.out.println("Debugging permissions for online players:");
-				System.out.println("'nopermissions' set to '" + Configuration.NO_PERMISSIONS + "'");
+				System.out.println("'nopermissions' is set to '" + Configuration.NO_PERMISSIONS + "' in the configuration file");
 				for (ITeamPlayer player : pF.getOnlinePlayers())
 				{
-					System.out.println(player.getName() + " has the following permisisons:");
+					System.out.println("==================================================");
+					System.out.println("Permissions for '" + player.getName() + "'");
+					System.out.println("==================================================");
 					for (PlayerCommand command : cM.getPlayerCommands())
 					{
 						if (player.hasPermission(command))
-							System.out.println("[ + ]\t" + command.getPermissionNode() + " - " + command.getDescription());
+							System.out.println("[ + ] " + command.getPermissionNode() + " - " + command.getDescription());
 						else
-							System.out.println("[   ]\t" + command.getPermissionNode() + " - " + command.getDescription());
+							System.out.println("[   ] " + command.getPermissionNode() + " - " + command.getDescription());
 					}
 				}
 			}
