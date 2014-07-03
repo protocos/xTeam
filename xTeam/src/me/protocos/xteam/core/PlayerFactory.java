@@ -187,10 +187,23 @@ public class PlayerFactory implements IPlayerFactory
 		return exportTeams;
 	}
 
+	private static void ensureProperty(PropertyList list, String property)
+	{
+		if (!list.containsKey(property))
+			list.put(property, "");
+	}
+
 	public static PropertyList generatePlayerFromProperties(TeamPlugin teamPlugin, String properties)
 	{
 		PropertyList list = PropertyList.fromString(properties);
 		PropertyList propertyList = new PropertyList();
+		//ensures no null pointer exceptions in the list
+		ensureProperty(list, "name");
+		ensureProperty(list, "lastAttacked");
+		ensureProperty(list, "lastTeleported");
+		ensureProperty(list, "returnLocation");
+		ensureProperty(list, "lastKnownLocation");
+		//reads and preliminarily translates the data to ensure the correct format
 		propertyList.put("name", new StringDataTranslator().decompile(list.getAsType("name", new StringDataTranslator())));
 		propertyList.put("lastAttacked", new LongDataTranslator().decompile(list.getAsType("lastAttacked", new LongDataTranslator())));
 		propertyList.put("lastTeleported", new LongDataTranslator().decompile(list.getAsType("lastTeleported", new LongDataTranslator())));

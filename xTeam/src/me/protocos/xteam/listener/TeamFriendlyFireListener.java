@@ -34,6 +34,14 @@ public class TeamFriendlyFireListener implements Listener
 	{
 		this.log = teamPlugin.getLog();
 		this.playerFactory = teamPlugin.getPlayerFactory();
+		addFriendlyCriterion(new ITeamEntityRelationCriterion()
+		{
+			@Override
+			public boolean passes(ITeamEntity entity1, ITeamEntity teamEntity2)
+			{
+				return entity1.isOnSameTeam(teamEntity2);
+			}
+		});
 	}
 
 	@EventHandler

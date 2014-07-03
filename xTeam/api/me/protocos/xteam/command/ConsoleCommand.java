@@ -2,6 +2,7 @@ package me.protocos.xteam.command;
 
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.command.ConsoleCommandSender;
 
@@ -19,5 +20,11 @@ public abstract class ConsoleCommand extends BaseCommand
 	{
 		sender = CommonUtil.assignFromType(commandContainer.getSender(), ConsoleCommandSender.class);
 		Requirements.checkCommandIsValid(commandContainer.getCommandWithoutID(), getPattern());
+	}
+
+	@Override
+	public String toString()
+	{
+		return MessageUtil.formatForConsole(this.getUsage() + " - " + this.getDescription());
 	}
 }

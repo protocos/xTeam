@@ -3,6 +3,7 @@ package me.protocos.xteam.command;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.TeamException;
+import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.entity.Player;
 
@@ -21,5 +22,17 @@ public abstract class TeamUserCommand extends TeamPlayerCommand
 		super.preInitialize(commandContainer);
 		Player player = CommonUtil.assignFromType(commandContainer.getSender(), Player.class);
 		teamUser = playerFactory.getPlayer(player);
+	}
+
+	@Override
+	public String toString()
+	{
+		return MessageUtil.formatForUser(this.getUsage() + " - " + this.getDescription());
+	}
+
+	@Override
+	public final Classification getClassification()
+	{
+		return Classification.TEAM_USER;
 	}
 }

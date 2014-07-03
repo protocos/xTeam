@@ -1,6 +1,9 @@
 package me.protocos.xteam.command;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.message.MessageUtil;
@@ -8,8 +11,6 @@ import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 
 public class CommandManager implements ICommandManager
 {
@@ -67,52 +68,37 @@ public class CommandManager implements ICommandManager
 	}
 
 	@Override
-	public List<String> getAvailableCommandsFor(CommandSender sender)
+	public List<ConsoleCommand> getConsoleCommands()
 	{
-		List<String> availableCommands = CommonUtil.emptyList();
-		if (sender instanceof ConsoleCommandSender)
+		List<ConsoleCommand> availableCommands = CommonUtil.emptyList();
+		for (ConsoleCommand command : CommonUtil.subListOfType(commands.toList(), ConsoleCommand.class))
 		{
-			for (ConsoleCommand command : CommonUtil.subListOfType(commands.toList(), ConsoleCommand.class))
-			{
-				if (sender instanceof ConsoleCommandSender)
-				{
-					availableCommands.add(MessageUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
-				}
-			}
-		}
-		else if (sender instanceof ITeamPlayer)
-		{
-			ITeamPlayer teamPlayer = CommonUtil.assignFromType(sender, ITeamPlayer.class);
-			for (TeamUserCommand command : CommonUtil.subListOfType(commands.toList(), TeamUserCommand.class))
-			{
-				if (teamPlayer.hasPermission(command))
-				{
-					availableCommands.add(MessageUtil.formatForUser(command.getUsage() + " - " + command.getDescription()));
-				}
-			}
-			for (TeamAdminCommand command : CommonUtil.subListOfType(commands.toList(), TeamAdminCommand.class))
-			{
-				if (teamPlayer.hasPermission(command) && (teamPlayer.isLeader() || teamPlayer.isAdmin()))
-				{
-					availableCommands.add(MessageUtil.formatForAdmin(command.getUsage() + " - " + command.getDescription()));
-				}
-			}
-			for (TeamLeaderCommand command : CommonUtil.subListOfType(commands.toList(), TeamLeaderCommand.class))
-			{
-				if (teamPlayer.hasPermission(command) && teamPlayer.isLeader())
-				{
-					availableCommands.add(MessageUtil.formatForLeader(command.getUsage() + " - " + command.getDescription()));
-				}
-			}
-			for (ServerAdminCommand command : CommonUtil.subListOfType(commands.toList(), ServerAdminCommand.class))
-			{
-				if (teamPlayer.hasPermission(command))
-				{
-					availableCommands.add(MessageUtil.formatForServerAdmin(command.getUsage() + " - " + command.getDescription()));
-				}
-			}
+			availableCommands.add(command);
 		}
 		return availableCommands;
+	}
+
+	@Override
+	public List<PlayerCommand> getAvailableCommandsFor(ITeamPlayer sender)
+	{
+		Set<PlayerCommand> availableCommands = CommonUtil.emptySet(new Comparator<PlayerCommand>()
+		{
+			@Override
+			public int compare(PlayerCommand playerCommand1, PlayerCommand playerCommand2)
+			{
+				int compare = playerCommand1.getClassification().getRank() - playerCommand2.getClassification().getRank();
+				//if they have the same classification, then say that it sorts after the previous one
+				return compare == 0 ? 1 : compare;
+			}
+		});
+		for (PlayerCommand command : CommonUtil.subListOfType(commands.toList(), PlayerCommand.class))
+		{
+			if (sender.hasPermission(command))
+			{
+				availableCommands.add(command);
+			}
+		}
+		return new ArrayList<PlayerCommand>(availableCommands);
 	}
 
 	@Override

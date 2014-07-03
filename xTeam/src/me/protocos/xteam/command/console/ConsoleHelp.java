@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.console;
 
+import java.util.List;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
@@ -28,18 +29,14 @@ public class ConsoleHelp extends ConsoleCommand
 		pages.setTitle(ChatColor.AQUA + "Console Commands: " + MessageUtil.highlightString(ChatColor.GRAY, "{optional} [required] pick/one"));
 		for (String line : pages.toString().split("\n"))
 			new Message.Builder(line).addRecipients(sender).disableFormatting().send(log);
-		//		new Message.Builder(pages.getTitle()).addRecipients(sender).send(log);
-		//		for (int index = 0; index < pages.getNumLines(); index++)
-		//		{
-		//			new Message.Builder(pages.getLine(index)).addRecipients(sender).send(log);
-		//		}
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		pages = new HelpPages();
-		pages.addLines(commandManager.getAvailableCommandsFor(sender));
+		List<ConsoleCommand> availableCommands = commandManager.getConsoleCommands();
+		pages.addDescriptions(availableCommands);
 	}
 
 	@Override

@@ -4,7 +4,11 @@ import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.command.ICommandManager;
+import me.protocos.xteam.command.PlayerCommand;
+import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.data.configuration.Configuration;
+import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
@@ -12,7 +16,6 @@ import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
 
 public class ConsoleDebug extends ConsoleCommand
 {
@@ -77,12 +80,13 @@ public class ConsoleDebug extends ConsoleCommand
 			@Override
 			public void run()
 			{
-				System.out.println("Debugging permissions: \n");
-				for(Player player:bukkitUtil.getOnlinePlayers())
+				System.out.println("Debugging permissions:");
+				for (ITeamPlayer player : pF.getOnlinePlayers())
 				{
-					for (Permission perm : plugin.getPermissions())
+					System.out.println(player.getName() + " has permisison for:");
+					for (PlayerCommand command : cM.getAvailableCommandsFor(player))
 					{
-						System.out.println(perm.getName() + " - " + perm.getDescription() + "\n");
+						System.out.println("\t" + command.getPermissionNode() + " - " + command.getDescription());
 					}
 				}
 			}
@@ -167,7 +171,8 @@ public class ConsoleDebug extends ConsoleCommand
 	}
 
 	private static TeamPlugin plugin;
-	private static BukkitUtil bukkitUtil;
+	private static IPlayerFactory pF;
+	private static ICommandManager cM;
 	private static int taskID;
 	private static boolean testmode;
 	private String subCommand;
@@ -176,7 +181,8 @@ public class ConsoleDebug extends ConsoleCommand
 	{
 		super(teamPlugin);
 		plugin = teamPlugin;
-		bukkitUtil = teamPlugin.getBukkitUtil();
+		pF = teamPlugin.getPlayerFactory();
+		cM = teamPlugin.getCommandManager();
 		testmode = false;
 	}
 

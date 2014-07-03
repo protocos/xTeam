@@ -65,6 +65,11 @@ public class MessageUtil
 		return mainColor + string + ChatColor.RESET;
 	}
 
+	public static String formatForConsole(String string)
+	{
+		return formatForUser(string);
+	}
+
 	public static String formatForUser(String string)
 	{
 		return highlightString(ChatColor.GRAY, string);

@@ -2,10 +2,7 @@ package me.protocos.xteam.command.teamuser;
 
 import java.util.List;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.command.CommandContainer;
-import me.protocos.xteam.command.ICommandManager;
-import me.protocos.xteam.command.Requirements;
-import me.protocos.xteam.command.TeamUserCommand;
+import me.protocos.xteam.command.*;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
@@ -49,8 +46,8 @@ public class TeamUserHelp extends TeamUserCommand
 			pageNum = 1;
 		}
 		pages = new HelpPages();
-		List<String> availableCommands = commandManager.getAvailableCommandsFor(teamUser);
-		pages.addLines(availableCommands);
+		List<PlayerCommand> availableCommands = commandManager.getAvailableCommandsFor(teamUser);
+		pages.addDescriptions(availableCommands);
 		Requirements.checkPlayerHasCommands(pages);
 		Requirements.checkPlayerCommandPageRange(pages, pageNum);
 	}

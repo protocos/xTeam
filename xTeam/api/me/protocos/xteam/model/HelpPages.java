@@ -46,11 +46,11 @@ public class HelpPages
 		lines.add(info);
 	}
 
-	public void addLines(List<String> info)
+	public <T> void addDescriptions(List<T> info)
 	{
-		for (String line : info)
+		for (T line : info)
 		{
-			this.addLine(line);
+			this.addLine(line.toString());
 		}
 	}
 

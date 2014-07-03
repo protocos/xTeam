@@ -3,10 +3,12 @@ package me.protocos.xteam.util;
 import java.io.*;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandManager;
+import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.ICommandManager;
-import me.protocos.xteam.fakeobjects.FakeConsoleSender;
+import me.protocos.xteam.command.PlayerCommand;
 import me.protocos.xteam.fakeobjects.FakeTeamPlayer;
 import me.protocos.xteam.fakeobjects.FakeXTeam;
+import me.protocos.xteam.message.MessageUtil;
 import org.junit.Test;
 
 public class BukkitDevPageGeneratorUtil
@@ -73,24 +75,24 @@ public class BukkitDevPageGeneratorUtil
 		TeamPlugin fakePlugin = FakeXTeam.asTeamPlugin();
 		fakePlugin.registerCommands(manager);
 		writer.write(TEAM_USER_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(FakeTeamPlayer.withUserPermissions()))
-			writer.write("* " + command.replaceAll("§.", "") + "\n");
+		for (PlayerCommand command : manager.getAvailableCommandsFor(FakeTeamPlayer.withUserPermissions()))
+			writer.write("* " + MessageUtil.resetFormatting(command.toString()) + "\n");
 		writer.write("\n");
 		writer.write(TEAM_ADMIN_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(FakeTeamPlayer.withAdminPermissions()))
-			writer.write("* " + command.replaceAll("§.", "") + "\n");
+		for (PlayerCommand command : manager.getAvailableCommandsFor(FakeTeamPlayer.withAdminPermissions()))
+			writer.write("* " + MessageUtil.resetFormatting(command.toString()) + "\n");
 		writer.write("\n");
 		writer.write(TEAM_LEADER_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(FakeTeamPlayer.withLeaderPermissions()))
-			writer.write("* " + command.replaceAll("§.", "") + "\n");
+		for (PlayerCommand command : manager.getAvailableCommandsFor(FakeTeamPlayer.withLeaderPermissions()))
+			writer.write("* " + MessageUtil.resetFormatting(command.toString()) + "\n");
 		writer.write("\n");
 		writer.write(SERVER_ADMIN_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(FakeTeamPlayer.withServerAdminPermissions()))
-			writer.write("* " + command.replaceAll("§.", "") + "\n");
+		for (PlayerCommand command : manager.getAvailableCommandsFor(FakeTeamPlayer.withServerAdminPermissions()))
+			writer.write("* " + MessageUtil.resetFormatting(command.toString()) + "\n");
 		writer.write("\n");
 		writer.write(CONSOLE_COMMANDS);
-		for (String command : manager.getAvailableCommandsFor(new FakeConsoleSender()))
-			writer.write("* " + command.replaceAll("§.", "") + "\n");
+		for (ConsoleCommand command : manager.getConsoleCommands())
+			writer.write("* " + MessageUtil.resetFormatting(command.toString()) + "\n");
 		writer.write("\n");
 		writer.write(PERMISSION_SUPPORT);
 		writer.write(PERMISSION_NODES);
