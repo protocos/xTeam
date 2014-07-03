@@ -75,6 +75,6 @@ public class ErrorReporterUtil
 				.replaceAll("\\>", "&gt;")
 				.replaceAll("\\[", "[\"")
 				.replaceAll("\\]", "\"]")
-				.replaceAll("\"", "&quot;");
+				.replaceAll("\\\\\"", "&quot;");
 	}
 }
