@@ -8,7 +8,7 @@ import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeamEntity;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.model.ILog;
-import me.protocos.xteam.model.ITeamEntityCriterion;
+import me.protocos.xteam.model.ITeamEntityRelationCriterion;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -20,20 +20,9 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class TeamFriendlyFireListener implements Listener
 {
-	private static Set<ITeamEntityCriterion> friendlyCriteria = new HashSet<ITeamEntityCriterion>();
-	static
-	{
-		friendlyCriteria.add(new ITeamEntityCriterion()
-		{
-			@Override
-			public boolean passes(ITeamEntity entity1, ITeamEntity teamEntity2)
-			{
-				return entity1.isOnSameTeam(teamEntity2);
-			}
-		});
-	}
+	private static final Set<ITeamEntityRelationCriterion> friendlyCriteria = new HashSet<ITeamEntityRelationCriterion>();
 
-	public static void addFriendlyCriteria(ITeamEntityCriterion criterion)
+	public static void addFriendlyCriterion(ITeamEntityRelationCriterion criterion)
 	{
 		friendlyCriteria.add(criterion);
 	}
@@ -62,7 +51,7 @@ public class TeamFriendlyFireListener implements Listener
 					return false;
 				if (!Configuration.TEAM_FRIENDLY_FIRE)
 				{
-					for (ITeamEntityCriterion criterion : friendlyCriteria)
+					for (ITeamEntityRelationCriterion criterion : friendlyCriteria)
 					{
 						if (criterion.passes(attacker, defender))
 						{
@@ -109,5 +98,14 @@ public class TeamFriendlyFireListener implements Listener
 			return playerFactory.getPlayer(CommonUtil.assignFromType(entity, Player.class));
 		}
 		return null;
+	}
+}
+
+class SameTeamRelationCriterion implements ITeamEntityRelationCriterion
+{
+	@Override
+	public boolean passes(ITeamEntity entity1, ITeamEntity teamEntity2)
+	{
+		return entity1.isOnSameTeam(teamEntity2);
 	}
 }
