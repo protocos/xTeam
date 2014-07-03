@@ -98,7 +98,8 @@ public class ConsoleDebug extends ConsoleCommand
 			@Override
 			public void run()
 			{
-				System.out.println("Debugging permissions for players online:");
+				System.out.println("Debugging permissions for online players:");
+				System.out.println("'nopermissions' set to '" + Configuration.NO_PERMISSIONS + "'");
 				for (ITeamPlayer player : pF.getOnlinePlayers())
 				{
 					System.out.println(player.getName() + " has the following permisisons:");
