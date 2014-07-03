@@ -78,8 +78,13 @@ public class ConsoleDebug extends ConsoleCommand
 			public void run()
 			{
 				System.out.println("Debugging permissions: \n");
-				for (Permission perm : plugin.getPermissions())
-					System.out.println(perm.getName() + " - " + perm.getDescription() + "\n");
+				for(Player player:bukkitUtil.getOnlinePlayers())
+				{
+					for (Permission perm : plugin.getPermissions())
+					{
+						System.out.println(perm.getName() + " - " + perm.getDescription() + "\n");
+					}
+				}
 			}
 		});
 		options.put("reset", new Runnable()
@@ -162,6 +167,7 @@ public class ConsoleDebug extends ConsoleCommand
 	}
 
 	private static TeamPlugin plugin;
+	private static BukkitUtil bukkitUtil;
 	private static int taskID;
 	private static boolean testmode;
 	private String subCommand;
@@ -170,6 +176,7 @@ public class ConsoleDebug extends ConsoleCommand
 	{
 		super(teamPlugin);
 		plugin = teamPlugin;
+		bukkitUtil = teamPlugin.getBukkitUtil();
 		testmode = false;
 	}
 
