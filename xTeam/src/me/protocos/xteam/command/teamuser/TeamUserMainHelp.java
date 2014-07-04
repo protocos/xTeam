@@ -25,9 +25,9 @@ public class TeamUserMainHelp extends TeamUserCommand
 		message += "\n" + (ChatColor.GRAY + "xTeam is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!");
 		// line 6 begin
 		message += "\n" + (ChatColor.AQUA + "Type '" + commandID + " [Page #]' to see commands");
-		message += "\n" + ((temp = ChatColor.GRAY) + "[Gray Command]" + ChatColor.RESET + " = command for " + temp + "Team User");
-		message += "\n" + ((temp = ChatColor.YELLOW) + "[Yellow Command]" + ChatColor.RESET + " = command for " + temp + "Team Admin");
-		message += "\n" + ((temp = ChatColor.LIGHT_PURPLE) + "[Purple Command]" + ChatColor.RESET + " = command for " + temp + "Team Leader");
+		message += "\n" + ((temp = ChatColor.GRAY) + "Gray command" + ChatColor.RESET + ": command for " + temp + "Team User");
+		message += "\n" + ((temp = ChatColor.YELLOW) + "Yellow command" + ChatColor.RESET + ": command for " + temp + "Team Admin");
+		message += "\n" + ((temp = ChatColor.LIGHT_PURPLE) + "Purple command" + ChatColor.RESET + ": command for " + temp + "Team Leader");
 		message += "\n" + (ChatColor.DARK_RED + "Report BUGS to " + ChatColor.GRAY + "http://dev.bukkit.org/server-mods/xteam/");
 		new Message.Builder(message).addRecipients(teamUser).disableFormatting().send(log);
 	}
