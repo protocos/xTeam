@@ -3,26 +3,27 @@ package me.protocos.xteam.command.serveradmin;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ServerAdminCommand;
+import me.protocos.xteam.command.action.OpenAction;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ServerAdminOpen extends ServerAdminCommand
 {
+	private OpenAction action;
 	private String teamName;
 	private ITeam changeTeam;
 
 	public ServerAdminOpen(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
+		action = new OpenAction(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		changeTeam.setOpenJoining(!changeTeam.isOpenJoining());
-		new Message.Builder("Open joining is now " + (changeTeam.isOpenJoining() ? "enabled" : "disabled") + " for " + changeTeam.getName()).addRecipients(serverAdmin).addRecipients(changeTeam).send(log);
+		action.actOn(serverAdmin, changeTeam);
 	}
 
 	@Override
@@ -30,6 +31,7 @@ public class ServerAdminOpen extends ServerAdminCommand
 	{
 		teamName = commandContainer.getArgument(1);
 		changeTeam = teamCoordinator.getTeam(teamName);
+		action.checkRequirements(teamCoordinator, teamName);
 	}
 
 	@Override

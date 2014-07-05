@@ -3,32 +3,35 @@ package me.protocos.xteam.command.console;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
+import me.protocos.xteam.command.action.OpenAction;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.message.Message;
 import me.protocos.xteam.util.PatternBuilder;
 
 public class ConsoleOpen extends ConsoleCommand
 {
-	String teamName;
+	private OpenAction action;
+	private String teamName;
+	private ITeam changeTeam;
 
 	public ConsoleOpen(TeamPlugin teamPlugin)
 	{
 		super(teamPlugin);
+		action = new OpenAction(teamPlugin);
 	}
 
 	@Override
 	protected void performCommandAction(CommandContainer commandContainer)
 	{
-		ITeam team = teamCoordinator.getTeam(teamName);
-		team.setOpenJoining(!team.isOpenJoining());
-		new Message.Builder("Open joining is now " + (team.isOpenJoining() ? "enabled" : "disabled") + " for " + team.getName()).addRecipients(sender).addRecipients(team).send(log);
+		action.actOn(sender, changeTeam);
 	}
 
 	@Override
 	public void checkCommandRequirements(CommandContainer commandContainer) throws TeamException, IncompatibleClassChangeError
 	{
 		teamName = commandContainer.getArgument(1);
+		changeTeam = teamCoordinator.getTeam(teamName);
+		action.checkRequirements(teamCoordinator, teamName);
 	}
 
 	@Override
