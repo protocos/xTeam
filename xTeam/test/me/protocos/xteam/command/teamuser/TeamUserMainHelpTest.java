@@ -45,9 +45,9 @@ public class TeamUserMainHelpTest
 		Assert.assertEquals("------------------ [xTeam vTEST Help] ------------------\n" +
 				"xTeam is a team-based PvP plugin that allows for creating and joining teams, setting a headquarters and various other features. It is meant for use on hardcore PvP servers where land is not protected!\n" +
 				"Type '/team [Page #]' to see commands\n" +
-				"[Gray Command] = command for Team User\n" +
-				"[Yellow Command] = command for Team Admin\n" +
-				"[Purple Command] = command for Team Leader\n" +
+				"Gray command: command for Team User\n" +
+				"Yellow command: command for Team Admin\n" +
+				"Purple command: command for Team Leader\n" +
 				"Report BUGS to http://dev.bukkit.org/server-mods/xteam/", fakePlayerSender.getLastMessages());
 		Assert.assertTrue(fakeExecuteResponse);
 	}

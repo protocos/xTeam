@@ -29,11 +29,13 @@ public class TeamUserChatTest
 	{
 		Assert.assertTrue("chat".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("chat ".matches(fakeCommand.getPattern()));
-		Assert.assertTrue("chat ONOFF".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("chat ON".matches(fakeCommand.getPattern()));
+		Assert.assertTrue("chat OFF".matches(fakeCommand.getPattern()));
 		Assert.assertTrue("ch ".matches(fakeCommand.getPattern()));
+		Assert.assertFalse("chat OOPS".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("c".matches(fakeCommand.getPattern()));
 		Assert.assertFalse("ch daj;nme rjkn".matches(fakeCommand.getPattern()));
-		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").matches("/team " + fakeCommand.getPattern()));
+		Assert.assertTrue(fakeCommand.getUsage().replaceAll("[\\[\\]\\{\\}]", "").replaceAll("On/Off", "on").matches("/team " + fakeCommand.getPattern()));
 	}
 
 	@Test

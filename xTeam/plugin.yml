@@ -7,7 +7,7 @@ commands:
     team:
         description: Team commands
         usage: /<command>
-        aliases: [xt, xteam]
+        aliases: [xt, xteam, tema, tame, taem, tmae, tmea]
 permissions:
     xteam.core.user.accept:
         description: Allows team users to accept an invitation

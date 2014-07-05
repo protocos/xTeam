@@ -60,7 +60,7 @@ public class TeamUserChat extends TeamUserCommand
 				.oneOrMore("hat")
 				.optional(new PatternBuilder()
 						.whiteSpace()
-						.anyString())
+						.or("on", "off").ignoreCase())
 				.whiteSpaceOptional()
 				.toString();
 	}
