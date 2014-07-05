@@ -1,14 +1,14 @@
 package me.protocos.xteam.core;
 
 import java.util.ArrayList;
+import java.util.List;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.collections.HashList;
+import me.protocos.xteam.data.IDataContainer;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
-import me.protocos.xteam.event.IEventDispatcher;
-import me.protocos.xteam.event.TeamAcceptEvent;
-import me.protocos.xteam.event.TeamInviteEvent;
+import me.protocos.xteam.event.*;
 import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILog;
@@ -17,7 +17,7 @@ import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.scheduler.BukkitScheduler;
 
-public class InviteHandler
+public class InviteHandler implements IEventHandler, IDataContainer
 {
 	private TeamPlugin teamPlugin;
 	private IEventDispatcher dispatcher;
@@ -29,6 +29,7 @@ public class InviteHandler
 	{
 		this.teamPlugin = teamPlugin;
 		this.dispatcher = teamPlugin.getEventDispatcher();
+		this.dispatcher.addTeamListener(this);
 		this.bukkitScheduler = teamPlugin.getBukkitScheduler();
 		this.invites = new HashList<String, InviteRequest>();
 		this.log = teamPlugin.getLog();
@@ -36,8 +37,8 @@ public class InviteHandler
 
 	public void addInvite(final InviteRequest request)
 	{
-		final ITeamPlayer inviter = request.getInviteSender();
-		final ITeamPlayer invitee = request.getInviteReceiver();
+		final ITeamPlayer inviter = request.getInviter();
+		final ITeamPlayer invitee = request.getInvitee();
 		invites.put(invitee.getName(), request);
 		dispatcher.dispatchEvent(new TeamInviteEvent(inviter.getTeam(), request));
 		class InviteExpire implements Runnable
@@ -63,15 +64,10 @@ public class InviteHandler
 		dispatcher.dispatchEvent(new TeamAcceptEvent(inviteTeam, invites.get(teamPlayer.getName())));
 	}
 
-	public String data()
-	{
-		return invites.toString();
-	}
-
 	public ITeam getInviteTeam(String player)
 	{
 		if (invites.containsKey(player))
-			return invites.get(player).getSenderTeam();
+			return invites.get(player).getInviteTeam();
 		return null;
 	}
 
@@ -96,23 +92,38 @@ public class InviteHandler
 		invites.remove(player);
 	}
 
-	public void removeInvitesForTeam(ITeam team)
+	public void removeTeamInvites(ITeam team)
 	{
-		for(InviteRequest invite:invites)
+		for (InviteRequest invite : invites)
 		{
-			if (invite.getSenderTeam().equals(team));
-				invites.remove(invite.getInviteReceiver().getName());
+			if (invite.getInviteTeam().equals(team))
+				invites.remove(invite.getInviteeName());
 		}
 	}
 
-	public String getInvitesFromTeam(ITeam team)
+	public String getTeamInviteRecipients(ITeam team)
 	{
 		ArrayList<String> names = new ArrayList<String>();
 		for (InviteRequest request : invites)
 		{
-			if (request.getSenderTeam().equals(team))
-				names.add(request.getReceiverName());
+			if (request.getInviteTeam().equals(team))
+				names.add(request.getInviteeName());
 		}
 		return CommonUtil.concatenate(names, ", ");
+	}
+
+	@TeamEvent
+	public void onDisband(TeamDisbandEvent disbandEvent)
+	{
+		this.removeTeamInvites(disbandEvent.getTeam());
+	}
+
+	@Override
+	public List<String> exportData()
+	{
+		List<String> list = CommonUtil.emptyList();
+		for (InviteRequest request : invites)
+			list.add(request.toString());
+		return list;
 	}
 }

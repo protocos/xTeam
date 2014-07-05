@@ -34,10 +34,9 @@ public class TeamUserJoinTest
 		teamCoordinator = teamPlugin.getTeamCoordinator();
 		playerFactory = teamPlugin.getPlayerFactory();
 		inviteHandler = teamPlugin.getInviteHandler();
-		ITeamPlayer playerSender = playerFactory.getPlayer("kmlanglois");
-		ITeamPlayer playerReceiver = playerFactory.getPlayer("Lonely");
-		Long timeSent = System.currentTimeMillis();
-		InviteRequest request = new InviteRequest(playerSender, playerReceiver, timeSent);
+		ITeamPlayer inviter = playerFactory.getPlayer("kmlanglois");
+		ITeamPlayer invitee = playerFactory.getPlayer("Lonely");
+		InviteRequest request = new InviteRequest(inviter, invitee, System.currentTimeMillis());
 		inviteHandler.addInvite(request);
 	}
 

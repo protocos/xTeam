@@ -140,7 +140,7 @@ public class TeamCoordinator implements ITeamCoordinator
 	{
 		if (this.containsTeam(teamName))
 		{
-			inviteHandler.removeInvitesForTeam(this.getTeam(teamName));
+			inviteHandler.removeTeamInvites(this.getTeam(teamName));
 			ITeam removeTeam = this.removeTeam(teamName);
 			dispatcher.dispatchEvent(new TeamDisbandEvent(removeTeam));
 		}

@@ -637,8 +637,8 @@ public class Team implements ITeam
 		}
 		else
 			message += "\n" + (ChatColor.RESET + "Team Headquarters: " + (this.hasHeadquarters() ? (MessageUtil.green("Set")) : (MessageUtil.red("None set"))));
-		if (!"".equals(inviteHandler.getInvitesFromTeam(this)))
-			message += "\n" + (ChatColor.RESET + "Team Invites: " + MessageUtil.green(inviteHandler.getInvitesFromTeam(this)));
+		if (!"".equals(inviteHandler.getTeamInviteRecipients(this)))
+			message += "\n" + (ChatColor.RESET + "Team Invites: " + MessageUtil.green(inviteHandler.getTeamInviteRecipients(this)));
 		List<TeamPlayer> onlineTeammates = this.getOnlineTeammates();
 		if (onlineTeammates.size() > 0)
 		{

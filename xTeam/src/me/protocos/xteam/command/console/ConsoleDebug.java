@@ -54,7 +54,9 @@ public class ConsoleDebug extends ConsoleCommand
 			@Override
 			public void run()
 			{
-				System.out.println("Invites: " + plugin.getInviteHandler().data());
+				System.out.println("Invites: ");
+				for (String line : plugin.getInviteHandler().exportData())
+					System.out.println(line);
 			}
 		});
 		options.put("spies", new Runnable()
