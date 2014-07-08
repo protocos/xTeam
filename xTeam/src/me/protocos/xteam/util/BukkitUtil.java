@@ -1,5 +1,7 @@
 package me.protocos.xteam.util;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.*;
@@ -85,6 +87,22 @@ public class BukkitUtil
 	public Plugin getxTeam()
 	{
 		return this.getPlugin("xTeam");
+	}
+
+	public String getxTeamChecksum()
+	{
+		if (SystemUtil.pathIsPresent("./plugins/xTeam.jar"))
+		{
+			try
+			{
+				return SystemUtil.getMD5Checksum("./plugins/xTeam.jar");
+			}
+			catch (NoSuchAlgorithmException | IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	public static boolean serverIsLive()
