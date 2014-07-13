@@ -8,6 +8,7 @@ import me.protocos.xteam.command.teamadmin.TeamAdminPromote;
 import me.protocos.xteam.command.teamadmin.TeamAdminSetHeadquarters;
 import me.protocos.xteam.command.teamleader.*;
 import me.protocos.xteam.command.teamuser.*;
+import me.protocos.xteam.data.AbstractConfiguration;
 import me.protocos.xteam.data.DataStorageFactory;
 import me.protocos.xteam.data.IPersistenceLayer;
 import me.protocos.xteam.data.configuration.Configuration;
@@ -23,7 +24,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 public final class XTeam extends TeamPlugin
 {
-	private Configuration configuration;
+	private AbstractConfiguration configuration;
 	private IPersistenceLayer persistenceLayer;
 
 	public XTeam()
