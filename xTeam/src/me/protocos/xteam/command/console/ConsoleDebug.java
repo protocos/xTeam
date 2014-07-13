@@ -13,6 +13,7 @@ import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
+import me.protocos.xteam.util.SystemUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -189,6 +190,14 @@ public class ConsoleDebug extends ConsoleCommand
 				testmode = !testmode;
 			}
 		});
+		options.put("uuid", new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				System.out.println("Your UUID is: " + SystemUtil.getUUID());
+			}
+		});
 
 	}
 
@@ -203,7 +212,7 @@ public class ConsoleDebug extends ConsoleCommand
 				return;
 			}
 		}
-		System.out.println("Options are: team debug " + options.getOrder().toString().replaceAll("\\[", "\\{").replaceAll("\\]", "\\}").replaceAll(", ", "/"));
+		System.out.println("Options are: team debug " + CommonUtil.concatenate(options.getOrder(), "/"));
 	}
 
 	private static void reset()
