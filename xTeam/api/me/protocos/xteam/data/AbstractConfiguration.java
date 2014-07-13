@@ -20,6 +20,7 @@ public abstract class AbstractConfiguration
 	private ILog log;
 	private FileReader fileReader;
 	private FileWriter fileWriter;
+	private String pluginName;
 
 	public AbstractConfiguration(TeamPlugin teamPlugin, File file)
 	{
@@ -35,6 +36,7 @@ public abstract class AbstractConfiguration
 		{
 			e.printStackTrace();
 		}
+		this.pluginName = teamPlugin.getPluginName();
 	}
 
 	public abstract void load();
@@ -137,7 +139,7 @@ public abstract class AbstractConfiguration
 	{
 		String output = getLineBreak() +
 				"# \n" +
-				"# xTeam Preferences\n" +
+				"# " + this.pluginName + " Preferences\n" +
 				"# \n" +
 				getLineBreak();
 		options.sort();
