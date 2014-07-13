@@ -23,7 +23,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 public final class XTeam extends TeamPlugin
 {
-	private Configuration configLoader;
+	private Configuration configuration;
 	private IPersistenceLayer persistenceLayer;
 
 	public XTeam()
@@ -39,9 +39,9 @@ public final class XTeam extends TeamPlugin
 	private void initFileSystem()
 	{
 		SystemUtil.ensureFolder(this.getFolder());
-		this.configLoader = new Configuration(this, SystemUtil.ensureFile(this.getFolder() + "xTeam.cfg"));
-		this.configLoader.load();
-		this.configLoader.write();
+		this.configuration = new Configuration(this, SystemUtil.ensureFile(this.getFolder() + "xTeam.cfg"));
+		this.configuration.load();
+		this.configuration.write();
 	}
 
 	@Override
