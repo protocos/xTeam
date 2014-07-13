@@ -212,7 +212,7 @@ public class ConsoleDebug extends ConsoleCommand
 				return;
 			}
 		}
-		System.out.println("Options are: team debug " + CommonUtil.concatenate(options.getOrder(), "/"));
+		System.out.println("Options are: team debug {" + CommonUtil.concatenate(options.getOrder(), "/") + "}");
 	}
 
 	private static void reset()
