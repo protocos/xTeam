@@ -1,4 +1,4 @@
-package me.protocos.xteam.data;
+package me.protocos.xteam.model;
 
 import me.protocos.xteam.data.translator.IDataTranslator;
 import me.protocos.xteam.exception.InvalidFormatException;

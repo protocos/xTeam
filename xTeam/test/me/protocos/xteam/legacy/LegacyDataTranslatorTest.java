@@ -1,13 +1,13 @@
 package me.protocos.xteam.legacy;
 
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.data.PropertyList;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.model.Headquarters;
 import me.protocos.xteam.model.NullHeadquarters;
+import me.protocos.xteam.model.PropertyList;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

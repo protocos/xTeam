@@ -1,4 +1,4 @@
-package me.protocos.xteam.data;
+package me.protocos.xteam.model;
 
 import java.util.Iterator;
 import java.util.List;
