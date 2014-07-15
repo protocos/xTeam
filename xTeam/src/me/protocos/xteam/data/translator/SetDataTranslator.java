@@ -16,7 +16,7 @@ public class SetDataTranslator implements IDataTranslator<Set<String>>
 	{
 		Set<String> set = CommonUtil.emptySet();
 		if (!"".equals(string))
-			set.addAll(CommonUtil.split(string, ","));
+			set.addAll(CommonUtil.split(string, "[,\\s]+"));
 		return set;
 	}
 }
