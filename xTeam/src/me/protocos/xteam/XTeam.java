@@ -15,7 +15,6 @@ import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.listener.TeamChatListener;
 import me.protocos.xteam.listener.TeamFriendlyFireListener;
 import me.protocos.xteam.listener.TeamPlayerListener;
-import me.protocos.xteam.model.XTeamWebPage;
 import me.protocos.xteam.util.SystemUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -48,12 +47,12 @@ public final class XTeam extends TeamPlugin
 	@Override
 	public void load()
 	{
-		XTeamWebPage page = new XTeamWebPage("http://dev.bukkit.org/bukkit-plugins/xteam/files/", this.getLog());
-		if (page.isDownloadSuccessful() && !("v" + this.getVersion()).equals(page.getMostRecentVersion()))
-		{
-			this.getLog().info("There is a newer version of xTeam available at the following link:");
-			this.getLog().info("	http://dev.bukkit.org/bukkit-plugins/xteam/");
-		}
+		//		XTeamWebPage page = new XTeamWebPage("http://dev.bukkit.org/bukkit-plugins/xteam/files/", this.getLog());
+		//		if (page.isDownloadSuccessful() && !("v" + this.getVersion()).equals(page.getMostRecentVersion()))
+		//		{
+		//			this.getLog().info("There is a newer version of xTeam available at the following link:");
+		//			this.getLog().info("	http://dev.bukkit.org/bukkit-plugins/xteam/");
+		//		}
 		this.getCommandManager().register(this);
 		this.initFileSystem();
 		persistenceLayer = new DataStorageFactory(this).dataManagerFromString(Configuration.STORAGE_TYPE);
