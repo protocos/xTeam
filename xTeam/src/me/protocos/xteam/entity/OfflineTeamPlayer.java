@@ -1,6 +1,7 @@
 package me.protocos.xteam.entity;
 
 import java.util.List;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.IPermissible;
 import me.protocos.xteam.core.IPlayerFactory;
@@ -10,7 +11,6 @@ import me.protocos.xteam.data.translator.LongDataTranslator;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;

@@ -2,6 +2,7 @@ package me.protocos.xteam.listener;
 
 import java.util.List;
 import java.util.Random;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.XTeam;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
@@ -11,7 +12,6 @@ import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILog;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

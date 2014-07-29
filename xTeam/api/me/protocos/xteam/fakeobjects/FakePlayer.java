@@ -2,11 +2,11 @@ package me.protocos.xteam.fakeobjects;
 
 import java.net.InetSocketAddress;
 import java.util.*;
+import me.protocos.api.collection.LimitedQueue;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.collections.LimitedQueue;
 import me.protocos.xteam.message.IMessageRecorder;
 import me.protocos.xteam.message.MessageUtil;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;

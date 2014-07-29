@@ -1,5 +1,6 @@
 package me.protocos.xteam.command.action;
 
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.command.Requirements;
 import me.protocos.xteam.core.IPlayerFactory;
@@ -11,7 +12,6 @@ import me.protocos.xteam.exception.TeamOrPlayerDoesNotExistException;
 import me.protocos.xteam.exception.TeamPlayerHasNoTeamException;
 import me.protocos.xteam.message.Message;
 import me.protocos.xteam.model.ILog;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 

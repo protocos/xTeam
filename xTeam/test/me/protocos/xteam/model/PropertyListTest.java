@@ -3,8 +3,6 @@ package me.protocos.xteam.model;
 import me.protocos.xteam.data.translator.LocationDataTranslator;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakeXTeam;
-import me.protocos.xteam.model.Property;
-import me.protocos.xteam.model.PropertyList;
 import org.bukkit.Location;
 import org.junit.After;
 import org.junit.Assert;

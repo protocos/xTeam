@@ -1,8 +1,8 @@
 package me.protocos.xteam.command;
 
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.exception.TeamException;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.entity.Player;
 
 public abstract class PlayerCommand extends BaseCommand implements IPermissible

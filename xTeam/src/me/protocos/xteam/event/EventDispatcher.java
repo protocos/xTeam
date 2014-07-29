@@ -2,7 +2,7 @@ package me.protocos.xteam.event;
 
 import java.lang.reflect.Method;
 import java.util.List;
-import me.protocos.xteam.util.CommonUtil;
+import me.protocos.api.util.CommonUtil;
 
 public class EventDispatcher implements IEventDispatcher
 {

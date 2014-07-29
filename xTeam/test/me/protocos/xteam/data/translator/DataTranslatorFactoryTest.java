@@ -2,10 +2,10 @@ package me.protocos.xteam.data.translator;
 
 import java.util.List;
 import java.util.Set;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.fakeobjects.FakeLocation;
 import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.model.Headquarters;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.junit.After;
 import org.junit.Assert;

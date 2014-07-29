@@ -1,6 +1,6 @@
 package me.protocos.xteam.fakeobjects;
 
-import me.protocos.xteam.collections.LimitedQueue;
+import me.protocos.api.collection.LimitedQueue;
 import me.protocos.xteam.model.ILog;
 
 public class FakeLog implements ILog

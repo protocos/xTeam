@@ -1,9 +1,9 @@
 package me.protocos.xteam.model;
 
 import java.util.List;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.bukkit.Location;
 import org.bukkit.Server;

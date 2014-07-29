@@ -1,7 +1,7 @@
 package me.protocos.xteam.data.translator;
 
 import java.util.Set;
-import me.protocos.xteam.util.CommonUtil;
+import me.protocos.api.util.CommonUtil;
 
 public class SetDataTranslator implements IDataTranslator<Set<String>>
 {

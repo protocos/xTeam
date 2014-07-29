@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.data.AbstractConfiguration;
 import me.protocos.xteam.entity.Team;
-import me.protocos.xteam.util.CommonUtil;
 
 public class Configuration extends AbstractConfiguration
 {

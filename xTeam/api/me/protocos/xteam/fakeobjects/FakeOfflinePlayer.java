@@ -1,8 +1,8 @@
 package me.protocos.xteam.fakeobjects;
 
 import java.util.Map;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;

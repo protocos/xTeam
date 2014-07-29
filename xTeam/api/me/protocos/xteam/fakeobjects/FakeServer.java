@@ -3,8 +3,8 @@ package me.protocos.xteam.fakeobjects;
 import java.io.File;
 import java.util.*;
 import java.util.logging.Logger;
+import me.protocos.api.collection.OrderedHashMap;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.collections.HashList;
 import org.bukkit.*;
 import org.bukkit.Warning.WarningState;
 import org.bukkit.command.CommandException;
@@ -26,7 +26,7 @@ import com.avaje.ebean.config.ServerConfig;
 
 public class FakeServer implements Server
 {
-	private HashList<String, World> worlds = new HashList<String, World>();
+	private OrderedHashMap<String, World> worlds = new OrderedHashMap<String, World>();
 	private Player[] onlinePlayers;
 	private OfflinePlayer[] offlinePlayers;
 	private BukkitScheduler fakeScheduler;

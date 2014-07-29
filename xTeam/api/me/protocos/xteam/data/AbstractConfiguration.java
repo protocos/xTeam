@@ -4,19 +4,19 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import me.protocos.api.collection.OrderedHashMap;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.data.configuration.ConfigurationOption;
 import me.protocos.xteam.data.configuration.FileReader;
 import me.protocos.xteam.model.ILog;
-import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.permissions.Permission;
 
 public abstract class AbstractConfiguration
 {
 	protected TeamPlugin teamPlugin;
-	private HashList<String, ConfigurationOption<?>> options;
+	private OrderedHashMap<String, ConfigurationOption<?>> options;
 	private ILog log;
 	private FileReader fileReader;
 	private FileWriter fileWriter;
@@ -24,7 +24,7 @@ public abstract class AbstractConfiguration
 
 	public AbstractConfiguration(TeamPlugin teamPlugin, File file)
 	{
-		this.options = CommonUtil.emptyHashList();
+		this.options = CommonUtil.emptyOrderedHashMap();
 		this.teamPlugin = teamPlugin;
 		this.log = teamPlugin.getLog();
 		try

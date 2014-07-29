@@ -2,10 +2,10 @@ package me.protocos.xteam.entity;
 
 import java.util.List;
 import java.util.UUID;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.model.ILocatable;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.*;

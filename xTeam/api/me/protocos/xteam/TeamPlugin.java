@@ -2,6 +2,7 @@ package me.protocos.xteam;
 
 import java.io.File;
 import java.util.List;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.command.CommandDelegate;
 import me.protocos.xteam.command.CommandManager;
 import me.protocos.xteam.command.ICommandContainer;
@@ -13,7 +14,6 @@ import me.protocos.xteam.fakeobjects.FakeXTeam;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.model.Log;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Server;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.permissions.Permission;

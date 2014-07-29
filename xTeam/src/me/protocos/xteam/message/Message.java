@@ -3,8 +3,8 @@ package me.protocos.xteam.message;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.model.ILog;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.command.CommandSender;
 
 public class Message

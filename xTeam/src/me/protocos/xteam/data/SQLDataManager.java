@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import lib.PatPeter.SQLibrary.Database;
 import lib.PatPeter.SQLibrary.MySQL;
 import lib.PatPeter.SQLibrary.SQLite;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
@@ -18,7 +19,6 @@ import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.event.*;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.model.PropertyList;
-import me.protocos.xteam.util.CommonUtil;
 
 public class SQLDataManager implements IPersistenceLayer, IEventHandler
 {

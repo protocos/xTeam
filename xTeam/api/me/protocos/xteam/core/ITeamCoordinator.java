@@ -1,6 +1,6 @@
 package me.protocos.xteam.core;
 
-import me.protocos.xteam.collections.HashList;
+import me.protocos.api.collection.OrderedHashMap;
 import me.protocos.xteam.data.IDataContainer;
 import me.protocos.xteam.entity.ITeam;
 
@@ -22,7 +22,7 @@ public interface ITeamCoordinator extends IDataContainer
 
 	public abstract boolean containsTeam(String teamName);
 
-	public abstract HashList<String, ITeam> getTeams();
+	public abstract OrderedHashMap<String, ITeam> getTeams();
 
-	public abstract HashList<String, ITeam> getDefaultTeams();
+	public abstract OrderedHashMap<String, ITeam> getDefaultTeams();
 }

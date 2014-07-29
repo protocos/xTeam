@@ -2,6 +2,7 @@ package me.protocos.xteam.listener;
 
 import java.util.HashSet;
 import java.util.Set;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.data.configuration.Configuration;
@@ -9,7 +10,6 @@ import me.protocos.xteam.entity.ITeamEntity;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.model.ITeamEntityRelationCriterion;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;

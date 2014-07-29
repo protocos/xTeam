@@ -1,7 +1,7 @@
 package me.protocos.xteam.model;
 
 import java.util.Set;
-import me.protocos.xteam.util.CommonUtil;
+import me.protocos.api.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 public class Table

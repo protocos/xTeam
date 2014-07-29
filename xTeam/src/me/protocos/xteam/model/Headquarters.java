@@ -1,12 +1,12 @@
 package me.protocos.xteam.model;
 
 import java.util.List;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeamEntity;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.LocationUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;

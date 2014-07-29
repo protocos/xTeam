@@ -2,18 +2,18 @@ package me.protocos.xteam.model;
 
 import java.util.Iterator;
 import java.util.List;
-import me.protocos.xteam.collections.HashList;
+import me.protocos.api.collection.OrderedHashMap;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.data.translator.IDataTranslator;
-import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 public class PropertyList implements Iterable<Property>
 {
-	private HashList<String, Property> properties;
+	private OrderedHashMap<String, Property> properties;
 
 	public PropertyList()
 	{
-		properties = new HashList<String, Property>();
+		properties = new OrderedHashMap<String, Property>();
 	}
 
 	public void put(String key, String value)

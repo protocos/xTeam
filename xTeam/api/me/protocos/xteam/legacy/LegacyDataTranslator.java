@@ -3,9 +3,9 @@ package me.protocos.xteam.legacy;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.data.translator.SetDataTranslator;
 import me.protocos.xteam.model.PropertyList;
-import me.protocos.xteam.util.CommonUtil;
 
 public class LegacyDataTranslator
 {

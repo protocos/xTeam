@@ -1,11 +1,11 @@
 package me.protocos.xteam.data.translator;
 
 import java.util.List;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.exception.InvalidFormatException;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Location;
 import org.bukkit.World;
 

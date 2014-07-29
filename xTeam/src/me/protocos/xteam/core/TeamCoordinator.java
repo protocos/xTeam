@@ -1,20 +1,20 @@
 package me.protocos.xteam.core;
 
 import java.util.List;
+import me.protocos.api.collection.OrderedHashMap;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.event.IEventDispatcher;
 import me.protocos.xteam.event.TeamCreateEvent;
 import me.protocos.xteam.event.TeamDisbandEvent;
 import me.protocos.xteam.event.TeamRenameEvent;
-import me.protocos.xteam.util.CommonUtil;
 
 public class TeamCoordinator implements ITeamCoordinator
 {
 	private IEventDispatcher dispatcher;
 	private InviteHandler inviteHandler;
-	private HashList<String, ITeam> teams = CommonUtil.emptyHashList();
+	private OrderedHashMap<String, ITeam> teams = CommonUtil.emptyOrderedHashMap();
 
 	public TeamCoordinator(TeamPlugin teamPlugin)
 	{
@@ -47,9 +47,9 @@ public class TeamCoordinator implements ITeamCoordinator
 	}
 
 	@Override
-	public HashList<String, ITeam> getTeams()
+	public OrderedHashMap<String, ITeam> getTeams()
 	{
-		HashList<String, ITeam> allTeams = CommonUtil.emptyHashList();
+		OrderedHashMap<String, ITeam> allTeams = CommonUtil.emptyOrderedHashMap();
 		for (ITeam team : teams)
 		{
 			allTeams.put(team.getName(), team);
@@ -58,9 +58,9 @@ public class TeamCoordinator implements ITeamCoordinator
 	}
 
 	@Override
-	public HashList<String, ITeam> getDefaultTeams()
+	public OrderedHashMap<String, ITeam> getDefaultTeams()
 	{
-		HashList<String, ITeam> defaultTeams = CommonUtil.emptyHashList();
+		OrderedHashMap<String, ITeam> defaultTeams = CommonUtil.emptyOrderedHashMap();
 		for (ITeam team : teams)
 		{
 			if (team.isDefaultTeam())

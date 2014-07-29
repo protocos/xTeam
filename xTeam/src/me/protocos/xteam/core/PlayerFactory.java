@@ -1,8 +1,9 @@
 package me.protocos.xteam.core;
 
 import java.util.List;
+import me.protocos.api.collection.OrderedHashMap;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.data.translator.LocationDataTranslator;
 import me.protocos.xteam.data.translator.LongDataTranslator;
 import me.protocos.xteam.data.translator.StringDataTranslator;
@@ -12,7 +13,6 @@ import me.protocos.xteam.entity.OfflineTeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.model.PropertyList;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -20,13 +20,13 @@ public class PlayerFactory implements IPlayerFactory
 {
 	private TeamPlugin teamPlugin;
 	private BukkitUtil bukkitUtil;
-	private HashList<String, PropertyList> playerProperties;
+	private OrderedHashMap<String, PropertyList> playerProperties;
 
 	public PlayerFactory(TeamPlugin teamPlugin)
 	{
 		this.teamPlugin = teamPlugin;
 		this.bukkitUtil = teamPlugin.getBukkitUtil();
-		this.playerProperties = new HashList<String, PropertyList>();
+		this.playerProperties = new OrderedHashMap<String, PropertyList>();
 	}
 
 	public TeamPlayer getPlayer(Player player)

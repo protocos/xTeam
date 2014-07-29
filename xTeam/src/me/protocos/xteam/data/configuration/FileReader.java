@@ -2,15 +2,15 @@ package me.protocos.xteam.data.configuration;
 
 import java.io.*;
 import java.lang.reflect.Method;
-import me.protocos.xteam.collections.HashList;
+import me.protocos.api.collection.OrderedHashMap;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.model.ILog;
-import me.protocos.xteam.util.CommonUtil;
 
 public class FileReader
 {
 	private File file;
 	private boolean caseSensitive;
-	private HashList<String, String> keySet = new HashList<String, String>();
+	private OrderedHashMap<String, String> keySet = new OrderedHashMap<String, String>();
 	private ILog log;
 
 	public FileReader(ILog log, File file, boolean caseSensitive)

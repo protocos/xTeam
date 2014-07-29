@@ -1,6 +1,6 @@
 package me.protocos.xteam.message;
 
-import me.protocos.xteam.collections.LimitedQueue;
+import me.protocos.api.collection.LimitedQueue;
 
 public interface IMessageRecorder
 {

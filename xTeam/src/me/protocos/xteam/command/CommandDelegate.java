@@ -1,11 +1,11 @@
 package me.protocos.xteam.command;
 
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.exception.TeamInvalidCommandException;
 import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILog;
-import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

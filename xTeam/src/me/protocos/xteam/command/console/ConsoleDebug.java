@@ -1,7 +1,8 @@
 package me.protocos.xteam.command.console;
 
+import me.protocos.api.collection.OrderedHashMap;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.command.CommandContainer;
 import me.protocos.xteam.command.ConsoleCommand;
 import me.protocos.xteam.command.ICommandManager;
@@ -11,7 +12,6 @@ import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.exception.TeamException;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import me.protocos.xteam.util.SystemUtil;
 import org.bukkit.Bukkit;
@@ -20,7 +20,7 @@ import org.bukkit.entity.Player;
 
 public class ConsoleDebug extends ConsoleCommand
 {
-	private static HashList<String, Runnable> options = new HashList<String, Runnable>();
+	private static OrderedHashMap<String, Runnable> options = new OrderedHashMap<String, Runnable>();
 
 	public static void addDebugOption(String option, Runnable runnable)
 	{

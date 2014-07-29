@@ -1,6 +1,6 @@
 package me.protocos.xteam.model;
 
-import me.protocos.xteam.util.CommonUtil;
+import me.protocos.api.util.CommonUtil;
 
 public enum Direction
 {

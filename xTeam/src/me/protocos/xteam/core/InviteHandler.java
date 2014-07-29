@@ -2,8 +2,9 @@ package me.protocos.xteam.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import me.protocos.api.collection.OrderedHashMap;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
-import me.protocos.xteam.collections.HashList;
 import me.protocos.xteam.data.IDataContainer;
 import me.protocos.xteam.entity.ITeam;
 import me.protocos.xteam.entity.ITeamPlayer;
@@ -14,7 +15,6 @@ import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.model.InviteRequest;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public class InviteHandler implements IEventHandler, IDataContainer
@@ -22,7 +22,7 @@ public class InviteHandler implements IEventHandler, IDataContainer
 	private TeamPlugin teamPlugin;
 	private IEventDispatcher dispatcher;
 	private BukkitScheduler bukkitScheduler;
-	private HashList<String, InviteRequest> invites;
+	private OrderedHashMap<String, InviteRequest> invites;
 	private ILog log;
 
 	public InviteHandler(TeamPlugin teamPlugin)
@@ -31,7 +31,7 @@ public class InviteHandler implements IEventHandler, IDataContainer
 		this.dispatcher = teamPlugin.getEventDispatcher();
 		this.dispatcher.addTeamListener(this);
 		this.bukkitScheduler = teamPlugin.getBukkitScheduler();
-		this.invites = new HashList<String, InviteRequest>();
+		this.invites = new OrderedHashMap<String, InviteRequest>();
 		this.log = teamPlugin.getLog();
 	}
 

@@ -1,10 +1,10 @@
 package me.protocos.xteam.fakeobjects;
 
 import java.util.Set;
-import me.protocos.xteam.collections.LimitedQueue;
+import me.protocos.api.collection.LimitedQueue;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.message.IMessageRecorder;
 import me.protocos.xteam.message.MessageUtil;
-import me.protocos.xteam.util.CommonUtil;
 import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.conversations.Conversation;

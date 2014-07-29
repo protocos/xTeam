@@ -1,5 +1,6 @@
 package me.protocos.xteam.command;
 
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.core.ITeamCoordinator;
 import me.protocos.xteam.core.InviteHandler;
 import me.protocos.xteam.core.TeleportScheduler;
@@ -9,7 +10,6 @@ import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.entity.TeamPlayer;
 import me.protocos.xteam.exception.*;
 import me.protocos.xteam.model.HelpPages;
-import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.Location;

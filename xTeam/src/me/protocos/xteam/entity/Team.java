@@ -1,6 +1,7 @@
 package me.protocos.xteam.entity;
 
 import java.util.*;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.InviteHandler;
@@ -19,7 +20,6 @@ import me.protocos.xteam.message.Message;
 import me.protocos.xteam.message.MessageUtil;
 import me.protocos.xteam.model.*;
 import me.protocos.xteam.util.BukkitUtil;
-import me.protocos.xteam.util.CommonUtil;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.ChatColor;

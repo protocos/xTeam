@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-import me.protocos.xteam.collections.HashList;
+import me.protocos.api.collection.OrderedHashMap;
+import me.protocos.api.util.CommonUtil;
 import me.protocos.xteam.entity.ITeamPlayer;
 import me.protocos.xteam.message.MessageUtil;
-import me.protocos.xteam.util.CommonUtil;
 import me.protocos.xteam.util.PatternBuilder;
 import me.protocos.xteam.util.PermissionUtil;
 import org.bukkit.ChatColor;
 
 public class CommandManager implements ICommandManager
 {
-	private HashList<String, BaseCommand> commands;
+	private OrderedHashMap<String, BaseCommand> commands;
 
 	public CommandManager()
 	{
-		commands = new HashList<String, BaseCommand>();
+		commands = new OrderedHashMap<String, BaseCommand>();
 	}
 
 	@Override
