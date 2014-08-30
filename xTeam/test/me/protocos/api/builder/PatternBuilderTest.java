@@ -1,7 +1,6 @@
 package me.protocos.api.builder;
 
 import java.util.regex.Pattern;
-import me.protocos.api.builder.PatternBuilder;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

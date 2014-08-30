@@ -7,11 +7,11 @@ import java.io.PrintStream;
 import java.sql.Timestamp;
 import java.util.Scanner;
 import me.protocos.api.collection.LimitedQueue;
+import me.protocos.api.util.SystemUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.util.BukkitUtil;
 import me.protocos.xteam.util.ErrorReporterUtil;
-import me.protocos.xteam.util.SystemUtil;
 
 public class Log implements ILog
 {

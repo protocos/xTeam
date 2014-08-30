@@ -1,6 +1,6 @@
 package me.protocos.xteam;
 
-import java.io.File;
+import me.protocos.api.util.SystemUtil;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.command.console.*;
 import me.protocos.xteam.command.serveradmin.*;
@@ -16,7 +16,6 @@ import me.protocos.xteam.data.configuration.Configuration;
 import me.protocos.xteam.listener.TeamChatListener;
 import me.protocos.xteam.listener.TeamFriendlyFireListener;
 import me.protocos.xteam.listener.TeamPlayerListener;
-import me.protocos.xteam.util.SystemUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginManager;

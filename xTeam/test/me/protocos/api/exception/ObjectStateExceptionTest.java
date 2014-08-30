@@ -1,6 +1,5 @@
 package me.protocos.api.exception;
 
-import me.protocos.api.exception.ObjectStateException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

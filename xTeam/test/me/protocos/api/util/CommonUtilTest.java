@@ -4,7 +4,6 @@ import static me.protocos.api.util.CommonUtil.*;
 import java.util.ArrayList;
 import java.util.List;
 import me.protocos.api.collection.OrderedHashMap;
-import me.protocos.api.util.CommonUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

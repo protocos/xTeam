@@ -1,6 +1,9 @@
 package me.protocos.api.util;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -101,9 +104,9 @@ public class SystemUtil
 		return new File(string).exists();
 	}
 
-	public static File ensureFolder(String folderName)
+	public static File ensureFolder(String... args)
 	{
-		File file = new File(folderName);
+		File file = new File(toSystemPath(args));
 		if (!file.exists())
 		{
 			file.mkdir();
@@ -111,19 +114,9 @@ public class SystemUtil
 		return file;
 	}
 
-	public static File ensureFile(String fileName)
+	public static File ensureFile(String... args)
 	{
-		String[] subFolders = fileName.split(File.separator);
-		if (subFolders.length > 1)
-		{
-			String folderBuilder = "";
-			for (int x = 0; x < subFolders.length - 1; x++)
-			{
-				folderBuilder += subFolders[x] + File.separator;
-				ensureFolder(folderBuilder);
-			}
-		}
-		File file = new File(fileName);
+		File file = new File(toSystemPath(args));
 		if (!file.exists())
 		{
 			try
@@ -138,13 +131,23 @@ public class SystemUtil
 		return file;
 	}
 
-	public static boolean deleteFile(String fileName)
+	public static boolean deleteFile(String... args)
 	{
-		File file = new File(fileName);
+		File file = new File(toSystemPath(args));
 		if (file.exists())
 		{
 			return file.delete();
 		}
 		return false;
+	}
+
+	public static String toSystemPath(String... args)
+	{
+		String output = "";
+		for (String arg : args)
+		{
+			output += arg + File.separator;
+		}
+		return output;
 	}
 }

@@ -1,6 +1,7 @@
 package me.protocos.xteam.data;
 
 import java.io.*;
+import me.protocos.api.util.SystemUtil;
 import me.protocos.xteam.TeamPlugin;
 import me.protocos.xteam.core.IPlayerFactory;
 import me.protocos.xteam.core.ITeamCoordinator;
@@ -8,7 +9,6 @@ import me.protocos.xteam.core.PlayerFactory;
 import me.protocos.xteam.entity.Team;
 import me.protocos.xteam.model.ILog;
 import me.protocos.xteam.model.PropertyList;
-import me.protocos.xteam.util.SystemUtil;
 
 public class FlatFileDataManager implements IPersistenceLayer
 {
