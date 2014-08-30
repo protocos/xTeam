@@ -150,4 +150,14 @@ public class SystemUtil
 		}
 		return false;
 	}
+
+	public static String toSystemPath(String... args)
+	{
+		String output = "";
+		for (String arg : args)
+		{
+			output += arg + File.pathSeparator;
+		}
+		return output;
+	}
 }

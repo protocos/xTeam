@@ -1,5 +1,6 @@
 package me.protocos.xteam;
 
+import java.io.File;
 import me.protocos.xteam.command.ICommandManager;
 import me.protocos.xteam.command.console.*;
 import me.protocos.xteam.command.serveradmin.*;
@@ -28,7 +29,7 @@ public final class XTeam extends TeamPlugin
 
 	public XTeam()
 	{
-		super(Bukkit.getServer(), "plugins/xTeam/");
+		super(Bukkit.getServer(), SystemUtil.toSystemPath("plugins", "xTeam"));
 	}
 
 	public XTeam(Server server, String folder)
