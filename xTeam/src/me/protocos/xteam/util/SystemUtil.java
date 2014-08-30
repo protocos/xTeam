@@ -116,13 +116,13 @@ public class SystemUtil
 
 	public static File ensureFile(String fileName)
 	{
-		String[] subFolders = fileName.split(File.pathSeparator);
+		String[] subFolders = fileName.split(File.separator);
 		if (subFolders.length > 1)
 		{
 			String folderBuilder = "";
 			for (int x = 0; x < subFolders.length - 1; x++)
 			{
-				folderBuilder += subFolders[x] + File.pathSeparator;
+				folderBuilder += subFolders[x] + File.separator;
 				ensureFolder(folderBuilder);
 			}
 		}
@@ -156,7 +156,7 @@ public class SystemUtil
 		String output = "";
 		for (String arg : args)
 		{
-			output += arg + File.pathSeparator;
+			output += arg + File.separator;
 		}
 		return output;
 	}
