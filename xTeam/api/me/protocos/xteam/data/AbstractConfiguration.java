@@ -163,6 +163,6 @@ public abstract class AbstractConfiguration
 			output += this.formatPermission(perm) + "\n";
 		}
 		output += getLineBreak();
-		return output;
+		return output.replaceAll("\n", System.getProperty("line.separator"));
 	}
 }
